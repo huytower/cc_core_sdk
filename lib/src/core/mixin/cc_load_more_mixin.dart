@@ -1,4 +1,3 @@
-import 'package:cc_library/constant/cc_padding_params.dart';
 import 'package:cc_library/widget/api/base_progress_indicator.dart';
 import 'package:cc_library/widget/flex/cc_row_center.dart';
 import 'package:cc_library/widget/space/cc_space.dart';
@@ -58,10 +57,11 @@ class CcLoadMoreItem extends LoadMoreDelegate {
   Widget buildIcLoading(String text) {
     return CcRowCenter(
       children: <Widget>[
-        Center(child: const CcProgressIndicator(paddingTop: 0,)),
-
+        Center(
+            child: const CcProgressIndicator(
+          paddingTop: 0,
+        )),
         const CcSpaceLarge(),
-
         buildText(
           text,
         ),

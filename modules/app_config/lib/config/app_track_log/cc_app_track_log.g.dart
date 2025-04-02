@@ -38,23 +38,19 @@ class CcAppTrackLogAdapter extends TypeAdapter<CcAppTrackLog> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CcAppTrackLogAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is CcAppTrackLogAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CcAppTrackLog _$CcAppTrackLogFromJson(Map<String, dynamic> json) =>
-    CcAppTrackLog(
+CcAppTrackLog _$CcAppTrackLogFromJson(Map<String, dynamic> json) => CcAppTrackLog(
       msg: (json['msg'] as List<dynamic>?)?.map((e) => e as String).toList(),
       tag: json['tag'] as String?,
     );
 
-Map<String, dynamic> _$CcAppTrackLogToJson(CcAppTrackLog instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$CcAppTrackLogToJson(CcAppTrackLog instance) => <String, dynamic>{
       'msg': instance.msg,
       'tag': instance.tag,
     };

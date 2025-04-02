@@ -7,9 +7,7 @@ import 'app_inject.config.dart';
 
 final GetIt getIt = GetIt.instance;
 
-@InjectableInit(
-  initializerName: r'$initGetIt'
-)
+@InjectableInit(initializerName: r'$initGetIt')
 Future appInject() async {
   await appConfigInject(getIt);
   await dataInject(getIt);

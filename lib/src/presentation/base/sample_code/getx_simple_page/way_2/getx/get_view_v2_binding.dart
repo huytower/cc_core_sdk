@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 
 import 'get_view_v2_logic.dart';

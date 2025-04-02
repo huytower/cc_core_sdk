@@ -1,5 +1,5 @@
-import 'package:cc_library/theme/base_colors.dart';
 import 'package:app_config/enum/cc_vpn_status.dart';
+import 'package:cc_library/theme/base_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:widget/export/cc_ui_export.dart';

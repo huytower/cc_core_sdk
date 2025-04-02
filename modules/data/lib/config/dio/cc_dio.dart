@@ -1,5 +1,6 @@
-import '../interceptor/cc_interceptor.dart';
 import 'package:dio/dio.dart';
+
+import '../interceptor/cc_interceptor.dart';
 
 Dio ccDio() {
   var _dio = Dio(

@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../core/extension/app_tracking_log_extension.dart';
@@ -26,26 +23,25 @@ class SimpleCubit extends Cubit<SimpleCubitState> {
     }
   }
 
-  // void addTestAppTrackingLog() {
-  //   // 1.delay(() {
-  //     try {
-  //       throw SocketException('');
-  //     } catch (e) {
-  //       e.addAppTrackingLog();
-  //     }
-  //     try {
-  //       throw FormatException();
-  //     } catch (e) {
-  //       e.addAppTrackingLog();
-  //     }
-  //     try {
-  //       throw FileSystemException();
-  //     } catch (e) {
-  //       e.addAppTrackingLog();
-  //     }
-  //
-  //     // throw const CertificateException();
-  //   // });
-  // }
+// void addTestAppTrackingLog() {
+//   // 1.delay(() {
+//     try {
+//       throw SocketException('');
+//     } catch (e) {
+//       e.addAppTrackingLog();
+//     }
+//     try {
+//       throw FormatException();
+//     } catch (e) {
+//       e.addAppTrackingLog();
+//     }
+//     try {
+//       throw FileSystemException();
+//     } catch (e) {
+//       e.addAppTrackingLog();
+//     }
+//
+//     // throw const CertificateException();
+//   // });
+// }
 }
-

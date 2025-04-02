@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import '../../../../structure/getx/cc_get_view/cc_get_view.dart';
 import '../getx/get_view_controller.dart';
-import 'package:flutter/material.dart';
 
 /// GETX : UI app bar
 /// Step 4 : if has or need customize app bar, implement as mixin|provider

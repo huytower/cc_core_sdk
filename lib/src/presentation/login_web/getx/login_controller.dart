@@ -1,7 +1,7 @@
-import 'package:cc_library/constant/cc_log_tags.dart';
 import 'package:app_config/config/app_config/cc_app_config.dart';
 import 'package:app_config/config/app_storage/cc_app_storage.dart';
 import 'package:app_config/enum/layout_status.dart';
+import 'package:cc_library/constant/cc_log_tags.dart';
 import 'package:data/config/di/inject/data_inject.dart';
 import 'package:data/helper/session_helper.dart';
 import 'package:data/model/global/user_principal.dart';

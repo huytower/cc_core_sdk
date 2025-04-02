@@ -23,6 +23,7 @@ void main() async {
   Hive.init(appDocumentDir.path);
 
   await registerHiveAdapter();
+
   /// endregion
 
   /// define main support language

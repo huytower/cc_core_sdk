@@ -16,7 +16,8 @@ mixin AppRunnerImpl {
   }
 
   Future onInitState() async {
-    getIt<CcDeviceInfo>()..deviceId = await DeviceHelper.getDeviceId()
-    ..appVersion = await BaseUtils.getAppVersion();
+    getIt<CcDeviceInfo>()
+      ..deviceId = await DeviceHelper.getDeviceId()
+      ..appVersion = await BaseUtils.getAppVersion();
   }
 }

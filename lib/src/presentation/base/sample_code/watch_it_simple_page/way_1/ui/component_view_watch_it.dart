@@ -35,15 +35,16 @@ class ComponentViewWatchIt extends WatchingWidget {
       logic.getDeviceInfo(); // register one-time
     }
 
-    return logic.isReady.value == true
-        ? buildBody()
-        : const Center(child: CircularProgressIndicator());
+    return logic.isReady.value == true ? buildBody() : const Center(child: CircularProgressIndicator());
   }
 
   Widget buildBody() => CcColCenter(children: [
         /// section : app name, build config
         /// section : app version, code
-        AppNameWidget(logic.appInfo, fontSize: 14,),
+        AppNameWidget(
+          logic.appInfo,
+          fontSize: 14,
+        ),
         const CcSpaceSmall(),
 
         /// section : app tracking log

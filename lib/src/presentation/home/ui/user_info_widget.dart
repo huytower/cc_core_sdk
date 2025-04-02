@@ -1,12 +1,11 @@
-
-import 'package:cc_library/theme/base_colors.dart';
-import 'package:cc_library/widget/flex/cc_column_center.dart';
-import 'package:cc_library/widget/space/cc_space.dart';
-import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:app_config/config/app_config/api_env/app_config_prod.dart';
 import 'package:app_config/config/app_config/api_env/app_config_uat.dart';
 import 'package:app_config/config/app_config/cc_app_config.dart';
 import 'package:app_config/config/setting_device/setting_device.dart';
+import 'package:cc_library/theme/base_colors.dart';
+import 'package:cc_library/widget/flex/cc_column_center.dart';
+import 'package:cc_library/widget/space/cc_space.dart';
+import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:widget/export/cc_ui_export.dart';

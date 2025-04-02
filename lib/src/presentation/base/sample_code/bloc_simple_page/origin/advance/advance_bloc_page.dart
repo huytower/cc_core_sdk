@@ -6,8 +6,6 @@ import 'package:cc_library/widget/space/cc_space.dart';
 import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:reusable/custom_widget/toast.dart';
 
 import '../../../../../../core/di/inject/app_inject.dart';
 import '../../../../structure/getx/cc_get_view/cc_get_view.dart';
@@ -42,15 +40,12 @@ class AdvanceBlocPage extends StatelessWidget {
       );
 
   SizedBox buildTitle(context) {
-    Widget child = when(
-      variable: getIt<AdvanceBloc>().blocType,
-      conditions: {
-        BlocType.builder: () => buildBlocBuilder(context),
-        BlocType.selector: () => buildBlocBuilder(context),
-        BlocType.listener: () => buildBlocBuilder(context),
-        BlocType.consumer: () => buildBlocBuilder(context),
-      }
-    );
+    Widget child = when(variable: getIt<AdvanceBloc>().blocType, conditions: {
+      BlocType.builder: () => buildBlocBuilder(context),
+      BlocType.selector: () => buildBlocBuilder(context),
+      BlocType.listener: () => buildBlocBuilder(context),
+      BlocType.consumer: () => buildBlocBuilder(context),
+    });
 
     return SizedBox(
       width: double.infinity,
@@ -62,12 +57,12 @@ class AdvanceBlocPage extends StatelessWidget {
 
   Widget buildBlocBuilder(context) {
     return BlocBuilder<AdvanceBloc, AdvanceBlocState>(
-        builder: (context, state) {
-          // Toast.show('This is bloc builder', context);
+      builder: (context, state) {
+        // Toast.show('This is bloc builder', context);
 
-          return buildBlocUI(Colors.blue);
-        },
-      );
+        return buildBlocUI(Colors.blue);
+      },
+    );
   }
 
   Widget buildBlocSelector(context) {
@@ -91,8 +86,7 @@ class AdvanceBlocPage extends StatelessWidget {
 
   Widget buildBlocConsumer(context) {
     return BlocConsumer<AdvanceBloc, AdvanceBlocState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return buildBlocUI(Colors.red);
       },

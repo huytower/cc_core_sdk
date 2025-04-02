@@ -1,3 +1,5 @@
+import 'package:app_config/constant/assets_resource.dart';
+import 'package:app_config/enum/cc_vpn_status.dart';
 import 'package:cc_library/constant/cc_padding_params.dart';
 import 'package:cc_library/theme/base_colors.dart';
 import 'package:cc_library/widget/base/cc_scroll_view.dart';
@@ -8,8 +10,6 @@ import 'package:cc_library/widget/flex/cc_row_start.dart';
 import 'package:cc_library/widget/padding/cc_padding.dart';
 import 'package:cc_library/widget/space/cc_space.dart';
 import 'package:cc_library/widget/text/cc_text.dart';
-import 'package:app_config/constant/assets_resource.dart';
-import 'package:app_config/enum/cc_vpn_status.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_flutter_template/src/presentation/home/ui/switch/animated_switch.dart';

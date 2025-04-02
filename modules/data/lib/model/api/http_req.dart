@@ -1,5 +1,3 @@
-
-
 class HttpReq {
   bool isDebug = false;
   String endpoint = "";

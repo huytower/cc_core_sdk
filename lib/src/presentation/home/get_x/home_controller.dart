@@ -36,8 +36,7 @@ class HomeController extends CcGetController {
   static const String URL_DASHBOARD = 'https://..com/';
 
   /// Feature : Default VPN Profile for all users if can not get remote profile due to socket timeout
-  static const String defaultVpnProfileUrl =
-      'https://storage.googleapis.com/../static/mobile-external/default.ovpn';
+  static const String defaultVpnProfileUrl = 'https://storage.googleapis.com/../static/mobile-external/default.ovpn';
 
   /// data
   final keySwitch = GlobalKey<AnimatedSwitchState>();
@@ -248,8 +247,7 @@ class HomeController extends CcGetController {
         String verNumber = iosInfo.systemVersion!.split('.')[0];
         SettingDevice.iosVersion = double.parse(verNumber);
       }
-    } catch (objEx) {
-    }
+    } catch (objEx) {}
   }
 
   // Save UUID into Shared Prefs.?

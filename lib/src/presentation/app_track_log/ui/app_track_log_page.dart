@@ -125,21 +125,18 @@ class AppTrackLogPage extends WatchingWidget {
   }
 
   Widget buildLogItem(int index) {
-    return CcColStart(
-      children: [
-        CcText(
-          // '${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}',
-          '${logic.loggingMessages?[index]}',
-          color: (index.isEven) ? Colors.blueGrey: Colors.grey,
-          fontSize: 12,
-          marginLeft: 10,
-          marginRight: 10,
-          maxLines: 5,
-          heightLine: 1.6,
-        ),
-
-        const CcSpaceSmallest(),
-      ]
-    );
+    return CcColStart(children: [
+      CcText(
+        // '${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}${logic.loggingMessages?[index]}',
+        '${logic.loggingMessages?[index]}',
+        color: (index.isEven) ? Colors.blueGrey : Colors.grey,
+        fontSize: 12,
+        marginLeft: 10,
+        marginRight: 10,
+        maxLines: 5,
+        heightLine: 1.6,
+      ),
+      const CcSpaceSmallest(),
+    ]);
   }
 }

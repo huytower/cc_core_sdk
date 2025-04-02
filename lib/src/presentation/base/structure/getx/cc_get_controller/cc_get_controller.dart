@@ -1,7 +1,6 @@
 import 'package:app_config/enum/layout_status.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:widget/export/cc_ktx_export.dart';
 
 abstract class CcGetController extends SuperController {
   Rx<LayoutStatus> layoutStatus = Rx<LayoutStatus>(LayoutStatus.loading);

@@ -1,12 +1,10 @@
-import 'package:app_config/enum/routing_manager_enum.dart';
+import 'package:app_config/constant/assets_resource.dart';
 import 'package:cc_library/helper/open_dialog.dart';
 import 'package:cc_library/theme/base_colors.dart';
 import 'package:cc_library/widget/flex/cc_column_center.dart';
 import 'package:cc_library/widget/space/cc_space.dart';
 import 'package:cc_library/widget/text/cc_text.dart';
-import 'package:app_config/constant/assets_resource.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../base/structure/getx/cc_get_view/cc_get_view.dart';
 import '../get_x/home_controller.dart';

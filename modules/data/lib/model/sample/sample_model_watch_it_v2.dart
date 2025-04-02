@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:injectable/injectable.dart';
 
 /// WatchItMixin : Step 1 : Define observable model obj.
 class SampleModelWatchItV2Notifier extends ChangeNotifier {

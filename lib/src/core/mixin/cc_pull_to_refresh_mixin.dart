@@ -1,9 +1,9 @@
+import 'package:app_config/constant/assets_resource.dart';
 import 'package:cc_library/extension/kotlin/when_expression.dart';
 import 'package:cc_library/widget/pull_to_refresh/cc_refresh_indicator.dart';
 import 'package:cc_library/widget/pull_to_refresh/cc_refresh_indicator_icon.dart';
 import 'package:cc_library/widget/space/cc_space.dart';
 import 'package:cc_library/widget/text/cc_text.dart';
-import 'package:app_config/constant/assets_resource.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

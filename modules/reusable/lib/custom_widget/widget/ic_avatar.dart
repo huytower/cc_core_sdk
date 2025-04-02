@@ -1,7 +1,7 @@
-import 'package:cc_library/helper/widget_helper.dart';
-import 'package:cc_library/widget/container/cc_container_circle.dart';
 import 'package:app_config/config/app_storage/cc_app_storage.dart';
 import 'package:app_config/constant/assets_resource.dart';
+import 'package:cc_library/helper/widget_helper.dart';
+import 'package:cc_library/widget/container/cc_container_circle.dart';
 import 'package:flutter/material.dart';
 
 class AvatarUser extends StatelessWidget {

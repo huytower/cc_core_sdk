@@ -1,10 +1,8 @@
-import 'package:cc_library/src/curl/curl_utils.dart';
 import 'package:app_config/config/app_config/cc_app_config.dart';
+import 'package:cc_library/src/curl/curl_utils.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
-import '../dio/cc_dio.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 import 'package:widget/export/cc_ktx_export.dart';

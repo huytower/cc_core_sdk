@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:injectable/injectable.dart';
 
 class DeviceModelNotifier extends ChangeNotifier {
-
   DeviceModelOri _model = DeviceModelOri();
 
   DeviceModelOri get model => _model;
@@ -14,7 +12,6 @@ class DeviceModelNotifier extends ChangeNotifier {
 }
 
 class DeviceModelOri {
-
   DeviceModelOri({this.deviceInfo = ''});
 
   final String deviceInfo;

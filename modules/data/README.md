@@ -1,11 +1,13 @@
 ### Features
-Config remote server-side, include : 
 
-   - host url, 
-   - server-response handler,
-   - json parser
+Config remote server-side, include :
+
+- host url,
+- server-response handler,
+- json parser
 
 ### Getting started
+
 ### How to use?
 
 1. `injection.dart` : Init data, module ..v.v. before launching app (using `injectable` lib)
@@ -17,11 +19,11 @@ Config remote server-side, include :
    @Named("BaseUrl")
    String get baseUrl => 'https://6065f2b5b8fbbd0017567c45.mockapi.io/apiv1/';
    ```
-   
+
 3. `response.dart` : serves for these targets :
-   
-   - Json parser
-   ex.
+
+    - Json parser
+      ex.
    ```dart
    Map<String, dynamic> toJson() {
       final map = <String, dynamic>{};
@@ -35,9 +37,9 @@ Config remote server-side, include :
    }
    ```
 
-   - Server response handler
-   ex.
-   
+    - Server response handler
+      ex.
+
    ```
    when(
       variable: status?.code,
@@ -55,7 +57,7 @@ Config remote server-side, include :
    ```
 
 4. `/datasource` : define detail api [url | service] (using `retrofit` & `injectable` libs)
-   
+
    ex.
    ```dart
    @singleton
@@ -70,7 +72,7 @@ Config remote server-side, include :
    ```
 
 5. `/entities` : as defined [`model` object || `data` object], always use `@JsonSerializable()`
-   for automatically generated source code & mapping objects. 
+   for automatically generated source code & mapping objects.
 
    ex.
    ```dart

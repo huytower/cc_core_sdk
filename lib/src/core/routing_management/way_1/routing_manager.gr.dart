@@ -18,8 +18,7 @@ import 'package:mobile_flutter_template/src/presentation/base/sample_code/getx_s
     as _i2;
 import 'package:mobile_flutter_template/src/presentation/base/sample_code/getx_simple_page/way_2/ui/get_view_v2_view.dart'
     as _i3;
-import 'package:mobile_flutter_template/src/presentation/splash/splash_page.dart'
-    as _i5;
+import 'package:mobile_flutter_template/src/presentation/splash/splash_page.dart' as _i5;
 
 abstract class $AppRouter extends _i6.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -33,16 +32,14 @@ abstract class $AppRouter extends _i6.RootStackRouter {
       );
     },
     GetViewRoute.name: (routeData) {
-      final args = routeData.argsAs<GetViewRouteArgs>(
-          orElse: () => const GetViewRouteArgs());
+      final args = routeData.argsAs<GetViewRouteArgs>(orElse: () => const GetViewRouteArgs());
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.GetViewPage(key: args.key),
       );
     },
     GetViewV2Route.name: (routeData) {
-      final args = routeData.argsAs<GetViewV2RouteArgs>(
-          orElse: () => const GetViewV2RouteArgs());
+      final args = routeData.argsAs<GetViewV2RouteArgs>(orElse: () => const GetViewV2RouteArgs());
       return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i3.GetViewV2Page(key: args.key),
@@ -91,8 +88,7 @@ class GetViewRoute extends _i6.PageRouteInfo<GetViewRouteArgs> {
 
   static const String name = 'GetViewRoute';
 
-  static const _i6.PageInfo<GetViewRouteArgs> page =
-      _i6.PageInfo<GetViewRouteArgs>(name);
+  static const _i6.PageInfo<GetViewRouteArgs> page = _i6.PageInfo<GetViewRouteArgs>(name);
 }
 
 class GetViewRouteArgs {
@@ -120,8 +116,7 @@ class GetViewV2Route extends _i6.PageRouteInfo<GetViewV2RouteArgs> {
 
   static const String name = 'GetViewV2Route';
 
-  static const _i6.PageInfo<GetViewV2RouteArgs> page =
-      _i6.PageInfo<GetViewV2RouteArgs>(name);
+  static const _i6.PageInfo<GetViewV2RouteArgs> page = _i6.PageInfo<GetViewV2RouteArgs>(name);
 }
 
 class GetViewV2RouteArgs {

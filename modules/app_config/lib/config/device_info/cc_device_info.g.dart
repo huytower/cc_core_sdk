@@ -47,9 +47,7 @@ class CcDeviceInfoAdapter extends TypeAdapter<CcDeviceInfo> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CcDeviceInfoAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is CcDeviceInfoAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }
 
 // **************************************************************************
@@ -64,8 +62,7 @@ CcDeviceInfo _$CcDeviceInfoFromJson(Map<String, dynamic> json) => CcDeviceInfo(
       deviceHeight: (json['deviceHeight'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$CcDeviceInfoToJson(CcDeviceInfo instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$CcDeviceInfoToJson(CcDeviceInfo instance) => <String, dynamic>{
       'appVersion': instance.appVersion,
       'deviceId': instance.deviceId,
       'serialNumber': instance.serialNumber,

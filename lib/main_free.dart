@@ -21,8 +21,9 @@ class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-    /// NOT RECOMMEND due to bad security,
-    /// use it for TESTING only
+
+      /// NOT RECOMMEND due to bad security,
+      /// use it for TESTING only
       ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }

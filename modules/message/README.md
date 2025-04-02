@@ -1,7 +1,9 @@
 ## Features
+
 Config. multi-language, multi-locale
 
 ## Getting started
+
 How to use?
 
     1. Aware about `/assets` folder exists in this module.
@@ -33,4 +35,5 @@ How to use?
     ```
 
 ## Additional information
+
 [pub.dev/easy_localization](https://pub.dev/packages/easy_localization)

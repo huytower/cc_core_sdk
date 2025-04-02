@@ -8,7 +8,7 @@ import 'package:cc_library/widget/space/cc_space.dart';
 import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+
 import '../../../../../../core/di/inject/app_inject.dart';
 import '../../../../../app_track_log/ui/app_track_log_page.dart';
 import '../../../../structure/getx/cc_get_view/cc_get_view.dart';
@@ -55,8 +55,11 @@ class SimpleCubitPage extends StatelessWidget {
 
   CcNextBtn buildShowAppTrackLogBtn(context) {
     return CcNextBtn(() {
-          OpenDialog.showBottomSheet(context, AppTrackLogPage(),);
-        }, 'Show Track Log');
+      OpenDialog.showBottomSheet(
+        context,
+        AppTrackLogPage(),
+      );
+    }, 'Show Track Log');
   }
 
   SizedBox buildTitle(context) {
@@ -83,9 +86,7 @@ class SimpleCubitPage extends StatelessWidget {
     final cubit = getIt<SimpleCubit>();
 
     return GestureDetector(
-      onTap: () {
-
-      },
+      onTap: () {},
       child: Container(
         height: 100,
         width: double.infinity,

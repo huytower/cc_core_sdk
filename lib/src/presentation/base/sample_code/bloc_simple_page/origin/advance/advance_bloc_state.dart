@@ -12,6 +12,4 @@ class AdvanceBlocState {
   }
 }
 
-class AdvanceBlocStateB {
-
-}
+class AdvanceBlocStateB {}

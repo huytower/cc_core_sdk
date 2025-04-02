@@ -21,6 +21,7 @@ part 'cc_res_header_model.g.dart';
 @JsonSerializable()
 class CcResHeaderModel {
   final bool status;
+
   // final bool error;
   final String message;
 

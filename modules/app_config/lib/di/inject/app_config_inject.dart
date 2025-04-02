@@ -5,9 +5,7 @@ import 'app_config_inject.config.dart';
 
 GetIt getItAppConfig = GetIt.instance;
 
-@InjectableInit(
-  initializerName: r'$initAppConfigGetIt'
-)
+@InjectableInit(initializerName: r'$initAppConfigGetIt')
 Future appConfigInject(GetIt getIt) async {
   getItAppConfig = getIt;
 

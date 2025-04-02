@@ -1,7 +1,8 @@
-import 'advance_bloc_event.dart';
-import 'advance_bloc_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
+
+import 'advance_bloc_event.dart';
+import 'advance_bloc_state.dart';
 
 @lazySingleton
 class AdvanceBloc extends Bloc<AdvanceBlocEvent, AdvanceBlocState> {
@@ -26,4 +27,4 @@ class AdvanceBloc extends Bloc<AdvanceBlocEvent, AdvanceBlocState> {
   }
 }
 
-enum BlocType {builder, selector, listener, consumer}
+enum BlocType { builder, selector, listener, consumer }

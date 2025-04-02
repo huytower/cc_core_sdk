@@ -16,23 +16,25 @@ import 'routing_manager.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: SplashRoute.page, initial: true,
+        AutoRoute(
+          page: SplashRoute.page,
+          initial: true,
         ),
-    AutoRoute(
-      page: SimpleCubitRoute.page,
-      path: getPageNameInternal(PageNameInternalEnum.BLOC_SIMPLE),
-    ),
-    AutoRoute(
-      page: AdvanceBlocRoute.page,
-      path: getPageNameInternal(PageNameInternalEnum.BLOC_ADVANCE),
-    ),
-    AutoRoute(
-      page: GetViewRoute.page,
-      path: getPageNameInternal(PageNameInternalEnum.GETX_SIMPLE),
-    ),
-    AutoRoute(
-      page: GetViewV2Route.page,
-      path: getPageNameInternal(PageNameInternalEnum.GETX_SIMPLE_V2),
-    ),
+        AutoRoute(
+          page: SimpleCubitRoute.page,
+          path: getPageNameInternal(PageNameInternalEnum.BLOC_SIMPLE),
+        ),
+        AutoRoute(
+          page: AdvanceBlocRoute.page,
+          path: getPageNameInternal(PageNameInternalEnum.BLOC_ADVANCE),
+        ),
+        AutoRoute(
+          page: GetViewRoute.page,
+          path: getPageNameInternal(PageNameInternalEnum.GETX_SIMPLE),
+        ),
+        AutoRoute(
+          page: GetViewV2Route.page,
+          path: getPageNameInternal(PageNameInternalEnum.GETX_SIMPLE_V2),
+        ),
       ];
 }

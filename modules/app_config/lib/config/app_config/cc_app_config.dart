@@ -1,6 +1,6 @@
-import 'package:cc_library/extension/kotlin/when_expression.dart';
 import 'package:app_config/config/app_config/network/header/header_model.dart';
 import 'package:app_config/enum/environment.dart';
+import 'package:cc_library/extension/kotlin/when_expression.dart';
 
 import '../../enum/routing_manager_enum.dart';
 import 'api_env/app_config_base.dart';
@@ -84,15 +84,13 @@ class CcAppHeaders {
           contextID: '',
           sessionID: null,
           contentType: 'application/json; charset=utf-8',
-          authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.',
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.',
         ).toJson()
       : HeaderModel(
           accept: 'application/json',
           contextID: '',
           sessionID: null,
           contentType: 'application/json; charset=utf-8',
-          authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.',
+          authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.',
         ).toJson();
 }

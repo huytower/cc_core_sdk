@@ -1,5 +1,3 @@
-
-
 class ResBackgroundMusics {
   ResBackgroundMusics({
     this.GalleryMediaId,
