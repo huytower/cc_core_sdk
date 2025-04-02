@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:app_config/constant/cc_constants.dart';
+import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 import 'package:reusable/helper/logger_helper.dart';
 
@@ -131,6 +131,8 @@ class DataHelper {
     // return date1.ctmToString(pattern: Constants.datetimeStyle1FormatPattern);
   }
 
+  /// v1 = 10000 => validateStringDate(v1) == false
+  /// v2 = Monday 18/09/2023 => validateStringDate(v2) == true
   static bool validateStringDate(String str, String pattern) {
     try {
       var data = DateFormat(pattern).parse(str);

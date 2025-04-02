@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:app_config/config/app_config/cc_app_config.dart';
 // import 'package:data/datasource/local/home/home_database.dart';
 // import 'package:data/datasource/local/setting/setting_database.dart';
 import 'package:dio/dio.dart';
-
 import 'package:injectable/injectable.dart';
 
-import '../../dio/cc_dio.dart';
 import '../../interceptor/cc_interceptor.dart';
 
 @module
@@ -30,11 +26,12 @@ abstract class DataModule {
   String get baseUrlOther => CcAppHostUrlName.baseUrlOther;
 
   @singleton
-  Dio dio(@Named('baseUrl') String baseUrl) {
+  Dio dio(@Named("baseUrl") String baseUrl) {
     var _dio = Dio(
       BaseOptions(
         /// baseUrl: NOT DEFINE HERE, FOLLOW RETROFIT ANNOTATION
-baseUrl: baseUrl,
+        baseUrl: baseUrl,
+
         /// Set default timeout for retrofit.
         connectTimeout: const Duration(seconds: 40),
         receiveTimeout: const Duration(seconds: 40),

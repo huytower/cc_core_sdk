@@ -53,9 +53,13 @@ class SampleCodeFakeApiImpl implements SampleCodeFakeApiRepositories {
   /// List<Post> posts = List<Post>.from(l.map((model)=> Post.fromJson(model)));
   ///
   @override
+
+  /// CcResBodyModel<ResSampleCodeFakeModel>; 3: map data
   Future<CcResBodyModel<ResSampleCodeFakeModel>> getList() async {
+    /// 1: call api
     final res = await remote.getList();
 
+    /// 2: parse data
     return res.flatMapToList((m) => ResSampleCodeFakeModel.fromJson(m));
   }
 

@@ -1,8 +1,4 @@
-import 'dart:io';
-
-import 'package:app_config/config/app_track_log/cc_app_track_log.dart';
 import 'package:app_config/enum/layout_status.dart';
-import 'package:app_config/extension/app_track_log_extension.dart';
 import 'package:data/entities/sample_code_fake_api/res_sample_code_fake_model.dart';
 import 'package:data/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart';
 import 'package:get/get.dart';
@@ -39,7 +35,7 @@ class GetViewController extends CcGetController {
   @factoryMethod
   GetViewController({required this.repository});
 
-  final RxList<ResSampleCodeFakeModel> sampleCodeFakeList = <ResSampleCodeFakeModel>[].obs; // data observable
+  final RxList<ResSampleCodeFakeModel> sampleCodeFakeList = <ResSampleCodeFakeModel>[].obs; // init: data observable
 
   // SampleCodeFakeApiImpl repositories = getItData<SampleCodeFakeApiImpl>();
 
@@ -67,25 +63,25 @@ class GetViewController extends CcGetController {
         .Log();
 
     try {
-      1.delay(() {
-        try {
-          throw SocketException('Connect time out');
-        } catch (e) {
-          'e = $e'.Log();
-
-          CcAppTrackLog.instance.initMsgIfNull()?.add(e.toString());
-        }
-      });
-      5.delay(() {
-        'msg = ${CcAppTrackLog.instance.initMsgIfNull()}'.Log();
-
-        // TODO(huy): check msg in hive, can not init
-        CcAppTrackLog.instance.initMsgIfNull()?.forEach((element) {
-          'element = ${element}'.Log();
-        });
-      });
-
-      throw const CertificateException('Expired cert.');
+      // 1.delay(() {
+      //   try {
+      //     throw SocketException('Connect time out');
+      //   } catch (e) {
+      //     'e = $e'.Log();
+      //
+      //     CcAppTrackLog.instance.initMsgIfNull()?.add(e.toString());
+      //   }
+      // });
+      // 5.delay(() {
+      //   'msg = ${CcAppTrackLog.instance.initMsgIfNull()}'.Log();
+      //
+      //   // TODO(huy): check msg in hive, can not init
+      //   CcAppTrackLog.instance.initMsgIfNull()?.forEach((element) {
+      //     'element = ${element}'.Log();
+      //   });
+      // });
+      //
+      // throw const CertificateException('Expired cert.');
 
       final res = await repository.getList();
 
@@ -93,6 +89,8 @@ class GetViewController extends CcGetController {
 
       res.listElements!.forEach((element) {
         sampleCodeFakeList.add(element);
+
+        /// write data: some elements
       });
 
       layoutStatus.value = LayoutStatus.success;

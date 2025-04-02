@@ -45,6 +45,7 @@ class GetViewPage extends CcGetView<GetViewController> with GetViewProvider, CcP
   //----------------------------------------------------------------------------
   @override
   Widget? content() {
+    /// === build()
     return Stack(
       children: [
         /// Sample code : WatchIt : notify data set changed a component - a part of total page
@@ -52,6 +53,8 @@ class GetViewPage extends CcGetView<GetViewController> with GetViewProvider, CcP
 
         /// Sample code : GetX : notify data set changed
         Obx(() {
+          /// === setState():
+          /// Refresh full page/full body human, include: tay, chan, mat
           return buildList();
         }),
       ],
@@ -94,14 +97,21 @@ class GetViewPage extends CcGetView<GetViewController> with GetViewProvider, CcP
     return GestureDetector(
       onTap: () => controller.fetchNewsDetailApi(controller.sampleCodeFakeList[index].id.toString()),
       child: Container(
+        /// flutter sdk
         height: 150,
         alignment: Alignment.center,
-        child: CcText(
-          'at $index : ${controller.sampleCodeFakeList[index].name}',
-          color: Colors.blueGrey,
-          fontSize: 24,
-          marginLeft: 50,
-        ),
+        child: Obx(() {
+          /// Refresh component: mat
+          return CcText(
+            /// flutter sdk: Text
+            'at $index : ${controller.sampleCodeFakeList[index].name}',
+
+            /// show UI: some elements
+            color: Colors.blueGrey,
+            fontSize: 24,
+            marginLeft: 50,
+          );
+        }),
       ),
     );
   }
