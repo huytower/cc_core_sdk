@@ -4,5 +4,5 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 @module
 abstract class AppModule {
   @singleton
-  InternetConnectionChecker get connectionChecker => InternetConnectionChecker();
+  InternetConnectionChecker get connectionChecker => InternetConnectionChecker.createInstance();
 }

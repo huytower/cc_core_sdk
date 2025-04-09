@@ -38,7 +38,7 @@ Run command line :
 
 ```
     environment:
-        sdk: '>=3.0.0 <4.0.0'
+        sdk: '>=3.4.0 <4.0.0'
         flutter: ">=1.17.0"
 ```
 

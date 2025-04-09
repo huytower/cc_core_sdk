@@ -7,7 +7,6 @@ import 'package:app_config/enum/layout_status.dart';
 import 'package:data/repositories/home/home_repositories.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:widget/export/cc_ui_export.dart';
@@ -275,7 +274,7 @@ class HomeController extends CcGetController {
       /// TRICK code to load correct web-view after connect to VPN success
       // 0.4.delay(() => Get.toNamed(PageNameEnum.WEB.name));
     } else {
-      Fluttertoast.showToast(msg: 'Please turn on VPN connecting status!');
+      // Fluttertoast.showToast(msg: 'Please turn on VPN connecting status!');
     }
   }
 
@@ -399,7 +398,7 @@ class HomeController extends CcGetController {
       //   }
       // }
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
+      // Fluttertoast.showToast(msg: e.toString());
     }
   }
 

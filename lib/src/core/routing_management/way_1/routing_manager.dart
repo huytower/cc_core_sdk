@@ -13,7 +13,7 @@ import 'routing_manager.gr.dart';
 /// NOTICE : default page name suffix = 'Page', then convert to 'Route',
 /// otherwise auto-generated wrong code
 @AutoRouterConfig()
-class AppRouter extends $AppRouter {
+class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(

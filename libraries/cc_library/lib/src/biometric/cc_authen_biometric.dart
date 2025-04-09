@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
-import 'package:local_auth_ios/local_auth_ios.dart';
 
 class CcAuthenBiometric {
   final LocalAuthentication auth = LocalAuthentication();
@@ -24,9 +23,9 @@ class CcAuthenBiometric {
               signInTitle: 'Oops! Biometric authentication required!',
               cancelButton: 'No thanks',
             ),
-            IOSAuthMessages(
-              cancelButton: 'No thanks',
-            ),
+            // IOSAuthMessages(
+            //   cancelButton: 'No thanks',
+            // ),
           ],
           options: const AuthenticationOptions(
             useErrorDialogs: false,

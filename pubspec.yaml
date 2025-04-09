@@ -4,13 +4,13 @@ publish_to: none
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
   app_config:
     path: modules/app_config
 
-  auto_route: 8.3.0
+  auto_route: ^10.0.1
   cc_library:
     path: libraries/cc_library
 
@@ -21,7 +21,7 @@ dependencies:
 
   data:
     path: modules/data
-  device_info_plus:
+  device_info_plus: ^11.3.3
   dio:
 
   easy_localization:
@@ -32,7 +32,7 @@ dependencies:
   flutter_lints:
   flutter_spinkit:
   flutter_svg:
-  fluttertoast:
+#  fluttertoast:
 
   get:
   get_it:

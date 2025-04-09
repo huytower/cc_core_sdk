@@ -6,7 +6,7 @@ import android.os.Build
 import androidx.core.view.WindowCompat
 import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity: FlutterActivity() {
+class MainActivity : FlutterActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)

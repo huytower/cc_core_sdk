@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -20,67 +21,26 @@ import 'package:mobile_flutter_template/src/presentation/base/sample_code/getx_s
     as _i3;
 import 'package:mobile_flutter_template/src/presentation/splash/splash_page.dart' as _i5;
 
-abstract class $AppRouter extends _i6.RootStackRouter {
-  $AppRouter({super.navigatorKey});
-
-  @override
-  final Map<String, _i6.PageFactory> pagesMap = {
-    AdvanceBlocRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i1.AdvanceBlocPage(),
-      );
-    },
-    GetViewRoute.name: (routeData) {
-      final args = routeData.argsAs<GetViewRouteArgs>(orElse: () => const GetViewRouteArgs());
-      return _i6.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i2.GetViewPage(key: args.key),
-      );
-    },
-    GetViewV2Route.name: (routeData) {
-      final args = routeData.argsAs<GetViewV2RouteArgs>(orElse: () => const GetViewV2RouteArgs());
-      return _i6.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i3.GetViewV2Page(key: args.key),
-      );
-    },
-    SimpleCubitRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i4.SimpleCubitPage(),
-      );
-    },
-    SplashRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i5.SplashPage(),
-      );
-    },
-  };
-}
-
 /// generated route for
 /// [_i1.AdvanceBlocPage]
 class AdvanceBlocRoute extends _i6.PageRouteInfo<void> {
-  const AdvanceBlocRoute({List<_i6.PageRouteInfo>? children})
-      : super(
-          AdvanceBlocRoute.name,
-          initialChildren: children,
-        );
+  const AdvanceBlocRoute({List<_i6.PageRouteInfo>? children}) : super(AdvanceBlocRoute.name, initialChildren: children);
 
   static const String name = 'AdvanceBlocRoute';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static _i6.PageInfo page = _i6.PageInfo(
+    name,
+    builder: (data) {
+      return const _i1.AdvanceBlocPage();
+    },
+  );
 }
 
 /// generated route for
 /// [_i2.GetViewPage]
 class GetViewRoute extends _i6.PageRouteInfo<GetViewRouteArgs> {
-  GetViewRoute({
-    _i7.Key? key,
-    List<_i6.PageRouteInfo>? children,
-  }) : super(
+  GetViewRoute({_i7.Key? key, List<_i6.PageRouteInfo>? children})
+      : super(
           GetViewRoute.name,
           args: GetViewRouteArgs(key: key),
           initialChildren: children,
@@ -88,7 +48,15 @@ class GetViewRoute extends _i6.PageRouteInfo<GetViewRouteArgs> {
 
   static const String name = 'GetViewRoute';
 
-  static const _i6.PageInfo<GetViewRouteArgs> page = _i6.PageInfo<GetViewRouteArgs>(name);
+  static _i6.PageInfo page = _i6.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<GetViewRouteArgs>(
+        orElse: () => const GetViewRouteArgs(),
+      );
+      return _i2.GetViewPage(key: args.key);
+    },
+  );
 }
 
 class GetViewRouteArgs {
@@ -105,10 +73,8 @@ class GetViewRouteArgs {
 /// generated route for
 /// [_i3.GetViewV2Page]
 class GetViewV2Route extends _i6.PageRouteInfo<GetViewV2RouteArgs> {
-  GetViewV2Route({
-    _i7.Key? key,
-    List<_i6.PageRouteInfo>? children,
-  }) : super(
+  GetViewV2Route({_i7.Key? key, List<_i6.PageRouteInfo>? children})
+      : super(
           GetViewV2Route.name,
           args: GetViewV2RouteArgs(key: key),
           initialChildren: children,
@@ -116,7 +82,15 @@ class GetViewV2Route extends _i6.PageRouteInfo<GetViewV2RouteArgs> {
 
   static const String name = 'GetViewV2Route';
 
-  static const _i6.PageInfo<GetViewV2RouteArgs> page = _i6.PageInfo<GetViewV2RouteArgs>(name);
+  static _i6.PageInfo page = _i6.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<GetViewV2RouteArgs>(
+        orElse: () => const GetViewV2RouteArgs(),
+      );
+      return _i3.GetViewV2Page(key: args.key);
+    },
+  );
 }
 
 class GetViewV2RouteArgs {
@@ -133,27 +107,29 @@ class GetViewV2RouteArgs {
 /// generated route for
 /// [_i4.SimpleCubitPage]
 class SimpleCubitRoute extends _i6.PageRouteInfo<void> {
-  const SimpleCubitRoute({List<_i6.PageRouteInfo>? children})
-      : super(
-          SimpleCubitRoute.name,
-          initialChildren: children,
-        );
+  const SimpleCubitRoute({List<_i6.PageRouteInfo>? children}) : super(SimpleCubitRoute.name, initialChildren: children);
 
   static const String name = 'SimpleCubitRoute';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static _i6.PageInfo page = _i6.PageInfo(
+    name,
+    builder: (data) {
+      return const _i4.SimpleCubitPage();
+    },
+  );
 }
 
 /// generated route for
 /// [_i5.SplashPage]
 class SplashRoute extends _i6.PageRouteInfo<void> {
-  const SplashRoute({List<_i6.PageRouteInfo>? children})
-      : super(
-          SplashRoute.name,
-          initialChildren: children,
-        );
+  const SplashRoute({List<_i6.PageRouteInfo>? children}) : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static _i6.PageInfo page = _i6.PageInfo(
+    name,
+    builder: (data) {
+      return const _i5.SplashPage();
+    },
+  );
 }

@@ -17,7 +17,7 @@ Iterable<Interceptor> ccInterceptors() {
   final cacheStore = MemCacheStore(maxSize: 10485760, maxEntrySize: 1048576);
   final cacheOptions = CacheOptions(
     store: cacheStore,
-    hitCacheOnErrorExcept: [], // for offline behaviour
+    hitCacheOnErrorCodes: [], // for offline behaviour
   );
   final cache = DioCacheInterceptor(options: cacheOptions);
 
