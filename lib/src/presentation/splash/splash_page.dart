@@ -26,8 +26,8 @@ class _SplashPageState extends State<SplashPage> {
     final func = () {
       when(variable: CcAppRoutingManager.defaultRoutingManager, conditions: {
         RoutingManagerEnum.AUTO_ROUTE: () =>
-            AutoRouter.of(context).replaceNamed(getPageNameInternal(PageNameInternalEnum.BLOC_ADVANCE)),
-        RoutingManagerEnum.GETX: () => Get.offAndToNamed(getPageNameInternal(PageNameInternalEnum.GETX_SIMPLE)),
+            AutoRouter.of(context).replacePath(getPageNameInternal(PageNameInternalEnum.COMMENT)),
+        RoutingManagerEnum.GETX: () => Get.offAndToNamed(getPageNameInternal(PageNameInternalEnum.COMMENT)),
       });
     };
 

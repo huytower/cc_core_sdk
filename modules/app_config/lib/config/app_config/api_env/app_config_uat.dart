@@ -7,6 +7,7 @@ class AppConfigUat extends AppConfigBase {
 
   static const String baseUrl = 'https://CHANGE_HOST_URL.com';
   static const String baseUrlOther = 'https://CHANGE_HOST_URL.com';
+  static const String commentUrl = 'https://CHANGE_HOST_URL.com';
 
   @override
   bool get isEnvDev {

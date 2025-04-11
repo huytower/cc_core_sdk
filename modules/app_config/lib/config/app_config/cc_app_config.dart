@@ -60,6 +60,13 @@ class CcAppHostUrlName {
     Environment.UAT: AppConfigUat.baseUrlOther,
     Environment.PROD: AppConfigProd.baseUrlOther,
   });
+
+  /// Config host service url for comment API demo
+  static String commentUrl = when(variable: CcAppConfig.environment, conditions: {
+    Environment.FREE_FAKE_API: AppConfigFree.commentUrl,
+    Environment.UAT: AppConfigUat.commentUrl,
+    Environment.PROD: AppConfigProd.commentUrl,
+  });
 }
 
 class CcAppConfigFlags {
