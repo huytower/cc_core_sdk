@@ -10,7 +10,7 @@ part 'comment_remote.g.dart';
 @RestApi()
 abstract class CommentRemote {
   @factoryMethod
-  factory CommentRemote(@Named('commentDio') Dio dio) = _CommentRemote;
+  factory CommentRemote(@Named('baseDio') Dio dio) = _CommentRemote;
 
   @GET('/comments')
   Future<List<Comment>> getListComments();

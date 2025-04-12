@@ -5,9 +5,8 @@ class AppConfigFree extends AppConfigBase {
   @override
   bool isLogger = true;
 
-  static const String baseUrl = 'https://mockland.dev/';
+  static const String baseUrl = 'https://jsonplaceholder.typicode.com';
   static const String baseUrlOther = 'https://mockland.dev/';
-  static const String commentUrl = 'https://jsonplaceholder.typicode.com';
 
   @override
   bool get isEnvDev {

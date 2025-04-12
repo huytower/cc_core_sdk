@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:data/repositories/comment/comment_repositories.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../core/extension/app_tracking_log_extension.dart';
 import '../../base/structure/getx/cc_get_controller/cc_get_controller.dart';
 
 @injectable
@@ -20,15 +19,14 @@ class CommentController extends CcGetController {
   void onInit() {
     super.onInit();
 
-    initData();
+    loadAllComments();
   }
 
-  Future<void> initData() async {
+  Future<void> loadAllComments() async {
     layoutStatus.value = LayoutStatus.loading;
-    '🔄 Fetching comments started'.Log().addAppTrackingLog();
+    'Fetching comments started'.Log();
     try {
-      final fetchedComments = await _commentRepository.getListComments();
-      comments.assignAll(fetchedComments);
+      await loadAllCommentsFromAPI();
       layoutStatus.value = LayoutStatus.success;
     } on DioException catch (dioError) {
       layoutStatus.value = LayoutStatus.error;
@@ -36,13 +34,18 @@ class CommentController extends CcGetController {
       if (dioError.type == DioExceptionType.connectionTimeout ||
           dioError.type == DioExceptionType.sendTimeout ||
           dioError.type == DioExceptionType.receiveTimeout) {
-        '⏰ Timeout error occurred: ${dioError.message}'.Log().addAppTrackingLog();
+        'Timeout error occurred: ${dioError.message}'.Log();
       } else {
-        '❌ Dio error occurred: ${dioError.message}'.Log().addAppTrackingLog();
+        'Dio error occurred: ${dioError.message}'.Log();
       }
     } catch (e) {
       layoutStatus.value = LayoutStatus.error;
-      '❗ Unknown error: $e'.Log().addAppTrackingLog();
+      'Unknown error: $e'.Log();
     }
+  }
+
+  Future<void> loadAllCommentsFromAPI() async {
+    final fetchedComments = await _commentRepository.getListComments();
+    comments.assignAll(fetchedComments);
   }
 }
