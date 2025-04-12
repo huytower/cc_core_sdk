@@ -1,7 +1,5 @@
 import 'package:app_config/enum/layout_status.dart';
-import 'package:cc_library/extension/logger.dart';
 import 'package:data/entities/comment/comment.dart';
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:data/repositories/comment/comment_repositories.dart';
 import 'package:injectable/injectable.dart';
@@ -24,28 +22,12 @@ class CommentController extends CcGetController {
 
   Future<void> loadAllComments() async {
     layoutStatus.value = LayoutStatus.loading;
-    'Fetching comments started'.Log();
     try {
-      await loadAllCommentsFromAPI();
+      final fetchedComments = await _commentRepository.getListComments();
+      comments.assignAll(fetchedComments);
       layoutStatus.value = LayoutStatus.success;
-    } on DioException catch (dioError) {
-      layoutStatus.value = LayoutStatus.error;
-
-      if (dioError.type == DioExceptionType.connectionTimeout ||
-          dioError.type == DioExceptionType.sendTimeout ||
-          dioError.type == DioExceptionType.receiveTimeout) {
-        'Timeout error occurred: ${dioError.message}'.Log();
-      } else {
-        'Dio error occurred: ${dioError.message}'.Log();
-      }
     } catch (e) {
       layoutStatus.value = LayoutStatus.error;
-      'Unknown error: $e'.Log();
     }
-  }
-
-  Future<void> loadAllCommentsFromAPI() async {
-    final fetchedComments = await _commentRepository.getListComments();
-    comments.assignAll(fetchedComments);
   }
 }

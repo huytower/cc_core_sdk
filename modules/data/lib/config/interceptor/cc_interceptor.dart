@@ -22,7 +22,7 @@ Iterable<Interceptor> ccInterceptors() {
   final cache = DioCacheInterceptor(options: cacheOptions);
 
   return [
-    // ccReqInterceptors,
+    ccReqInterceptors,
     loggerCurl,
     loggerTalker,
     cache,
