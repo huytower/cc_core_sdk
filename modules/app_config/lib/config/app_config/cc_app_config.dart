@@ -38,7 +38,7 @@ class CcAppName {
 }
 
 class CcAppRoutingManager {
-  static RoutingManagerEnum defaultRoutingManager = RoutingManagerEnum.AUTO_ROUTE;
+  static RoutingManagerEnum defaultRoutingManager = RoutingManagerEnum.GETX;
 
   bool get isAutoRoute => defaultRoutingManager == RoutingManagerEnum.AUTO_ROUTE;
 }

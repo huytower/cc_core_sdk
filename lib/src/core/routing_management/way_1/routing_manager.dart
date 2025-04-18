@@ -36,9 +36,5 @@ class AppRouter extends RootStackRouter {
           page: GetViewV2Route.page,
           path: getPageNameInternal(PageNameInternalEnum.GETX_SIMPLE_V2),
         ),
-        AutoRoute(
-          page: CommentRoute.page,
-          path: getPageNameInternal(PageNameInternalEnum.COMMENT),
-        ),
       ];
 }
