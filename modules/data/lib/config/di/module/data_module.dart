@@ -56,7 +56,7 @@ abstract class DataModule {
     final loggerCurl = CurlLoggerDioInterceptor(printOnSuccess: true);
     final loggerTalker = TalkerDioLogger(
       settings: const TalkerDioLoggerSettings(
-          printResponseData: true,
+          printResponseData: false,
           printRequestData: true,
       ),
     );
