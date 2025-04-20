@@ -20,6 +20,7 @@ dependencies:
 
   get_it:
   injectable:
+  internet_connection_checker:
   json_annotation:
 
   permission_handler:

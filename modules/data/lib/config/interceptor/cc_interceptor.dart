@@ -1,8 +1,10 @@
 import 'package:app_config/config/app_config/cc_app_config.dart';
+import 'package:app_config/helper/network_helper.dart';
 import 'package:cc_library/src/curl/curl_utils.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 import 'package:widget/export/cc_ktx_export.dart';
@@ -44,7 +46,20 @@ Iterable<Interceptor> ccInterceptors() {
 
 String request = "";
 var ccReqInterceptors = InterceptorsWrapper(
-  onRequest: (options, handler) {
+  onRequest: (options, handler) async {
+    /// Check internet connection
+    final hasInternet = await NetworkHelper(InternetConnectionChecker.createInstance()).hasInternet;
+    if (!hasInternet) {
+      'No internet connection'.Log();
+      return handler.reject(
+        DioException(
+          requestOptions: options,
+          type: DioExceptionType.connectionError,
+          error: 'No internet connection',
+        ),
+      );
+    }
+
     'onRequest() '.Log();
 
     request = "";
