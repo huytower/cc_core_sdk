@@ -16,6 +16,7 @@ dependencies:
   hive:
   hive_flutter:
   injectable:
+  internet_connection_checker:
   json_annotation:
 
 dev_dependencies:

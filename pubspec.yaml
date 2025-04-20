@@ -39,7 +39,6 @@ dependencies:
 
   google_fonts: 6.1.0
   injectable:
-  internet_connection_checker:
   intl:
 
   # Dart data class

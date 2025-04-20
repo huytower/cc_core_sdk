@@ -7,8 +7,6 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
-import 'package:widget/export/cc_ktx_export.dart';
-
 
 @module
 abstract class DataModule {
@@ -51,13 +49,13 @@ abstract class DataModule {
 // Dio dio = ccDio();
 
   // Interceptors
-  @lazySingleton
+  @singleton
   Iterable<Interceptor> get ccInterceptors {
     final loggerCurl = CurlLoggerDioInterceptor(printOnSuccess: true);
     final loggerTalker = TalkerDioLogger(
       settings: const TalkerDioLoggerSettings(
-          printResponseData: false,
-          printRequestData: true,
+        printResponseData: false,
+        printRequestData: true,
       ),
     );
 

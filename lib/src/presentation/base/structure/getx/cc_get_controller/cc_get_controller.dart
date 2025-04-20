@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:app_config/enum/layout_status.dart';
+import 'package:app_config/helper/network_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../../core/di/inject/app_inject.dart';
 
 abstract class CcGetController extends SuperController {
   Rx<LayoutStatus> layoutStatus = Rx<LayoutStatus>(LayoutStatus.loading);
@@ -91,6 +96,11 @@ extension FetchDataExtension on Object {
   }) async {
     layoutStatus.value = LayoutStatus.loading;
     try {
+      final hasInternet = await getIt<NetworkHelper>().hasInternet;
+      if (!hasInternet) {
+        throw const SocketException("No internet connection");
+      }
+
       final result = await fetchFunction();
       targetList.assignAll(result);
       layoutStatus.value = LayoutStatus.success;
