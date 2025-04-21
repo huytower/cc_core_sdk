@@ -1,4 +1,5 @@
 import 'package:app_config/enum/layout_status.dart';
+import 'package:app_config/helper/network_helper.dart';
 import 'package:data/entities/sample_code_fake_api/res_sample_code_fake_model.dart';
 import 'package:data/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,6 @@ import 'package:widget/export/cc_ktx_export.dart';
 
 import '../../../../../../core/di/inject/app_inject.dart';
 import '../../../../../../core/extension/app_tracking_log_extension.dart';
-import '../../../../../../core/helper/network_helper.dart';
 import '../../../../structure/getx/cc_get_controller/cc_get_controller.dart';
 
 /// GETX : BINDINGS + CONTROLLER

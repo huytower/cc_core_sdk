@@ -5,6 +5,8 @@ import '../../../presentation/base/sample_code/getx_simple_page/way_1/getx/get_v
 import '../../../presentation/base/sample_code/getx_simple_page/way_1/ui/get_view_page.dart';
 import '../../../presentation/base/sample_code/getx_simple_page/way_2/getx/get_view_v2_binding.dart';
 import '../../../presentation/base/sample_code/getx_simple_page/way_2/ui/get_view_v2_view.dart';
+import '../../../presentation/comment/get_x/comment_controller.dart';
+import '../../../presentation/comment/ui/comment_screen.dart';
 import '../../../presentation/home/get_x/home_controller.dart';
 import '../../../presentation/home/ui/home_screen.dart';
 import '../../../presentation/login_web/getx/login_controller.dart';
@@ -66,6 +68,11 @@ class GetxRoutingManager {
           transitionDuration: const Duration(milliseconds: 300),
           binding: GetViewV2Binding(),
           page: () => GetViewV2Page()),
+      GetPage(
+        name: getPageName(PageNameEnum.COMMENT),
+        page: () => const CommentScreen(),
+        binding: CommentBinding(),
+      ),
     ];
   }
 }

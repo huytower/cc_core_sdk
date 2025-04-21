@@ -1,10 +1,12 @@
 import 'package:app_config/config/app_config/cc_app_config.dart';
+import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 // import 'package:data/datasource/local/home/home_database.dart';
 // import 'package:data/datasource/local/setting/setting_database.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../interceptor/cc_interceptor.dart';
+import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
+import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
 @module
 abstract class DataModule {
@@ -26,6 +28,7 @@ abstract class DataModule {
   String get baseUrlOther => CcAppHostUrlName.baseUrlOther;
 
   @singleton
+  @Named("baseDio")
   Dio dio(@Named("baseUrl") String baseUrl) {
     var _dio = Dio(
       BaseOptions(
@@ -39,9 +42,28 @@ abstract class DataModule {
       ),
     );
 
-    _dio.interceptors.addAll(ccInterceptors());
+    _dio.interceptors.addAll(ccInterceptors);
 
     return _dio;
   }
 // Dio dio = ccDio();
+
+  // Interceptors
+  @singleton
+  Iterable<Interceptor> get ccInterceptors {
+    final loggerCurl = CurlLoggerDioInterceptor(printOnSuccess: true);
+    final loggerTalker = TalkerDioLogger(
+      settings: const TalkerDioLoggerSettings(
+        printResponseData: false,
+        printRequestData: true,
+      ),
+    );
+
+    final cacheStore = MemCacheStore(maxSize: 10485760, maxEntrySize: 1048576);
+    final cache = DioCacheInterceptor(
+      options: CacheOptions(store: cacheStore, hitCacheOnErrorCodes: []),
+    );
+
+    return [loggerCurl, loggerTalker, cache];
+  }
 }

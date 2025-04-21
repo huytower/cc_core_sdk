@@ -59,6 +59,8 @@ abstract class CcGetView<T extends CcGetController> extends GetView<T> {
         return loadingLayout();
       }, onSuccess: () {
         return content.call() ?? _emptyWidget();
+      }, onEmpty: () {
+        return _emptyWidget();
       }, onError: (String code) {
         return errorLayout(code);
       }),
