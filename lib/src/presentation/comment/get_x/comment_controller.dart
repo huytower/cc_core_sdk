@@ -1,4 +1,3 @@
-import 'package:app_config/enum/layout_status.dart';
 import 'package:data/entities/comment/comment.dart';
 import 'package:data/repositories/comment/comment_repositories.dart';
 import 'package:get/get.dart';
@@ -26,22 +25,7 @@ class CommentController extends CcGetController {
     fetchData<Comment>(
       fetchFunction: _commentRepository.getListComments,
       targetList: comments,
-      layoutStatus: layoutStatus,
-      errorMessage: errorMessage,
     );
     print("CommentController: onInit()");
-
-    loadAllComments();
-  }
-
-  Future<void> loadAllComments() async {
-    layoutStatus.value = LayoutStatus.loading;
-    try {
-      final fetchedComments = await _commentRepository.getListComments();
-      comments.assignAll(fetchedComments);
-      layoutStatus.value = LayoutStatus.success;
-    } catch (e) {
-      layoutStatus.value = LayoutStatus.error;
-    }
   }
 }

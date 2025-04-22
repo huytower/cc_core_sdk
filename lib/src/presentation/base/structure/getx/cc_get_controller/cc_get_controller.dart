@@ -85,14 +85,10 @@ abstract class CcGetController extends SuperController {
       },
     );
   }
-}
 
-extension FetchDataExtension on Object {
   Future<void> fetchData<T>({
     required Future<List<T>> Function() fetchFunction,
     required RxList<T> targetList,
-    required Rx<LayoutStatus> layoutStatus,
-    RxString? errorMessage,
   }) async {
     layoutStatus.value = LayoutStatus.loading;
     try {
@@ -110,9 +106,7 @@ extension FetchDataExtension on Object {
         layoutStatus.value = LayoutStatus.empty;
       }
     } catch (e) {
-      if (errorMessage != null) {
-        errorMessage.value = e.toString();
-      }
+      errorMessage.value = e.toString();
       layoutStatus.value = LayoutStatus.error;
     }
   }
