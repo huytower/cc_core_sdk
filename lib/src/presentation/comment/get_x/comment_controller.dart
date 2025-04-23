@@ -22,7 +22,7 @@ class CommentController extends CcGetController {
   void onInit() {
     super.onInit();
 
-    fetchData<Comment>(
+    ccFetchData<Comment>(
       fetchFunction: _commentRepository.getListComments,
       targetList: comments,
     );
