@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:app_config/enum/layout_status.dart';
 import 'package:app_config/helper/network_helper.dart';
+import 'package:data/config/retrofit/response/body/cc_res_body_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -86,8 +87,8 @@ abstract class CcGetController extends SuperController {
     );
   }
 
-  Future<void> fetchData<T>({
-    required Future<List<T>> Function() fetchFunction,
+  Future<void> ccFetchData<T>({
+    required Future<CcResBodyModel<T>> Function() fetchFunction,
     required RxList<T> targetList,
   }) async {
     layoutStatus.value = LayoutStatus.loading;
@@ -98,7 +99,7 @@ abstract class CcGetController extends SuperController {
       }
 
       final result = await fetchFunction();
-      targetList.assignAll(result);
+      targetList.assignAll(result.listElements ?? []);
       layoutStatus.value = LayoutStatus.success;
 
       /// Check if whether targetList is empty or not

@@ -94,6 +94,15 @@ var ccReqInterceptors = InterceptorsWrapper(
 
       _message.Log("", true, "logger:###/");
     }
+
+    /// Wrap response data into Map<String, dynamic> if response data is a List
+    try {
+      if (response.data != null && response.data is List) {
+        response.data = wrapListResponse(response.data);
+      }
+    } catch (e) {
+      print('Error transforming response data: $e');
+    }
     return handler.next(response);
   },
   onError: (e, handler) {
@@ -102,3 +111,13 @@ var ccReqInterceptors = InterceptorsWrapper(
     return handler.next(e);
   },
 );
+
+/// Helper method to wrap list response data into a map
+Map<String, dynamic> wrapListResponse(List<dynamic> data) {
+  return {
+    "status": true,
+    "message": "Data fetched successfully",
+    "total": data.length,
+    "data": data,
+  };
+}
