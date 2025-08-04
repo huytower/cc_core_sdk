@@ -4,11 +4,7 @@ import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../constant/cc_log_tags.dart';
-import '../extension/logger.dart';
-
-class DeviceHelper{
-
+class DeviceHelper {
   static Future<String> getDeviceId() async {
     var deviceInfo = DeviceInfoPlugin();
 
@@ -47,14 +43,14 @@ class DeviceHelper{
       osName = 'ANDROID';
 
       uri =
-      '${'${'{\"DeviceName\":\"${androidInfo.device}\",\"DeviceID\":\"$androidId\",\"OsName\":\"$osName\",\"OsVersion\":\"${androidInfo.bootloader}\",\"AppName\":\"${packageInfo.appName}'}\",\"AppVersion\":\"${packageInfo.version}'}\",\"UserName\":\"\",\"LocationInfo\":\"\",\"Adv\":\"0\"}';
+          '${'${'{\"DeviceName\":\"${androidInfo.device}\",\"DeviceID\":\"$androidId\",\"OsName\":\"$osName\",\"OsVersion\":\"${androidInfo.bootloader}\",\"AppName\":\"${packageInfo.appName}'}\",\"AppVersion\":\"${packageInfo.version}'}\",\"UserName\":\"\",\"LocationInfo\":\"\",\"Adv\":\"0\"}';
     } else if (Platform.isIOS) {
       var iosInfo = await deviceInfo.iosInfo;
 
       osName = 'iOS';
 
       uri =
-      '${'${'{\"DeviceName\":\"${iosInfo.name}\",\"DeviceID\":\"${iosInfo.identifierForVendor!}\",\"OsName\":\"$osName\",\"OsVersion\":\"${iosInfo.systemVersion}\",\"AppName\":\"${packageInfo.appName}'}\",\"AppVersion\":\"${packageInfo.version}'}\",\"UserName\":\"\",\"LocationInfo\":\"\",\"Adv\":\"0\"}';
+          '${'${'{\"DeviceName\":\"${iosInfo.name}\",\"DeviceID\":\"${iosInfo.identifierForVendor!}\",\"OsName\":\"$osName\",\"OsVersion\":\"${iosInfo.systemVersion}\",\"AppName\":\"${packageInfo.appName}'}\",\"AppVersion\":\"${packageInfo.version}'}\",\"UserName\":\"\",\"LocationInfo\":\"\",\"Adv\":\"0\"}';
     } else {
       osName = 'other';
     }

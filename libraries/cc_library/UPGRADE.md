@@ -1,4 +1,5 @@
 # Upgrade Flutter projects
+
 Docs. detail that MUST consider to upgrade these sections, for all sides :
 
 ```
@@ -8,6 +9,7 @@ Docs. detail that MUST consider to upgrade these sections, for all sides :
 ```
 
 ## Flutter side
+
 <br />
 **MUST do these steps** since `their build|run system` is `linking very tight`
 
@@ -19,7 +21,7 @@ Docs. detail that MUST consider to upgrade these sections, for all sides :
     - 3rd-party lib
 ```
 
-Run command line : 
+Run command line :
 
 - `brew upgrade` : update related 3rd sdk
 
@@ -27,10 +29,11 @@ Run command line :
 
 **Refs.**
 <br />
+
 - [Release notes](https://docs.flutter.dev/development/tools/sdk/release-notes)
-<br />
+  <br />
 - [pub.dev](https://pub.dev/)
-<br />
+  <br />
 - [fvm 3rd lib for config different flutter sdk versions](https://pub.dev/packages/fvm)
 
 <br />
@@ -44,9 +47,11 @@ Run command line :
 
 **Refs.**
 <br />
+
 - [Release notes](https://dart.dev/get-dart/archive)
 
 ## Android side
+
 <br />
 **MUST do these steps** since `their build|run system` is `linking very tight`
 
@@ -55,6 +60,7 @@ Run command line :
 
 **Refs.**
 <br />
+
 - [Release notes](https://androidstudio.googleblog.com/)
 
 <br />
@@ -64,8 +70,9 @@ Notice that `openjdk` supports for `M1` chip very well.
 
 **Refs.**
 <br />
+
 - [Release notes](https://openjdk.org/projects/jdk-updates/)
-<br />
+  <br />
 - [How to install openjdk via brew command line](https://formulae.brew.sh/formula/openjdk)
 
 <br />
@@ -86,6 +93,7 @@ define in file path : `/${prj_name}/android/gradle/wrapper/gradle-wrapper.proper
 
 **Refs.**
 <br />
+
 - [Release notes](https://gradle.org/releases/)
 
 <br />
@@ -100,6 +108,7 @@ define in file path : `/${prj_name}/android/app/build.gradle`
 
 **Refs.**
 <br />
+
 - [Release notes](https://developer.android.com/studio/releases/gradle-plugin)
 
 <br />
@@ -112,6 +121,7 @@ define in file path : `/${prj_name}/android/app/build.gradle`
 
 **Refs.**
 <br />
+
 - [Release notes](https://kotlinlang.org/docs/releases.html)
 
 <br />
@@ -120,6 +130,7 @@ define in file path : `/${prj_name}/android/app/build.gradle`
 in the file path : `/${prj_name}/android/app/build.gradle`
 
 Use **RECOMMEND** `sdk` version
+
 ```
 minSdkVersion 19    - Android 4.4
 ```
@@ -135,9 +146,11 @@ compileSdkVersion 34
 
 **Refs.**
 <br />
+
 - [Android Distribution](https://apilevels.com/)
 
 ## iOs side
+
 <br />
 **MUST do these steps** since `their build|run system` is `linking very tight`
 
@@ -146,6 +159,7 @@ compileSdkVersion 34
 
 **Refs.**
 <br />
+
 - [Release notes](https://developer.apple.com/documentation/xcode-release-notes)
 
 <br />
@@ -153,6 +167,7 @@ compileSdkVersion 34
 
 **Refs.**
 <br />
+
 - [Release notes](https://github.com/CocoaPods/CocoaPods/releases)
 
 <br />
@@ -172,6 +187,7 @@ in the file path : `/${prj_name}/ios/Podfile`
 
 **Refs.**
 <br />
+
 - [iOs Distribution](https://developer.apple.com/support/app-store/)
 
 <br />

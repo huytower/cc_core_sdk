@@ -1,7 +1,9 @@
-# Project 
+# Project
 
 #### Build||Release
+
 ##### IOS - Build testflight
+
 <br />
 a. In `appConfigBase.dart`, increase internal version before build
 
@@ -34,6 +36,7 @@ d. Click `Next` -> `Upload`
 e. Visit `App Store Connect -> Testflight`, to see new version
 
 ##### Android
+
 <br />
 a. Open with folder `android` as Android Project
 <br />
@@ -51,12 +54,12 @@ g. Locate *.apk || *.aab folder path
 <br />
 h. Visit `Google Play Console`, upload `App Production version`
 
-
 #### Docs. || Refs.
+
 <br />
 1. Reference
 
-   [Project Base document]()
+[Project Base document]()
 
 <br />
 2. Account :

@@ -1,5 +1,5 @@
-import 'package:cc_library/src/curl/curl_utils.dart';
 import 'package:cc_library/extension/logger.dart';
+import 'package:cc_library/src/curl/curl_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

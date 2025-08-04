@@ -32,7 +32,7 @@ dependencies:
   flutter_lints:
   flutter_spinkit:
   flutter_svg:
-#  fluttertoast:
+  #  fluttertoast:
 
   get:
   get_it:

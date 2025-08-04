@@ -1,4 +1,5 @@
 ## Features
+
 Able to get for all projects :
 
     - re-use popular widgets, ex. : InkWellClick, ArrowWidget, FavoriteButtonWidget .v.v 
@@ -15,8 +16,7 @@ It always exists at `git` url for projects to import in `pubspec.yaml` file.
       path: modules/cc_library/
       version: ^0.0.10
 
-
-NOTICE that : 
+NOTICE that :
 
     a. Distribution : Everytime distribute latest source code to sub-project, MUST increase version in `pubspec.yaml`
     
@@ -51,6 +51,7 @@ NOTICE that :
             - Switch to correct branch, ex. `master`.v.v
 
 ### Refs.
+
 <br />
 - CurlUtils
 <br />

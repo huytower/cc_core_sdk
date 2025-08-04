@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:android_id/android_id.dart';
 import 'package:crypto/crypto.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -13,8 +11,6 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rxdart/src/transformers/backpressure/throttle.dart';
 
-import '../constant/cc_log_tags.dart';
-import '../extension/logger.dart';
 import '../src/gson/src/values.dart';
 
 class BaseUtils {

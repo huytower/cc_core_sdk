@@ -49,6 +49,7 @@ abstract class DataModule {
 
     return _dio;
   }
+
 // Dio dio = ccDio();
 
   // Interceptors
@@ -72,58 +73,58 @@ abstract class DataModule {
 
   @singleton
   Interceptor get ccReqInterceptors => InterceptorsWrapper(
-    onRequest: (options, handler) async {
-      /// Check internet connection
-      final hasInternet = await NetworkHelper(InternetConnectionChecker.createInstance()).hasInternet;
-      if (!hasInternet) {
-        'No internet connection'.Log();
-        return handler.reject(
-          DioException(
-            requestOptions: options,
-            type: DioExceptionType.connectionError,
-            error: 'No internet connection',
-          ),
-        );
-      }
-
-      'onRequest() '.Log();
-
-      /// handle token invalid :
-      /// call app get token.
-      when(
-        conditions: {
-          options.headers.containsValue("empty"): () {
-            options.headers = {};
-          },
-          options.headers.containsValue("host_es"): () {
-            options.headers = {};
+        onRequest: (options, handler) async {
+          /// Check internet connection
+          final hasInternet = await NetworkHelper(InternetConnectionChecker.createInstance()).hasInternet;
+          if (!hasInternet) {
+            'No internet connection'.Log();
+            return handler.reject(
+              DioException(
+                requestOptions: options,
+                type: DioExceptionType.connectionError,
+                error: 'No internet connection',
+              ),
+            );
           }
+
+          'onRequest() '.Log();
+
+          /// handle token invalid :
+          /// call app get token.
+          when(
+            conditions: {
+              options.headers.containsValue("empty"): () {
+                options.headers = {};
+              },
+              options.headers.containsValue("host_es"): () {
+                options.headers = {};
+              }
+            },
+            orElse: () {
+              options.headers = {};
+            },
+          );
+          return handler.next(options);
         },
-        orElse: () {
-          options.headers = {};
+        onResponse: (response, handler) async {
+          'onResponse() : response = $response'.Log();
+
+          /// Wrap response data into Map<String, dynamic> if response data is a List
+          try {
+            if (response.data != null && response.data is List) {
+              response.data = wrapListResponse(response.data);
+            }
+          } catch (e) {
+            print('Error transforming response data: $e');
+          }
+          return handler.next(response);
+        },
+        onError: (e, handler) {
+          'onError() : $e'.Log();
+
+          return handler.next(e);
         },
       );
-      return handler.next(options);
-    },
-    onResponse: (response, handler) async {
-      'onResponse() : response = $response'.Log();
-
-      /// Wrap response data into Map<String, dynamic> if response data is a List
-      try {
-        if (response.data != null && response.data is List) {
-          response.data = wrapListResponse(response.data);
-        }
-      } catch (e) {
-        print('Error transforming response data: $e');
-      }
-      return handler.next(response);
-    },
-    onError: (e, handler) {
-      'onError() : $e'.Log();
-
-      return handler.next(e);
-    },
-  );
 
   /// Helper method to wrap list response data into a map
   Map<String, dynamic> wrapListResponse(List<dynamic> data) {

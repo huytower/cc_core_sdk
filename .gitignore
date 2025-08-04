@@ -1,8 +1,8 @@
 .DS_Store
 .dart_tool/
-
 .packages
 .pub/
+.android/
 
 .idea/
 .vagrant/
@@ -76,6 +76,11 @@ migrate_working_dir/
 .pub-cache/
 /build/
 pubspec.lock
+.android/
+**/*.g.dart
+**/*.config.dart
+**/*.freezed.dart
+**/*.gr.dart
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -89,9 +94,11 @@ lib/generated_plugin_registrant.dart
 /android/local.properties
 /android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 /android/.gradle
+/android/app/.cxx/
 
 # ios
 /ios/.symlinks/
+/ios/Flutter/ephemeral/
 /ios/Flutter/flutter_export_environment.sh
 /ios/Flutter/Generated.xcconfig
 /ios/Flutter/Flutter.podspec

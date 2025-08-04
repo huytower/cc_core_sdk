@@ -1,7 +1,5 @@
 // todo(huy) : Enable code
 
-
-
 // import 'package:data/config/dio/cc_dio.dart';
 //
 // ccDio().interceptors.add(
@@ -37,5 +35,3 @@
 // dio.interceptors.add(
 // DioCacheInterceptor(options: cacheOptions),
 // );
-
-

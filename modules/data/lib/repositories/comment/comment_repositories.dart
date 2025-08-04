@@ -6,14 +6,12 @@ import '../../config/retrofit/response/body/cc_res_body_model.dart';
 import '../../datasource/remote/comment/comment_remote.dart';
 import '../../entities/comment/comment.dart';
 
-
 abstract class CommentRepository {
   Future<CcResBodyModel<Comment>> getListComments();
 }
 
 @Singleton(as: CommentRepository)
 class CommentRepositoryImpl implements CommentRepository {
-
   @factoryMethod
   CommentRepositoryImpl({required this.commentRemote});
 

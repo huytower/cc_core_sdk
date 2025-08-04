@@ -16,7 +16,7 @@ Easily config using by importing `curl command line` into `Postman tool`.
 
 #### Hide Generated Files
 
-- `Android Studio` tool : `Preferences` -> `Editor`-> `File Types` -> `ignore files and folders`, then paste 
+- `Android Studio` tool : `Preferences` -> `Editor`-> `File Types` -> `ignore files and folders`, then paste
   separate lines :
 
   ```
@@ -34,6 +34,7 @@ Easily config using by importing `curl command line` into `Postman tool`.
   ```
 
 #### Increase capacity of macos while using Developer Tool
+
 This way will `increase capacity` significantly
 
 <br />

@@ -1,17 +1,16 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter/foundation.dart';
-
-import '../config/library_config.dart';
-import '../constant/enum/symbol_logger.dart';
-import 'kotlin/when_expression.dart';
-import 'kotlin_extension.dart';
-import '../src/gson/gson.dart';
 import 'package:path/path.dart' as path;
 import 'package:stack_trace/stack_trace.dart';
 
-extension TypeExtension<T> on T {
+import '../config/library_config.dart';
+import '../constant/enum/symbol_logger.dart';
+import '../src/gson/gson.dart';
+import 'kotlin/when_expression.dart';
+import 'kotlin_extension.dart';
 
+extension TypeExtension<T> on T {
   /// LOG EXTENSION
   ///
   /// Example : <T>.Log()
@@ -65,6 +64,7 @@ extension TypeExtension<T> on T {
           );
         },
       },
+
       /// NORMAL STRING : show normal string
       orElse: () {
         if (tag.isNotEmpty) {
@@ -86,21 +86,19 @@ extension TypeExtension<T> on T {
         conditions: {
           SymbolLogger.NEW: () {
             if (kDebugMode) {
-              print(
-                "\n-------------------𒆴 𒆴 𒆴 𝝢𝚎ᥕ 𒆴 𒆴 𒆴 --------------------------");
+              print("\n-------------------𒆴 𒆴 𒆴 𝝢𝚎ᥕ 𒆴 𒆴 𒆴 --------------------------");
             }
           },
           SymbolLogger.HAPPY: () {
             if (kDebugMode) {
               print("\n--------------𒆴 𒆴 𒆴   Happy "
-                "𒆴 𒆴 𒆴 --------------------------------");
+                  "𒆴 𒆴 𒆴 --------------------------------");
             }
           }
         },
         orElse: () {
           if (kDebugMode) {
-            print(
-              "\n---------------------------------------------------");
+            print("\n---------------------------------------------------");
           }
         },
       );
