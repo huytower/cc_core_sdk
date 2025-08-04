@@ -1,1 +1,1 @@
-enum SymbolLogger { NEW, HAPPY }
+enum SymbolLogger { INFO, ERROR, WARNING }

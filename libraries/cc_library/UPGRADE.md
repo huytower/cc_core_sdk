@@ -138,8 +138,8 @@ minSdkVersion 19    - Android 4.4
 Update `latest sdk` version if existed
 
 ```
-targetSdkVersion 34
-compileSdkVersion 34
+targetSdkVersion 36
+compileSdkVersion 36
 ```
 
 ![](/docs/os_usage/user_usage_android.jpg)

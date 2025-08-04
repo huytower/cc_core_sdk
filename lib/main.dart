@@ -18,7 +18,7 @@ void main() async {
   /// where init dependency injection, ex. : @singleton, @module, @injection ...
   await appInject();
 
-  /// region Register hive adapter.Kdsaddsddsd
+  /// region Register hive adapter.
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 

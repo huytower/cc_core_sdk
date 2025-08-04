@@ -19,9 +19,9 @@ dependencies:
 
   device_info_plus: ^11.3.3
 
-  dio:
+  dio: ^5.8.0+1
   dio_cache_interceptor:
-  dio_smart_retry:
+  dio_smart_retry: ^7.0.1
 
   flutter:
     sdk: flutter

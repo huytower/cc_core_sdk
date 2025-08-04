@@ -1,6 +1,5 @@
 import 'package:app_config/config/app_config/cc_app_config.dart';
 import 'package:app_config/config/device_info/cc_device_info.dart';
-import 'package:app_config/enum/routing_manager_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -14,6 +13,7 @@ import '../core/routing_management/main_routing.dart';
 import '../core/routing_management/way_1/routing_manager.dart';
 import '../core/routing_management/way_2/getx_routing_manager.dart';
 import 'app_runner_impl.dart';
+import 'routing_config.dart';
 
 class AppRunner extends StatefulWidget {
   const AppRunner({Key? key}) : super(key: key);
@@ -54,10 +54,11 @@ class AppRunnerState extends State<AppRunner> with AppRunnerImpl {
     return buildBody();
   }
 
-  Widget buildBody() => when(variable: CcAppRoutingManager.defaultRoutingManager, conditions: {
-        RoutingManagerEnum.AUTO_ROUTE: () => buildAutoRoute(),
-        RoutingManagerEnum.GETX: () => buildGetxRoute(),
-      });
+  /// Builds the main app widget according to the selected routing strategy.
+  /// Delegates to [buildAppByRoutingManager] in routing_config.dart for functional clarity.
+  Widget buildBody() {
+    return buildAppByRoutingManager(CcAppRoutingManager.defaultRoutingManager);
+  }
 
   MaterialApp buildAutoRoute() => MaterialApp.router(
         routerConfig: _appRouter.config(),

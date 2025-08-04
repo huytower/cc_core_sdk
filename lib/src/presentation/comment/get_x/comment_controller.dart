@@ -19,13 +19,13 @@ class CommentController extends CcGetController {
   final comments = <Comment>[].obs; // List to store comments[]
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
 
     ccFetchData<Comment>(
       fetchFunction: _commentRepository.getListComments,
       targetList: comments,
     );
-    print("CommentController: onInit()");
+    print("CommentController: onReady()");
   }
 }

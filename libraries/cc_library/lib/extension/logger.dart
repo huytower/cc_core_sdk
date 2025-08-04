@@ -26,8 +26,15 @@ extension TypeExtension<T> on T {
   /// test comment.
   /// extension any with logcat.
 // ignore: non_constant_identifier_names
-  T Log([String tag = "", bool isLargeString = false, String tagName = "logger:~~~/"]) {
+  T Log([String tag = "", bool isLargeString = false, String tagName = "logger:~~~/", bool showTimestamp = true]) {
     Frame trace = Trace.current(1).terse.frames[0];
+
+    final now = DateTime.now().toIso8601String();
+    const String reset = '\x1B[0m';
+    const String green = '\x1B[32m';
+    const String red = '\x1B[31m';
+    const String blue = '\x1B[34m';
+    const String yellow = '\x1B[33m';
 
     var library = path.prettyUri(trace.uri);
     var line = trace.line;
@@ -43,7 +50,7 @@ extension TypeExtension<T> on T {
             /// parse model obj. to string
             return gson.encode(this);
           } catch (e) {
-            return toString();
+            return '[Serialization Error] ${e.toString()} | ${toString()}';
           }
         },
         this is String: () {
@@ -59,7 +66,7 @@ extension TypeExtension<T> on T {
         isLargeString: () {
           developer.log(
             "$_content\n"
-            "========================================================================================================================================================",
+            "====================================================",
             name: tag.isEmpty ? "large string" : "$tagName $url",
           );
         },
@@ -67,13 +74,15 @@ extension TypeExtension<T> on T {
 
       /// NORMAL STRING : show normal string
       orElse: () {
+        final tagDisplay = tag.isNotEmpty ? '[$tag] ' : '';
+        final prefix = showTimestamp ? "\n$now $tagName $url" : "\n$tagName $url";
         if (tag.isNotEmpty) {
           if (kDebugMode) {
-            print("$tagName $url\n⋙ $tag $_content");
+            print("$prefix\n💬 $tagDisplay$_content");
           }
         } else {
           if (kDebugMode) {
-            print("$tagName $url\n⋙ $_content");
+            print("$prefix\n💬 $_content");
           }
         }
       },
@@ -84,15 +93,19 @@ extension TypeExtension<T> on T {
       when(
         variable: LibraryConfig.symbolLogger,
         conditions: {
-          SymbolLogger.NEW: () {
+          SymbolLogger.INFO: () {
             if (kDebugMode) {
-              print("\n-------------------𒆴 𒆴 𒆴 𝝢𝚎ᥕ 𒆴 𒆴 𒆴 --------------------------");
+              print("\n$blue━━━━━━━━━━ ℹ️ INFO ━━━━━━━━━━$reset");
             }
           },
-          SymbolLogger.HAPPY: () {
+          SymbolLogger.ERROR: () {
             if (kDebugMode) {
-              print("\n--------------𒆴 𒆴 𒆴   Happy "
-                  "𒆴 𒆴 𒆴 --------------------------------");
+              print("\n$red━━━━━━━━━━ ❌ ERROR ━━━━━━━━━━$reset");
+            }
+          },
+          SymbolLogger.WARNING: () {
+            if (kDebugMode) {
+              print("\n$green━━━━━━━━━━ 😃 WARNING ━━━━━━━━━━$reset");
             }
           }
         },

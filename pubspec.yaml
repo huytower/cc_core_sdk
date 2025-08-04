@@ -22,7 +22,7 @@ dependencies:
   data:
     path: modules/data
   device_info_plus: ^11.3.3
-  dio:
+  dio: ^5.8.0+1
 
   easy_localization:
   flutter:
@@ -48,6 +48,7 @@ dependencies:
   loadmore:
   logger:
   lottie:
+  dio_smart_retry: ^7.0.1
   path_provider:
   provider:
   reusable:
