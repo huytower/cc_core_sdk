@@ -12,8 +12,8 @@ import 'package:cc_library/widget/space/cc_space.dart';
 import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_flutter_template/src/presentation/home/ui/switch/animated_switch.dart';
-import 'package:mobile_flutter_template/src/presentation/home/ui/user_info_widget.dart';
+import 'package:mobile_flutter_template/presentation/home/ui/switch/animated_switch.dart';
+import 'package:mobile_flutter_template/presentation/home/ui/user_info_widget.dart';
 import 'package:widget/export/cc_ui_export.dart';
 
 import '../../base/structure/getx/cc_get_view/cc_get_view.dart';

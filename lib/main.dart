@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'core/di/inject/app_inject.dart';
+import 'core/runner/app_runner.dart';
 import 'di_register_singleton.dart';
-import 'src/app/app_runner.dart';
-import 'src/core/di/inject/app_inject.dart';
 
 /// NOTICE : there are 3 env. : FREE_FAKE_API (FREE) | UAT | PROD
 /// MUST write necessary code in this file

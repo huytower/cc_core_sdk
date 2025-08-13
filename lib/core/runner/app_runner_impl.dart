@@ -4,7 +4,7 @@ import 'package:cc_library/helper/device_helper.dart';
 import 'package:cc_library/util/base_utils.dart';
 import 'package:hive/hive.dart';
 
-import '../core/di/inject/app_inject.dart';
+import 'package:mobile_flutter_template/core/di/inject/app_inject.dart';
 
 mixin AppRunnerImpl {
   void onDispose() {

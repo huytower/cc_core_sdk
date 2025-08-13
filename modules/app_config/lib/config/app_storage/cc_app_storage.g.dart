@@ -44,7 +44,9 @@ class CcAppStorageAdapter extends TypeAdapter<CcAppStorage> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CcAppStorageAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+      other is CcAppStorageAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }
 
 // **************************************************************************
@@ -56,9 +58,12 @@ CcAppStorage _$CcAppStorageFromJson(Map<String, dynamic> json) => CcAppStorage(
       f_t: json['f_t'] as String?,
       gps: json['gps'] as String?,
       role: json['role'] as String?,
-    )..user = json['user'] == null ? null : UserPrincipal.fromJson(json['user'] as Map<String, dynamic>);
+    )..user = json['user'] == null
+        ? null
+        : UserPrincipal.fromJson(json['user'] as Map<String, dynamic>);
 
-Map<String, dynamic> _$CcAppStorageToJson(CcAppStorage instance) => <String, dynamic>{
+Map<String, dynamic> _$CcAppStorageToJson(CcAppStorage instance) =>
+    <String, dynamic>{
       'a_t': instance.a_t,
       'f_t': instance.f_t,
       'gps': instance.gps,

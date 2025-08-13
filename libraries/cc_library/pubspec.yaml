@@ -13,15 +13,15 @@ dependencies:
 
   crypto:
   curl_logger_dio_interceptor:
-  custom_refresh_indicator: 3.0.0
+  custom_refresh_indicator:
 
   deep_collection:
 
-  device_info_plus: ^11.3.3
+  device_info_plus:
 
-  dio: ^5.8.0+1
+  dio:
   dio_cache_interceptor:
-  dio_smart_retry: ^7.0.1
+  dio_smart_retry:
 
   flutter:
     sdk: flutter
@@ -32,7 +32,7 @@ dependencies:
   flutter_svg:
 
   get:
-  google_fonts: 6.1.0
+  google_fonts:
 
   intl:
   jwt_decoder:
@@ -42,7 +42,7 @@ dependencies:
   # src detect phone code.
   #libphonenumber:
   local_auth:
-  lottie: #^1.2.2
+  lottie:
 
   mask_text_input_formatter:
 
@@ -51,7 +51,7 @@ dependencies:
 
   rxdart:
   shimmer:
-  simple_animations: 4.1.0
+  simple_animations:
 
   talker_dio_logger:
 
