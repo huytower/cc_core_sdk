@@ -606,8 +606,7 @@ class CcCustomRefreshIndicatorState extends State<CcCustomRefreshIndicator> with
 
     final builder = widget.builder;
 
-    if (widget.autoRebuild ||
-        (builder is IndicatorBuilderDelegate && (builder as IndicatorBuilderDelegate).autoRebuild)) {
+    if (widget.autoRebuild) {
       return AnimatedBuilder(
         animation: controller,
         builder: (context, _) => builder(context, child, controller),
