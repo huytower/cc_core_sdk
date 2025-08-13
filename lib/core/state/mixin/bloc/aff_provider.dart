@@ -1,5 +1,5 @@
-// import 'package:Template/src/core/state_management/bloc_base.dart';
-// import 'package:Template/src/core/state_management/state_base.dart';
+// import 'package:Template/src/core/state/bloc_base.dart';
+// import 'package:Template/src/core/state/state_base.dart';
 // import 'package:flutter/material.dart';
 //
 // mixin HomeProvider<T extends StatefulWidget, B extends BlocBase> on StateBloc<T, B> {

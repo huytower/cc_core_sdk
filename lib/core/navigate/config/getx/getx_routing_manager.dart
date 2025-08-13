@@ -17,7 +17,7 @@ import '../../../../presentation/web/ui/web_page.dart';
 import '../../enum/page_name_enum.dart';
 
 /// GETX|BLOC : Routing management
-/// Step 3 : declare routing screen||page
+/// Step 3 : declare navigate screen||page
 ///
 class GetxRoutingManager {
   /// Instance

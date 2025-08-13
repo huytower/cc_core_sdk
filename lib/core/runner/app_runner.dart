@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 import 'package:theme/cc_themes.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
+import '../common/extensions/tracking_log_extension.dart';
 import '../di/inject/app_inject.dart';
-import '../extension/tracking_log_extension.dart';
-import '../routing_management/config/auto_route/routing_manager.dart';
-import '../routing_management/config/getx/getx_routing_manager.dart';
-import '../routing_management/config/routing_strategy.dart';
-import '../routing_management/enum/page_name_enum.dart';
+import '../navigate/config/auto_route/routing_manager.dart';
+import '../navigate/config/getx/getx_routing_manager.dart';
+import '../navigate/config/getx/routing_strategy.dart';
+import '../navigate/enum/page_name_enum.dart';
 import 'app_runner_impl.dart';
 
 class AppRunner extends StatefulWidget {
@@ -53,7 +53,7 @@ class AppRunnerState extends State<AppRunner> with AppRunnerImpl {
     return buildBody();
   }
 
-  /// Builds the main app widget according to the selected routing strategy.
+  /// Builds the main app widget according to the selected navigate strategy.
   /// Delegates to [buildAppByRoutingManager] in routing_strategy.dart for functional clarity.
   Widget buildBody() {
     return buildAppByRoutingManager(CcAppRoutingManager.defaultRoutingManager);

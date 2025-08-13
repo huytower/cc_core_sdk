@@ -6,7 +6,7 @@ import 'package:cc_library/export/kotlin_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/routing_management/enum/page_name_enum.dart';
+import '../../core/navigate/enum/page_name_enum.dart';
 
 @RoutePage()
 class SplashPage extends StatefulWidget {

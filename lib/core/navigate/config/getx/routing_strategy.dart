@@ -4,11 +4,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:theme/cc_themes.dart';
 
-import '../enum/page_name_enum.dart';
-import 'auto_route/routing_manager.dart';
-import 'getx/getx_routing_manager.dart';
+import '../../enum/page_name_enum.dart';
+import '../auto_route/routing_manager.dart';
+import 'getx_routing_manager.dart';
 
-/// Abstract strategy for routing
+/// Abstract strategy for navigate
 abstract class RoutingStrategy {
   Widget build();
 }
@@ -38,13 +38,13 @@ class GetxRouteStrategy implements RoutingStrategy {
       );
 }
 
-/// Map of routing strategies
+/// Map of navigate strategies
 final Map<RoutingManagerEnum, RoutingStrategy> routingStrategies = {
   RoutingManagerEnum.AUTO_ROUTE: AutoRouteStrategy(),
   RoutingManagerEnum.GETX: GetxRouteStrategy(),
 };
 
-/// Returns the main app widget for the given routing manager, or throws if not supported.
+/// Returns the main app widget for the given navigate manager, or throws if not supported.
 Widget buildAppByRoutingManager(RoutingManagerEnum manager) {
   final strategy = routingStrategies[manager];
   if (strategy != null) {

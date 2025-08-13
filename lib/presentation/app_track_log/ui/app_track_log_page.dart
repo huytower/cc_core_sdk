@@ -39,14 +39,15 @@ class AppTrackLogPage extends WatchingWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// bool indicate that build method run one time
+    // Initialize the logic if not already ready
     if (!logic.isReady.value) {
-      logic.isReady.value = true;
-
-      logic.getDeviceInfo();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        logic.initialize();
+      });
     }
 
-    String deviceInfo = watchIt<DeviceModelNotifier>().model.deviceInfo;
+    // Watch for changes to the device info
+    final deviceInfo = watchIt<DeviceModelNotifier>().model.deviceInfo;
 
     return buildBody(deviceInfo);
   }

@@ -6,8 +6,8 @@ import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../core/mixin/cc_load_more_mixin.dart';
-import '../../../../../../core/mixin/cc_pull_to_refresh_mixin.dart';
+import '../../../../../../core/common/mixins/cc_load_more_mixin.dart';
+import '../../../../../../core/common/mixins/cc_pull_to_refresh_mixin.dart';
 import '../../../../structure/getx/cc_get_view/cc_get_view.dart';
 import '../../../watch_it_simple_page/way_1/ui/component_view_watch_it.dart';
 import '../getx/get_view_controller.dart';

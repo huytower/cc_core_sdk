@@ -3,7 +3,7 @@ import 'package:app_config/config/app_track_log/cc_app_track_log.dart';
 import 'package:app_config/extension/app_track_log_extension.dart';
 import 'package:cc_library/extension/kotlin/when_expression.dart';
 
-import '../di/inject/app_inject.dart';
+import '../../di/inject/app_inject.dart';
 
 /// ADD INTO APP TRACKING LOG
 /// FOR TRACING
