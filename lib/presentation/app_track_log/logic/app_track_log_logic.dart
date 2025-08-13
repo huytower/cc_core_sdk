@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
 import '../../../core/di/inject/app_inject.dart';
-import '../../../core/extension/app_tracking_log_extension.dart';
+import '../../../core/extension/tracking_log_extension.dart';
 
 /// WatchItMixin : LOGIC
 /// create Logic component, mandatory includes :

@@ -4,10 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:theme/cc_themes.dart';
 
-import 'enum/page_name_enum.dart';
-import 'main_routing.dart';
-import 'way_1/routing_manager.dart';
-import 'way_2/getx_routing_manager.dart';
+import '../enum/page_name_enum.dart';
+import '../way_1/routing_manager.dart';
+import '../way_2/getx_routing_manager.dart';
 
 /// Abstract strategy for routing
 abstract class RoutingStrategy {

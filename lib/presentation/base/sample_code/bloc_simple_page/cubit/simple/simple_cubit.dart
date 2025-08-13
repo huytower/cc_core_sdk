@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../../../core/extension/app_tracking_log_extension.dart';
+import '../../../../../../core/extension/tracking_log_extension.dart';
 import 'simple_cubit_state.dart';
 
 /// CUBIT : CONTROLLER

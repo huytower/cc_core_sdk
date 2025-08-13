@@ -3,8 +3,6 @@ import 'package:cc_library/widget/image/fade_in_image_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:simple_animations/stateless_animation/loop_animation.dart';
-import 'package:simple_animations/timeline_tween/timeline_tween.dart';
 
 // Create enum that defines the animated properties
 enum AniProps { x, y, scale, rotate, opacity }

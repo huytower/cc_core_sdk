@@ -7,3 +7,7 @@ enum PageNameEnum { HOME, SPLASH, SETTING, LOGIN, LOGOUT, PROFILE, UPDATE_VERSIO
 
 /// CORE PAGE
 enum PageNameInternalEnum { CUBIT_SIMPLE, BLOC_ADVANCE, BLOC_SIMPLE, GETX_SIMPLE, GETX_SIMPLE_V2, COMMENT }
+
+String getPageName(PageNameEnum pageName) => '/${pageName.name.toLowerCase()}';
+
+String getPageNameInternal(PageNameInternalEnum pageName) => '/${pageName.name.toLowerCase()}';
