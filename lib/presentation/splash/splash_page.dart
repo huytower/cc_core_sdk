@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/routing_management/enum/page_name_enum.dart';
-import '../../core/routing_management/main_routing.dart';
 
 @RoutePage()
 class SplashPage extends StatefulWidget {

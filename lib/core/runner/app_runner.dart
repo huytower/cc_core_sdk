@@ -8,10 +8,10 @@ import 'package:widget/export/cc_ktx_export.dart';
 
 import '../di/inject/app_inject.dart';
 import '../extension/tracking_log_extension.dart';
+import '../routing_management/config/auto_route/routing_manager.dart';
+import '../routing_management/config/getx/getx_routing_manager.dart';
 import '../routing_management/config/routing_strategy.dart';
 import '../routing_management/enum/page_name_enum.dart';
-import '../routing_management/way_1/routing_manager.dart';
-import '../routing_management/way_2/getx_routing_manager.dart';
 import 'app_runner_impl.dart';
 
 class AppRunner extends StatefulWidget {

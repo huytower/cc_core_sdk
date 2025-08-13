@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 
-import '../enum/page_name_enum.dart';
-import '../main_routing.dart';
+import '../../enum/page_name_enum.dart';
 import 'routing_manager.gr.dart';
 
 /// RECOMMEND WAY for routing management in app

@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:theme/cc_themes.dart';
 
 import '../enum/page_name_enum.dart';
-import '../way_1/routing_manager.dart';
-import '../way_2/getx_routing_manager.dart';
+import 'auto_route/routing_manager.dart';
+import 'getx/getx_routing_manager.dart';
 
 /// Abstract strategy for routing
 abstract class RoutingStrategy {
