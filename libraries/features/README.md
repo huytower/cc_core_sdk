@@ -1,44 +1,39 @@
 # Features Library
 
-A collection of reusable feature modules for the application.
+A collection of reusable, modular feature packages following CLEAN architecture and SOLID principles.
 
-## Structure
+## 📁 Directory Structure
 
 ```
 lib/
-├── src/
-│   ├── di/               # Dependency injection configuration
-│   ├── features/         # Individual feature modules
-│   │   ├── feature1/     # Example feature 1
-│   │   └── feature2/     # Example feature 2
-│   └── features.dart     # Exports all features
-└── features.dart         # Library entry point
+├── core/                  # Shared code across features
+│   ├── constants/        # App-wide constants
+│   ├── di/               # Dependency injection setup
+│   └── utils/            # Shared utilities
+│
+└── {feature_name}/        # Feature modules (lowercase with underscores)
+    ├── data/
+    │   ├── datasources/  # Data sources (API, local storage, etc.)
+    │   └── repositories/ # Repository implementations
+    │
+    ├── di/               # Feature-specific DI
+    │   └── {feature_name}_module.dart
+    │
+    ├── domain/
+    │   ├── entities/     # Business objects
+    │   ├── repositories/ # Repository contracts
+    │   └── usecases/    # Business logic
+    │
+    └── presentation/
+        ├── pages/       # Feature screens
+        └── widgets/     # Reusable UI components
 ```
 
-## Adding a New Feature
+## 🚀 Getting Started
 
-1. Create a new directory under `lib/src/features/`
-2. Follow the structure:
-   ```
-   feature_name/
-   ├── data/
-   │   ├── datasources/
-   │   ├── models/
-   │   └── repositories/
-   ├── domain/
-   │   ├── entities/
-   │   ├── repositories/
-   │   └── usecases/
-   └── presentation/
-       ├── bloc/
-       └── pages/
-   ```
+### Adding to Your Project
 
-3. Export your feature in `lib/src/features.dart`
-
-## Usage
-
-Add to your project's `pubspec.yaml`:
+Add this to your app's `pubspec.yaml`:
 
 ```yaml
 dependencies:
@@ -46,9 +41,55 @@ dependencies:
     path: libraries/features
 ```
 
-## Dependencies
+### Creating a New Feature
 
-- flutter_bloc: ^8.1.3
-- get_it: ^7.6.4
-- injectable: ^2.1.0
-- equatable: ^2.0.5
+1. **Use the template**: Copy an existing feature (like `counter`) as a starting point
+2. **Rame files and classes**: Update all references to match your feature name
+3. **Implement layers**:
+   - `data/`: Data sources and repositories
+   - `domain/`: Business logic and entities
+   - `presentation/`: UI components
+4. **Set up DI**: Update the feature module in `di/`
+5. **Export your feature**: Add exports to `lib/features.dart`
+
+## 🏗️ Feature Template
+
+For detailed implementation examples, see the [Feature Template](../../docs/feature_template.md) documentation.
+
+## 🧪 Testing
+
+Each feature should include tests for:
+- Data layer (repositories, data sources)
+- Domain layer (use cases, entities)
+- Presentation layer (widgets, controllers)
+
+Example test structure:
+```
+test/
+  ├── {feature_name}_test/
+  │   ├── data/
+  │   ├── domain/
+  │   └── presentation/
+  └── test_helpers/     # Test utilities and mocks
+```
+
+## 📦 Dependencies
+
+Core dependencies used across features:
+- `get_it`: Service locator
+- `injectable`: Code generation for dependency injection
+- `equatable`: Value equality
+- `dio`: HTTP client
+- `shared_preferences`: Local storage
+
+## 🔄 State Management
+
+Features should use the project's standard state management solution (e.g., GetX, Bloc, or Provider) consistently.
+
+## 📝 Code Generation
+
+Run build_runner after making changes to DI:
+
+```bash
+flutter pub run build_runner build --delete-conflicting-outputs
+```

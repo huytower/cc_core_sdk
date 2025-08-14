@@ -2,10 +2,6 @@ import 'package:get/get.dart';
 
 import '../../../../presentation/comment/get_x/comment_controller.dart';
 import '../../../../presentation/comment/ui/comment_screen.dart';
-import '../../../../presentation/home/get_x/home_controller.dart';
-import '../../../../presentation/home/ui/home_screen.dart';
-import '../../../../presentation/login_web/getx/login_controller.dart';
-import '../../../../presentation/login_web/ui/login_screen.dart';
 import '../../../../presentation/sample_code/bloc_simple_page/cubit/simple/simple_cubit_page.dart';
 import '../../../../presentation/sample_code/getx_simple_page/way_1/getx/get_view_controller.dart';
 import '../../../../presentation/sample_code/getx_simple_page/way_1/ui/get_view_page.dart';
@@ -31,17 +27,6 @@ class GetxRoutingManager {
         name: getPageName(PageNameEnum.SPLASH),
         page: () => const SplashPage(),
       ),
-      GetPage(
-        name: getPageName(PageNameEnum.HOME),
-        page: () => HomePage(),
-        binding: HomeBinding(),
-      ),
-      GetPage(
-          name: getPageName(PageNameEnum.LOGIN),
-          transition: Transition.fadeIn,
-          transitionDuration: const Duration(milliseconds: 300),
-          binding: LoginBinding(),
-          page: () => const LoginPage()),
       GetPage(
           name: getPageName(PageNameEnum.WEB),
           transition: Transition.fadeIn,
