@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 
 import '../../enum/page_name_enum.dart';
 import 'routing_manager.gr.dart';
+import 'package:mobile_flutter_template/presentation/sample_code/features_counter_page/features_counter_page.dart';
 
 /// RECOMMEND WAY for navigate management in app
 /// - simple
@@ -34,6 +35,10 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: GetViewV2Route.page,
           path: getPageNameInternal(PageNameInternalEnum.GETX_SIMPLE_V2),
+        ),
+        AutoRoute(
+          page: FeaturesCounterRoute.page,
+          path: getPageNameInternal(PageNameInternalEnum.FEATURES_COUNTER),
         ),
       ];
 }

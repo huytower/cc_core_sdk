@@ -1,0 +1,36 @@
+name: features
+description: A collection of reusable feature modules for the application.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # UI Components
+  cc_library:
+    path: ../cc_library
+  flutter_bloc:
+  get_it:
+  injectable:
+  equatable:
+  
+  # Add other common dependencies used across features
+  dio:
+  shared_preferences:
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner:
+  injectable_generator:
+  flutter_lints:
+
+# For generating JSON serialization code
+flutter:
+  uses-material-design: true
+  generate: true

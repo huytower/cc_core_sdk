@@ -66,9 +66,13 @@ dependencies:
   webview_flutter:
   widget:
     path: modules/widget
+    
+  features:
+    path: libraries/features
 
 dev_dependencies:
   auto_route_generator:
+  bloc_test: ^9.1.4
   build_runner:
   effective_dart:
   flutter_test:

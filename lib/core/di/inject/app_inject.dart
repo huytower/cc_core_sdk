@@ -3,7 +3,7 @@ import 'package:data/config/di/inject/data_inject.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../presentation/di/presentation_module.dart';
+import '../module/presentation_module.dart';
 import 'app_inject.config.dart';
 
 final GetIt getIt = GetIt.instance;

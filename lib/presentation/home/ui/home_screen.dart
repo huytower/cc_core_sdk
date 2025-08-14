@@ -127,32 +127,73 @@ class HomePage extends CcGetView<HomeController> with HomeProvider {
         buildFeature(),
       ]);
 
-  Widget buildFeature() => CcPadding(
-      Container(
-        width: 90,
-        height: 90,
-        child: CcColCenter(children: [
-          GestureDetector(
-            onTap: () => controller.onTapAccessWebInfo(),
-            child: Image.asset(
-              getAssetIcons(resId: AssetRes.IC_ANALYTICS),
-              width: 48,
+  Widget buildFeature() => Row(
+    children: [
+      CcPadding(
+        Container(
+          width: 90,
+          height: 90,
+          child: CcColCenter(children: [
+            GestureDetector(
+              onTap: () => controller.onTapAccessWebInfo(),
+              child: Image.asset(
+                getAssetIcons(resId: AssetRes.IC_ANALYTICS),
+                width: 48,
+              ),
             ),
-          ),
-          const CcSpaceLarge(),
-          CcText(
-            'Dashboard',
-            textStyle: CcTextStyle.bodyText1.copyWith(color: BaseColors.black_50, fontSize: 13),
-            align: Alignment.center,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-          )
-        ]),
+            const CcSpaceLarge(),
+            CcText(
+              'Dashboard',
+              textStyle: CcTextStyle.bodyText1.copyWith(color: BaseColors.black_50, fontSize: 13),
+              align: Alignment.center,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            )
+          ]),
+        ),
+        0,
+        CcPaddingParams.PAGE_MID,
+        0,
+        0,
       ),
-      0,
-      CcPaddingParams.PAGE_MID,
-      0,
-      0);
+      
+      // Add Counter Example Button
+      CcPadding(
+        GestureDetector(
+          onTap: () {
+            // Navigate to the counter example page
+            Get.toNamed('/features_counter');
+          },
+          child: Container(
+            width: 90,
+            height: 90,
+            child: CcColCenter(children: [
+              const Icon(
+                Icons.add_circle_outline,
+                size: 48,
+                color: Colors.blue,
+              ),
+              const CcSpaceLarge(),
+              CcText(
+                'Counter Example',
+                textStyle: CcTextStyle.bodyText1.copyWith(
+                  color: BaseColors.black_50,
+                  fontSize: 13,
+                ),
+                align: Alignment.center,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              )
+            ]),
+          ),
+        ),
+        0,
+        CcPaddingParams.PAGE_MID,
+        0,
+        0,
+      ),
+    ],
+  );
 
   Widget buildSwitchBtn() => Obx(() => AnimatedSwitch(
         key: controller.keySwitch,
