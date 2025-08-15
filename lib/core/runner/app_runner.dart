@@ -27,7 +27,7 @@ class AppRunnerState extends State<AppRunner> with AppRunnerImpl {
     super.initState();
 
     'API Environment = ${CcAppConfig.environment}'.Log();
-    'Routing Management = ${CcAppRoutingManager.defaultRoutingManager}'.Log();
+    'Routing Management = ${RouteDatasource.currentStrategy}'.Log();
 
     onInitState();
   }
@@ -52,7 +52,7 @@ class AppRunnerState extends State<AppRunner> with AppRunnerImpl {
   /// Builds the main app widget according to the selected navigate strategy.
   /// Delegates to [buildAppByRoutingManager] in routing_strategy.dart for functional clarity.
   Widget buildBody() {
-    return buildAppByRoutingManager(CcAppRoutingManager.defaultRoutingManager);
+    return buildAppByRoutingManager(RouteDatasource.currentStrategy);
   }
 
   @override

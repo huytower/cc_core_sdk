@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 
+import '../../enum/page_name_by_route_strategy_enum.dart';
 import '../../enum/page_name_enum.dart';
 import 'app_router.gr.dart';
 
@@ -21,27 +22,27 @@ class AppRouter extends RootStackRouter {
         ),
         AutoRoute(
           page: SimpleCubitRoute.page,
-          path: getPageNameInternal(PageNameInternalEnum.BLOC_SIMPLE),
+          path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.BLOC_SIMPLE),
         ),
         AutoRoute(
           page: AdvanceBlocRoute.page,
-          path: getPageNameInternal(PageNameInternalEnum.BLOC_ADVANCE),
+          path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.BLOC_ADVANCE),
         ),
         AutoRoute(
           page: GetViewRoute.page,
-          path: getPageNameInternal(PageNameInternalEnum.GETX_SIMPLE),
+          path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.GETX_SIMPLE),
         ),
         AutoRoute(
           page: GetViewV2Route.page,
-          path: getPageNameInternal(PageNameInternalEnum.GETX_SIMPLE_V2),
+          path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.GETX_SIMPLE_V2),
         ),
         AutoRoute(
           page: FeaturesCounterRoute.page,
-          path: getPageNameInternal(PageNameInternalEnum.FEATURES_COUNTER),
+          path: getPageName(PageNameEnum.FEATURES_COUNTER),
         ),
         AutoRoute(
           page: HomeRoute.page,
-          path: getPageNameInternal(PageNameInternalEnum.HOME),
+          path: getPageName(PageNameEnum.HOME),
         ),
       ];
 }

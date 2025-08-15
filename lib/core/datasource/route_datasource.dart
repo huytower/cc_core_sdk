@@ -2,28 +2,26 @@ import 'package:app_config/enum/routing_manager_enum.dart';
 
 import '../../core/navigate/enum/page_name_enum.dart';
 
+/// Handles application routing configuration and route resolution
 class RouteDatasource {
-  // Constants
-  static const PageNameInternalEnum _initRoute = PageNameInternalEnum.FEATURES_COUNTER;
+  final PageNameEnum _startRoute;
+  static const RoutingManagerEnum _currentStrategy = RoutingManagerEnum.AUTO_ROUTE;
 
-  // Public constants for switch cases
-  static const RoutingManagerEnum autoRoute = RoutingManagerEnum.AUTO_ROUTE;
-  static const RoutingManagerEnum getXRoute = RoutingManagerEnum.GETX;
+  static const PageNameEnum _defaultStartRoute = PageNameEnum.HOME;
 
-  // Methods
+  const RouteDatasource({
+    RoutingManagerEnum? routingStrategy,
+    PageNameEnum? startRoute,
+  }) : _startRoute = startRoute ?? _defaultStartRoute;
+
+  /// Gets the start route
   String getStartRoute() {
-    bool isSelectStrategyRoute = CcAppRoutingManager.defaultRoutingManager == RouteDatasource.autoRoute;
-    if (isSelectStrategyRoute) {
-      return getPageNameInternal(
-          PageNameInternalEnum.FEATURES_COUNTER); // Use the same initial route as defined in AppRouter
-    } else {
-      return getPageNameInternal(_initRoute); // Use generated route for GetX
-    }
+    return getPageName(_startRoute);
   }
-}
 
-class CcAppRoutingManager {
-  static RoutingManagerEnum defaultRoutingManager = RoutingManagerEnum.AUTO_ROUTE;
+  /// Gets the current routing strategy
+  static RoutingManagerEnum get currentStrategy => _currentStrategy;
 
-  bool get isAutoRoute => defaultRoutingManager == RoutingManagerEnum.AUTO_ROUTE;
+  /// Checks if the current routing strategy is AutoRoute
+  static bool get isAutoRoute => _currentStrategy == RoutingManagerEnum.AUTO_ROUTE;
 }

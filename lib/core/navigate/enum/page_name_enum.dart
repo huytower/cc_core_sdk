@@ -3,20 +3,6 @@
 /// - GA4
 
 /// PRJ. PAGE
-enum PageNameEnum { HOME, SPLASH, SETTING, LOGIN, LOGOUT, PROFILE, UPDATE_VERSION, WEB, COMMENT }
-
-/// CORE PAGE
-enum PageNameInternalEnum {
-  CUBIT_SIMPLE,
-  BLOC_ADVANCE,
-  BLOC_SIMPLE,
-  GETX_SIMPLE,
-  GETX_SIMPLE_V2,
-  COMMENT,
-  FEATURES_COUNTER,
-  HOME
-}
+enum PageNameEnum { HOME, SPLASH, SETTING, LOGIN, LOGOUT, PROFILE, UPDATE_VERSION, WEB, COMMENT, FEATURES_COUNTER }
 
 String getPageName(PageNameEnum pageName) => '/${pageName.name.toLowerCase()}';
-
-String getPageNameInternal(PageNameInternalEnum pageName) => '/${pageName.name.toLowerCase()}';
