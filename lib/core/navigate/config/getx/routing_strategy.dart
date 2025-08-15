@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:theme/cc_themes.dart';
 
 import '../../enum/page_name_enum.dart';
-import '../auto_route/routing_manager.dart';
+import '../auto_route/app_router.dart';
 import 'getx_routing_manager.dart';
 
 /// Abstract strategy for navigate
@@ -16,7 +16,17 @@ abstract class RoutingStrategy {
 class AutoRouteStrategy implements RoutingStrategy {
   @override
   Widget build() => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: CcThemes.darkTheme,
         routerConfig: AppRouter().config(),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', ''), // English, no country code
+        ],
       );
 }
 

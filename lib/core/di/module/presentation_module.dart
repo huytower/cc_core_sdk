@@ -3,8 +3,6 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../presentation/app_track_log/cubit/logic/app_track_log_cubit.dart';
-import '../../../presentation/sample_code/bloc_simple_page/cubit/simple/simple_cubit.dart';
-import '../../../presentation/sample_code/bloc_simple_page/cubit/simple/simple_cubit_interface.dart';
 
 @module
 abstract class PresentationModule {
@@ -12,8 +10,8 @@ abstract class PresentationModule {
   // in the configureDependencies function below
 }
 
-// Helper function to configure dependencies
-void configureDependencies() {
+/// Configures presentation layer specific dependencies
+Future<void> configurePresentationDependencies() async {
   final getIt = GetIt.instance;
 
   // Register AppTrackLogCubit
@@ -22,19 +20,4 @@ void configureDependencies() {
       () => AppTrackLogCubit(getIt<CcAppTrackLog>()),
     );
   }
-
-  // Register SimpleCubit with its interface
-  if (!getIt.isRegistered<SimpleCubitInterface>()) {
-    getIt.registerLazySingleton<SimpleCubitInterface>(
-      () => SimpleCubit(),
-    );
-  }
-}
-
-// This is needed for the injectable generator
-typedef FactoryFunc<T> = T Function();
-
-// This is needed for the injectable generator
-abstract class RegisterModule {
-  void registerDependencies();
 }

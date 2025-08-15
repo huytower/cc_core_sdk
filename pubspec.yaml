@@ -10,7 +10,7 @@ dependencies:
   app_config:
     path: modules/app_config
 
-  auto_route:
+  auto_route: 10.1.0+1
   cc_library:
     path: libraries/cc_library
 
@@ -56,6 +56,9 @@ dependencies:
 
   shared_preferences:
 
+  features:
+    path: libraries/features
+
   theme:
     path: modules/theme
 
@@ -66,9 +69,6 @@ dependencies:
   webview_flutter:
   widget:
     path: modules/widget
-    
-  features:
-    path: libraries/features
 
 dev_dependencies:
   auto_route_generator:

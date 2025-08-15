@@ -37,12 +37,6 @@ class CcAppName {
   });
 }
 
-class CcAppRoutingManager {
-  static RoutingManagerEnum defaultRoutingManager = RoutingManagerEnum.GETX;
-
-  bool get isAutoRoute => defaultRoutingManager == RoutingManagerEnum.AUTO_ROUTE;
-}
-
 class CcAppHostUrlName {
   /// Config host url for networking service || http parser || dio || retrofit
   /// TIPS : free fake api for testing

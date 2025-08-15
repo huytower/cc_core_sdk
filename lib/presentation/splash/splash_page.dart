@@ -1,12 +1,8 @@
-import 'package:app_config/config/app_config/cc_app_config.dart';
 import 'package:app_config/constant/assets_resource.dart';
-import 'package:app_config/enum/routing_manager_enum.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:cc_library/export/kotlin_extension.dart';
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../core/navigate/enum/page_name_enum.dart';
+import 'splash_init.dart';
 
 @RoutePage()
 class SplashPage extends StatefulWidget {
@@ -19,18 +15,12 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    /// write logic & call api
     super.initState();
-
-    final func = () {
-      when(variable: CcAppRoutingManager.defaultRoutingManager, conditions: {
-        RoutingManagerEnum.AUTO_ROUTE: () =>
-            AutoRouter.of(context).replacePath(getPageNameInternal(PageNameInternalEnum.COMMENT)),
-        RoutingManagerEnum.GETX: () => Get.offAndToNamed(getPageNameInternal(PageNameInternalEnum.COMMENT)),
-      });
-    };
-
-    Future.delayed(const Duration(milliseconds: 200)).then((value) => func());
+    // Navigate after a short delay
+    Future.delayed(
+      const Duration(milliseconds: 200),
+      () => navigateFromSplash(context),
+    );
   }
 
   @override

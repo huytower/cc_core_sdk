@@ -31,7 +31,7 @@ features/
 
 #### `data/datasources/{feature_name}_datasource.dart`
 ```dart
-import 'package:features/features.dart';
+import 'package:features/counter_export.dart';
 
 abstract class FeatureNameDatasource {
   Future<FeatureNameEntity> getData();
@@ -41,7 +41,7 @@ abstract class FeatureNameDatasource {
 
 #### `data/repositories/{feature_name}_repository_impl.dart`
 ```dart
-import 'package:features/features.dart';
+import 'package:features/counter_export.dart';
 
 class FeatureNameRepositoryImpl implements FeatureNameRepository {
   final FeatureNameDatasource datasource;

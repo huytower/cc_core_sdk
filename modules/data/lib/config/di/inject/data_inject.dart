@@ -6,7 +6,7 @@ import 'data_inject.config.dart';
 GetIt getItData = GetIt.instance;
 
 @InjectableInit(initializerName: r'$initModuleGetIt')
-Future dataInject(GetIt getIt) async {
+Future<void> configureDataDependencies(GetIt getIt) async {
   getItData = getIt;
 
   getIt.$initModuleGetIt();

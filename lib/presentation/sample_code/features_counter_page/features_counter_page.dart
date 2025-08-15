@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:cc_library/helper/open_dialog.dart';
 import 'package:cc_library/widget/text/cc_text.dart';
-import 'package:features/features.dart';
+import 'package:features/counter/counter_export.dart';
 import 'package:flutter/material.dart';
 
 /// Features Counter Example Page

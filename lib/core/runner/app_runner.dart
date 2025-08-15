@@ -1,17 +1,13 @@
 import 'package:app_config/config/app_config/cc_app_config.dart';
 import 'package:app_config/config/device_info/cc_device_info.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/get.dart';
-import 'package:theme/cc_themes.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
 import '../common/extensions/tracking_log_extension.dart';
+import '../datasource/route_datasource.dart';
 import '../di/inject/app_inject.dart';
-import '../navigate/config/auto_route/routing_manager.dart';
-import '../navigate/config/getx/getx_routing_manager.dart';
+import '../navigate/config/auto_route/app_router.dart';
 import '../navigate/config/getx/routing_strategy.dart';
-import '../navigate/enum/page_name_enum.dart';
 import 'app_runner_impl.dart';
 
 class AppRunner extends StatefulWidget {
@@ -57,27 +53,6 @@ class AppRunnerState extends State<AppRunner> with AppRunnerImpl {
   /// Delegates to [buildAppByRoutingManager] in routing_strategy.dart for functional clarity.
   Widget buildBody() {
     return buildAppByRoutingManager(CcAppRoutingManager.defaultRoutingManager);
-  }
-
-  MaterialApp buildAutoRoute() => MaterialApp.router(
-        routerConfig: _appRouter.config(),
-      );
-
-  GetMaterialApp buildGetxRoute() {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: CcThemes.darkTheme,
-      initialRoute: getPageName(PageNameEnum.SPLASH),
-      getPages: GetxRoutingManager.instance.getPages(),
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        const Locale('en', ''), // English, no country code
-      ],
-    );
   }
 
   @override

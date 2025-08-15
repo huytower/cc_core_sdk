@@ -16,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /// where init dependency injection, ex. : @singleton, @module, @injection ...
-  await appInject();
+  await initializeDependencies();
 
   /// region Register hive adapter.
   final appDocumentDir = await getApplicationDocumentsDirectory();
