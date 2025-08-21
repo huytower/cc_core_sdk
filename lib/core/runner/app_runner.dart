@@ -6,8 +6,8 @@ import '../common/extensions/tracking_log_extension.dart';
 import '../datasource/route_datasource.dart';
 import '../datasource/route_strategy.dart';
 import '../di/inject/app_inject.dart';
-import '../initializers/device_initializer.dart';
-import '../managers/hive_manager.dart';
+import '../common/initializers/device_initializer.dart';
+import '../common/managers/hive_manager.dart';
 
 class AppRunner extends StatefulWidget {
   const AppRunner({Key? key}) : super(key: key);

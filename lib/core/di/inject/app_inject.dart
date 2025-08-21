@@ -7,8 +7,8 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../initializers/device_initializer.dart';
-import '../../managers/hive_manager.dart';
+import '../../common/initializers/device_initializer.dart';
+import '../../common/managers/hive_manager.dart';
 import '../di_export.dart';
 import '../module/library_feature_dependencies.dart';
 import 'app_inject.config.dart';

@@ -1,7 +1,7 @@
 // import 'dart:io' show Platform;
 //
 // import 'package:Template/src/core/di/app_inject.dart';
-// import 'package:Template/src/core/state/bloc_base.dart';
+// import 'package:Template/src/core/common/state/base/bloc_base.dart';
 // import 'package:app_config/enum/layout_status.dart';
 // import 'package:data/config/retrofit/response/cc_response.dart';
 // import 'package:flutter/material.dart';

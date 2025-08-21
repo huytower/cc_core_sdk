@@ -1,8 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_flutter_template/presentation/sample_code/bloc_simple_page/cubit/simple/simple_cubit.dart';
-import 'package:mobile_flutter_template/presentation/sample_code/bloc_simple_page/cubit/simple/simple_cubit_interface.dart';
-import 'package:mobile_flutter_template/presentation/sample_code/bloc_simple_page/cubit/simple/simple_cubit_state.dart';
+import 'package:mobile_flutter_template/sample_code/bloc_simple_page/cubit/simple/simple_cubit.dart';
+import 'package:mobile_flutter_template/sample_code/bloc_simple_page/cubit/simple/simple_cubit_interface.dart';
+import 'package:mobile_flutter_template/sample_code/bloc_simple_page/cubit/simple/simple_cubit_state.dart';
 
 // Mock class for SimpleCubitInterface
 class MockSimpleCubit extends MockCubit<SimpleCubitState> implements SimpleCubit {}
@@ -104,7 +104,6 @@ void main() {
     test('SimpleCubit implements SimpleCubitInterface', () {
       final cubit = SimpleCubit();
       expect(cubit, isA<SimpleCubitInterface>());
-      cubit.close();
     });
 
     test('MockSimpleCubit can be used as SimpleCubitInterface', () {

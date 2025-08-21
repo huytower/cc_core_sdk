@@ -1,5 +1,5 @@
-// import 'package:Template/src/core/state/bloc_base.dart';
-// import 'package:Template/src/core/state/state_base.dart';
+// import 'package:Template/src/core/common/state/base/bloc_base.dart';
+// import 'package:Template/src/core/common/state/base/state_base.dart';
 // import 'package:flutter/material.dart';
 //
 // mixin AffBottomBarProvider<T extends StatefulWidget, B extends BlocBase> on StateBloc<T, B> {
