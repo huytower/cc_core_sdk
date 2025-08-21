@@ -4,7 +4,7 @@ import '../datasources/home_local_datasource.dart';
 import '../datasources/home_remote_datasource.dart';
 
 /// Home Repository Implementation - Data Layer
-/// 
+///
 /// This class implements the HomeRepository interface and coordinates
 /// between local and remote data sources. It follows the Repository Pattern
 /// and the Single Responsibility Principle by managing data operations.
@@ -23,14 +23,14 @@ class HomeRepositoryImpl implements HomeRepository {
     try {
       // First try to get data from local storage
       final localData = await _localDataSource.getHomeData();
-      
+
       // Check if local data is fresh (less than 1 hour old)
       final isDataFresh = DateTime.now().difference(localData.lastUpdated).inHours < 1;
-      
+
       if (isDataFresh) {
         return localData;
       }
-      
+
       // If local data is stale, try to fetch from remote
       try {
         final remoteData = await _remoteDataSource.fetchHomeData();
@@ -58,10 +58,10 @@ class HomeRepositoryImpl implements HomeRepository {
     try {
       // Update remote first
       final updatedRemoteData = await _remoteDataSource.updateHomeData(homeData);
-      
+
       // Then update local cache
       await _localDataSource.saveHomeData(updatedRemoteData);
-      
+
       return updatedRemoteData;
     } catch (e) {
       // If remote update fails, try to update local only
@@ -79,10 +79,10 @@ class HomeRepositoryImpl implements HomeRepository {
     try {
       // Force refresh from remote
       final freshData = await _remoteDataSource.fetchHomeData();
-      
+
       // Update local cache with fresh data
       await _localDataSource.saveHomeData(freshData);
-      
+
       return freshData;
     } catch (e) {
       throw Exception('Failed to refresh home data: $e');

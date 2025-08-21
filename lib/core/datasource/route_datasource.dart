@@ -5,8 +5,11 @@ import '../../core/navigate/enum/page_name_enum.dart';
 /// Handles application routing configuration and route resolution
 class RouteDatasource {
   final PageNameEnum _startRoute;
+
+  // static const RoutingManagerEnum _currentStrategy = RoutingManagerEnum.GETX;
   static const RoutingManagerEnum _currentStrategy = RoutingManagerEnum.AUTO_ROUTE;
 
+  // static const PageNameEnum _defaultStartRoute = PageNameEnum.COMMENT;
   static const PageNameEnum _defaultStartRoute = PageNameEnum.HOME;
 
   const RouteDatasource({

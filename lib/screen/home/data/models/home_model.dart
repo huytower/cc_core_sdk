@@ -1,7 +1,7 @@
 import '../../domain/entities/home_entity.dart';
 
 /// Home Model - Data Layer
-/// 
+///
 /// This class extends the HomeEntity and adds data layer specific functionality
 /// like JSON serialization. It follows the Liskov Substitution Principle
 /// by being a proper subtype of HomeEntity.
@@ -20,9 +20,7 @@ class HomeModel extends HomeEntity {
       title: json['title'] as String? ?? 'Default Title',
       description: json['description'] as String? ?? 'Default Description',
       itemCount: json['itemCount'] as int? ?? 0,
-      lastUpdated: json['lastUpdated'] != null
-          ? DateTime.parse(json['lastUpdated'] as String)
-          : DateTime.now(),
+      lastUpdated: json['lastUpdated'] != null ? DateTime.parse(json['lastUpdated'] as String) : DateTime.now(),
     );
   }
 

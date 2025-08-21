@@ -1,7 +1,7 @@
 part of 'home_bloc.dart';
 
 /// Home Events - Presentation Layer
-/// 
+///
 /// These events represent user actions and system events that can occur
 /// in the home feature. They follow the BLoC pattern for state management.
 abstract class HomeEvent extends Equatable {

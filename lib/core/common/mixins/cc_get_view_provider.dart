@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../presentation/base/structure/getx/cc_get_controller/cc_get_controller.dart';
-import '../../../presentation/base/structure/getx/cc_get_view/cc_get_view.dart';
+import '../../../screen/getx/base/structure/getx/cc_get_controller/cc_get_controller.dart';
+import '../../../screen/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 
 /// Target: Support [complex widgets] (UI structure),
 /// include these methods (like impl interface)

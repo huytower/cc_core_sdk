@@ -1,14 +1,13 @@
 import 'package:app_config/config/app_config/cc_app_config.dart';
-import 'package:app_config/config/device_info/cc_device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
 import '../common/extensions/tracking_log_extension.dart';
 import '../datasource/route_datasource.dart';
+import '../datasource/route_strategy.dart';
 import '../di/inject/app_inject.dart';
-import '../navigate/config/auto_route/app_router.dart';
-import '../navigate/config/getx/routing_strategy.dart';
-import 'app_runner_impl.dart';
+import '../initializers/device_initializer.dart';
+import '../managers/hive_manager.dart';
 
 class AppRunner extends StatefulWidget {
   const AppRunner({Key? key}) : super(key: key);
@@ -17,47 +16,73 @@ class AppRunner extends StatefulWidget {
   State<AppRunner> createState() => AppRunnerState();
 }
 
-class AppRunnerState extends State<AppRunner> with AppRunnerImpl {
-  // make sure you don't initiate your router
-  // inside of the build function.
-  final _appRouter = AppRouter();
+class AppRunnerState extends State<AppRunner> {
+  late final DeviceInitializer _deviceInitializer;
+  late final HiveManager _hiveManager;
 
   @override
   void initState() {
     super.initState();
+    _initializeDependencies();
+    _logEnvironmentInfo();
+    _initializeDevice();
+  }
 
+  void _initializeDependencies() {
+    _deviceInitializer = getIt<DeviceInitializer>();
+    _hiveManager = getIt<HiveManager>();
+  }
+
+  void _logEnvironmentInfo() {
     'API Environment = ${CcAppConfig.environment}'.Log();
     'Routing Management = ${RouteDatasource.currentStrategy}'.Log();
-
-    onInitState();
   }
+
+  Future<void> _initializeDevice() => _deviceInitializer.initialize();
 
   @override
   Widget build(BuildContext context) {
-    final deviceInfo = getIt<CcDeviceInfo>();
+    _updateDeviceDimensions(context);
 
-    deviceInfo
-      ..deviceHeight = MediaQuery.of(context).size.height
-      ..deviceWidth = MediaQuery.of(context).size.width;
-
-    if (deviceInfo.deviceHeight == null || deviceInfo.deviceWidth == null) {
-      'Error : somehow it can not get device resolution'.Log().addAppTrackingLog();
-
-      return const SizedBox();
+    if (!_deviceInitializer.hasValidDimensions()) {
+      return _buildErrorWidget('Error: Unable to get device resolution');
     }
 
     return buildBody();
   }
 
   /// Builds the main app widget according to the selected navigate strategy.
-  /// Delegates to [buildAppByRoutingManager] in routing_strategy.dart for functional clarity.
+  /// Delegates to [buildAppByRoutingManager] in route_strategy.dart for functional clarity.
   Widget buildBody() {
     return buildAppByRoutingManager(RouteDatasource.currentStrategy);
   }
 
+  void _updateDeviceDimensions(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    _deviceInitializer.updateDimensions(
+      mediaQuery.size.height,
+      mediaQuery.size.width,
+    );
+  }
+
+  Widget _buildErrorWidget(String message) {
+    message.Log().addAppTrackingLog();
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Text(
+            message,
+            style: const TextStyle(fontSize: 16, color: Colors.red),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
-    onDispose();
+    _hiveManager.closeBoxes();
     super.dispose();
   }
 }

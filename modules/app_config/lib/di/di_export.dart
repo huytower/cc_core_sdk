@@ -1,3 +1,3 @@
 library app_config_di;
 
-export 'inject/app_config_inject.dart' show configureModuleAppConfigDependencies;
+export 'di_initializer.dart' show initializeAppConfigDependencies;

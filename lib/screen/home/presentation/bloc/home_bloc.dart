@@ -4,14 +4,14 @@ import 'package:injectable/injectable.dart';
 
 import '../../domain/entities/home_entity.dart';
 import '../../domain/usecases/get_home_data_usecase.dart';
-import '../../domain/usecases/update_home_data_usecase.dart';
 import '../../domain/usecases/refresh_home_data_usecase.dart';
+import '../../domain/usecases/update_home_data_usecase.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
 /// Home BLoC - Presentation Layer
-/// 
+///
 /// This BLoC manages the state of the home feature by handling events
 /// and coordinating with use cases. It follows the BLoC pattern and
 /// the Single Responsibility Principle.
@@ -29,7 +29,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         _updateHomeDataUseCase = updateHomeDataUseCase,
         _refreshHomeDataUseCase = refreshHomeDataUseCase,
         super(HomeInitial()) {
-    
     // Register event handlers
     on<LoadHomeDataEvent>(_onLoadHomeData);
     on<RefreshHomeDataEvent>(_onRefreshHomeData);
@@ -44,7 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(HomeLoading());
-    
+
     try {
       final homeData = await _getHomeDataUseCase();
       emit(HomeLoaded(homeData: homeData));
@@ -61,7 +60,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final currentState = state;
     if (currentState is HomeLoaded) {
       emit(HomeRefreshing(homeData: currentState.homeData));
-      
+
       try {
         final refreshedData = await _refreshHomeDataUseCase();
         emit(HomeLoaded(homeData: refreshedData));
@@ -79,7 +78,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final currentState = state;
     if (currentState is HomeLoaded) {
       emit(HomeUpdating(homeData: currentState.homeData));
-      
+
       try {
         final updatedData = currentState.homeData.copyWith(
           title: event.title,
@@ -87,7 +86,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           itemCount: event.itemCount,
           lastUpdated: DateTime.now(),
         );
-        
+
         final result = await _updateHomeDataUseCase(updatedData);
         emit(HomeLoaded(homeData: result));
       } catch (e) {
@@ -104,13 +103,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final currentState = state;
     if (currentState is HomeLoaded) {
       emit(HomeUpdating(homeData: currentState.homeData));
-      
+
       try {
         final updatedData = currentState.homeData.copyWith(
           itemCount: currentState.homeData.itemCount + 1,
           lastUpdated: DateTime.now(),
         );
-        
+
         final result = await _updateHomeDataUseCase(updatedData);
         emit(HomeLoaded(homeData: result));
       } catch (e) {
@@ -127,14 +126,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final currentState = state;
     if (currentState is HomeLoaded) {
       emit(HomeUpdating(homeData: currentState.homeData));
-      
+
       try {
         final newCount = (currentState.homeData.itemCount - 1).clamp(0, double.infinity).toInt();
         final updatedData = currentState.homeData.copyWith(
           itemCount: newCount,
           lastUpdated: DateTime.now(),
         );
-        
+
         final result = await _updateHomeDataUseCase(updatedData);
         emit(HomeLoaded(homeData: result));
       } catch (e) {

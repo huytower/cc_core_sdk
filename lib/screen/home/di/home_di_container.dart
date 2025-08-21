@@ -6,7 +6,7 @@ import '../domain/usecases/update_home_data_usecase.dart';
 import '../presentation/bloc/home_bloc.dart';
 
 /// Home Module - Dependency Injection
-/// 
+///
 /// This module configures only the BLoC for the home feature.
 /// Other dependencies are managed by HomeDependencyModule using injectable.
 class HomeModule {

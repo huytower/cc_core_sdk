@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/home_bloc.dart';
 
 /// Home Content Widget - Presentation Layer
-/// 
+///
 /// This widget handles the main content display and user interactions.
 /// It follows the BLoC pattern for state management and the Single
 /// Responsibility Principle by focusing only on UI rendering.
@@ -71,8 +71,8 @@ class HomeContent extends StatelessWidget {
                   Text(
                     homeData.title,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -83,9 +83,9 @@ class HomeContent extends StatelessWidget {
               ),
             ),
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // Item Count Section
           Card(
             child: Padding(
@@ -112,9 +112,9 @@ class HomeContent extends StatelessWidget {
                       Text(
                         '${homeData.itemCount}',
                         style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                        ),
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                       const SizedBox(width: 24),
                       IconButton(
@@ -131,9 +131,9 @@ class HomeContent extends StatelessWidget {
               ),
             ),
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // Last Updated Section
           Card(
             child: Padding(
@@ -149,16 +149,16 @@ class HomeContent extends StatelessWidget {
                   Text(
                     _formatDateTime(homeData.lastUpdated),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.grey[600],
-                    ),
+                          color: Colors.grey[600],
+                        ),
                   ),
                 ],
               ),
             ),
           ),
-          
+
           const Spacer(),
-          
+
           // Action Buttons
           Row(
             children: [
@@ -216,7 +216,7 @@ class HomeContent extends StatelessWidget {
   String _formatDateTime(DateTime dateTime) {
     final now = DateTime.now();
     final difference = now.difference(dateTime);
-    
+
     if (difference.inDays > 0) {
       return '${difference.inDays} day${difference.inDays == 1 ? '' : 's'} ago';
     } else if (difference.inHours > 0) {

@@ -1,12 +1,12 @@
 part of 'home_bloc.dart';
 
 /// Home States - Presentation Layer
-/// 
+///
 /// These states represent the different UI states that can occur
 /// in the home feature. They follow the BLoC pattern for state management.
 abstract class HomeState extends Equatable {
   const HomeState();
-  
+
   @override
   List<Object> get props => [];
 }
