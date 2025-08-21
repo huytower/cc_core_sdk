@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 
-import '../../enum/page_name_by_route_strategy_enum.dart';
-import '../../enum/page_name_enum.dart';
+import '../../enums/page_name_by_route_strategy_enum.dart';
+import '../../enums/page_name_enum.dart';
 import 'app_router.gr.dart';
 
 /// Centralized router configuration for the application.

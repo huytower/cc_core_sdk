@@ -9,8 +9,8 @@ import '../../../../screen/getx/comment/ui/comment_screen.dart';
 import '../../../../screen/getx/splash/splash_page.dart';
 import '../../../../screen/getx/web/get_x/web_controller.dart';
 import '../../../../screen/getx/web/ui/web_page.dart';
-import '../../enum/page_name_by_route_strategy_enum.dart';
-import '../../enum/page_name_enum.dart';
+import '../../enums/page_name_by_route_strategy_enum.dart';
+import '../../enums/page_name_enum.dart';
 
 /// GETX|BLOC : Routing management
 /// Step 3 : declare navigate screen||page

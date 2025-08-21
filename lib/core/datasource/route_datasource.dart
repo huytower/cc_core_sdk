@@ -1,6 +1,6 @@
 import 'package:app_config/enum/routing_manager_enum.dart';
 
-import '../common/navigate/enum/page_name_enum.dart';
+import '../navigation/enums/page_name_enum.dart';
 
 /// Handles application routing configuration and route resolution
 class RouteDatasource {

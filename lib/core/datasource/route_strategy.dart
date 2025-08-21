@@ -4,9 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:theme/cc_themes.dart';
 
-import '../navigate/config/auto_route/app_router.dart';
-import '../navigate/config/getx/getx_router.dart';
-import '../navigate/enum/page_name_enum.dart';
+import '../navigation/config/auto_route/app_router.dart';
+import '../navigation/config/getx/getx_router.dart';
+import '../navigation/enums/page_name_enum.dart';
 
 /// Abstract strategy for navigate
 abstract class RoutingStrategy {
