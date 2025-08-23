@@ -16,6 +16,11 @@ profile
 
 DerivedData/
 
+# Environment variables
+.env
+.env.*
+!.env.template
+
 .generated/
 
 *.pbxuser

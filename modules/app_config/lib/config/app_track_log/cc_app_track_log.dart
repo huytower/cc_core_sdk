@@ -1,4 +1,4 @@
-import 'package:app_config/box/cc_hive_box.dart';
+import 'package:app_config/box/cc_hive_box.dart' show HiveTypeId, CcHiveBox;
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 

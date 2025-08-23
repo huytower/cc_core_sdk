@@ -2,7 +2,6 @@ import 'package:app_config/config/app_config/network/header/header_model.dart';
 import 'package:app_config/enum/environment.dart';
 import 'package:cc_library/extension/kotlin/when_expression.dart';
 
-import '../../enum/routing_manager_enum.dart';
 import 'api_env/app_config_base.dart';
 import 'api_env/app_config_free.dart';
 import 'api_env/app_config_prod.dart';
@@ -42,17 +41,17 @@ class CcAppHostUrlName {
   /// TIPS : free fake api for testing
   /// ex. : https://mockland.dev/api/news/list
   static String baseUrl = when(variable: CcAppConfig.environment, conditions: {
-    Environment.FREE_FAKE_API: AppConfigFree.baseUrl,
-    Environment.UAT: AppConfigUat.baseUrl,
-    Environment.PROD: AppConfigProd.baseUrl,
+    Environment.FREE_FAKE_API: AppConfigFree().baseUrl,
+    Environment.UAT: AppConfigUat().baseUrl,
+    Environment.PROD: AppConfigProd().baseUrl,
   });
 
   /// Beside above main host service url,
   /// This is second host service url (if has)
   static String baseUrlOther = when(variable: CcAppConfig.environment, conditions: {
-    Environment.FREE_FAKE_API: AppConfigFree.baseUrlOther,
-    Environment.UAT: AppConfigUat.baseUrlOther,
-    Environment.PROD: AppConfigProd.baseUrlOther,
+    Environment.FREE_FAKE_API: AppConfigFree().baseUrl,
+    Environment.UAT: AppConfigUat().baseUrl,
+    Environment.PROD: AppConfigProd().baseUrl,
   });
 }
 

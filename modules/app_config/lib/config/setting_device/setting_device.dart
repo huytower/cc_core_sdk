@@ -12,7 +12,7 @@ class DeviceUtils {
 
     return heightKeyboard;
   }
-}
+}                    
 
 class SettingDevice {
   static int? versionNew = 1;

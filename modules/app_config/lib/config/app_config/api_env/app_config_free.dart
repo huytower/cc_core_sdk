@@ -1,23 +1,46 @@
 import 'package:app_config/config/app_config/api_env/app_config_base.dart';
 import 'package:app_config/config/app_config/cc_app_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+/// Free tier environment configuration with mock APIs
 class AppConfigFree extends AppConfigBase {
-  @override
-  bool isLogger = true;
-
-  static const String baseUrl = 'https://jsonplaceholder.typicode.com';
-  static const String baseUrlOther = 'https://mockland.dev/';
+  bool _isLogger = true;
+  bool _isEnableLoggerDio = CcAppConfigFlags.isEnableLogger;
 
   @override
-  bool get isEnvDev {
-    return false;
-  }
+  bool get isLogger => _isLogger;
 
   @override
-  bool get isEnvPro {
-    return false;
-  }
+  set isLogger(bool value) => _isLogger = value;
 
   @override
-  bool isEnableLoggerDio = CcAppConfigFlags.isEnableLogger;
+  bool get isEnableLoggerDio => _isEnableLoggerDio;
+
+  @override
+  set isEnableLoggerDio(bool value) => _isEnableLoggerDio = value;
+
+  @override
+  String get baseUrl => dotenv.get('API_URL', fallback: 'https://jsonplaceholder.typicode.com');
+
+  @override
+  int get maxRetries => 1; // Fewer retries for free tier
+
+  @override
+  int get retryDelayMs => 500; // Shorter delay for free tier
+
+  @override
+  bool get isEnvDev => true;
+
+  @override
+  bool get isEnvPro => false;
+
+  // Free tier specific configurations
+  static const String environmentName = 'FREE_FAKE_API';
+
+  @override
+  Map<String, String> get apiHeaders => {
+        ...super.apiHeaders,
+        'X-Environment': 'FREE',
+        'X-Mock-Data': 'true',
+      };
 }

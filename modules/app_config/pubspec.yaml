@@ -12,6 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Environment
+  flutter_dotenv:
+
   # Caching
   hive:
   hive_flutter:
