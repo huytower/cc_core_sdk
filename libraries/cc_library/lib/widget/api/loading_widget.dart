@@ -4,7 +4,7 @@ import 'package:cc_library/widget/api/base_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/// this widget show loading progress icon for total page
+/// this ui show loading progress icon for total page
 /// - child param. : total widgets in page
 class LoadingPageWidget extends StatelessWidget {
   const LoadingPageWidget({Key? key, required this.child}) : super(key: key);

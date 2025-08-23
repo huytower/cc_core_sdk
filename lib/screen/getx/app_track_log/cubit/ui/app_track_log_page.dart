@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
-import '../../../../../core/di/inject/app_inject.dart';
+import '../../../../../core/di/inject/inject.dart';
 import '../logic/app_track_log_cubit.dart';
 import '../logic/app_track_log_state.dart';
 

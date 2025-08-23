@@ -1,7 +1,8 @@
-import 'package:cc_library/util/dialog_utils.dart';
 import 'package:cc_library/widget/dialog/base_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+
+import 'global_widget_utils.dart' as DialogUtils;
 
 /// POPULAR UTILS
 /// include most popular|re-use methods|functions,
@@ -24,19 +25,17 @@ Future showDialogConfirm({
   DialogStatus? status = DialogStatus.ERROR,
 }) async =>
     0.5.delay(() => DialogUtils.showDialogConfirm(
-        BaseDialog(
-          onTapCancel: onTapCancel,
-          onTapConfirm: onTapConfirm,
-          agreeText: agreeText,
-          bgColor: bgColor,
-          cancelText: cancelText,
-          confirmTextColor: confirmTextColor,
-          desc: desc,
-          descTextColor: descTextColor,
-          isCancelBtnShown: isCancelBtnShown,
-          isActionBtnVisible: isActionBtnVisible,
-          status: status,
-        ),
+        onTapCancel: onTapCancel,
+        onTapConfirm: onTapConfirm,
+        agreeText: agreeText,
+        bgColor: bgColor,
+        cancelText: cancelText,
+        confirmTextColor: confirmTextColor,
+        desc: desc,
+        descTextColor: descTextColor,
+        isCancelBtnShown: isCancelBtnShown,
+        isActionBtnVisible: isActionBtnVisible,
+        status: status,
         isAllowDismiss: isAllowDismiss,
         isAutoDismiss: isAutoDismiss,
         bgColorBarrier: bgColorBarrier));

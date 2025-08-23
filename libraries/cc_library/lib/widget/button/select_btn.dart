@@ -6,7 +6,7 @@ import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// select button widget, able to get these states :
+/// select button ui, able to get these states :
 /// - selected
 /// - unselected
 class SelectBtn extends StatelessWidget {

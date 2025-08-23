@@ -44,7 +44,6 @@ linter:
     - join_return_with_assignment
     - leading_newlines_in_multiline_strings
     - library_names
-    - library_prefixes
     - missing_whitespace_between_adjacent_strings
     - no_default_cases
     - non_constant_identifier_names

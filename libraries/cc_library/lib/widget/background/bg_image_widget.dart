@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// load Background thumbnail widget from server api
+/// load Background thumbnail ui from server api
 class BackgroundImageWidget extends StatelessWidget {
   const BackgroundImageWidget({Key? key, @required this.thumbnail}) : super(key: key);
 

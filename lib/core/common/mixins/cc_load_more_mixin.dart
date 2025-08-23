@@ -5,8 +5,8 @@ import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
 
-/// Load More widget
-/// Only works after was included into `RefreshIndicator` widget
+/// Load More ui
+/// Only works after was included into `RefreshIndicator` ui
 ///
 /// ex.
 /// RefreshIndicator(

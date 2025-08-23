@@ -3,15 +3,16 @@ import 'package:cc_library/widget/api/loading_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/// Logic : boolean check dialog (using Get.context) is showing or not?
-RxBool isDialogVisible = false.obs;
-
 class DialogUtils {
+  static final RxBool _isDialogVisible = false.obs;
+  
+  /// Getter to check if any dialog is currently visible
+  static bool get isDialogVisible => _isDialogVisible.value;
   /// show dialog confirm
   /// ex.
   /// DialogUtils.showDialogConfirm(BaseDialog(desc: 'ABC\nABC', ));
   static void showDialogConfirm(Widget child, {isAllowDismiss = true, isAutoDismiss = false, bgColorBarrier}) {
-    isDialogVisible.value = true; // notify dialog is visible
+    _isDialogVisible.value = true; // notify dialog is visible
 
     showDialog(
       context: Get.context!,
@@ -21,11 +22,11 @@ class DialogUtils {
     );
 
     /// Logic : if auto-dismiss && dialog is showing, close it
-    if (isAutoDismiss && isDialogVisible.value) {
+    if (isAutoDismiss && isDialogVisible) {
       2.5.delay(() {
         Get.back();
 
-        isDialogVisible.value = false; // notify dialog is invisible
+        _isDialogVisible.value = false; // notify dialog is invisible
       });
     }
   }

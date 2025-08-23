@@ -5,14 +5,14 @@
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'package:theme/export/cc_theme_export.dart';
-// import 'package:widget/widgets/gesture_detector/cc_gesture_detector_ontap.dart';
+// import 'package:ui/widgets/gesture_detector/cc_gesture_detector_ontap.dart';
 //
 // /// Target: serves for customize [base|default widgets] :
 // /// - base widgets inside `cc_get_view` : `abstract class CcGetView<T extends CcGetController> extends GetView<T>`
-// /// popular is customize Header widget|Footer widget.
+// /// popular is customize Header ui|Footer ui.
 // /// ex. in section "Ban hang sieu thi" in app Pos, there are :
-// ///   - customize Header widget, ex. : Search fields ....
-// ///   - customize Footer widget, ex. : customize tab bars.
+// ///   - customize Header ui, ex. : Search fields ....
+// ///   - customize Footer ui, ex. : customize tab bars.
 // /// NOTICE that only uses when need customize [base|default widgets]
 // mixin PageDetailProvider<T extends CcGetController> on CcGetView<T> {
 //   //----------------------------------------------------------------------------

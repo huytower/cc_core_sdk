@@ -9,7 +9,7 @@ import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/di/inject/app_inject.dart';
+import '../../../../../../core/di/inject/inject.dart';
 import '../../../../screen/getx/app_track_log/cubit/ui/app_track_log_page.dart';
 import '../../../../screen/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 import 'simple_cubit.dart';

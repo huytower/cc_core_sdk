@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-/// lay second widget on input widget, as overlay widget
-/// ex. second widget = opacity background | gradient background ..v.
+/// lay second ui on input ui, as overlay ui
+/// ex. second ui = opacity background | gradient background ..v.
 class OverlayWidget extends StatelessWidget {
   const OverlayWidget({Key? key, @required this.isLargeBorder, this.color, this.padding, this.width, this.height})
       : super(key: key);

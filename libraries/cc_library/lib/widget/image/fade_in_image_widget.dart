@@ -4,7 +4,7 @@ import 'package:cc_library/theme/base_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// Customize Image widget, params :
+/// Customize Image ui, params :
 /// - placeHolder : default image inside /asset folder
 /// - image : thumbnail image url, loading via internet
 class FadeInAssetWidget extends StatelessWidget {
@@ -61,7 +61,7 @@ class FadeInAssetWidget extends StatelessWidget {
       );
 }
 
-/// Customize Image widget, params :
+/// Customize Image ui, params :
 /// - placeHolder : default image inside /asset folder
 /// - image : thumbnail image url, loading via internet
 /// in circle fit

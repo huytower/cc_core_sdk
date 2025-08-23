@@ -25,10 +25,10 @@ class CcAppTrackLog extends HiveObject {
   static Future<CcAppTrackLog?> register() async {
     Hive.registerAdapter(CcAppTrackLogAdapter());
     Box<CcAppTrackLog> box = await Hive.openBox<CcAppTrackLog>(CcHiveBox.app_track_log_box_name);
-    CcAppTrackLog? model = box.get(CcHiveBox.key_default);
+    CcAppTrackLog? model = box.get(CcHiveBox.keyDefault);
     if (model == null) {
       model = CcAppTrackLog();
-      box.put(CcHiveBox.key_default, model);
+      box.put(CcHiveBox.keyDefault, model);
     }
     instance = model;
     return model;

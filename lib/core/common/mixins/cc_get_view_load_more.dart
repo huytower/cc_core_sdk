@@ -1,5 +1,5 @@
 // import 'package:cc_library/constant/cc_padding_params.dart';
-// import 'package:cc_library/widget/text/cc_text.dart';
+// import 'package:cc_library/ui/text/cc_text.dart';
 // import 'package:app_config/enum/layout_status.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';

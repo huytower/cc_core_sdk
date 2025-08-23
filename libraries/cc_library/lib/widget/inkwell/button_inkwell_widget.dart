@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// TOP POPULAR RE-USE WIDGET
-/// use for Button widget only, easy-click widget by put height, width
+/// use for Button ui only, easy-click ui by put height, width
 
 /// shape = circle
 class ButtonInkWellCircleWidget extends StatelessWidget {

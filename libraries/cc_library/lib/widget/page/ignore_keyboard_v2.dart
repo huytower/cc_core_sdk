@@ -2,9 +2,9 @@ import 'package:cc_library/widget/base/cc_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-/// Widget use to hide keyboard when click on content widget :
-/// - background widget, is total background page
-/// - content widget, is total body page, ex. page Home .v.v.
+/// Widget use to hide keyboard when click on content ui :
+/// - background ui, is total background page
+/// - content ui, is total body page, ex. page Home .v.v.
 /// - boolean allow scroll total body page or not, default = true
 class IgnoreKeyboardV2 extends StatelessWidget {
   const IgnoreKeyboardV2({

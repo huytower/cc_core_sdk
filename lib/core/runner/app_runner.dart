@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
 import '../common/extensions/tracking_log_extension.dart';
+import '../common/device/device_initializer.dart';
+import '../common/device/device_dimension_manager.dart';
+import '../common/managers/hive_manager.dart';
 import '../datasource/route_datasource.dart';
 import '../datasource/route_strategy.dart';
-import '../di/inject/app_inject.dart';
-import '../common/initializers/device_initializer.dart';
-import '../common/managers/hive_manager.dart';
+import '../di/inject/inject.dart';
 
 class AppRunner extends StatefulWidget {
   const AppRunner({Key? key}) : super(key: key);
@@ -44,14 +45,14 @@ class AppRunnerState extends State<AppRunner> {
   Widget build(BuildContext context) {
     _updateDeviceDimensions(context);
 
-    if (!_deviceInitializer.hasValidDimensions()) {
+    if (!_deviceInitializer.dimensionManager.hasValidDimensions()) {
       return _buildErrorWidget('Error: Unable to get device resolution');
     }
 
     return buildBody();
   }
 
-  /// Builds the main app widget according to the selected navigate strategy.
+  /// Builds the main app ui according to the selected navigate strategy.
   /// Delegates to [buildAppByRoutingManager] in route_strategy.dart for functional clarity.
   Widget buildBody() {
     return buildAppByRoutingManager(RouteDatasource.currentStrategy);
@@ -59,7 +60,7 @@ class AppRunnerState extends State<AppRunner> {
 
   void _updateDeviceDimensions(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    _deviceInitializer.updateDimensions(
+    _deviceInitializer.dimensionManager.updateDimensions(
       mediaQuery.size.height,
       mediaQuery.size.width,
     );

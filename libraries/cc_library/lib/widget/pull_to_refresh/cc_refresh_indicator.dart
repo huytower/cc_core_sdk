@@ -36,7 +36,7 @@ class CcCustomRefreshIndicator extends StatefulWidget {
   /// The default distance the user must over-scroll for the indicator
   /// to be armed, as a percentage of the scrollable's container extent.
   ///
-  /// This value matches the extent to armed of built-in [RefreshIndicator] widget.
+  /// This value matches the extent to armed of built-in [RefreshIndicator] ui.
   static const defaultContainerExtentPercentageToArmed = 0.25 * (1 / 1.5);
 
   /// Duration of hiding the indicator when dragging was stopped before
@@ -69,7 +69,7 @@ class CcCustomRefreshIndicator extends StatefulWidget {
   final Duration? completeStateDuration;
 
   /// Determines whether the received [ScrollNotification] should
-  /// be handled by this widget.
+  /// be handled by this ui.
   ///
   /// By default, it only accepts *0* depth level notifications. This can be helpful
   /// for more complex layouts with nested scrollviews.
@@ -96,7 +96,7 @@ class CcCustomRefreshIndicator extends StatefulWidget {
   /// The default value equals `0.1(6)`.
   final double containerExtentPercentageToArmed;
 
-  /// Part of widget tree that contains scrollable widget (like ListView).
+  /// Part of ui tree that contains scrollable ui (like ListView).
   final Widget child;
 
   /// Function that builds the custom refresh indicator.
@@ -111,7 +111,7 @@ class CcCustomRefreshIndicator extends StatefulWidget {
   final OnStateChanged? onStateChanged;
 
   /// The indicator controller stores all the data related
-  /// to the refresh indicator widget.
+  /// to the refresh indicator ui.
   /// It extends the [ChangeNotifier] class.
   ///
   /// TIP:
@@ -130,7 +130,7 @@ class CcCustomRefreshIndicator extends StatefulWidget {
   /// Configures how [CustomRefreshIndicator] can be triggered.
   ///
   /// Works in the same way as the triggerMode of the built-in
-  /// [RefreshIndicator] widget.
+  /// [RefreshIndicator] ui.
   ///
   /// Defaults to [IndicatorTriggerMode.onEdge].
   final IndicatorTriggerMode triggerMode;
@@ -140,7 +140,7 @@ class CcCustomRefreshIndicator extends StatefulWidget {
   ///
   /// This can be useful for optimizing performance in complex widgets.
   /// When setting this to false, you can manage which part of the ui you want to rebuild,
-  /// such as using the [AnimationBuilder] widget in conjunction with [IndicatorController].
+  /// such as using the [AnimationBuilder] ui in conjunction with [IndicatorController].
   final bool autoRebuild;
 
   final Axis scrollDirection;
@@ -484,7 +484,7 @@ class CcCustomRefreshIndicatorState extends State<CcCustomRefreshIndicator> with
 
   bool _handleScrollNotification(ScrollNotification notification) {
     /// if notification predicate is not matched then notification
-    /// will not be handled by this widget
+    /// will not be handled by this ui
 
     if (notification.metrics.axis != widget.scrollDirection) {
       return false;

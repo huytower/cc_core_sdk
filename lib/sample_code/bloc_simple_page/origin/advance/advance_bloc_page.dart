@@ -7,7 +7,7 @@ import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/di/inject/app_inject.dart';
+import '../../../../../../core/di/inject/inject.dart';
 import '../../../../screen/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 import 'advance_bloc.dart';
 import 'advance_bloc_event.dart';

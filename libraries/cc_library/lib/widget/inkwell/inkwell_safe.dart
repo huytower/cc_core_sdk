@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 /// POPULAR WIDGET
 /// Feature : prevent many clicks in one time
 /// able use either of these ways :
-/// - Way 1 : include InkWellSafe widget, is inside of destination widget. ex. : ScanBarcodeButton ...
+/// - Way 1 : include InkWellSafe ui, is inside of destination ui. ex. : ScanBarcodeButton ...
 /// - Way 2 : BaseUtils.preventClickSoFast(Function f)
 /// NOTICE : in case duplicate onTap() method, can only use Way 2
 class InkWellSafe extends StatefulWidget {

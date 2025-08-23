@@ -1,7 +1,7 @@
 import 'package:app_config/config/app_config/cc_app_config.dart';
 import 'package:app_config/config/app_track_log/cc_app_track_log.dart';
 import 'package:cc_library/helper/device_helper.dart';
-import 'package:cc_library/util/base_utils.dart';
+import 'package:cc_library/util/common/device_utils.dart';
 import 'package:data/model/device/device_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +36,7 @@ class AppTrackLogCubit extends Cubit<AppTrackLogState> {
   }
 
   Future<void> _loadAppVersion() async {
-    final version = await BaseUtils.getAppVersion();
+    final version = await DeviceUtils.getAppVersion();
     emit(state.copyWith(appVersion: version));
   }
 

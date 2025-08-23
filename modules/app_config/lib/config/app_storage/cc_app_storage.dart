@@ -27,12 +27,12 @@ class CcAppStorage extends HiveObject {
   static Future<CcAppStorage?> register() async {
     Hive.registerAdapter(CcAppStorageAdapter());
     Box<CcAppStorage> box = await Hive.openBox<CcAppStorage>(CcHiveBox.application_box_name);
-    CcAppStorage? model = box.get(CcHiveBox.key_default);
+    CcAppStorage? model = box.get(CcHiveBox.keyDefault);
 
     /// is it existed? if not, init it
     if (model == null) {
       model = CcAppStorage();
-      box.put(CcHiveBox.key_default, model);
+      box.put(CcHiveBox.keyDefault, model);
     }
     instance = model;
     return model;

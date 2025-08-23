@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-/// Reduce boilerplate code if use all paddings for input widget
+/// Reduce boilerplate code if use all paddings for input ui
 class CcPadding extends StatelessWidget {
   const CcPadding(this.w, this.bottom, this.left, this.right, this.top, {Key? key}) : super(key: key);
 

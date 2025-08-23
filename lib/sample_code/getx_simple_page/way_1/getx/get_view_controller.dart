@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
 import '../../../../../../core/common/extensions/tracking_log_extension.dart';
-import '../../../../../../core/di/inject/app_inject.dart';
+import '../../../../../../core/di/inject/inject.dart';
 import '../../../../screen/getx/base/structure/getx/cc_get_controller/cc_get_controller.dart';
 
 /// GETX : BINDINGS + CONTROLLER

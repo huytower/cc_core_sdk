@@ -33,11 +33,11 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return CustomRefreshIndicator(
-//       offsetToArmed: widget.indicatorSize,
+//       offsetToArmed: ui.indicatorSize,
 //       onRefresh:
-//           widget.onRefresh ?? () => Future.delayed(const Duration(seconds: 1)),
-//       child: widget.child,
-//       completeStateDuration: widget.completeStateDuration,
+//           ui.onRefresh ?? () => Future.delayed(const Duration(seconds: 1)),
+//       child: ui.child,
+//       completeStateDuration: ui.completeStateDuration,
 //       builder: (
 //         BuildContext context,
 //         Widget child,
@@ -63,14 +63,14 @@
 //                 } else if (_helper.didStateChange(to: IndicatorState.idle)) {
 //                   _renderCompleteState = false;
 //                 }
-//                 final containerHeight = controller.value * widget.indicatorSize;
+//                 final containerHeight = controller.value * ui.indicatorSize;
 //                 return Container(
 //                   alignment: Alignment.center,
 //                   height: containerHeight,
 //                   child: AnimatedContainer(
 //                     duration: const Duration(milliseconds: 150),
 //                     alignment: Alignment.center,
-//                     color: widget.backgroundColor,
+//                     color: ui.backgroundColor,
 //                     // child: when(
 //                     //   equal: {
 //                     //     _renderCompleteState: const SpinKitThreeBounce(
@@ -90,7 +90,7 @@
 //             AnimatedBuilder(
 //               builder: (context, _) {
 //                 return Transform.translate(
-//                   offset: Offset(0.0, controller.value * widget.indicatorSize),
+//                   offset: Offset(0.0, controller.value * ui.indicatorSize),
 //                   child: child,
 //                 );
 //               },

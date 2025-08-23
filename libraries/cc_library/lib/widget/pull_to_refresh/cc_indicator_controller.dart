@@ -64,11 +64,11 @@ class CcIndicatorController extends ChangeNotifier {
   /// can then be triggered from both edges.
   ///
   /// It is null when the edge is still not determined by
-  /// the [CustomRefreshIndicator] widget.
+  /// the [CustomRefreshIndicator] ui.
   IndicatorEdge? get edge => _edge;
   IndicatorEdge? _edge;
 
-  /// Whether the [edge] was determined by the [CustomRefreshIndicator] widget.
+  /// Whether the [edge] was determined by the [CustomRefreshIndicator] ui.
   bool get hasEdge => edge != null;
 
   void setIndicatorEdge(IndicatorEdge? edge) {

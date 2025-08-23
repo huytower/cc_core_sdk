@@ -1,14 +1,14 @@
 // import 'dart:io' show Platform;
 //
-// import 'package:Template/src/core/di/app_inject.dart';
+// import 'package:Template/src/core/di/inject.dart';
 // import 'package:Template/src/core/common/state/base/bloc_base.dart';
 // import 'package:app_config/enum/layout_status.dart';
 // import 'package:data/config/retrofit/response/cc_response.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 // import 'package:theme/src/prj_color.dart';
-// import 'package:widget/export/cc_ktx_export.dart';
-// import 'package:widget/multipe_status/error_screen.dart';
+// import 'package:ui/export/cc_ktx_export.dart';
+// import 'package:ui/multipe_status/error_screen.dart';
 //
 // export 'package:theme/cc_themes.dart';
 //
@@ -184,7 +184,7 @@
 //     _isInitBuild = false;
 //   }
 //
-//   /// [childBuild] is a child widget of [Build].
+//   /// [childBuild] is a child ui of [Build].
 //   @protected
 //   Widget childBuild(BuildContext context);
 //

@@ -2,7 +2,7 @@ import 'package:data/entities/comment/comment.dart';
 import 'package:data/repositories/comment/comment_repositories.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/di/inject/app_inject.dart';
+import '../../../../core/di/inject/inject.dart';
 import '../../base/structure/getx/cc_get_controller/cc_get_controller.dart';
 
 class CommentBinding extends Bindings {

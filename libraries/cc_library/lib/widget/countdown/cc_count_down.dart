@@ -23,7 +23,7 @@ class CcCountDown extends StatefulWidget {
 
   final callback;
 
-  /// return method, return value to called widget
+  /// return method, return value to called ui
 
   @override
   State<CcCountDown> createState() => _CcCountDownState();

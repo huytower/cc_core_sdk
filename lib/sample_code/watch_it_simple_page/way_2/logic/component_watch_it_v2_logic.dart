@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:watch_it/watch_it.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
-import '../../../../../../core/di/inject/app_inject.dart';
+import '../../../../../../core/di/inject/inject.dart';
 
 /// WatchItMixin : LOGIC
 /// Step 1 : create Logic component, mandatory includes :

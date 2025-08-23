@@ -1,4 +1,4 @@
-import 'package:cc_library/util/extension_utils.dart';
+import 'package:cc_library/util/common/image_utils.dart';
 import 'package:cc_library/widget/inkwell/inkwell_safe.dart';
 import 'package:cc_library/widget/padding/cc_padding.dart';
 import 'package:cc_library/widget/shadow/shadow_widget.dart';
@@ -39,7 +39,7 @@ class ScanBarcodeBtn extends StatelessWidget {
 
   Widget get getChild =>
       icon ??
-      (ExtensionUtils.isSvgExtension(src)
+      (ImageUtils.isSvgExtension(src)
           ? SvgPicture.asset(
               src,
               fit: BoxFit.contain,

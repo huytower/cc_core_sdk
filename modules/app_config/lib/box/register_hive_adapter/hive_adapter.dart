@@ -1,9 +1,70 @@
+import 'dart:developer' as developer;
+
 import 'package:app_config/config/app_storage/cc_app_storage.dart';
 import 'package:app_config/config/app_track_log/cc_app_track_log.dart';
 import 'package:app_config/config/device_info/cc_device_info.dart';
 
-Future registerHiveAdapter() async {
-  await CcAppStorage.register();
-  await CcDeviceInfo.register();
-  await CcAppTrackLog.register();
+/// Registers all Hive adapters used in the application.
+///
+/// This function should be called during app initialization, before any Hive operations are performed.
+/// It registers all custom Hive adapters with their respective type IDs.
+///
+/// Throws [HiveError] if any adapter registration fails.
+///
+/// Example usage:
+/// ```dart
+/// void main() async {
+///   WidgetsFlutterBinding.ensureInitialized();
+///   await Hive.initFlutter();
+///   await registerHiveAdapter();
+///   runApp(MyApp());
+/// }
+/// ```
+Future<void> registerHiveAdapter() async {
+  try {
+    developer.log('Registering Hive adapters...');
+
+    await _registerAdapterWithErrorHandling(
+      'CcAppStorage',
+      () => CcAppStorage.register(),
+    );
+
+    await _registerAdapterWithErrorHandling(
+      'CcDeviceInfo',
+      () => CcDeviceInfo.register(),
+    );
+
+    await _registerAdapterWithErrorHandling(
+      'CcAppTrackLog',
+      () => CcAppTrackLog.register(),
+    );
+
+    developer.log('All Hive adapters registered successfully');
+  } catch (e, stackTrace) {
+    developer.log(
+      'Failed to register one or more Hive adapters',
+      error: e,
+      stackTrace: stackTrace,
+    );
+    rethrow;
+  }
+}
+
+/// Helper function to register a single adapter with error handling and logging
+Future<void> _registerAdapterWithErrorHandling(
+  String adapterName,
+  Future<void> Function() registerFunction,
+) async {
+  try {
+    developer.log('Registering $adapterName adapter...');
+    await registerFunction();
+    developer.log('$adapterName adapter registered successfully');
+  } catch (e, stackTrace) {
+    developer.log(
+      'Failed to register $adapterName adapter',
+      error: e,
+      stackTrace: stackTrace,
+    );
+    rethrow;
+  }
 }

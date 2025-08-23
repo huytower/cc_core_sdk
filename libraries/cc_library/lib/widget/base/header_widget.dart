@@ -1,10 +1,8 @@
 import 'package:cc_library/constant/cc_padding_params.dart';
 import 'package:cc_library/theme/base_colors.dart';
-import 'package:cc_library/util/base_utils.dart';
-import 'package:cc_library/util/extension_utils.dart';
+import 'package:cc_library/util/common/image_utils.dart';
 import 'package:cc_library/widget/base/cc_position.dart';
 import 'package:cc_library/widget/button/cc_back_btn.dart';
-import 'package:cc_library/widget/flex/cc_column_start.dart';
 import 'package:cc_library/widget/flex/cc_row_start.dart';
 import 'package:cc_library/widget/padding/cc_padding.dart';
 import 'package:cc_library/widget/space/cc_space.dart';
@@ -12,6 +10,8 @@ import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../util/common/device_utils.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({
@@ -38,7 +38,20 @@ class HeaderWidget extends StatelessWidget {
   final bool isBackButtonVisible, isRightButtonVisible;
 
   @override
-  Widget build(BuildContext context) => getHeaderContainerWidget();
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        /// Section : Background
+        getBackgroundWidget(),
+
+        /// Section : Title
+        _buildHeaderContent(context),
+
+        /// Section : Space
+        const CcSpace(),
+      ],
+    );
+  }
 
   Widget getBackgroundWidget() => bgAssetRes != null
       ? Image.asset(
@@ -49,67 +62,62 @@ class HeaderWidget extends StatelessWidget {
         )
       : const SizedBox();
 
-  Widget getDataWidget() => CcColStart(
-        children: [
-          /// space
-          spaceHeader != null
-              ? SizedBox(
-                  height: spaceHeader,
-                )
-              : const CcSpaceHeader(),
+  Widget _buildHeaderContent(BuildContext context) {
+    return Stack(
+      children: [
+        /// Section : Icon Page, show at middle side
+        getIconPageWidget(context),
 
-          /// header
-          getHeaderTitleWidget(),
-        ],
-      );
+        /// Section : Content
+        CcRowStart(
+          children: [
+            /// Left side: Back button and title
+            Expanded(
+              child: CcRowStart(
+                children: [
+                  /// Space left
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final mediaQuery = MediaQuery.of(context);
+                      final screenWidth = mediaQuery.size.width;
+                      final bottomPadding = mediaQuery.padding.bottom;
+                      final isLarge = DeviceUtils.isLargeScreen(
+                        screenWidth: screenWidth,
+                        bottomPadding: bottomPadding,
+                      );
+                      return SizedBox(
+                        width: isLarge ? 16.5 : 12.0,
+                      );
+                    },
+                  ),
 
-  /// Header section, included title + space, set aspect ratio para.
-  Widget getHeaderContainerWidget() => Stack(
-        children: [
-          /// Section : Background
-          getBackgroundWidget(),
+                  /// Back button
+                  Opacity(
+                    opacity: isBackButtonVisible ? 1.0 : 0.0,
+                    child: CcBackAssetBtn(
+                      iconBackAssetRes!,
+                      onTap: onTapBack!,
+                    ),
+                  ),
 
-          /// Section : data
-          getDataWidget(),
-        ],
-      );
-
-  Widget getHeaderTitleWidget() => Stack(
-        children: [
-          /// Section : Icon Page, show at middle side,
-          getIconPageWidget(),
-
-          /// Section : Back icon + title page, show at left side
-          CcRowStart(
-            children: [
-              /// space left
-              SizedBox(
-                width: BaseUtils.isProMaxDeviceType() ? 16.5 : 12.0,
+                  /// Title
+                  Expanded(
+                    child: getTitlePageWidget(),
+                  ),
+                ],
               ),
+            ),
 
-              /// Section : Back button
-              Opacity(
-                opacity: isBackButtonVisible ? 1.0 : 0.0,
-                child: CcBackAssetBtn(
-                  iconBackAssetRes!,
-                  onTap: onTapBack!,
-                ),
-              ),
+            /// Right side: Skip button
+            getRightButtonWidget(),
 
-              /// Section : Title text
-              getTitlePageWidget(),
-            ],
-          ),
-
-          /// Section : Skip button, show at right side
-          getRightButtonWidget(),
-
-          /// space right
-          SizedBox(
-            width: 15.0,
-          ),
-        ],
-      );
+            /// Space right
+            const SizedBox(width: 15),
+          ],
+        ),
+      ],
+    );
+  }
 
   Widget getRightButtonWidget() => onTapAtRightButton != null
       ? Positioned(
@@ -142,25 +150,32 @@ class HeaderWidget extends StatelessWidget {
               0))
       : const SizedBox();
 
-  Widget getIconPageWidget() => CcPositionBottom(
-        bottom: getSpaceBottom(),
+  Widget getIconPageWidget(BuildContext context) => CcPositionBottom(
+        bottom: getSpaceBottom(context),
         child: iconPageAssetRes != null ? getImageResWidget(iconPageAssetRes!) : const SizedBox(),
       );
 
-  Widget getImageResWidget(String iconPageAssetRes) => ExtensionUtils.isSvgExtension(iconPageAssetRes)
+  Widget getImageResWidget(String iconPageAssetRes) => ImageUtils.isSvgExtension(iconPageAssetRes)
       ? SvgPicture.asset(
           iconPageAssetRes,
         )
       : Image.asset(
           iconPageAssetRes,
-          height: 35.0,
+          height: 35,
           fit: BoxFit.contain,
         );
 
-  double getSpaceBottom() {
-    if (BaseUtils.isProMaxDeviceType()) {
+  double getSpaceBottom(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final bottomPadding = mediaQuery.padding.bottom;
+    
+    if (DeviceUtils.isLargeScreen(
+      screenWidth: screenWidth,
+      bottomPadding: bottomPadding,
+    )) {
       return 3;
-    } else if (BaseUtils.isSmallerThan5InchDeviceType()) {
+    } else if (DeviceUtils.isSmallScreen(screenWidth)) {
       return 6;
     } else {
       return 12;
@@ -169,7 +184,7 @@ class HeaderWidget extends StatelessWidget {
 
   Widget getTitlePageWidget() => CcText(
         title,
-        fontSize: 24.0,
+        fontSize: 24,
         align: Alignment.center,
         textAlign: TextAlign.center,
         fontWeight: FontWeight.w500,

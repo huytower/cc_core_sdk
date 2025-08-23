@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../util/base_utils.dart';
+import '../../util/common/string_utils.dart';
 import '../flex/cc_row_between.dart';
 import '../inkwell/inkwell_click.dart';
 import '../space/cc_space.dart';
@@ -36,7 +36,7 @@ class CcCopyBtn extends StatelessWidget {
   Widget build(BuildContext context) => Stack(
         children: [
           const IconCopy(),
-          InkWellClick(onTap: onTap ?? () => BaseUtils.copyToClipboard(title ?? '')),
+          InkWellClick(onTap: onTap ?? () => StringUtils.copyToClipboard(title ?? '')),
         ],
       );
 }

@@ -1,4 +1,4 @@
-class ExtensionUtils {
+class ImageUtils {
   static const String EXTENSION_JPG = '.jpg';
   static const String EXTENSION_LOTTIE = '.json';
   static const String EXTENSION_PNG = '.png';

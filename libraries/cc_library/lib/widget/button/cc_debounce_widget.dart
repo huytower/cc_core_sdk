@@ -9,7 +9,7 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 
 /// POPULAR WIDGET
-/// + make bounce|debounce animation for input widget, ex. button .v.v.
+/// + make bounce|debounce animation for input ui, ex. button .v.v.
 class CcDebounce extends StatelessWidget {
   final VoidCallback? onTap;
 
@@ -31,7 +31,7 @@ class CcDebounce extends StatelessWidget {
 
   final String title;
 
-  /// Input widget, ex. : Text component or [Icon + Text] components
+  /// Input ui, ex. : Text component or [Icon + Text] components
   final Widget? child;
 
   const CcDebounce({

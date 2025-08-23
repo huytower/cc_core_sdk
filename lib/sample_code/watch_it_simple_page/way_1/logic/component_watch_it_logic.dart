@@ -1,12 +1,12 @@
 import 'package:app_config/config/app_config/cc_app_config.dart';
 import 'package:cc_library/helper/device_helper.dart';
-import 'package:cc_library/util/base_utils.dart';
+import 'package:cc_library/util/common/device_utils.dart';
 import 'package:data/model/sample/sample_model_watch_it.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
-import '../../../../../../core/di/inject/app_inject.dart';
+import '../../../../../../core/di/inject/inject.dart';
 
 /// WatchItMixin : LOGIC
 /// create Logic component, mandatory includes :
@@ -25,7 +25,7 @@ class ComponentWatchItLogic {
       '/${appVersion.value}'
       '/is release build mode = ${!kDebugMode}';
 
-  Future<String> getAppVersion() async => await BaseUtils.getAppVersion();
+  Future<String> getAppVersion() async => await DeviceUtils.getAppVersion();
 
   Future<void> getDeviceInfo() async {
     try {

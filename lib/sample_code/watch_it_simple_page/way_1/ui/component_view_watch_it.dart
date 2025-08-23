@@ -6,7 +6,7 @@ import 'package:cc_library/widget/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
-import '../../../../../../core/di/inject/app_inject.dart';
+import '../../../../../../core/di/inject/inject.dart';
 import '../logic/component_watch_it_logic.dart';
 
 /// WatchItMixin : UI

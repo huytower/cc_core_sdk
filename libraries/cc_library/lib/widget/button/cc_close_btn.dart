@@ -1,4 +1,4 @@
-import 'package:cc_library/util/extension_utils.dart';
+import 'package:cc_library/util/common/image_utils.dart';
 import 'package:cc_library/widget/inkwell/inkwell_safe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -36,7 +36,7 @@ class CcCloseBtn extends StatelessWidget {
 
   Widget buildIcon() =>
       icon ??
-      (ExtensionUtils.isSvgExtension(src)
+      (ImageUtils.isSvgExtension(src)
           ? SvgPicture.asset(
               src,
             )

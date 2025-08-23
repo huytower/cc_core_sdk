@@ -5,7 +5,7 @@ import '../bloc/home_bloc.dart';
 
 /// Home Content Widget - Presentation Layer
 ///
-/// This widget handles the main content display and user interactions.
+/// This ui handles the main content display and user interactions.
 /// It follows the BLoC pattern for state management and the Single
 /// Responsibility Principle by focusing only on UI rendering.
 class HomeContent extends StatelessWidget {

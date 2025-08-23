@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'core/di/dependency_register.dart';
-import 'core/di/inject/app_inject.dart';
+import 'core/di/inject/inject.dart';
 import 'core/runner/app_runner.dart';
 
 /// NOTICE : there are 3 env. : FREE_FAKE_API (FREE) | UAT | PROD
@@ -18,6 +18,10 @@ void main() async {
   /// where init dependency injection, ex. : @singleton, @module, @injection ...
   await initializeDependencies();
 
+  /// manually register into memory by using get_it lib,
+  /// anyway, RECOMMEND use `injectable` for auto-inject
+  registerSingletonApp();
+
   /// region Register hive adapter.
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
@@ -28,10 +32,6 @@ void main() async {
 
   /// define main support language
   await CcLocalization.setLocale('en');
-
-  /// manually register into memory by using get_it lib,
-  /// anyway, RECOMMEND use `injectable` for auto-inject
-  registerSingletonApp();
 
   /// Run App Prj.
   runApp(const AppRunner());

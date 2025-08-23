@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../theme/base_colors.dart';
-import '../util/base_utils.dart';
+import '../util/common/device_utils.dart';
 
 /// Widget utilities
 class WidgetHelper {
@@ -42,11 +42,20 @@ class WidgetHelper {
 
   static BorderRadius getCircleBorderRadius() => BorderRadius.circular(45);
 
-  static BoxFit getBoxFitType() {
-    if (BaseUtils.isProMaxDeviceType()) {
+  /// Determines the appropriate BoxFit based on screen dimensions
+  /// 
+  /// [screenWidth] - The width of the screen in logical pixels
+  /// [bottomPadding] - The bottom padding from MediaQuery
+  static BoxFit getBoxFitType({
+    required double screenWidth,
+    required double bottomPadding,
+  }) {
+    if (DeviceUtils.isLargeScreen(
+      screenWidth: screenWidth,
+      bottomPadding: bottomPadding,
+    )) {
       return BoxFit.fill;
     }
-
     return BoxFit.cover;
   }
 

@@ -3,7 +3,7 @@ import 'package:cc_library/widget/padding/cc_padding.dart';
 import 'package:flutter/material.dart';
 
 /// TOP POPULAR RE-USE WIDGET
-/// vertical divider, small vertical divider_line widget
+/// vertical divider, small vertical divider_line ui
 class CcDividerLine extends StatelessWidget {
   const CcDividerLine({Key? key, this.color, this.height, this.padding}) : super(key: key);
 

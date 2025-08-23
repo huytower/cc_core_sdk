@@ -6,7 +6,7 @@ import 'package:data/config/retrofit/response/body/cc_res_body_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../core/di/inject/app_inject.dart';
+import '../../../../../../core/di/inject/inject.dart';
 
 abstract class CcGetController extends SuperController {
   Rx<LayoutStatus> layoutStatus = Rx<LayoutStatus>(LayoutStatus.loading);

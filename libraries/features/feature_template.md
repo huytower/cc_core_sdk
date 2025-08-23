@@ -127,7 +127,7 @@ class FeatureNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Implement your widget UI here
+    // Implement your ui UI here
     return const Center(
       child: Text('Feature Name Widget'),
     );

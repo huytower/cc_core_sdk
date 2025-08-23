@@ -17,7 +17,7 @@ class _TriggerSwitchState extends State<TriggerSwitch> {
   @override
   Widget build(BuildContext context) => AnimatedToggleSwitch<int>.rolling(
         current: widget.v.value,
-        // current: v ?? widget.value,
+        // current: v ?? ui.value,
         values: const [0, 1],
         onChanged: (i) => setState(() {
           /// update UI

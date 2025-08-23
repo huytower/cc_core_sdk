@@ -54,7 +54,7 @@ final Map<RoutingManagerEnum, RoutingStrategy> routingStrategies = {
   RoutingManagerEnum.GETX: GetxRouteStrategy(),
 };
 
-/// Returns the main app widget for the given navigate manager, or throws if not supported.
+/// Returns the main app ui for the given navigate manager, or throws if not supported.
 Widget buildAppByRoutingManager(RoutingManagerEnum manager) {
   final strategy = routingStrategies[manager];
   if (strategy != null) {

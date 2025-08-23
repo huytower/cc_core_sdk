@@ -91,7 +91,7 @@ class ActionBtnInDialog extends StatelessWidget {
         ),
       );
 
-  /// cancel button widget
+  /// cancel button ui
   Widget getCancelButtonWidget() => SizedBox(
         height: heightActionBtn ?? 35,
         child: CcDebounce(
@@ -112,7 +112,7 @@ class ActionBtnInDialog extends StatelessWidget {
             )),
       );
 
-  /// confirm button widget
+  /// confirm button ui
   Widget getConfirmButtonWidget() => SizedBox(
         height: heightActionBtn ?? 35,
         child: CcDebounce(

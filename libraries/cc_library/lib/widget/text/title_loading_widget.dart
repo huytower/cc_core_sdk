@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 /// POPULAR WIDGET
-/// Skeleton|Shimmer|Waiting|Loading text (Loading text widget), is showing while loading data from API response.
+/// Skeleton|Shimmer|Waiting|Loading text (Loading text ui), is showing while loading data from API response.
 class TitleLoadingWidget extends StatelessWidget {
   const TitleLoadingWidget({Key? key, this.lineWidth, this.lineHeight}) : super(key: key);
 

@@ -1,17 +1,17 @@
 import 'package:app_config/config/device_info/cc_device_info.dart';
 import 'package:app_config/di/di_export.dart';
-import 'package:cc_library/helper/device_helper.dart';
-import 'package:cc_library/util/base_utils.dart';
-import 'package:data/config/di/di.dart';
+import 'package:data/config/di/di_export.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../common/initializers/device_initializer.dart';
+import '../../common/device/device_dimension_manager.dart';
+import '../../common/device/device_info_manager.dart';
+import '../../common/device/device_initializer.dart';
 import '../../common/managers/hive_manager.dart';
 import '../di_export.dart';
 import '../module/library_feature_dependencies.dart';
-import 'app_inject.config.dart';
+import 'inject.config.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -46,12 +46,23 @@ Future<void> _configureCoreDependencies() async {
     getIt.registerLazySingleton<HiveManager>(() => HiveManager());
   }
 
+  // Register device-related dependencies
+  if (!getIt.isRegistered<DeviceInfoManager>()) {
+    getIt.registerLazySingleton<DeviceInfoManager>(
+      () => DeviceInfoManager(getIt<CcDeviceInfo>()),
+    );
+  }
+
+  if (!getIt.isRegistered<DeviceDimensionManager>()) {
+    getIt.registerLazySingleton<DeviceDimensionManager>(
+      () => DeviceDimensionManager(getIt<CcDeviceInfo>()),
+    );
+  }
+
   if (!getIt.isRegistered<DeviceInitializer>()) {
     getIt.registerLazySingleton<DeviceInitializer>(
-      () => DeviceInitializer(
+      () => DeviceInitializer.withDefaults(
         deviceInfo: getIt<CcDeviceInfo>(),
-        deviceHelper: DeviceHelper(),
-        baseUtils: BaseUtils(),
       ),
     );
   }

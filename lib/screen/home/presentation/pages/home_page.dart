@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/di/inject/app_inject.dart';
+import '../../../../core/di/inject/inject.dart';
 import '../bloc/home_bloc.dart';
 import '../widgets/home_content.dart';
 
@@ -25,8 +25,8 @@ class HomePage extends StatelessWidget {
 
 /// Home View - Presentation Layer
 ///
-/// This widget handles the main UI structure and delegates content
-/// rendering to the HomeContent widget.
+/// This ui handles the main UI structure and delegates content
+/// rendering to the HomeContent ui.
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
