@@ -90,3 +90,5 @@ flutter:
   # Environment files
   assets:
     - env/.env
+    - env/.env.uat
+    - env/.env.production

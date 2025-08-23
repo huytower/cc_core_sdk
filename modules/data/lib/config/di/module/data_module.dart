@@ -28,9 +28,6 @@ abstract class DataModule {
   @Named("baseUrl")
   String get baseUrl => CcAppHostUrlName.baseUrl;
 
-  @Named("baseUrlOther")
-  String get baseUrlOther => CcAppHostUrlName.baseUrlOther;
-
   @singleton
   @Named("baseDio")
   Dio dio(@Named("baseUrl") String baseUrl) {
