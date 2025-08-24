@@ -1,9 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import '../../core/config/app_storage/cc_app_storage.dart';
-import '../../core/config/app_track_log/cc_app_track_log.dart';
-import '../../core/config/device_info/cc_device_info.dart';
+import '../../config/app_storage/cc_app_storage.dart';
+import '../../config/app_track_log/cc_app_track_log.dart';
+import '../../config/device_info/cc_device_info.dart';
 import '../../helper/network_helper.dart';
 
 /// Defines and provides core dependencies for the AppConfig module.

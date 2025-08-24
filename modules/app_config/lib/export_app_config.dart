@@ -1,6 +1,6 @@
 /// App Configuration Module
 ///
-/// Provides environment-aware configuration for the application.
+/// Provides environment-aware configuration and core functionality for the application.
 ///
 /// ## Usage
 ///
@@ -28,18 +28,25 @@
 /// ```
 
 // Core functionality
-export 'core/box/cc_hive_box.dart';
-export 'core/box/register_hive_adapter/register_hive_adapter.dart';
+export 'box/cc_hive_box.dart';
+export 'box/register_hive_adapter/register_hive_adapter.dart';
+
 // Core Configuration
-export 'core/config/app_config/cc_app_config.dart';
+export 'config/app_config/cc_app_config.dart';
+
 // Constants
-export 'core/constant/assets_resource.dart';
-export 'core/constant/cc_constants.dart';
-// Environment
-export 'core/enum/environment.dart';
-export 'core/enum/layout_status.dart';
-export 'core/enum/routing_manager_enum.dart';
+export 'constant/cc_constants.dart';
+
+// Data Sources
+export 'data_source/assets_data_source.dart';
+
+// Enums
+export 'enum/environment.dart';
+export 'enum/layout_status.dart';
+export 'enum/routing_manager_enum.dart';
+
 // Extensions
 export 'extension/app_track_log_extension.dart';
+
 // Helpers
 export 'helper/network_helper.dart';
