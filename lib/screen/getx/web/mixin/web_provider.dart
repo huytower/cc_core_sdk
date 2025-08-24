@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reusable/custom_page/page_loading.dart';
+import 'package:reusable/pages/loading/loading_page.dart';
 
 import '../../base/structure/getx/cc_get_view/cc_get_view.dart';
 import '../get_x/web_controller.dart';
@@ -42,6 +42,6 @@ mixin WebRedirectProvider<T extends WebController> on CcGetView<T> {
 
   //----------------------------------------------------------------------------
   @override
-  Widget loadingLayout() => PageLoading();
+  Widget loadingLayout() => const PageLoading();
 //----------------------------------------------------------------------------
 }
