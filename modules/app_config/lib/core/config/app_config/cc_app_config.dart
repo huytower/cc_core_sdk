@@ -1,6 +1,6 @@
-import 'package:app_config/enum/environment.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import '../../enum/environment.dart';
 import 'api_env/app_config_base.dart';
 import 'api_env/app_config_free.dart';
 import 'api_env/app_config_prod.dart';
@@ -27,13 +27,13 @@ class CcAppConfig {
   /// Current environment, defaults to FREE_FAKE_API
   /// Can be set via `--dart-define=ENV=uat` or `--dart-define=ENV=prod`
   static Environment _environment = _getEnvironmentFromArgs();
-  
+
   static Environment get environment => _environment;
-  
+
   static set environment(Environment env) {
     _environment = env;
   }
-  
+
   static Environment _getEnvironmentFromArgs() {
     try {
       const env = String.fromEnvironment('ENV', defaultValue: 'free');

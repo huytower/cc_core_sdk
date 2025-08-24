@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:app_config/box/cc_hive_box.dart' show HiveTypeId, CcHiveBox;
 import 'package:data/model/global/user_principal.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../box/cc_hive_box.dart';
 
 part 'cc_app_storage.g.dart';
 

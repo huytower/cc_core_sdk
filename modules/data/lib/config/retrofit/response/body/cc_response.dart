@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:app_config/enum/layout_status.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
 @deprecated

@@ -1,6 +1,7 @@
-import 'package:app_config/config/app_config/api_env/app_config_base.dart';
-import 'package:app_config/config/app_config/cc_app_config.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import '../cc_app_config.dart';
+import 'app_config_base.dart';
 
 /// Free tier environment configuration with mock APIs
 class AppConfigFree extends AppConfigBase {
