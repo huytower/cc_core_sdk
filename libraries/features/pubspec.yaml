@@ -22,7 +22,7 @@ dependencies:
   # Add other common dependencies used across features
   dio:
   shared_preferences:
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

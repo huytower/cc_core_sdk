@@ -27,7 +27,7 @@ export 'box/cc_hive_box.dart';
 export 'box/register_hive_adapter/register_hive_adapter.dart';
 // App Configuration
 export 'config/app/cc_app_config.dart';
-export 'config/app/cc_app_name.dart';
+export 'config/app/cc_app_track_info.dart';
 // Feature Flags
 export 'config/feature_flags.dart';
 // Environment Configurations
@@ -35,8 +35,6 @@ export 'config/http/env/base.dart';
 export 'config/http/env/free.dart';
 export 'config/http/env/prod.dart';
 export 'config/http/env/uat.dart';
-// HTTP Client
-export 'config/http/http_client/http_client.dart';
 // Core Configuration
 export 'config/http/http_client/http_client_config.dart';
 export 'config/http/models/request_header.dart';

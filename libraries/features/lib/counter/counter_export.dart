@@ -1,4 +1,6 @@
 // Domain Layer
+// Main export
+export 'counter_init.dart';
 export 'data/datasources/counter_local_data_source.dart';
 // Data Layer
 export 'data/repositories/counter_repository_impl.dart';
@@ -12,5 +14,3 @@ export 'domain/usecases/increment_counter_use_case.dart';
 // Presentation Layer
 export 'presentation/bloc/counter_bloc.dart';
 export 'presentation/pages/counter_page.dart';
-// Main export
-export 'counter_init.dart';

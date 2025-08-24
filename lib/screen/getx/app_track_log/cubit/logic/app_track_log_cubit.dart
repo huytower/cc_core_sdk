@@ -1,5 +1,5 @@
-import 'package:app/config/app/http_manager.dart';
-import 'package:app/http/app_track_log/cc_app_track_log.dart';
+import 'package:app_config/box/app_track_log/cc_app_track_log.dart';
+import 'package:app_config/config/app/cc_app_track_info.dart';
 import 'package:cc_library/helper/device_helper.dart';
 import 'package:cc_library/util/common/device_utils.dart';
 import 'package:data/model/device/device_model.dart';
@@ -16,7 +16,7 @@ class AppTrackLogCubit extends Cubit<AppTrackLogState> {
     this._trackLog,
   ) : super(AppTrackLogState.init());
 
-  String get appInfo => '${CcAppName.appName}'
+  String get appInfo => '${CcAppTrackName.appName}'
       '/${state.appVersion}'
       '/is release build mode = ${!kDebugMode}';
 

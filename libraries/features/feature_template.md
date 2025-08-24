@@ -1,6 +1,7 @@
 # Feature Template
 
-This document outlines the standard structure and implementation guidelines for creating new features in the application.
+This document outlines the standard structure and implementation guidelines for creating new features in the
+application.
 
 ## Directory Structure
 
@@ -30,6 +31,7 @@ features/
 ### 1. Data Layer
 
 #### `data/datasources/{feature_name}_datasource.dart`
+
 ```dart
 import 'package:features/counter_export.dart';
 
@@ -40,6 +42,7 @@ abstract class FeatureNameDatasource {
 ```
 
 #### `data/repositories/{feature_name}_repository_impl.dart`
+
 ```dart
 import 'package:features/counter_export.dart';
 
@@ -58,6 +61,7 @@ class FeatureNameRepositoryImpl implements FeatureNameRepository {
 ### 2. Domain Layer
 
 #### `domain/entities/{feature_name}_entity.dart`
+
 ```dart
 class FeatureNameEntity {
   final String id;
@@ -73,6 +77,7 @@ class FeatureNameEntity {
 ```
 
 #### `domain/repositories/{feature_name}_repository.dart`
+
 ```dart
 import '../entities/feature_name_entity.dart';
 
@@ -83,6 +88,7 @@ abstract class FeatureNameRepository {
 ```
 
 #### `domain/usecases/{feature_name}_usecase.dart`
+
 ```dart
 import '../entities/feature_name_entity.dart';
 import '../repositories/feature_name_repository.dart';
@@ -101,6 +107,7 @@ class FeatureNameUseCase {
 ### 3. Presentation Layer
 
 #### `presentation/pages/{feature_name}_page.dart`
+
 ```dart
 import 'package:flutter/material.dart';
 import '../widgets/feature_name_widget.dart';
@@ -119,6 +126,7 @@ class FeatureNamePage extends StatelessWidget {
 ```
 
 #### `presentation/widgets/feature_name_widget.dart`
+
 ```dart
 import 'package:flutter/material.dart';
 
@@ -138,6 +146,7 @@ class FeatureNameWidget extends StatelessWidget {
 ### 4. Dependency Injection
 
 #### `di/feature_name_module.dart`
+
 ```dart
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -199,24 +208,24 @@ void configureDependencies() {
 ## Best Practices
 
 1. **Naming Conventions**:
-   - Use `snake_case` for file names
-   - Use `PascalCase` for class names
-   - Keep feature names consistent across all layers
+    - Use `snake_case` for file names
+    - Use `PascalCase` for class names
+    - Keep feature names consistent across all layers
 
 2. **State Management**:
-   - Use GetX, Bloc, or Provider consistently
-   - Keep business logic in use cases
-   - Keep UI state in controllers/blocs
+    - Use GetX, Bloc, or Provider consistently
+    - Keep business logic in use cases
+    - Keep UI state in controllers/blocs
 
 3. **Testing**:
-   - Create test files for each layer
-   - Mock dependencies using Mockito or Mocktail
-   - Test both success and error cases
+    - Create test files for each layer
+    - Mock dependencies using Mockito or Mocktail
+    - Test both success and error cases
 
 4. **Documentation**:
-   - Add doc comments for public APIs
-   - Document complex business logic
-   - Include example usage in documentation
+    - Add doc comments for public APIs
+    - Document complex business logic
+    - Include example usage in documentation
 
 ## Example: Creating a New Feature
 

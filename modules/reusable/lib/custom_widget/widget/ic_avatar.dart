@@ -1,4 +1,5 @@
 import 'package:app_config/box/app_storage/cc_app_storage.dart';
+import 'package:app_config/data_source/assets_data_source.dart';
 import 'package:cc_library/helper/widget_helper.dart';
 import 'package:cc_library/widget/container/cc_container_circle.dart';
 import 'package:flutter/material.dart';
@@ -67,11 +68,11 @@ class AvatarUser extends StatelessWidget {
   }
 
   Image buildImageDefault() {
-    return Image.asset(getAssetIcons(resId: AssetRes.IC_AVATAR_DEFAULT));
+    return Image.asset(AssetUtils.getIcon(IconAsset.avatarDefault));
   }
 
   Image buildImageDefaultError() {
     CcAppStorage.instance.user!.avatarFail = pathDefault;
-    return Image.asset(getAssetIcons(resId: AssetRes.IC_AVATAR_DEFAULT));
+    return Image.asset(AssetUtils.getIcon(IconAsset.avatarDefault));
   }
 }

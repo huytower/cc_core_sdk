@@ -1,4 +1,4 @@
-import 'package:app/constant/assets_data_source.dart';
+import 'package:app_config/data_source/assets_data_source.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage(
-                getAssetBackground(resId: AssetResSplash.BG_SPLASH),
+                "packages/theme/${AssetUtils.getBackground(BackgroundAsset.splash)}",
               ),
             ),
           ),

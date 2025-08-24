@@ -1,9 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../domain/entities/counter_entity.dart';
 import '../models/counter_model.dart';
 
 abstract class CounterLocalDataSource {
   Future<CounterEntity> getCounter();
+
   Future<void> saveCounter(CounterEntity counter);
 }
 

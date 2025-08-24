@@ -26,6 +26,7 @@ class CcHiveBox {
   static const int APP_STORAGE_TYPE_ID = 2;
   static const int DEVICE_TYPE_ID = 3;
   static const int APP_TRACK_LOG_TYPE_ID = 4;
+
   // Add new type IDs here (next would be 5)
 
   // ===== Box Names =====

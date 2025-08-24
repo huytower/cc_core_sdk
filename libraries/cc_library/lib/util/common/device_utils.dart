@@ -12,16 +12,14 @@ class DeviceUtils {
   static bool isSmallScreen(double screenWidth) => screenWidth < 390.0;
 
   /// Checks if the device has a larger screen, typically iPhone Pro Max models.
-  /// 
+  ///
   /// [screenWidth] - The width of the screen in logical pixels
   /// [bottomPadding] - The bottom padding from MediaQuery
-  static bool isLargeScreen({
-    required double screenWidth, 
-    required double bottomPadding
-  }) => screenWidth >= 400.0 && bottomPadding > 20.0;
+  static bool isLargeScreen({required double screenWidth, required double bottomPadding}) =>
+      screenWidth >= 400.0 && bottomPadding > 20.0;
 
   /// Gets the application version information.
-  /// 
+  ///
   /// Returns a formatted string with version and build number for Android/iOS,
   /// or 'unknown' for other platforms.
   static Future<String> getAppVersion() async {

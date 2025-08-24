@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class KeyboardUtils {
   /// Shows the keyboard by focusing a new FocusNode
-  /// 
+  ///
   /// [context] - The BuildContext to use for showing the keyboard
   /// [focusNode] - Optional FocusNode to use. If null, a new one will be created
   static void showKeyboard({BuildContext? context, FocusNode? focusNode}) {

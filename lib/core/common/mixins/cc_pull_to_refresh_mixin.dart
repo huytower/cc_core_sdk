@@ -1,3 +1,4 @@
+import 'package:app_config/data_source/assets_data_source.dart';
 import 'package:cc_library/extension/kotlin/when_expression.dart';
 import 'package:cc_library/widget/pull_to_refresh/cc_refresh_indicator.dart';
 import 'package:cc_library/widget/pull_to_refresh/cc_refresh_indicator_icon.dart';
@@ -15,10 +16,17 @@ import 'package:lottie/lottie.dart';
 /// - drag, load, complete ...
 ///
 mixin CcPullRefreshMixin {
+  /// Get the path to a Lottie animation asset
+  ///
+  /// [resId] The Lottie asset identifier
+  String getAssetIconJson({required LottieAsset resId}) {
+    return AssetUtils.getLottie(resId);
+  }
+
   Widget buildIcComplete(Widget? iconCompleteWidget) {
     return iconCompleteWidget ??
         Lottie.asset(
-          getAssetIconJson(resId: AssetResLoading.IC_COMPLETE),
+          getAssetIconJson(resId: LottieAsset.complete),
           height: 35,
         );
   }
@@ -31,7 +39,7 @@ mixin CcPullRefreshMixin {
       children: [
         const CcSpaceSmall(),
         Lottie.asset(
-          getAssetIconJson(resId: AssetResLoading.IC_LOADING),
+          getAssetIconJson(resId: LottieAsset.loading),
           height: 35,
         ),
         const CcSpaceSmallest(),

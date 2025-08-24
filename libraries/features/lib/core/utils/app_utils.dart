@@ -9,8 +9,8 @@ class AppUtils {
   static String formatDate(DateTime date, {String format = 'dd/MM/yyyy'}) {
     // Implementation using intl package if needed
     return '${date.day.toString().padLeft(2, '0')}/'
-           '${date.month.toString().padLeft(2, '0')}/'
-           '${date.year}';
+        '${date.month.toString().padLeft(2, '0')}/'
+        '${date.year}';
   }
 
   /// Debounces a function call

@@ -1,4 +1,4 @@
-import 'package:app/config/app/http_manager.dart';
+import 'package:app_config/config/app/cc_app_track_info.dart';
 import 'package:cc_library/helper/device_helper.dart';
 import 'package:cc_library/util/common/device_utils.dart';
 import 'package:data/model/sample/sample_model_watch_it.dart';
@@ -21,7 +21,7 @@ class ComponentWatchItLogic {
 
   SampleModelWatchItNotifier modelNotifier = getIt<SampleModelWatchItNotifier>();
 
-  String get appInfo => '${CcAppName.appName}'
+  String get appInfo => '${CcAppTrackName.appName}'
       '/${appVersion.value}'
       '/is release build mode = ${!kDebugMode}';
 

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 /// Utility class for showing snackbars with consistent styling and behavior
 class SnackBarUtils {
   /// Shows a snackbar with the given parameters
-  /// 
+  ///
   /// [message] - The message to display
   /// [duration] - How long the snackbar should be visible (default: 1.3s)
   /// [backgroundColor] - Background color of the snackbar

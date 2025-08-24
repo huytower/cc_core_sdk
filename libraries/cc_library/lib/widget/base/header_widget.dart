@@ -169,7 +169,7 @@ class HeaderWidget extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final bottomPadding = mediaQuery.padding.bottom;
-    
+
     if (DeviceUtils.isLargeScreen(
       screenWidth: screenWidth,
       bottomPadding: bottomPadding,

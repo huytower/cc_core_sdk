@@ -43,7 +43,7 @@ class WidgetHelper {
   static BorderRadius getCircleBorderRadius() => BorderRadius.circular(45);
 
   /// Determines the appropriate BoxFit based on screen dimensions
-  /// 
+  ///
   /// [screenWidth] - The width of the screen in logical pixels
   /// [bottomPadding] - The bottom padding from MediaQuery
   static BoxFit getBoxFitType({

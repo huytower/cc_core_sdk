@@ -8,7 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 /// 1. `APP_NAME` in .env file
 /// 2. `--dart-define=APP_NAME=MyApp` in build arguments
 /// 3. Defaults to 'MyApp' if not specified
-class CcAppName {
+class CcAppTrackName {
   static const String _defaultAppName = 'MyApp';
 
   /// Gets the application name with fallback mechanisms.
@@ -35,4 +35,9 @@ class CcAppName {
       return _defaultAppName;
     }
   }
+}
+
+class CcAppTrackLimits {
+  /// Config logger : when building an env PROD, all values are set to false.
+  static const int APP_TRACKING_LOG_LENGTH = 100;
 }

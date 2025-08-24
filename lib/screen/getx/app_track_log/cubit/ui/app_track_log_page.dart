@@ -1,4 +1,4 @@
-import 'package:app/http/device_info/cc_device_info.dart';
+import 'package:app_config/box/device_info/cc_device_info.dart';
 import 'package:cc_library/widget/divider_line/cc_divider.dart';
 import 'package:cc_library/widget/flex/cc_column_start.dart';
 import 'package:cc_library/widget/icon/ic_copy.dart';

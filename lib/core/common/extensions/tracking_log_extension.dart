@@ -1,4 +1,5 @@
 import 'package:app_config/box/app_track_log/cc_app_track_log.dart';
+import 'package:app_config/config/app/cc_app_track_info.dart';
 import 'package:app_config/extension/app_track_log_extension.dart';
 import 'package:cc_library/extension/kotlin/when_expression.dart';
 
@@ -43,7 +44,7 @@ extension TypeExtension<T> on T {
     appTrackingLogLine++;
 
     /// logic : limit array list length
-    if (list.length > CcAppConfigLimits.APP_TRACKING_LOG_LENGTH) {
+    if (list.length > CcAppTrackLimits.APP_TRACKING_LOG_LENGTH) {
       list.removeLast();
     }
 

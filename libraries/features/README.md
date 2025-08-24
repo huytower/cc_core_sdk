@@ -46,9 +46,9 @@ dependencies:
 1. **Use the template**: Copy an existing feature (like `counter`) as a starting point
 2. **Rame files and classes**: Update all references to match your feature name
 3. **Implement layers**:
-   - `data/`: Data sources and repositories
-   - `domain/`: Business logic and entities
-   - `presentation/`: UI components
+    - `data/`: Data sources and repositories
+    - `domain/`: Business logic and entities
+    - `presentation/`: UI components
 4. **Set up DI**: Update the feature module in `di/`
 5. **Export your feature**: Add exports to `lib/features.dart`
 
@@ -59,11 +59,13 @@ For detailed implementation examples, see the [Feature Template](../../docs/feat
 ## 🧪 Testing
 
 Each feature should include tests for:
+
 - Data layer (repositories, data sources)
 - Domain layer (use cases, entities)
 - Presentation layer (widgets, controllers)
 
 Example test structure:
+
 ```
 test/
   ├── {feature_name}_test/
@@ -76,6 +78,7 @@ test/
 ## 📦 Dependencies
 
 Core dependencies used across features:
+
 - `get_it`: Service locator
 - `injectable`: Code generation for dependency injection
 - `equatable`: Value equality

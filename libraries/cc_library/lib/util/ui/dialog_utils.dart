@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 
 class DialogUtils {
   static final RxBool _isDialogVisible = false.obs;
-  
+
   /// Getter to check if any dialog is currently visible
   static bool get isDialogVisible => _isDialogVisible.value;
+
   /// show dialog confirm
   /// ex.
   /// DialogUtils.showDialogConfirm(BaseDialog(desc: 'ABC\nABC', ));
