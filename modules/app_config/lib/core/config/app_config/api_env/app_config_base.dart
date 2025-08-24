@@ -1,7 +1,8 @@
-import 'dart:developer' as developer;
-import 'dart:io';
+import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../../exception/app_config_exception.dart';
 
 /// Base class for application configuration across different environments.
 ///
@@ -9,12 +10,18 @@ import 'package:flutter/foundation.dart';
 /// configuration classes must implement. It provides default implementations
 /// for common configuration values that can be overridden as needed.
 ///
+/// The class is immutable after instantiation to ensure thread safety and
+/// prevent accidental modifications at runtime.
+///
 /// Example usage:
 /// ```dart
 /// final config = CcAppConfig.instance;
 /// final baseUrl = config.baseUrl;
 /// ```
-abstract class AppConfigBase {
+abstract class AppConfigBase extends Equatable {
+  /// Creates a new immutable configuration instance.
+  const AppConfigBase();
+
   // Version Information
 
   /// The current iOS app version.
@@ -80,25 +87,25 @@ abstract class AppConfigBase {
   /// Should be `true` only in production environments.
   bool get isEnvPro => false;
 
-  // Setters
+  // Immutable configuration - no setters
 
-  /// Updates the logging configuration.
-  ///
-  /// [value] - The new logging enabled state
-  set isLogger(bool value) {
-    if (kDebugMode) {
-      developer.log('Logging ${value ? 'enabled' : 'disabled'}');
-    }
-  }
+  @override
+  List<Object?> get props => [
+        versionIOS,
+        versionAndroid,
+        versionApi,
+        isLogger,
+        isEnableLoggerDio,
+        baseUrl,
+        apiTimeoutSeconds,
+        maxRetries,
+        retryDelayMs,
+        isEnvDev,
+        isEnvPro,
+      ];
 
-  /// Updates the Dio logging configuration.
-  ///
-  /// [value] - The new Dio logging enabled state
-  set isEnableLoggerDio(bool value) {
-    if (kDebugMode) {
-      developer.log('Dio logging ${value ? 'enabled' : 'disabled'}');
-    }
-  }
+  @override
+  bool? get stringify => true;
 
   // Validation
 
@@ -107,18 +114,46 @@ abstract class AppConfigBase {
   /// This method should be called during app initialization to catch
   /// configuration issues early.
   ///
-  /// Throws [StateError] if any required configuration is missing or invalid.
+  /// Throws [AppConfigException] if any required configuration is missing or invalid.
+  ///
+  /// Example:
+  /// ```dart
+  /// try {
+  ///   config.validate();
+  /// } on AppConfigException catch (e) {
+  ///   // Handle configuration error
+  /// }
+  /// ```
   void validate() {
+    // Validate baseUrl
     if (baseUrl.isEmpty) {
-      throw StateError('baseUrl must be configured');
+      throw const MissingConfigException(key: 'baseUrl');
     }
 
+    // Validate URL format
     if (!baseUrl.startsWith('http')) {
-      throw StateError('baseUrl must start with http:// or https://');
+      throw InvalidConfigException(
+        key: 'baseUrl',
+        value: baseUrl,
+        message: 'Must start with http:// or https://',
+      );
     }
 
+    // Validate timeouts
     if (apiTimeoutSeconds <= 0) {
-      throw StateError('apiTimeoutSeconds must be greater than 0');
+      throw InvalidConfigException(
+        key: 'apiTimeoutSeconds',
+        value: apiTimeoutSeconds,
+        message: 'Must be greater than 0',
+      );
+    }
+
+    // Additional validations for production
+    if (isEnvPro && baseUrl.startsWith('http://') && !baseUrl.contains('localhost')) {
+      throw const SecurityConfigException(
+        message: 'Insecure HTTP protocol detected in production environment',
+        key: 'baseUrl',
+      );
     }
   }
 

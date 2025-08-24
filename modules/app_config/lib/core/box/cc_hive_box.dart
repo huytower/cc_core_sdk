@@ -1,16 +1,38 @@
-/// Holds all Hive box configurations and type IDs used throughout the application.
-/// This class provides a centralized place for all Hive-related constants and enums.
+/// Simplified Hive Configuration
+///
+/// This file contains all Hive-related constants in one place.
+///
+/// How to use:
+/// 1. For @HiveType, use the _TYPE_ID constants
+/// 2. For box names, use the _BOX_NAME constants
+///
+/// Example:
+/// ```dart
+/// @HiveType(typeId: CcHiveBox.APP_STORAGE_TYPE_ID)
+/// class AppStorage extends HiveObject {
+///   @HiveField(0) final String id;
+///   // ...
+/// }
+///
+/// // To open a box:
+/// final box = await Hive.openBox(CcHiveBox.APP_BOX_NAME);
+/// ```
 class CcHiveBox {
-  /// Default key used when no specific key is provided
+  // Prevent instantiation
+  CcHiveBox._();
+
+  // ===== Type IDs =====
+  // Use these with @HiveType(typeId: )
+  static const int APP_STORAGE_TYPE_ID = 2;
+  static const int DEVICE_TYPE_ID = 3;
+  static const int APP_TRACK_LOG_TYPE_ID = 4;
+  // Add new type IDs here (next would be 5)
+
+  // ===== Box Names =====
+  // Use these with Hive.openBox()
+  static const String APP_BOX_NAME = 'application';
+  static const String DEVICE_BOX_NAME = 'device';
+  static const String TRACK_LOG_BOX_NAME = 'track_log';
+
   static const keyDefault = 'key_default';
-
-  // Legacy constants (kept for backward compatibility)
-  static const int test_type_id = 1;
-  static const int app_storage_id = 2;
-  static const int device_type_id = 3;
-  static const int app_track_log_type_id = 4;
-
-  static const String application_box_name = 'application';
-  static const String device_info_box_name = 'device';
-  static const String app_track_log_box_name = 'track_log';
 }

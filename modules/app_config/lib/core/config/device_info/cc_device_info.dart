@@ -20,13 +20,13 @@ part 'cc_device_info.g.dart';
 
 /// width, height, device name, imei, id...
 @JsonSerializable()
-@HiveType(typeId: CcHiveBox.device_type_id)
+@HiveType(typeId: CcHiveBox.DEVICE_TYPE_ID)
 class CcDeviceInfo extends HiveObject {
   static late CcDeviceInfo instance;
 
   static Future<CcDeviceInfo?> register() async {
     Hive.registerAdapter(CcDeviceInfoAdapter());
-    Box<CcDeviceInfo> box = await Hive.openBox<CcDeviceInfo>(CcHiveBox.device_info_box_name);
+    Box<CcDeviceInfo> box = await Hive.openBox<CcDeviceInfo>(CcHiveBox.DEVICE_BOX_NAME);
     CcDeviceInfo? model = box.get(CcHiveBox.keyDefault);
     if (model == null) {
       model = CcDeviceInfo();

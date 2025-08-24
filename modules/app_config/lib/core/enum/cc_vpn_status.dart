@@ -1,6 +1,0 @@
-enum CcVpnBtnStatus {
-  LOADING,
-  SELECTED,
-  UNSELECT,
-  AWAIT_CONNECT,
-}

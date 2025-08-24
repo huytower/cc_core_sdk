@@ -19,13 +19,13 @@ part 'cc_app_track_log.g.dart';
 ///
 
 @JsonSerializable()
-@HiveType(typeId: CcHiveBox.app_track_log_type_id)
+@HiveType(typeId: CcHiveBox.APP_TRACK_LOG_TYPE_ID)
 class CcAppTrackLog extends HiveObject {
   static late CcAppTrackLog instance;
 
   static Future<CcAppTrackLog?> register() async {
     Hive.registerAdapter(CcAppTrackLogAdapter());
-    Box<CcAppTrackLog> box = await Hive.openBox<CcAppTrackLog>(CcHiveBox.app_track_log_box_name);
+    Box<CcAppTrackLog> box = await Hive.openBox<CcAppTrackLog>(CcHiveBox.TRACK_LOG_BOX_NAME);
     CcAppTrackLog? model = box.get(CcHiveBox.keyDefault);
     if (model == null) {
       model = CcAppTrackLog();

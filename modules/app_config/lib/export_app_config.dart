@@ -35,8 +35,6 @@ export 'core/config/app_config/cc_app_config.dart';
 // Constants
 export 'core/constant/assets_resource.dart';
 export 'core/constant/cc_constants.dart';
-// Enums
-export 'core/enum/cc_vpn_status.dart';
 // Environment
 export 'core/enum/environment.dart';
 export 'core/enum/layout_status.dart';

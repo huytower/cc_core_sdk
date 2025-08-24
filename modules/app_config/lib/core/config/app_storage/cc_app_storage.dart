@@ -21,13 +21,13 @@ part 'cc_app_storage.g.dart';
 ///
 
 @JsonSerializable()
-@HiveType(typeId: CcHiveBox.app_storage_id)
+@HiveType(typeId: CcHiveBox.APP_STORAGE_TYPE_ID)
 class CcAppStorage extends HiveObject {
   static late CcAppStorage instance;
 
   static Future<CcAppStorage?> register() async {
     Hive.registerAdapter(CcAppStorageAdapter());
-    Box<CcAppStorage> box = await Hive.openBox<CcAppStorage>(CcHiveBox.application_box_name);
+    Box<CcAppStorage> box = await Hive.openBox<CcAppStorage>(CcHiveBox.APP_BOX_NAME);
     CcAppStorage? model = box.get(CcHiveBox.keyDefault);
 
     /// is it existed? if not, init it
