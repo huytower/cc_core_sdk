@@ -1,4 +1,4 @@
-import 'package:app_config/config/app_config/http_manager.dart';
+import 'package:app_config/config/feature_flags.dart';
 import 'package:app_config/helper/network_helper.dart';
 import 'package:cc_library/src/curl/curl_utils.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
@@ -86,7 +86,7 @@ var ccReqInterceptors = InterceptorsWrapper(
 
     var _curl = await CurlUtils.instance.representation(response.requestOptions);
 
-    if (CcAppConfigFlags.isEnableLoggerDio) {
+    if (FeatureFlags.isEnableLoggerDio) {
       var url = "[Dio Interceptor]\n[Request: ${response.requestOptions.method}] : ${response.requestOptions.uri}\n";
       var body = "";
       request = url + body;

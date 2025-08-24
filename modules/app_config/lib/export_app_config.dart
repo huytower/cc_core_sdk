@@ -1,35 +1,45 @@
 /// App Configuration Module
 ///
-/// Provides env-aware configuration and core functionality for the application.
+/// Provides environment-aware configuration and core functionality for the application.
 ///
 /// ## Usage
 ///
 /// ```dart
-/// import 'package:app_config/export_app_config.dart';
+/// import 'package:app/export_app_config.dart';
 ///
-/// // Get current env
-/// final env = CcAppConfig.env;
+/// // Get current environment
+/// final env = AppConfig.environment;
 ///
-/// // Get app http for current env
-/// final http = CcAppConfig.instance;
-/// print('App Name: ${http.appName}');
-/// print('API URL: ${http.baseUrl}');
+/// // Get HTTP client for current environment
+/// final httpClient = HttpClient.forEnvironment();
+///
+/// // Make API requests
+/// final response = await httpClient.get('/api/data');
 ///
 /// // Check feature flags
-/// if (CcAppConfigFlags.isEnableLogger) {
+/// if (FeatureFlags.isEnableLogger) {
 ///   // Enable logging
 /// }
-///
-/// // Get app name
-/// final appName = CcAppName.appName;
-///
-/// // Get base URL
-/// final baseUrl = CcAppHostUrlName.baseUrl;
 /// ```
 
-// Core functionality
+// Core Functionality
 export 'box/cc_hive_box.dart';
 export 'box/register_hive_adapter/register_hive_adapter.dart';
+// App Configuration
+export 'config/app/cc_app_config.dart';
+export 'config/app/cc_app_name.dart';
+// Feature Flags
+export 'config/feature_flags.dart';
+// Environment Configurations
+export 'config/http/env/base.dart';
+export 'config/http/env/free.dart';
+export 'config/http/env/prod.dart';
+export 'config/http/env/uat.dart';
+// HTTP Client
+export 'config/http/http_client/http_client.dart';
+// Core Configuration
+export 'config/http/http_client/http_client_config.dart';
+export 'config/http/models/request_header.dart';
 // Constants
 export 'constant/cc_constants.dart';
 // Data Sources
@@ -42,5 +52,3 @@ export 'enum/routing_manager_enum.dart';
 export 'extension/app_track_log_extension.dart';
 // Helpers
 export 'helper/network_helper.dart';
-// Core Configuration
-export 'http/http_client/http_client.dart';

@@ -6,9 +6,9 @@ class HiveManager {
   /// Closes all Hive boxes
   Future<void> closeBoxes() async {
     await Future.wait([
-      Hive.box(CcHiveBox.application_box_name).close(),
-      Hive.box(CcHiveBox.device_info_box_name).close(),
-      Hive.box(CcHiveBox.app_track_log_box_name).close(),
+      Hive.box(CcHiveBox.APP_BOX_NAME).close(),
+      Hive.box(CcHiveBox.DEVICE_BOX_NAME).close(),
+      Hive.box(CcHiveBox.TRACK_LOG_BOX_NAME).close(),
     ]);
   }
 }

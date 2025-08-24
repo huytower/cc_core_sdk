@@ -2,8 +2,8 @@ import 'dart:io' show Platform;
 
 import 'package:equatable/equatable.dart';
 
-import '../../app_config/cc_app_config.dart';
-import '../../exception/app_config_exception.dart';
+import '../../../exception/app_config_exception.dart';
+import '../../app/cc_app_config.dart';
 
 /// Base class for application configuration across different environments.
 ///

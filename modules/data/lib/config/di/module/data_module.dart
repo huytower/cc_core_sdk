@@ -1,3 +1,4 @@
+import 'package:app_config/config/http/http_client/http_client_config.dart';
 import 'package:app_config/helper/network_helper.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 // import 'package:data/datasource/local/home/home_database.dart';
@@ -25,7 +26,7 @@ abstract class DataModule {
 
   //region Register dependency name
   @Named("baseUrl")
-  String get baseUrl => CcAppHostUrlName.baseUrl;
+  String get baseUrl => HttpClientConfig.baseUrl;
 
   @singleton
   @Named("baseDio")

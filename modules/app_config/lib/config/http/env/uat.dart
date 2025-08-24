@@ -1,12 +1,12 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../http_client/http_client.dart';
+import '../../feature_flags.dart';
 import 'base.dart';
 
 /// UAT env configuration
 class HttpUat extends HttpBase {
   bool _isLogger = true;
-  bool _isEnableLoggerDio = CcAppConfigFlags.isEnableLogger;
+  bool _isEnableLoggerDio = FeatureFlags.isEnableLogger;
 
   @override
   bool get isLogger => _isLogger;

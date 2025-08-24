@@ -2,7 +2,7 @@
 //
 // import 'package:Template/src/core/di/inject.dart';
 // import 'package:Template/src/core/common/state/base/bloc_base.dart';
-// import 'package:app_config/enum/layout_status.dart';
+// import 'package:app/enum/layout_status.dart';
 // import 'package:data/http/retrofit/response/cc_response.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';

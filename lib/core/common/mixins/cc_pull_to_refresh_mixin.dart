@@ -1,4 +1,3 @@
-import 'package:app_config/constant/assets_data_source.dart';
 import 'package:cc_library/extension/kotlin/when_expression.dart';
 import 'package:cc_library/widget/pull_to_refresh/cc_refresh_indicator.dart';
 import 'package:cc_library/widget/pull_to_refresh/cc_refresh_indicator_icon.dart';

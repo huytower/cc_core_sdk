@@ -1,4 +1,4 @@
-// import 'package:app_config/enum/layout_status.dart';
+// import 'package:app/enum/layout_status.dart';
 // import 'package:get/get.dart';
 //
 // abstract class CcLoadMoreControllerProvider {

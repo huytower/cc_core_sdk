@@ -1,10 +1,10 @@
-import 'package:app_config/config/app_config/http_manager.dart';
+import 'package:app_config/config/http/http_client/http_client_config.dart';
 import 'package:app_config/enum/environment.dart' as cc_env;
 
 import 'main.dart' as runner;
 
 void main() async {
-  CcAppConfig.environment = cc_env.Environment.UAT;
+  HttpClientConfig.environment = cc_env.Environment.UAT;
 
   runner.main();
 }

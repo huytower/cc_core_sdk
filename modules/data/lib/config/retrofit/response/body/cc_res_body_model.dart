@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:app_config/enum/layout_status.dart';
+
 import '../../params/cc_rest_api_params.dart';
 import '../header/cc_res_header_model.dart';
 

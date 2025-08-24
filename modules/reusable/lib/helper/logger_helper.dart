@@ -1,8 +1,10 @@
+import 'package:app_config/config/http/http_client/http_client_config.dart';
+import 'package:app_config/constant/cc_constants.dart';
 import 'package:data/helper/data_helper.dart';
 
 class LoggerHelper {
   static void printCustom(dynamic str) {
-    if (CcAppConfig.instance is AppConfigProd) {
+    if (HttpClientConfig.isProduction) {
       return;
     }
     if (str is String) {

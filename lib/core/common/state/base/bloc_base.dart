@@ -1,4 +1,4 @@
-import 'package:app_config/config/app_config/http_manager.dart';
+import 'package:app_config/config/app/cc_app_config.dart';
 
 import '../../../di/inject/inject.dart';
 

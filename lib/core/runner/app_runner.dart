@@ -1,8 +1,7 @@
-import 'package:app_config/config/app_config/http_manager.dart';
+import 'package:app_config/config/http/http_client/http_client_config.dart';
 import 'package:flutter/material.dart';
 import 'package:widget/export/cc_ktx_export.dart';
 
-import '../common/device/device_dimension_manager.dart';
 import '../common/device/device_initializer.dart';
 import '../common/extensions/tracking_log_extension.dart';
 import '../common/managers/hive_manager.dart';
@@ -35,7 +34,7 @@ class AppRunnerState extends State<AppRunner> {
   }
 
   void _logEnvironmentInfo() {
-    'API Environment = ${CcAppConfig.environment}'.Log();
+    'API Environment = ${HttpClientConfig.environment}'.Log();
     'Routing Management = ${RouteDatasource.currentStrategy}'.Log();
   }
 

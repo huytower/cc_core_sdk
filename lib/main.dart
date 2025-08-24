@@ -1,7 +1,6 @@
 import 'dart:developer' as developer;
 
 import 'package:app_config/box/register_hive_adapter/register_hive_adapter.dart';
-import 'package:app_config/config/app_config/http_manager.dart';
 import 'package:content_locale/cc_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,8 +18,8 @@ Future<void> _loadEnvVars() async {
   try {
     // Determine the env
     const env = String.fromEnvironment('ENV', defaultValue: 'development');
-    final envFile = env == 'development' ? '.env' : '.env.$env';
-    final envPath = 'env/$envFile';
+    const envFile = env == 'development' ? '.env' : '.env.$env';
+    const envPath = 'env/$envFile';
 
     developer.log('Loading env: $env from $envPath', name: 'EnvConfig');
 
