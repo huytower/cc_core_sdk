@@ -2,11 +2,12 @@ import 'dart:io' show Platform;
 
 import 'package:equatable/equatable.dart';
 
-import '../../../exception/app_config_exception.dart';
+import '../../app_config/cc_app_config.dart';
+import '../../exception/app_config_exception.dart';
 
 /// Base class for application configuration across different environments.
 ///
-/// This abstract class defines the contract that all environment-specific
+/// This abstract class defines the contract that all env-specific
 /// configuration classes must implement. It provides default implementations
 /// for common configuration values that can be overridden as needed.
 ///
@@ -15,24 +16,12 @@ import '../../../exception/app_config_exception.dart';
 ///
 /// Example usage:
 /// ```dart
-/// final config = CcAppConfig.instance;
-/// final baseUrl = config.baseUrl;
+/// final http = CcAppConfig.instance;
+/// final baseUrl = http.baseUrl;
 /// ```
-abstract class AppConfigBase extends Equatable {
+abstract class HttpBase extends Equatable {
   /// Creates a new immutable configuration instance.
-  const AppConfigBase();
-
-  // Version Information
-
-  /// The current iOS app version.
-  ///
-  /// This should be incremented with each App Store release.
-  int get versionIOS => 1;
-
-  /// The current Android app version code.
-  ///
-  /// This should be incremented with each Play Store release.
-  int get versionAndroid => 1;
+  const HttpBase();
 
   /// The current API version.
   ///
@@ -77,12 +66,12 @@ abstract class AppConfigBase extends Equatable {
 
   // Environment Flags
 
-  /// Whether the current environment is development.
+  /// Whether the current env is development.
   ///
   /// Should be `true` only in development environments.
   bool get isEnvDev => false;
 
-  /// Whether the current environment is production.
+  /// Whether the current env is production.
   ///
   /// Should be `true` only in production environments.
   bool get isEnvPro => false;
@@ -91,8 +80,8 @@ abstract class AppConfigBase extends Equatable {
 
   @override
   List<Object?> get props => [
-        versionIOS,
-        versionAndroid,
+        CcAppConfig.VERSION_IOS,
+        CcAppConfig.VERSION_ANDROID,
         versionApi,
         isLogger,
         isEnableLoggerDio,
@@ -119,7 +108,7 @@ abstract class AppConfigBase extends Equatable {
   /// Example:
   /// ```dart
   /// try {
-  ///   config.validate();
+  ///   http.validate();
   /// } on AppConfigException catch (e) {
   ///   // Handle configuration error
   /// }
@@ -151,7 +140,7 @@ abstract class AppConfigBase extends Equatable {
     // Additional validations for production
     if (isEnvPro && baseUrl.startsWith('http://') && !baseUrl.contains('localhost')) {
       throw const SecurityConfigException(
-        message: 'Insecure HTTP protocol detected in production environment',
+        message: 'Insecure HTTP protocol detected in production env',
         key: 'baseUrl',
       );
     }
@@ -170,14 +159,4 @@ abstract class AppConfigBase extends Equatable {
         'X-App-Version': versionApi.toString(),
         'X-Platform': '${Platform.isAndroid ? 'Android' : 'iOS'}-${Platform.operatingSystemVersion}',
       };
-
-  @override
-  String toString() => 'AppConfigBase('
-      'versionIOS: $versionIOS, '
-      'versionAndroid: $versionAndroid, '
-      'versionApi: $versionApi, '
-      'baseUrl: $baseUrl, '
-      'isLogger: $isLogger, '
-      'isEnableLoggerDio: $isEnableLoggerDio'
-      ')';
 }

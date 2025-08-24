@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import 'di_initializer.config.dart';
+import 'di_app_config.config.dart';
 
 /// Global GetIt instance for AppConfig module
 GetIt appConfigLocator = GetIt.instance;

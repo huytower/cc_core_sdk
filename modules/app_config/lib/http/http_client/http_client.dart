@@ -4,52 +4,46 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../enum/environment.dart';
-import 'api_env/app_config_base.dart';
-import 'api_env/app_config_free.dart';
-import 'api_env/app_config_prod.dart';
-import 'api_env/app_config_uat.dart';
+import '../env/base.dart';
+import '../env/free.dart';
+import '../env/prod.dart';
+import '../env/uat.dart';
 
-final isFreeEnv = CcAppConfig.environment == Environment.FREE_FAKE_API;
-final isUatEnv = CcAppConfig.environment == Environment.UAT;
+final isFreeEnv = HttpClient.environment == Environment.FREE_FAKE_API;
+final isUatEnv = HttpClient.environment == Environment.UAT;
 
 /// Application Configs., save all static vars for application
 /// ex. boolean var., update status var., .v.v.
-class CcAppConfig {
-  /// App configuration instance based on current environment
-  static AppConfigBase get instance {
+class HttpClient {
+  /// App configuration instance based on current env
+  static HttpBase get instance {
     switch (environment) {
       case Environment.FREE_FAKE_API:
-        return AppConfigFree();
+        return HttpFree();
       case Environment.UAT:
-        return AppConfigUat();
+        return HttpUat();
       case Environment.PROD:
-        return AppConfigProd();
+        return const HttpProd();
     }
   }
 
-  /// Current environment, defaults to FREE_FAKE_API
+  /// Current env, defaults to FREE_FAKE_API
   /// Can be set via `--dart-define=ENV=uat` or `--dart-define=ENV=prod`
-  static Environment _environment = _getEnvironmentFromArgs();
+  static Environment environment = _getEnvironmentFromArgs();
 
-  static Environment get environment => _environment;
-
-  static set environment(Environment env) {
-    _environment = env;
-  }
-
-  /// Retrieves the environment from command line arguments or defaults to FREE_FAKE_API.
+  /// Retrieves the env from command line arguments or defaults to FREE_FAKE_API.
   ///
-  /// Supports the following environment values (case-insensitive):
+  /// Supports the following env values (case-insensitive):
   /// - 'free' or 'free_fake_api' for FREE_FAKE_API
   /// - 'uat' for UAT
   /// - 'prod' or 'production' for PROD
   ///
-  /// Throws [StateError] if the environment string is invalid and [kReleaseMode] is true.
+  /// Throws [StateError] if the env string is invalid and [kReleaseMode] is true.
   static Environment _getEnvironmentFromArgs() {
     try {
       final env = const String.fromEnvironment('ENV', defaultValue: 'free').toLowerCase();
 
-      // Map common aliases to environment values
+      // Map common aliases to env values
       final envMap = {
         'free': Environment.FREE_FAKE_API,
         'free_fake_api': Environment.FREE_FAKE_API,
@@ -67,53 +61,18 @@ class CcAppConfig {
       return environment;
     } catch (e, stackTrace) {
       developer.log(
-        'Failed to determine environment. Defaulting to FREE_FAKE_API',
+        'Failed to determine env. Defaulting to FREE_FAKE_API',
         error: e,
         stackTrace: stackTrace,
       );
 
       if (kReleaseMode) {
         throw StateError(
-          'Invalid environment configuration. Please set a valid environment (free, uat, prod)',
+          'Invalid env configuration. Please set a valid env (free, uat, prod)',
         );
       }
 
       return Environment.FREE_FAKE_API;
-    }
-  }
-}
-
-/// Handles application naming configuration with environment variable fallbacks.
-///
-/// The app name can be configured via:
-/// 1. `APP_NAME` in .env file
-/// 2. `--dart-define=APP_NAME=MyApp` in build arguments
-/// 3. Defaults to 'MyApp' if not specified
-class CcAppName {
-  static const String _defaultAppName = 'MyApp';
-
-  /// Gets the application name with fallback mechanisms.
-  ///
-  /// Priority:
-  /// 1. `APP_NAME` from .env file
-  /// 2. `--dart-define=APP_NAME` from build arguments
-  /// 3. Default value ('MyApp')
-  ///
-  /// Returns [String] The configured application name
-  static String get appName {
-    try {
-      return dotenv.maybeGet(
-            'APP_NAME',
-            fallback: const String.fromEnvironment('APP_NAME', defaultValue: _defaultAppName),
-          ) ??
-          _defaultAppName;
-    } catch (e, stackTrace) {
-      developer.log(
-        'Failed to load app name from environment',
-        error: e,
-        stackTrace: stackTrace,
-      );
-      return _defaultAppName;
     }
   }
 }
@@ -123,17 +82,17 @@ class CcAppHostUrlName {
   /// Can be overridden via `API_URL` in .env file
   static String get baseUrl {
     try {
-      return dotenv.env['API_URL'] ?? String.fromEnvironment('API_URL', defaultValue: AppConfigFree().baseUrl);
+      return dotenv.env['API_URL'] ?? String.fromEnvironment('API_URL', defaultValue: HttpFree().baseUrl);
     } catch (_) {
-      return AppConfigFree().baseUrl;
+      return HttpFree().baseUrl;
     }
   }
 }
 
 /// Manages feature flags for the application.
 ///
-/// Feature flags can be controlled via environment variables or have default values
-/// based on the current environment.
+/// Feature flags can be controlled via env variables or have default values
+/// based on the current env.
 ///
 /// Example usage:
 /// ```dart
@@ -156,10 +115,10 @@ class CcAppConfigFlags {
 
   /// Retrieves a boolean configuration value with a default fallback.
   ///
-  /// [key]: The environment variable key to look up
+  /// [key]: The env variable key to look up
   /// [defaultValue]: The default value to return if the key is not found or invalid
   ///
-  /// Returns `true` if the environment variable is 'true' (case-insensitive),
+  /// Returns `true` if the env variable is 'true' (case-insensitive),
   /// otherwise returns [defaultValue].
   static bool _getBool(String key, bool defaultValue) {
     try {
@@ -180,6 +139,6 @@ class CcAppConfigFlags {
 }
 
 class CcAppConfigLimits {
-  /// Config logger : when building an environment PROD, all values are set to false.
+  /// Config logger : when building an env PROD, all values are set to false.
   static const int APP_TRACKING_LOG_LENGTH = 100;
 }

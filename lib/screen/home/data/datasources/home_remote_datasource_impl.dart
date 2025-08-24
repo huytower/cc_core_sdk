@@ -12,7 +12,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<HomeEntity> fetchHomeData() async {
-    // Simulate network delay
+    // Simulate http delay
     await Future.delayed(const Duration(milliseconds: 500));
 
     // Simulate random data for demonstration
@@ -34,7 +34,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<HomeEntity> updateHomeData(HomeEntity homeData) async {
-    // Simulate network delay
+    // Simulate http delay
     await Future.delayed(const Duration(milliseconds: 300));
 
     // In a real app, this would send data to the server

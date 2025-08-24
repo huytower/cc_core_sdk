@@ -24,7 +24,7 @@ Environment configuration is essential for:
 ## Quick Start
 
 ```dart
-// 1. Access environment variables anywhere in your app
+// 1. Access env variables anywhere in your app
 import 'package:flutter_dotenv/flutter_dotenv';
 
 class ApiService {
@@ -34,7 +34,7 @@ class ApiService {
 
 // 2. Initialize in main.dart
 Future<void> main() async {
-  // Load environment variables before running the app
+  // Load env variables before running the app
   await dotenv.load(fileName: 'env/.env');
   
   runApp(const MyApp());

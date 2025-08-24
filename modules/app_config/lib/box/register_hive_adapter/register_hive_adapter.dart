@@ -1,8 +1,8 @@
 import 'dart:developer' as developer;
 
-import '../../config/app_storage/cc_app_storage.dart';
-import '../../config/app_track_log/cc_app_track_log.dart';
-import '../../config/device_info/cc_device_info.dart';
+import '../app_storage/cc_app_storage.dart';
+import '../app_track_log/cc_app_track_log.dart';
+import '../device_info/cc_device_info.dart';
 
 /// Registers all Hive adapters used in the application.
 ///

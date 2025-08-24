@@ -1,4 +1,4 @@
-import 'package:app_config/config/device_info/cc_device_info.dart';
+import 'package:app_config/http/device_info/cc_device_info.dart';
 
 /// Handles device information management
 class DeviceInfoManager {

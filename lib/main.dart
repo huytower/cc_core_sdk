@@ -1,8 +1,7 @@
 import 'dart:developer' as developer;
-import 'dart:io';
 
 import 'package:app_config/box/register_hive_adapter/register_hive_adapter.dart';
-import 'package:app_config/config/app_config/cc_app_config.dart';
+import 'package:app_config/config/app_config/http_manager.dart';
 import 'package:content_locale/cc_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -18,34 +17,32 @@ import 'core/runner/app_runner.dart';
 ///
 Future<void> _loadEnvVars() async {
   try {
-    // Determine the environment
+    // Determine the env
     const env = String.fromEnvironment('ENV', defaultValue: 'development');
     final envFile = env == 'development' ? '.env' : '.env.$env';
     final envPath = 'env/$envFile';
-    
-    developer.log('Loading environment: $env from $envPath', name: 'EnvConfig');
-    
-    // Load the environment variables from env/ directory
+
+    developer.log('Loading env: $env from $envPath', name: 'EnvConfig');
+
+    // Load the env variables from env/ directory
     await dotenv.load(fileName: envPath);
-    
-    // Log environment info
-    developer.log('✅ Running in $env environment', name: 'EnvConfig');
+
+    // Log env info
+    developer.log('✅ Running in $env env', name: 'EnvConfig');
     developer.log('🌐 API URL: ${dotenv.get('API_URL', fallback: 'Not set')}', name: 'EnvConfig');
-    
+
     // Log all loaded variables in debug mode
     assert(() {
-      final buffer = StringBuffer('📋 Loaded environment variables:\n');
+      final buffer = StringBuffer('📋 Loaded env variables:\n');
       dotenv.env.forEach((key, value) {
-        buffer.writeln('   $key: ${key.toLowerCase().contains('key') || key.toLowerCase().contains('secret') ? '***' : value}');
+        buffer.writeln(
+            '   $key: ${key.toLowerCase().contains('key') || key.toLowerCase().contains('secret') ? '***' : value}');
       });
       developer.log(buffer.toString(), name: 'EnvConfig');
       return true;
     }());
   } catch (e, stackTrace) {
-    developer.log('❌ Failed to load environment variables: $e', 
-                 error: e, 
-                 stackTrace: stackTrace,
-                 name: 'EnvConfig');
+    developer.log('❌ Failed to load env variables: $e', error: e, stackTrace: stackTrace, name: 'EnvConfig');
     rethrow;
   }
 }
@@ -53,8 +50,8 @@ Future<void> _loadEnvVars() async {
 void main() async {
   // Initialize Flutter bindings
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Load environment variables
+
+  // Load env variables
   await _loadEnvVars();
 
   /// where init dependency injection, ex. : @singleton, @module, @injection ...

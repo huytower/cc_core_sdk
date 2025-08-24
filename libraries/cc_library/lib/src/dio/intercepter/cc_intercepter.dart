@@ -1,6 +1,6 @@
 // todo(huy) : Enable code
 
-// import 'package:data/config/dio/cc_dio.dart';
+// import 'package:data/http/dio/cc_dio.dart';
 //
 // ccDio().interceptors.add(
 // CurlLoggerDioInterceptor(printOnSuccess: true),

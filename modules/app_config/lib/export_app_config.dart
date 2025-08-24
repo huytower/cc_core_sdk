@@ -1,19 +1,19 @@
 /// App Configuration Module
 ///
-/// Provides environment-aware configuration and core functionality for the application.
+/// Provides env-aware configuration and core functionality for the application.
 ///
 /// ## Usage
 ///
 /// ```dart
 /// import 'package:app_config/export_app_config.dart';
 ///
-/// // Get current environment
-/// final env = CcAppConfig.environment;
+/// // Get current env
+/// final env = CcAppConfig.env;
 ///
-/// // Get app config for current environment
-/// final config = CcAppConfig.instance;
-/// print('App Name: ${config.appName}');
-/// print('API URL: ${config.baseUrl}');
+/// // Get app http for current env
+/// final http = CcAppConfig.instance;
+/// print('App Name: ${http.appName}');
+/// print('API URL: ${http.baseUrl}');
 ///
 /// // Check feature flags
 /// if (CcAppConfigFlags.isEnableLogger) {
@@ -30,23 +30,17 @@
 // Core functionality
 export 'box/cc_hive_box.dart';
 export 'box/register_hive_adapter/register_hive_adapter.dart';
-
-// Core Configuration
-export 'config/app_config/cc_app_config.dart';
-
 // Constants
 export 'constant/cc_constants.dart';
-
 // Data Sources
 export 'data_source/assets_data_source.dart';
-
 // Enums
 export 'enum/environment.dart';
 export 'enum/layout_status.dart';
 export 'enum/routing_manager_enum.dart';
-
 // Extensions
 export 'extension/app_track_log_extension.dart';
-
 // Helpers
 export 'helper/network_helper.dart';
+// Core Configuration
+export 'http/http_client/http_client.dart';

@@ -1,23 +1,21 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../cc_app_config.dart';
-import 'app_config_base.dart';
+import '../http_client/http_client.dart';
+import 'base.dart';
 
-/// Free tier environment configuration with mock APIs
-class AppConfigFree extends AppConfigBase {
+/// Free tier env configuration with mock APIs
+class HttpFree extends HttpBase {
   bool _isLogger = true;
   bool _isEnableLoggerDio = CcAppConfigFlags.isEnableLogger;
 
   @override
   bool get isLogger => _isLogger;
 
-  @override
   set isLogger(bool value) => _isLogger = value;
 
   @override
   bool get isEnableLoggerDio => _isEnableLoggerDio;
 
-  @override
   set isEnableLoggerDio(bool value) => _isEnableLoggerDio = value;
 
   @override

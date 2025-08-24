@@ -1,7 +1,7 @@
 class CcConstants {}
 
 class CcConstantsDateTime {
-  //region config datakey
+  //region http datakey
   static String dateFormatPattern = "dd-MM-yyyy";
   static String datetimeFormatPattern = "HH:mm, dd-MM-yyyy";
   static String datetime3FormatPattern = "dd/MM/yyyy HH:mm";

@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../exception/app_config_exception.dart';
-import 'app_config_base.dart';
+import 'base.dart';
 
-/// Production environment configuration.
+/// Production env configuration.
 ///
 /// This configuration is used when the app is built for production deployment.
 /// It enables production-specific settings and optimizations.
@@ -15,7 +15,7 @@ import 'app_config_base.dart';
 /// This class is immutable and can only be instantiated once per application
 /// lifecycle through the [CcAppConfig] singleton.
 ///
-/// To use this configuration, set the environment to `prod`:
+/// To use this configuration, set the env to `prod`:
 /// ```
 /// flutter run --dart-define=ENV=prod
 /// ```
@@ -24,14 +24,14 @@ import 'app_config_base.dart';
 /// ```
 /// flutter build apk --dart-define=ENV=prod
 /// ```
-class AppConfigProd extends AppConfigBase {
-  /// Display name for the production environment
+class HttpProd extends HttpBase {
+  /// Display name for the production env
   static const String environmentName = 'PRODUCTION';
 
   /// Creates an immutable production configuration instance.
   ///
   /// Prefer using [CcAppConfig.instance] to get the current configuration.
-  const AppConfigProd() : super();
+  const HttpProd() : super();
 
   @override
   bool get isLogger => false; // Disable logging in production by default
@@ -63,9 +63,9 @@ class AppConfigProd extends AppConfigBase {
   @override
   int get versionApi => _getVersion('API_VERSION');
 
-  /// Gets a version number from environment variables with validation.
+  /// Gets a version number from env variables with validation.
   ///
-  /// [key] - The environment variable key to read
+  /// [key] - The env variable key to read
   ///
   /// Returns the parsed version number
   /// Throws [InvalidConfigException] if the version is invalid
@@ -103,14 +103,14 @@ class AppConfigProd extends AppConfigBase {
   /// Can be overridden with `ENABLE_CRASH_REPORTING=false` in .env
   bool get enableCrashReporting => _getBool('ENABLE_CRASH_REPORTING', true);
 
-  /// Whether certificate pinning is enabled for network requests.
+  /// Whether certificate pinning is enabled for http requests.
   ///
   /// Can be overridden with `ENABLE_CERT_PINNING=false` in .env
   bool get enableCertificatePinning => _getBool('ENABLE_CERT_PINNING', true);
 
-  /// Gets a boolean value from environment variables with validation.
+  /// Gets a boolean value from env variables with validation.
   ///
-  /// [key] - The environment variable key to read
+  /// [key] - The env variable key to read
   /// [defaultValue] - The default value if the key is not set
   ///
   /// Returns the parsed boolean value
@@ -143,7 +143,7 @@ class AppConfigProd extends AppConfigBase {
       // Additional production-specific validations
       if (baseUrl.startsWith('http://') && !baseUrl.contains('localhost')) {
         throw const SecurityConfigException(
-          message: 'Insecure HTTP protocol detected in production environment',
+          message: 'Insecure HTTP protocol detected in production env',
           key: 'baseUrl',
         );
       }
@@ -165,15 +165,4 @@ class AppConfigProd extends AppConfigBase {
         enableCrashReporting,
         enableCertificatePinning,
       ];
-
-  @override
-  String toString() => 'AppConfigProd('
-      'baseUrl: $baseUrl, '
-      'versionApi: $versionApi, '
-      'versionIOS: $versionIOS, '
-      'versionAndroid: $versionAndroid, '
-      'enableAnalytics: $enableAnalytics, '
-      'enableCrashReporting: $enableCrashReporting, '
-      'enableCertificatePinning: $enableCertificatePinning'
-      ')';
 }

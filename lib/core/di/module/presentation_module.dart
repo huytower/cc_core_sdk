@@ -1,4 +1,4 @@
-import 'package:app_config/config/app_track_log/cc_app_track_log.dart';
+import 'package:app_config/http/app_track_log/cc_app_track_log.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../screen/getx/app_track_log/cubit/logic/app_track_log_cubit.dart';
