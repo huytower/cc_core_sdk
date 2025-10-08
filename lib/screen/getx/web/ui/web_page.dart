@@ -7,7 +7,8 @@ import '../../base/structure/getx/cc_get_view/cc_get_view.dart';
 import '../get_x/web_controller.dart';
 import '../mixin/web_provider.dart';
 
-class WebPage extends CcGetView<WebController> with WebRedirectProvider, WatchItMixin {
+class WebPage extends CcGetView<WebController>
+    with WebRedirectProvider, WatchItMixin {
   const WebPage({Key? key}) : super(key: key, isEnableAppBar: true);
 
   @override

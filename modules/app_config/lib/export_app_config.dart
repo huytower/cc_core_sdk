@@ -1,6 +1,6 @@
 /// App Configuration Module
 ///
-/// Provides environment-aware configuration and core functionality for the application.
+/// Provides environment-aware configuration and common functionality for the application.
 ///
 /// ## Usage
 ///

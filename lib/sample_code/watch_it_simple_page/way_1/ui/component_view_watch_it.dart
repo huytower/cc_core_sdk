@@ -1,8 +1,8 @@
-import 'package:cc_library/export/export_common_ui.dart';
-import 'package:cc_library/widget/flex/cc_column_center.dart';
-import 'package:cc_library/widget/space/cc_space.dart';
-import 'package:cc_library/widget/text/app_name_widget.dart';
-import 'package:cc_library/widget/text/cc_text.dart';
+import 'package:cc_library/widgets/base/cc_position.dart';
+import 'package:cc_library/widgets/flex/cc_column_center.dart';
+import 'package:cc_library/widgets/space/cc_space.dart';
+import 'package:cc_library/widgets/text/app_name_widget.dart';
+import 'package:cc_library/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -35,7 +35,9 @@ class ComponentViewWatchIt extends WatchingWidget {
       logic.getDeviceInfo(); // register one-time
     }
 
-    return logic.isReady.value == true ? buildBody() : const Center(child: CircularProgressIndicator());
+    return logic.isReady.value == true
+        ? buildBody()
+        : const Center(child: CircularProgressIndicator());
   }
 
   Widget buildBody() => CcColCenter(children: [
@@ -53,20 +55,21 @@ class ComponentViewWatchIt extends WatchingWidget {
         buildDeviceInfo(),
       ]);
 
-  Widget buildDeviceInfo() => (logic.modelNotifier.model.deviceInfo ?? '').isNotEmpty
-      ? Stack(
-          children: [
-            CcPositionCenter(
-              child: CcText(
-                /// WatchItMixin : Step 4 : see modified value in here
-                logic.modelNotifier.model.deviceInfo,
-                color: Colors.grey,
-                fontSize: 12,
-                textAlign: TextAlign.center,
-                align: Alignment.center,
-              ),
-            ),
-          ],
-        )
-      : const Center(child: CircularProgressIndicator());
+  Widget buildDeviceInfo() =>
+      (logic.modelNotifier.model.deviceInfo ?? '').isNotEmpty
+          ? Stack(
+              children: [
+                CcPositionCenter(
+                  child: CcText(
+                    /// WatchItMixin : Step 4 : see modified value in here
+                    logic.modelNotifier.model.deviceInfo,
+                    color: Colors.grey,
+                    fontSize: 12,
+                    textAlign: TextAlign.center,
+                    align: Alignment.center,
+                  ),
+                ),
+              ],
+            )
+          : const Center(child: CircularProgressIndicator());
 }

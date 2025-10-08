@@ -4,9 +4,6 @@ import 'package:get/get.dart';
 
 import '../cc_get_controller/cc_get_controller.dart';
 
-export 'package:cc_library/extension/kotlin_extension.dart';
-export 'package:cc_library/extension/logger.dart';
-
 abstract class CcGetView<T extends CcGetController> extends GetView<T> {
   //----------------------------------------------------------------------------
   const CcGetView({

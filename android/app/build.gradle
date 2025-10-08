@@ -1,6 +1,6 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
+    id "common-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -36,7 +36,7 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += 'src/main/common'
     }
 
     defaultConfig {

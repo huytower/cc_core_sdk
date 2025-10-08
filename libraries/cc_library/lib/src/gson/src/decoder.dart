@@ -26,13 +26,22 @@ class GsonDecoder {
       return decodeMap(p);
     } else if (p.actual() == '[') {
       return decodeArray(p);
-    } else if (p.actual() == 't' && p.peek(1) == 'r' && p.peek(2) == 'u' && p.peek(3) == 'e') {
+    } else if (p.actual() == 't' &&
+        p.peek(1) == 'r' &&
+        p.peek(2) == 'u' &&
+        p.peek(3) == 'e') {
       return true;
-    } else if (p.actual() == 'f' && p.peek(1) == 'a' && p.peek(2) == 'l' && p.peek(3) == 's' && p.peek(4) == 'e') {
+    } else if (p.actual() == 'f' &&
+        p.peek(1) == 'a' &&
+        p.peek(2) == 'l' &&
+        p.peek(3) == 's' &&
+        p.peek(4) == 'e') {
       return false;
     } else if (RegExp(r'[0-9\.]').hasMatch(p.actual())) {
       return decodeNumber(p);
-    } else if (p.actual() == '"' || p.actual() == "'" || _PURE_STRING.hasMatch(p.actual())) {
+    } else if (p.actual() == '"' ||
+        p.actual() == "'" ||
+        _PURE_STRING.hasMatch(p.actual())) {
       return decodeString(p);
     } else {
       throw p.error('Unexpected character ' + p.actual());
@@ -57,7 +66,8 @@ class GsonDecoder {
       }
       foundComma = false;
       _skipIgnored(p);
-      if (RegExp(r'''[\\[\\{\\\"\\\'0-9]''').hasMatch(p.actual()) || _PURE_STRING.hasMatch(p.actual())) {
+      if (RegExp(r'''[\\[\\{\\\"\\\'0-9]''').hasMatch(p.actual()) ||
+          _PURE_STRING.hasMatch(p.actual())) {
         arr.add(decode(p));
       } else {
         throw p.error('Expected "[", "\\"","\\\'", "{" or a number');
@@ -111,7 +121,8 @@ class GsonDecoder {
 
       _skipIgnored(p);
 
-      if (RegExp(r'''[\\[\\{\\\"\\\'0-9]''').hasMatch(p.actual()) || _PURE_STRING.hasMatch(p.actual())) {
+      if (RegExp(r'''[\\[\\{\\\"\\\'0-9]''').hasMatch(p.actual()) ||
+          _PURE_STRING.hasMatch(p.actual())) {
         map[key] = decode(p);
       } else {
         throw p.error('Expected "[", "\\"","\\\'", "{" or a number');
@@ -161,7 +172,8 @@ class GsonDecoder {
         str += p.next();
       }
     } else {
-      throw p.error('String has to start with a \"\\\"\" or \"\\\'\" when it contains some characters');
+      throw p.error(
+          'String has to start with a \"\\\"\" or \"\\\'\" when it contains some characters');
     }
 
     return json.decode(str + '"');

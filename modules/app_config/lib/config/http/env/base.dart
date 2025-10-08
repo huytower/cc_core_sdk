@@ -138,7 +138,9 @@ abstract class HttpBase extends Equatable {
     }
 
     // Additional validations for production
-    if (isEnvPro && baseUrl.startsWith('http://') && !baseUrl.contains('localhost')) {
+    if (isEnvPro &&
+        baseUrl.startsWith('http://') &&
+        !baseUrl.contains('localhost')) {
       throw const SecurityConfigException(
         message: 'Insecure HTTP protocol detected in production env',
         key: 'baseUrl',
@@ -157,6 +159,7 @@ abstract class HttpBase extends Equatable {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'X-App-Version': versionApi.toString(),
-        'X-Platform': '${Platform.isAndroid ? 'Android' : 'iOS'}-${Platform.operatingSystemVersion}',
+        'X-Platform':
+            '${Platform.isAndroid ? 'Android' : 'iOS'}-${Platform.operatingSystemVersion}',
       };
 }

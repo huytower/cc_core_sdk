@@ -23,7 +23,8 @@ class CcAppTrackName {
     try {
       return dotenv.maybeGet(
             'APP_NAME',
-            fallback: const String.fromEnvironment('APP_NAME', defaultValue: _defaultAppName),
+            fallback: const String.fromEnvironment('APP_NAME',
+                defaultValue: _defaultAppName),
           ) ??
           _defaultAppName;
     } catch (e, stackTrace) {

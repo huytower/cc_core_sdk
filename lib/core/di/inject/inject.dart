@@ -29,7 +29,7 @@ Future<void> initializeDependencies() async {
   // Initialize presentation layer dependencies
   await configurePresentationDependencies();
 
-  // Initialize core dependencies
+  // Initialize common dependencies
   await _configureCoreDependencies();
 
   // Initialize the rest of dependencies
@@ -41,7 +41,7 @@ Future<void> _configureCoreDependencies() async {
   final sharedPrefs = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
 
-  // Register core managers and initializers
+  // Register common managers and initializers
   if (!getIt.isRegistered<HiveManager>()) {
     getIt.registerLazySingleton<HiveManager>(() => HiveManager());
   }

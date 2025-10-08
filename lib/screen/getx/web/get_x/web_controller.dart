@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 import 'package:app_config/enum/layout_status.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../core/di/inject/inject.dart';
 import '../../base/structure/getx/cc_get_controller/cc_get_controller.dart';
-import '../../base/structure/getx/cc_get_view/cc_get_view.dart';
 
 class WebBinding extends Bindings {
   @override

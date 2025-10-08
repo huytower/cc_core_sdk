@@ -19,7 +19,8 @@ class HttpUat extends HttpBase {
   set isEnableLoggerDio(bool value) => _isEnableLoggerDio = value;
 
   @override
-  String get baseUrl => dotenv.get('API_URL', fallback: 'https://api.uat.yourdomain.com');
+  String get baseUrl =>
+      dotenv.get('API_URL', fallback: 'https://api.uat.yourdomain.com');
 
   @override
   int get apiTimeoutSeconds => 60; // Longer timeout for UAT

@@ -1,6 +1,5 @@
 import 'package:app_config/box/device_info/cc_device_info.dart';
-import 'package:cc_library/helper/device_helper.dart';
-import 'package:cc_library/util/common/device_utils.dart';
+import 'package:cc_library/core/utils/common/device_utils.dart';
 
 import 'device_dimension_manager.dart';
 import 'device_info_manager.dart';
@@ -44,7 +43,7 @@ class DeviceInitializer {
   /// Throws [DeviceInitializationError] if initialization fails
   Future<void> initialize() async {
     try {
-      final deviceId = await DeviceHelper.getDeviceId();
+      final deviceId = await DeviceUtils.getDeviceId();
       final appVersion = await DeviceUtils.getAppVersion();
 
       _infoManager.updateDeviceInfo(

@@ -42,7 +42,8 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     final currentState = state;
     if (currentState is CounterLoaded) {
       try {
-        final updatedCounter = await incrementCounterUseCase(currentState.counter);
+        final updatedCounter =
+            await incrementCounterUseCase(currentState.counter);
         emit(CounterLoaded(counter: updatedCounter));
       } catch (e) {
         emit(CounterError(message: e.toString()));

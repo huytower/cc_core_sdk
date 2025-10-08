@@ -34,7 +34,8 @@ class CcResHeaderModel {
     this.code = '0',
   });
 
-  factory CcResHeaderModel.fromJson(Map<String, dynamic> json) => _$CcResHeaderModelFromJson(json);
+  factory CcResHeaderModel.fromJson(Map<String, dynamic> json) =>
+      _$CcResHeaderModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CcResHeaderModelToJson(this);
 }

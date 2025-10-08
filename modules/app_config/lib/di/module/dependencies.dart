@@ -6,7 +6,7 @@ import '../../box/app_track_log/cc_app_track_log.dart';
 import '../../box/device_info/cc_device_info.dart';
 import '../../helper/network_helper.dart';
 
-/// Defines and provides core dependencies for the AppConfig module.
+/// Defines and provides common dependencies for the AppConfig module.
 /// This module is responsible for registering services that are essential
 /// for the application's configuration and infrastructure.
 @module

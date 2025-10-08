@@ -20,7 +20,9 @@ class HomeModel extends HomeEntity {
       title: json['title'] as String? ?? 'Default Title',
       description: json['description'] as String? ?? 'Default Description',
       itemCount: json['itemCount'] as int? ?? 0,
-      lastUpdated: json['lastUpdated'] != null ? DateTime.parse(json['lastUpdated'] as String) : DateTime.now(),
+      lastUpdated: json['lastUpdated'] != null
+          ? DateTime.parse(json['lastUpdated'] as String)
+          : DateTime.now(),
     );
   }
 

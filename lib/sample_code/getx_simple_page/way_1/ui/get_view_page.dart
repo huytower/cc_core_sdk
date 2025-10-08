@@ -1,8 +1,9 @@
 import 'package:auto_route/annotations.dart';
-import 'package:cc_library/widget/button/cc_close_btn.dart';
-import 'package:cc_library/widget/button/cc_debounce_widget.dart';
-import 'package:cc_library/widget/space/cc_space.dart';
-import 'package:cc_library/widget/text/cc_text.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
+import 'package:cc_library/widgets/button/cc_close_btn.dart';
+import 'package:cc_library/widgets/button/cc_debounce_widget.dart';
+import 'package:cc_library/widgets/space/cc_space.dart';
+import 'package:cc_library/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -36,7 +37,8 @@ import '../mixin/get_view_provider.dart';
 /// - Customize type : when need customize [base|default widgets], by adding `mixin`
 ///   ex. `class ProfileScreen extends CcGetView<ProfileController> with HomeProvider`
 @RoutePage()
-class GetViewPage extends CcGetView<GetViewController> with GetViewProvider, CcPullRefreshMixin, CcLoadMoreMixin {
+class GetViewPage extends CcGetView<GetViewController>
+    with GetViewProvider, CcPullRefreshMixin, CcLoadMoreMixin {
   GetViewPage({Key? key})
       : super(
           key: key,
@@ -95,7 +97,8 @@ class GetViewPage extends CcGetView<GetViewController> with GetViewProvider, CcP
 
   GestureDetector buildItem(int index) {
     return GestureDetector(
-      onTap: () => controller.fetchNewsDetailApi(controller.sampleCodeFakeList[index].id.toString()),
+      onTap: () => controller.fetchNewsDetailApi(
+          controller.sampleCodeFakeList[index].id.toString()),
       child: Container(
         /// flutter sdk
         height: 150,
@@ -116,7 +119,9 @@ class GetViewPage extends CcGetView<GetViewController> with GetViewProvider, CcP
     );
   }
 
-  Widget buildList() => controller.sampleCodeFakeList.isNotEmpty ? buildListComponent() : buildListEmpty();
+  Widget buildList() => controller.sampleCodeFakeList.isNotEmpty
+      ? buildListComponent()
+      : buildListEmpty();
 
   /// Sample code : Attach mixin : pull to refresh, load more ...
   /// Sample code : or use default `RefreshIndicator` ui ...

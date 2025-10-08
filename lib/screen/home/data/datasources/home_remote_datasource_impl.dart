@@ -26,7 +26,8 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
     return HomeModel(
       title: titles[random % titles.length],
-      description: 'This is a demonstration of Clean Architecture with BLoC pattern and SOLID principles.',
+      description:
+          'This is a demonstration of Clean Architecture with BLoC pattern and SOLID principles.',
       itemCount: random % 100,
       lastUpdated: DateTime.now(),
     );

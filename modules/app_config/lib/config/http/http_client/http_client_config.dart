@@ -30,7 +30,8 @@ class HttpClientConfig {
   /// Retrieves the environment from command line arguments or defaults to FREE_FAKE_API.
   static Environment _getEnvironmentFromArgs() {
     try {
-      final env = const String.fromEnvironment('ENV', defaultValue: 'free').toLowerCase();
+      final env = const String.fromEnvironment('ENV', defaultValue: 'free')
+          .toLowerCase();
 
       // Map common aliases to environment values
       final envMap = {

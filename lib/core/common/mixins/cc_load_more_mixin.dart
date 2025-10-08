@@ -1,7 +1,7 @@
-import 'package:cc_library/widget/api/base_progress_indicator.dart';
-import 'package:cc_library/widget/flex/cc_row_center.dart';
-import 'package:cc_library/widget/space/cc_space.dart';
-import 'package:cc_library/widget/text/cc_text.dart';
+import 'package:cc_library/widgets/api/base_progress_indicator.dart';
+import 'package:cc_library/widgets/flex/cc_row_center.dart';
+import 'package:cc_library/widgets/space/cc_space.dart';
+import 'package:cc_library/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
 
@@ -35,7 +35,8 @@ class CcLoadMoreItem extends LoadMoreDelegate {
   const CcLoadMoreItem();
 
   @override
-  Widget buildChild(LoadMoreStatus status, {LoadMoreTextBuilder builder = DefaultLoadMoreTextBuilder.english}) {
+  Widget buildChild(LoadMoreStatus status,
+      {LoadMoreTextBuilder builder = DefaultLoadMoreTextBuilder.english}) {
     String text = builder(status);
 
     if (status == LoadMoreStatus.fail) {
@@ -69,7 +70,8 @@ class CcLoadMoreItem extends LoadMoreDelegate {
     );
   }
 
-  CcText buildText(String text, {Color? color, TextAlign? textAlign, Alignment? align}) {
+  CcText buildText(String text,
+      {Color? color, TextAlign? textAlign, Alignment? align}) {
     return CcText(
       text,
       fontSize: 16,

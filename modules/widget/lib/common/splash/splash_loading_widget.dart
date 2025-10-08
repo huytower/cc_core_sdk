@@ -4,7 +4,11 @@ import 'package:lottie/lottie.dart';
 /// loading|progress ui
 /// show in splash screen page
 class SplashLoadingWidget extends StatelessWidget {
-  const SplashLoadingWidget({Key? key, this.isJsonResId = true, required this.resId, this.width = 115})
+  const SplashLoadingWidget(
+      {Key? key,
+      this.isJsonResId = true,
+      required this.resId,
+      this.width = 115})
       : super(key: key);
 
   final bool isJsonResId;

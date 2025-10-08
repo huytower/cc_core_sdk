@@ -1,7 +1,6 @@
 import 'package:app_config/box/app_track_log/cc_app_track_log.dart';
 import 'package:app_config/config/app/cc_app_track_info.dart';
-import 'package:cc_library/helper/device_helper.dart';
-import 'package:cc_library/util/common/device_utils.dart';
+import 'package:cc_library/core/utils/common/device_utils.dart';
 import 'package:data/model/device/device_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +41,7 @@ class AppTrackLogCubit extends Cubit<AppTrackLogState> {
 
   Future<void> _loadDeviceInfo() async {
     try {
-      final deviceInfo = await DeviceHelper.getDeviceInfo();
+      final deviceInfo = await DeviceUtils.getDeviceInfo();
       emit(state.copyWith(
         deviceModel: DeviceModelOri(deviceInfo: deviceInfo),
       ));
@@ -54,7 +53,8 @@ class AppTrackLogCubit extends Cubit<AppTrackLogState> {
   }
 
   void addLogMessage(String message) {
-    final updatedLogs = List<String>.from(state.loggingMessages ?? [])..add(message);
+    final updatedLogs = List<String>.from(state.loggingMessages ?? [])
+      ..add(message);
     emit(state.copyWith(loggingMessages: updatedLogs));
   }
 }

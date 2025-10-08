@@ -54,7 +54,8 @@ class UserPrincipal {
     vpnUsername = json['VPNUsername'];
 
     if (json['ExpireDate'] != null) {
-      expireDate = DataHelper.convertDatetimeJson(json['ExpireDate'], isCheckJsonNet: true);
+      expireDate = DataHelper.convertDatetimeJson(json['ExpireDate'],
+          isCheckJsonNet: true);
     }
 
     if (json['RoleIDs'] != null) {

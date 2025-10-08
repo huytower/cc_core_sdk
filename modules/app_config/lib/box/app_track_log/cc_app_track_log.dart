@@ -25,7 +25,8 @@ class CcAppTrackLog extends HiveObject {
 
   static Future<CcAppTrackLog?> register() async {
     Hive.registerAdapter(CcAppTrackLogAdapter());
-    Box<CcAppTrackLog> box = await Hive.openBox<CcAppTrackLog>(CcHiveBox.TRACK_LOG_BOX_NAME);
+    Box<CcAppTrackLog> box =
+        await Hive.openBox<CcAppTrackLog>(CcHiveBox.TRACK_LOG_BOX_NAME);
     CcAppTrackLog? model = box.get(CcHiveBox.keyDefault);
     if (model == null) {
       model = CcAppTrackLog();

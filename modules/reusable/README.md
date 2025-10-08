@@ -24,6 +24,7 @@ lib/
 ## Usage
 
 ### Widgets
+
 Import and use widgets directly in your code:
 
 ```dart
@@ -32,6 +33,7 @@ import 'package:reusable/widgets/cards/your_card.dart';
 ```
 
 ### Extensions
+
 Import and use extensions like this:
 
 ```dart
@@ -43,6 +45,7 @@ String safeString = nullableString.ctmConvertNull();
 ```
 
 ### Utils
+
 Import and use utility classes:
 
 ```dart

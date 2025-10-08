@@ -1,10 +1,9 @@
 import 'package:app_config/config/app/cc_app_track_info.dart';
-import 'package:cc_library/helper/device_helper.dart';
-import 'package:cc_library/util/common/device_utils.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
+import 'package:cc_library/core/utils/common/device_utils.dart';
 import 'package:data/model/sample/sample_model_watch_it.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:widget/export/cc_ktx_export.dart';
 
 import '../../../../../../core/di/inject/inject.dart';
 
@@ -19,7 +18,8 @@ class ComponentWatchItLogic {
   final isReady = ValueNotifier(false);
   final appVersion = ValueNotifier('');
 
-  SampleModelWatchItNotifier modelNotifier = getIt<SampleModelWatchItNotifier>();
+  SampleModelWatchItNotifier modelNotifier =
+      getIt<SampleModelWatchItNotifier>();
 
   String get appInfo => '${CcAppTrackName.appName}'
       '/${appVersion.value}'
@@ -32,7 +32,8 @@ class ComponentWatchItLogic {
       appVersion.value = await getAppVersion();
 
       /// WatchItMixin : Step 3 : assign new data, then trigger|notify data set changed
-      SampleModelOri model = SampleModelOri(deviceInfo: await DeviceHelper.getDeviceInfo());
+      SampleModelOri model =
+          SampleModelOri(deviceInfo: await DeviceUtils.getDeviceInfo());
 
       modelNotifier.model = model;
     } catch (e) {

@@ -82,8 +82,10 @@ class DataHelper {
       _hour = hour == null ? dtm.hour : dtm.hour + hour;
       _minute = minute == null ? dtm.minute : dtm.minute + minute;
       _second = second == null ? dtm.second : dtm.second + second;
-      _millisecond = millisecond == null ? dtm.millisecond : dtm.millisecond + millisecond;
-      _microsecond = microsecond == null ? dtm.microsecond : dtm.microsecond + microsecond;
+      _millisecond =
+          millisecond == null ? dtm.millisecond : dtm.millisecond + millisecond;
+      _microsecond =
+          microsecond == null ? dtm.microsecond : dtm.microsecond + microsecond;
     }
     if (type == DataHelper.subDate) {
       _year = year == null ? dtm!.year : dtm!.year - year;
@@ -92,8 +94,10 @@ class DataHelper {
       _hour = hour == null ? dtm.hour : dtm.hour - hour;
       _minute = minute == null ? dtm.minute : dtm.minute - minute;
       _second = second == null ? dtm.second : dtm.second - second;
-      _millisecond = millisecond == null ? dtm.millisecond : dtm.millisecond - millisecond;
-      _microsecond = microsecond == null ? dtm.microsecond : dtm.microsecond - microsecond;
+      _millisecond =
+          millisecond == null ? dtm.millisecond : dtm.millisecond - millisecond;
+      _microsecond =
+          microsecond == null ? dtm.microsecond : dtm.microsecond - microsecond;
     }
     if (type == DataHelper.startDate) {
       _hour = 0;
@@ -109,7 +113,8 @@ class DataHelper {
       _microsecond = 59;
       _millisecond = 59;
     }
-    return new DateTime(_year, _month, _day, _hour, _minute, _second, _millisecond, _microsecond);
+    return new DateTime(_year, _month, _day, _hour, _minute, _second,
+        _millisecond, _microsecond);
   }
 
   static String getDelayTime(DateTime date1) {
@@ -123,7 +128,8 @@ class DataHelper {
 
     if (delta < 45 * minute) return ts.inMinutes.toString() + " phút";
 
-    if (delta < 24 * hour) return (ts.inHours <= 0 ? 1 : ts.inHours).toString() + " giờ";
+    if (delta < 24 * hour)
+      return (ts.inHours <= 0 ? 1 : ts.inHours).toString() + " giờ";
 
     if (delta < 48 * hour) return "${ts.inDays} ngày";
 
@@ -165,7 +171,8 @@ class DataHelper {
       return false;
     }
     // ignore: unrelated_type_equality_checks
-    return data.lastIndexOf(']') == data.substring(data.length - 1, data.length);
+    return data.lastIndexOf(']') ==
+        data.substring(data.length - 1, data.length);
   }
 
   static T? firstOrDefault<T>(lst) {
@@ -241,15 +248,18 @@ class DataHelper {
 
   static String formatDatetime2Encode(DateTime? date, {String? pattern}) {
     return DataHelper.convertDatetimeToString(
-        dtm: date, pattern: pattern ?? CcConstantsDateTime.datetimeFormatPattern2Encode);
+        dtm: date,
+        pattern: pattern ?? CcConstantsDateTime.datetimeFormatPattern2Encode);
   }
 
   static String formatDatetimeJson(String strDate) {
     DateTime todayDate = DateTime.parse(strDate);
-    return new DateFormat(CcConstantsDateTime.datetimeFormatPattern).format(getLocalUTC(dtm: todayDate));
+    return new DateFormat(CcConstantsDateTime.datetimeFormatPattern)
+        .format(getLocalUTC(dtm: todayDate));
   }
 
-  static bool compareDate(DateTime date1, String operation, DateTime date2, {String? type}) {
+  static bool compareDate(DateTime date1, String operation, DateTime date2,
+      {String? type}) {
     int? subTime = 0;
     if (type == "date") {
       subTime = date1.difference(date2).inDays;
@@ -267,7 +277,8 @@ class DataHelper {
     return result;
   }
 
-  static DateTime? convertDatetimeJson(String? strDate, {bool isCheckJsonNet = false}) {
+  static DateTime? convertDatetimeJson(String? strDate,
+      {bool isCheckJsonNet = false}) {
     if (isNullOrEmpty(strDate)) {
       return null;
     }
@@ -290,7 +301,8 @@ class DataHelper {
     }
     strDate = strDate!.replaceAll("/Date(", "");
     strDate = strDate.replaceAll(")/", "");
-    DateTime temp = DateTime.fromMillisecondsSinceEpoch(int.parse(strDate), isUtc: true);
+    DateTime temp =
+        DateTime.fromMillisecondsSinceEpoch(int.parse(strDate), isUtc: true);
     DateTime temp2 = DataHelper.setDateTime(dtm: temp, hour: temp.hour + 7);
     return temp2;
   }
@@ -311,12 +323,16 @@ class DataHelper {
   }
 
   static String upperCaseFirst({String pattern = ""}) {
-    return pattern.length < 1 ? '' : pattern[0].toUpperCase() + pattern.substring(1);
+    return pattern.length < 1
+        ? ''
+        : pattern[0].toUpperCase() + pattern.substring(1);
   }
 
   static String lowerCaseFirst({String? pattern}) {
     pattern = pattern ?? '';
-    return pattern.length < 1 ? '' : pattern[0].toLowerCase() + pattern.substring(1);
+    return pattern.length < 1
+        ? ''
+        : pattern[0].toLowerCase() + pattern.substring(1);
   }
 
   static String getCaseFirst({String? pattern}) {
@@ -461,7 +477,8 @@ class DataHelper {
     return strMoney + symbol;
   }
 
-  static String? moneyformatChart({required double money, int toFixDecimal = 2}) {
+  static String? moneyformatChart(
+      {required double money, int toFixDecimal = 2}) {
     String symbol = "";
 //    if (money >= 1000000000) {
 //      money = money / 1000000000;
@@ -474,11 +491,13 @@ class DataHelper {
 //      toFixDecimal = 2;
 //    }
     money = money / 1000000;
-    String? strMoney = moneyformat(money: money, symbol: symbol, toFixDecimal: toFixDecimal);
+    String? strMoney =
+        moneyformat(money: money, symbol: symbol, toFixDecimal: toFixDecimal);
     return strMoney;
   }
 
-  static String? moneyformatSymbol({required double money, int toFixDecimal = 2}) {
+  static String? moneyformatSymbol(
+      {required double money, int toFixDecimal = 2}) {
     String symbol = "";
     if (money >= 1000000000) {
       money = money / 1000000000;
@@ -491,7 +510,8 @@ class DataHelper {
       toFixDecimal = 2;
     }
     money = money / 1000000;
-    String? strMoney = moneyformat(money: money, symbol: symbol, toFixDecimal: toFixDecimal);
+    String? strMoney =
+        moneyformat(money: money, symbol: symbol, toFixDecimal: toFixDecimal);
     return strMoney;
   }
 
@@ -514,7 +534,8 @@ class DataHelper {
 //    return str;
 //  }
 
-  static bool IsStringContain(String? strRoot, String strRequest, {bool? IsSearchWithFormat}) {
+  static bool IsStringContain(String? strRoot, String strRequest,
+      {bool? IsSearchWithFormat}) {
     if (isNullOrEmpty(strRoot)) {
       return false;
     }

@@ -92,7 +92,8 @@ class AssetUtils {
   /// ```dart
   /// final bgPath = AssetUtils.getBackground(BackgroundAsset.splash);
   /// ```
-  static String getBackground(BackgroundAsset asset) => _validatePath('${_AssetPaths.background}/${asset.path}');
+  static String getBackground(BackgroundAsset asset) =>
+      _validatePath('${_AssetPaths.background}/${asset.path}');
 
   /// Get Lottie animation path
   ///
@@ -100,7 +101,8 @@ class AssetUtils {
   /// ```dart
   /// final animation = AssetUtils.getLottie(LottieAsset.loading);
   /// ```
-  static String getLottie(LottieAsset asset) => _validatePath('${_AssetPaths.lottie}/${asset.path}');
+  static String getLottie(LottieAsset asset) =>
+      _validatePath('${_AssetPaths.lottie}/${asset.path}');
 
   /// Get icon path
   ///
@@ -108,7 +110,8 @@ class AssetUtils {
   /// ```dart
   /// final iconPath = AssetUtils.getIcon(IconAsset.analytics);
   /// ```
-  static String getIcon(IconAsset asset) => _validatePath('${_AssetPaths.icon}/${asset.path}');
+  static String getIcon(IconAsset asset) =>
+      _validatePath('${_AssetPaths.icon}/${asset.path}');
 
   /// Get logo path
   ///
@@ -116,7 +119,8 @@ class AssetUtils {
   /// ```dart
   /// final logoPath = AssetUtils.getLogo(LogoAsset.appLogo);
   /// ```
-  static String getLogo(LogoAsset asset) => _validatePath('${_AssetPaths.logo}/${asset.path}');
+  static String getLogo(LogoAsset asset) =>
+      _validatePath('${_AssetPaths.logo}/${asset.path}');
 
   /// Get splash screen path
   ///
@@ -124,7 +128,8 @@ class AssetUtils {
   /// ```dart
   /// final splashPath = AssetUtils.getSplash(BackgroundAsset.splash);
   /// ```
-  static String getSplash(BackgroundAsset asset) => _validatePath('${_AssetPaths.splash}/${asset.path}');
+  static String getSplash(BackgroundAsset asset) =>
+      _validatePath('${_AssetPaths.splash}/${asset.path}');
 
   /// Validates that the asset path exists in the pubspec.yaml
   ///

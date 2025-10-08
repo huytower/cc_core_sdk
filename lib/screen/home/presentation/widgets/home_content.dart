@@ -102,7 +102,9 @@ class HomeContent extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () {
-                          context.read<HomeBloc>().add(const DecrementItemCountEvent());
+                          context
+                              .read<HomeBloc>()
+                              .add(const DecrementItemCountEvent());
                         },
                         icon: const Icon(Icons.remove_circle_outline),
                         iconSize: 32,
@@ -111,15 +113,18 @@ class HomeContent extends StatelessWidget {
                       const SizedBox(width: 24),
                       Text(
                         '${homeData.itemCount}',
-                        style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                ),
                       ),
                       const SizedBox(width: 24),
                       IconButton(
                         onPressed: () {
-                          context.read<HomeBloc>().add(const IncrementItemCountEvent());
+                          context
+                              .read<HomeBloc>()
+                              .add(const IncrementItemCountEvent());
                         },
                         icon: const Icon(Icons.add_circle_outline),
                         iconSize: 32,

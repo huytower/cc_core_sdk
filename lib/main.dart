@@ -28,7 +28,8 @@ Future<void> _loadEnvVars() async {
 
     // Log env info
     developer.log('✅ Running in $env env', name: 'EnvConfig');
-    developer.log('🌐 API URL: ${dotenv.get('API_URL', fallback: 'Not set')}', name: 'EnvConfig');
+    developer.log('🌐 API URL: ${dotenv.get('API_URL', fallback: 'Not set')}',
+        name: 'EnvConfig');
 
     // Log all loaded variables in debug mode
     assert(() {
@@ -41,7 +42,8 @@ Future<void> _loadEnvVars() async {
       return true;
     }());
   } catch (e, stackTrace) {
-    developer.log('❌ Failed to load env variables: $e', error: e, stackTrace: stackTrace, name: 'EnvConfig');
+    developer.log('❌ Failed to load env variables: $e',
+        error: e, stackTrace: stackTrace, name: 'EnvConfig');
     rethrow;
   }
 }

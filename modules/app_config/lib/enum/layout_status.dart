@@ -1,4 +1,11 @@
-enum HttpStatus { loading, completed, error, clientError, serviceError, redirection }
+enum HttpStatus {
+  loading,
+  completed,
+  error,
+  clientError,
+  serviceError,
+  redirection
+}
 
 enum LayoutStatus {
   loading,

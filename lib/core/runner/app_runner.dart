@@ -1,6 +1,6 @@
 import 'package:app_config/config/http/http_client/http_client_config.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:widget/export/cc_ktx_export.dart';
 
 import '../common/device/device_initializer.dart';
 import '../common/extensions/tracking_log_extension.dart';

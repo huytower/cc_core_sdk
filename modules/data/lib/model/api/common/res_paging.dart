@@ -7,7 +7,12 @@ class PagingResponse<T> {
   dynamic records;
 
   PagingResponse(
-      {this.statusCode, this.errorMessage, this.totalRecord = 0, this.currentPageIndex, this.pageSize, this.records});
+      {this.statusCode,
+      this.errorMessage,
+      this.totalRecord = 0,
+      this.currentPageIndex,
+      this.pageSize,
+      this.records});
 
   PagingResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['StatusCode'];

@@ -48,7 +48,8 @@ class CcResBodyModel<T> {
   ///
   /// ex. : var result = value.flatMap((map) => SampleCodeFakeModel.fromJson(map));
   ///
-  CcResBodyModel<T> flatMapToList(T Function(Map<String, dynamic> element) getList) {
+  CcResBodyModel<T> flatMapToList(
+      T Function(Map<String, dynamic> element) getList) {
     listElements = [];
 
     if (_resBodyList == null || _resBodyList!.isEmpty) {
@@ -93,7 +94,9 @@ class CcResBodyModel<T> {
     /// ex.
     ///
     /// { status: 200, message : , error:
-    _resHeader = apiJson != null ? CcResHeaderModel.fromJson(apiJson) : null; // (*) & (**) & (***)
+    _resHeader = apiJson != null
+        ? CcResHeaderModel.fromJson(apiJson)
+        : null; // (*) & (**) & (***)
 
     final _resData = apiJson[CcRestApiParams.data.name];
 
@@ -143,7 +146,8 @@ class CcResBodyModel<T> {
 
     // (****)
     if (_resBodyList != null) {
-      map[CcRestApiParams.data.name] = _resBodyList?.map((v) => jsonEncode(v)).toList();
+      map[CcRestApiParams.data.name] =
+          _resBodyList?.map((v) => jsonEncode(v)).toList();
     }
     // (****)
     if (_resBodyObj != null) {

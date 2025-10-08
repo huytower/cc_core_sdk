@@ -19,7 +19,8 @@ class CcThemes {
   static String? fontFamily = GoogleFonts.roboto().fontFamily;
 
   static TextTheme? textTheme;
-  static MaterialColor primarySwatch = MaterialColor(_primaryColor, <int, Color>{
+  static MaterialColor primarySwatch =
+      MaterialColor(_primaryColor, <int, Color>{
     50: PrjColors.primary.withOpacity(
       0.1,
     ),

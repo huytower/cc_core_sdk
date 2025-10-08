@@ -1,13 +1,13 @@
 import 'package:app_config/box/device_info/cc_device_info.dart';
-import 'package:cc_library/widget/divider_line/cc_divider.dart';
-import 'package:cc_library/widget/flex/cc_column_start.dart';
-import 'package:cc_library/widget/icon/ic_copy.dart';
-import 'package:cc_library/widget/space/cc_space.dart';
-import 'package:cc_library/widget/text/app_name_widget.dart';
-import 'package:cc_library/widget/text/cc_text.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
+import 'package:cc_library/widgets/divider_line/cc_divider.dart';
+import 'package:cc_library/widgets/flex/cc_column_start.dart';
+import 'package:cc_library/widgets/icon/ic_copy.dart';
+import 'package:cc_library/widgets/space/cc_space.dart';
+import 'package:cc_library/widgets/text/app_name_widget.dart';
+import 'package:cc_library/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:widget/export/cc_ktx_export.dart';
 
 import '../../../../../core/di/inject/inject.dart';
 import '../logic/app_track_log_cubit.dart';
@@ -71,22 +71,24 @@ class _AppTrackLogView extends StatelessWidget {
         ],
       );
 
-  Widget buildDeviceInfo(AppTrackLogState state) => state.deviceModel.deviceInfo.isNotEmpty
-      ? CcCopyWidget(
-          title: state.deviceModel.deviceInfo,
-          child: CcText(
-            state.deviceModel.deviceInfo,
-            color: Colors.grey,
-            fontSize: 12,
-            textAlign: TextAlign.center,
-            align: Alignment.center,
-            maxLines: 10,
-          ),
-        )
-      : const Center(child: CircularProgressIndicator());
+  Widget buildDeviceInfo(AppTrackLogState state) =>
+      state.deviceModel.deviceInfo.isNotEmpty
+          ? CcCopyWidget(
+              title: state.deviceModel.deviceInfo,
+              child: CcText(
+                state.deviceModel.deviceInfo,
+                color: Colors.grey,
+                fontSize: 12,
+                textAlign: TextAlign.center,
+                align: Alignment.center,
+                maxLines: 10,
+              ),
+            )
+          : const Center(child: CircularProgressIndicator());
 
   Widget buildLogs(AppTrackLogCubit cubit) {
-    'buildLog() : loggingMessages = ${cubit.state.loggingMessages?.length}'.Log();
+    'buildLog() : loggingMessages = ${cubit.state.loggingMessages?.length}'
+        .Log();
 
     // cubit.state.loggingMessages?.forEach((element) {
     //   'buildLog() : element = $element'.Log();

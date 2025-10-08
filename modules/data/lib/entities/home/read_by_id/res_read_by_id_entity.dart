@@ -98,7 +98,8 @@ class ResReadByIdEntity {
         backgroundMusics?.add(ResBackgroundMusics.fromJson(v));
       });
     }
-    poemGUIDs = json['PoemGUIDs'] != null ? json['PoemGUIDs'].cast<String>() : [];
+    poemGUIDs =
+        json['PoemGUIDs'] != null ? json['PoemGUIDs'].cast<String>() : [];
     firstBackgroundURL = json['FirstBackgroundURL'];
     firstBackgroundAbsoluteURL = json['FirstBackgroundAbsoluteURL'];
   }
@@ -163,7 +164,8 @@ class ResReadByIdEntity {
     map['UpdatedDate'] = updatedDate;
     map['BackgroundColor'] = backgroundColor;
     if (backgroundMusics != null) {
-      map['BackgroundMusics'] = backgroundMusics?.map((v) => v.toJson()).toList();
+      map['BackgroundMusics'] =
+          backgroundMusics?.map((v) => v.toJson()).toList();
     }
     map['PoemGUIDs'] = poemGUIDs;
     map['FirstBackgroundURL'] = firstBackgroundURL;

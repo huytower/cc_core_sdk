@@ -9,7 +9,8 @@ class SessionHelper {
   /// Logic : is force to login page? ex. [token expired]
   /// - true : does not show dialog confirm, then force to login page
   /// - false : show dialog confirm only
-  bool get isForceLogin => event == Events.processing || event == Events.openLoginPage;
+  bool get isForceLogin =>
+      event == Events.processing || event == Events.openLoginPage;
 
   void enableModeLogin() => event = Events.processing;
 

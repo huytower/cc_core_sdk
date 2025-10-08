@@ -1,5 +1,6 @@
 import 'package:app_config/config/feature_flags.dart';
 import 'package:app_config/helper/network_helper.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
 import 'package:cc_library/src/curl/curl_utils.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
@@ -7,7 +8,6 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
-import 'package:widget/export/cc_ktx_export.dart';
 
 Iterable<Interceptor> ccInterceptors() {
   final loggerCurl = CurlLoggerDioInterceptor(printOnSuccess: true);
@@ -48,7 +48,9 @@ String request = "";
 var ccReqInterceptors = InterceptorsWrapper(
   onRequest: (options, handler) async {
     /// Check internet connection
-    final hasInternet = await NetworkHelper(InternetConnectionChecker.createInstance()).hasInternet;
+    final hasInternet =
+        await NetworkHelper(InternetConnectionChecker.createInstance())
+            .hasInternet;
     if (!hasInternet) {
       'No internet connection'.Log();
       return handler.reject(
@@ -84,13 +86,16 @@ var ccReqInterceptors = InterceptorsWrapper(
   onResponse: (response, handler) async {
     'onResponse() : response = $response'.Log();
 
-    var _curl = await CurlUtils.instance.representation(response.requestOptions);
+    var _curl =
+        await CurlUtils.instance.representation(response.requestOptions);
 
     if (FeatureFlags.isEnableLoggerDio) {
-      var url = "[Dio Interceptor]\n[Request: ${response.requestOptions.method}] : ${response.requestOptions.uri}\n";
+      var url =
+          "[Dio Interceptor]\n[Request: ${response.requestOptions.method}] : ${response.requestOptions.uri}\n";
       var body = "";
       request = url + body;
-      var _message = "$request[Curl]:\n$_curl\n[Response: ${response.statusCode}]:\n ${response.data}";
+      var _message =
+          "$request[Curl]:\n$_curl\n[Response: ${response.statusCode}]:\n ${response.data}";
 
       _message.Log("", true, "logger:###/");
     }

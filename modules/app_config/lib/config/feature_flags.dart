@@ -20,13 +20,15 @@ class FeatureFlags {
   static bool get isEnableLogger => _getBool('ENABLE_LOGGER', !kReleaseMode);
 
   /// Whether Dio HTTP client logging is enabled
-  static bool get isEnableLoggerDio => _getBool('ENABLE_LOGGER_DIO', !kReleaseMode);
+  static bool get isEnableLoggerDio =>
+      _getBool('ENABLE_LOGGER_DIO', !kReleaseMode);
 
   /// Whether analytics is enabled
   static bool get isAnalyticsEnabled => _getBool('ANALYTICS_ENABLED', true);
 
   /// Whether crash reporting is enabled
-  static bool get isCrashReportingEnabled => _getBool('CRASH_REPORTING_ENABLED', true);
+  static bool get isCrashReportingEnabled =>
+      _getBool('CRASH_REPORTING_ENABLED', true);
 
   /// Retrieves a boolean configuration value with a default fallback.
   ///

@@ -17,7 +17,8 @@ class Toast {
       double backgroundRadius = 20,
       Border? border}) {
     ToastView.dismiss();
-    ToastView.createView(msg, context, duration, gravity, backgroundColor, textColor, backgroundRadius, border);
+    ToastView.createView(msg, context, duration, gravity, backgroundColor,
+        textColor, backgroundRadius, border);
   }
 }
 
@@ -36,8 +37,15 @@ class ToastView {
   static int currentTime = 0;
   static Timer? timer;
 
-  static void createView(String? msg, BuildContext context, int duration, int gravity, Color background,
-      Color textColor, double backgroundRadius, Border? border) async {
+  static void createView(
+      String? msg,
+      BuildContext context,
+      int duration,
+      int gravity,
+      Color background,
+      Color textColor,
+      double backgroundRadius,
+      Border? border) async {
     overlayState = Overlay.of(context);
 
     Paint paint = Paint();

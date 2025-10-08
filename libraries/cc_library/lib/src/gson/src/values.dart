@@ -63,7 +63,8 @@ class Byte extends NumberValue {
     if (v is bool) {
       v = v ? 1 : 0;
     } else if (!(v is int)) {
-      throw _gen.error('You must give a boolean or a number to the set function');
+      throw _gen
+          .error('You must give a boolean or a number to the set function');
     }
     if (v > 127 || v < -128) {
       throw _gen.error('Byte must be between -128 and 127');
@@ -162,7 +163,8 @@ class Long extends NumberValue {
   /// the long value (number from -9223372036854775808 to 9223372036854775807)
   void set(int v) {
     if (v > 9007199254740991 || v < -9007199254740991) {
-      throw _gen.error('Byte must be between -9223372036854775808 and 9223372036854775807');
+      throw _gen.error(
+          'Byte must be between -9223372036854775808 and 9223372036854775807');
     }
     _number = v;
   }

@@ -116,10 +116,14 @@ class _TextFieldBaseState extends State<CcTextField> {
           ),
           hintText: widget.hintText,
           labelText: widget.labelText,
-          focusedBorder: getInputBorder(widget.enableOutline, theme.primaryColor),
-          enabledBorder: getInputBorder(widget.enableOutline, PrjColors.secondary),
-          errorBorder: getInputBorder(widget.enableOutline, PrjColorsSimple.notice),
-          focusedErrorBorder: getInputBorder(widget.enableOutline, PrjColorsSimple.notice),
+          focusedBorder:
+              getInputBorder(widget.enableOutline, theme.primaryColor),
+          enabledBorder:
+              getInputBorder(widget.enableOutline, PrjColors.secondary),
+          errorBorder:
+              getInputBorder(widget.enableOutline, PrjColorsSimple.notice),
+          focusedErrorBorder:
+              getInputBorder(widget.enableOutline, PrjColorsSimple.notice),
           errorStyle: theme.textTheme.headlineSmall,
           hintStyle: theme.textTheme.headlineSmall,
         ),
@@ -131,7 +135,9 @@ class _TextFieldBaseState extends State<CcTextField> {
 
   InputBorder getInputBorder(bool enableOutline, Color _color) {
     return (widget.backgroundColor == Colors.transparent)
-        ? (enableOutline ? outlineInputBorder(_color) : underlineInputBorder(_color))
+        ? (enableOutline
+            ? outlineInputBorder(_color)
+            : underlineInputBorder(_color))
         : InputBorder.none;
   }
 

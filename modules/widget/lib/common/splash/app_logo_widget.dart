@@ -1,10 +1,15 @@
-import 'package:cc_library/widget/padding/cc_padding.dart';
+import 'package:cc_library/widgets/padding/cc_padding.dart';
 import 'package:flutter/material.dart';
 
 /// App logo ui,
 /// show in splash screen
 class AppLogoWidget extends StatelessWidget {
-  AppLogoWidget({Key? key, this.isImageResId = true, required this.resId, this.padding = 34, this.width = 81})
+  AppLogoWidget(
+      {Key? key,
+      this.isImageResId = true,
+      required this.resId,
+      this.padding = 34,
+      this.width = 81})
       : super(key: key);
 
   final bool isImageResId;

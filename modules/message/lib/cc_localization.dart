@@ -53,12 +53,14 @@ class CcLocalization {
   // locale : 'vi' , 'en' .
   static Future setLocale(String locale) async {
     await EasyLocalization.ensureInitialized();
-    Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async => rootBundle.loadString(assetsPath).then(
-          (jsonStr) => jsonDecode(jsonStr),
-        );
+    Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async =>
+        rootBundle.loadString(assetsPath).then(
+              (jsonStr) => jsonDecode(jsonStr),
+            );
 
     var mergeJson = <String, dynamic>{};
-    var localeCurrent = (locale == path_language_directory_root_vi) ? localeVi : localeEn;
+    var localeCurrent =
+        (locale == path_language_directory_root_vi) ? localeVi : localeEn;
     for (var item in localeCurrent) {
       var json = await parseJsonFromAssets(item);
       json.forEach((key, value) {

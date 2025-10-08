@@ -29,7 +29,8 @@ class SimpleCubit extends SimpleCubitInterface {
       );
     } catch (e, stackTrace) {
       // Handle error and update state
-      final errorMessage = 'Failed to increase counter: ${e.toString()}\nStack trace: $stackTrace';
+      final errorMessage =
+          'Failed to increase counter: ${e.toString()}\nStack trace: $stackTrace';
       emit(
         state.copyWith(
           isLoading: false,
@@ -59,7 +60,8 @@ class SimpleCubit extends SimpleCubitInterface {
       );
     } catch (e, stackTrace) {
       // Handle error and update state
-      final errorMessage = 'Failed to reset counter: ${e.toString()}\nStack trace: $stackTrace';
+      final errorMessage =
+          'Failed to reset counter: ${e.toString()}\nStack trace: $stackTrace';
       emit(
         state.copyWith(
           isLoading: false,

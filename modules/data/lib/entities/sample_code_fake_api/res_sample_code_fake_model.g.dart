@@ -6,7 +6,9 @@ part of 'res_sample_code_fake_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ResSampleCodeFakeModel _$ResSampleCodeFakeModelFromJson(Map<String, dynamic> json) => ResSampleCodeFakeModel(
+ResSampleCodeFakeModel _$ResSampleCodeFakeModelFromJson(
+        Map<String, dynamic> json) =>
+    ResSampleCodeFakeModel(
       json['id'] as String?,
       json['title'] as String?,
       json['description'] as String?,
@@ -22,7 +24,9 @@ ResSampleCodeFakeModel _$ResSampleCodeFakeModelFromJson(Map<String, dynamic> jso
       json['updatedAt'] as String?,
     );
 
-Map<String, dynamic> _$ResSampleCodeFakeModelToJson(ResSampleCodeFakeModel instance) => <String, dynamic>{
+Map<String, dynamic> _$ResSampleCodeFakeModelToJson(
+        ResSampleCodeFakeModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,

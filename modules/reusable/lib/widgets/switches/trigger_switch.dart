@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class TriggerSwitch extends StatefulWidget {
-  const TriggerSwitch({Key? key, required this.v, required this.on, required this.off}) : super(key: key);
+  const TriggerSwitch(
+      {Key? key, required this.v, required this.on, required this.off})
+      : super(key: key);
 
   final RxInt v;
 

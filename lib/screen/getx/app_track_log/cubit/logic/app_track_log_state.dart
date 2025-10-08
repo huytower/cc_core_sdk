@@ -50,5 +50,6 @@ class AppTrackLogState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [isReady, appVersion, deviceModel, loggingMessages];
+  List<Object?> get props =>
+      [isReady, appVersion, deviceModel, loggingMessages];
 }

@@ -19,7 +19,8 @@ class HttpFree extends HttpBase {
   set isEnableLoggerDio(bool value) => _isEnableLoggerDio = value;
 
   @override
-  String get baseUrl => dotenv.get('API_URL', fallback: 'https://jsonplaceholder.typicode.com');
+  String get baseUrl =>
+      dotenv.get('API_URL', fallback: 'https://jsonplaceholder.typicode.com');
 
   @override
   int get maxRetries => 1; // Fewer retries for free tier

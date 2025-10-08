@@ -1,14 +1,14 @@
 import 'package:auto_route/annotations.dart';
-import 'package:cc_library/widget/button/cc_close_btn.dart';
-import 'package:cc_library/widget/button/cc_debounce_widget.dart';
-import 'package:cc_library/widget/flex/cc_column_center.dart';
-import 'package:cc_library/widget/space/cc_space.dart';
-import 'package:cc_library/widget/text/cc_text.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
+import 'package:cc_library/widgets/button/cc_close_btn.dart';
+import 'package:cc_library/widgets/button/cc_debounce_widget.dart';
+import 'package:cc_library/widgets/flex/cc_column_center.dart';
+import 'package:cc_library/widgets/space/cc_space.dart';
+import 'package:cc_library/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/di/inject/inject.dart';
-import '../../../../screen/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 import 'advance_bloc.dart';
 import 'advance_bloc_event.dart';
 import 'advance_bloc_state.dart';
@@ -66,7 +66,8 @@ class AdvanceBlocPage extends StatelessWidget {
   }
 
   Widget buildBlocSelector(context) {
-    return BlocSelector<AdvanceBloc, AdvanceBlocState, AdvanceBlocStateB>(selector: (state) {
+    return BlocSelector<AdvanceBloc, AdvanceBlocState, AdvanceBlocStateB>(
+        selector: (state) {
       // Toast.show('This is bloc selector', context);
 
       return AdvanceBlocStateB();

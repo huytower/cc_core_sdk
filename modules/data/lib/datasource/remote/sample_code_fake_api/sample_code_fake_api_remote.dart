@@ -11,7 +11,8 @@ part 'sample_code_fake_api_remote.g.dart';
 @RestApi()
 abstract class SampleCodeFakeApiRemote {
   @factoryMethod
-  factory SampleCodeFakeApiRemote(Dio dio, {@Named('baseUrl') String baseUrl}) = _SampleCodeFakeApiRemote;
+  factory SampleCodeFakeApiRemote(Dio dio, {@Named('baseUrl') String baseUrl}) =
+      _SampleCodeFakeApiRemote;
 
   @GET('/api/category/list')
   // @GET('/api/news/list')

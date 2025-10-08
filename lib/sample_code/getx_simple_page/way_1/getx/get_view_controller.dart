@@ -1,10 +1,10 @@
 import 'package:app_config/enum/layout_status.dart';
 import 'package:app_config/helper/network_helper.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
 import 'package:data/entities/sample_code_fake_api/res_sample_code_fake_model.dart';
 import 'package:data/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import 'package:widget/export/cc_ktx_export.dart';
 
 import '../../../../../../core/common/extensions/tracking_log_extension.dart';
 import '../../../../../../core/di/inject/inject.dart';
@@ -35,7 +35,8 @@ class GetViewController extends CcGetController {
   @factoryMethod
   GetViewController({required this.repository});
 
-  final RxList<ResSampleCodeFakeModel> sampleCodeFakeList = <ResSampleCodeFakeModel>[].obs; // init: data observable
+  final RxList<ResSampleCodeFakeModel> sampleCodeFakeList =
+      <ResSampleCodeFakeModel>[].obs; // init: data observable
 
   // SampleCodeFakeApiImpl repositories = getItData<SampleCodeFakeApiImpl>();
 

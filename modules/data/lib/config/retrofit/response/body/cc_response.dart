@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_config/enum/layout_status.dart';
-import 'package:widget/export/cc_ktx_export.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
 
 @deprecated
 class CcResponse<T> {
@@ -15,12 +15,14 @@ class CcResponse<T> {
   CcResponse.loading();
 
   CcResponse.fromJson(dynamic json) {
-    status = json['status'] != null ? StatusCode.fromJson(json['status']) : null;
+    status =
+        json['status'] != null ? StatusCode.fromJson(json['status']) : null;
     _elements = json['elements'] as List<dynamic>;
   }
 
   /// Using when call api success.
-  CcResponse<T> convertToModel(T Function(Map<String, dynamic> element) create) {
+  CcResponse<T> convertToModel(
+      T Function(Map<String, dynamic> element) create) {
     listElements = [];
     _elements?.forEach((element) {
       listElements!.add(create(element));

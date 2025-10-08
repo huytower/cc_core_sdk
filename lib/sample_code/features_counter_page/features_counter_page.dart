@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
-import 'package:cc_library/helper/open_dialog.dart';
-import 'package:cc_library/widget/text/cc_text.dart';
+import 'package:cc_library/core/helper/open_dialog.dart';
+import 'package:cc_library/widgets/text/cc_text.dart';
 import 'package:features/counter/counter_export.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +31,8 @@ class FeaturesCounterPage extends StatelessWidget {
           ),
         ],
       ),
-      body: const CounterPage(), // Using the CounterPage from the features package
+      body:
+          const CounterPage(), // Using the CounterPage from the features package
     );
   }
 }

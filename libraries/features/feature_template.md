@@ -151,7 +151,7 @@ class FeatureNameWidget extends StatelessWidget {
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../core/di/injection.dart';
+import '../../common/di/injection.dart';
 import '../data/datasources/feature_name_datasource.dart';
 import '../data/repositories/feature_name_repository_impl.dart';
 import '../domain/repositories/feature_name_repository.dart';
@@ -182,8 +182,8 @@ Add your feature exports to `lib/features.dart`:
 library features;
 
 // Core exports
-export 'core/constants/app_constants.dart';
-export 'core/di/injection.dart';
+export 'common/constants/app_constants.dart';
+export 'common/di/injection.dart';
 
 // Feature exports
 export 'counter/presentation/pages/counter_page.dart';

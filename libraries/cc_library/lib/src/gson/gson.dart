@@ -49,9 +49,16 @@ class Gson {
   /// // >> }
   /// ```
   /// You can also set the indent (the amount of spaces the gson is indented with)
-  String encode(dynamic obj, {bool beautify = false, int indent = 2, jsonBooleans = false, quoteMapKeys = false}) {
+  String encode(dynamic obj,
+      {bool beautify = false,
+      int indent = 2,
+      jsonBooleans = false,
+      quoteMapKeys = false}) {
     return encoder.encode(obj,
-        beautify: beautify, indent: indent, jsonBooleans: jsonBooleans, quoteMapKeys: quoteMapKeys);
+        beautify: beautify,
+        indent: indent,
+        jsonBooleans: jsonBooleans,
+        quoteMapKeys: quoteMapKeys);
   }
 
   /// Decode gson
@@ -66,7 +73,9 @@ class Gson {
   /// json.encode( gson.decode("{hello: "world"}", simplify: true) );  // >> {"hello": "world"}
   /// ```
   dynamic decode(String gson, {simplify = false}) {
-    return simplify ? this.simplify(decoder.decode(gson)) : decoder.decode(gson);
+    return simplify
+        ? this.simplify(decoder.decode(gson))
+        : decoder.decode(gson);
   }
 }
 

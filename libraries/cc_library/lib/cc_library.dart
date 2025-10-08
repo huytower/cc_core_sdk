@@ -1,1 +1,0 @@
-library cc_library;

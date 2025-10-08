@@ -15,7 +15,9 @@ class AppRouter extends RootStackRouter {
         // Core application routes
         AutoRoute(page: SplashRoute.page, initial: true),
         AutoRoute(page: HomeRoute.page, path: getPageName(PageNameEnum.HOME)),
-        AutoRoute(page: FeaturesCounterRoute.page, path: getPageName(PageNameEnum.FEATURES_COUNTER)),
+        AutoRoute(
+            page: FeaturesCounterRoute.page,
+            path: getPageName(PageNameEnum.FEATURES_COUNTER)),
 
         // Example routes (BLoC pattern)
         ..._buildBlocExampleRoutes(),
@@ -30,11 +32,13 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> _buildBlocExampleRoutes() => [
         AutoRoute(
           page: SimpleCubitRoute.page,
-          path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.BLOC_SIMPLE),
+          path: getPageNameByRouteStrategy(
+              PageNameByRouteStrategyEnum.BLOC_SIMPLE),
         ),
         AutoRoute(
           page: AdvanceBlocRoute.page,
-          path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.BLOC_ADVANCE),
+          path: getPageNameByRouteStrategy(
+              PageNameByRouteStrategyEnum.BLOC_ADVANCE),
         ),
       ];
 
@@ -44,11 +48,13 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> _buildGetXExampleRoutes() => [
         AutoRoute(
           page: GetViewRoute.page,
-          path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.GETX_SIMPLE),
+          path: getPageNameByRouteStrategy(
+              PageNameByRouteStrategyEnum.GETX_SIMPLE),
         ),
         AutoRoute(
           page: GetViewV2Route.page,
-          path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.GETX_SIMPLE_V2),
+          path: getPageNameByRouteStrategy(
+              PageNameByRouteStrategyEnum.GETX_SIMPLE_V2),
         ),
       ];
 }

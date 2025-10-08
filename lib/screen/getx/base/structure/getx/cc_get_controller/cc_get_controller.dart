@@ -58,7 +58,8 @@ abstract class CcGetController extends SuperController {
           case LayoutStatus.success:
             return onSuccess();
           case LayoutStatus.error:
-            final message = errorMessage.value != '' ? errorMessage.value : '100';
+            final message =
+                errorMessage.value != '' ? errorMessage.value : '100';
             return onError(message);
           case LayoutStatus.empty:
             return onEmpty();

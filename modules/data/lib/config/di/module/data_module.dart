@@ -1,5 +1,6 @@
 import 'package:app_config/config/http/http_client/http_client_config.dart';
 import 'package:app_config/helper/network_helper.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 // import 'package:data/datasource/local/home/home_database.dart';
 // import 'package:data/datasource/local/setting/setting_database.dart';
@@ -10,7 +11,6 @@ import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
-import 'package:widget/export/cc_ktx_export.dart';
 
 @module
 abstract class DataModule {
@@ -61,12 +61,17 @@ abstract class DataModule {
         logPrint: print,
         retries: 3,
         retryEvaluator: (e, attempt) {
-          if (e.type == DioExceptionType.badResponse && e.response?.statusCode == 403) {
+          if (e.type == DioExceptionType.badResponse &&
+              e.response?.statusCode == 403) {
             return true;
           }
           return false;
         },
-        retryDelays: const [Duration(seconds: 1), Duration(seconds: 2), Duration(seconds: 3)],
+        retryDelays: const [
+          Duration(seconds: 1),
+          Duration(seconds: 2),
+          Duration(seconds: 3)
+        ],
       ),
     );
 
@@ -102,7 +107,9 @@ abstract class DataModule {
   Interceptor get ccReqInterceptors => InterceptorsWrapper(
         onRequest: (options, handler) async {
           /// Check internet connection
-          final hasInternet = await NetworkHelper(InternetConnectionChecker.createInstance()).hasInternet;
+          final hasInternet =
+              await NetworkHelper(InternetConnectionChecker.createInstance())
+                  .hasInternet;
           if (!hasInternet) {
             'No internet connection'.Log();
             return handler.reject(

@@ -26,7 +26,8 @@ class CcDeviceInfo extends HiveObject {
 
   static Future<CcDeviceInfo?> register() async {
     Hive.registerAdapter(CcDeviceInfoAdapter());
-    Box<CcDeviceInfo> box = await Hive.openBox<CcDeviceInfo>(CcHiveBox.DEVICE_BOX_NAME);
+    Box<CcDeviceInfo> box =
+        await Hive.openBox<CcDeviceInfo>(CcHiveBox.DEVICE_BOX_NAME);
     CcDeviceInfo? model = box.get(CcHiveBox.keyDefault);
     if (model == null) {
       model = CcDeviceInfo();

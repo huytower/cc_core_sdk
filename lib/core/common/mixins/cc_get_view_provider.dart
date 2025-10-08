@@ -12,7 +12,7 @@ import '../../../screen/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 /// For UI only,
 /// serve for how to develop Widget
 ///
-/// core sdk
+/// common sdk
 mixin CcGetViewProvider<T extends CcGetController> on CcGetView<T> {
   /// is main popup show on page, ex. Ads popup ...
   Widget buildAdsPopup() => const SizedBox();

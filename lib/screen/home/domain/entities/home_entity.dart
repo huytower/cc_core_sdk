@@ -1,6 +1,6 @@
 /// Home Entity - Domain Layer
 ///
-/// This class represents the core business object for the home feature.
+/// This class represents the common business object for the home feature.
 /// It follows the Single Responsibility Principle by only containing
 /// home-related business logic and data.
 class HomeEntity {
@@ -45,7 +45,10 @@ class HomeEntity {
 
   @override
   int get hashCode {
-    return title.hashCode ^ description.hashCode ^ itemCount.hashCode ^ lastUpdated.hashCode;
+    return title.hashCode ^
+        description.hashCode ^
+        itemCount.hashCode ^
+        lastUpdated.hashCode;
   }
 
   @override

@@ -1,19 +1,5 @@
 import 'package:flutter/material.dart';
 
-class DeviceUtils {
-  static double getHeightKeyBoard(BuildContext context) {
-    double heightKeyboard = MediaQuery.of(context).viewInsets.bottom;
-
-    if (heightKeyboard <= 0) {
-      heightKeyboard = EdgeInsets.fromWindowPadding(
-              WidgetsBinding.instance.window.viewInsets, WidgetsBinding.instance.window.devicePixelRatio)
-          .bottom;
-    }
-
-    return heightKeyboard;
-  }
-}
-
 class SettingDevice {
   static int? versionNew = 1;
 
@@ -58,5 +44,18 @@ class SettingDevice {
     if (isIphoneXs || isIphoneXsMax || isIphoneXr) {
       hasHomeBtnIOSDevice = false;
     }
+  }
+
+  static double getHeightKeyBoard(BuildContext context) {
+    double heightKeyboard = MediaQuery.of(context).viewInsets.bottom;
+
+    if (heightKeyboard <= 0) {
+      heightKeyboard = EdgeInsets.fromWindowPadding(
+              WidgetsBinding.instance.window.viewInsets,
+              WidgetsBinding.instance.window.devicePixelRatio)
+          .bottom;
+    }
+
+    return heightKeyboard;
   }
 }

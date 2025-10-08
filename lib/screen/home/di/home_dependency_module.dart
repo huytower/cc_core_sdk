@@ -25,7 +25,8 @@ abstract class HomeDependencyModule {
       );
 
   @lazySingleton
-  HomeRemoteDataSource get homeRemoteDataSource => const HomeRemoteDataSourceImpl();
+  HomeRemoteDataSource get homeRemoteDataSource =>
+      const HomeRemoteDataSourceImpl();
 
   // Repository
   @lazySingleton

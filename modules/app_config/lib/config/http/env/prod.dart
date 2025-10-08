@@ -47,7 +47,8 @@ class HttpProd extends HttpBase {
 
   @override
   String get baseUrl {
-    final url = dotenv.maybeGet('API_URL', fallback: 'https://api.production.com');
+    final url =
+        dotenv.maybeGet('API_URL', fallback: 'https://api.production.com');
     if (url == null || url.isEmpty) {
       throw const MissingConfigException(key: 'API_URL');
     }

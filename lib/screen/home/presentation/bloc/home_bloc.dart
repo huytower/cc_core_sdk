@@ -128,7 +128,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(HomeUpdating(homeData: currentState.homeData));
 
       try {
-        final newCount = (currentState.homeData.itemCount - 1).clamp(0, double.infinity).toInt();
+        final newCount = (currentState.homeData.itemCount - 1)
+            .clamp(0, double.infinity)
+            .toInt();
         final updatedData = currentState.homeData.copyWith(
           itemCount: newCount,
           lastUpdated: DateTime.now(),

@@ -28,11 +28,13 @@ class CommentScreen extends CcGetView<CommentController> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: ListTile(
-                  title: Text(comment.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  title: Text(comment.name,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(comment.email, style: const TextStyle(color: Colors.grey)),
+                      Text(comment.email,
+                          style: const TextStyle(color: Colors.grey)),
                       const SizedBox(height: 4),
                       Text(comment.body),
                     ],

@@ -70,12 +70,16 @@ class GsonParsable extends ErrorGenerator {
   /// generate a error at the position of the parsable
   @override
   Exception error(String message, {int from = 0, int to = 0}) {
-    return Exception(message + ' at ' + toString(from: from, to: to, err: true));
+    return Exception(
+        message + ' at ' + toString(from: from, to: to, err: true));
   }
 
   /// reformat error
   Exception reformatError(Exception e, [StackTrace? stack]) {
-    return Exception(e.toString().substring(10) + 'at ' + toString() + (stack != null ? stack.toString() : ''));
+    return Exception(e.toString().substring(10) +
+        'at ' +
+        toString() +
+        (stack != null ? stack.toString() : ''));
   }
 
   /// String representation of parsable (marks actual position)
@@ -84,7 +88,9 @@ class GsonParsable extends ErrorGenerator {
     final red = AnsiPen()..red();
     final redBg = AnsiPen()..red(bg: true);
     if (parsable.length > io.terminalColumns) {
-      var start = parsable.length > io.terminalColumns ? (position - (io.terminalColumns / 2) + 3).round() : 0;
+      var start = parsable.length > io.terminalColumns
+          ? (position - (io.terminalColumns / 2) + 3).round()
+          : 0;
       var end = parsable.length > io.terminalColumns
           ? (position + (io.terminalColumns / 2) - 4).round()
           : parsable.length - 1;
@@ -124,13 +130,17 @@ class GsonParsable extends ErrorGenerator {
       }
 
       var pos = position - start + startletters.length + 3;
-      var code = '$startletters...' + parsable.substring(start, end) + '...$endletters\n';
+      var code = '$startletters...' +
+          parsable.substring(start, end) +
+          '...$endletters\n';
 
       var beforeSelect = code.substring(0, pos - from);
       var selected = code.substring(pos - from, pos + to + 1);
       var afterSelect = code.substring(pos + to + 1);
 
-      var bottom = _repeatString(' ', pos - from) + _repeatString('^', 1 + from + to) + '\n';
+      var bottom = _repeatString(' ', pos - from) +
+          _repeatString('^', 1 + from + to) +
+          '\n';
       if (err) {
         bottom = red(bottom);
         selected = redBg(selected);
@@ -147,7 +157,9 @@ class GsonParsable extends ErrorGenerator {
     var selected = parsable.substring(position - from, position + to + 1);
     var afterSelect = parsable.substring(position + to + 1);
 
-    var bottom = _repeatString(' ', position - from) + _repeatString('^', 1 + from + to) + '\n';
+    var bottom = _repeatString(' ', position - from) +
+        _repeatString('^', 1 + from + to) +
+        '\n';
 
     if (err) {
       bottom = red(bottom);

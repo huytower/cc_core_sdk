@@ -1,5 +1,5 @@
 import 'package:app_config/di/di_app_config.dart';
-import 'package:cc_library/extension/logger.dart';
+import 'package:cc_library/core/extensions/export_extensions.dart';
 
 import '../box/app_track_log/cc_app_track_log.dart';
 

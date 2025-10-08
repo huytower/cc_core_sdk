@@ -36,13 +36,15 @@ class GetxRoutingManager {
 
       /// CORE PAGE
       GetPage(
-          name: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.GETX_SIMPLE),
+          name: getPageNameByRouteStrategy(
+              PageNameByRouteStrategyEnum.GETX_SIMPLE),
           transition: Transition.fadeIn,
           transitionDuration: const Duration(milliseconds: 300),
           binding: GetViewBinding(),
           page: () => GetViewPage()),
       GetPage(
-          name: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.GETX_SIMPLE_V2),
+          name: getPageNameByRouteStrategy(
+              PageNameByRouteStrategyEnum.GETX_SIMPLE_V2),
           transition: Transition.fadeIn,
           transitionDuration: const Duration(milliseconds: 300),
           binding: GetViewV2Binding(),

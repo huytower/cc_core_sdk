@@ -1,8 +1,8 @@
-import 'package:cc_library/widget/button/cc_close_btn.dart';
-import 'package:cc_library/widget/button/cc_debounce_widget.dart';
-import 'package:cc_library/widget/flex/cc_column_center.dart';
-import 'package:cc_library/widget/space/cc_space.dart';
-import 'package:cc_library/widget/text/cc_text.dart';
+import 'package:cc_library/widgets/button/cc_close_btn.dart';
+import 'package:cc_library/widgets/button/cc_debounce_widget.dart';
+import 'package:cc_library/widgets/flex/cc_column_center.dart';
+import 'package:cc_library/widgets/space/cc_space.dart';
+import 'package:cc_library/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

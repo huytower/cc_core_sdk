@@ -25,7 +25,8 @@ class HomeRepositoryImpl implements HomeRepository {
       final localData = await _localDataSource.getHomeData();
 
       // Check if local data is fresh (less than 1 hour old)
-      final isDataFresh = DateTime.now().difference(localData.lastUpdated).inHours < 1;
+      final isDataFresh =
+          DateTime.now().difference(localData.lastUpdated).inHours < 1;
 
       if (isDataFresh) {
         return localData;
@@ -48,7 +49,8 @@ class HomeRepositoryImpl implements HomeRepository {
         await _localDataSource.saveHomeData(remoteData);
         return remoteData;
       } catch (remoteError) {
-        throw Exception('Failed to get home data from both local and remote sources: $remoteError');
+        throw Exception(
+            'Failed to get home data from both local and remote sources: $remoteError');
       }
     }
   }
@@ -57,7 +59,8 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<HomeEntity> updateHomeData(HomeEntity homeData) async {
     try {
       // Update remote first
-      final updatedRemoteData = await _remoteDataSource.updateHomeData(homeData);
+      final updatedRemoteData =
+          await _remoteDataSource.updateHomeData(homeData);
 
       // Then update local cache
       await _localDataSource.saveHomeData(updatedRemoteData);
@@ -69,7 +72,8 @@ class HomeRepositoryImpl implements HomeRepository {
         await _localDataSource.saveHomeData(homeData);
         return homeData;
       } catch (localError) {
-        throw Exception('Failed to update home data: $e, Local error: $localError');
+        throw Exception(
+            'Failed to update home data: $e, Local error: $localError');
       }
     }
   }

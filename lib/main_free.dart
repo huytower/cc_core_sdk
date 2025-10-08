@@ -24,6 +24,7 @@ class MyHttpOverrides extends HttpOverrides {
 
       /// NOT RECOMMEND due to bad security,
       /// use it for TESTING only
-      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

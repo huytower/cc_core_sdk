@@ -18,10 +18,23 @@ class ResSampleCodeFakeModel {
   final String? createdAt;
   final String? updatedAt;
 
-  ResSampleCodeFakeModel(this.id, this.title, this.description, this.content, this.url, this.image, this.author,
-      this.slug, this.name, this.memberId, this.publishedAt, this.createdAt, this.updatedAt);
+  ResSampleCodeFakeModel(
+      this.id,
+      this.title,
+      this.description,
+      this.content,
+      this.url,
+      this.image,
+      this.author,
+      this.slug,
+      this.name,
+      this.memberId,
+      this.publishedAt,
+      this.createdAt,
+      this.updatedAt);
 
-  factory ResSampleCodeFakeModel.fromJson(Map<String, dynamic> json) => _$ResSampleCodeFakeModelFromJson(json);
+  factory ResSampleCodeFakeModel.fromJson(Map<String, dynamic> json) =>
+      _$ResSampleCodeFakeModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResSampleCodeFakeModelToJson(this);
 }

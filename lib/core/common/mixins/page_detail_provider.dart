@@ -1,7 +1,7 @@
 // import 'package:cc_library/constant/padding_params.dart';
-// import 'package:ext/core/component/export/export_image_view.dart';
-// import 'package:ext/core/layout/cc_get_controller/cc_get_controller.dart';
-// import 'package:ext/core/layout/cc_get_view/cc_get_view.dart';
+// import 'package:ext/common/component/export/export_image_view.dart';
+// import 'package:ext/common/layout/cc_get_controller/cc_get_controller.dart';
+// import 'package:ext/common/layout/cc_get_view/cc_get_view.dart';
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'package:theme/export/cc_theme_export.dart';

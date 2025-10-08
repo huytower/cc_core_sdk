@@ -82,7 +82,8 @@ extension S on String {
     if (!this.isNotNull) {
       return true;
     }
-    return ["", "null", "{}", null, false, 0].contains(this.replaceAll(' ', ''));
+    return ["", "null", "{}", null, false, 0]
+        .contains(this.replaceAll(' ', ''));
   }
 
   String ctmConvertNull() {
@@ -201,8 +202,12 @@ extension DT on DateTime {
       _hour = hour == null ? this.hour : this.hour + hour;
       _minute = minute == null ? this.minute : this.minute + minute;
       _second = second == null ? this.second : this.second + second;
-      _millisecond = millisecond == null ? this.millisecond : this.millisecond + millisecond;
-      _microsecond = microsecond == null ? this.microsecond : this.microsecond + microsecond;
+      _millisecond = millisecond == null
+          ? this.millisecond
+          : this.millisecond + millisecond;
+      _microsecond = microsecond == null
+          ? this.microsecond
+          : this.microsecond + microsecond;
     }
     if (type == DataHelper.subDate) {
       _year = year == null ? this.year : this.year - year;
@@ -211,8 +216,12 @@ extension DT on DateTime {
       _hour = hour == null ? this.hour : this.hour - hour;
       _minute = minute == null ? this.minute : this.minute - minute;
       _second = second == null ? this.second : this.second - second;
-      _millisecond = millisecond == null ? this.millisecond : this.millisecond - millisecond;
-      _microsecond = microsecond == null ? this.microsecond : this.microsecond - microsecond;
+      _millisecond = millisecond == null
+          ? this.millisecond
+          : this.millisecond - millisecond;
+      _microsecond = microsecond == null
+          ? this.microsecond
+          : this.microsecond - microsecond;
     }
     if (type == DataHelper.startDate) {
       _hour = 0;
@@ -228,7 +237,8 @@ extension DT on DateTime {
       _microsecond = 59;
       _millisecond = 59;
     }
-    return new DateTime(_year, _month, _day, _hour, _minute, _second, _millisecond, _microsecond);
+    return new DateTime(_year, _month, _day, _hour, _minute, _second,
+        _millisecond, _microsecond);
   }
 }
 
