@@ -1,8 +1,8 @@
-import 'package:cc_library/widgets/base/cc_position.dart';
-import 'package:cc_library/widgets/flex/cc_column_center.dart';
-import 'package:cc_library/widgets/space/cc_space.dart';
-import 'package:cc_library/widgets/text/app_name_widget.dart';
-import 'package:cc_library/widgets/text/cc_text.dart';
+import 'package:cc_sdk/widgets/base/cc_position.dart';
+import 'package:cc_sdk/widgets/flex/cc_column_center.dart';
+import 'package:cc_sdk/widgets/space/cc_space.dart';
+import 'package:cc_sdk/widgets/text/app_name_widget.dart';
+import 'package:cc_sdk/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 

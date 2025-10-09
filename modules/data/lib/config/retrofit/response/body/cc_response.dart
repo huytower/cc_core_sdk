@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_config/enum/layout_status.dart';
-import 'package:cc_library/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/extensions/export_extensions.dart';
 
 @deprecated
 class CcResponse<T> {

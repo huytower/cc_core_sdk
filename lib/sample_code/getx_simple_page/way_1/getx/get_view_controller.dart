@@ -1,6 +1,6 @@
 import 'package:app_config/enum/layout_status.dart';
 import 'package:app_config/helper/network_helper.dart';
-import 'package:cc_library/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:data/entities/sample_code_fake_api/res_sample_code_fake_model.dart';
 import 'package:data/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart';
 import 'package:get/get.dart';

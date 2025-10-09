@@ -7,8 +7,8 @@ environment:
   sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
-  cc_library:
-    path: ../../libraries/cc_library
+  cc_sdk:
+    path: ../../libraries/cc_sdk
 
   flutter:
     sdk: flutter

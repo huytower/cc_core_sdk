@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   
   # UI Components
-  cc_library:
-    path: ../cc_library
+  cc_sdk:
+    path: ../cc_sdk
   flutter_bloc:
   get_it:
   injectable:

@@ -1,4 +1,4 @@
-import 'package:cc_library/core/helper/widget_helper.dart';
+import 'package:cc_sdk/core/helper/widget_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:app_config/enum/layout_status.dart';
-import 'package:cc_library/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

@@ -1,4 +1,4 @@
-// import 'package:cc_library/constant/padding_params.dart';
+// import 'package:cc_sdk/constant/padding_params.dart';
 // import 'package:ext/common/component/export/export_image_view.dart';
 // import 'package:ext/common/layout/cc_get_controller/cc_get_controller.dart';
 // import 'package:ext/common/layout/cc_get_view/cc_get_view.dart';

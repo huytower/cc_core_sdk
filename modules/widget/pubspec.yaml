@@ -8,8 +8,8 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  cc_library:
-    path: ../../libraries/cc_library
+  cc_sdk:
+    path: ../../libraries/cc_sdk
 
   app_config:
     path: ../app_config

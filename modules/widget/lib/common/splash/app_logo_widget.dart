@@ -1,4 +1,4 @@
-import 'package:cc_library/widgets/padding/cc_padding.dart';
+import 'package:cc_sdk/widgets/padding/cc_padding.dart';
 import 'package:flutter/material.dart';
 
 /// App logo ui,

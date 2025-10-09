@@ -1,6 +1,6 @@
 import 'package:app_config/config/app/cc_app_track_info.dart';
-import 'package:cc_library/core/extensions/export_extensions.dart';
-import 'package:cc_library/core/utils/common/device_utils.dart';
+import 'package:cc_sdk/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/utils/common/device_utils.dart';
 import 'package:data/model/sample/sample_model_watch_it.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';

@@ -13,8 +13,8 @@ dependencies:
   app_config:
     path: ../app_config
 
-  cc_library:
-    path: ../../libraries/cc_library
+  cc_sdk:
+    path: ../../libraries/cc_sdk
 
   data:
     path: ../data

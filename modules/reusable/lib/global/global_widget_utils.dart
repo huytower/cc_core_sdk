@@ -1,4 +1,4 @@
-import 'package:cc_library/widgets/dialog/base_dialog.dart';
+import 'package:cc_sdk/widgets/dialog/base_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 

@@ -1,5 +1,5 @@
 import 'package:app_config/config/http/http_client/http_client_config.dart';
-import 'package:cc_library/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../common/device/device_initializer.dart';

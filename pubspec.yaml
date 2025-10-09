@@ -11,8 +11,8 @@ dependencies:
     path: modules/app_config
 
   auto_route: 10.1.0+1
-  cc_library:
-    path: libraries/cc_library
+  cc_sdk:
+    path: libraries/cc_sdk
 
   content_locale:
     path: modules/message

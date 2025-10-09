@@ -1,6 +1,6 @@
 import 'package:app_config/config/http/http_client/http_client_config.dart';
 import 'package:app_config/helper/network_helper.dart';
-import 'package:cc_library/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 // import 'package:data/datasource/local/home/home_database.dart';
 // import 'package:data/datasource/local/setting/setting_database.dart';
