@@ -36,12 +36,12 @@ class PageError extends StatelessWidget {
                     Text("Đã xảy ra lỗi",
                         style: WidgetHelper.getTextStyleRoboto(
                             fontSize: 20,
-                            color: PrjColors.black.withOpacity(0.7))),
+                            color: PrjColors.mediumEmphasis.withOpacity(0.7))),
                     const SizedBox(height: 10),
                     Text("Nhấn vào đây để tải lại",
                         style: WidgetHelper.getTextStyleRoboto(
                             fontSize: 20,
-                            color: PrjColors.black.withOpacity(0.7)))
+                            color: PrjColors.mediumEmphasis.withOpacity(0.7)))
                   ],
                 ),
               )

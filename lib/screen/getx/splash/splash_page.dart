@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:theme/data_source/assets_data_source.dart';
+import 'package:theme/data/data_source/asset/assets_data_source.dart';
 
 import 'splash_init.dart';
 
@@ -24,18 +24,22 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(
-                "packages/theme/${AssetUtils.getBackground(BackgroundAsset.splash)}",
-              ),
-            ),
+  Widget build(BuildContext context) {
+    final path =
+        "packages/theme/${AssetUtils.getBackground(BackgroundAsset.splash)}";
+    print('Splash image path: $path');
+
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(path),
           ),
         ),
-      );
+      ),
+    );
+  }
 }

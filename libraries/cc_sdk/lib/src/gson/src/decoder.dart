@@ -2,8 +2,8 @@ library gson_decoder;
 
 import 'dart:convert';
 
-import 'package:cc_sdk/src/gson/src/parsable.dart';
-import 'package:cc_sdk/src/gson/src/values.dart';
+import 'parsable.dart';
+import 'values.dart';
 
 /// The Gson Decoder class recreates the content from a gson string
 class GsonDecoder {
@@ -54,7 +54,7 @@ class GsonDecoder {
         ? src
         : src is String
             ? GsonParsable(src)
-            : throw ('The src is not a valid input to decode an Array from');
+            : throw ('The core is not a valid input to decode an Array from');
     var arr = [];
     var foundComma = true;
     if (p.next() != '[') {
@@ -91,7 +91,7 @@ class GsonDecoder {
         ? src
         : src is String
             ? GsonParsable(src)
-            : throw ('The src is not a valid input to decode an Array from');
+            : throw ('The core is not a valid input to decode an Array from');
     var map = <String, dynamic>{};
     var foundComma = true;
     if (p.next() != '{') {
@@ -146,7 +146,7 @@ class GsonDecoder {
         ? src
         : src is String
             ? GsonParsable(src)
-            : throw ('The src is not a valid input to decode an Array from');
+            : throw ('The core is not a valid input to decode an Array from');
 
     var str = '"';
 
@@ -185,7 +185,7 @@ class GsonDecoder {
         ? src
         : src is String
             ? GsonParsable(src)
-            : throw ('The src is not a valid input to decode an Array from');
+            : throw ('The core is not a valid input to decode an Array from');
     if (!RegExp(r'[0-9\.]').hasMatch(p.actual())) {
       throw p.error('Any number has to start with a number between 0 and 9');
     }

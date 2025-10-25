@@ -1,8 +1,8 @@
 library gson_parsable;
 
 import 'package:ansicolor/ansicolor.dart';
-import 'package:cc_sdk/src/gson/src/prog.dart';
 
+import 'prog.dart';
 import 'terminal_web.dart' if (dart.library.io) 'terminal_vm.dart' as io;
 
 /// A parsable object for the GsonDecoder to use

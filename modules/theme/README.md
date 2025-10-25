@@ -1,50 +1,53 @@
-### Features
+# Theme Module
 
-Focus on `color|theme resources`, will define in application.
-ex. support `dark|light theme`...
+A clean, modular theming solution for Flutter applications, following Clean Architecture and SOLID principles.
 
-### Getting started
+## 🎨 Features
 
-How to use?
+- Light and dark theme support
+- Material 3 theming
+- Custom color palette
+- Typography system
+- Easy theme switching
 
-1. Aware about `/assets` folder exists in this module, included : `/fonts`, `/images`, ...
+## 🚀 Usage
 
-2. Developer using color in `cc_color.dart` file.
+1. Add to your app:
 
-3. Developer using Text Style in `cc_text_style.dart` file.
+```yaml
+dependencies:
+  theme:
+    path: modules/theme
 
-4. Dark|Light theme setup in `cc_themes.dart` file.
+2. Setup provider:
 
-## Additional information
+```
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
+```
 
-1. Docs
+3. Use in widgets:
 
-a. [Defined & inject color list](https://tailwindcss.com/docs/customizing-colors)
+```
+// Toggle theme
+context.read<ThemeProvider>().toggleTheme();
 
-      Expect : Learn to setup color asset json file for :
-      
-      - Designer easily fill in
-      
-      - Developer only read it, no need fill in manually
+// Use text style
+Text('Hello', style: context.textStyle?.bodyLarge);
+```
 
-b. [Design text style rule for mobile devices, follow material design](https://material.
-io/blog/design-material-theme-type),
+🎨 Customization
+Colors
+Edit: lib/data/data_source/color/prj_color.dart
 
-      ex. iphone, ipad .v.v. at line : "Typography in Material".
-      
-      Expect : Rules will restrict designer always update design file.
-
-2. Utils
-
-a. [Where design find color name](https://colors.artyclick.com/color-name-finder/)
-
-      ex. : #194109
-
-b. [After picked color ex. #194109, need convert to hex color using for mobile devices](https://convertingcolors.
-com/android-color-4284900966.html)
-
-      ex. : [#194109] => [Android (android.graphics.Color),  0xFF194109]
-
-c. [Setup themes planning rule, included : color, text size, .v.v](https://pub.dev/packages/flex_color_scheme)
-
-      ex. : dark theme, light theme .v.v.
+Typography
+Edit: 
+lib/presentation/style/cc_text_style.dart

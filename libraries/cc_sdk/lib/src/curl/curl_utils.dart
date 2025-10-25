@@ -13,14 +13,14 @@ class CurlUtils {
 
   Future<String> representation(RequestOptions options) async {
     List<String> components = [
-      'curl --location --request ${options.method} ${options.uri.toString()}'
+      'curl --location --request ${options.method} ${options.uri}'
     ];
     options.headers.forEach((k, v) {
       if (k != 'Cookie') {
         components.add('--header "$k: $v"');
       }
     });
-    if ((options.data != null)) {
+    if (options.data != null) {
       final data = jsonEncode(options.data).replaceAll('"', '\\"');
       components.add('--data-raw "$data"');
     }
@@ -33,7 +33,7 @@ class CurlUtils {
     dynamic _result;
     List<T> _return = [];
 
-    if (curl.toString().contains("curl --location --request") == true) {
+    if (curl.contains("curl --location --request") == true) {
       var _split = curl.split("\ --");
       var _request =
           _split.where((element) => element.contains("request")).first;
@@ -47,7 +47,7 @@ class CurlUtils {
       if (_request.contains("POST")) {
         _method = "POST";
       }
-      Map<String, dynamic> _headers = Map<String, dynamic>();
+      Map<String, dynamic> _headers = <String, dynamic>{};
       _split
           .toList()
           .where((element) => element.contains("header"))
@@ -115,7 +115,7 @@ class CurlUtils {
       if (_split.first.contains("POST")) {
         _method = "POST";
       }
-      Map<String, dynamic> _headers = Map<String, dynamic>();
+      Map<String, dynamic> _headers = <String, dynamic>{};
       _split
           .toList()
           .where((element) => element.contains("header"))

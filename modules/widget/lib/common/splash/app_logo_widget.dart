@@ -23,7 +23,7 @@ class AppLogoWidget extends StatelessWidget {
                 width: width,
                 height: width,
                 errorBuilder: (_, a, b) => Image.asset(
-                      'packages/theme/assets/logo/app_logo.png',
+                      'packages/utils/assets/logo/app_logo.png',
                       width: width,
                       height: width,
                     ))

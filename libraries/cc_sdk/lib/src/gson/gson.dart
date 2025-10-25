@@ -1,8 +1,8 @@
 library gson;
 
-import 'package:cc_sdk/src/gson/src/decoder.dart';
-import 'package:cc_sdk/src/gson/src/encoder.dart';
-import 'package:cc_sdk/src/gson/src/values.dart';
+import 'src/decoder.dart';
+import 'src/encoder.dart';
+import 'src/values.dart';
 
 class Gson {
   /// The decoder
@@ -18,7 +18,7 @@ class Gson {
 
   /// Simplify converts gson results to something you can easily deal with. some of these changes can't be recreated from the results.
   /// Also in gson booleans are encoded as bytes and bytes are converted to integers in here, so instead of a true you will probably get 1 and instead of false 0
-  /// The results of this method are compatible with the json src, you can encode them as json
+  /// The results of this method are compatible with the json core, you can encode them as json
   dynamic simplify(dynamic value) {
     if (value is Map<String, dynamic>) {
       var map = {};
@@ -68,7 +68,7 @@ class Gson {
   /// if you want to have easy-usable contents set simplify to true, the simplify method will be automatically ran over your results.
   /// Simplify converts gson results to something you can easily deal with. some of these changes can't be recreated from the results.
   /// Also in gson booleans are encoded as bytes and bytes are converted to integers in here, so instead of a true you will probably get 1 and instead of false 0.
-  /// The results are **just** compatible with the json src of dart if you use simplify
+  /// The results are **just** compatible with the json core of dart if you use simplify
   /// ``` dart
   /// json.encode( gson.decode("{hello: "world"}", simplify: true) );  // >> {"hello": "world"}
   /// ```

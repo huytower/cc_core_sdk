@@ -1,65 +1,119 @@
 import 'package:app_config/enum/routing_manager_enum.dart';
+import 'package:content_locale/cc_localization.dart' as localization;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:theme/cc_themes.dart';
+import 'package:provider/provider.dart';
+import 'package:theme/core/utils/theme_utils.dart';
+import 'package:theme/presentation/provider/theme_provider.dart';
 
 import '../navigation/config/auto_route/app_router.dart';
 import '../navigation/config/getx/getx_router.dart';
 import '../navigation/enums/page_name_enum.dart';
 
-/// Abstract strategy for navigate
+/// Abstract base class for different routing strategies
 abstract class RoutingStrategy {
+  /// Builds the application with the appropriate routing configuration
   Widget build();
 }
 
+/// Implementation of RoutingStrategy using AutoRoute
 class AutoRouteStrategy implements RoutingStrategy {
   @override
-  Widget build() => MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: CcThemes.darkTheme,
-        routerConfig: AppRouter().config(),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en', ''), // English, no country code
-        ],
-      );
+  Widget build() {
+    return _buildThemedApp(
+      routerConfig: AppRouter().config(),
+    );
+  }
+
+  /// Builds the MaterialApp with theme and localization support
+  Widget _buildThemedApp({required dynamic routerConfig}) {
+    return ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, _) {
+          return localization.CcLocalization.wrapWithLocalization(
+            child: Builder(builder: (context) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                theme: createLightTheme(),
+                darkTheme: createDarkTheme(),
+                themeMode: themeProvider.themeMode,
+                routerConfig: routerConfig,
+                locale: localization.CcLocalization.getCurrentLocale(context),
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+              );
+            }),
+          );
+        },
+      ),
+    );
+  }
 }
 
+/// Implementation of RoutingStrategy using GetX
 class GetxRouteStrategy implements RoutingStrategy {
   @override
-  Widget build() => GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: CcThemes.darkTheme,
-        initialRoute: getPageName(PageNameEnum.SPLASH),
-        getPages: GetxRoutingManager.instance.getPages(),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en', ''), // English, no country code
-        ],
-      );
+  Widget build() {
+    return _buildThemedApp(
+      initialRoute: getPageName(PageNameEnum.SPLASH),
+      getPages: GetxRoutingManager.instance.getPages(),
+    );
+  }
+
+  /// Builds the GetMaterialApp with theme and localization support
+  Widget _buildThemedApp({
+    required String initialRoute,
+    required List<GetPage> getPages,
+  }) {
+    return ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, _) {
+          return localization.CcLocalization.wrapWithLocalization(
+            child: Builder(builder: (context) {
+              return GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: createLightTheme(),
+                darkTheme: createDarkTheme(),
+                themeMode: themeProvider.themeMode,
+                initialRoute: initialRoute,
+                getPages: getPages,
+                locale: localization.CcLocalization.getCurrentLocale(context),
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+              );
+            }),
+          );
+        },
+      ),
+    );
+  }
 }
 
-/// Map of navigate strategies
-final Map<RoutingManagerEnum, RoutingStrategy> routingStrategies = {
-  RoutingManagerEnum.AUTO_ROUTE: AutoRouteStrategy(),
-  RoutingManagerEnum.GETX: GetxRouteStrategy(),
-};
+// Routing Configuration
 
-/// Returns the main app ui for the given navigate manager, or throws if not supported.
-Widget buildAppByRoutingManager(RoutingManagerEnum manager) {
-  final strategy = routingStrategies[manager];
-  if (strategy != null) {
-    return strategy.build();
-  } else {
-    throw UnimplementedError('Routing manager $manager is not supported.');
+/// Provides access to all available routing strategies
+class RouteStrategyProvider {
+  /// Gets the appropriate routing strategy based on the provided enum
+  static RoutingStrategy getStrategy(RoutingManagerEnum manager) {
+    return _routingStrategies[manager] ?? _getDefaultStrategy();
   }
+
+  /// Gets the default routing strategy
+  static RoutingStrategy _getDefaultStrategy() {
+    return _routingStrategies[RoutingManagerEnum.AUTO_ROUTE]!;
+  }
+
+  /// Map of all available routing strategies
+  static final Map<RoutingManagerEnum, RoutingStrategy> _routingStrategies = {
+    RoutingManagerEnum.AUTO_ROUTE: AutoRouteStrategy(),
+    RoutingManagerEnum.GETX: GetxRouteStrategy(),
+  };
+}
+
+/// Returns the main app UI for the given navigate manager
+Widget buildAppByRoutingManager(RoutingManagerEnum manager) {
+  return RouteStrategyProvider.getStrategy(manager).build();
 }

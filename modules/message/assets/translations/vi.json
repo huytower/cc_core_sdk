@@ -1,2 +1,58 @@
 {
+  "app": {
+    "name": "Ứng dụng mẫu",
+    "version": "Phiên bản {version}",
+    "loading": "Đang tải...",
+    "error": {
+      "general": "Đã xảy ra lỗi",
+      "network": "Lỗi kết nối mạng. Vui lòng kiểm tra kết nối của bạn.",
+      "server": "Lỗi máy chủ. Vui lòng thử lại sau."
+    }
+  },
+  "common": {
+    "ok": "Đồng ý",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "skip": "Bỏ qua",
+    "done": "Xong",
+    "search": "Tìm kiếm",
+    "no_results": "Không tìm thấy kết quả"
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgot_password": "Quên mật khẩu?",
+    "signup": "Đăng ký",
+    "no_account": "Chưa có tài khoản?",
+    "have_account": "Đã có tài khoản?",
+    "login_success": "Đăng nhập thành công",
+    "login_failed": "Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập."
+  },
+  "validation": {
+    "required": "Trường này là bắt buộc",
+    "email": "Vui lòng nhập địa chỉ email hợp lệ",
+    "password_length": "Mật khẩu phải có ít nhất {length} ký tự",
+    "password_match": "Mật khẩu không khớp"
+  },
+  "home": {
+    "title": "Trang chủ",
+    "welcome": "Xin chào, {name}!",
+    "recent_activity": "Hoạt động gần đây",
+    "view_all": "Xem tất cả"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "theme": "Giao diện",
+    "notifications": "Thông báo",
+    "privacy": "Bảo mật",
+    "help": "Trợ giúp & Hỗ trợ",
+    "about": "Giới thiệu"
+  }
 }

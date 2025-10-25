@@ -1,5 +1,5 @@
-// import 'package:Template/src/common/common/state/base/bloc_base.dart';
-// import 'package:Template/src/common/common/state/base/state_base.dart';
+// import 'package:Template/core/common/common/state/base/bloc_base.dart';
+// import 'package:Template/core/common/common/state/base/state_base.dart';
 // import 'package:flutter/material.dart';
 //
 // mixin AffBottomBarProvider<T extends StatefulWidget, B extends BlocBase> on StateBloc<T, B> {
@@ -27,7 +27,7 @@
 //         child: InkWell(
 //           child: toolBar.leadWidget ??
 //               Image.asset(
-//                 "packages/theme/assets/images/ic_back.png",
+//                 "packages/utils/assets/images/ic_back.png",
 //               ),
 //           onTap: () {
 //             onBackPressed();

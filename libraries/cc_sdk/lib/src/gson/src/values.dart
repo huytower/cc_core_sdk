@@ -1,6 +1,6 @@
 library gson_values;
 
-import 'package:cc_sdk/src/gson/src/prog.dart';
+import 'prog.dart';
 
 abstract class GsonValue {
   /// returns a simple, json compatible representation of the content

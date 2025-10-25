@@ -2,7 +2,7 @@ library gson_encoder;
 
 import 'dart:convert';
 
-import 'package:cc_sdk/src/gson/src/values.dart';
+import 'values.dart';
 
 class GsonEncoder {
   /// Encodes gson

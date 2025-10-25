@@ -1,5 +1,5 @@
 import 'package:app_config/box/register_hive_adapter/register_hive_adapter.dart';
-import 'package:content_locale/cc_localization.dart';
+import 'package:content_locale/cc_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -35,9 +35,13 @@ void main() async {
 
   /// endregion
 
-  /// define main support language
-  await CcLocalization.setLocale('en');
+  // Initialize localization with debug logging disabled
+  await localization.CcLocalization.initialize();
 
   /// Run App Prj.
-  runApp(const AppRunner());
+  runApp(
+    localization.CcLocalization.wrapWithLocalization(
+      child: const AppRunner(),
+    ),
+  );
 }

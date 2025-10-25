@@ -37,7 +37,7 @@ class _ExpansionPaneState extends State<CcExpansionPane> {
           quarterTurns: rotate,
           child: SizedBox(
             child: Image.asset(
-              "packages/theme/assets/images/ic_right.png",
+              "packages/utils/assets/images/ic_right.png",
             ),
             height: 15,
             width: 15,

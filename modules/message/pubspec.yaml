@@ -22,10 +22,3 @@ flutter:
 
   assets:
     - assets/translations/
-
-    - assets/translations/thanh_ph/home/
-    - assets/translations/thanh_ph/setting/
-
-    - assets/translations/huy_ph/home/
-    - assets/translations/huy_ph/setting/
-

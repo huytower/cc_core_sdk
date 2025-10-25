@@ -3,7 +3,8 @@ library theme;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:theme/src/prj_color.dart';
+
+import '../../data/data_source/color/prj_color.dart';
 
 /// Colors from Tailwind CSS :
 /// https://tailwindcss.com/docs/customizing-colors

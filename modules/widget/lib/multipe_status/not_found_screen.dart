@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:theme/src/prj_color.dart';
+import 'package:theme/data/data_source/color/prj_color.dart';
 
 class NotFondScreen extends StatelessWidget {
   const NotFondScreen({Key? key}) : super(key: key);

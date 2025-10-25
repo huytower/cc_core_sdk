@@ -1,28 +1,51 @@
 name: theme
-description: A new Flutter package project.
-version: 0.0.1
+description: A Flutter theme module providing consistent theming and styling across the application.
+version: 1.0.0+1
 publish_to: none
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
+  # Internal dependencies
   cc_sdk:
     path: ../../libraries/cc_sdk
-
+  content_locale:
+    path: ../message
   flutter:
     sdk: flutter
-
-  # add font text from google.
+  flutter_localizations:
+    sdk: flutter
   google_fonts:
 
 dev_dependencies:
+  flutter_lints:
   flutter_test:
     sdk: flutter
 
 flutter:
+  # This section identifies this package as a plugin project.
+  # To add assets to your plugin package, add an assets section, like this:
   assets:
     - assets/background/
     - assets/icon/
     - assets/lottie/
     - assets/logo/
+#    - packages/theme/assets/background/
+
+  # Fonts and other font-related configurations
+  fonts: [ ]  # Empty list as we're using google_fonts package
+  # Example font configuration (uncomment and modify as needed)
+  #   - family: YourFontFamily
+  #     fonts:
+  #       - asset: fonts/YourFont-Regular.ttf
+  #       - asset: fonts/YourFont-Bold.ttf
+  #         weight: 700
+
+  # Enable generation of localized strings
+  generate: true
+
+  # Add any additional Flutter configurations here
+  # For example, to enable Material 3 theming:
+  # uses-material-design: true
+  # material-design-3: true

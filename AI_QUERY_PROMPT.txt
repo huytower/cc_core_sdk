@@ -1,3 +1,5 @@
+ACTION: MUST UNDERSTAND THESE STEPS IN THIS FILE FIRSTLY, THEN I WILL MAKE NEW MANUAL PROMPT.
+
 Step 1: take a deep look: C:\Users\Admin\repository\flutter-get-starter-template
 
 Step 2: clean architecture & solid principles?

@@ -4,7 +4,7 @@
 // import 'package:ext/common/layout/cc_get_view/cc_get_view.dart';
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
-// import 'package:theme/export/cc_theme_export.dart';
+// import 'package:utils/export/cc_theme_export.dart';
 // import 'package:ui/widgets/gesture_detector/cc_gesture_detector_ontap.dart';
 //
 // /// Target: serves for customize [base|default widgets] :

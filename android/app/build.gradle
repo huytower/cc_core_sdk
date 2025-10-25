@@ -36,7 +36,7 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/common'
+        main.java.srcDirs += 'core/main/common'
     }
 
     defaultConfig {

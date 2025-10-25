@@ -6,7 +6,7 @@ import 'package:cc_sdk/widgets/text/cc_text.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:theme/data_source/assets_data_source.dart';
+import 'package:theme/data/data_source/asset/assets_data_source.dart';
 
 /// POPULAR MIXIN
 /// - Pull to refresh

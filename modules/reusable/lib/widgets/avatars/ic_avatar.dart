@@ -2,7 +2,7 @@ import 'package:app_config/box/app_storage/cc_app_storage.dart';
 import 'package:cc_sdk/core/helper/widget_helper.dart';
 import 'package:cc_sdk/widgets/container/cc_container_circle.dart';
 import 'package:flutter/material.dart';
-import 'package:theme/data_source/assets_data_source.dart';
+import 'package:theme/data/data_source/asset/assets_data_source.dart';
 
 class AvatarUser extends StatelessWidget {
   final double width;
@@ -10,7 +10,7 @@ class AvatarUser extends StatelessWidget {
   const AvatarUser({Key? key, this.width = 50}) : super(key: key);
 
   final String pathDefault =
-      'packages/theme/assets/logos/ic_default_user_avatar.png';
+      'packages/utils/assets/logos/ic_default_user_avatar.png';
 
   @override
   Widget build(BuildContext context) {

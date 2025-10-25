@@ -1,5 +1,5 @@
-// import 'package:Template/src/common/common/state/base/bloc_base.dart';
-// import 'package:Template/src/common/common/state/base/state_base.dart';
+// import 'package:Template/core/common/common/state/base/bloc_base.dart';
+// import 'package:Template/core/common/common/state/base/state_base.dart';
 // import 'package:flutter/material.dart';
 //
 // mixin HomeProvider<T extends StatefulWidget, B extends BlocBase> on StateBloc<T, B> {
@@ -16,7 +16,7 @@
 //             width: 30,
 //             margin: const EdgeInsets.only(top: 15, bottom: 15, left: 15),
 //             child: Image.asset(
-//               "packages/theme/assets/images/home/ic_notify_aff.png",
+//               "packages/utils/assets/images/home/ic_notify_aff.png",
 //             ),
 //           ),
 //         ),
@@ -29,7 +29,7 @@
 //             width: 22,
 //             margin: const EdgeInsets.only(top: 15, bottom: 15, right: 15),
 //             child: Image.asset(
-//               "packages/theme/assets/images/home/ic_extension_aff.png",
+//               "packages/utils/assets/images/home/ic_extension_aff.png",
 //             ),
 //           ),
 //         )
@@ -46,7 +46,7 @@
 //         padding: const EdgeInsets.all(5),
 //         child: SizedBox(
 //           child: Image.asset(
-//             "packages/theme/assets/images/home/ic_home_aff.png",
+//             "packages/utils/assets/images/home/ic_home_aff.png",
 //           ),
 //           height: 50,
 //           width: 50,
@@ -67,7 +67,7 @@
 //         child: InkWell(
 //           child: toolBar.leadWidget ??
 //               Image.asset(
-//                 "packages/theme/assets/images/ic_back.png",
+//                 "packages/utils/assets/images/ic_back.png",
 //               ),
 //           onTap: () {
 //             onBackPressed();

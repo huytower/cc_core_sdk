@@ -1,16 +1,16 @@
 // import 'dart:io' show Platform;
 //
-// import 'package:Template/src/common/di/inject.dart';
-// import 'package:Template/src/common/common/state/base/bloc_base.dart';
+// import 'package:Template/core/common/di/inject.dart';
+// import 'package:Template/core/common/common/state/base/bloc_base.dart';
 // import 'package:app/enum/layout_status.dart';
 // import 'package:data/http/retrofit/response/cc_response.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
-// import 'package:theme/src/prj_color.dart';
+// import 'package:utils/core/prj_color.dart';
 // import 'package:ui/export/cc_ktx_export.dart';
 // import 'package:ui/multipe_status/error_screen.dart';
 //
-// export 'package:theme/cc_themes.dart';
+// export 'package:utils/cc_themes.dart';
 //
 // abstract class StateBloc<T extends StatefulWidget, B extends BlocBase> extends StateBase<T> {
 //   late var bloc = getIt<B>();
@@ -46,7 +46,7 @@
 //   }
 //
 //   bool? isLogger = false;
-//   late ThemeData theme;
+//   late ThemeData utils;
 //   late TextTheme textTheme;
 //   late BuildContext requestContext;
 //
@@ -205,8 +205,8 @@
 //   }
 //
 //   _initTheme() {
-//     theme = Theme.of(context);
-//     textTheme = theme.textTheme;
+//     utils = Theme.of(context);
+//     textTheme = utils.textTheme;
 //   }
 //
 //   //----------------------------------------------------------------------------
@@ -326,7 +326,7 @@
 //                     child: InkWell(
 //                       child: toolBar.actionWidget ??
 //                           Image.asset(
-//                             "packages/theme/assets/images/ic_filter.png",
+//                             "packages/utils/assets/images/ic_filter.png",
 //                           ),
 //                       onTap: () {
 //                         toolBar.onClickAction?.call();
