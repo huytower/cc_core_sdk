@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 
 import 'package:app_config/box/register_hive_adapter/register_hive_adapter.dart';
+import 'package:app_config/services/app_version_service.dart';
 import 'package:content_locale/cc_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -54,6 +55,7 @@ void main() async {
 
   // Load env variables
   await _loadEnvVars();
+  await _logVersionInfo();
 
   /// where init dependency injection, ex. : @singleton, @module, @injection ...
   await initializeDependencies();
@@ -75,4 +77,31 @@ void main() async {
 
   /// Run App Prj.
   runApp(const AppRunner());
+}
+
+/// Logs the current app version and build information
+Future<void> _logVersionInfo() async {
+  try {
+    final versionService = AppVersionService();
+    final version = await versionService.getCurrentVersion();
+    final buildNumber = await versionService.getBuildNumber();
+    final packageName = await versionService.getPackageName();
+    final isPreRelease = await versionService.isPreRelease();
+
+    developer.log(
+      '📱 App Version Info\n'
+      '   • Version: $version\n'
+      '   • Build: $buildNumber\n'
+      '   • Package: $packageName\n'
+      '   • Pre-release: $isPreRelease',
+      name: 'AppVersion',
+    );
+  } catch (e, stackTrace) {
+    developer.log(
+      '❌ Failed to get version info: $e',
+      error: e,
+      stackTrace: stackTrace,
+      name: 'AppVersion',
+    );
+  }
 }
