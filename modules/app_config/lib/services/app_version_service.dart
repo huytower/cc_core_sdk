@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 /// Service class to handle app version related operations
+@injectable
 class AppVersionService {
   /// Gets the current app version from the package info
   /// 

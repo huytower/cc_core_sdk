@@ -16,6 +16,10 @@ void main() async {
   // Initialize Flutter bindings
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Load env variables
+  await logEnv();
+  await logVersionInfo();
+
   /// where init dependency injection, ex. : @singleton, @module, @injection ...
   await initializeDependencies();
 
@@ -33,10 +37,6 @@ void main() async {
 
   /// define main support language
   await CcLocalization.setLocale('en');
-
-  // Load env variables
-  await logEnv();
-  await logVersionInfo();
 
   /// Run App Prj.
   runApp(const AppRunner());

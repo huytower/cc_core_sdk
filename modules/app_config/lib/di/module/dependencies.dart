@@ -5,6 +5,7 @@ import '../../box/app_storage/cc_app_storage.dart';
 import '../../box/app_track_log/cc_app_track_log.dart';
 import '../../box/device_info/cc_device_info.dart';
 import '../../helper/network_helper.dart';
+import '../../services/app_version_service.dart';
 
 /// Defines and provides common dependencies for the AppConfig module.
 /// This module is responsible for registering services that are essential
@@ -28,4 +29,8 @@ abstract class AppConfigModule {
   NetworkHelper get networkHelper => NetworkHelper(
         InternetConnectionChecker.createInstance(),
       );
+
+  /// Provides version management service
+  @lazySingleton
+  AppVersionService get appVersionService => AppVersionService();
 }
