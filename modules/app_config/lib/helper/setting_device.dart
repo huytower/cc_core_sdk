@@ -6,12 +6,7 @@ class SettingDevice {
   static bool isIOS = false;
   static bool isAndroid = false;
 
-  //default iphone 4
-  static bool level1 = false;
-  static bool level2 = false;
-  static bool level3 = false;
-
-  static double iosVersion = 0.0;
+  static double iosVersion = 0;
 
   static double widthScreen = 0;
   static double heightScreen = 0;
@@ -24,16 +19,6 @@ class SettingDevice {
     widthScreen = MediaQuery.of(context).size.width;
     heightScreen = MediaQuery.of(context).size.height;
     minScreen = widthScreen > heightScreen ? heightScreen : widthScreen;
-
-    if (widthScreen <= 320) {
-      //iphone 4
-      level1 = true;
-    } else if (widthScreen <= 360) {
-      //android
-    } else if (widthScreen <= 768) {
-      //iphone 6 : 375
-      level3 = true;
-    } else {}
 
     hasHomeBtnIOSDevice = true;
 

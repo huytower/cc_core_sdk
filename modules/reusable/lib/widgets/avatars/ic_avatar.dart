@@ -1,8 +1,8 @@
 import 'package:app_config/box/app_storage/cc_app_storage.dart';
-import 'package:app_config/data_source/assets_data_source.dart';
 import 'package:cc_sdk/core/helper/widget_helper.dart';
 import 'package:cc_sdk/widgets/container/cc_container_circle.dart';
 import 'package:flutter/material.dart';
+import 'package:theme/data_source/assets_data_source.dart';
 
 class AvatarUser extends StatelessWidget {
   final double width;

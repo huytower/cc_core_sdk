@@ -17,7 +17,7 @@ dependencies:
 
   deep_collection:
 
-  device_info_plus:
+  device_info_plus: 11.5.0
 
   dio:
   dio_cache_interceptor:
@@ -46,7 +46,7 @@ dependencies:
 
   mask_text_input_formatter:
 
-  package_info_plus:
+  package_info_plus: 8.3.1
   quiver:
 
   rxdart:

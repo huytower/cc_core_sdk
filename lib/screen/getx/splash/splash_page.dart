@@ -1,6 +1,6 @@
-import 'package:app_config/data_source/assets_data_source.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:theme/data_source/assets_data_source.dart';
 
 import 'splash_init.dart';
 

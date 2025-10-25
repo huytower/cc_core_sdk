@@ -21,7 +21,7 @@ dependencies:
 
   data:
     path: modules/data
-  device_info_plus:
+  device_info_plus: 11.5.0
   dio:
 
   easy_localization:
