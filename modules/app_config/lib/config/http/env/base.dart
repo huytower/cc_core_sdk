@@ -116,7 +116,7 @@ abstract class HttpBase extends Equatable {
   void validate() {
     // Validate baseUrl
     if (baseUrl.isEmpty) {
-      throw const MissingConfigException(key: 'baseUrl');
+      throw const MissingConfigException('baseUrl');
     }
 
     // Validate URL format
@@ -142,7 +142,7 @@ abstract class HttpBase extends Equatable {
         baseUrl.startsWith('http://') &&
         !baseUrl.contains('localhost')) {
       throw const SecurityConfigException(
-        message: 'Insecure HTTP protocol detected in production env',
+        'Insecure HTTP protocol detected in production env',
         key: 'baseUrl',
       );
     }

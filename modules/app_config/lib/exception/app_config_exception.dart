@@ -31,7 +31,6 @@ abstract class AppConfigException implements Exception {
     String? message,
     String? key,
     dynamic value,
-    StackTrace? stackTrace,
     String? type,
   });
 
@@ -49,10 +48,8 @@ abstract class AppConfigException implements Exception {
 /// Thrown when a required configuration value is missing.
 class MissingConfigException extends AppConfigException {
   /// Creates a new [MissingConfigException] for a missing configuration key.
-  const MissingConfigException(
-    String key, [
-    StackTrace? stackTrace,
-  ]) : super(
+  const MissingConfigException(String key)
+      : super(
           message: 'Missing required configuration value',
           key: key,
           type: 'MissingConfigException',
@@ -63,7 +60,6 @@ class MissingConfigException extends AppConfigException {
     String? message,
     String? key,
     dynamic value,
-    StackTrace? stackTrace,
     String? type,
   }) {
     return MissingConfigException(
@@ -91,7 +87,6 @@ class InvalidConfigException extends AppConfigException {
     String? message,
     String? key,
     dynamic value,
-    StackTrace? stackTrace,
     String? type,
     String? expectedType,
     dynamic actualValue,
@@ -119,7 +114,6 @@ class SecurityConfigException extends AppConfigException {
     dynamic value,
     this.securityRule,
     this.severity = 'error',
-    StackTrace? stackTrace,
   }) : super(
           message: message,
           key: key,
@@ -132,7 +126,6 @@ class SecurityConfigException extends AppConfigException {
     String? message,
     String? key,
     dynamic value,
-    StackTrace? stackTrace,
     String? type,
     String? securityRule,
     String? severity,
@@ -164,14 +157,12 @@ class SecurityConfigException extends AppConfigException {
   factory SecurityConfigException.insufficientPermissions({
     required String key,
     required String requiredPermission,
-    StackTrace? stackTrace,
   }) {
     return SecurityConfigException(
       'Insufficient permissions to access configuration',
       key: key,
       securityRule: 'insufficient_permissions',
       severity: 'error',
-      stackTrace: stackTrace,
     );
   }
 }

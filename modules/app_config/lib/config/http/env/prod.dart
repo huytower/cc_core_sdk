@@ -50,7 +50,7 @@ class HttpProd extends HttpBase {
     final url =
         dotenv.maybeGet('API_URL', fallback: 'https://api.production.com');
     if (url == null || url.isEmpty) {
-      throw const MissingConfigException(key: 'API_URL');
+      throw const MissingConfigException('API_URL');
     }
     return url;
   }
@@ -89,7 +89,6 @@ class HttpProd extends HttpBase {
         key: key,
         value: dotenv.maybeGet(key),
         message: 'Failed to parse version: $e',
-        stackTrace: stackTrace,
       );
     }
   }
@@ -144,7 +143,7 @@ class HttpProd extends HttpBase {
       // Additional production-specific validations
       if (baseUrl.startsWith('http://') && !baseUrl.contains('localhost')) {
         throw const SecurityConfigException(
-          message: 'Insecure HTTP protocol detected in production env',
+          'Insecure HTTP protocol detected in production env',
           key: 'baseUrl',
         );
       }
