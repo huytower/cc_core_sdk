@@ -28,6 +28,8 @@ class CcLocalization {
   ///
   /// This should be called before [runApp] in the [main] function.
   static Future<void> initialize() async {
+    // Disable EasyLocalization debug logs
+    EasyLocalization.logger.enableLevels = []; // This disables all logs
     await EasyLocalization.ensureInitialized();
   }
 

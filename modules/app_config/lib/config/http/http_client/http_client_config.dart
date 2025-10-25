@@ -12,20 +12,7 @@ class HttpClientConfig {
   // Private constructor to prevent instantiation
   HttpClientConfig._();
 
-  static Environment _environment = _getEnvironmentFromArgs();
-
-  /// Current environment, defaults to FREE_FAKE_API
-  /// Can be set via `--dart-define=ENV=uat` or `--dart-define=ENV=prod`
-  static Environment get environment => _environment;
-
-  /// Updates the current environment
-  /// This is useful for testing or runtime environment switching
-  static set environment(Environment env) {
-    _environment = env;
-    if (kDebugMode) {
-      print('Environment set to: ${env.name}');
-    }
-  }
+  static Environment environment = _getEnvironmentFromArgs();
 
   /// Retrieves the environment from command line arguments or defaults to FREE_FAKE_API.
   static Environment _getEnvironmentFromArgs() {

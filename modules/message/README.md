@@ -1,39 +1,123 @@
+# Message Module
+
+A Flutter module for handling internationalization (i18n) and localization using the `easy_localization` package.
+
 ## Features
 
-Config. multi-language, multi-locale
+- Multi-language support
+- Multi-locale configuration
+- Easy string translation
+- Pluralization support
+- RTL (Right-to-Left) language support
+- Fallback locale handling
 
-## Getting started
+## Getting Started
 
-How to use?
+### Prerequisites
 
-    1. Aware about `/assets` folder exists in this module.
+- Flutter SDK
+- `easy_localization` package (included as a dependency)
 
-    2. Create corresponding locale folder if need, 
-      ex. `modules/locale/assets/translations/{$USER}/{$PAGE}`,
-      [with {$USER} = userA; {$PAGE} = home]
-    
-    3. Add corresponding text in *.json, ex. : en.json && vi.json ..v.v
-    
-    4. Define corresponding locale path in `cc_localization.dart` if has,
-    /// ex. '$path_language_directory/thanh_ph/home/home_en.json',
-    
-    5. Define corresponding locale path in `pubspec.yaml`
-    
-    /// ex.
-    ```yaml
-    flutter:
-      uses-material-design: true
-      
-      assets:
-      - assets/translations/
-      
-          - assets/translations/thanh_ph/home/
-          - assets/translations/thanh_ph/setting/
-      
-          - assets/translations/huy_ph/home/
-          - assets/translations/huy_ph/setting/
-    ```
+### Installation
 
-## Additional information
+1. Add this module to your `pubspec.yaml`:
 
-[pub.dev/easy_localization](https://pub.dev/packages/easy_localization)
+```yaml
+dependencies:
+  content_locale:
+    path: modules/message
+```
+
+2. Run `flutter pub get`
+
+### Project Structure
+
+```
+modules/
+  message/
+    lib/
+      cc_localization.  # Main localization service
+    assets/
+      translations/         # Translation files
+        en.json            # English translations
+        vi.json            # Vietnamese translations
+        # Add more language files as needed
+```
+
+### Usage
+
+1. **Initialize Localization**
+
+In your `main.`:
+
+```
+import 'package:content_locale/cc_localization.' as localization;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize localization
+  await localization.CcLocalization.initialize();
+  
+  runApp(
+    localization.CcLocalization.wrapWithLocalization(
+      child: const MyApp(),
+    ),
+  );
+}
+```
+
+2. **Using Translations**
+
+```
+// In your widget
+Text('hello_world'.tr())
+
+// With parameters
+Text('welcome_message'.tr(namedArgs: {'name': 'John'}))
+
+// Pluralization
+Text('items_count'.plural(5))
+```
+
+3. **Changing Locale**
+
+```
+// To change language
+await context.setLocale(const Locale('vi'));  // Switch to Vietnamese
+```
+
+### Adding New Translations
+
+1. Add your translation strings to the corresponding JSON files in `assets/translations/`:
+
+`en.json`:
+
+```json
+{
+  "hello_world": "Hello World!",
+  "welcome_message": "Welcome, {name}!",
+  "items_count": "{count} items | {count} item | {count} items"
+}
+```
+
+2. Add the new language code to `supportedLocales` in `cc_localization.` if needed.
+
+## Best Practices
+
+- Keep translation keys in snake_case
+- Group related translations in nested JSON objects
+- Use named parameters for dynamic content
+- Always provide a default/fallback translation in English
+- Test with RTL languages if your app supports them
+
+## Troubleshooting
+
+- If translations don't appear, ensure:
+    - The JSON files are properly formatted
+    - The asset paths in `pubspec.yaml` are correct
+    - The locale is properly set and supported
+
+## Dependencies
+
+- [easy_localization](https://pub.dev/packages/easy_localization) - For internationalization and localization

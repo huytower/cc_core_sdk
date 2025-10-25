@@ -22,8 +22,6 @@ import '../device_info/cc_device_info.dart';
 /// ```
 Future<void> registerHiveAdapter() async {
   try {
-    developer.log('Registering Hive adapters...');
-
     await _registerAdapterWithErrorHandling(
       'CcAppStorage',
       () => CcAppStorage.register(),
@@ -38,8 +36,6 @@ Future<void> registerHiveAdapter() async {
       'CcAppTrackLog',
       () => CcAppTrackLog.register(),
     );
-
-    developer.log('All Hive adapters registered successfully');
   } catch (e, stackTrace) {
     developer.log(
       'Failed to register one or more Hive adapters',
@@ -56,9 +52,7 @@ Future<void> _registerAdapterWithErrorHandling(
   Future<void> Function() registerFunction,
 ) async {
   try {
-    developer.log('Registering $adapterName adapter...');
     await registerFunction();
-    developer.log('$adapterName adapter registered successfully');
   } catch (e, stackTrace) {
     developer.log(
       'Failed to register $adapterName adapter',

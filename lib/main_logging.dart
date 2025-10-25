@@ -3,6 +3,8 @@ import 'dart:developer' as developer;
 import 'package:app_config/services/app_version_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'core/datasource/route_datasource.dart';
+
 /// Logs the current app version and build information
 Future<void> logVersionInfo() async {
   try {
@@ -55,6 +57,8 @@ Future<void> logEnv() async {
             '   $key: ${key.toLowerCase().contains('key') || key.toLowerCase().contains('secret') ? '***' : value}');
       });
       developer.log(buffer.toString(), name: 'EnvConfig');
+      developer.log('Routing Management = ${RouteDatasource.currentStrategy}');
+
       return true;
     }());
   } catch (e, stackTrace) {

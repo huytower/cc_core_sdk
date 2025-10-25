@@ -1,4 +1,3 @@
-import 'package:app_config/config/http/http_client/http_client_config.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -24,18 +23,12 @@ class AppRunnerState extends State<AppRunner> {
   void initState() {
     super.initState();
     _initializeDependencies();
-    _logEnvironmentInfo();
     _initializeDevice();
   }
 
   void _initializeDependencies() {
     _deviceInitializer = getIt<DeviceInitializer>();
     _hiveManager = getIt<HiveManager>();
-  }
-
-  void _logEnvironmentInfo() {
-    'API Environment = ${HttpClientConfig.environment}'.Log();
-    'Routing Management = ${RouteDatasource.currentStrategy}'.Log();
   }
 
   Future<void> _initializeDevice() => _deviceInitializer.initialize();

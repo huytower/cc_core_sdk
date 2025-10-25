@@ -27,7 +27,6 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     final path =
         "packages/theme/${AssetUtils.getBackground(BackgroundAsset.splash)}";
-    print('Splash image path: $path');
 
     return Scaffold(
       body: Container(
