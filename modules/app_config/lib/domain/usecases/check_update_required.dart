@@ -1,6 +1,7 @@
+import 'package:cc_sdk/core/exception/app_config_exception.dart';
+import 'package:cc_sdk/core/exception/error/failure.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-import '../../../../core/error/failures.dart';
 import '../repositories/app_config_repository.dart';
 
 /// Use case for checking if an app update is required.
@@ -19,18 +20,7 @@ class CheckUpdateRequired {
     } on Failure catch (e) {
       return Error(e);
     } catch (e) {
-      return Error(
-          ConfigFailure(message: 'Failed to check update requirement: $e'));
+      return Error(ConfigFailure('Failed to check update requirement: $e'));
     }
   }
-}
-
-/// Failure specific to configuration operations.
-class ConfigFailure extends Failure {
-  final String message;
-
-  const ConfigFailure({required this.message}) : super(message: '');
-
-  @override
-  List<Object> get props => [message];
 }

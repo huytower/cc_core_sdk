@@ -1,38 +1,37 @@
 import 'package:meta/meta.dart';
 
+import 'error/failure.dart';
+
 /// Base exception class for configuration-related errors.
 ///
-/// This class provides a structured way to handle configuration errors
-/// with detailed information about what went wrong.
+/// This class extends [Failure] to provide a structured way to handle
+/// configuration errors with detailed information about what went wrong.
 @immutable
-abstract class AppConfigException implements Exception {
-  /// A human-readable error message explaining what went wrong.
-  final String message;
-
+abstract class AppConfigException extends Failure {
   /// The configuration key that caused the error, if applicable.
   final String? key;
-
-  /// The value that caused the error, if applicable.
-  final dynamic value;
 
   /// The type of the exception for programmatic handling.
   final String type;
 
   /// Creates a new [AppConfigException] instance.
-  const AppConfigException({
-    required this.message,
+  const AppConfigException(
+    String message, {
     this.key,
-    this.value,
     this.type = 'AppConfigException',
-  });
+  }) : super(message);
+
+  @override
+  List<Object?> get props => [message, key, type];
 
   /// Creates a copy of this exception with the given fields replaced.
   AppConfigException copyWith({
     String? message,
     String? key,
-    dynamic value,
-    String? type,
-  });
+    String type = 'AppConfigException',
+  }) {
+    throw UnimplementedError('copyWith must be implemented by subclasses');
+  }
 
   /// Converts the exception to a JSON-serializable map.
   Map<String, dynamic> toJson() {
@@ -40,100 +39,76 @@ abstract class AppConfigException implements Exception {
       'type': type,
       'message': message,
       'key': key,
-      'value': value?.toString(),
     };
   }
+}
+
+/// Failure specific to configuration operations.
+class ConfigFailure extends Failure {
+  const ConfigFailure(String message) : super(message);
 }
 
 /// Thrown when a required configuration value is missing.
 class MissingConfigException extends AppConfigException {
   /// Creates a new [MissingConfigException] for a missing configuration key.
-  const MissingConfigException(String key)
-      : super(
-          message: 'Missing required configuration value',
+  const MissingConfigException(
+    String key, {
+    String? message,
+    String type = 'MissingConfigException',
+  }) : super(
+          message ?? 'Missing required configuration: $key',
           key: key,
-          type: 'MissingConfigException',
+          type: type,
         );
 
   @override
   MissingConfigException copyWith({
     String? message,
     String? key,
-    dynamic value,
-    String? type,
+    String type = 'MissingConfigException',
   }) {
     return MissingConfigException(
       key ?? this.key ?? '',
-    ).copyWith(message: message ?? this.message);
-  }
-}
-
-/// Thrown when a configuration value is invalid.
-class InvalidConfigException extends AppConfigException {
-  /// Creates a new [InvalidConfigException] for an invalid configuration value.
-  const InvalidConfigException({
-    required String key,
-    dynamic value,
-    required String message,
-  }) : super(
-          message: message,
-          key: key,
-          value: value,
-          type: 'InvalidConfigException',
-        );
-
-  @override
-  InvalidConfigException copyWith({
-    String? message,
-    String? key,
-    dynamic value,
-    String? type,
-    String? expectedType,
-    dynamic actualValue,
-  }) {
-    return InvalidConfigException(
-      key: key ?? this.key ?? '',
-      value: value ?? this.value,
-      message: message ?? this.message,
+      message: message,
+      type: type,
     );
   }
 }
 
 /// Thrown when there's a security-related configuration issue.
 class SecurityConfigException extends AppConfigException {
-  /// The security rule or policy that was violated.
-  final String? securityRule;
+  /// The security rule that was violated.
+  final String securityRule;
 
-  /// The security level of the exception (e.g., 'warning', 'error', 'critical').
+  /// The severity level of the security issue.
   final String severity;
 
-  /// Creates a new [SecurityConfigException] for security-related issues.
+  /// Creates a new [SecurityConfigException] for a security-related configuration issue.
   const SecurityConfigException(
     String message, {
-    String? key,
-    dynamic value,
-    this.securityRule,
-    this.severity = 'error',
+    required String key,
+    required this.securityRule,
+    this.severity = 'high',
   }) : super(
-          message: message,
+          message,
           key: key,
-          value: value,
           type: 'SecurityConfigException',
         );
+
+  @override
+  List<Object?> get props => [...super.props, securityRule, severity];
 
   @override
   SecurityConfigException copyWith({
     String? message,
     String? key,
-    dynamic value,
     String? type,
     String? securityRule,
     String? severity,
   }) {
     return SecurityConfigException(
       message ?? this.message,
-      key: key ?? this.key,
-      value: value ?? this.value,
+      key: key ?? this.key ?? '',
       securityRule: securityRule ?? this.securityRule,
       severity: severity ?? this.severity,
     );
@@ -142,12 +117,11 @@ class SecurityConfigException extends AppConfigException {
   /// Creates a security exception for sensitive data exposure.
   factory SecurityConfigException.sensitiveDataExposure({
     required String key,
-    required dynamic value,
+    String? message,
   }) {
     return SecurityConfigException(
-      'Sensitive data exposure detected in configuration',
+      message ?? 'Sensitive data exposure detected in configuration',
       key: key,
-      value: value,
       securityRule: 'sensitive_data_exposure',
       severity: 'critical',
     );
@@ -159,7 +133,7 @@ class SecurityConfigException extends AppConfigException {
     required String requiredPermission,
   }) {
     return SecurityConfigException(
-      'Insufficient permissions to access configuration',
+      'Insufficient permissions to access configuration. Required: $requiredPermission',
       key: key,
       securityRule: 'insufficient_permissions',
       severity: 'error',

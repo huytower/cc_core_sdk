@@ -1,8 +1,8 @@
 import 'dart:io' show Platform;
 
+import 'package:cc_sdk/core/exception/app_config_exception.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../exception/app_config_exception.dart';
 import '../../app/cc_app_config.dart';
 
 /// Base class for application configuration across different environments.
@@ -21,26 +21,24 @@ import '../../app/cc_app_config.dart';
 /// ```
 abstract class HttpBase extends Equatable {
   /// Creates a new immutable configuration instance.
-  const HttpBase();
+  ///
+  /// [isLogger] - Whether general application logging is enabled
+  /// [isEnableLoggerDio] - Whether Dio HTTP client logging is enabled
+  const HttpBase({
+    required this.isLogger,
+    required this.isEnableLoggerDio,
+  });
 
   /// The current API version.
   ///
   /// This should match the expected API version on the server.
   int get versionApi => 0;
 
-  // Logging Configuration
+  /// Whether general application logging is enabled
+  final bool isLogger;
 
-  /// Whether general application logging is enabled.
-  ///
-  /// When `true`, application-level logs should be recorded.
-  bool get isLogger;
-
-  /// Whether Dio HTTP client logging is enabled.
-  ///
-  /// When `true`, HTTP request/response logging will be enabled.
-  bool get isEnableLoggerDio;
-
-  // API Configuration
+  /// Whether Dio HTTP client logging is enabled
+  final bool isEnableLoggerDio;
 
   /// The base URL for all API requests.
   ///
@@ -64,7 +62,10 @@ abstract class HttpBase extends Equatable {
   /// This is the initial delay, which may be increased with exponential backoff.
   int get retryDelayMs => 1000;
 
-  // Environment Flags
+  // Environment Information
+
+  /// Display name for the environment
+  String get environmentName => 'BASE';
 
   /// Whether the current env is development.
   ///
@@ -75,6 +76,12 @@ abstract class HttpBase extends Equatable {
   ///
   /// Should be `true` only in production environments.
   bool get isEnvPro => false;
+
+  /// Whether the current env is UAT.
+  bool get isEnvUat => false;
+
+  /// Whether the current env is free tier.
+  bool get isEnvFree => false;
 
   // Immutable configuration - no setters
 
@@ -91,6 +98,9 @@ abstract class HttpBase extends Equatable {
         retryDelayMs,
         isEnvDev,
         isEnvPro,
+        isEnvUat,
+        isEnvFree,
+        environmentName,
       ];
 
   @override
@@ -121,18 +131,16 @@ abstract class HttpBase extends Equatable {
 
     // Validate URL format
     if (!baseUrl.startsWith('http')) {
-      throw InvalidConfigException(
-        key: 'baseUrl',
-        value: baseUrl,
+      throw MissingConfigException(
+        'baseUrl',
         message: 'Must start with http:// or https://',
       );
     }
 
     // Validate timeouts
     if (apiTimeoutSeconds <= 0) {
-      throw InvalidConfigException(
-        key: 'apiTimeoutSeconds',
-        value: apiTimeoutSeconds,
+      throw MissingConfigException(
+        'apiTimeoutSeconds',
         message: 'Must be greater than 0',
       );
     }
@@ -141,9 +149,10 @@ abstract class HttpBase extends Equatable {
     if (isEnvPro &&
         baseUrl.startsWith('http://') &&
         !baseUrl.contains('localhost')) {
-      throw const SecurityConfigException(
+      throw SecurityConfigException(
         'Insecure HTTP protocol detected in production env',
         key: 'baseUrl',
+        securityRule: 'insecure_protocol',
       );
     }
   }

@@ -1,10 +1,10 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 
+import 'package:cc_sdk/core/exception/app_config_exception.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../../exception/app_config_exception.dart';
 import 'base.dart';
 
 /// Production env configuration.
@@ -25,32 +25,27 @@ import 'base.dart';
 /// flutter build apk --dart-define=ENV=prod
 /// ```
 class HttpProd extends HttpBase {
-  /// Display name for the production env
-  static const String environmentName = 'PRODUCTION';
-
-  /// Creates an immutable production configuration instance.
+  /// Creates a production configuration instance.
   ///
   /// Prefer using [CcAppConfig.instance] to get the current configuration.
-  const HttpProd() : super();
+  const HttpProd() : super(
+    isLogger: false, // Disable logging in production by default
+    isEnableLoggerDio: false,
+  );
 
   @override
-  bool get isLogger => false; // Disable logging in production by default
+  final String environmentName = 'PRODUCTION';
+
 
   @override
-  bool get isEnableLoggerDio => false;
-
-  @override
-  bool get isEnvDev => false;
-
-  @override
-  bool get isEnvPro => true;
+  bool get isEnvPro => true; // Mark as production environment
 
   @override
   String get baseUrl {
     final url =
         dotenv.maybeGet('API_URL', fallback: 'https://api.production.com');
     if (url == null || url.isEmpty) {
-      throw const MissingConfigException('API_URL');
+      throw const MissingConfigException('API_URL', message: 'API base URL is required in production');
     }
     return url;
   }
@@ -69,25 +64,23 @@ class HttpProd extends HttpBase {
   /// [key] - The env variable key to read
   ///
   /// Returns the parsed version number
-  /// Throws [InvalidConfigException] if the version is invalid
+  /// Throws [MissingConfigException] if the version is invalid
   int _getVersion(String key) {
     try {
       final value = dotenv.maybeGet(key, fallback: '1') ?? '1';
       final version = int.tryParse(value);
 
       if (version == null || version <= 0) {
-        throw InvalidConfigException(
-          key: key,
-          value: value,
+        throw MissingConfigException(
+          key,
           message: 'Version must be a positive integer',
         );
       }
 
       return version;
     } catch (e, stackTrace) {
-      throw InvalidConfigException(
-        key: key,
-        value: dotenv.maybeGet(key),
+      throw MissingConfigException(
+        key,
         message: 'Failed to parse version: $e',
       );
     }
@@ -133,6 +126,7 @@ class HttpProd extends HttpBase {
         'X-App-Platform': Platform.operatingSystem,
         'X-App-Version': '${Platform.operatingSystem}-${Platform.version}',
         if (enableAnalytics) 'X-Analytics-Enabled': 'true',
+        if (enableCrashReporting) 'X-Crash-Reporting': 'true',
       };
 
   @override
@@ -142,9 +136,11 @@ class HttpProd extends HttpBase {
     if (kReleaseMode) {
       // Additional production-specific validations
       if (baseUrl.startsWith('http://') && !baseUrl.contains('localhost')) {
-        throw const SecurityConfigException(
-          'Insecure HTTP protocol detected in production env',
+        throw SecurityConfigException(
+          'Insecure HTTP protocol detected in production environment',
           key: 'baseUrl',
+          securityRule: 'insecure_protocol',
+          severity: 'critical',
         );
       }
 

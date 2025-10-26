@@ -3,20 +3,16 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../../feature_flags.dart';
 import 'base.dart';
 
-/// Free tier env configuration with mock APIs
+/// Free tier environment configuration with mock APIs
 class HttpFree extends HttpBase {
-  bool _isLogger = true;
-  bool _isEnableLoggerDio = FeatureFlags.isEnableLogger;
+  /// Create a new Free environment configuration
+  HttpFree() : super(
+    isLogger: true,
+    isEnableLoggerDio: FeatureFlags.isEnableLogger,
+  );
 
   @override
-  bool get isLogger => _isLogger;
-
-  set isLogger(bool value) => _isLogger = value;
-
-  @override
-  bool get isEnableLoggerDio => _isEnableLoggerDio;
-
-  set isEnableLoggerDio(bool value) => _isEnableLoggerDio = value;
+  final String environmentName = 'FREE_FAKE_API';
 
   @override
   String get baseUrl =>
@@ -32,15 +28,12 @@ class HttpFree extends HttpBase {
   bool get isEnvDev => true;
 
   @override
-  bool get isEnvPro => false;
-
-  // Free tier specific configurations
-  static const String environmentName = 'FREE_FAKE_API';
+  bool get isEnvFree => true; // Mark as free tier environment
 
   @override
   Map<String, String> get apiHeaders => {
         ...super.apiHeaders,
-        'X-Environment': 'FREE',
+        'X-Environment': environmentName,
         'X-Mock-Data': 'true',
       };
 }

@@ -7,22 +7,24 @@ environment:
   sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
+  cc_sdk:
+    path: ../../libraries/cc_sdk
   data:
     path: ../data
   equatable: ^2.0.7
   flutter:
     sdk: flutter
-  multiple_result: ^5.2.0
-
   # Environment
-  flutter_dotenv:
 
+  flutter_dotenv:
   # Caching
+
   hive:
   hive_flutter:
   injectable:
   internet_connection_checker:
   json_annotation:
+  multiple_result: ^5.2.0
 
 dev_dependencies:
 

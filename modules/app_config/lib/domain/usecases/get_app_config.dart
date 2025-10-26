@@ -1,9 +1,9 @@
+import 'package:cc_sdk/core/exception/app_config_exception.dart';
+import 'package:cc_sdk/core/exception/error/failure.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-import '../../../../core/error/failures.dart';
 import '../entities/app_config_entity.dart';
 import '../repositories/app_config_repository.dart';
-import 'check_update_required.dart';
 
 /// Use case for getting the application configuration.
 class GetAppConfig {
@@ -21,7 +21,7 @@ class GetAppConfig {
     } on Failure catch (e) {
       return Error(e);
     } catch (e) {
-      return Error(ConfigFailure(message: 'Failed to get app config: $e'));
+      return Error(ConfigFailure('Failed to get app config: $e'));
     }
   }
 }
