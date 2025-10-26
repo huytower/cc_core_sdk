@@ -1,3 +1,8 @@
 library app_config_di;
 
-export 'di_app_config.dart' show initializeAppConfigDependencies;
+export 'di_app_config.dart' 
+  show 
+    appConfigLocator,
+    configureDependencies,
+    initAppConfig,
+    initializeDependencies;

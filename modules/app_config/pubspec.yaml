@@ -12,6 +12,7 @@ dependencies:
   equatable: ^2.0.7
   flutter:
     sdk: flutter
+  multiple_result: ^5.2.0
 
   # Environment
   flutter_dotenv:
