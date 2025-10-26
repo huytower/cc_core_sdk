@@ -4,34 +4,53 @@ import 'package:injectable/injectable.dart';
 // This is the generated file from build_runner
 import 'di_app_config.config.dart';
 
-/// Global GetIt instance for AppConfig module
+/// Global service locator instance for the AppConfig module.
+/// 
+/// This provides access to all registered dependencies within the AppConfig module.
+/// Prefer using constructor injection over service location when possible.
 final GetIt appConfigLocator = GetIt.instance;
 
-/// Initialize all dependencies in the AppConfig module
+/// Configures and initializes all dependencies in the AppConfig module.
 ///
-/// Call this function in your app's main function before running the app
+/// This function is called automatically by [initAppConfig] and should not be called directly
+/// unless you need fine-grained control over the initialization process.
+///
+/// Returns the configured [GetIt] instance.
 @InjectableInit(
   initializerName: r'$initAppConfigDependencies',
   preferRelativeImports: true,
   asExtension: false,
 )
-Future<GetIt> configureDependencies() async {
-  return await $initAppConfigDependencies(appConfigLocator);
-}
+GetIt configureDependencies() => $initAppConfigDependencies(appConfigLocator);
 
-/// Initialize the AppConfig module with required setup
+/// Initializes the AppConfig module with all its dependencies.
 ///
-/// This is a convenience method that should be called during app startup
-/// to ensure all dependencies are properly initialized
-Future<GetIt> initAppConfig() async {
+/// This is the main entry point for setting up the AppConfig module's dependency injection.
+/// Call this during app startup before running the app.
+///
+/// Throws [Exception] if initialization fails.
+///
+/// Example:
+/// ```dart
+/// void main() async {
+///   WidgetsFlutterBinding.ensureInitialized();
+///   await initAppConfig();
+///   runApp(MyApp());
+/// }
+/// ```
+Future<void> initAppConfig() async {
   try {
-    // Initialize Hive adapters first if needed
-    // await RegisterHiveAdapter().register();
-
+    // Initialize any required services before dependency injection
+    // Example: await RegisterHiveAdapter().register();
+    
     // Configure all dependencies
-    return await configureDependencies();
+    configureDependencies();
+    
+    // Initialize any services that need post-DI setup
+    // Example: await appConfigLocator<SomeService>().initialize();
   } catch (e, stackTrace) {
-    print('Error initializing AppConfig: $e');
+    // Log the error with a descriptive message
+    print('Failed to initialize AppConfig module: $e');
     print('Stack trace: $stackTrace');
     rethrow;
   }
