@@ -1,5 +1,5 @@
 import 'package:cc_sdk/core/exception/error/failure.dart';
-import 'package:cc_sdk/domain/entities/biometric_auth_result.dart';
+import 'package:cc_sdk/domain/models/biometric_auth_result.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 abstract class CCSDKRepository {

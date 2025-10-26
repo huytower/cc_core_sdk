@@ -1,11 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cc_sdk/core/exception/error/failure.dart';
 import 'package:cc_sdk/core/network/network_info.dart';
 import 'package:cc_sdk/data/datasources/local/cc_sdk_local_data_source.dart';
 import 'package:cc_sdk/data/datasources/remote/cc_sdk_remote_data_source.dart';
-import 'package:cc_sdk/domain/entities/biometric_auth_result.dart';
+import 'package:cc_sdk/domain/entities/biometric_auth_result_entity.dart';
+import 'package:cc_sdk/domain/mappers/biometric_mapper.dart';
+import 'package:cc_sdk/domain/models/biometric_auth_result.dart';
 import 'package:cc_sdk/domain/repositories/cc_sdk_repository.dart';
 import 'package:multiple_result/multiple_result.dart';
 
@@ -39,12 +44,13 @@ class CCSDKRepositoryImpl implements CCSDKRepository {
     bool stickyAuth = false,
   }) async {
     try {
-      final result = await localDataSource.authenticateWithBiometrics(
+      final entity = await localDataSource.authenticateWithBiometrics(
         localizedReason: localizedReason,
         useErrorDialogs: useErrorDialogs,
         stickyAuth: stickyAuth,
       );
-      return Success(result);
+      final domainModel = BiometricMapper.toDomain(entity);
+      return Success(domainModel);
     } on AppConfigException catch (e) {
       return Error(BiometricFailure(e.toString()));
     }

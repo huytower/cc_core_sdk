@@ -1,5 +1,5 @@
 import 'package:cc_sdk/core/exception/error/failure.dart';
-import 'package:cc_sdk/domain/entities/biometric_auth_result.dart';
+import 'package:cc_sdk/domain/models/biometric_auth_result.dart';
 import 'package:cc_sdk/domain/repositories/cc_sdk_repository.dart';
 import 'package:multiple_result/multiple_result.dart';
 
@@ -22,10 +22,15 @@ class AuthenticateWithBiometrics {
 
   Future<Result<BiometricAuthResult, Failure>> call(
       AuthenticateWithBiometricsParams params) async {
-    return await repository.authenticateWithBiometrics(
-      localizedReason: params.localizedReason,
-      useErrorDialogs: params.useErrorDialogs,
-      stickyAuth: params.stickyAuth,
-    );
+    try {
+      final result = await repository.authenticateWithBiometrics(
+        localizedReason: params.localizedReason,
+        useErrorDialogs: params.useErrorDialogs,
+        stickyAuth: params.stickyAuth,
+      );
+      return result;
+    } catch (e) {
+      return Error(BiometricFailure(e.toString()));
+    }
   }
 }
