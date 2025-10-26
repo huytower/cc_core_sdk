@@ -7,7 +7,7 @@ import '../../../../../../core/di/inject/inject.dart';
 import '../logic/component_watch_it_v2_logic.dart';
 
 /// WatchItMixin : UI
-/// create UI screen||page
+/// create UI presentation||page
 /// - watchIt<T>() : notify that expect to read modified data reactively
 ///
 ///   ex. :

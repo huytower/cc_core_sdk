@@ -64,7 +64,7 @@
 //     }).toList();
 //   }
 //
-//   /// Creates a responsive text style based on screen width.
+//   /// Creates a responsive text style based on presentation width.
 //   ///
 //   /// [context] - The build context
 //   /// [baseSize] - Base font size in logical pixels

@@ -1,4 +1,4 @@
-import 'package:app_config/box/device_info/cc_device_info.dart';
+import 'package:app_config/data/datasource/local/box/device_info/cc_device_info.dart';
 
 /// Handles device information management
 class DeviceInfoManager {

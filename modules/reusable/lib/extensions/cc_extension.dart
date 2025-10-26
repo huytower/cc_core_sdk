@@ -1,4 +1,4 @@
-import 'package:app_config/constant/cc_constants.dart';
+import 'package:app_config/core/constant/cc_constants.dart';
 import 'package:collection/collection.dart';
 import 'package:data/helper/data_helper.dart';
 import 'package:intl/intl.dart';

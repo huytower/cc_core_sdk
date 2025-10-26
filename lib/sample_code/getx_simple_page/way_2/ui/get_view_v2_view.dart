@@ -7,7 +7,7 @@ import 'package:cc_sdk/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../screen/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
+import '../../../../presentation/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 import '../getx/get_view_v2_logic.dart';
 import '../mixin/get_view_v2_provider.dart';
 

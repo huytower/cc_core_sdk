@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app_config/enum/layout_status.dart';
+import 'package:app_config/core/enum/layout_status.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
 
 @deprecated

@@ -5,7 +5,7 @@
 bundle_suffix =
 .
 uat
-// the name displayed below the app icon on the home screen
+// the name displayed below the app icon on the home presentation
 app_display_name =
 [UAT]
 CCI REL

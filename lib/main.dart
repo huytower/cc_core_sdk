@@ -1,4 +1,4 @@
-import 'package:app_config/box/register_hive_adapter/register_hive_adapter.dart';
+import 'package:app_config/data/datasource/local/box/register_hive_adapter/register_hive_adapter.dart';
 import 'package:content_locale/cc_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';

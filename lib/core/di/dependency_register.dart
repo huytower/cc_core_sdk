@@ -3,8 +3,8 @@ import 'package:data/config/di/dependency_register.dart';
 import 'package:data/repositories/comment/comment_repositories.dart';
 
 // Feature dependencies
-import '../../screen/getx/comment/get_x/comment_controller.dart';
-import '../../screen/getx/web/get_x/web_controller.dart';
+import '../../presentation/getx/comment/get_x/comment_controller.dart';
+import '../../presentation/getx/web/get_x/web_controller.dart';
 // Local dependencies
 import 'inject/inject.dart';
 

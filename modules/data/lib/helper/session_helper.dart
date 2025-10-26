@@ -1,4 +1,4 @@
-import 'package:app_config/enum/layout_status.dart';
+import 'package:app_config/core/enum/layout_status.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton

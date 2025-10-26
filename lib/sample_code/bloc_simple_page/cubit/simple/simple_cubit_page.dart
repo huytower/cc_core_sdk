@@ -11,13 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/di/inject/inject.dart';
-import '../../../../screen/getx/app_track_log/cubit/ui/app_track_log_page.dart';
+import '../../../../presentation/getx/app_track_log/cubit/ui/app_track_log_page.dart';
 import 'simple_cubit.dart';
 import 'simple_cubit_interface.dart';
 import 'simple_cubit_state.dart';
 
 /// CUBIT : UI
-/// Step 3 : create UI screen||page
+/// Step 3 : create UI presentation||page
 /// - BlocProvider : init Controller
 /// - BlocBuilder : notify data set changed, depends on state
 ///

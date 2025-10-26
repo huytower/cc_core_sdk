@@ -1,5 +1,5 @@
-import 'package:app_config/config/http/http_client/http_client_config.dart';
-import 'package:app_config/enum/environment.dart' as cc_env;
+import 'package:app_config/core/config/http/http_client/http_client_config.dart';
+import 'package:app_config/core/enum/environment.dart' as cc_env;
 
 import 'main.dart' as runner;
 

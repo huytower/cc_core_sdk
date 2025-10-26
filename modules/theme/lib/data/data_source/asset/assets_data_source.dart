@@ -122,7 +122,7 @@ class AssetUtils {
   static String getLogo(LogoAsset asset) =>
       _validatePath('${_AssetPaths.logo}/${asset.path}');
 
-  /// Get splash screen path
+  /// Get splash presentation path
   ///
   /// Example:
   /// ```dart

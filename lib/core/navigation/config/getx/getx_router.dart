@@ -1,19 +1,19 @@
 import 'package:get/get.dart';
 
+import '../../../../presentation/getx/comment/get_x/comment_controller.dart';
+import '../../../../presentation/getx/comment/ui/comment_screen.dart';
+import '../../../../presentation/getx/splash/splash_page.dart';
+import '../../../../presentation/getx/web/get_x/web_controller.dart';
+import '../../../../presentation/getx/web/ui/web_page.dart';
 import '../../../../sample_code/getx_simple_page/way_1/getx/get_view_controller.dart';
 import '../../../../sample_code/getx_simple_page/way_1/ui/get_view_page.dart';
 import '../../../../sample_code/getx_simple_page/way_2/getx/get_view_v2_binding.dart';
 import '../../../../sample_code/getx_simple_page/way_2/ui/get_view_v2_view.dart';
-import '../../../../screen/getx/comment/get_x/comment_controller.dart';
-import '../../../../screen/getx/comment/ui/comment_screen.dart';
-import '../../../../screen/getx/splash/splash_page.dart';
-import '../../../../screen/getx/web/get_x/web_controller.dart';
-import '../../../../screen/getx/web/ui/web_page.dart';
 import '../../enums/page_name_by_route_strategy_enum.dart';
 import '../../enums/page_name_enum.dart';
 
 /// GETX|BLOC : Routing management
-/// Step 3 : declare navigate screen||page
+/// Step 3 : declare navigate presentation||page
 ///
 class GetxRoutingManager {
   /// Instance

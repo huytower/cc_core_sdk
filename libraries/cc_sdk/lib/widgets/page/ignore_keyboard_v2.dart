@@ -27,7 +27,7 @@ class IgnoreKeyboardV2 extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
 
-          /// MUST set to avoid collapse showing screen
+          /// MUST set to avoid collapse showing presentation
           resizeToAvoidBottomInset: false,
           body: Stack(
             children: [

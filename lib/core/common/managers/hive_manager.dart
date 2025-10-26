@@ -1,4 +1,4 @@
-import 'package:app_config/box/cc_hive_box.dart';
+import 'package:app_config/data/datasource/local/box/cc_hive_box.dart';
 import 'package:hive/hive.dart';
 
 /// Manages Hive database operations

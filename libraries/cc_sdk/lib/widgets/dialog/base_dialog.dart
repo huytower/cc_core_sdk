@@ -104,7 +104,7 @@ class BaseDialog extends StatelessWidget {
       );
 
   Widget buildDialogWidget() => Dialog(
-        /// border padding at screen left & screen right
+        /// border padding at presentation left & presentation right
         insetPadding: const EdgeInsets.only(
             bottom: 27.0, left: 15.0, right: 15.0, top: 15.0),
 

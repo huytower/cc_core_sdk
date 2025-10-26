@@ -1,4 +1,4 @@
-import 'package:app_config/box/device_info/cc_device_info.dart';
+import 'package:app_config/data/datasource/local/box/device_info/cc_device_info.dart';
 
 /// Handles device dimension management
 class DeviceDimensionManager {
@@ -9,8 +9,8 @@ class DeviceDimensionManager {
 
   /// Updates the device dimensions
   ///
-  /// [height] The height of the device screen
-  /// [width] The width of the device screen
+  /// [height] The height of the device presentation
+  /// [width] The width of the device presentation
   void updateDimensions(double height, double width) {
     _deviceInfo
       ..deviceHeight = height

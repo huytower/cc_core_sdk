@@ -9,13 +9,13 @@ import 'package:get/get.dart';
 
 import '../../../../../../core/common/mixins/cc_load_more_mixin.dart';
 import '../../../../../../core/common/mixins/cc_pull_to_refresh_mixin.dart';
-import '../../../../screen/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
+import '../../../../presentation/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 import '../../../watch_it_simple_page/way_1/ui/component_view_watch_it.dart';
 import '../getx/get_view_controller.dart';
 import '../mixin/get_view_provider.dart';
 
 /// GETX : UI
-/// Step 2 : create UI screen||page
+/// Step 2 : create UI presentation||page
 /// - Obx : notify data set changed, depends on .obs value
 ///
 /// or

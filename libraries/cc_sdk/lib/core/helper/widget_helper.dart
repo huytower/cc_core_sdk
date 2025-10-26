@@ -42,9 +42,9 @@ class WidgetHelper {
 
   static BorderRadius getCircleBorderRadius() => BorderRadius.circular(45);
 
-  /// Determines the appropriate BoxFit based on screen dimensions
+  /// Determines the appropriate BoxFit based on presentation dimensions
   ///
-  /// [screenWidth] - The width of the screen in logical pixels
+  /// [screenWidth] - The width of the presentation in logical pixels
   /// [bottomPadding] - The bottom padding from MediaQuery
   static BoxFit getBoxFitType({
     required double screenWidth,
@@ -323,7 +323,7 @@ class WidgetHelper {
     });
   }
 
-  /// Set orientation : landscape || full-screen mode
+  /// Set orientation : landscape || full-presentation mode
   void setLandscape() => SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight],
       );

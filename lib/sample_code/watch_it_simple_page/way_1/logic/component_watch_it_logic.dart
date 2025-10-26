@@ -1,4 +1,4 @@
-import 'package:app_config/config/app/cc_app_track_info.dart';
+import 'package:app_config/core/config/app/cc_app_track_info.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:cc_sdk/core/utils/common/device_utils.dart';
 import 'package:data/model/sample/sample_model_watch_it.dart';

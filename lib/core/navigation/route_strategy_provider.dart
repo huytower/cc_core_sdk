@@ -1,7 +1,7 @@
-import 'package:app_config/enum/routing_manager_enum.dart';
+import 'package:app_config/core/enum/routing_manager_enum.dart';
 import 'package:flutter/material.dart';
 
-import '../datasource/route_strategy.dart';
+import '../../data/datasource/route_strategy.dart';
 
 /// Provides access to all available routing strategies
 class RouteStrategyProvider {

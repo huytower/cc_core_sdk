@@ -25,7 +25,7 @@ mixin CcGetControllerProvider {
   /// is retry request api button, ex. retry failed downloading progress ...
   Future<void> onRetryRequest() async {}
 
-  /// is search bar, always show at top screen
+  /// is search bar, always show at top presentation
   Future<void> onTapSearchBar() async {}
 
   /// is bar show below search bar, ex. section bar, category bar ...

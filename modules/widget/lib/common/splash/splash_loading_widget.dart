@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 /// loading|progress ui
-/// show in splash screen page
+/// show in splash presentation page
 class SplashLoadingWidget extends StatelessWidget {
   const SplashLoadingWidget(
       {Key? key,

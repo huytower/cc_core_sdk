@@ -80,13 +80,13 @@ class DeviceUtils {
   /// Checks if the current device locale is Vietnamese.
   static bool isVietnameseLocale() => Platform.localeName.contains('VN');
 
-  /// Checks if the device has a screen width smaller than 390 logical pixels.
+  /// Checks if the device has a presentation width smaller than 390 logical pixels.
   /// Typically used to identify small devices like iPhone 5/SE.
   static bool isSmallScreen(double screenWidth) => screenWidth < 390.0;
 
-  /// Checks if the device has a larger screen, typically iPhone Pro Max models.
+  /// Checks if the device has a larger presentation, typically iPhone Pro Max models.
   ///
-  /// [screenWidth] - The width of the screen in logical pixels
+  /// [screenWidth] - The width of the presentation in logical pixels
   /// [bottomPadding] - The bottom padding from MediaQuery
   static bool isLargeScreen(
           {required double screenWidth, required double bottomPadding}) =>

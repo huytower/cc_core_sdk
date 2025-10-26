@@ -1,11 +1,11 @@
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/datasource/route_datasource.dart';
+import '../../data/datasource/route_strategy.dart';
 import '../common/device/device_initializer.dart';
 import '../common/extensions/tracking_log_extension.dart';
 import '../common/managers/hive_manager.dart';
-import '../datasource/route_datasource.dart';
-import '../datasource/route_strategy.dart';
 import '../di/inject/inject.dart';
 
 class AppRunner extends StatefulWidget {

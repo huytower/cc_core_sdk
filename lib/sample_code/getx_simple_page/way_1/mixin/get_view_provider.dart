@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../screen/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
+import '../../../../presentation/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 import '../getx/get_view_controller.dart';
 
 /// GETX : UI app bar

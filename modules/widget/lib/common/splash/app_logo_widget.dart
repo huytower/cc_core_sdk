@@ -2,7 +2,7 @@ import 'package:cc_sdk/widgets/padding/cc_padding.dart';
 import 'package:flutter/material.dart';
 
 /// App logo ui,
-/// show in splash screen
+/// show in splash presentation
 class AppLogoWidget extends StatelessWidget {
   AppLogoWidget(
       {Key? key,

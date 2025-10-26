@@ -1,4 +1,4 @@
-import 'package:app_config/box/device_info/cc_device_info.dart';
+import 'package:app_config/data/datasource/local/box/device_info/cc_device_info.dart';
 import 'package:cc_sdk/core/utils/common/device_utils.dart';
 
 import 'device_dimension_manager.dart';

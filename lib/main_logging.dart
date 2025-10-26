@@ -1,9 +1,9 @@
 import 'dart:developer' as developer;
 
-import 'package:app_config/services/app_version_service.dart';
+import 'package:app_config/data/datasource/remote/app_version_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'core/datasource/route_datasource.dart';
+import 'data/datasource/route_datasource.dart';
 
 /// Logs the current app version and build information
 Future<void> logVersionInfo() async {

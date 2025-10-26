@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../screen/getx/base/structure/getx/cc_get_controller/cc_get_controller.dart';
-import '../../../screen/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
+import '../../../presentation/getx/base/structure/getx/cc_get_controller/cc_get_controller.dart';
+import '../../../presentation/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 
 /// Target: Support [complex widgets] (UI structure),
 /// include these methods (like impl interface)
@@ -32,7 +32,7 @@ mixin CcGetViewProvider<T extends CcGetController> on CcGetView<T> {
   /// is retry request api button, ex. retry failed downloading progress ...
   Widget buildRetryRequestBtn() => const SizedBox();
 
-  /// is search bar, always show at top screen
+  /// is search bar, always show at top presentation
   Widget buildSearchBar() => const SizedBox();
 
   /// is bar show below search bar, ex. section bar, category bar ...
