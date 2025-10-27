@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
-import 'package:cc_sdk/core/helper/open_dialog.dart';
-import 'package:cc_sdk/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/core/helper/open_dialog.dart';
+import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:features/counter/counter_export.dart';
 import 'package:flutter/material.dart';
 

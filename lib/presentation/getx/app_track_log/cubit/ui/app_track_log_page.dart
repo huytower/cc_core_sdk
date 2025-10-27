@@ -1,11 +1,11 @@
 import 'package:app_config/data/datasource/local/box/device_info/cc_device_info.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
-import 'package:cc_sdk/widgets/divider_line/cc_divider.dart';
-import 'package:cc_sdk/widgets/flex/cc_column_start.dart';
-import 'package:cc_sdk/widgets/icon/ic_copy.dart';
-import 'package:cc_sdk/widgets/space/cc_space.dart';
-import 'package:cc_sdk/widgets/text/app_name_widget.dart';
-import 'package:cc_sdk/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
+import 'package:cc_sdk_ui/widgets/flex/cc_column_start.dart';
+import 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
+import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+import 'package:cc_sdk_ui/widgets/text/app_name_widget.dart';
+import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

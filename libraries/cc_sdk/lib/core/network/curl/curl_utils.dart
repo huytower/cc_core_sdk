@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../../export_cc_library.dart';
+import '../../../export_cc_sdk.dart';
 
 class CurlUtils {
   CurlUtils._internal();

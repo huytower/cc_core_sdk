@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cc_sdk/export_cc_library.dart';
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';

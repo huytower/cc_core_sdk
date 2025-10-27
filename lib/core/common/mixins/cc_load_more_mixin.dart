@@ -1,7 +1,7 @@
-import 'package:cc_sdk/widgets/api/base_progress_indicator.dart';
-import 'package:cc_sdk/widgets/flex/cc_row_center.dart';
-import 'package:cc_sdk/widgets/space/cc_space.dart';
-import 'package:cc_sdk/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/widgets/api/base_progress_indicator.dart';
+import 'package:cc_sdk_ui/widgets/flex/cc_row_center.dart';
+import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
 

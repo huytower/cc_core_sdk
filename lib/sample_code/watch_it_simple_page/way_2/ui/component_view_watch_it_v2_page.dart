@@ -1,5 +1,5 @@
-import 'package:cc_sdk/widgets/base/cc_position.dart';
-import 'package:cc_sdk/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/widgets/base/cc_position.dart';
+import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 

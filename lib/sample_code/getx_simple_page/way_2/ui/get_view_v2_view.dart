@@ -1,9 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
-import 'package:cc_sdk/widgets/button/cc_close_btn.dart';
-import 'package:cc_sdk/widgets/button/cc_debounce_widget.dart';
-import 'package:cc_sdk/widgets/space/cc_space.dart';
-import 'package:cc_sdk/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
+import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
+import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

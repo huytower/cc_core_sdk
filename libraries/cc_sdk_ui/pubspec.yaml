@@ -1,0 +1,30 @@
+name: cc_sdk_ui
+description: A new Flutter package project.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  cc_sdk:
+    path: ../cc_sdk
+  custom_refresh_indicator:
+  flutter:
+    sdk: flutter
+
+  flutter_animation_progress_bar:
+  flutter_bounceable:
+  flutter_spinkit:
+  flutter_svg:
+
+  keyboard_dismisser:
+
+  mask_text_input_formatter:
+
+  shimmer:
+
+dev_dependencies:
+  flutter_lints:
+  flutter_test:
+    sdk: flutter

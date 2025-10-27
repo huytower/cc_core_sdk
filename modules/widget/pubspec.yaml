@@ -5,18 +5,19 @@ publish_to: none
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
-  flutter: ">=1.17.0"
 
 dependencies:
-  cc_sdk:
-    path: ../../libraries/cc_sdk
-
   app_config:
     path: ../app_config
 
+  cc_sdk:
+    path: ../../libraries/cc_sdk
+  cc_sdk_ui:
+    path: ../../libraries/cc_sdk_ui
+
   flutter:
     sdk: flutter
-  #  fluttertoast:
+  lottie:
   modal_bottom_sheet:
   path_provider:
   provider:

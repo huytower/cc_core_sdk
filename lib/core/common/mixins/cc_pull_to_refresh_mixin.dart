@@ -1,8 +1,8 @@
 import 'package:cc_sdk/core/extensions/common/when_expression.dart';
-import 'package:cc_sdk/widgets/pull_to_refresh/cc_refresh_indicator.dart';
-import 'package:cc_sdk/widgets/pull_to_refresh/cc_refresh_indicator_icon.dart';
-import 'package:cc_sdk/widgets/space/cc_space.dart';
-import 'package:cc_sdk/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/widgets/pull_to_refresh/cc_refresh_indicator.dart';
+import 'package:cc_sdk_ui/widgets/pull_to_refresh/cc_refresh_indicator_icon.dart';
+import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

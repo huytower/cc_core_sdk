@@ -9,14 +9,14 @@ environment:
 dependencies:
   app_config:
     path: modules/app_config
-
   auto_route: 10.1.0+1
+
   cc_sdk:
     path: libraries/cc_sdk
-
+  cc_sdk_ui:
+    path: libraries/cc_sdk_ui
   content_locale:
     path: modules/message
-
   custom_refresh_indicator:
 
   data:

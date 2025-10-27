@@ -9,6 +9,8 @@ environment:
 dependencies:
   cc_sdk:
     path: ../cc_sdk
+  cc_sdk_ui:
+    path: ../cc_sdk_ui
   dio:
   equatable:
   flutter:
