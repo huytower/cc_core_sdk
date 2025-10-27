@@ -1,4 +1,4 @@
-import 'package:data/model/device/device_model.dart';
+import 'package:data/data/model/device/device_model.dart';
 import 'package:equatable/equatable.dart';
 
 /// State class for AppTrackLog feature

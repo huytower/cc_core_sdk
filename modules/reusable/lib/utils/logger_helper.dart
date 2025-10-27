@@ -1,6 +1,6 @@
 import 'package:app_config/core/config/http/http_client/http_client_config.dart';
 import 'package:app_config/core/constant/cc_constants.dart';
-import 'package:data/helper/data_helper.dart';
+import 'package:data/core/helper/data_helper.dart';
 
 class LoggerHelper {
   static void printCustom(dynamic str) {

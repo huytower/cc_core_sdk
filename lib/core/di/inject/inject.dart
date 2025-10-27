@@ -1,6 +1,6 @@
 import 'package:app_config/core/di/di_app_config.dart';
 import 'package:app_config/data/datasource/local/box/device_info/cc_device_info.dart';
-import 'package:data/config/di/di_export.dart';
+import 'package:data/core/di/inject/data_inject.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';

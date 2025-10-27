@@ -1,8 +1,7 @@
-// Core dependencies
-import 'package:data/config/di/dependency_register.dart';
-import 'package:data/repositories/comment/comment_repositories.dart';
-
 // Feature dependencies
+import 'package:data/core/di/dependency_register.dart';
+import 'package:data/domain/repositories/comment/comment_repositories.dart';
+
 import '../../presentation/getx/comment/get_x/comment_controller.dart';
 import '../../presentation/getx/web/get_x/web_controller.dart';
 // Local dependencies

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:data/model/global/user_principal.dart';
+import 'package:data/data/model/user/res_user.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -60,5 +60,5 @@ class CcAppStorage extends HiveObject {
   });
 
   ///
-  UserPrincipal? user = UserPrincipal();
+  ResUser? user = ResUser();
 }

@@ -1,5 +1,5 @@
-import 'package:data/entities/comment/comment.dart';
-import 'package:data/repositories/comment/comment_repositories.dart';
+import 'package:data/domain/entities/comment/comment.dart';
+import 'package:data/domain/repositories/comment/comment_repositories.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/di/inject/inject.dart';

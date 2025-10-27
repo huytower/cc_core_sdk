@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:app_config/core/enum/layout_status.dart';
 import 'package:app_config/core/helper/network_helper.dart';
-import 'package:data/config/retrofit/response/body/cc_res_body_model.dart';
+import 'package:data/core/config/retrofit/response/body/cc_res_body_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

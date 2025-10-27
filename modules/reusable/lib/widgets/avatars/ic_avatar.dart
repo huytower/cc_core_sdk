@@ -18,7 +18,7 @@ class AvatarUser extends StatelessWidget {
       return const SizedBox();
     }
 
-    if (CcAppStorage.instance.user!.avatarFail == pathDefault) {
+    if (CcAppStorage.instance.user!.avatar == pathDefault) {
       return ClipOval(
         child: Container(
           height: width,
@@ -73,7 +73,7 @@ class AvatarUser extends StatelessWidget {
   }
 
   Image buildImageDefaultError() {
-    CcAppStorage.instance.user!.avatarFail = pathDefault;
+    CcAppStorage.instance.user!.avatar = pathDefault;
     return Image.asset(AssetUtils.getIcon(IconAsset.avatarDefault));
   }
 }
