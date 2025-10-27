@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../core/extensions/common/scope_extension.dart';
-import '../../core/extensions/common/when_expression.dart';
-import '../../core/extensions/utils/logger_extension.dart';
+import '../../../export_cc_library.dart';
 
 class CurlUtils {
   CurlUtils._internal();

@@ -1,60 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:cc_sdk/core/exception/error/failure.dart';
 import 'package:cc_sdk/core/network/network_info.dart';
-import 'package:cc_sdk/data/datasources/local/cc_sdk_local_data_source.dart';
 import 'package:cc_sdk/data/datasources/remote/cc_sdk_remote_data_source.dart';
-import 'package:cc_sdk/domain/entities/biometric_auth_result_entity.dart';
-import 'package:cc_sdk/domain/mappers/biometric_mapper.dart';
-import 'package:cc_sdk/domain/models/biometric_auth_result.dart';
 import 'package:cc_sdk/domain/repositories/cc_sdk_repository.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-import '../../core/exception/app_config_exception.dart';
-
+/// Implementation of [CCSDKRepository] handling CURL and GSON operations
 class CCSDKRepositoryImpl implements CCSDKRepository {
   final CCSDKRemoteDataSource remoteDataSource;
-  final CCSDKLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
 
-  CCSDKRepositoryImpl({
+  /// Creates a new instance of [CCSDKRepositoryImpl]
+  const CCSDKRepositoryImpl({
     required this.remoteDataSource,
-    required this.localDataSource,
     required this.networkInfo,
   });
-
-  @override
-  Future<Result<bool, Failure>> isBiometricAvailable() async {
-    try {
-      final isAvailable = await localDataSource.isBiometricAvailable();
-      return Success(isAvailable);
-    } on AppConfigException catch (e) {
-      return Error(CacheFailure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Result<BiometricAuthResult, Failure>> authenticateWithBiometrics({
-    required String localizedReason,
-    bool useErrorDialogs = true,
-    bool stickyAuth = false,
-  }) async {
-    try {
-      final entity = await localDataSource.authenticateWithBiometrics(
-        localizedReason: localizedReason,
-        useErrorDialogs: useErrorDialogs,
-        stickyAuth: stickyAuth,
-      );
-      final domainModel = BiometricMapper.toDomain(entity);
-      return Success(domainModel);
-    } on AppConfigException catch (e) {
-      return Error(BiometricFailure(e.toString()));
-    }
-  }
 
   @override
   Future<Result<String, Failure>> executeCurlRequest({
@@ -66,7 +28,7 @@ class CCSDKRepositoryImpl implements CCSDKRepository {
     Duration? timeout,
   }) async {
     if (!await networkInfo.isConnected) {
-      return Error(NetworkFailure('No internet connection'));
+      return const Error(NetworkFailure('No internet connection'));
     }
 
     try {
@@ -95,8 +57,9 @@ class CCSDKRepositoryImpl implements CCSDKRepository {
       final jsonString = json.encode(object);
       final jsonMap = json.decode(jsonString) as Map<String, dynamic>;
       return Success(jsonMap);
-    } on FormatException {
-      return Error(CacheFailure('Failed to convert object to JSON'));
+    } on FormatException catch (e) {
+      return Error(
+          CacheFailure('Failed to convert object to JSON: ${e.message}'));
     }
   }
 
@@ -105,8 +68,12 @@ class CCSDKRepositoryImpl implements CCSDKRepository {
     try {
       final jsonMap = json.decode(jsonString);
       return Success(jsonMap as T);
-    } on FormatException {
-      return Error(CacheFailure('Failed to parse JSON string'));
+    } on FormatException catch (e) {
+      return Error(CacheFailure('Failed to parse JSON string: ${e.message}'));
+    } on TypeError catch (e) {
+      return Error(CacheFailure('Type mismatch: $e'));
+    } catch (e) {
+      return Error(CacheFailure('Unexpected error: $e'));
     }
   }
 }

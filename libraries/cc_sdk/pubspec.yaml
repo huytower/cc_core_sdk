@@ -41,9 +41,6 @@ dependencies:
 
   keyboard_dismisser:
 
-  # core detect phone code.
-  #libphonenumber:
-  local_auth:
   lottie:
 
   mask_text_input_formatter:

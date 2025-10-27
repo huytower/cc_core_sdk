@@ -1,11 +1,10 @@
 import 'dart:async';
 
+import 'package:cc_sdk/export_cc_library.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 import 'package:local_auth_darwin/local_auth_darwin.dart';
-
-import '../../core/extensions/utils/logger_extension.dart';
 
 class CcAuthenBiometric {
   final LocalAuthentication _auth = LocalAuthentication();

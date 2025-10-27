@@ -1,14 +1,14 @@
 /// Types of biometric authentication supported by the domain
-enum BiometricAuthType {
+enum CcBiometricAuthType {
   /// Face ID authentication
   faceId,
   
   /// Fingerprint authentication
   fingerprint,
   
-  /// Iris scan authentication
-  iris,
+  /// Face authentication (Android)
+  face,
   
-  /// Any other type of biometric authentication
-  other,
+  /// No biometric authentication available
+  none,
 }

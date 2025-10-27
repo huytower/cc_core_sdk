@@ -1,17 +1,9 @@
 import 'package:cc_sdk/core/exception/error/failure.dart';
-import 'package:cc_sdk/domain/models/biometric_auth_result.dart';
 import 'package:multiple_result/multiple_result.dart';
 
+/// Repository interface for CURL and GSON operations
 abstract class CCSDKRepository {
-  // Biometric Authentication
-  Future<Result<bool, Failure>> isBiometricAvailable();
-  Future<Result<BiometricAuthResult, Failure>> authenticateWithBiometrics({
-    required String localizedReason,
-    bool useErrorDialogs = true,
-    bool stickyAuth = false,
-  });
-
-  // CURL Operations
+  /// Executes a CURL request with the given parameters
   Future<Result<String, Failure>> executeCurlRequest({
     required String url,
     Map<String, String>? headers,
@@ -21,7 +13,9 @@ abstract class CCSDKRepository {
     Duration? timeout,
   });
 
-  // GSON Operations
+  /// Converts an object to JSON format
   Future<Result<Map<String, dynamic>, Failure>> convertToJson(dynamic object);
+
+  /// Converts a JSON string to a strongly-typed object
   Future<Result<T, Failure>> convertFromJson<T>(String jsonString);
 }

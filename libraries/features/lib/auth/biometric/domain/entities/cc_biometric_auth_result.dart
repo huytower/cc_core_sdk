@@ -1,8 +1,8 @@
-import 'package:cc_sdk/domain/models/biometric_auth_type.dart';
 import 'package:equatable/equatable.dart';
+import 'package:features/auth/biometric/domain/models/cc_biometric_auth_type.dart';
 
-/// Represents the result of a biometric authentication attempt in the domain layer.
-class BiometricAuthResult extends Equatable {
+/// Represents the result of a biometric authentication attempt
+class CcBiometricAuthResult extends Equatable {
   /// Whether the authentication was successful
   final bool isAuthenticated;
   
@@ -10,25 +10,25 @@ class BiometricAuthResult extends Equatable {
   final String? errorMessage;
   
   /// Type of biometric authentication used
-  final BiometricAuthType authType;
+  final CcBiometricAuthType authType;
 
-  const BiometricAuthResult({
+  const CcBiometricAuthResult({
     required this.isAuthenticated,
     this.errorMessage,
     required this.authType,
   });
 
   /// Creates a successful authentication result
-  const BiometricAuthResult.success({
-    required BiometricAuthType authType,
+  const CcBiometricAuthResult.success({
+    required CcBiometricAuthType authType,
   })  : isAuthenticated = true,
         errorMessage = null,
         authType = authType;
 
   /// Creates a failed authentication result
-  const BiometricAuthResult.failure({
+  const CcBiometricAuthResult.failure({
     required String errorMessage,
-    required BiometricAuthType authType,
+    required CcBiometricAuthType authType,
   })  : isAuthenticated = false,
         errorMessage = errorMessage,
         authType = authType;
