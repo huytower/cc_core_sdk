@@ -1,7 +1,7 @@
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_row_center.dart';
-import 'package:cc_sdk_ui/widgets/inkwell/button_inkwell_widget.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import '../../core/theme/base_colors.dart';
+import '../flex/cc_row_center.dart';
+import '../inkwell/button_inkwell_widget.dart';
+import '../text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

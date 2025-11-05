@@ -1,6 +1,7 @@
 import 'package:app_config/core/enum/layout_status.dart';
 import 'package:app_config/core/helper/network_helper.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
+import 'package:data/core/models/pagination_request.dart';
 import 'package:data/domain/entities/sample_code_fake_api/res_sample_code_fake_model.dart';
 import 'package:data/domain/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart';
 import 'package:get/get.dart';
@@ -60,39 +61,28 @@ class GetViewController extends CcGetController {
     final hasInternet = await getIt<NetworkHelper>().hasInternet;
 
     "fetchNews() :.. "
-            "\n hasInternet = ${hasInternet}"
+            "\n hasInternet = $hasInternet"
         .Log();
 
     try {
-      // 1.delay(() {
-      //   try {
-      //     throw SocketException('Connect time out');
-      //   } catch (e) {
-      //     'e = $e'.Log();
-      //
-      //     CcAppTrackLog.instance.initMsgIfNull()?.add(e.toString());
-      //   }
-      // });
-      // 5.delay(() {
-      //   'msg = ${CcAppTrackLog.instance.initMsgIfNull()}'.Log();
-      //
-      //   // TODO(huy): check msg in hive, can not init
-      //   CcAppTrackLog.instance.initMsgIfNull()?.forEach((element) {
-      //     'element = ${element}'.Log();
-      //   });
-      // });
-      //
-      // throw const CertificateException('Expired cert.');
+      // Create a pagination request with default values
+      const paginationRequest = PaginationRequest(
+        page: 1, // Start with page 1
+        itemsPerPage: 10, // Number of items per page
+      );
 
-      final res = await repository.getList();
+      final res = await repository.getPaginatedList(
+        paginationRequest: paginationRequest,
+      );
 
-      l = res.listElements!;
+      // Clear existing data before adding new data
+      sampleCodeFakeList.clear();
 
-      res.listElements!.forEach((element) {
-        sampleCodeFakeList.add(element);
-
-        /// write data: some elements
-      });
+      // Add new data if available
+      if (res.items.isNotEmpty) {
+        l = res.items;
+        sampleCodeFakeList.addAll(l);
+      }
 
       layoutStatus.value = LayoutStatus.success;
     } catch (e) {
@@ -106,13 +96,12 @@ class GetViewController extends CcGetController {
       /// 5 - able limit show last 100 code lines?
 
       e.addAppTrackingLog();
-      // getIt<CcAppTrackLog>().initMsgIfNull()?.add(e.toString());
     }
   }
 
   Future fetchNewsDetailApi(String id) async {
     try {
-      final res = await repository.getObj(id);
+      final res = await repository.getById(id);
 
       'res = $res'.Log();
 

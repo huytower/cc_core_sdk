@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/config/retrofit/response/body/cc_res_body_model.dart';
+import '../../../../core/models/paginated_response.dart';
 import '../../../../domain/entities/sample_code_fake_api/res_sample_code_fake_model.dart';
 
 part 'sample_code_fake_api_remote.g.dart';
@@ -11,13 +12,22 @@ part 'sample_code_fake_api_remote.g.dart';
 @RestApi()
 abstract class SampleCodeFakeApiRemote {
   @factoryMethod
-  factory SampleCodeFakeApiRemote(Dio dio, {@Named('baseUrl') String baseUrl}) =
-      _SampleCodeFakeApiRemote;
+  factory SampleCodeFakeApiRemote(Dio dio,
+      {@Named('baseUrl') String? baseUrl}) = _SampleCodeFakeApiRemote;
 
+  /// Get a paginated list of items
   @GET('/api/category/list')
-  // @GET('/api/news/list')
-  Future<CcResBodyModel<ResSampleCodeFakeModel>> getList();
+  Future<PaginatedResponse<ResSampleCodeFakeModel>> getPaginatedList(
+    @Queries() Map<String, dynamic> queryParameters,
+  );
 
+  /// Get all items (use with caution for large datasets)
+  @GET('/api/category/list')
+  Future<CcResBodyModel<List<ResSampleCodeFakeModel>>> getList();
+
+  /// Get a single item by ID
   @GET('/api/news/get-id/{id}')
-  Future<CcResBodyModel<ResSampleCodeFakeModel>> getObj(@Path('id') String id);
+  Future<CcResBodyModel<ResSampleCodeFakeModel>> getObj(
+    @Path('id') String id,
+  );
 }

@@ -1,7 +1,7 @@
 import 'package:cc_sdk/core/constants/cc_number_format_params.dart';
-import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_column_start.dart';
-import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+import '../divider_line/cc_divider.dart';
+import '../flex/cc_column_start.dart';
+import '../space/cc_space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';

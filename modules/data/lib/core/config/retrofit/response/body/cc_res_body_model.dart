@@ -36,8 +36,8 @@ class CcResBodyModel<T> {
   /// parsing to Model Object : CcResBodyModel,
   /// get more data,
   /// for resolving more logic
-  T? firstElement;
-  List<T>? listElements;
+  late T firstElement;
+  List<T> listElements = [];
 
   /// progress
   LayoutStatus? layoutStatus = LayoutStatus.loading;
@@ -50,17 +50,19 @@ class CcResBodyModel<T> {
   ///
   CcResBodyModel<T> flatMapToList(
       T Function(Map<String, dynamic> element) getList) {
-    listElements = [];
+    listElements.clear();
 
     if (_resBodyList == null || _resBodyList!.isEmpty) {
       return this;
     }
 
-    _resBodyList!.forEach((e) {
-      listElements!.add(getList(e));
-    });
+    for (var e in _resBodyList!) {
+      listElements.add(getList(e as Map<String, dynamic>));
+    }
 
-    firstElement = listElements?.first;
+    if (listElements.isNotEmpty) {
+      firstElement = listElements.first;
+    }
 
     return this;
 

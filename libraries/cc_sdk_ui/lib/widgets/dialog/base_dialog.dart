@@ -1,13 +1,13 @@
 import 'dart:ui';
 
 import 'package:cc_sdk/core/extensions/common/when_expression.dart';
-import 'package:cc_sdk_ui/core/constants/cc_padding_params.dart';
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
-import 'package:cc_sdk_ui/widgets/dialog/action_btn_in_dialog.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_column_start.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_row_between.dart';
-import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import '../../core/constants/cc_padding_params.dart';
+import '../../core/theme/base_colors.dart';
+import 'action_btn_in_dialog.dart';
+import '../flex/cc_column_start.dart';
+import '../flex/cc_row_between.dart';
+import '../space/cc_space.dart';
+import '../text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

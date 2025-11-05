@@ -20,7 +20,7 @@ void navigateFromSplash(BuildContext context) {
     case RoutingManagerEnum.GETX:
       // For GetX, ensure we're using the correct startRoute format
       final getXRoute =
-          startRoute.startsWith('/') ? startRoute.substring(1) : startRoute;
+          startRoute.startsWith('/') ? startRoute : startRoute.substring(1);
       Get.offAndToNamed(getXRoute);
       break;
   }

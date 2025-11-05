@@ -50,6 +50,7 @@ class GetxRoutingManager {
           binding: GetViewV2Binding(),
           page: () => GetViewV2Page()),
       GetPage(
+        // name: '/comment',
         name: getPageName(PageNameEnum.COMMENT),
         page: () => const CommentScreen(),
         binding: CommentBinding(),

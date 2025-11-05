@@ -65,8 +65,9 @@ class WidgetHelper {
     VoidCallback? onTapDown,
     VoidCallback? onLongPress,
     BorderRadius? borderRadius,
-  }) =>
-      Material(
+  }) {
+    try {
+      return Material(
         color: Colors.transparent,
         child: InkWell(
           /// clipped splash
@@ -78,15 +79,24 @@ class WidgetHelper {
 
           /// MUST define to avoid bug can not focus first item in list
           canRequestFocus: false,
-          onTapDown: (_) => onTapDown,
-          onTapCancel: onTapUp,
+          onTapDown: onTapDown != null ? (_) => onTapDown() : null,
+          onTapCancel: onTapUp != null ? () => onTapUp() : null,
           onLongPress: onLongPress,
         ),
       );
+    } catch (e) {
+      // Return empty container on error to prevent crashes
+      return const SizedBox.shrink();
+    }
+  }
 
-  static Widget getInkResponsePadding(VoidCallback onTap,
-          {BorderRadius? borderRadius, double? aspectRatio}) =>
-      AspectRatio(
+  static Widget getInkResponsePadding(
+    VoidCallback onTap, {
+    BorderRadius? borderRadius,
+    double? aspectRatio,
+  }) {
+    try {
+      return AspectRatio(
         aspectRatio: aspectRatio ?? 16 / 9,
         child: Material(
           color: Colors.transparent,
@@ -103,6 +113,11 @@ class WidgetHelper {
           ),
         ),
       );
+    } catch (e) {
+      // Return empty container on error to prevent crashes
+      return const SizedBox.shrink();
+    }
+  }
 
   static BorderRadius getBorderRoundedLarge() => BorderRadius.circular(12);
 
@@ -265,15 +280,25 @@ class WidgetHelper {
       );
 
   /// Check orientation is portrait|landscape?
-  static RxBool isPortraitScreenMode() => Get.context!.isPortrait.obs;
+  /// Returns null if context is not available
+  static RxBool? isPortraitScreenMode() {
+    try {
+      final context = Get.context;
+      if (context == null) return null;
+      return context.isPortrait.obs;
+    } catch (e) {
+      return null;
+    }
+  }
 
   /// Check device has Notch
   /// ex. iphone x and above ...
   static bool isSafeScreenExisted(
     double paddingBottom,
     double viewPaddingTop,
-  ) =>
-      paddingBottom >= 20.0 || viewPaddingTop >= 40.0;
+  ) {
+    return paddingBottom >= 20.0 || viewPaddingTop >= 40.0;
+  }
 
   /// Scroll notification method, click
   static bool isScrollingClickEnd(ScrollNotification scrollState) =>
@@ -288,63 +313,124 @@ class WidgetHelper {
       scrollState is UserScrollNotification &&
       scrollState.direction == ScrollDirection.idle;
 
-  static void markNeedsBuild(function) =>
-      SchedulerBinding.instance.addPostFrameCallback((_) => function());
+  /// Safely mark widget for rebuild after current frame
+  /// Returns true if callback was scheduled successfully
+  static bool markNeedsBuild(VoidCallback callback) {
+    try {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        try {
+          callback();
+        } catch (e) {
+          // Log error but don't crash
+          debugPrint('Error in post frame callback: $e');
+        }
+      });
+      return true;
+    } catch (e) {
+      debugPrint('Error scheduling post frame callback: $e');
+      return false;
+    }
+  }
 
   /*
   * Logic : Must check Audio player is running or not, pause it if has
   * for video player can play as normal (avoid duplicate sound)
   * */
-  void pauseAudioPlayer(BuildContext c) {
-    markNeedsBuild(() {
-      // Pause existed Audio Player
-      // Constants().getAudioPlayer().pause();
+  static void pauseAudioPlayer(BuildContext context) {
+    try {
+      markNeedsBuild(() {
+        try {
+          // Pause existed Audio Player
+          // Constants().getAudioPlayer().pause();
 
-      // Then update Playing state on UI
-      // AudioPlayerProvider a =
-      //     Provider.of<AudioPlayerProvider>(c, listen: false);
-      //
-      // if (a != null && a.hasPlayingItem()) a.setPlayingStatus(false);
-    });
+          // Then update Playing state on UI
+          // AudioPlayerProvider a =
+          //     Provider.of<AudioPlayerProvider>(context, listen: false);
+          //
+          // if (a != null && a.hasPlayingItem()) a.setPlayingStatus(false);
+        } catch (e) {
+          debugPrint('Error pausing audio player: $e');
+        }
+      });
+    } catch (e) {
+      debugPrint('Error in pauseAudioPlayer: $e');
+    }
   }
 
   /*
   * Logic : Must check Video player is running or not, pause it if has
   * for Audio player can play as normal (avoid duplicate sound)
   * */
-  void pauseVideoPlayer() {
-    // Notify Videos page about this modify
-    markNeedsBuild(() {
-      // if (videoPlayerProvider != null && videoPlayerProvider.hasBloc()) {
-      //   videoPlayerProvider.bloc.seekToEnd();
-      //
-      //   videoPlayerProvider.bloc.pause();
-      // }
-    });
+  static void pauseVideoPlayer() {
+    try {
+      // Notify Videos page about this modify
+      markNeedsBuild(() {
+        try {
+          // if (videoPlayerProvider != null && videoPlayerProvider.hasBloc()) {
+          //   videoPlayerProvider.bloc.seekToEnd();
+          //
+          //   videoPlayerProvider.bloc.pause();
+          // }
+        } catch (e) {
+          debugPrint('Error pausing video player: $e');
+        }
+      });
+    } catch (e) {
+      debugPrint('Error in pauseVideoPlayer: $e');
+    }
   }
 
   /// Set orientation : landscape || full-presentation mode
-  void setLandscape() => SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight],
-      );
+  /// Returns Future that completes when orientation is set
+  static Future<void> setLandscape() async {
+    try {
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+    } catch (e) {
+      debugPrint('Error setting landscape orientation: $e');
+    }
+  }
 
   /// Set orientation : [portrait || landscape] switching mode
-  void setOrientationDefault() =>
-      SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+  /// Returns Future that completes when orientation is set
+  static Future<void> setOrientationDefault() async {
+    try {
+      await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+    } catch (e) {
+      debugPrint('Error setting default orientation: $e');
+    }
+  }
 
   /// Set orientation : portrait || normal mode
-  void setPortrait() => SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
-      );
+  /// Returns Future that completes when orientation is set
+  static Future<void> setPortrait() async {
+    try {
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    } catch (e) {
+      debugPrint('Error setting portrait orientation: $e');
+    }
+  }
 
   /// Make input scroll controller scroll to top
-  void scrollToTop(ScrollController _scrollController) {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(
-        0,
-        curve: Curves.easeOut,
-        duration: const Duration(milliseconds: 300),
-      );
+  /// Returns true if scroll was successful, false otherwise
+  static bool scrollToTop(ScrollController scrollController) {
+    try {
+      if (scrollController.hasClients && scrollController.position.hasContentDimensions) {
+        scrollController.animateTo(
+          0,
+          curve: Curves.easeOut,
+          duration: const Duration(milliseconds: 300),
+        );
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
     }
   }
 }
