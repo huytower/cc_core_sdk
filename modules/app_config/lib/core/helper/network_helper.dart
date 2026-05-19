@@ -1,9 +1,9 @@
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class NetworkHelper {
   const NetworkHelper(this.network);
 
-  final InternetConnectionChecker network;
+  final InternetConnection network;
 
-  Future<bool> get hasInternet => network.hasConnection;
+  Future<bool> get hasInternet => network.hasInternetAccess;
 }

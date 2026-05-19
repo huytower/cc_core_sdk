@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 import '../../../core/helper/network_helper.dart';
 import '../../../data/datasource/local/box/app_storage/cc_app_storage.dart';
@@ -40,7 +40,7 @@ abstract class AppConfigModule {
   /// and is registered as a singleton to ensure consistent network state management.
   @singleton
   NetworkHelper get networkHelper => NetworkHelper(
-        InternetConnectionChecker.createInstance(),
+        InternetConnection(),
       );
 
   /// Provides a singleton instance of [AppVersionService].

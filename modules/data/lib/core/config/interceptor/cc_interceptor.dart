@@ -5,7 +5,7 @@ import 'package:cc_sdk/core/network/curl/curl_utils.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
@@ -49,7 +49,7 @@ var ccReqInterceptors = InterceptorsWrapper(
   onRequest: (options, handler) async {
     /// Check internet connection
     final hasInternet =
-        await NetworkHelper(InternetConnectionChecker.createInstance())
+        await NetworkHelper(InternetConnection())
             .hasInternet;
     if (!hasInternet) {
       'No internet connection'.Log();
