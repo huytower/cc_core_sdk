@@ -26,18 +26,4 @@ class ComponentWatchItLogic {
       '/is release build mode = ${!kDebugMode}';
 
   Future<String> getAppVersion() async => await DeviceUtils.getAppVersion();
-
-  Future<void> getDeviceInfo() async {
-    try {
-      appVersion.value = await getAppVersion();
-
-      /// WatchItMixin : Step 3 : assign new data, then trigger|notify data set changed
-      SampleModelOri model =
-          SampleModelOri(deviceInfo: await DeviceUtils.getDeviceInfo());
-
-      modelNotifier.model = model;
-    } catch (e) {
-      'e = $e'.Log();
-    }
-  }
 }

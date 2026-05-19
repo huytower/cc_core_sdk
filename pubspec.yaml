@@ -4,57 +4,64 @@ publish_to: none
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.0 <4.0.0'
+  sdk: '^3.11.5'
+  flutter: '>=3.41.9'
 
 dependencies:
   app_config:
     path: modules/app_config
-  auto_route: 10.1.0+1
+  auto_route: ^11.1.0
 
+  bloc: ^9.2.1
   cc_sdk:
     path: libraries/cc_sdk
   cc_sdk_ui:
     path: libraries/cc_sdk_ui
   content_locale:
     path: modules/message
-  custom_refresh_indicator:
+  custom_refresh_indicator: ^4.0.1
 
   data:
     path: modules/data
-  device_info_plus: 11.5.0
-  dio:
+  device_info_plus: ^11.5.0
+  dio: ^5.9.2
 
-  easy_localization:
+  easy_localization: ^3.0.8
+  equatable: ^2.0.8
   flutter:
     sdk: flutter
 
-  flutter_bloc:
-  flutter_lints:
-  flutter_spinkit:
-  flutter_svg:
+  flutter_bloc: ^9.1.1
+  flutter_dotenv: ^6.0.1
+  flutter_lints: ^6.0.0
+  flutter_spinkit: ^5.2.2
+  flutter_svg: ^2.3.0
   #  fluttertoast:
 
-  get:
-  get_it:
+  get: ^4.7.3
+  get_it: ^9.2.1
 
-  google_fonts:
-  injectable:
-  intl:
+  google_fonts: ^8.1.0
+  hive_ce: ^2.19.3
+  hive_ce_flutter: ^2.3.4
+  injectable: ^3.0.0
+  internet_connection_checker: ^3.0.1
+  intl: ^0.20.2
 
   # Dart data class
-  json_annotation:
-  json_serializable:
+  json_annotation: ^4.12.0
+  json_serializable: ^6.14.0
 
-  loadmore:
-  logger:
-  lottie:
-  dio_smart_retry:
-  path_provider:
-  provider:
+  loadmore: ^2.1.0
+  logger: ^2.7.0
+  lottie: ^3.3.3
+  dio_smart_retry: ^7.0.1
+  path_provider: ^2.1.5
+  provider: ^6.1.5+1
   reusable:
     path: modules/reusable
 
-  shared_preferences:
+  shared_preferences: ^2.5.5
 
   features:
     path: libraries/features
@@ -62,27 +69,27 @@ dependencies:
   theme:
     path: modules/theme
 
-  url_launcher:
-  uuid:
+  url_launcher: ^6.3.2
+  uuid: ^4.5.3
 
-  watch_it:
-  webview_flutter:
+  watch_it: ^2.4.2
+  webview_flutter: ^4.13.1
   widget:
     path: modules/widget
 
 dev_dependencies:
-  auto_route_generator:
-  bloc_test: ^9.1.4
-  build_runner:
-  effective_dart:
+  auto_route_generator: ^10.5.0
+  bloc_test: ^10.0.0
+  build_runner: ^2.15.0
+  effective_dart: ^1.3.2
   flutter_test:
     sdk: flutter
-  fvm:
-  injectable_generator:
-  lint:
+  fvm: ^2.4.1
+  injectable_generator: ^3.0.2
+  lint: ^2.8.0
 
 dependency_overrides:
-  win32:
+  win32: ^6.0.1
 
 flutter:
   uses-material-design: true

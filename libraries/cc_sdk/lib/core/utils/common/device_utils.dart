@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_udid/flutter_udid.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 /// A utility class for device-specific operations.
@@ -23,10 +23,7 @@ class DeviceUtils {
   }
 
   static Future<String> getDeviceAndroidId() async {
-    const _androidIdPlugin = AndroidId();
-    final String? androidId = await _androidIdPlugin.getId();
-
-    return androidId ?? '';
+    return await FlutterUdid.udid;
   }
 
   static Future<String> getDeviceInfo() async {
@@ -65,8 +62,9 @@ class DeviceUtils {
       if (Platform.isIOS) {
         /// check version os > ip 8 plus
         final iosInfo = await deviceInfo.iosInfo;
-        final version =
-            double.parse(iosInfo.utsname.machine.split('iPhone')[1]);
+        final version = double.parse(
+          iosInfo.utsname.machine.split('iPhone')[1],
+        );
         return version > 10.5;
       } else {
         return false;
@@ -88,9 +86,10 @@ class DeviceUtils {
   ///
   /// [screenWidth] - The width of the presentation in logical pixels
   /// [bottomPadding] - The bottom padding from MediaQuery
-  static bool isLargeScreen(
-          {required double screenWidth, required double bottomPadding}) =>
-      screenWidth >= 400.0 && bottomPadding > 20.0;
+  static bool isLargeScreen({
+    required double screenWidth,
+    required double bottomPadding,
+  }) => screenWidth >= 400.0 && bottomPadding > 20.0;
 
   /// Gets the application version information.
   ///

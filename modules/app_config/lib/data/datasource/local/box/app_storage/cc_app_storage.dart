@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:data/data/model/user/res_user.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../cc_hive_box.dart';
@@ -27,8 +27,9 @@ class CcAppStorage extends HiveObject {
 
   static Future<CcAppStorage?> register() async {
     Hive.registerAdapter(CcAppStorageAdapter());
-    Box<CcAppStorage> box =
-        await Hive.openBox<CcAppStorage>(CcHiveBox.APP_BOX_NAME);
+    Box<CcAppStorage> box = await Hive.openBox<CcAppStorage>(
+      CcHiveBox.APP_BOX_NAME,
+    );
     CcAppStorage? model = box.get(CcHiveBox.keyDefault);
 
     /// is it existed? if not, init it
@@ -52,12 +53,7 @@ class CcAppStorage extends HiveObject {
   @HiveField(4)
   String? role;
 
-  CcAppStorage({
-    this.a_t,
-    this.f_t,
-    this.gps,
-    this.role,
-  });
+  CcAppStorage({this.a_t, this.f_t, this.gps, this.role});
 
   ///
   ResUser? user = ResUser();

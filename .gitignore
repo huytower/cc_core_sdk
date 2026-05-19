@@ -50,7 +50,6 @@ build/
 .flutter-plugins-dependencies
 .gradle/
 
-
 # Symbolication related
 app.*.symbols
 
@@ -114,3 +113,6 @@ lib/generated_plugin_registrant.dart
 /ios/Runner.xcworkspace/contents.xcworkspacedata
 # MUST only commit for the first time push in .git
 /ios/Runner.xcodeproj/project.pbxproj
+
+# FVM Version Cache
+.fvm/

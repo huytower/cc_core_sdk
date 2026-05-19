@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../cc_hive_box.dart';
@@ -25,8 +25,9 @@ class CcAppTrackLog extends HiveObject {
 
   static Future<CcAppTrackLog?> register() async {
     Hive.registerAdapter(CcAppTrackLogAdapter());
-    Box<CcAppTrackLog> box =
-        await Hive.openBox<CcAppTrackLog>(CcHiveBox.TRACK_LOG_BOX_NAME);
+    Box<CcAppTrackLog> box = await Hive.openBox<CcAppTrackLog>(
+      CcHiveBox.TRACK_LOG_BOX_NAME,
+    );
     CcAppTrackLog? model = box.get(CcHiveBox.keyDefault);
     if (model == null) {
       model = CcAppTrackLog();
@@ -42,10 +43,7 @@ class CcAppTrackLog extends HiveObject {
   @HiveField(1)
   String? tag;
 
-  CcAppTrackLog({
-    this.msg,
-    this.tag,
-  });
+  CcAppTrackLog({this.msg, this.tag});
 
   Map<String, dynamic> toJson() => _$CcAppTrackLogToJson(this);
 }

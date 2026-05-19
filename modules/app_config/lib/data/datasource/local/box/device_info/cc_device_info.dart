@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../cc_hive_box.dart';
@@ -26,8 +26,9 @@ class CcDeviceInfo extends HiveObject {
 
   static Future<CcDeviceInfo?> register() async {
     Hive.registerAdapter(CcDeviceInfoAdapter());
-    Box<CcDeviceInfo> box =
-        await Hive.openBox<CcDeviceInfo>(CcHiveBox.DEVICE_BOX_NAME);
+    Box<CcDeviceInfo> box = await Hive.openBox<CcDeviceInfo>(
+      CcHiveBox.DEVICE_BOX_NAME,
+    );
     CcDeviceInfo? model = box.get(CcHiveBox.keyDefault);
     if (model == null) {
       model = CcDeviceInfo();

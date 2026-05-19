@@ -1,5 +1,5 @@
 import 'package:app_config/data/datasource/local/box/cc_hive_box.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 /// Manages Hive database operations
 class HiveManager {

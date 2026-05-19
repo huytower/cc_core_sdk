@@ -1,7 +1,7 @@
 import 'package:app_config/data/datasource/local/box/register_hive_adapter/register_hive_adapter.dart';
 import 'package:content_locale/cc_localization.dart' as localization;
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'core/di/dependency_register.dart';
@@ -40,8 +40,6 @@ void main() async {
 
   /// Run App Prj.
   runApp(
-    localization.CcLocalization.wrapWithLocalization(
-      child: const AppRunner(),
-    ),
+    localization.CcLocalization.wrapWithLocalization(child: const AppRunner()),
   );
 }

@@ -32,7 +32,7 @@ class ComponentViewWatchIt extends WatchingWidget {
       logic.isReady.value = true;
 
       /// WatchItMixin : Step 2 : Define where to trigger|notify data set changed
-      logic.getDeviceInfo(); // register one-time
+      // logic.getDeviceInfo(); // register one-time
     }
 
     return logic.isReady.value == true
@@ -40,36 +40,35 @@ class ComponentViewWatchIt extends WatchingWidget {
         : const Center(child: CircularProgressIndicator());
   }
 
-  Widget buildBody() => CcColCenter(children: [
-        /// section : app name, build config
-        /// section : app version, code
-        AppNameWidget(
-          logic.appInfo,
-          fontSize: 14,
-        ),
-        const CcSpaceSmall(),
+  Widget buildBody() => CcColCenter(
+    children: [
+      /// section : app name, build config
+      /// section : app version, code
+      AppNameWidget(logic.appInfo, fontSize: 14),
+      const CcSpaceSmall(),
 
-        /// section : app tracking log
-        /// section : device info
-        const CcSpaceSmall(),
-        buildDeviceInfo(),
-      ]);
+      /// section : app tracking log
+      /// section : device info
+      const CcSpaceSmall(),
+      buildDeviceInfo(),
+    ],
+  );
 
   Widget buildDeviceInfo() =>
       (logic.modelNotifier.model.deviceInfo ?? '').isNotEmpty
-          ? Stack(
-              children: [
-                CcPositionCenter(
-                  child: CcText(
-                    /// WatchItMixin : Step 4 : see modified value in here
-                    logic.modelNotifier.model.deviceInfo,
-                    color: Colors.grey,
-                    fontSize: 12,
-                    textAlign: TextAlign.center,
-                    align: Alignment.center,
-                  ),
-                ),
-              ],
-            )
-          : const Center(child: CircularProgressIndicator());
+      ? Stack(
+          children: [
+            CcPositionCenter(
+              child: CcText(
+                /// WatchItMixin : Step 4 : see modified value in here
+                logic.modelNotifier.model.deviceInfo,
+                color: Colors.grey,
+                fontSize: 12,
+                textAlign: TextAlign.center,
+                align: Alignment.center,
+              ),
+            ),
+          ],
+        )
+      : const Center(child: CircularProgressIndicator());
 }
