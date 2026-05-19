@@ -13,7 +13,7 @@ class ExpandCollapseCardWidget extends StatelessWidget {
     required this.headerCollapseWidget,
     required this.headerExpandedWidget,
     required this.isExpandedStatus,
-    this.shadowColor = BaseColors.gray_40,
+    this.shadowColor = BaseColors.divider,
   }) : super(key: key);
 
   final RxBool isExpandedStatus;
@@ -26,26 +26,28 @@ class ExpandCollapseCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
-        color: BaseColors.transparent,
-        margin: EdgeInsets.zero,
-        elevation: elevationCard,
-        shadowColor: shadowColor,
-        child: buildExpansionPanelList(),
-      );
+    color: BaseColors.transparent,
+    margin: EdgeInsets.zero,
+    elevation: elevationCard,
+    shadowColor: shadowColor,
+    child: buildExpansionPanelList(),
+  );
 
-  Widget buildExpansionPanelList() => Obx(() => ExpansionPanelList(
-        dividerColor: dividerColor ?? Colors.transparent,
-        elevation: elevationExpand,
-        children: [
-          ExpansionPanel(
-            headerBuilder: (c, isExpanded) => buildHeader(isExpanded),
-            body: bodyWidget,
-            isExpanded: isExpandedStatus.value,
-          ),
-        ],
-        expansionCallback: (i, isExpanded) =>
-            isExpandedStatus.value = !isExpanded,
-      ));
+  Widget buildExpansionPanelList() => Obx(
+    () => ExpansionPanelList(
+      dividerColor: dividerColor ?? Colors.transparent,
+      elevation: elevationExpand,
+      children: [
+        ExpansionPanel(
+          headerBuilder: (c, isExpanded) => buildHeader(isExpanded),
+          body: bodyWidget,
+          isExpanded: isExpandedStatus.value,
+        ),
+      ],
+      expansionCallback: (i, isExpanded) =>
+          isExpandedStatus.value = !isExpanded,
+    ),
+  );
 
   Widget buildHeader(bool isExpanded) =>
       isExpanded ? headerExpandedWidget : headerCollapseWidget;

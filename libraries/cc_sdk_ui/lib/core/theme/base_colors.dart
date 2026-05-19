@@ -1,48 +1,96 @@
 import 'package:flutter/material.dart';
 
-/// Converter color : https://convertingcolors.com/android-color-4284900966.html
-/// Finder name color : https://colors.artyclick.com/color-name-finder/
-/// Color Scheme : https://pub.dev/packages/flex_color_scheme
+/// BaseColors: The "Single Source of Truth" (SSOT) for the UI Library theme.
+///
+/// This file follows the **Design Token** principle, facilitating collaboration between
+/// Product Owners (PO), Designers, and Developers.
+///
+/// ## Color Roles (Standard Design Principles)
+/// 1. **Primitives (Palette)**: Raw colors. Avoid using these directly in widgets.
+/// 2. **Semantic Tokens**: Named after their purpose. Use these in widgets.
+///
+/// ## Best Practices
+/// - All colors are [const] for performance.
+/// - Opacity is handled via 8-digit hex (AARRGGBB) to ensure they are compile-time constants.
 class BaseColors {
-  // Single-Color
-  static const Color black = Colors.black;
-  static Color black_5 = Colors.black.withOpacity(0.05);
-  static Color black_10 = Colors.black.withOpacity(0.1);
-  static Color black_20 = Colors.black.withOpacity(0.2);
-  static Color black_30 = Colors.black.withOpacity(0.3);
-  static Color black_40 = Colors.black.withOpacity(0.4);
-  static Color black_50 = Colors.black.withOpacity(0.5);
-  static Color black_70 = Colors.black.withOpacity(0.7);
-  static Color black_80 = Colors.black.withOpacity(0.8);
+  // ===========================================================================
+  // 1. PRIMITIVES (Figma: "Foundation" Collection)
+  // ===========================================================================
 
-  static const Color blue = Colors.blue;
-  static const Color blue_80 = Color(0xCC1E88E5);
+  // -- Neutral Palette (Black/Gray/White)
+  static const Color neutral100 = Color(0xFF000000);
+  static const Color neutral90 = Color(0xE6000000); // 90%
+  static const Color neutral80 = Color(0xCC000000); // 80%
+  static const Color neutral70 = Color(0xB3000000); // 70%
+  static const Color neutral50 = Color(0x80000000); // 50%
+  static const Color neutral40 = Color(0x66000000); // 40%
+  static const Color neutral30 = Color(0x4D000000); // 30%
+  static const Color neutral20 = Color(0x33000000); // 20%
+  static const Color neutral10 = Color(0x1A000000); // 10%
+  static const Color neutral5 = Color(0x0D000000); // 5%
 
-  static const Color gray = Color(0xFFE2E2E2);
-  static const Color gray_40 = Color(0x66E2E2E2);
-  static const Color gray_70 = Color(0xB2E2E2E2);
-  static const Color gray_80 = Color(0xCCE2E2E2);
-  static const Color gray_90 = Color(0xE5E2E2E2);
+  static const Color white100 = Color(0xFFFFFFFF);
+  static const Color white80 = Color(0xCCFFFFFF);
+  static const Color white70 = Color(0xB3FFFFFF);
+  static const Color white50 = Color(0x80FFFFFF);
+  static const Color white40 = Color(0x66FFFFFF);
+  static const Color white30 = Color(0x4DFFFFFF);
+  static const Color white20 = Color(0x33FFFFFF);
+  static const Color white15 = Color(0x26FFFFFF);
+  static const Color white10 = Color(0x1AFFFFFF);
 
-  static const Color pink = Color(0xFFD81B60);
-  static const Color pink_10 = Color(0x19D81B60);
-  static const Color pink_30 = Color(0x4CD81B60);
-  static const Color pink_70 = Color(0xB2D81B60);
-  static const Color pink_80 = Color(0xCCD81B60);
-  static const Color pink_90 = Color(0xE5D81B60);
-  static const Color pink_cc = Color(0xFFEE3E80);
+  static const Color gray100 = Color(0xFFE2E2E2);
+  static const Color gray90 = Color(0xE5E2E2E2);
+  static const Color gray80 = Color(0xCCE2E2E2);
+  static const Color gray70 = Color(0xB2E2E2E2);
+  static const Color gray40 = Color(0x66E2E2E2);
 
-  static const Color red = Colors.red;
+  // -- Brand Palette (Pink)
+  static const Color brand900 = Color(0xE5D81B60); // 90%
+  static const Color brand800 = Color(0xCCD81B60); // 80%
+  static const Color brand700 = Color(0xB2D81B60); // 70%
+  static const Color brand600 = Color(0xFFAD1457); // Darker (Pressed)
+  static const Color brand500 = Color(0xFFD81B60); // Primary (100%)
+  static const Color brand300 = Color(0x4CD81B60); // 30%
+  static const Color brand100 = Color(0x19D81B60); // 10%
 
-  static const Color transparent = Colors.transparent;
+  // -- Secondary Palette (Blue)
+  static const Color secondary500 = Color(0xFF2196F3);
+  static const Color secondary800 = Color(0xCC1E88E5);
 
-  static const Color white = Colors.white;
-  static Color white_10 = Colors.white.withOpacity(0.1);
-  static Color white_15 = Colors.white.withOpacity(0.15);
-  static Color white_20 = Colors.white.withOpacity(0.2);
-  static Color white_30 = Colors.white.withOpacity(0.3);
-  static Color white_40 = Colors.white.withOpacity(0.4);
-  static Color white_50 = Colors.white.withOpacity(0.5);
-  static Color white_70 = Colors.white.withOpacity(0.7);
-  static Color white_80 = Colors.white.withOpacity(0.8);
+  // -- Status Palette
+  static const Color errorRed = Color(0xFFF44336);
+  static const Color successGreen = Color(0xFF4CAF50);
+  static const Color warningAmber = Color(0xFFFFC107);
+
+  // ===========================================================================
+  // 2. SEMANTIC TOKENS (Figma: "Theme" Collection)
+  // ===========================================================================
+
+  // -- Actions
+  static const Color actionPrimary = brand500;
+  static const Color actionPrimaryPressed = brand600;
+  static const Color actionDisabled = Color(0xFFE0E0E0);
+
+  // -- Content (Text & Icons)
+  static const Color textPrimary = neutral80;
+  static const Color textSecondary = neutral50;
+  static const Color textDisabled = neutral30;
+  static const Color textInvert = white100;
+
+  // -- Surface
+  static const Color surfaceDefault = white100;
+  static const Color surfaceVariant = gray100;
+  static const Color surfaceOverlay = neutral50;
+
+  // -- Feedback
+  static const Color success = successGreen;
+  static const Color warning = warningAmber;
+  static const Color error = errorRed;
+  static const Color info = secondary500;
+
+  // -- Utils
+  static const Color transparent = Color(0x00000000);
+  static const Color shadow = neutral10;
+  static const Color divider = gray40;
 }

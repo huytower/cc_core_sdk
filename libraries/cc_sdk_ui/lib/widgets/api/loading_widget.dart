@@ -14,27 +14,26 @@ class LoadingPageWidget extends StatelessWidget {
 
   @override
   Widget build(c) => FadeWidget(
-      visible: true,
-      child: Stack(
-        children: [
-          /// Child
-          ListView(
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            children: [
-              child,
-            ],
-          ),
+    visible: true,
+    child: Stack(
+      children: [
+        /// Child
+        ListView(
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
+          children: [child],
+        ),
 
-          /// Background
-          Container(
-            height: Get.height,
-            width: Get.width,
-            color: BaseColors.black_70,
-          ),
+        /// Background
+        Container(
+          height: Get.height,
+          width: Get.width,
+          color: BaseColors.neutral70,
+        ),
 
-          /// Progress loading icon
-          const CcProgressIndicator(),
-        ],
-      ));
+        /// Progress loading icon
+        const CcProgressIndicator(),
+      ],
+    ),
+  );
 }

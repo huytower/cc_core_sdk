@@ -4,20 +4,20 @@ import 'package:flutter/cupertino.dart';
 
 class NoDataResponseWidget extends StatelessWidget {
   const NoDataResponseWidget({Key? key, this.title = 'Không có dữ liệu'})
-      : super(key: key);
+    : super(key: key);
 
   final String title;
 
   @override
   SizedBox build(c) => SizedBox(
-        height: 50,
-        child: CcText(
-          title,
-          align: Alignment.center,
-          color: BaseColors.black_80,
-          fontStyle: FontStyle.italic,
-          fontWeight: FontWeight.w300,
-          textAlign: TextAlign.center,
-        ),
-      );
+    height: 50,
+    child: CcText(
+      title,
+      align: Alignment.center,
+      color: BaseColors.textPrimary,
+      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.w300,
+      textAlign: TextAlign.center,
+    ),
+  );
 }

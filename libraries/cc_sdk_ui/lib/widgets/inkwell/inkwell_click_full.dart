@@ -6,7 +6,7 @@ import '../../core/helper/widget_helper.dart';
 /// Full splash inkwell - object
 class InkWellClickFull extends StatelessWidget {
   const InkWellClickFull({Key? key, required this.onTap, required this.height})
-      : super(key: key);
+    : super(key: key);
 
   final VoidCallback onTap;
 
@@ -16,21 +16,21 @@ class InkWellClickFull extends StatelessWidget {
   Widget build(c) => getInkWellWidget();
 
   Widget getInkWellWidget() => Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          splashColor: BaseColors.black_5,
-          // splashColor: ColorsAssets.blueLight,
-          borderRadius: WidgetHelper.getBorderRoundedSmall(),
-          canRequestFocus: false,
-          child: SizedBox(
-            height: height,
+    color: Colors.transparent,
+    child: InkWell(
+      onTap: onTap,
+      splashColor: BaseColors.neutral5,
+      // splashColor: ColorsAssets.blueLight,
+      borderRadius: WidgetHelper.getBorderRoundedSmall(),
+      canRequestFocus: false,
+      child: SizedBox(
+        height: height,
 
-            /// Values must not == infinity
-            width: double.infinity,
-          ),
+        /// Values must not == infinity
+        width: double.infinity,
+      ),
 
-          /// MUST define to avoid bug can not focus first item in list
-        ),
-      );
+      /// MUST define to avoid bug can not focus first item in list
+    ),
+  );
 }

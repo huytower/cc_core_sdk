@@ -89,17 +89,13 @@ class _TextFieldBaseState extends State<CcTextField> {
             ? <TextInputFormatter>[
                 if (widget.allowFormat?.isNotEmpty == true) ...[
                   FilteringTextInputFormatter.allow(
-                    RegExp(
-                      widget.allowFormat ?? "",
-                    ),
+                    RegExp(widget.allowFormat ?? ""),
                   ),
                 ] else if (widget.allowFormat?.isNotEmpty == true) ...[
                   FilteringTextInputFormatter.deny(
-                    RegExp(
-                      widget.denyFormat ?? "",
-                    ),
+                    RegExp(widget.denyFormat ?? ""),
                   ),
-                ]
+                ],
               ]
             : null,
         validator: widget.validator,
@@ -115,14 +111,19 @@ class _TextFieldBaseState extends State<CcTextField> {
           ),
           hintText: widget.hintText,
           labelText: widget.labelText,
-          focusedBorder:
-              getInputBorder(widget.enableOutline, theme.primaryColor),
-          enabledBorder:
-              getInputBorder(widget.enableOutline, PrjColors.secondary),
-          errorBorder:
-              getInputBorder(widget.enableOutline, PrjColorsSimple.notice),
-          focusedErrorBorder:
-              getInputBorder(widget.enableOutline, PrjColorsSimple.notice),
+          focusedBorder: getInputBorder(
+            widget.enableOutline,
+            theme.primaryColor,
+          ),
+          enabledBorder: getInputBorder(
+            widget.enableOutline,
+            PrjColors.secondary,
+          ),
+          errorBorder: getInputBorder(widget.enableOutline, PrjColors.outline),
+          focusedErrorBorder: getInputBorder(
+            widget.enableOutline,
+            PrjColors.outline,
+          ),
           errorStyle: theme.textTheme.headlineSmall,
           hintStyle: theme.textTheme.headlineSmall,
         ),
@@ -135,17 +136,15 @@ class _TextFieldBaseState extends State<CcTextField> {
   InputBorder getInputBorder(bool enableOutline, Color _color) {
     return (widget.backgroundColor == Colors.transparent)
         ? (enableOutline
-            ? outlineInputBorder(_color)
-            : underlineInputBorder(_color))
+              ? outlineInputBorder(_color)
+              : underlineInputBorder(_color))
         : InputBorder.none;
   }
 
   UnderlineInputBorder underlineInputBorder(Color _color) {
     return UnderlineInputBorder(
       borderSide: BorderSide(width: 1, color: _color),
-      borderRadius: const BorderRadius.all(
-        Radius.circular(0),
-      ),
+      borderRadius: const BorderRadius.all(Radius.circular(0)),
     );
   }
 

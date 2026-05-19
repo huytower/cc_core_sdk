@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/exception/error/failure.dart';
+import 'package:cc_sdk/core/failure/failure.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 abstract class UseCase<Type, Params> {

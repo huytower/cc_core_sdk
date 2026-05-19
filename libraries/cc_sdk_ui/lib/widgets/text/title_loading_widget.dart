@@ -8,7 +8,7 @@ import '../../core/helper/widget_helper.dart';
 /// Skeleton|Shimmer|Waiting|Loading text (Loading text ui), is showing while loading data from API response.
 class TitleLoadingWidget extends StatelessWidget {
   const TitleLoadingWidget({Key? key, this.lineWidth, this.lineHeight})
-      : super(key: key);
+    : super(key: key);
 
   final double? lineHeight, lineWidth;
 
@@ -16,18 +16,19 @@ class TitleLoadingWidget extends StatelessWidget {
   Widget build(BuildContext c) => getEmptyContainer();
 
   Widget getEmptyContainer() => SizedBox(
+    width: lineWidth ?? 50,
+    height: lineHeight ?? 14,
+    child: Shimmer.fromColors(
+      baseColor: BaseColors.neutral5,
+      highlightColor: Colors.yellow,
+      child: Container(
         width: lineWidth ?? 50,
-        height: lineHeight ?? 14,
-        child: Shimmer.fromColors(
-          baseColor: BaseColors.black_5,
-          highlightColor: Colors.yellow,
-          child: Container(
-            width: lineWidth ?? 50,
-            height: 12,
-            decoration: BoxDecoration(
-                color: BaseColors.black_5,
-                borderRadius: WidgetHelper.getBorderRoundedLarge()),
-          ),
+        height: 12,
+        decoration: BoxDecoration(
+          color: BaseColors.neutral5,
+          borderRadius: WidgetHelper.getBorderRoundedLarge(),
         ),
-      );
+      ),
+    ),
+  );
 }

@@ -56,15 +56,16 @@ class _CcCountDownState extends State<CcCountDown> {
       widget.isInlineSpan ? buildTextSpansWidget() : buildTextWidget();
 
   CcTextSpans buildTextSpansWidget() => CcTextSpans([
-        WidgetHelper.getTextSpanMontserrat(" $current' ",
-            color: BaseColors.black, fontSize: 20.0, heightLine: 1.4),
-      ]);
+    WidgetHelper.getTextSpanMontserrat(
+      " $current' ",
+      color: BaseColors.neutral100,
+      fontSize: 20.0,
+      heightLine: 1.4,
+    ),
+  ]);
 
-  CcText buildTextWidget() => CcText(
-        '$current',
-        color: Colors.black,
-        fontSize: 20,
-      );
+  CcText buildTextWidget() =>
+      CcText('$current', color: Colors.black, fontSize: 20);
 
   void startTimer() {
     var countDownTimer = CountdownTimer(

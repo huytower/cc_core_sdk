@@ -1,5 +1,5 @@
-import 'package:cc_sdk/core/exception/app_config_exception.dart';
-import 'package:cc_sdk/core/exception/error/failure.dart';
+import 'package:cc_sdk/core/failure/app_config/app_config_failure.dart';
+import 'package:cc_sdk/core/failure/failure.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../repositories/app_config_repository.dart';
@@ -16,8 +16,10 @@ class GetFeatureFlag<T> {
   /// If the key doesn't exist, returns the [defaultValue].
   Future<Result<T, Failure>> call(String key, {required T defaultValue}) async {
     try {
-      final value =
-          await repository.getFeatureFlag<T>(key, defaultValue: defaultValue);
+      final value = await repository.getFeatureFlag<T>(
+        key,
+        defaultValue: defaultValue,
+      );
       return Success(value);
     } on Failure catch (e) {
       return Error(e);

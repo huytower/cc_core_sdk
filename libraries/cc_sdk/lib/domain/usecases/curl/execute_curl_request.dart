@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/exception/error/failure.dart';
+import 'package:cc_sdk/core/failure/failure.dart';
 import 'package:cc_sdk/domain/repositories/cc_sdk_repository.dart';
 import 'package:cc_sdk/domain/usecases/usecase.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -21,13 +21,18 @@ class ExecuteCurlRequestParams {
   });
 }
 
+/// STEP 1: THE USECASE (The "Boss")
+/// This class represents a single task the app can do.
+/// It doesn't know HOW to use the internet, it just says "Execute this task".
 class ExecuteCurlRequest implements UseCase<String, ExecuteCurlRequestParams> {
+  // The UseCase holds a reference to the Interface (the rules), not the implementation.
   final CCSDKRepository repository;
 
   const ExecuteCurlRequest(this.repository);
 
   @override
   Future<Result<String, Failure>> call(ExecuteCurlRequestParams params) async {
+    // We simply pass the request down the chain.
     return await repository.executeCurlRequest(
       url: params.url,
       headers: params.headers,

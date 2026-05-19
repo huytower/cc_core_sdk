@@ -5,16 +5,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TitleWidget extends StatelessWidget {
-  const TitleWidget(
-      {Key? key,
-      required this.title,
-      this.align,
-      this.color,
-      this.fontSize,
-      this.fontWeight,
-      this.heightLine,
-      this.maxLines})
-      : super(key: key);
+  const TitleWidget({
+    Key? key,
+    required this.title,
+    this.align,
+    this.color,
+    this.fontSize,
+    this.fontWeight,
+    this.heightLine,
+    this.maxLines,
+  }) : super(key: key);
 
   final Alignment? align;
   final Color? color;
@@ -30,7 +30,7 @@ class TitleWidget extends StatelessWidget {
       ? CcText(
           title,
           fontSize: fontSize ?? 16.0,
-          color: color ?? BaseColors.black_80,
+          color: color ?? BaseColors.textPrimary,
           fontWeight: fontWeight ?? FontWeight.w600,
           align: align ?? Alignment.centerLeft,
           maxLines: maxLines ?? 1,

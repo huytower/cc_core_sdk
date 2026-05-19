@@ -6,10 +6,6 @@ class EmptyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: PrjColorsSimple.red,
-      ),
-    );
+    return Scaffold(body: Container(color: PrjColors.error));
   }
 }

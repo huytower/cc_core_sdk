@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class DurationWidget extends StatelessWidget {
   const DurationWidget({Key? key, required this.duration, this.widgetLoading})
-      : super(key: key);
+    : super(key: key);
 
   final String duration;
 
@@ -13,26 +13,24 @@ class DurationWidget extends StatelessWidget {
 
   @override
   Widget build(c) => Positioned(
-        bottom: 4,
-        right: 4,
-        child: Row(
-          children: [
-            widgetLoading ?? Container(),
-            const SizedBox(
-              width: 10,
-            ),
-            SizedBox(
-              height: 16,
-              width: 32,
-              child: CcText(
-                duration,
-                color: BaseColors.white,
-                fontSize: 10,
-                align: Alignment.center,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+    bottom: 4,
+    right: 4,
+    child: Row(
+      children: [
+        widgetLoading ?? Container(),
+        const SizedBox(width: 10),
+        SizedBox(
+          height: 16,
+          width: 32,
+          child: CcText(
+            duration,
+            color: BaseColors.textInvert,
+            fontSize: 10,
+            align: Alignment.center,
+            textAlign: TextAlign.center,
+          ),
         ),
-      );
+      ],
+    ),
+  );
 }

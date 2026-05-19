@@ -11,6 +11,8 @@ dependencies:
   # Internal dependencies
   cc_sdk:
     path: ../../libraries/cc_sdk
+  cc_sdk_ui:
+    path: ../../libraries/cc_sdk_ui
   content_locale:
     path: ../message
   flutter:

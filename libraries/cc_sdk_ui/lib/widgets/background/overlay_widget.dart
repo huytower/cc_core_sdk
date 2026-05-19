@@ -11,14 +11,14 @@ import '../../core/helper/widget_helper.dart';
 /// lay second ui on input ui, as overlay ui
 /// ex. second ui = opacity background | gradient background ..v.
 class OverlayWidget extends StatelessWidget {
-  const OverlayWidget(
-      {Key? key,
-      @required this.isLargeBorder,
-      this.color,
-      this.padding,
-      this.width,
-      this.height})
-      : super(key: key);
+  const OverlayWidget({
+    Key? key,
+    @required this.isLargeBorder,
+    this.color,
+    this.padding,
+    this.width,
+    this.height,
+  }) : super(key: key);
 
   final bool? isLargeBorder;
 
@@ -28,30 +28,31 @@ class OverlayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CcPadding(
-      Container(
-        decoration: BoxDecoration(
-          borderRadius: isLargeBorder!
-              ? WidgetHelper.getBorderRoundedLarge()
-              : WidgetHelper.getBorderRoundedSmall(),
-          color: color ?? BaseColors.black_50,
-        ),
-        height: height ?? Get.height,
-        width: width ?? Get.width,
+    Container(
+      decoration: BoxDecoration(
+        borderRadius: isLargeBorder!
+            ? WidgetHelper.getBorderRoundedLarge()
+            : WidgetHelper.getBorderRoundedSmall(),
+        color: color ?? BaseColors.surfaceOverlay,
       ),
-      padding ?? 1,
-      padding ?? 1,
-      padding ?? 1,
-      padding ?? 1);
+      height: height ?? Get.height,
+      width: width ?? Get.width,
+    ),
+    padding ?? 1,
+    padding ?? 1,
+    padding ?? 1,
+    padding ?? 1,
+  );
 }
 
 class OverlayBackgroundWidget extends StatelessWidget {
-  const OverlayBackgroundWidget(
-      {Key? key,
-      required this.widget,
-      required this.start,
-      required this.end,
-      this.blendMode = BlendMode.multiply})
-      : super(key: key);
+  const OverlayBackgroundWidget({
+    Key? key,
+    required this.widget,
+    required this.start,
+    required this.end,
+    this.blendMode = BlendMode.multiply,
+  }) : super(key: key);
 
   final Widget widget;
 
@@ -61,46 +62,52 @@ class OverlayBackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ShaderMask(
-        shaderCallback: (rect) => LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            start,
-            end,
-          ],
-        ).createShader(rect),
-        blendMode: blendMode,
-        child: widget,
-      );
+    shaderCallback: (rect) => LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [start, end],
+    ).createShader(rect),
+    blendMode: blendMode,
+    child: widget,
+  );
 }
 
 class OverlayGradientWidget extends StatelessWidget {
-  const OverlayGradientWidget(
-      {Key? key, required this.start, required this.end, this.blendMode})
-      : super(key: key);
+  const OverlayGradientWidget({
+    Key? key,
+    required this.start,
+    required this.end,
+    this.blendMode,
+  }) : super(key: key);
 
   final Color start, end;
   final BlendMode? blendMode;
 
   @override
   Widget build(c) => CcPositionCenter(
-          child: DecoratedBox(
-        decoration: BoxDecoration(
-            backgroundBlendMode: blendMode ?? BlendMode.multiply,
-            // blend mode
-            gradient: LinearGradient(
-                colors: [start, end], // gradient stops
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: <double>[0.2, 1]),
-            borderRadius: WidgetHelper.getBorderRoundedSmall()),
-      ));
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        backgroundBlendMode: blendMode ?? BlendMode.multiply,
+        // blend mode
+        gradient: LinearGradient(
+          colors: [start, end], // gradient stops
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: <double>[0.2, 1],
+        ),
+        borderRadius: WidgetHelper.getBorderRoundedSmall(),
+      ),
+    ),
+  );
 }
 
 class OverlayIconWidget extends StatelessWidget {
-  const OverlayIconWidget(this.child,
-      {Key? key, required this.start, required this.end})
-      : super(key: key);
+  const OverlayIconWidget(
+    this.child, {
+    Key? key,
+    required this.start,
+    required this.end,
+  }) : super(key: key);
 
   final Widget child;
 
@@ -108,12 +115,8 @@ class OverlayIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ShaderMask(
-        shaderCallback: (Rect bounds) => LinearGradient(
-          colors: [
-            start,
-            end,
-          ],
-        ).createShader(bounds),
-        child: child,
-      );
+    shaderCallback: (Rect bounds) =>
+        LinearGradient(colors: [start, end]).createShader(bounds),
+    child: child,
+  );
 }

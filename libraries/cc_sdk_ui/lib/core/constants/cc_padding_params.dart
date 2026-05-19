@@ -1,40 +1,47 @@
 abstract class CcPaddingParams {
-  static const double DESC_SMALL = 8;
-  static const double DESC_SMALLEST = 6;
-  static const double DESC_MID = 11;
-  static const double DESC_LARGE = 14;
+  // Description Spacing
+  static const double DESC_XS = 4;
+  static const double DESC_SM = 8;
+  static const double DESC_MD = 12;
+  static const double DESC_LG = 16;
 
-  static const double DIALOG_SMALL = 15;
-  static const double DIALOG_SMALLEST = 12;
-  static const double DIALOG_MID = 18;
-  static const double DIALOG_LARGE = 25;
-  static const double DIALOG_LARGEST = 28;
+  // Dialog Padding
+  static const double DIALOG_XS = 8;
+  static const double DIALOG_SM = 16;
+  static const double DIALOG_MD = 20;
+  static const double DIALOG_LG = 24;
+  static const double DIALOG_XL = 32;
 
-  static const double ICON_SMALL = 8;
-  static const double ICON_SMALLEST = 4;
-  static const double ICON_MID = 12;
-  static const double ICON_LARGE = 16;
-  static const double ICON_LARGEST = 20;
+  // Icon Sizing/Padding
+  static const double ICON_XS = 4;
+  static const double ICON_SM = 8;
+  static const double ICON_MD = 12;
+  static const double ICON_LG = 16;
+  static const double ICON_XL = 20;
 
-  static const double PAGE_SMALL = 24;
-  static const double PAGE_SMALLEST = 20;
-  static const double PAGE_MID = 27;
-  static const double PAGE_LARGE = 32;
-  static const double PAGE_LARGEST = 35;
+  // Page Gutters (Mobile Standard)
+  static const double PAGE_XS = 12;
+  static const double PAGE_SM = 16;
+  static const double PAGE_MD = 24;
+  static const double PAGE_LG = 32;
+  static const double PAGE_XL = 40;
 
-  static const double SECTION_SMALL = 11;
-  static const double SECTION_SMALLEST = 8;
-  static const double SECTION_MID = 16;
-  static const double SECTION_LARGE = 20;
+  // Section Spacing
+  static const double SECTION_XS = 8;
+  static const double SECTION_SM = 12;
+  static const double SECTION_MD = 16;
+  static const double SECTION_LG = 24;
 
-  static const double SPACE_SMALL = 8;
-  static const double SPACE_SMALLEST = 5;
-  static const double SPACE_MID = 14;
-  static const double SPACE_LARGE = 17;
-  static const double SPACE_LARGEST = 20;
+  // General Spacing (Gaps)
+  static const double SPACE_XS = 4;
+  static const double SPACE_SM = 8;
+  static const double SPACE_MD = 12;
+  static const double SPACE_LG = 16;
+  static const double SPACE_XL = 24;
 
-  static const double TITLE_SMALL = 8;
-  static const double TITLE_SMALLEST = 6;
-  static const double TITLE_MID = 11;
-  static const double TITLE_LARGE = 14;
+  // Title Spacing
+  static const double TITLE_XS = 4;
+  static const double TITLE_SM = 8;
+  static const double TITLE_MD = 12;
+  static const double TITLE_LG = 16;
 }

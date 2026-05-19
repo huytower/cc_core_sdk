@@ -100,7 +100,7 @@ class CcThemes {
     ),
     scaffoldBackgroundColor: Colors.white,
     cardColor: Colors.black,
-    dividerColor: PrjColorsSimple.divider,
+    dividerColor: PrjColors.outline,
     fontFamily: fontFamily,
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark,

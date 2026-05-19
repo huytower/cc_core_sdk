@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import '../../core/helper/widget_helper.dart';
 
 class ShadowWidget extends StatelessWidget {
-  const ShadowWidget(this.widget,
-      {Key? key,
-      this.bgColor,
-      this.shadowColor,
-      this.borderRadius,
-      this.elevation = 8})
-      : super(key: key);
+  const ShadowWidget(
+    this.widget, {
+    Key? key,
+    this.bgColor,
+    this.shadowColor,
+    this.borderRadius,
+    this.elevation = 8,
+  }) : super(key: key);
 
   final BorderRadius? borderRadius;
 
@@ -22,13 +23,13 @@ class ShadowWidget extends StatelessWidget {
 
   @override
   Align build(context) => Align(
-        alignment: Alignment.center,
-        child: Material(
-          borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
-          color: bgColor ?? BaseColors.white_80,
-          elevation: elevation,
-          shadowColor: shadowColor ?? BaseColors.pink_30,
-          child: widget,
-        ),
-      );
+    alignment: Alignment.center,
+    child: Material(
+      borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
+      color: bgColor ?? BaseColors.white80,
+      elevation: elevation,
+      shadowColor: shadowColor ?? BaseColors.brand300,
+      child: widget,
+    ),
+  );
 }

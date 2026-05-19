@@ -11,12 +11,12 @@ class SectionTitleWidget extends StatelessWidget {
   Widget build(c) => title.isNotEmpty
       ? Container(
           width: Get.width,
-          height: CcPaddingParams.SECTION_SMALL,
+          height: CcPaddingParams.SECTION_SM,
           margin: const EdgeInsets.only(
             bottom: 0,
-            left: CcPaddingParams.SECTION_SMALL,
-            right: CcPaddingParams.SECTION_SMALL,
-            top: CcPaddingParams.SECTION_SMALL,
+            left: CcPaddingParams.SECTION_SM,
+            right: CcPaddingParams.SECTION_SM,
+            top: CcPaddingParams.SECTION_SM,
           ),
           child: RichText(
             text: TextSpan(
@@ -31,7 +31,5 @@ class SectionTitleWidget extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
         )
-      : const SizedBox(
-          height: CcPaddingParams.PAGE_MID,
-        );
+      : const SizedBox(height: CcPaddingParams.PAGE_MD);
 }

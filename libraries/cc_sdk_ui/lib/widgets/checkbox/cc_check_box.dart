@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class CcCheckBox extends StatelessWidget {
   const CcCheckBox({Key? key, required this.onPress, required this.isChecked})
-      : super(key: key);
+    : super(key: key);
 
   final VoidCallback onPress;
 
@@ -13,26 +13,27 @@ class CcCheckBox extends StatelessWidget {
 
   @override
   CcPadding build(c) => CcPadding(
-      Material(
+    Material(
+      color: Colors.transparent,
+      child: Container(
         color: Colors.transparent,
-        child: Container(
-          color: Colors.transparent,
-          width: 25,
-          child: IconButton(
-            onPressed: onPress,
-            icon: Icon(
-              isChecked ? Icons.check : Icons.radio_button_unchecked,
-              size: 20,
-              color: isChecked ? BaseColors.blue : Colors.black,
-            ),
-            color: Colors.transparent,
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
+        width: 25,
+        child: IconButton(
+          onPressed: onPress,
+          icon: Icon(
+            isChecked ? Icons.check : Icons.radio_button_unchecked,
+            size: 20,
+            color: isChecked ? BaseColors.info : Colors.black,
           ),
+          color: Colors.transparent,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         ),
       ),
-      0,
-      CcPaddingParams.PAGE_MID,
-      0,
-      0);
+    ),
+    0,
+    CcPaddingParams.PAGE_MD,
+    0,
+    0,
+  );
 }

@@ -41,8 +41,8 @@ Run command line :
 
 ```
     environment:
-        sdk: '>=3.4.0 <4.0.0'
-        flutter: ">=1.17.0"
+        sdk: '>=3.9.0'
+        flutter: ">=3.35.0"
 ```
 
 **Refs.**
@@ -103,7 +103,7 @@ define in file path : `/${prj_name}/android/app/build.gradle`
 
 ```
     ex.
-    classpath 'com.android.tools.build:gradle:7.2.2'
+    classpath 'com.android.tools.build:gradle:8.10.1'
 ```
 
 **Refs.**
@@ -116,7 +116,7 @@ define in file path : `/${prj_name}/android/app/build.gradle`
 
 ```
     ex.
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '2.1.0'
 ```
 
 **Refs.**
@@ -138,8 +138,8 @@ minSdkVersion 19    - Android 4.4
 Update `latest sdk` version if existed
 
 ```
-targetSdkVersion 36
-compileSdkVersion 36
+targetSdkVersion 37
+compileSdkVersion 37
 ```
 
 ![](/docs/os_usage/user_usage_android.jpg)
@@ -180,7 +180,7 @@ in the file path : `/${prj_name}/ios/Podfile`
 
 ```
     ex.
-    platform :ios, '11.0'
+    platform :ios, '12.0'
 ```
 
 ![](/docs/os_usage/user_usage_ios.png)

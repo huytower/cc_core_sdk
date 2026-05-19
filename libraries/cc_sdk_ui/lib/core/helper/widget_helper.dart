@@ -21,24 +21,23 @@ class WidgetHelper {
     double? blurRadius,
     double? spreadRadius,
     Color? bgColor,
-  }) =>
-      [
-        /// 2 - drop background of child widget
-        BoxShadow(
-          color: shadowColor ?? BaseColors.black_30,
-          spreadRadius: spreadRadius ?? 0.0,
-          blurRadius: blurRadius ?? 3.0,
-          offset: Offset(x ?? 2.0, y ?? 2.0),
-        ),
+  }) => [
+    /// 2 - drop background of child widget
+    BoxShadow(
+      color: shadowColor ?? BaseColors.textDisabled,
+      spreadRadius: spreadRadius ?? 0.0,
+      blurRadius: blurRadius ?? 3.0,
+      offset: Offset(x ?? 2.0, y ?? 2.0),
+    ),
 
-        /// 1 - below background of child widget,
-        BoxShadow(
-          color: bgColor ?? Colors.white,
-          spreadRadius: 0,
-          blurRadius: 0,
-          offset: Offset.zero,
-        ),
-      ];
+    /// 1 - below background of child widget,
+    BoxShadow(
+      color: bgColor ?? Colors.white,
+      spreadRadius: 0,
+      blurRadius: 0,
+      offset: Offset.zero,
+    ),
+  ];
 
   static BorderRadius getCircleBorderRadius() => BorderRadius.circular(45);
 
@@ -73,8 +72,9 @@ class WidgetHelper {
           /// clipped splash
           onTap: onTap,
           // splashColor: BaseColors.white_30,
-          splashColor:
-              Platform.isAndroid ? BaseColors.black_5 : Colors.transparent,
+          splashColor: Platform.isAndroid
+              ? BaseColors.neutral5
+              : Colors.transparent,
           borderRadius: borderRadius ?? getCircleBorderRadius(),
 
           /// MUST define to avoid bug can not focus first item in list
@@ -103,8 +103,9 @@ class WidgetHelper {
           child: InkWell(
             /// clipped splash
             onTap: onTap,
-            splashColor:
-                Platform.isAndroid ? BaseColors.black_5 : Colors.transparent,
+            splashColor: Platform.isAndroid
+                ? BaseColors.neutral5
+                : Colors.transparent,
             // splashColor: BaseColors.black_5,
             borderRadius: borderRadius ?? getCircleBorderRadius(),
 
@@ -138,18 +139,17 @@ class WidgetHelper {
     FontWeight? fontWeight,
     double? heightLine,
     GestureRecognizer? recognizer,
-  }) =>
-      TextSpan(
-        recognizer: recognizer,
-        style: getTextStyleMontserrat(
-          color: color,
-          heightLine: heightLine,
-          fontWeight: fontWeight,
-          fontSize: fontSize,
-          fontStyle: fontStyle,
-        ),
-        text: text,
-      );
+  }) => TextSpan(
+    recognizer: recognizer,
+    style: getTextStyleMontserrat(
+      color: color,
+      heightLine: heightLine,
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+      fontStyle: fontStyle,
+    ),
+    text: text,
+  );
 
   /// Light text style
   static TextStyle getTextStyleMontserrat({
@@ -158,14 +158,13 @@ class WidgetHelper {
     FontWeight? fontWeight,
     double? fontSize,
     FontStyle? fontStyle,
-  }) =>
-      GoogleFonts.montserrat(
-        color: color ?? Colors.white,
-        height: heightLine ?? 1.2,
-        fontWeight: fontWeight ?? FontWeight.w400,
-        fontSize: fontSize ?? 14.0,
-        fontStyle: fontStyle ?? FontStyle.normal,
-      );
+  }) => GoogleFonts.montserrat(
+    color: color ?? Colors.white,
+    height: heightLine ?? 1.2,
+    fontWeight: fontWeight ?? FontWeight.w400,
+    fontSize: fontSize ?? 14.0,
+    fontStyle: fontStyle ?? FontStyle.normal,
+  );
 
   /// Special text span
   static TextSpan getTextSpanPacifico(
@@ -176,18 +175,17 @@ class WidgetHelper {
     FontWeight? fontWeight,
     double? heightLine,
     GestureRecognizer? recognizer,
-  }) =>
-      TextSpan(
-        recognizer: recognizer,
-        style: getTextStylePacifico(
-          color: color,
-          heightLine: heightLine,
-          fontWeight: fontWeight,
-          fontSize: fontSize,
-          fontStyle: fontStyle,
-        ),
-        text: text,
-      );
+  }) => TextSpan(
+    recognizer: recognizer,
+    style: getTextStylePacifico(
+      color: color,
+      heightLine: heightLine,
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+      fontStyle: fontStyle,
+    ),
+    text: text,
+  );
 
   /// Special text style
   static TextStyle getTextStylePacifico({
@@ -196,14 +194,13 @@ class WidgetHelper {
     FontWeight? fontWeight,
     double? fontSize,
     FontStyle? fontStyle,
-  }) =>
-      GoogleFonts.pacifico(
-        color: color ?? Colors.white,
-        height: heightLine ?? 1.2,
-        fontWeight: fontWeight ?? FontWeight.w400,
-        fontSize: fontSize ?? 14.0,
-        fontStyle: fontStyle ?? FontStyle.normal,
-      );
+  }) => GoogleFonts.pacifico(
+    color: color ?? Colors.white,
+    height: heightLine ?? 1.2,
+    fontWeight: fontWeight ?? FontWeight.w400,
+    fontSize: fontSize ?? 14.0,
+    fontStyle: fontStyle ?? FontStyle.normal,
+  );
 
   /// Normal text span
   static TextSpan getTextSpanRoboto(
@@ -214,18 +211,17 @@ class WidgetHelper {
     FontWeight? fontWeight,
     double? heightLine,
     GestureRecognizer? recognizer,
-  }) =>
-      TextSpan(
-        recognizer: recognizer,
-        style: getTextStyleRoboto(
-          fontWeight: fontWeight,
-          heightLine: heightLine,
-          color: color,
-          fontSize: fontSize,
-          fontStyle: fontStyle,
-        ),
-        text: text,
-      );
+  }) => TextSpan(
+    recognizer: recognizer,
+    style: getTextStyleRoboto(
+      fontWeight: fontWeight,
+      heightLine: heightLine,
+      color: color,
+      fontSize: fontSize,
+      fontStyle: fontStyle,
+    ),
+    text: text,
+  );
 
   static TextSpan getTextSpanMali(
     String text, {
@@ -235,18 +231,17 @@ class WidgetHelper {
     FontWeight? fontWeight,
     double? heightLine,
     GestureRecognizer? recognizer,
-  }) =>
-      TextSpan(
-        recognizer: recognizer,
-        style: getTextStyleMali(
-          fontWeight: fontWeight,
-          heightLine: heightLine,
-          color: color,
-          fontSize: fontSize,
-          fontStyle: fontStyle,
-        ),
-        text: text,
-      );
+  }) => TextSpan(
+    recognizer: recognizer,
+    style: getTextStyleMali(
+      fontWeight: fontWeight,
+      heightLine: heightLine,
+      color: color,
+      fontSize: fontSize,
+      fontStyle: fontStyle,
+    ),
+    text: text,
+  );
 
   /// Normal text style
   static TextStyle getTextStyleRoboto({
@@ -255,14 +250,13 @@ class WidgetHelper {
     FontWeight? fontWeight,
     double? fontSize,
     FontStyle? fontStyle,
-  }) =>
-      GoogleFonts.roboto(
-        fontWeight: fontWeight ?? FontWeight.w400,
-        height: heightLine ?? 1.2,
-        color: color ?? Colors.white,
-        fontSize: fontSize ?? 14,
-        fontStyle: fontStyle ?? FontStyle.normal,
-      );
+  }) => GoogleFonts.roboto(
+    fontWeight: fontWeight ?? FontWeight.w400,
+    height: heightLine ?? 1.2,
+    color: color ?? Colors.white,
+    fontSize: fontSize ?? 14,
+    fontStyle: fontStyle ?? FontStyle.normal,
+  );
 
   static TextStyle getTextStyleMali({
     Color? color,
@@ -270,14 +264,13 @@ class WidgetHelper {
     FontWeight? fontWeight,
     double? fontSize,
     FontStyle? fontStyle,
-  }) =>
-      GoogleFonts.mali(
-        fontWeight: fontWeight ?? FontWeight.w400,
-        height: heightLine ?? 1.2,
-        color: color ?? Colors.white,
-        fontSize: fontSize ?? 14,
-        fontStyle: fontStyle ?? FontStyle.normal,
-      );
+  }) => GoogleFonts.mali(
+    fontWeight: fontWeight ?? FontWeight.w400,
+    height: heightLine ?? 1.2,
+    color: color ?? Colors.white,
+    fontSize: fontSize ?? 14,
+    fontStyle: fontStyle ?? FontStyle.normal,
+  );
 
   /// Check orientation is portrait|landscape?
   /// Returns null if context is not available
@@ -293,10 +286,7 @@ class WidgetHelper {
 
   /// Check device has Notch
   /// ex. iphone x and above ...
-  static bool isSafeScreenExisted(
-    double paddingBottom,
-    double viewPaddingTop,
-  ) {
+  static bool isSafeScreenExisted(double paddingBottom, double viewPaddingTop) {
     return paddingBottom >= 20.0 || viewPaddingTop >= 40.0;
   }
 
@@ -420,7 +410,8 @@ class WidgetHelper {
   /// Returns true if scroll was successful, false otherwise
   static bool scrollToTop(ScrollController scrollController) {
     try {
-      if (scrollController.hasClients && scrollController.position.hasContentDimensions) {
+      if (scrollController.hasClients &&
+          scrollController.position.hasContentDimensions) {
         scrollController.animateTo(
           0,
           curve: Curves.easeOut,

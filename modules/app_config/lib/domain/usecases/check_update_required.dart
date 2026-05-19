@@ -1,5 +1,5 @@
-import 'package:cc_sdk/core/exception/app_config_exception.dart';
-import 'package:cc_sdk/core/exception/error/failure.dart';
+import 'package:cc_sdk/core/failure/app_config/app_config_failure.dart';
+import 'package:cc_sdk/core/failure/failure.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../repositories/app_config_repository.dart';

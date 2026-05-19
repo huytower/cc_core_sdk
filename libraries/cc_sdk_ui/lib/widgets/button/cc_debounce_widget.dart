@@ -59,57 +59,56 @@ class CcDebounce extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Visibility(
-        visible: isVisible,
-        child: Bounceable(
-          onTap: onTap,
-          child: buildBody(),
-        ),
-      );
+    visible: isVisible,
+    child: Bounceable(onTap: onTap, child: buildBody()),
+  );
 
   Widget buildBody() =>
       child ??
       Container(
-          width: width ?? Get.width,
-          height: height ?? 45,
-          alignment: Alignment.center,
-          decoration: decoration ?? buildDecoration(),
-          margin: margin ??
-              EdgeInsets.only(
-                  left: CcPaddingParams.PAGE_MID,
-                  right: CcPaddingParams.PAGE_MID),
-          child: icon != null ? buildIconRow() : buildBtnText());
+        width: width ?? Get.width,
+        height: height ?? 45,
+        alignment: Alignment.center,
+        decoration: decoration ?? buildDecoration(),
+        margin:
+            margin ??
+            EdgeInsets.only(
+              left: CcPaddingParams.PAGE_MD,
+              right: CcPaddingParams.PAGE_MD,
+            ),
+        child: icon != null ? buildIconRow() : buildBtnText(),
+      );
 
   CcText buildBtnText() => CcText(
-        title,
-        align: isTextCenter ? Alignment.center : Alignment.centerLeft,
-        color: isEnable ? textColor : BaseColors.black_50,
-        fontSize: fontSize ?? 16.0,
-        fontWeight: FontWeight.w500,
-        textAlign: isTextCenter ? TextAlign.center : TextAlign.left,
-      );
+    title,
+    align: isTextCenter ? Alignment.center : Alignment.centerLeft,
+    color: isEnable ? textColor : BaseColors.textSecondary,
+    fontSize: fontSize ?? 16.0,
+    fontWeight: FontWeight.w500,
+    textAlign: isTextCenter ? TextAlign.center : TextAlign.left,
+  );
 
   BoxDecoration buildDecoration() => BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: bgColor ?? [BaseColors.pink_70, BaseColors.pink_70],
-        ),
-        borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
-      );
+    gradient: LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: bgColor ?? [BaseColors.brand700, BaseColors.brand700],
+    ),
+    borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
+  );
 
-  Widget buildIcon() => Icon(
-        icon,
-        size: 15,
-        color: iconColor ?? BaseColors.white_80,
-      );
+  Widget buildIcon() =>
+      Icon(icon, size: 15, color: iconColor ?? BaseColors.white80);
 
-  Widget buildIconRow() => CcRowCenter(children: [
-        /// icon
-        buildIcon(),
+  Widget buildIconRow() => CcRowCenter(
+    children: [
+      /// icon
+      buildIcon(),
 
-        const CcSpaceSmall(),
+      const CcSpaceSmall(),
 
-        /// text
-        buildBtnText(),
-      ]);
+      /// text
+      buildBtnText(),
+    ],
+  );
 }

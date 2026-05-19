@@ -84,25 +84,18 @@ class HeaderWidget extends StatelessWidget {
                         screenWidth: screenWidth,
                         bottomPadding: bottomPadding,
                       );
-                      return SizedBox(
-                        width: isLarge ? 16.5 : 12.0,
-                      );
+                      return SizedBox(width: isLarge ? 16.5 : 12.0);
                     },
                   ),
 
                   /// Back button
                   Opacity(
                     opacity: isBackButtonVisible ? 1.0 : 0.0,
-                    child: CcBackAssetBtn(
-                      iconBackAssetRes!,
-                      onTap: onTapBack!,
-                    ),
+                    child: CcBackAssetBtn(iconBackAssetRes!, onTap: onTapBack!),
                   ),
 
                   /// Title
-                  Expanded(
-                    child: getTitlePageWidget(),
-                  ),
+                  Expanded(child: getTitlePageWidget()),
                 ],
               ),
             ),
@@ -124,48 +117,44 @@ class HeaderWidget extends StatelessWidget {
           right: 0,
           bottom: 0,
           child: CcPadding(
-              GestureDetector(
-                onTap: onTapAtRightButton!,
-                behavior: HitTestBehavior.translucent,
-                child: SizedBox(
-                  width: 103,
-                  height: 76,
-                  // color: Colors.red,
-                  child: Center(
-                    child: CcText(
-                      'Bỏ qua',
-                      color: BaseColors.gray,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      textAlign: TextAlign.center,
-                      align: Alignment.center,
-                    ),
+            GestureDetector(
+              onTap: onTapAtRightButton!,
+              behavior: HitTestBehavior.translucent,
+              child: SizedBox(
+                width: 103,
+                height: 76,
+                // color: Colors.red,
+                child: Center(
+                  child: CcText(
+                    'Bỏ qua',
+                    color: BaseColors.surfaceVariant,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                    align: Alignment.center,
                   ),
                 ),
               ),
-              0,
-              CcPaddingParams.PAGE_LARGE,
-              0,
-              0))
+            ),
+            0,
+            CcPaddingParams.PAGE_LG,
+            0,
+            0,
+          ),
+        )
       : const SizedBox();
 
   Widget getIconPageWidget(BuildContext context) => CcPositionBottom(
-        bottom: getSpaceBottom(context),
-        child: iconPageAssetRes != null
-            ? getImageResWidget(iconPageAssetRes!)
-            : const SizedBox(),
-      );
+    bottom: getSpaceBottom(context),
+    child: iconPageAssetRes != null
+        ? getImageResWidget(iconPageAssetRes!)
+        : const SizedBox(),
+  );
 
   Widget getImageResWidget(String iconPageAssetRes) =>
       ImageUtils.isSvgExtension(iconPageAssetRes)
-          ? SvgPicture.asset(
-              iconPageAssetRes,
-            )
-          : Image.asset(
-              iconPageAssetRes,
-              height: 35,
-              fit: BoxFit.contain,
-            );
+      ? SvgPicture.asset(iconPageAssetRes)
+      : Image.asset(iconPageAssetRes, height: 35, fit: BoxFit.contain);
 
   double getSpaceBottom(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -185,10 +174,10 @@ class HeaderWidget extends StatelessWidget {
   }
 
   Widget getTitlePageWidget() => CcText(
-        title,
-        fontSize: 24,
-        align: Alignment.center,
-        textAlign: TextAlign.center,
-        fontWeight: FontWeight.w500,
-      );
+    title,
+    fontSize: 24,
+    align: Alignment.center,
+    textAlign: TextAlign.center,
+    fontWeight: FontWeight.w500,
+  );
 }

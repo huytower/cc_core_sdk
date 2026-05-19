@@ -7,7 +7,7 @@ import '../padding/cc_padding.dart';
 /// vertical divider, small vertical divider_line ui
 class CcDividerLine extends StatelessWidget {
   const CcDividerLine({Key? key, this.color, this.height, this.padding})
-      : super(key: key);
+    : super(key: key);
 
   final double? padding, height;
 
@@ -15,15 +15,16 @@ class CcDividerLine extends StatelessWidget {
 
   @override
   CcPadding build(c) => CcPadding(
-      Divider(
-        height: height ?? 0.5,
-        color: color ?? BaseColors.white_10,
-        thickness: 1,
-      ),
-      0,
-      padding ?? 0.0,
-      padding ?? 0.0,
-      0);
+    Divider(
+      height: height ?? 0.5,
+      color: color ?? BaseColors.white10,
+      thickness: 1,
+    ),
+    0,
+    padding ?? 0.0,
+    padding ?? 0.0,
+    0,
+  );
 }
 
 class CcDividerHorizontalLine extends StatelessWidget {
@@ -41,13 +42,14 @@ class CcDividerHorizontalLine extends StatelessWidget {
 
   @override
   CcPadding build(c) => CcPadding(
-      Container(
-        width: width ?? 0.1,
-        height: height ?? 45.0,
-        color: color ?? BaseColors.white_15,
-      ),
-      0,
-      padding ?? 0.0,
-      padding ?? 0.0,
-      0);
+    Container(
+      width: width ?? 0.1,
+      height: height ?? 45.0,
+      color: color ?? BaseColors.white15,
+    ),
+    0,
+    padding ?? 0.0,
+    padding ?? 0.0,
+    0,
+  );
 }

@@ -1,6 +1,6 @@
 import 'dart:io' show Platform;
 
-import 'package:cc_sdk/core/exception/app_config_exception.dart';
+import 'package:cc_sdk/core/failure/app_config/app_config_failure.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../app/cc_app_config.dart';
@@ -24,10 +24,7 @@ abstract class HttpBase extends Equatable {
   ///
   /// [isLogger] - Whether general application logging is enabled
   /// [isEnableLoggerDio] - Whether Dio HTTP client logging is enabled
-  const HttpBase({
-    required this.isLogger,
-    required this.isEnableLoggerDio,
-  });
+  const HttpBase({required this.isLogger, required this.isEnableLoggerDio});
 
   /// The current API version.
   ///
@@ -87,21 +84,21 @@ abstract class HttpBase extends Equatable {
 
   @override
   List<Object?> get props => [
-        CcAppConfig.VERSION_IOS,
-        CcAppConfig.VERSION_ANDROID,
-        versionApi,
-        isLogger,
-        isEnableLoggerDio,
-        baseUrl,
-        apiTimeoutSeconds,
-        maxRetries,
-        retryDelayMs,
-        isEnvDev,
-        isEnvPro,
-        isEnvUat,
-        isEnvFree,
-        environmentName,
-      ];
+    CcAppConfig.VERSION_IOS,
+    CcAppConfig.VERSION_ANDROID,
+    versionApi,
+    isLogger,
+    isEnableLoggerDio,
+    baseUrl,
+    apiTimeoutSeconds,
+    maxRetries,
+    retryDelayMs,
+    isEnvDev,
+    isEnvPro,
+    isEnvUat,
+    isEnvFree,
+    environmentName,
+  ];
 
   @override
   bool? get stringify => true;
@@ -113,25 +110,25 @@ abstract class HttpBase extends Equatable {
   /// This method should be called during app initialization to catch
   /// configuration issues early.
   ///
-  /// Throws [AppConfigException] if any required configuration is missing or invalid.
+  /// Throws [AppConfigFailure] if any required configuration is missing or invalid.
   ///
   /// Example:
   /// ```dart
   /// try {
   ///   http.validate();
-  /// } on AppConfigException catch (e) {
+  /// } on AppConfigFailure catch (e) {
   ///   // Handle configuration error
   /// }
   /// ```
   void validate() {
     // Validate baseUrl
     if (baseUrl.isEmpty) {
-      throw const MissingConfigException('baseUrl');
+      throw const MissingConfigFailure('baseUrl');
     }
 
     // Validate URL format
     if (!baseUrl.startsWith('http')) {
-      throw MissingConfigException(
+      throw MissingConfigFailure(
         'baseUrl',
         message: 'Must start with http:// or https://',
       );
@@ -139,7 +136,7 @@ abstract class HttpBase extends Equatable {
 
     // Validate timeouts
     if (apiTimeoutSeconds <= 0) {
-      throw MissingConfigException(
+      throw MissingConfigFailure(
         'apiTimeoutSeconds',
         message: 'Must be greater than 0',
       );
@@ -149,7 +146,7 @@ abstract class HttpBase extends Equatable {
     if (isEnvPro &&
         baseUrl.startsWith('http://') &&
         !baseUrl.contains('localhost')) {
-      throw SecurityConfigException(
+      throw SecurityConfigFailure(
         'Insecure HTTP protocol detected in production env',
         key: 'baseUrl',
         securityRule: 'insecure_protocol',
@@ -165,10 +162,10 @@ abstract class HttpBase extends Equatable {
   ///
   /// Returns [Map<String, String>] of default headers
   Map<String, String> get apiHeaders => {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-App-Version': versionApi.toString(),
-        'X-Platform':
-            '${Platform.isAndroid ? 'Android' : 'iOS'}-${Platform.operatingSystemVersion}',
-      };
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'X-App-Version': versionApi.toString(),
+    'X-Platform':
+        '${Platform.isAndroid ? 'Android' : 'iOS'}-${Platform.operatingSystemVersion}',
+  };
 }

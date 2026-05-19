@@ -4,9 +4,13 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class AppNameWidget extends StatelessWidget {
-  const AppNameWidget(this.name,
-      {Key? key, this.color, this.fontSize, this.maxLines})
-      : super(key: key);
+  const AppNameWidget(
+    this.name, {
+    Key? key,
+    this.color,
+    this.fontSize,
+    this.maxLines,
+  }) : super(key: key);
 
   final String name;
   final Color? color;
@@ -15,11 +19,11 @@ class AppNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CcText(
-        name,
-        align: Alignment.center,
-        color: color ?? BaseColors.black_40,
-        heightLine: 1.4,
-        fontSize: fontSize ?? 32.0,
-        maxLines: maxLines ?? 3,
-      );
+    name,
+    align: Alignment.center,
+    color: color ?? BaseColors.neutral40,
+    heightLine: 1.4,
+    fontSize: fontSize ?? 32.0,
+    maxLines: maxLines ?? 3,
+  );
 }

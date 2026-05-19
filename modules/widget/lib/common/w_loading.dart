@@ -12,13 +12,11 @@ class wLoading extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: new BorderRadius.all(const Radius.circular(7.0)),
-            color: PrjColors.grey,
+            color: PrjColors.outlineVariant,
           ),
           height: 50,
           width: 50,
-          child: CupertinoActivityIndicator(
-            radius: 12,
-          ),
+          child: CupertinoActivityIndicator(radius: 12),
         ),
       ),
     );

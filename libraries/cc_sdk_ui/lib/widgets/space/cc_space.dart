@@ -7,32 +7,30 @@ class CcSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_MID,
-        width: CcPaddingParams.SPACE_MID,
-      );
+    height: CcPaddingParams.SPACE_MD,
+    width: CcPaddingParams.SPACE_MD,
+  );
 }
 
 class CcSpaceFooter extends StatelessWidget {
   const CcSpaceFooter({Key? key}) : super(key: key);
 
   @override
-  Widget build(c) => const SizedBox(
-        height: CcPaddingParams.SPACE_LARGEST * 3,
-      );
+  Widget build(c) => const SizedBox(height: CcPaddingParams.SPACE_XL * 3);
 }
 
 class CcSpaceFooterAppName extends StatelessWidget {
   const CcSpaceFooterAppName({Key? key}) : super(key: key);
 
   @override
-  Widget build(c) => const SizedBox(height: CcPaddingParams.SPACE_LARGEST);
+  Widget build(c) => const SizedBox(height: CcPaddingParams.SPACE_XL);
 }
 
 class CcSpaceHeader extends StatelessWidget {
   const CcSpaceHeader({Key? key}) : super(key: key);
 
   @override
-  Widget build(c) => const SizedBox(height: CcPaddingParams.SPACE_LARGEST * 2);
+  Widget build(c) => const SizedBox(height: CcPaddingParams.SPACE_XL * 2);
 }
 
 class CcSpaceLarge extends StatelessWidget {
@@ -40,9 +38,9 @@ class CcSpaceLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_LARGE,
-        width: CcPaddingParams.SPACE_LARGE,
-      );
+    height: CcPaddingParams.SPACE_LG,
+    width: CcPaddingParams.SPACE_LG,
+  );
 }
 
 class CcSpaceSmall extends StatelessWidget {
@@ -50,9 +48,9 @@ class CcSpaceSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_SMALL,
-        width: CcPaddingParams.SPACE_SMALL,
-      );
+    height: CcPaddingParams.SPACE_SM,
+    width: CcPaddingParams.SPACE_SM,
+  );
 }
 
 class CcSpaceSmallest extends StatelessWidget {
@@ -60,7 +58,7 @@ class CcSpaceSmallest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_SMALLEST,
-        width: CcPaddingParams.SPACE_SMALLEST,
-      );
+    height: CcPaddingParams.SPACE_XS,
+    width: CcPaddingParams.SPACE_XS,
+  );
 }

@@ -7,7 +7,7 @@ import '../../core/theme/base_colors.dart';
 
 class ContainerRoundedCorner extends StatelessWidget {
   const ContainerRoundedCorner({Key? key, this.height, this.color})
-      : super(key: key);
+    : super(key: key);
 
   final Color? color;
 
@@ -15,15 +15,17 @@ class ContainerRoundedCorner extends StatelessWidget {
 
   @override
   Widget build(c) => Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: color ?? BaseColors.white_80,
-            borderRadius: WidgetHelper.getBorderRoundedSmall(),
-          ),
-          width: Get.width,
-          height: height ?? 40,
-          margin: const EdgeInsets.only(
-              left: CcPaddingParams.PAGE_MID, right: CcPaddingParams.PAGE_MID),
-        ),
-      );
+    child: Container(
+      decoration: BoxDecoration(
+        color: color ?? BaseColors.white80,
+        borderRadius: WidgetHelper.getBorderRoundedSmall(),
+      ),
+      width: Get.width,
+      height: height ?? 40,
+      margin: const EdgeInsets.only(
+        left: CcPaddingParams.PAGE_MD,
+        right: CcPaddingParams.PAGE_MD,
+      ),
+    ),
+  );
 }

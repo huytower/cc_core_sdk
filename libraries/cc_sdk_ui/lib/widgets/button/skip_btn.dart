@@ -36,10 +36,11 @@ class SkipBtn extends StatelessWidget {
       ? Container(
           height: height,
           margin: EdgeInsets.only(
-              bottom: isHover ? CcPaddingParams.PAGE_LARGE : 0.0,
-              left: isHover ? CcPaddingParams.PAGE_LARGE : 0.0,
-              right: isHover ? CcPaddingParams.PAGE_LARGE : 0.0,
-              top: isHover ? CcPaddingParams.PAGE_LARGE : 0.0),
+            bottom: isHover ? CcPaddingParams.PAGE_LG : 0.0,
+            left: isHover ? CcPaddingParams.PAGE_LG : 0.0,
+            right: isHover ? CcPaddingParams.PAGE_LG : 0.0,
+            top: isHover ? CcPaddingParams.PAGE_LG : 0.0,
+          ),
           child: isHover
               ? ButtonInkWellClipWidget(
                   aspectRatio: aspectRatio,
@@ -51,11 +52,11 @@ class SkipBtn extends StatelessWidget {
       : const SizedBox();
 
   Widget getDataWidget() => CcText(
-        text,
-        align: align,
-        color: BaseColors.gray,
-        fontSize: fontSize,
-        fontWeight: FontWeight.w500,
-        textAlign: textAlign,
-      );
+    text,
+    align: align,
+    color: BaseColors.surfaceVariant,
+    fontSize: fontSize,
+    fontWeight: FontWeight.w500,
+    textAlign: textAlign,
+  );
 }

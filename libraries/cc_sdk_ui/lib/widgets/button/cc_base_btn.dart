@@ -1,11 +1,11 @@
-import '../../core/theme/base_colors.dart';
-import '../flex/cc_row_center.dart';
-import '../inkwell/button_inkwell_widget.dart';
-import '../text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/helper/widget_helper.dart';
+import '../../core/theme/base_colors.dart';
+import '../flex/cc_row_center.dart';
+import '../inkwell/button_inkwell_widget.dart';
+import '../text/cc_text.dart';
 
 class CcSplashBtn extends StatelessWidget {
   const CcSplashBtn(
@@ -49,24 +49,24 @@ class CcSplashBtn extends StatelessWidget {
   Widget build(c) => CcShadowBtn(getContainerWidget(), color: shadowColor);
 
   BoxConstraints getConstraints() => BoxConstraints(
-        maxWidth: maxWidth ?? Get.width,
-        maxHeight: maxHeight ?? 44.5,
-        minHeight: maxHeight ?? 44.5,
-      );
+    maxWidth: maxWidth ?? Get.width,
+    maxHeight: maxHeight ?? 44.5,
+    minHeight: maxHeight ?? 44.5,
+  );
 
   Widget getContainerWidget() => ButtonInkWellCircleWidget(
-        onTap: onTap,
-        child: Align(
-          alignment: Alignment.center,
-          child: ConstrainedBox(
-            constraints: getConstraints(),
-            child: DecoratedBox(
-              decoration: getDecoration(),
-              child: getDataWidget(),
-            ),
-          ),
+    onTap: onTap,
+    child: Align(
+      alignment: Alignment.center,
+      child: ConstrainedBox(
+        constraints: getConstraints(),
+        child: DecoratedBox(
+          decoration: getDecoration(),
+          child: getDataWidget(),
         ),
-      );
+      ),
+    ),
+  );
 
   Widget getDataWidget() => (icon == null && child == null)
       ? getTextWidget()
@@ -76,40 +76,33 @@ class CcSplashBtn extends StatelessWidget {
             Expanded(flex: 1, child: getIconWidget()),
 
             /// Section : Text
-            Expanded(
-              flex: 2,
-              child: getTextWidget(),
-            ),
+            Expanded(flex: 2, child: getTextWidget()),
           ],
         );
 
   BoxDecoration getDecoration() => BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: bgColor ?? [BaseColors.black_70, BaseColors.black_70],
-        ),
-        borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
-      );
+    gradient: LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: bgColor ?? [BaseColors.neutral70, BaseColors.neutral70],
+    ),
+    borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
+  );
 
   Widget getIconWidget() => ConstrainedBox(
-      constraints: BoxConstraints(minWidth: 60),
-      child: child ??
-          Icon(
-            icon,
-            size: 20,
-            color: iconColor,
-          ));
+    constraints: BoxConstraints(minWidth: 60),
+    child: child ?? Icon(icon, size: 20, color: iconColor),
+  );
 
   Widget getTextWidget() => CcText(
-        text,
-        align: isTextCenter ? Alignment.center : Alignment.centerLeft,
-        color: isEnable ? textColor : BaseColors.white,
-        fontSize: fontSize ?? 20.0,
-        fontWeight: FontWeight.w600,
-        heightLine: heightLine ?? 1.2,
-        textAlign: isTextCenter ? TextAlign.center : TextAlign.left,
-      );
+    text,
+    align: isTextCenter ? Alignment.center : Alignment.centerLeft,
+    color: isEnable ? textColor : BaseColors.textInvert,
+    fontSize: fontSize ?? 20.0,
+    fontWeight: FontWeight.w600,
+    heightLine: heightLine ?? 1.2,
+    textAlign: isTextCenter ? TextAlign.center : TextAlign.left,
+  );
 }
 
 class CcNextBtn extends StatelessWidget {
@@ -126,7 +119,7 @@ class CcNextBtn extends StatelessWidget {
     this.borderRadius,
     this.colorsGradient,
     this.fontSize,
-    this.textColor = BaseColors.white,
+    this.textColor = BaseColors.textInvert,
   }) : super(key: key);
 
   final bool isEnable;
@@ -148,31 +141,28 @@ class CcNextBtn extends StatelessWidget {
   Widget build(c) => getContainerWidget();
 
   Widget getContainerWidget() => ButtonInkWellClipWidget(
-        aspectRatio: aspectRatio ?? (72 / 9),
-        onTap: onTap,
-        child: DecoratedBox(
-          decoration: getDecoration(),
-          child: getTextWidget(),
-        ),
-      );
+    aspectRatio: aspectRatio ?? (72 / 9),
+    onTap: onTap,
+    child: DecoratedBox(decoration: getDecoration(), child: getTextWidget()),
+  );
 
   BoxDecoration getDecoration() => BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: colorsGradient ?? [BaseColors.black_70, BaseColors.black_70],
-        ),
-        borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
-      );
+    gradient: LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: colorsGradient ?? [BaseColors.neutral70, BaseColors.neutral70],
+    ),
+    borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
+  );
 
   Widget getTextWidget() => CcText(
-        text,
-        align: Alignment.center,
-        color: isEnable ? textColor : Colors.white,
-        fontSize: fontSize ?? 20.0,
-        fontWeight: FontWeight.w600,
-        textAlign: TextAlign.center,
-      );
+    text,
+    align: Alignment.center,
+    color: isEnable ? textColor : Colors.white,
+    fontSize: fontSize ?? 20.0,
+    fontWeight: FontWeight.w600,
+    textAlign: TextAlign.center,
+  );
 }
 
 class CcBlackShadowBtn extends StatelessWidget {
@@ -182,16 +172,14 @@ class CcBlackShadowBtn extends StatelessWidget {
 
   @override
   Align build(c) => Align(
-        alignment: Alignment.center,
-        child: Material(
-          color: Colors.transparent,
-          elevation: 10,
-          shadowColor: Colors.black38,
-          child: Container(
-            child: widget,
-          ),
-        ),
-      );
+    alignment: Alignment.center,
+    child: Material(
+      color: Colors.transparent,
+      elevation: 10,
+      shadowColor: Colors.black38,
+      child: Container(child: widget),
+    ),
+  );
 }
 
 class CcWhiteShadowBtn extends StatelessWidget {
@@ -201,16 +189,14 @@ class CcWhiteShadowBtn extends StatelessWidget {
 
   @override
   Align build(c) => Align(
-        alignment: Alignment.center,
-        child: Material(
-          color: Colors.transparent,
-          elevation: 10,
-          shadowColor: Colors.white38,
-          child: Container(
-            child: widget,
-          ),
-        ),
-      );
+    alignment: Alignment.center,
+    child: Material(
+      color: Colors.transparent,
+      elevation: 10,
+      shadowColor: Colors.white38,
+      child: Container(child: widget),
+    ),
+  );
 }
 
 class CcShadowBtn extends StatelessWidget {
@@ -222,12 +208,12 @@ class CcShadowBtn extends StatelessWidget {
 
   @override
   Align build(c) => Align(
-        alignment: Alignment.center,
-        child: Material(
-          color: Colors.transparent,
-          elevation: 20,
-          shadowColor: color ?? BaseColors.black_10,
-          child: widget,
-        ),
-      );
+    alignment: Alignment.center,
+    child: Material(
+      color: Colors.transparent,
+      elevation: 20,
+      shadowColor: color ?? BaseColors.shadow,
+      child: widget,
+    ),
+  );
 }
