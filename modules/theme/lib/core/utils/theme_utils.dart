@@ -6,15 +6,25 @@ import '../../presentation/style/cc_text_style.dart';
 
 /// Creates a color scheme based on the provided brightness
 ColorScheme createColorScheme(Brightness brightness) {
-  return ColorScheme(
+  final baseScheme = brightness == Brightness.dark
+      ? const ColorScheme.dark()
+      : const ColorScheme.light();
+
+  return baseScheme.copyWith(
     primary: PrjColors.primary,
+    primaryContainer: PrjColors.primaryContainer,
+    onPrimary: PrjColors.onPrimary,
+    onPrimaryContainer: PrjColors.onPrimaryContainer,
     secondary: PrjColors.secondary,
+    secondaryContainer: PrjColors.secondaryContainer,
+    onSecondary: PrjColors.onSecondary,
+    onSecondaryContainer: PrjColors.onSecondaryContainer,
     surface: PrjColors.surface,
+    surfaceVariant: PrjColors.surfaceVariant,
     background: PrjColors.background,
     error: PrjColors.error,
-    onPrimary: PrjColors.onPrimary,
-    onSecondary: PrjColors.onSecondary,
     onSurface: PrjColors.onSurface,
+    onSurfaceVariant: PrjColors.onSurfaceVariant,
     onBackground: PrjColors.onBackground,
     onError: PrjColors.onError,
     brightness: brightness,

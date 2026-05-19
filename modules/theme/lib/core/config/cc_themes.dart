@@ -14,7 +14,7 @@ import '../../data/data_source/color/prj_color.dart';
 ///
 
 class CcThemes {
-  static final int _primaryColor = PrjColors.blue.value;
+  static final int _primaryColor = PrjColors.primary.value;
 
   static FontStyle? fontStyle = GoogleFonts.roboto().fontStyle;
   static String? fontFamily = GoogleFonts.roboto().fontFamily;
@@ -96,11 +96,26 @@ class CcThemes {
     primarySwatch: primarySwatch,
     brightness: Brightness.light,
     colorScheme: const ColorScheme.light().copyWith(
-      primary: PrjColors.secondary,
+      primary: PrjColors.primary,
+      secondary: PrjColors.secondary,
+      surface: PrjColors.surface,
+      background: PrjColors.background,
+      error: PrjColors.error,
+      onPrimary: PrjColors.onPrimary,
+      onSecondary: PrjColors.onSecondary,
+      onSurface: PrjColors.onSurface,
+      onBackground: PrjColors.onBackground,
+      onError: PrjColors.onError,
+      primaryContainer: PrjColors.primaryContainer,
+      onPrimaryContainer: PrjColors.onPrimaryContainer,
+      secondaryContainer: PrjColors.secondaryContainer,
+      onSecondaryContainer: PrjColors.onSecondaryContainer,
+      surfaceVariant: PrjColors.surfaceVariant,
+      onSurfaceVariant: PrjColors.onSurfaceVariant,
     ),
-    scaffoldBackgroundColor: Colors.white,
-    cardColor: Colors.black,
-    dividerColor: PrjColors.outline,
+    scaffoldBackgroundColor: PrjColors.background,
+    cardColor: PrjColors.surface,
+    dividerColor: PrjColors.divider,
     fontFamily: fontFamily,
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -111,7 +126,10 @@ class CcThemes {
     unselectedWidgetColor: PrjColors.secondary,
     brightness: Brightness.dark,
     colorScheme: const ColorScheme.dark().copyWith(
-      primary: PrjColors.secondary,
+      primary: PrjColors.primary,
+      secondary: PrjColors.secondary,
+      onPrimary: PrjColors.onPrimary,
+      onSecondary: PrjColors.onSecondary,
     ),
     scaffoldBackgroundColor: Colors.white,
     cardColor: const Color(

@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import '../anim/fade_widget.dart';
 import 'base_progress_indicator.dart';
 
+// Purpose:
+// small reusable widgets for loading states and empty API responses
+// intended as part of the shared UI library
 /// this ui show loading progress icon for total page
 /// - child param. : total widgets in page
 class LoadingPageWidget extends StatelessWidget {

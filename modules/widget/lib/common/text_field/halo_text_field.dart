@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:theme/data/data_source/color/prj_color.dart';
 
+// Purpose: a reusable form field with validation, optional outline, and configurable behavior for app widgets.
+
 class CcTextField extends StatefulWidget {
   final TextEditingController? controller;
   final EdgeInsetsGeometry? margin;

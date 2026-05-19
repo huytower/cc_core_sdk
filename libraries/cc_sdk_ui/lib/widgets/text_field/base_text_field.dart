@@ -7,6 +7,8 @@ import '../../core/theme/base_colors.dart';
 import '../divider_line/cc_divider.dart';
 import '../flex/cc_column_start.dart';
 
+// Purpose: a lightweight SDK text field with custom mask/filter behavior and a bottom line style.
+
 class BaseTextField extends StatelessWidget {
   const BaseTextField(
     this.hintText, {

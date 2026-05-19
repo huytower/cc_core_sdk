@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cc_sdk_ui/core/constants/cc_typography_params.dart';
 
 import '../../data/data_source/color/prj_color.dart';
 
@@ -31,33 +32,7 @@ import '../../data/data_source/color/prj_color.dart';
 /// )
 /// ```
 class CcTextStyle extends ThemeExtension<CcTextStyle> {
-  // Font weights
-  static const FontWeight _regular = FontWeight.w400;
-  static const FontWeight _medium = FontWeight.w500;
-  static const FontWeight _semiBold = FontWeight.w600;
-  static const FontWeight _bold = FontWeight.w700;
-
-  // Font sizes (in logical pixels)
-  static const double _displayLargeSize = 57;
-  static const double _displayMediumSize = 45;
-  static const double _displaySmallSize = 36;
-  static const double _headlineLargeSize = 32;
-  static const double _headlineMediumSize = 28;
-  static const double _headlineSmallSize = 24;
-  static const double _titleLargeSize = 22;
-  static const double _titleMediumSize = 16;
-  static const double _titleSmallSize = 14;
-  static const double _bodyLargeSize = 16;
-  static const double _bodyMediumSize = 14;
-  static const double _bodySmallSize = 12;
-  static const double _labelLargeSize = 14;
-  static const double _labelMediumSize = 12;
-  static const double _labelSmallSize = 11;
-
-  // Letter spacing
-  static const double _tight = -0.5;
-  static const double _normal = 0;
-  static const double _wide = 0.5;
+  // Typography tokens are defined in CcTypographyParams (cc_sdk_ui)
 
   // Display Styles (Material 3)
   final TextStyle displayLarge;
@@ -108,117 +83,117 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
     return const CcTextStyle(
       // Display Styles
       displayLarge: TextStyle(
-        fontWeight: _regular,
-        fontSize: _displayLargeSize,
-        letterSpacing: _tight,
+        fontWeight: CcTypographyParams.regular,
+        fontSize: CcTypographyParams.displayLarge,
+        letterSpacing: CcTypographyParams.tight,
         height: 1.12,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
       displayMedium: TextStyle(
-        fontWeight: _regular,
-        fontSize: _displayMediumSize,
-        letterSpacing: _normal,
+        fontWeight: CcTypographyParams.regular,
+        fontSize: CcTypographyParams.displayMedium,
+        letterSpacing: CcTypographyParams.normal,
         height: 1.16,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
       displaySmall: TextStyle(
-        fontWeight: _regular,
-        fontSize: _displaySmallSize,
-        letterSpacing: _normal,
+        fontWeight: CcTypographyParams.regular,
+        fontSize: CcTypographyParams.displaySmall,
+        letterSpacing: CcTypographyParams.normal,
         height: 1.22,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
 
       // Headline Styles
       headlineLarge: TextStyle(
-        fontWeight: _regular,
-        fontSize: _headlineLargeSize,
-        letterSpacing: _normal,
+        fontWeight: CcTypographyParams.regular,
+        fontSize: CcTypographyParams.headlineLarge,
+        letterSpacing: CcTypographyParams.normal,
         height: 1.25,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
       headlineMedium: TextStyle(
-        fontWeight: _medium,
-        fontSize: _headlineMediumSize,
-        letterSpacing: _normal,
+        fontWeight: CcTypographyParams.medium,
+        fontSize: CcTypographyParams.headlineMedium,
+        letterSpacing: CcTypographyParams.normal,
         height: 1.29,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
       headlineSmall: TextStyle(
-        fontWeight: _semiBold,
-        fontSize: _headlineSmallSize,
-        letterSpacing: _normal,
+        fontWeight: CcTypographyParams.semiBold,
+        fontSize: CcTypographyParams.headlineSmall,
+        letterSpacing: CcTypographyParams.normal,
         height: 1.33,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
 
       // Title Styles
       titleLarge: TextStyle(
-        fontWeight: _medium,
-        fontSize: _titleLargeSize,
-        letterSpacing: _normal,
+        fontWeight: CcTypographyParams.medium,
+        fontSize: CcTypographyParams.titleLarge,
+        letterSpacing: CcTypographyParams.normal,
         height: 1.27,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
       titleMedium: TextStyle(
-        fontWeight: _medium,
-        fontSize: _titleMediumSize,
+        fontWeight: CcTypographyParams.medium,
+        fontSize: CcTypographyParams.titleMedium,
         letterSpacing: 0.1,
         height: 1.5,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
       titleSmall: TextStyle(
-        fontWeight: _medium,
-        fontSize: _titleSmallSize,
+        fontWeight: CcTypographyParams.medium,
+        fontSize: CcTypographyParams.titleSmall,
         letterSpacing: 0.1,
         height: 1.43,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
 
       // Body Styles
       bodyLarge: TextStyle(
-        fontWeight: _regular,
-        fontSize: _bodyLargeSize,
+        fontWeight: CcTypographyParams.regular,
+        fontSize: CcTypographyParams.bodyLarge,
         letterSpacing: 0.5,
         height: 1.5,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
       bodyMedium: TextStyle(
-        fontWeight: _regular,
-        fontSize: _bodyMediumSize,
+        fontWeight: CcTypographyParams.regular,
+        fontSize: CcTypographyParams.bodyMedium,
         letterSpacing: 0.25,
         height: 1.43,
         color: PrjColors.mediumEmphasis,
       ),
       bodySmall: TextStyle(
-        fontWeight: _regular,
-        fontSize: _bodySmallSize,
+        fontWeight: CcTypographyParams.regular,
+        fontSize: CcTypographyParams.bodySmall,
         letterSpacing: 0.4,
         height: 1.33,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.hint,
       ),
 
       // Label Styles
       labelLarge: TextStyle(
-        fontWeight: _medium,
-        fontSize: _labelLargeSize,
+        fontWeight: CcTypographyParams.medium,
+        fontSize: CcTypographyParams.labelLarge,
         letterSpacing: 0.1,
         height: 1.43,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.highEmphasis,
       ),
       labelMedium: TextStyle(
-        fontWeight: _medium,
-        fontSize: _labelMediumSize,
-        letterSpacing: 0.5,
+        fontWeight: CcTypographyParams.medium,
+        fontSize: CcTypographyParams.labelMedium,
+        letterSpacing: CcTypographyParams.normal,
         height: 1.33,
         color: PrjColors.mediumEmphasis,
       ),
       labelSmall: TextStyle(
-        fontWeight: _medium,
-        fontSize: _labelSmallSize,
-        letterSpacing: 0.5,
+        fontWeight: CcTypographyParams.medium,
+        fontSize: CcTypographyParams.labelSmall,
+        letterSpacing: CcTypographyParams.normal,
         height: 1.45,
-        color: PrjColors.mediumEmphasis,
+        color: PrjColors.hint,
       ),
     );
   }

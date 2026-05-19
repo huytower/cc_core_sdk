@@ -1,5 +1,6 @@
 // Core Constants
 export 'package:cc_sdk_ui/core/constants/cc_padding_params.dart';
+export 'package:cc_sdk_ui/core/constants/cc_typography_params.dart';
 // Extensions
 export 'package:cc_sdk_ui/core/extensions/export_extensions.dart';
 // Exporting the BodyModalBottomSheet widget

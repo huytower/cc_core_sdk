@@ -14,6 +14,7 @@ class PrjColors {
   static const Color onPrimary = BaseColors.textInvert;
   static const Color primaryContainer = BaseColors.brand300;
   static const Color onPrimaryContainer = BaseColors.neutral100;
+  static const Color primaryPressed = BaseColors.actionPrimaryPressed;
 
   // ====================================
   // Secondary Colors
@@ -22,6 +23,7 @@ class PrjColors {
   static const Color secondary = BaseColors.secondary500;
   static const Color onSecondary = BaseColors.textInvert;
   static const Color secondaryContainer = BaseColors.secondary800;
+  static const Color onSecondaryContainer = BaseColors.textInvert;
 
   // ====================================
   // Semantic Colors (States)
@@ -50,6 +52,7 @@ class PrjColors {
   static const Color onSurface = BaseColors.textPrimary;
   static const Color surfaceVariant = BaseColors.surfaceVariant;
   static const Color onSurfaceVariant = BaseColors.textSecondary;
+  static const Color surfaceOverlay = BaseColors.surfaceOverlay;
 
   // ====================================
   // Text Selection

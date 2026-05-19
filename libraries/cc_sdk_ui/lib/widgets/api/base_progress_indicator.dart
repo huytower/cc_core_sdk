@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Purpose:
+// small reusable widgets for loading states and empty API responses
+// intended as part of the shared UI library
 class CcProgressIndicator extends StatelessWidget {
   const CcProgressIndicator({Key? key, this.width = 20.0, this.paddingTop})
       : super(key: key);

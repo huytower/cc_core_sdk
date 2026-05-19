@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../../core/helper/widget_helper.dart';
 
+// Purpose:
+// small reusable widgets for loading states and empty API responses
+// intended as part of the shared UI library
 class LoadingIconWidget extends StatelessWidget {
   const LoadingIconWidget({Key? key}) : super(key: key);
 
