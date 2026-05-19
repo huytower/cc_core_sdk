@@ -38,14 +38,12 @@ dependencies:
 ```dart
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 
-// In your widget tree
-```
 CcCloseBtn(
   onTap: () {
     // Handle button press
   },
   icon: Icon(Icons.close),
-  bgColor: Colors.blue,
+  bgColor: BaseColors.actionPrimary,
 )
 ```
 
@@ -54,7 +52,6 @@ CcCloseBtn(
 ```dart
 import 'package:cc_sdk_ui/widgets/text_field/base_text_field.dart';
 
-// In your widget tree
 BaseTextField(
   hintText: 'Enter your name',
   controller: _nameController,
@@ -72,12 +69,27 @@ BaseTextField(
 ```dart
 import 'package:cc_sdk_ui/widgets/api/loading_widget.dart';
 
-// Show loading overlay
-```
 LoadingPageWidget(
   child: YourContentWidget(),
 )
 ```
+
+### Theme Token Usage
+
+Use the color and typography tokens in app theme definitions or custom widgets:
+
+```dart
+Text(
+  'Welcome',
+  style: TextStyle(
+    fontSize: CcTypographyParams.titleLarge,
+    fontWeight: CcTypographyParams.medium,
+    color: BaseColors.textPrimary,
+  ),
+)
+```
+
+If you want app-level theme integration, consume `PrjColors` from `modules/theme` and `Theme.of(context).colorScheme` in widgets instead of hardcoded values.
 
 ## Dependencies
 

@@ -85,21 +85,18 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
       displayLarge: TextStyle(
         fontWeight: CcTypographyParams.regular,
         fontSize: CcTypographyParams.displayLarge,
-        letterSpacing: CcTypographyParams.tight,
         height: 1.12,
         color: PrjColors.highEmphasis,
       ),
       displayMedium: TextStyle(
         fontWeight: CcTypographyParams.regular,
         fontSize: CcTypographyParams.displayMedium,
-        letterSpacing: CcTypographyParams.normal,
         height: 1.16,
         color: PrjColors.highEmphasis,
       ),
       displaySmall: TextStyle(
         fontWeight: CcTypographyParams.regular,
         fontSize: CcTypographyParams.displaySmall,
-        letterSpacing: CcTypographyParams.normal,
         height: 1.22,
         color: PrjColors.highEmphasis,
       ),
@@ -108,21 +105,18 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
       headlineLarge: TextStyle(
         fontWeight: CcTypographyParams.regular,
         fontSize: CcTypographyParams.headlineLarge,
-        letterSpacing: CcTypographyParams.normal,
         height: 1.25,
         color: PrjColors.highEmphasis,
       ),
       headlineMedium: TextStyle(
         fontWeight: CcTypographyParams.medium,
         fontSize: CcTypographyParams.headlineMedium,
-        letterSpacing: CcTypographyParams.normal,
         height: 1.29,
         color: PrjColors.highEmphasis,
       ),
       headlineSmall: TextStyle(
         fontWeight: CcTypographyParams.semiBold,
         fontSize: CcTypographyParams.headlineSmall,
-        letterSpacing: CcTypographyParams.normal,
         height: 1.33,
         color: PrjColors.highEmphasis,
       ),
@@ -131,7 +125,6 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
       titleLarge: TextStyle(
         fontWeight: CcTypographyParams.medium,
         fontSize: CcTypographyParams.titleLarge,
-        letterSpacing: CcTypographyParams.normal,
         height: 1.27,
         color: PrjColors.highEmphasis,
       ),
@@ -184,14 +177,12 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
       labelMedium: TextStyle(
         fontWeight: CcTypographyParams.medium,
         fontSize: CcTypographyParams.labelMedium,
-        letterSpacing: CcTypographyParams.normal,
         height: 1.33,
         color: PrjColors.mediumEmphasis,
       ),
       labelSmall: TextStyle(
         fontWeight: CcTypographyParams.medium,
         fontSize: CcTypographyParams.labelSmall,
-        letterSpacing: CcTypographyParams.normal,
         height: 1.45,
         color: PrjColors.hint,
       ),

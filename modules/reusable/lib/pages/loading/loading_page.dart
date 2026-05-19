@@ -16,7 +16,7 @@ class PageLoading extends StatelessWidget {
         width: 50,
         child: const CupertinoActivityIndicator(
           radius: 15,
-          color: PrjColorsSimple.black,
+          color: PrjColors.blue,
         ),
       ),
     );

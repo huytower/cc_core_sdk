@@ -9,7 +9,7 @@ class PageError extends StatelessWidget {
   final String? assetIcon;
 
   const PageError({Key? key, required this.onTapReload, this.assetIcon})
-      : super(key: key);
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,36 +17,44 @@ class PageError extends StatelessWidget {
       height: double.maxFinite,
       width: double.maxFinite,
       child: GestureDetector(
-          onTap: () {
-            onTapReload.call();
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: Get.width - 50,
-                width: Get.width - 50,
-                decoration: BoxDecoration(
-                    border: Border.all(color: PrjColorsSimple.gray, width: 1)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(assetIcon!, width: 100, fit: BoxFit.fitWidth),
-                    const SizedBox(height: 15),
-                    Text("Đã xảy ra lỗi",
-                        style: WidgetHelper.getTextStyleRoboto(
-                            fontSize: 20,
-                            color: PrjColors.mediumEmphasis.withOpacity(0.7))),
-                    const SizedBox(height: 10),
-                    Text("Nhấn vào đây để tải lại",
-                        style: WidgetHelper.getTextStyleRoboto(
-                            fontSize: 20,
-                            color: PrjColors.mediumEmphasis.withOpacity(0.7)))
-                  ],
-                ),
-              )
-            ],
-          )),
+        onTap: () {
+          onTapReload.call();
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: Get.width - 50,
+              width: Get.width - 50,
+              decoration: BoxDecoration(
+                border: Border.all(color: PrjColors.outline, width: 1),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(assetIcon!, width: 100, fit: BoxFit.fitWidth),
+                  const SizedBox(height: 15),
+                  Text(
+                    "Đã xảy ra lỗi",
+                    style: WidgetHelper.getTextStyleRoboto(
+                      fontSize: 20,
+                      color: PrjColors.mediumEmphasis.withOpacity(0.7),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Nhấn vào đây để tải lại",
+                    style: WidgetHelper.getTextStyleRoboto(
+                      fontSize: 20,
+                      color: PrjColors.mediumEmphasis.withOpacity(0.7),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

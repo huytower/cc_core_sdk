@@ -1,10 +1,21 @@
 import 'package:cc_sdk_ui/core/theme/base_colors.dart';
 import 'package:flutter/material.dart';
 
-/// A comprehensive color system for the application that follows Material Design 3
-/// and provides semantic color mappings for text and UI elements.
+/// `PrjColors` — Semantic color aliases for the application.
 ///
-/// Inherits from [BaseColors] (UI SDK) as the Single Source of Truth.
+/// Purpose:
+/// - Provide semantic color names used by the app (e.g. `primary`, `error`).
+/// - Map those names to the design token SSOT in `cc_sdk_ui.BaseColors`.
+///
+/// Usage:
+/// ```dart
+/// // Use Theme's colorScheme in widgets
+/// final cs = Theme.of(context).colorScheme;
+/// final primary = cs.primary; // backed by PrjColors.primary -> BaseColors
+/// ```
+///
+/// Note: To change brand/primitive values, update `libraries/cc_sdk_ui/lib/core/theme/base_colors.dart`.
+/// This keeps color changes centralized and consistent with Figma tokens.
 class PrjColors {
   // ====================================
   // Primary Colors (Brand Identity)

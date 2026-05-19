@@ -4,7 +4,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import '../../data/data_source/color/prj_color.dart';
 import '../../presentation/style/cc_text_style.dart';
 
-/// Creates a color scheme based on the provided brightness
+/// Creates a `ColorScheme` based on the provided `brightness`.
+///
+/// This helper centralizes how semantic `PrjColors` are mapped into the
+/// `ColorScheme` consumed by `ThemeData`. Widgets should read colors from
+/// `Theme.of(context).colorScheme` to remain decoupled from the color source.
 ColorScheme createColorScheme(Brightness brightness) {
   final baseScheme = brightness == Brightness.dark
       ? const ColorScheme.dark()
