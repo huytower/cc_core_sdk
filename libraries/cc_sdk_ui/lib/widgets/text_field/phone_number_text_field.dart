@@ -1,12 +1,12 @@
 import 'package:cc_sdk/core/constants/cc_number_format_params.dart';
-import '../divider_line/cc_divider.dart';
-import '../flex/cc_column_start.dart';
-import '../space/cc_space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../core/helper/widget_helper.dart';
+import '../divider_line/cc_divider.dart';
+import '../flex/cc_flex.dart';
+import '../space/cc_space.dart';
 
 class PhoneNumberTextField extends StatelessWidget {
   const PhoneNumberTextField(
@@ -38,52 +38,64 @@ class PhoneNumberTextField extends StatelessWidget {
 
   @override
   Widget build(c) => Material(
-        color: Colors.transparent,
-        child: CcColStart(children: [
-          /// Section : Edit text
-          getEditTextWidget(),
+    color: Colors.transparent,
+    child: CcColStart(
+      children: [
+        /// Section : Edit text
+        getEditTextWidget(),
 
-          const CcSpaceSmall(),
+        const CcSpaceSM(),
 
-          /// Section : Line
-          const CcDividerLine(),
-        ]),
-      );
+        /// Section : Line
+        const CcDividerLine(),
+      ],
+    ),
+  );
 
   Widget getEditTextWidget() => Stack(
-        children: [
-          /// Section : Edit text
-          TextFormField(
-            autofillHints: [AutofillHints.username],
-            controller: controller,
-            onChanged: (v) => onChanged(v),
-            onFieldSubmitted: (v) => onSubmit(v),
-            decoration: InputDecoration.collapsed(
-              hintText: hintText,
-              hintStyle: hintStyle ??
-                  WidgetHelper.getTextStyleRoboto(
-                      fontSize: 17,
-                      fontStyle: FontStyle.italic,
-                      heightLine: 1.2),
-            ),
+    children: [
+      /// Section : Edit text
+      TextFormField(
+        autofillHints: [AutofillHints.username],
+        controller: controller,
+        onChanged: (v) => onChanged(v),
+        onFieldSubmitted: (v) => onSubmit(v),
+        decoration: InputDecoration.collapsed(
+          hintText: hintText,
+          hintStyle:
+              hintStyle ??
+              WidgetHelper.getTextStyleRoboto(
+                fontSize: 17,
+                fontStyle: FontStyle.italic,
+                heightLine: 1.2,
+              ),
+        ),
 
-            /// Logic : max length = 12, included space
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(maxLength ?? 12),
-              MaskTextInputFormatter(
-                  mask: formatter ?? CcNumberFormatParams.PHONE_NUMBER_VN,
-                  filter: {'#': RegExp(r'[0-9]')}),
-            ],
-            keyboardType: const TextInputType.numberWithOptions(
-                decimal: true, signed: true),
-            style: textStyle ??
-                WidgetHelper.getTextStyleRoboto(fontSize: 18, heightLine: 1.2),
-            textInputAction: action ?? TextInputAction.next,
+        /// Logic : max length = 12, included space
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(maxLength ?? 12),
+          MaskTextInputFormatter(
+            mask: formatter ?? CcNumberFormatParams.PHONE_NUMBER_VN,
+            filter: {'#': RegExp(r'[0-9]')},
           ),
-
-          /// Section : Icon
-          Positioned(
-              bottom: 0, right: 0, top: 0, child: suffix ?? const SizedBox()),
         ],
-      );
+        keyboardType: const TextInputType.numberWithOptions(
+          decimal: true,
+          signed: true,
+        ),
+        style:
+            textStyle ??
+            WidgetHelper.getTextStyleRoboto(fontSize: 18, heightLine: 1.2),
+        textInputAction: action ?? TextInputAction.next,
+      ),
+
+      /// Section : Icon
+      Positioned(
+        bottom: 0,
+        right: 0,
+        top: 0,
+        child: suffix ?? const SizedBox(),
+      ),
+    ],
+  );
 }

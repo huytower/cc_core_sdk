@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_column_center.dart';
+import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
@@ -30,28 +30,29 @@ class AdvanceBlocPage extends StatelessWidget {
   }
 
   Widget buildContainer(context) => CcColCenter(
-        children: [
-          buildTitle(context),
-          const CcSpaceSmall(),
-          item(context),
-          const CcSpaceSmall(),
-          item(context),
-        ],
-      );
+    children: [
+      buildTitle(context),
+      const CcSpaceSM(),
+      item(context),
+      const CcSpaceSM(),
+      item(context),
+    ],
+  );
 
   SizedBox buildTitle(context) {
-    Widget child = when(variable: getIt<AdvanceBloc>().blocType, conditions: {
-      BlocType.builder: () => buildBlocBuilder(context),
-      BlocType.selector: () => buildBlocBuilder(context),
-      BlocType.listener: () => buildBlocBuilder(context),
-      BlocType.consumer: () => buildBlocBuilder(context),
-    });
+    Widget child = when(
+      variable: getIt<AdvanceBloc>().blocType,
+      conditions: {
+        BlocType.builder: () => buildBlocBuilder(context),
+        BlocType.selector: () => buildBlocBuilder(context),
+        BlocType.listener: () => buildBlocBuilder(context),
+        BlocType.consumer: () => buildBlocBuilder(context),
+      },
+    );
 
     return SizedBox(
       width: double.infinity,
-      child: Center(
-        child: child,
-      ),
+      child: Center(child: child),
     );
   }
 
@@ -67,13 +68,15 @@ class AdvanceBlocPage extends StatelessWidget {
 
   Widget buildBlocSelector(context) {
     return BlocSelector<AdvanceBloc, AdvanceBlocState, AdvanceBlocStateB>(
-        selector: (state) {
-      // Toast.show('This is bloc selector', context);
+      selector: (state) {
+        // Toast.show('This is bloc selector', context);
 
-      return AdvanceBlocStateB();
-    }, builder: (context, state) {
-      return buildBlocUI(Colors.green);
-    });
+        return AdvanceBlocStateB();
+      },
+      builder: (context, state) {
+        return buildBlocUI(Colors.green);
+      },
+    );
   }
 
   Widget buildBlocListener(context) {

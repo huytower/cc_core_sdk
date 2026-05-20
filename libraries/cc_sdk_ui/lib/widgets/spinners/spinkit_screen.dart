@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:widget/export/cc_ui_export.dart';
+
+import '../../core/theme/base_colors.dart';
 
 class SpinKitScreen extends StatefulWidget {
   const SpinKitScreen({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _SpinKitState extends State<SpinKitScreen> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Colors.white,
+      color: BaseColors.surfaceDefault,
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -23,10 +24,10 @@ class _SpinKitState extends State<SpinKitScreen> {
           Padding(
             padding: EdgeInsets.all(12.0),
             child: SpinKitThreeBounce(
-              color: PrjColors.primary,
+              color: BaseColors.actionPrimary,
               size: 25,
             ),
-          )
+          ),
         ],
       ),
     );

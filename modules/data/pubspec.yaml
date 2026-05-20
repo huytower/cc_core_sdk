@@ -27,8 +27,8 @@ dependencies:
   permission_handler: ^12.0.1
 
   retrofit: ^4.9.2
-  reusable:
-    path: ../reusable
+  cc_sdk_ui:
+    path: ../../libraries/cc_sdk_ui
 
   talker_dio_logger: ^5.1.17
 

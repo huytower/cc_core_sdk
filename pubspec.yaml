@@ -58,8 +58,6 @@ dependencies:
   dio_smart_retry: ^7.0.1
   path_provider: ^2.1.5
   provider: ^6.1.5+1
-  reusable:
-    path: modules/reusable
 
   shared_preferences: ^2.5.5
 

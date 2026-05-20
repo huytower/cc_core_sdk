@@ -1,7 +1,7 @@
 import 'package:app_config/data/datasource/local/box/device_info/cc_device_info.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_column_start.dart';
+import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/app_name_widget.dart';
@@ -45,46 +45,39 @@ class _AppTrackLogView extends StatelessWidget {
   }
 
   Widget buildBody(AppTrackLogState state, AppTrackLogCubit cubit) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const CcSpaceSmall(),
-          CcCopyWidget(
-            title: cubit.appInfo,
-            child: AppNameWidget(
-              cubit.appInfo,
-              fontSize: 12,
-            ),
-          ),
-          const CcSpaceSmall(),
-          const CcDividerLine(
-            color: Colors.grey,
-          ),
-          const CcSpaceSmall(),
-          Flexible(fit: FlexFit.loose, child: buildLogs(cubit)),
-          const CcSpaceSmall(),
-          const CcDividerLine(
-            color: Colors.grey,
-          ),
-          const CcSpaceSmall(),
-          buildDeviceInfo(state),
-          const CcSpaceFooter(),
-        ],
-      );
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      const CcSpaceSM(),
+      CcCopyWidget(
+        title: cubit.appInfo,
+        child: AppNameWidget(cubit.appInfo, fontSize: 12),
+      ),
+      const CcSpaceSM(),
+      const CcDividerLine(color: Colors.grey),
+      const CcSpaceSM(),
+      Flexible(fit: FlexFit.loose, child: buildLogs(cubit)),
+      const CcSpaceSM(),
+      const CcDividerLine(color: Colors.grey),
+      const CcSpaceSM(),
+      buildDeviceInfo(state),
+      const CcSpaceFooter(),
+    ],
+  );
 
   Widget buildDeviceInfo(AppTrackLogState state) =>
       state.deviceModel.deviceInfo.isNotEmpty
-          ? CcCopyWidget(
-              title: state.deviceModel.deviceInfo,
-              child: CcText(
-                state.deviceModel.deviceInfo,
-                color: Colors.grey,
-                fontSize: 12,
-                textAlign: TextAlign.center,
-                align: Alignment.center,
-                maxLines: 10,
-              ),
-            )
-          : const Center(child: CircularProgressIndicator());
+      ? CcCopyWidget(
+          title: state.deviceModel.deviceInfo,
+          child: CcText(
+            state.deviceModel.deviceInfo,
+            color: Colors.grey,
+            fontSize: 12,
+            textAlign: TextAlign.center,
+            align: Alignment.center,
+            maxLines: 10,
+          ),
+        )
+      : const Center(child: CircularProgressIndicator());
 
   Widget buildLogs(AppTrackLogCubit cubit) {
     'buildLog() : loggingMessages = ${cubit.state.loggingMessages?.length}'
@@ -99,10 +92,11 @@ class _AppTrackLogView extends StatelessWidget {
             width: double.infinity,
             height: getIt<CcDeviceInfo>().deviceHeight! - 250,
             child: ListView.builder(
-                itemCount: cubit.state.loggingMessages?.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return buildLogItem(index, cubit);
-                }),
+              itemCount: cubit.state.loggingMessages?.length,
+              itemBuilder: (BuildContext context, int index) {
+                return buildLogItem(index, cubit);
+              },
+            ),
           )
         : const CcText(
             'There is no app tracking logs now',
@@ -119,17 +113,19 @@ class _AppTrackLogView extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return CcColStart(children: [
-      CcText(
-        messages[index],
-        color: (index.isEven) ? Colors.blueGrey : Colors.grey,
-        fontSize: 12,
-        marginLeft: 10,
-        marginRight: 10,
-        maxLines: 5,
-        heightLine: 1.6,
-      ),
-      const CcSpaceSmallest(),
-    ]);
+    return CcColStart(
+      children: [
+        CcText(
+          messages[index],
+          color: (index.isEven) ? Colors.blueGrey : Colors.grey,
+          fontSize: 12,
+          marginLeft: 10,
+          marginRight: 10,
+          maxLines: 5,
+          heightLine: 1.6,
+        ),
+        const CcSpaceSM(),
+      ],
+    );
   }
 }

@@ -25,10 +25,7 @@ mixin CcPullRefreshMixin {
 
   Widget buildIcComplete(Widget? iconCompleteWidget) {
     return iconCompleteWidget ??
-        Lottie.asset(
-          getAssetIconJson(resId: LottieAsset.complete),
-          height: 35,
-        );
+        Lottie.asset(getAssetIconJson(resId: LottieAsset.complete), height: 35);
   }
 
   Column buildIcLoading(Widget? loadingLabelWidget) {
@@ -37,19 +34,16 @@ mixin CcPullRefreshMixin {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const CcSpaceSmall(),
-        Lottie.asset(
-          getAssetIconJson(resId: LottieAsset.loading),
-          height: 35,
-        ),
-        const CcSpaceSmallest(),
+        const CcSpaceSM(),
+        Lottie.asset(getAssetIconJson(resId: LottieAsset.loading), height: 35),
+        const CcSpaceXS(),
         loadingLabelWidget ??
             const CcText(
               'Đang cập nhật',
               color: Colors.grey,
               textAlign: TextAlign.center,
               align: Alignment.center,
-            )
+            ),
       ],
     );
   }
@@ -65,32 +59,39 @@ mixin CcPullRefreshMixin {
     double? indicatorSize,
   }) {
     return CcCustomRefreshIndicator(
-        completeStateDuration: const Duration(milliseconds: 100),
-        controller: controller,
-        onCancel: onCancel,
-        onRefresh: onRefresh,
-        onStateChanged: buildIndicatorChangeStatus,
-        builder: (BuildContext context, Widget child,
-                CcIndicatorController controller) =>
-            getBuilder(
-              child: child,
-              controller: controller,
-              imageSize: imageSize,
-              indicatorSize: indicatorSize,
-              icCompleteWidget: icCompleteWidget,
-              icLoadingWidget: icLoadingWidget,
-            ),
-        child: child);
+      completeStateDuration: const Duration(milliseconds: 100),
+      controller: controller,
+      onCancel: onCancel,
+      onRefresh: onRefresh,
+      onStateChanged: buildIndicatorChangeStatus,
+      builder:
+          (
+            BuildContext context,
+            Widget child,
+            CcIndicatorController controller,
+          ) => getBuilder(
+            child: child,
+            controller: controller,
+            imageSize: imageSize,
+            indicatorSize: indicatorSize,
+            icCompleteWidget: icCompleteWidget,
+            icLoadingWidget: icLoadingWidget,
+          ),
+      child: child,
+    );
   }
 
   void buildIndicatorChangeStatus(IndicatorStateChange changeStatus) {
     // 'buildPullRefresh : onStateChanged() = $changeStatus'.Log();
 
-    when(variable: changeStatus, conditions: {
-      IndicatorState.dragging: () {},
-      IndicatorState.loading: () {},
-      IndicatorState.complete: () {},
-    });
+    when(
+      variable: changeStatus,
+      conditions: {
+        IndicatorState.dragging: () {},
+        IndicatorState.loading: () {},
+        IndicatorState.complete: () {},
+      },
+    );
   }
 
   CcRefreshIndicatorIcon getBuilder({

@@ -1,5 +1,5 @@
 import 'package:cc_sdk_ui/widgets/api/base_progress_indicator.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_row_center.dart';
+import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +24,11 @@ mixin CcLoadMoreMixin {
     LoadMoreDelegate.buildWidget = () => const CcLoadMoreItem();
 
     return LoadMore(
-        delegate: LoadMoreDelegate.buildWidget(),
-        textBuilder: DefaultLoadMoreTextBuilder.english,
-        onLoadMore: onLoadMore,
-        child: child);
+      delegate: LoadMoreDelegate.buildWidget(),
+      textBuilder: DefaultLoadMoreTextBuilder.english,
+      onLoadMore: onLoadMore,
+      child: child,
+    );
   }
 }
 
@@ -35,8 +36,10 @@ class CcLoadMoreItem extends LoadMoreDelegate {
   const CcLoadMoreItem();
 
   @override
-  Widget buildChild(LoadMoreStatus status,
-      {LoadMoreTextBuilder builder = DefaultLoadMoreTextBuilder.english}) {
+  Widget buildChild(
+    LoadMoreStatus status, {
+    LoadMoreTextBuilder builder = DefaultLoadMoreTextBuilder.english,
+  }) {
     String text = builder(status);
 
     if (status == LoadMoreStatus.fail) {
@@ -58,20 +61,19 @@ class CcLoadMoreItem extends LoadMoreDelegate {
   Widget buildIcLoading(String text) {
     return CcRowCenter(
       children: <Widget>[
-        Center(
-            child: const CcProgressIndicator(
-          paddingTop: 0,
-        )),
-        const CcSpaceLarge(),
-        buildText(
-          text,
-        ),
+        Center(child: const CcProgressIndicator(paddingTop: 0)),
+        const CcSpaceLG(),
+        buildText(text),
       ],
     );
   }
 
-  CcText buildText(String text,
-      {Color? color, TextAlign? textAlign, Alignment? align}) {
+  CcText buildText(
+    String text, {
+    Color? color,
+    TextAlign? textAlign,
+    Alignment? align,
+  }) {
     return CcText(
       text,
       fontSize: 16,

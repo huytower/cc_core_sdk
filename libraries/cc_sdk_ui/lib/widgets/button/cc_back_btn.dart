@@ -1,95 +1,98 @@
-import 'package:cc_sdk_ui/widgets/container/cc_container_rect.dart';
-import 'package:cc_sdk_ui/widgets/icon/cc_icon.dart';
-import 'package:cc_sdk_ui/widgets/inkwell/button_inkwell_widget.dart';
-import 'package:cc_sdk_ui/widgets/inkwell/inkwell_click.dart';
-import 'package:cc_sdk_ui/widgets/padding/cc_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../core/helper/widget_helper.dart';
+import '../icon/cc_icon.dart';
+import '../inkwell/cc_inkwell.dart';
+import '../padding/cc_padding.dart';
+
 class CcBackBtn extends StatelessWidget {
-  const CcBackBtn({Key? key, required this.onPress, required this.icon})
-      : super(key: key);
+  const CcBackBtn({super.key, required this.onPress, required this.icon});
 
   final VoidCallback onPress;
   final IconData icon;
 
   @override
-  Widget build(c) => CcPadding(
-      Stack(
-        children: [
-          CcIcon(
-            icon: icon,
-            size: 20,
-            align: Alignment.center,
-            color: Colors.white,
-          ),
-          InkWellClick(
-            onTap: onPress,
-          ),
-        ],
-      ),
-      4,
-      4,
-      4,
-      4);
+  Widget build(BuildContext context) => CcPadding(
+    Stack(
+      children: [
+        CcIcon(
+          icon: icon,
+          size: 20,
+          align: Alignment.center,
+          color: Colors.white,
+        ),
+        CcInkWell(
+          onTap: onPress,
+          borderRadius: WidgetHelper.getCircleBorderRadius(),
+        ),
+      ],
+    ),
+    4,
+    4,
+    4,
+    4,
+  );
 }
 
 /// use *.svg only
 class CcBackAssetBtn extends StatelessWidget {
-  const CcBackAssetBtn(this.assetRes,
-      {Key? key, this.onTap, this.aspectRatio = 16 / 9})
-      : super(key: key);
+  const CcBackAssetBtn(
+    this.assetRes, {
+    super.key,
+    this.onTap,
+    this.aspectRatio = 16 / 9,
+  });
 
-  final onTap;
-
+  final VoidCallback? onTap;
   final String assetRes;
-
   final double aspectRatio;
 
   @override
-  Widget build(c) => ButtonInkWellCircleWidget(
-        onTap: onTap,
-        child: SizedBox(
-          height: 45.0,
-          width: 45.0,
-          child: Center(
-            child: SvgPicture.asset(
-              assetRes,
-              height: 22.0,
-              width: 22.0,
-            ),
-          ),
-        ),
-      );
+  Widget build(BuildContext context) => CcInkWell(
+    onTap: onTap ?? () => Get.back(),
+    borderRadius: WidgetHelper.getCircleBorderRadius(),
+    child: SizedBox(
+      height: 45.0,
+      width: 45.0,
+      child: Center(
+        child: SvgPicture.asset(assetRes, height: 22.0, width: 22.0),
+      ),
+    ),
+  );
 }
 
 class CcBackDividerBtn extends StatelessWidget {
-  const CcBackDividerBtn({Key? key, @required this.onPress}) : super(key: key);
+  const CcBackDividerBtn({super.key, required this.onPress});
 
   final double heightBack = 5, widthBack = 36, paddingBack = 14;
-
-  final onPress;
+  final VoidCallback onPress;
 
   @override
-  Widget build(c) => Positioned(
-        left: Get.width / 2 - widthBack / 2,
-        top: paddingBack,
-        child: Stack(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(bottom: paddingBack),
-              child: ContainerRectWidget(
-                bgColor: Colors.white,
-                width: widthBack,
-                height: heightBack,
-                widget: Container(),
-              ),
+  Widget build(BuildContext context) => Positioned(
+    left: Get.width / 2 - widthBack / 2,
+    top: paddingBack,
+    child: Stack(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(bottom: paddingBack),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: WidgetHelper.getBorderRoundedSmall(),
             ),
-            InkWellClick(
-              onTap: () => onPress(),
-            )
-          ],
+            width: widthBack,
+            height: heightBack,
+          ),
         ),
-      );
+        CcInkWell(
+          onTap: onPress,
+          borderRadius: WidgetHelper.getBorderRoundedSmall(),
+          width: widthBack,
+          height: heightBack,
+        ),
+      ],
+    ),
+  );
 }

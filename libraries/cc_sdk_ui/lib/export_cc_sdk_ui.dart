@@ -1,11 +1,8 @@
 // Core Constants
 export 'package:cc_sdk_ui/core/constants/cc_padding_params.dart';
 export 'package:cc_sdk_ui/core/constants/cc_typography_params.dart';
-// Extensions
-export 'package:cc_sdk_ui/core/extensions/export_extensions.dart';
-// Exporting the BodyModalBottomSheet widget
-export 'package:cc_sdk_ui/core/helper/body_modal_bottom_sheet.dart';
-export 'package:cc_sdk_ui/core/helper/body_show_message.dart';
+// Helper
+export 'package:cc_sdk_ui/core/helper/dialog_utils.dart';
 export 'package:cc_sdk_ui/core/helper/open_dialog.dart';
 export 'package:cc_sdk_ui/core/helper/widget_helper.dart';
 // Core Theme
@@ -21,13 +18,15 @@ export 'package:cc_sdk_ui/widgets/api/base_progress_indicator.dart';
 export 'package:cc_sdk_ui/widgets/api/loading_icon_widget.dart';
 export 'package:cc_sdk_ui/widgets/api/loading_widget.dart';
 export 'package:cc_sdk_ui/widgets/api/no_data_response_widget.dart';
+// Avatar Widgets
+export 'package:cc_sdk_ui/widgets/avatars/avatar_user.dart';
 // Background Widgets
 export 'package:cc_sdk_ui/widgets/background/bg_blur_widget.dart';
 export 'package:cc_sdk_ui/widgets/background/bg_image_widget.dart';
-// Hide BackgroundBlurWidget from bg_scale_widget.dart to avoid conflict
 export 'package:cc_sdk_ui/widgets/background/bg_scale_widget.dart'
     hide BackgroundBlurWidget;
 export 'package:cc_sdk_ui/widgets/background/overlay_widget.dart';
+export 'package:cc_sdk_ui/widgets/base/cc_keyboard_dismisser.dart';
 // Base Widgets
 export 'package:cc_sdk_ui/widgets/base/cc_position.dart';
 export 'package:cc_sdk_ui/widgets/base/cc_scroll_view.dart';
@@ -43,11 +42,8 @@ export 'package:cc_sdk_ui/widgets/card/expanded_collapse_card_widget.dart';
 // Checkbox Widgets
 export 'package:cc_sdk_ui/widgets/checkbox/cc_check_box.dart';
 // Container Widgets
-export 'package:cc_sdk_ui/widgets/container/cc_container_circle.dart';
-export 'package:cc_sdk_ui/widgets/container/cc_container_rect.dart';
-export 'package:cc_sdk_ui/widgets/container/cc_container_square.dart';
+export 'package:cc_sdk_ui/widgets/container/cc_containers.dart';
 export 'package:cc_sdk_ui/widgets/container/container_rounded_corner_top_left_right.dart';
-// Hide ContainerRoundedCornerTopLeftRight from container_rounded_corner_widget.dart to avoid conflict
 export 'package:cc_sdk_ui/widgets/container/container_rounded_corner_widget.dart'
     hide ContainerRoundedCornerTopLeftRight;
 // Countdown Widgets
@@ -55,14 +51,26 @@ export 'package:cc_sdk_ui/widgets/countdown/cc_count_down.dart';
 // Dialog Widgets
 export 'package:cc_sdk_ui/widgets/dialog/action_btn_in_dialog.dart';
 export 'package:cc_sdk_ui/widgets/dialog/base_dialog.dart';
+export 'package:cc_sdk_ui/widgets/dialog/body_modal_bottom_sheet.dart';
+export 'package:cc_sdk_ui/widgets/dialog/body_show_message.dart';
 // Divider Widgets
 export 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
 export 'package:cc_sdk_ui/widgets/divider_line/horizontal_line.dart';
 export 'package:cc_sdk_ui/widgets/divider_line/vertical_line.dart';
 // Duration Widgets
 export 'package:cc_sdk_ui/widgets/duration/duration_widget.dart';
+// Flex Widgets (Consolidated)
+export 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
+// InkWell Widgets (Consolidated)
+export 'package:cc_sdk_ui/widgets/inkwell/cc_inkwell.dart';
+// Pages
+export 'package:cc_sdk_ui/widgets/pages/error/error_page.dart';
+export 'package:cc_sdk_ui/widgets/pages/loading/loading_page.dart';
 // Space Widgets
 export 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+// Special Status Widgets
+export 'package:cc_sdk_ui/widgets/spinners/spinkit_screen.dart';
+export 'package:cc_sdk_ui/widgets/switches/trigger_switch.dart';
 // Text Widgets
 export 'package:cc_sdk_ui/widgets/text/app_name_widget.dart';
 export 'package:cc_sdk_ui/widgets/text/cc_text.dart';
@@ -77,3 +85,4 @@ export 'package:cc_sdk_ui/widgets/text_field/base_text_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/password_text_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/phone_number_otp_text_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/phone_number_text_field.dart';
+export 'package:cc_sdk_ui/widgets/toasts/toast.dart';

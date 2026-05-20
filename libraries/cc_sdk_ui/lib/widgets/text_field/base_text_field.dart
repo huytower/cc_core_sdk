@@ -5,14 +5,25 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../core/theme/base_colors.dart';
 import '../divider_line/cc_divider.dart';
-import '../flex/cc_column_start.dart';
+import '../flex/cc_flex.dart';
 
 // Purpose: a lightweight SDK text field with custom mask/filter behavior and a bottom line style.
 
 class BaseTextField extends StatelessWidget {
+  final String? hintText;
+  final Function onChanged, onSubmit;
+  final int? maxLength;
+  final Map<String, RegExp>? filter;
+  final String? formatter;
+  final TextEditingController controller;
+  final TextInputAction textInputAction;
+  final TextInputType keyboardType;
+  final TextStyle? hintStyle, textStyle;
+  final Widget? suffix;
+
   const BaseTextField(
     this.hintText, {
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.onSubmit,
     this.textInputAction = TextInputAction.next,
@@ -24,35 +35,20 @@ class BaseTextField extends StatelessWidget {
     this.maxLength,
     this.suffix,
     this.textStyle,
-  }) : super(key: key);
-
-  final Function onChanged, onSubmit;
-
-  final int? maxLength;
-
-  final Map<String, RegExp>? filter;
-
-  final String? formatter, hintText;
-
-  final TextEditingController controller;
-  final TextInputAction textInputAction;
-  final TextInputType keyboardType;
-  final TextStyle? hintStyle, textStyle;
-
-  final Widget? suffix;
+  });
 
   @override
-  Widget build(c) => Material(
+  Widget build(BuildContext context) => Material(
     color: Colors.transparent,
     child: CcColStart(
       children: [
         /// Section : Edit text
         getEditTextWidget(),
 
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
 
         /// Section : Line
-        CcDividerLine(color: BaseColors.divider, height: 1),
+        const CcDividerLine(color: BaseColors.divider, height: 1),
       ],
     ),
   );
@@ -67,7 +63,7 @@ class BaseTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle:
               hintStyle ??
-              TextStyle(color: Colors.white, fontSize: 17, height: 1.2),
+              const TextStyle(color: Colors.white, fontSize: 17, height: 1.2),
         ),
         controller: controller,
         inputFormatters: [
@@ -83,7 +79,7 @@ class BaseTextField extends StatelessWidget {
         keyboardType: keyboardType,
         style:
             textStyle ??
-            TextStyle(fontSize: 18, color: BaseColors.white80, height: 1.2),
+            const TextStyle(fontSize: 18, color: BaseColors.white80, height: 1.2),
         textInputAction: textInputAction,
       ),
 

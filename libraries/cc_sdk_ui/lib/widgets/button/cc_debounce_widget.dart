@@ -1,6 +1,5 @@
 import 'package:cc_sdk_ui/core/constants/cc_padding_params.dart';
 import 'package:cc_sdk_ui/core/theme/base_colors.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_row_center.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 
 import '../../core/helper/widget_helper.dart';
+import '../flex/cc_flex.dart';
 
 /// POPULAR WIDGET
 /// + make bounce|debounce animation for input ui, ex. button .v.v.
@@ -105,7 +105,7 @@ class CcDebounce extends StatelessWidget {
       /// icon
       buildIcon(),
 
-      const CcSpaceSmall(),
+      const CcSpaceSM(),
 
       /// text
       buildBtnText(),

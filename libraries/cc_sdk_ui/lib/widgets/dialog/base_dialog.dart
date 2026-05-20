@@ -6,8 +6,7 @@ import 'package:get/get.dart';
 
 import '../../core/constants/cc_padding_params.dart';
 import '../../core/theme/base_colors.dart';
-import '../flex/cc_column_start.dart';
-import '../flex/cc_row_between.dart';
+import '../flex/cc_flex.dart';
 import '../space/cc_space.dart';
 import '../text/cc_text.dart';
 import 'action_btn_in_dialog.dart';
@@ -75,13 +74,13 @@ class BaseDialog extends StatelessWidget {
   Widget buildDesc() => Expanded(
     child: CcRowBetween(
       children: [
-        const CcSpaceLarge(),
-        const CcSpaceLarge(),
+        const CcSpaceLG(),
+        const CcSpaceLG(),
 
         /// Icon : show alert icon : Error, Warning, Success mark
         buildIconAlert(),
 
-        const CcSpaceLarge(),
+        const CcSpaceLG(),
 
         /// Text
         Expanded(
@@ -98,7 +97,7 @@ class BaseDialog extends StatelessWidget {
           ),
         ),
 
-        const CcSpaceSmall(),
+        const CcSpaceSM(),
       ],
     ),
   );

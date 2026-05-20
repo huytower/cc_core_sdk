@@ -22,31 +22,27 @@ class GetViewV2Page extends CcGetView<GetViewV2Logic> with GetViewV2Provider {
   Widget? content() => buildContainer();
 
   Widget buildContainer() => Column(
-        children: [
-          Center(
-            child: Obx(() {
-              return CcText(
-                state.toString(),
-                color: Colors.red,
-                fontSize: 32,
-              );
-            }),
+    children: [
+      Center(
+        child: Obx(() {
+          return CcText(state.toString(), color: Colors.red, fontSize: 32);
+        }),
+      ),
+      Obx(() {
+        return Center(
+          child: CcText(
+            logic.pageState.counter.value.toString(),
+            color: Colors.red,
+            fontSize: 32,
           ),
-          Obx(() {
-            return Center(
-              child: CcText(
-                logic.pageState.counter.value.toString(),
-                color: Colors.red,
-                fontSize: 32,
-              ),
-            );
-          }),
-          const CcSpaceSmall(),
-          item(),
-          const CcSpaceSmall(),
-          item(),
-        ],
-      );
+        );
+      }),
+      const CcSpaceSM(),
+      item(),
+      const CcSpaceSM(),
+      item(),
+    ],
+  );
 
   Widget item() {
     return Container(

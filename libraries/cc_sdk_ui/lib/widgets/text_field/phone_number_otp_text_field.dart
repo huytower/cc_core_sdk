@@ -8,7 +8,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../core/helper/widget_helper.dart';
 import '../../core/theme/base_colors.dart';
 import '../divider_line/cc_divider.dart';
-import '../flex/cc_column_start.dart';
+import '../flex/cc_flex.dart';
 
 class PhoneNumberAndOtpTextField extends StatelessWidget {
   const PhoneNumberAndOtpTextField(

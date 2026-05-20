@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 
 class CcText extends StatelessWidget {
+  final String? text;
+  final Alignment? align;
+  final Color? color;
+  final FontWeight? fontWeight;
+  final FontStyle? fontStyle;
+  final int? maxLines;
+  final TextOverflow? overflow;
+  final double? fontSize, heightLine, marginLeft, marginRight;
+  final TextAlign? textAlign;
+  final TextStyle? textStyle;
+
   const CcText(
     this.text, {
-    Key? key,
+    super.key,
     this.align,
     this.color,
     this.fontSize,
@@ -16,43 +27,31 @@ class CcText extends StatelessWidget {
     this.overflow,
     this.textAlign,
     this.textStyle,
-  }) : super(key: key);
-
-  final Alignment? align;
-
-  final Color? color;
-  final FontWeight? fontWeight;
-  final FontStyle? fontStyle;
-
-  final int? maxLines;
-
-  final TextOverflow? overflow;
-
-  final double? fontSize, heightLine, marginLeft, marginRight;
-
-  final String? text;
-
-  final TextAlign? textAlign;
-  final TextStyle? textStyle;
+  });
 
   @override
-  Widget build(c) {
-    final l = marginLeft ?? 0, r = marginRight ?? 0;
+  Widget build(BuildContext context) {
     return Align(
       alignment: align ?? Alignment.centerLeft,
-      child: Container(
-        margin: EdgeInsets.only(left: l, right: r),
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: marginLeft ?? 0,
+          right: marginRight ?? 0,
+        ),
         child: RichText(
           textAlign: textAlign ?? TextAlign.left,
-          text: TextSpan(text: text ?? '', style: textStyle ?? getTextStyle()),
           maxLines: maxLines ?? 1,
           overflow: overflow ?? TextOverflow.ellipsis,
+          text: TextSpan(
+            text: text ?? '',
+            style: textStyle ?? _getTextStyle(),
+          ),
         ),
       ),
     );
   }
 
-  TextStyle getTextStyle() => TextStyle(
+  TextStyle _getTextStyle() => TextStyle(
         height: heightLine ?? 1.2,
         color: color ?? Colors.white,
         fontSize: fontSize ?? 14.0,

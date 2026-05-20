@@ -4,7 +4,7 @@ import 'package:cc_sdk_ui/core/helper/open_dialog.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_column_center.dart';
+import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
@@ -43,23 +43,20 @@ class SimpleCubitPage extends StatelessWidget {
   }
 
   Widget buildContainer(context) => CcColCenter(
-        children: [
-          buildTitle(context),
-          const CcSpaceSmall(),
-          item(context),
-          const CcSpaceSmall(),
-          item(context),
-          const CcSpaceSmall(),
-          buildShowAppTrackLogBtn(context),
-        ],
-      );
+    children: [
+      buildTitle(context),
+      const CcSpaceSM(),
+      item(context),
+      const CcSpaceSM(),
+      item(context),
+      const CcSpaceSM(),
+      buildShowAppTrackLogBtn(context),
+    ],
+  );
 
   CcNextBtn buildShowAppTrackLogBtn(context) {
     return CcNextBtn(() {
-      OpenDialog.showBottomSheet(
-        context,
-        const AppTrackLogPage(),
-      );
+      OpenDialog.showBottomSheet(context, const AppTrackLogPage());
     }, 'Show Track Log');
   }
 

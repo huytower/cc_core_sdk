@@ -1,8 +1,8 @@
 import 'package:cc_sdk/core/utils/common/string_utils.dart';
 import 'package:flutter/material.dart';
 
-import '../flex/cc_row_between.dart';
-import '../inkwell/inkwell_click.dart';
+import '../flex/cc_flex.dart';
+import '../inkwell/cc_inkwell.dart';
 import '../space/cc_space.dart';
 
 @immutable
@@ -14,15 +14,11 @@ class IconCopy extends StatelessWidget {
 
   @override
   Center build(c) => Center(
-        child: SizedBox(
-          width: height ?? 25,
-          child: Icon(
-            Icons.copy,
-            color: color ?? Colors.grey,
-            size: 15,
-          ),
-        ),
-      );
+    child: SizedBox(
+      width: height ?? 25,
+      child: Icon(Icons.copy, color: color ?? Colors.grey, size: 15),
+    ),
+  );
 }
 
 @immutable
@@ -34,12 +30,11 @@ class CcCopyBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Stack(
-        children: [
-          const IconCopy(),
-          InkWellClick(
-              onTap: onTap ?? () => StringUtils.copyToClipboard(title ?? '')),
-        ],
-      );
+    children: [
+      const IconCopy(),
+      CcInkWell(onTap: onTap ?? () => StringUtils.copyToClipboard(title ?? '')),
+    ],
+  );
 }
 
 @immutable
@@ -51,23 +46,15 @@ class CcCopyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CcRowBetween(
-        children: [
-          const CcSpaceSmallest(),
+    children: [
+      const CcSpaceXS(),
 
-          Expanded(
-            flex: 9,
-            child: child,
-          ),
+      Expanded(flex: 9, child: child),
 
-          /// section : copy widget
-          Expanded(
-            flex: 1,
-            child: CcCopyBtn(
-              title: title,
-            ),
-          ),
+      /// section : copy widget
+      Expanded(flex: 1, child: CcCopyBtn(title: title)),
 
-          const CcSpaceSmallest(),
-        ],
-      );
+      const CcSpaceXS(),
+    ],
+  );
 }

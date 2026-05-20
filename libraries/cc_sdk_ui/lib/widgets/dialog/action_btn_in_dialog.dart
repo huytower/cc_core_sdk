@@ -3,17 +3,16 @@ import 'package:cc_sdk_ui/core/theme/base_colors.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
 import 'package:cc_sdk_ui/widgets/container/container_rounded_corner_widget.dart';
 import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_column_start.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_row_center.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../flex/cc_flex.dart';
+
 /// Action buttons, ex. : cancel, okay .v.v.
 class ActionBtnInDialog extends StatelessWidget {
-  ActionBtnInDialog({
-    Key? key,
+  const ActionBtnInDialog({
+    super.key,
     this.onTapCancel,
     this.onTapConfirm,
     this.isCancelBtnShown = false,
@@ -26,17 +25,12 @@ class ActionBtnInDialog extends StatelessWidget {
     this.dividerColor,
     this.heightActionBtn,
     this.heightActionBtnBar,
-  }) : super(key: key);
+  });
 
-  /// data
   final VoidCallback? onTapCancel, onTapConfirm;
-
   final bool isCancelBtnShown;
-
   final Color? btnBgColor, cancelTextColor, confirmTextColor, dividerColor;
-
   final double? heightActionBtn, heightActionBtnBar, fontSize;
-
   final String? agreeText, cancelText;
 
   @override

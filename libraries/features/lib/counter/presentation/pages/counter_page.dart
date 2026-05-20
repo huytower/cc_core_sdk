@@ -1,6 +1,6 @@
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_column_center.dart';
+import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
@@ -27,15 +27,9 @@ class CounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Counter Example'),
-      ),
+      appBar: AppBar(title: const Text('Counter Example')),
       body: const CcColCenter(
-        children: [
-          CounterDisplay(),
-          CcSpaceSmall(),
-          IncrementButton(),
-        ],
+        children: [CounterDisplay(), CcSpaceSM(), IncrementButton()],
       ),
     );
   }

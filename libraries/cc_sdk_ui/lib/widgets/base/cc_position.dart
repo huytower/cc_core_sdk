@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 
 class CcPositionBottom extends StatelessWidget {
-  const CcPositionBottom({Key? key, required this.child, this.bottom})
-      : super(key: key);
-
   final double? bottom;
   final Widget child;
 
+  const CcPositionBottom({
+    super.key,
+    required this.child,
+    this.bottom,
+  });
+
   @override
-  Widget build(c) => Positioned(
+  Widget build(BuildContext context) => Positioned(
         bottom: bottom ?? 0,
         left: 0,
         right: 0,
@@ -17,25 +20,28 @@ class CcPositionBottom extends StatelessWidget {
 }
 
 class CcPositionCenter extends StatelessWidget {
-  const CcPositionCenter({Key? key, required this.child}) : super(key: key);
-
   final Widget child;
 
+  const CcPositionCenter({super.key, required this.child});
+
   @override
-  Widget build(c) => Positioned.fill(
+  Widget build(BuildContext context) => Positioned.fill(
         child: child,
       );
 }
 
 class CcPositionRight extends StatelessWidget {
-  const CcPositionRight({Key? key, required this.child, this.right})
-      : super(key: key);
-
   final double? right;
   final Widget child;
 
+  const CcPositionRight({
+    super.key,
+    required this.child,
+    this.right,
+  });
+
   @override
-  Widget build(c) => Positioned(
+  Widget build(BuildContext context) => Positioned(
         bottom: 0,
         right: right ?? 0,
         top: 0,
@@ -44,12 +50,12 @@ class CcPositionRight extends StatelessWidget {
 }
 
 class CcPositionTop extends StatelessWidget {
-  const CcPositionTop({Key? key, required this.child}) : super(key: key);
-
   final Widget child;
 
+  const CcPositionTop({super.key, required this.child});
+
   @override
-  Widget build(c) => Positioned(
+  Widget build(BuildContext context) => Positioned(
         left: 0,
         right: 0,
         top: 0,

@@ -2,69 +2,68 @@ import 'package:flutter/widgets.dart';
 
 import '../../core/constants/cc_padding_params.dart';
 
+/// Extra Small Space (4pt)
+class CcSpaceXS extends StatelessWidget {
+  const CcSpaceXS({super.key});
+  @override
+  Widget build(BuildContext context) => const SizedBox(
+    height: CcPaddingParams.SPACE_XS,
+    width: CcPaddingParams.SPACE_XS,
+  );
+}
+
+/// Small Space (8pt)
+class CcSpaceSM extends StatelessWidget {
+  const CcSpaceSM({super.key});
+  @override
+  Widget build(BuildContext context) => const SizedBox(
+    height: CcPaddingParams.SPACE_SM,
+    width: CcPaddingParams.SPACE_SM,
+  );
+}
+
+/// Medium/Default Space (12pt)
 class CcSpace extends StatelessWidget {
-  const CcSpace({Key? key}) : super(key: key);
-
+  const CcSpace({super.key});
   @override
   Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_MD,
-        width: CcPaddingParams.SPACE_MD,
-      );
+    height: CcPaddingParams.SPACE_MD,
+    width: CcPaddingParams.SPACE_MD,
+  );
 }
 
-class CcSpaceFooter extends StatelessWidget {
-  const CcSpaceFooter({Key? key}) : super(key: key);
-
+/// Large Space (16pt)
+class CcSpaceLG extends StatelessWidget {
+  const CcSpaceLG({super.key});
   @override
   Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_XL * 3,
-      );
+    height: CcPaddingParams.SPACE_LG,
+    width: CcPaddingParams.SPACE_LG,
+  );
 }
 
-class CcSpaceFooterAppName extends StatelessWidget {
-  const CcSpaceFooterAppName({Key? key}) : super(key: key);
-
+/// Extra Large Space (24pt)
+class CcSpaceXL extends StatelessWidget {
+  const CcSpaceXL({super.key});
   @override
   Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_XL,
-      );
+    height: CcPaddingParams.SPACE_XL,
+    width: CcPaddingParams.SPACE_XL,
+  );
 }
 
+/// Specialized Header Space
 class CcSpaceHeader extends StatelessWidget {
-  const CcSpaceHeader({Key? key}) : super(key: key);
-
+  const CcSpaceHeader({super.key});
   @override
-  Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_XL * 2,
-      );
+  Widget build(BuildContext context) =>
+      const SizedBox(height: CcPaddingParams.SPACE_XL * 2);
 }
 
-class CcSpaceLarge extends StatelessWidget {
-  const CcSpaceLarge({Key? key}) : super(key: key);
-
+/// Specialized Footer Space
+class CcSpaceFooter extends StatelessWidget {
+  const CcSpaceFooter({super.key});
   @override
-  Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_LG,
-        width: CcPaddingParams.SPACE_LG,
-      );
-}
-
-class CcSpaceSmall extends StatelessWidget {
-  const CcSpaceSmall({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_SM,
-        width: CcPaddingParams.SPACE_SM,
-      );
-}
-
-class CcSpaceSmallest extends StatelessWidget {
-  const CcSpaceSmallest({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => const SizedBox(
-        height: CcPaddingParams.SPACE_XS,
-        width: CcPaddingParams.SPACE_XS,
-      );
+  Widget build(BuildContext context) =>
+      const SizedBox(height: CcPaddingParams.SPACE_XL * 3);
 }

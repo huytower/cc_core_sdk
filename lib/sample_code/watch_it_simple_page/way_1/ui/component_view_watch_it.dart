@@ -1,5 +1,5 @@
 import 'package:cc_sdk_ui/widgets/base/cc_position.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_column_center.dart';
+import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/app_name_widget.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
@@ -45,11 +45,11 @@ class ComponentViewWatchIt extends WatchingWidget {
       /// section : app name, build config
       /// section : app version, code
       AppNameWidget(logic.appInfo, fontSize: 14),
-      const CcSpaceSmall(),
+      const CcSpaceSM(),
 
       /// section : app tracking log
       /// section : device info
-      const CcSpaceSmall(),
+      const CcSpaceSM(),
       buildDeviceInfo(),
     ],
   );

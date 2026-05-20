@@ -26,9 +26,9 @@ Add to your `pubspec.yaml`:
 ```yaml
 dependencies:
   cc_sdk_ui:
-    path: ../path/to/cc_sdk_ui
+    path: libraries/cc_sdk_ui
   cc_sdk:  # Required core functionality
-    path: ../path/to/cc_sdk
+    path: libraries/cc_sdk
 ```
 
 ## Usage

@@ -1,13 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class Toast {
-  static final int LENGTH_SHORT = 1;
-  static final int LENGTH_LONG = 2;
-  static final int BOTTOM = 0;
-  static final int CENTER = 1;
-  static final int TOP = 2;
+  static const int LENGTH_SHORT = 1;
+  static const int LENGTH_LONG = 2;
+  static const int BOTTOM = 0;
+  static const int CENTER = 1;
+  static const int TOP = 2;
 
   static void show(String? msg, BuildContext context,
       {int duration = 1,
@@ -23,12 +22,8 @@ class Toast {
 }
 
 class ToastView {
-  static final ToastView _singleton = new ToastView._internal();
-
-  factory ToastView() {
-    return _singleton;
-  }
-
+  static final ToastView _singleton = ToastView._internal();
+  factory ToastView() => _singleton;
   ToastView._internal();
 
   static OverlayState? overlayState;
@@ -48,26 +43,14 @@ class ToastView {
       Border? border) async {
     overlayState = Overlay.of(context);
 
-    Paint paint = Paint();
-    paint.strokeCap = StrokeCap.square;
-    paint.color = background;
-
     _overlayEntry = OverlayEntry(
       builder: (BuildContext context) => ToastWidget(
-          widget: Container(
+          widget: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: GestureDetector(
               onTap: () {
-//                currentTime += 10;
                 dismiss();
-                if (timer != null) {
-                  timer!.cancel();
-                }
-              },
-              onDoubleTap: () {
-                if (timer != null) {
-                  timer!.cancel();
-                }
+                timer?.cancel();
               },
               child: Container(
                 alignment: Alignment.center,
@@ -78,9 +61,9 @@ class ToastView {
                     borderRadius: BorderRadius.circular(backgroundRadius),
                     border: border,
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
-                  child: Text(msg!,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+                  child: Text(msg ?? '',
                       softWrap: true,
                       style: TextStyle(
                         fontFamily: "Montserrat",
@@ -96,11 +79,8 @@ class ToastView {
     _isVisible = true;
     overlayState!.insert(_overlayEntry!);
     currentTime = duration;
-    if (timer != null) {
-      timer!.cancel();
-    }
-    timer = Timer.periodic(Duration(seconds: 1), (timerCb) {
-//      UtilHelper.printCustom("currentTime $currentTime");
+    timer?.cancel();
+    timer = Timer.periodic(const Duration(seconds: 1), (timerCb) {
       currentTime--;
       if (currentTime <= 0) {
         timer!.cancel();
@@ -110,16 +90,14 @@ class ToastView {
   }
 
   static dismiss() async {
-    if (!_isVisible) {
-      return;
-    }
+    if (!_isVisible) return;
     _isVisible = false;
     _overlayEntry?.remove();
   }
 }
 
 class ToastWidget extends StatelessWidget {
-  ToastWidget({
+  const ToastWidget({
     Key? key,
     this.widget,
     this.gravity,
@@ -130,11 +108,8 @@ class ToastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Positioned(
-//        top: gravity == 2 ? 50 : null,
-//           top: 45,
+    return Positioned(
         bottom: 100,
-//        bottom: gravity == 0 ? 30 : null,
         child: Material(
           color: Colors.transparent,
           child: widget,

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../widgets/api/loading_icon_widget.dart';
-import '../../widgets/page/ignore_keyboard.dart';
-import 'body_modal_bottom_sheet.dart';
-import 'body_show_message.dart';
+import '../../widgets/base/cc_keyboard_dismisser.dart';
+import '../../widgets/dialog/body_modal_bottom_sheet.dart';
+import '../../widgets/dialog/body_show_message.dart';
 
 class OpenDialog {
   static Future<dynamic> showBottomSheet(
@@ -37,7 +37,7 @@ class OpenDialog {
         if (isHasIgnore) {
           return child;
         }
-        return IgnoreKeyboard(
+        return CcKeyboardDismisser(
           child: child,
         );
       },
@@ -109,8 +109,8 @@ class OpenDialog {
       barrierDismissible: false, // user must tap button!
       barrierColor: Colors.grey.withOpacity(0.3),
       builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () async => false,
+        return PopScope(
+          canPop: false,
           child: const SizedBox(
             width: double.infinity,
             height: double.infinity,

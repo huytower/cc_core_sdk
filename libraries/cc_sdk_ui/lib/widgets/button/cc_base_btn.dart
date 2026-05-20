@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../core/helper/widget_helper.dart';
 import '../../core/theme/base_colors.dart';
-import '../flex/cc_row_center.dart';
-import '../inkwell/button_inkwell_widget.dart';
+import '../flex/cc_flex.dart';
+import '../inkwell/cc_inkwell.dart';
 import '../text/cc_text.dart';
 
 class CcSplashBtn extends StatelessWidget {

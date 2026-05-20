@@ -39,10 +39,7 @@ import '../mixin/get_view_provider.dart';
 @RoutePage()
 class GetViewPage extends CcGetView<GetViewController>
     with GetViewProvider, CcPullRefreshMixin, CcLoadMoreMixin {
-  GetViewPage({Key? key})
-      : super(
-          key: key,
-        );
+  GetViewPage({Key? key}) : super(key: key);
 
   //----------------------------------------------------------------------------
   @override
@@ -82,11 +79,7 @@ class GetViewPage extends CcGetView<GetViewController>
 
             controller.fetchNewsApi();
           },
-          icon: const Icon(
-            Icons.access_alarm,
-            color: Colors.red,
-            size: 60,
-          ),
+          icon: const Icon(Icons.access_alarm, color: Colors.red, size: 60),
           width: 120,
           height: 80,
           bgColor: Colors.blue,
@@ -98,7 +91,8 @@ class GetViewPage extends CcGetView<GetViewController>
   GestureDetector buildItem(int index) {
     return GestureDetector(
       onTap: () => controller.fetchNewsDetailApi(
-          controller.sampleCodeFakeList[index].id.toString()),
+        controller.sampleCodeFakeList[index].id.toString(),
+      ),
       child: Container(
         /// flutter sdk
         height: 150,
@@ -137,27 +131,29 @@ class GetViewPage extends CcGetView<GetViewController>
   ///
   Widget buildListComponent() {
     return buildPullToRefresh(
-        onRefresh: controller.onRefresh,
-        child: buildLoadMore(
-          onLoadMore: controller.onLoadMore,
-          child: buildListData(),
-        ));
+      onRefresh: controller.onRefresh,
+      child: buildLoadMore(
+        onLoadMore: controller.onLoadMore,
+        child: buildListData(),
+      ),
+    );
   }
 
   ListView buildListData() {
     return ListView.builder(
-        itemCount: controller.sampleCodeFakeList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return buildItem(index);
-        });
+      itemCount: controller.sampleCodeFakeList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return buildItem(index);
+      },
+    );
   }
 
   Column buildListEmpty() {
     return Column(
       children: [
-        const CcSpaceSmall(),
+        const CcSpaceSM(),
         buildComponent(),
-        const CcSpaceSmall(),
+        const CcSpaceSM(),
         buildComponent(),
       ],
     );

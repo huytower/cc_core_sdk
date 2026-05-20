@@ -96,3 +96,8 @@ Run build_runner after making changes to DI:
 ```bash
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
+
+## 🔗 Related Libraries
+
+- `cc_sdk_ui`: UI component library used across apps and features. See [libraries/cc_sdk_ui/README.md](libraries/cc_sdk_ui/README.md) for usage and examples.
+- `cc_sdk`: Core SDK utilities and shared services used by features. See [libraries/cc_sdk/README.md](libraries/cc_sdk/README.md).

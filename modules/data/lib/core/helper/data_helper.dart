@@ -4,7 +4,8 @@ import 'dart:math';
 import 'package:app_config/core/constant/cc_constants.dart';
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
-import 'package:reusable/utils/logger_helper.dart';
+
+import 'logger_helper.dart';
 
 //v1.1
 class DataHelper {
