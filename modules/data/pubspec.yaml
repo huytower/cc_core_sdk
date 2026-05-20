@@ -10,6 +10,8 @@ environment:
 dependencies:
   app_config:
     path: ../app_config
+  cc_sdk:
+    path: ../../libraries/cc_sdk
 
   curl_logger_dio_interceptor: ^1.0.1
   dio: ^5.9.2

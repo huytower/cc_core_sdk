@@ -1,11 +1,13 @@
 import 'package:cc_sdk/core/failure/app_config/app_config_failure.dart';
 import 'package:cc_sdk/core/failure/failure.dart';
+import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../entities/app_config_entity.dart';
 import '../repositories/app_config_repository.dart';
 
 /// Use case for refreshing the application configuration.
+@lazySingleton
 class RefreshAppConfig {
   final AppConfigRepository repository;
 

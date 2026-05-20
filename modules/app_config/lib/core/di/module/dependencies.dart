@@ -1,11 +1,11 @@
+import 'package:cc_sdk/core/helper/network_helper.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
-import '../../../core/helper/network_helper.dart';
 import '../../../data/datasource/local/box/app_storage/cc_app_storage.dart';
 import '../../../data/datasource/local/box/app_track_log/cc_app_track_log.dart';
 import '../../../data/datasource/local/box/device_info/cc_device_info.dart';
-import '../../../data/datasource/remote/app_version_service.dart';
+import '../../../data/datasource/remote/app_version_api.dart';
 
 /// A module that defines and provides all dependencies for the AppConfig module.
 ///
@@ -39,14 +39,12 @@ abstract class AppConfigModule {
   /// The [NetworkHelper] is a utility class for handling network-related operations
   /// and is registered as a singleton to ensure consistent network state management.
   @singleton
-  NetworkHelper get networkHelper => NetworkHelper(
-        InternetConnection(),
-      );
+  NetworkHelper get networkHelper => NetworkHelper(InternetConnection());
 
-  /// Provides a singleton instance of [AppVersionService].
+  /// Provides a singleton instance of [AppVersionAPI].
   ///
-  /// [AppVersionService] handles version checking and update-related functionality.
+  /// [AppVersionAPI] handles version checking and update-related functionality.
   /// It's registered as a lazy singleton to maintain consistency across the app.
   @lazySingleton
-  AppVersionService get appVersionService => AppVersionService();
+  AppVersionAPI get appVersionService => AppVersionAPI();
 }

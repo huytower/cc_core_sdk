@@ -10,12 +10,10 @@ part 'cc_app_storage.g.dart';
 
 ///
 ///[example update]-------------------------------------------------------------
-///   CcAppStorage.instance.apply((_this) {
-///       _this.token = "token_123";
-///       _this.uuid = "uuid_123";
+///   CcAppStorage.instance.accessToken = "token_123";
+///   CcAppStorage.instance.userRole = "admin";
+///   CcAppStorage.instance.save();
 ///
-///       _this.save();
-///   });
 ///[example logger]-------------------------------------------------------------
 ///   CcAppStorage.instance.Log();
 ///
@@ -42,18 +40,23 @@ class CcAppStorage extends HiveObject {
   }
 
   @HiveField(0)
-  String? a_t;
+  String? accessToken;
+
+  @HiveField(1)
+  String? fcmToken;
 
   @HiveField(2)
-  String? f_t;
+  String? gpsLocation;
 
   @HiveField(3)
-  String? gps;
+  String? userRole;
 
-  @HiveField(4)
-  String? role;
-
-  CcAppStorage({this.a_t, this.f_t, this.gps, this.role});
+  CcAppStorage({
+    this.accessToken,
+    this.fcmToken,
+    this.gpsLocation,
+    this.userRole,
+  });
 
   ///
   ResUser? user = ResUser();

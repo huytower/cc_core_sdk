@@ -30,6 +30,7 @@ dependencies:
   get: ^4.7.3
   google_fonts: ^8.1.0
 
+  internet_connection_checker_plus: ^3.0.0
   intl: ^0.20.2
 
   keyboard_dismisser: ^3.0.0

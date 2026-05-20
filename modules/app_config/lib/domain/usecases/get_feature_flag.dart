@@ -1,11 +1,13 @@
 import 'package:cc_sdk/core/failure/app_config/app_config_failure.dart';
 import 'package:cc_sdk/core/failure/failure.dart';
+import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../repositories/app_config_repository.dart';
 
 /// Use case for getting a feature flag value.
-class GetFeatureFlag<T> {
+@lazySingleton
+class GetFeatureFlag {
   final AppConfigRepository repository;
 
   const GetFeatureFlag(this.repository);
@@ -14,7 +16,10 @@ class GetFeatureFlag<T> {
   ///
   /// Returns a [Result] containing either a [Failure] or the feature flag value.
   /// If the key doesn't exist, returns the [defaultValue].
-  Future<Result<T, Failure>> call(String key, {required T defaultValue}) async {
+  Future<Result<T, Failure>> call<T>(
+    String key, {
+    required T defaultValue,
+  }) async {
     try {
       final value = await repository.getFeatureFlag<T>(
         key,

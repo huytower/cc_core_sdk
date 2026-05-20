@@ -1,10 +1,9 @@
-import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 /// Service class to handle app version related operations
-class AppVersionService {
+class AppVersionAPI {
   /// Gets the current app version from the package info
-  /// 
+  ///
   /// Returns a Future that completes with the current app version in format: x.y.z+hotfix
   Future<String> getCurrentVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
@@ -12,7 +11,7 @@ class AppVersionService {
   }
 
   /// Compares the current app version with a provided version
-  /// 
+  ///
   /// [versionToCompare] - The version to compare with (format: x.y.z+hotfix)
   /// Returns:
   ///   - 0 if versions are equal
@@ -33,16 +32,16 @@ class AppVersionService {
     for (var i = 0; i < v1Parts.length || i < v2Parts.length; i++) {
       final v1Part = i < v1Parts.length ? int.tryParse(v1Parts[i]) ?? 0 : 0;
       final v2Part = i < v2Parts.length ? int.tryParse(v2Parts[i]) ?? 0 : 0;
-      
+
       if (v1Part < v2Part) return -1;
       if (v1Part > v2Part) return 1;
     }
-    
+
     return 0; // versions are equal
   }
 
   /// Checks if the app needs to be updated
-  /// 
+  ///
   /// [minRequiredVersion] - The minimum required version (format: x.y.z+hotfix)
   /// Returns true if the current version is older than the minimum required version
   Future<bool> isUpdateRequired(String minRequiredVersion) async {
@@ -56,7 +55,7 @@ class AppVersionService {
   }
 
   /// Gets the app's build number
-  /// 
+  ///
   /// Returns a Future that completes with the build number as a string
   Future<String> getBuildNumber() async {
     final packageInfo = await PackageInfo.fromPlatform();
@@ -64,7 +63,7 @@ class AppVersionService {
   }
 
   /// Gets the app's package name
-  /// 
+  ///
   /// Returns a Future that completes with the package name
   Future<String> getPackageName() async {
     final packageInfo = await PackageInfo.fromPlatform();
@@ -72,7 +71,7 @@ class AppVersionService {
   }
 
   /// Checks if the current version is a pre-release version
-  /// 
+  ///
   /// Returns true if the current version contains pre-release identifiers (e.g., 1.0.0-beta)
   Future<bool> isPreRelease() async {
     final currentVersion = await getCurrentVersion();

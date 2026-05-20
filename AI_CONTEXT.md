@@ -7,7 +7,7 @@ Flutter starter template following **Clean Architecture** and **SOLID principles
 **Project Path:** `C:\Users\Admin\repository\flutter-get-starter-template`
 
 ## Architecture Principles
-
+````
 ### Clean Architecture
 - **Domain Layer**: Business logic, use cases, entities, repository interfaces
 - **Data Layer**: Data sources (remote/local), repository implementations, entities
@@ -248,6 +248,42 @@ modules/message/
 - Use `@HiveType()`, `@HiveField()` for Hive models
 
 ## Adding New Code
+
+### Development Decision Tree: Where to implement?
+
+To keep the project clean, use this guide to decide where your code belongs:
+
+| Requirement Type | Target Location | Example |
+| :--- | :--- | :--- |
+| **Main App Logic / Core Screens** | `lib/presentation/` | Home Page, Profile Screen, Login flow |
+| **App-Specific Business Logic** | `lib/domain/usecases/` | `calculate_user_score.dart` |
+| **Global Infrastructure** | `modules/` | App Config, Auth, Theming, Networking |
+| **Reusable Feature** | `libraries/features/` | A Chat module to be used in multiple apps |
+| **Generic UI Component** | `libraries/cc_sdk_ui/` | Custom Button, Card, or Loading Spinner |
+| **App-Specific Widget** | `modules/widget/` | A very specific header used only in this app |
+
+---
+
+### Implementation Guidelines
+
+#### 1. Root Project (`lib/`)
+**Purpose:** This is the "brain" of your specific application.
+- **Implement here if:** The requirement is unique to this app's user journey.
+- **Focus:** Screens (Pages), State Management (BLoC/GetX/Provider), and orchestrating modules.
+- **Dependency:** Can depend on `modules/` and `libraries/`.
+
+#### 2. App Modules (`modules/`)
+**Purpose:** Infrastructure and cross-cutting concerns that support the app.
+- **Implement here if:** You are changing *how* the app handles configuration, data storage, or themes.
+- **Focus:** `app_config`, `data` (Retrofit/Floor), `theme`, `message`.
+- **Note:** Keep business logic out of here. For example, `app_config` should handle *loading* the config, but not *deciding* what the user sees on the Home screen.
+
+#### 3. Libraries (`libraries/`)
+**Purpose:** Pure, reusable code and shared UI.
+- **Implement here if:** The code is generic enough to be moved to a different project without changes.
+- **Focus:** `cc_sdk` (utilities), `cc_sdk_ui` (design system).
+
+---
 
 ### Where to Place New Features
 

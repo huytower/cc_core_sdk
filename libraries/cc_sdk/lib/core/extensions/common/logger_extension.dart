@@ -5,9 +5,9 @@ import 'package:path/path.dart' as path;
 import 'package:stack_trace/stack_trace.dart';
 
 import '../../config/library_config.dart';
-import '../../constants/enum/symbol_logger.dart';
+import '../../enum/symbol_logger.dart';
 import '../../serialization/gson/gson.dart';
-import '../common/when_expression.dart';
+import 'when_expression.dart';
 
 extension TypeExtension<T> on T {
   /// LOG EXTENSION

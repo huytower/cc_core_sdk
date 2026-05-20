@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SettingDevice {
+class DeviceHelper {
   static int? versionNew = 1;
 
   static bool isIOS = false;
@@ -14,7 +14,7 @@ class SettingDevice {
 
   static bool hasHomeBtnIOSDevice = true;
 
-  SettingDevice.init(BuildContext context) {
+  DeviceHelper.init(BuildContext context) {
     isIOS = Theme.of(context).platform == TargetPlatform.iOS;
     widthScreen = MediaQuery.of(context).size.width;
     heightScreen = MediaQuery.of(context).size.height;
@@ -36,9 +36,9 @@ class SettingDevice {
 
     if (heightKeyboard <= 0) {
       heightKeyboard = EdgeInsets.fromWindowPadding(
-              WidgetsBinding.instance.window.viewInsets,
-              WidgetsBinding.instance.window.devicePixelRatio)
-          .bottom;
+        WidgetsBinding.instance.window.viewInsets,
+        WidgetsBinding.instance.window.devicePixelRatio,
+      ).bottom;
     }
 
     return heightKeyboard;

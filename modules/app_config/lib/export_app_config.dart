@@ -6,6 +6,18 @@
 // APP CONFIGURATION
 // =================================
 
+// =================================
+// CONSTANTS
+// =================================
+
+export 'package:cc_sdk/core/constants/cc_constants.dart';
+export 'package:cc_sdk/core/helper/device_helper.dart';
+// =================================
+// HELPERS
+// =================================
+
+export 'package:cc_sdk/core/helper/network_helper.dart';
+
 export 'core/config/app/cc_app_config.dart';
 export 'core/config/app/cc_app_track_info.dart';
 // =================================
@@ -28,11 +40,6 @@ export 'core/config/http/env/uat.dart';
 export 'core/config/http/http_client/http_client_config.dart';
 export 'core/config/http/models/request_header.dart';
 // =================================
-// CONSTANTS
-// =================================
-
-export 'core/constant/cc_constants.dart';
-// =================================
 // DI CONFIGURATION
 // =================================
 
@@ -51,11 +58,6 @@ export 'core/enum/routing_manager_enum.dart';
 
 export 'core/extension/app_track_log_extension.dart';
 // =================================
-// HELPERS
-// =================================
-
-export 'core/helper/network_helper.dart';
-// =================================
 // DATA LAYER
 // =================================
 
@@ -64,9 +66,9 @@ export 'data/datasource/local/box/app_storage/cc_app_storage.dart';
 export 'data/datasource/local/box/app_track_log/cc_app_track_log.dart';
 export 'data/datasource/local/box/cc_hive_box.dart';
 export 'data/datasource/local/box/device_info/cc_device_info.dart';
-export 'data/datasource/local/box/register_hive_adapter/register_hive_adapter.dart';
+export 'data/datasource/local/box/register_hive_adapter.dart';
 // Remote Data Sources
-export 'data/datasource/remote/app_version_service.dart';
+export 'data/datasource/remote/app_version_api.dart';
 // =================================
 // DOMAIN LAYER
 // =================================
