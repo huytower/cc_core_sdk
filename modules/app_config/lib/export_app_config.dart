@@ -12,10 +12,6 @@
 
 export 'package:cc_sdk/core/constants/cc_constants.dart';
 export 'package:cc_sdk/core/helper/device_helper.dart';
-// =================================
-// HELPERS
-// =================================
-
 export 'package:cc_sdk/core/helper/network_helper.dart';
 
 export 'core/config/app/cc_app_config.dart';
@@ -57,6 +53,12 @@ export 'core/enum/routing_manager_enum.dart';
 // =================================
 
 export 'core/extension/app_track_log_extension.dart';
+// =================================
+// HELPERS
+// =================================
+
+export 'core/helper/logger_helper.dart';
+export 'core/helper/routing_helper.dart';
 // =================================
 // DATA LAYER
 // =================================

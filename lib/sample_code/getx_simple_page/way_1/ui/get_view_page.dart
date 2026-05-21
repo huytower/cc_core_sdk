@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import '../../../../../../core/common/mixins/cc_load_more_mixin.dart';
 import '../../../../../../core/common/mixins/cc_pull_to_refresh_mixin.dart';
 import '../../../../presentation/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
-import '../../../watch_it_simple_page/way_1/ui/component_view_watch_it.dart';
 import '../getx/get_view_controller.dart';
 import '../mixin/get_view_provider.dart';
 
@@ -47,9 +46,6 @@ class GetViewPage extends CcGetView<GetViewController>
     /// === build()
     return Stack(
       children: [
-        /// Sample code : WatchIt : notify data set changed a component - a part of total page
-        ComponentViewWatchIt(),
-
         /// Sample code : GetX : notify data set changed
         Obx(() {
           /// === setState():

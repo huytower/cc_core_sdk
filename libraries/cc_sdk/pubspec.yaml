@@ -12,6 +12,7 @@ dependencies:
   connectivity_plus: ^7.1.1
   crypto: ^3.0.7
   custom_refresh_indicator: ^4.0.1
+  dartx: ^1.2.0
 
   deep_collection: ^1.0.2
   device_info_plus: ^13.1.0
