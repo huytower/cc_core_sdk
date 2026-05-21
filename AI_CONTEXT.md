@@ -48,6 +48,7 @@ flutter-get-starter-template/
 
 **Key Components:**
 - Network utilities (CURL, interceptors, connectivity)
+- Feature flags and environment toggles
 - Device information
 - Common extensions and helpers
 - Serialization (GSON-style)
@@ -109,7 +110,6 @@ flutter-get-starter-template/
 **Features:**
 - Version and build information
 - Environment-specific settings (.env files)
-- Feature flags and toggles
 - Global application constants
 - Centralized dependency registration
 - Hive-based local storage with type adapters

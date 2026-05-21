@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:cc_sdk/core/config/cc_app_track_info.dart';
-import '../../core/config/feature_flags.dart';
 import '../../core/config/http/http_client/http_client_config.dart';
 import '../../domain/entities/app_config_entity.dart';
 import '../../domain/repositories/app_config_repository.dart';
@@ -27,10 +27,10 @@ class AppConfigRepositoryImpl implements AppConfigRepository {
       buildNumber: buildNumber,
       environment: httpConfig.environmentName,
       featureFlags: {
-        'enable_logger': FeatureFlags.isEnableLogger,
-        'enable_logger_dio': FeatureFlags.isEnableLoggerDio,
-        'analytics_enabled': FeatureFlags.isAnalyticsEnabled,
-        'crash_reporting_enabled': FeatureFlags.isCrashReportingEnabled,
+        'enable_logger': CcFeatureFlags.isEnableLogger,
+        'enable_logger_dio': CcFeatureFlags.isEnableLoggerDio,
+        'analytics_enabled': CcFeatureFlags.isAnalyticsEnabled,
+        'crash_reporting_enabled': CcFeatureFlags.isCrashReportingEnabled,
       },
     );
   }
@@ -46,11 +46,19 @@ class AppConfigRepositoryImpl implements AppConfigRepository {
   Future<T> getFeatureFlag<T>(String key, {required T defaultValue}) async {
     // Implementation can be expanded to check a remote config service (Firebase, etc.)
     if (T == bool) {
-      if (key == 'ENABLE_LOGGER') return FeatureFlags.isEnableLogger as T;
-      if (key == 'ENABLE_LOGGER_DIO')
-        return FeatureFlags.isEnableLoggerDio as T;
-      if (key == 'ANALYTICS_ENABLED')
-        return FeatureFlags.isAnalyticsEnabled as T;
+      if (key == 'ENABLE_LOGGER') return CcFeatureFlags.isEnableLogger as T;
+      if (key == 'ENABLE_LOGGER_DIO') {
+        return CcFeatureFlags.isEnableLoggerDio as T;
+      }
+      if (key == 'ENABLE_ANALYTICS' || key == 'ANALYTICS_ENABLED') {
+        return CcFeatureFlags.isAnalyticsEnabled as T;
+      }
+      if (key == 'ENABLE_CRASH_REPORTING' || key == 'CRASH_REPORTING_ENABLED') {
+        return CcFeatureFlags.isCrashReportingEnabled as T;
+      }
+      if (key == 'ENABLE_CERT_PINNING') {
+        return CcFeatureFlags.isCertificatePinningEnabled as T;
+      }
     }
     return defaultValue;
   }

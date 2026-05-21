@@ -1,15 +1,16 @@
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../feature_flags.dart';
 import 'base.dart';
 
 /// Free tier environment configuration with mock APIs
 class HttpFree extends HttpBase {
   /// Create a new Free environment configuration
-  HttpFree() : super(
-    isLogger: true,
-    isEnableLoggerDio: FeatureFlags.isEnableLogger,
-  );
+  HttpFree()
+    : super(
+        isLogger: true,
+        isEnableLoggerDio: CcFeatureFlags.isEnableLoggerDio,
+      );
 
   @override
   final String environmentName = 'FREE_FAKE_API';
@@ -32,8 +33,8 @@ class HttpFree extends HttpBase {
 
   @override
   Map<String, String> get apiHeaders => {
-        ...super.apiHeaders,
-        'X-Environment': environmentName,
-        'X-Mock-Data': 'true',
-      };
+    ...super.apiHeaders,
+    'X-Environment': environmentName,
+    'X-Mock-Data': 'true',
+  };
 }

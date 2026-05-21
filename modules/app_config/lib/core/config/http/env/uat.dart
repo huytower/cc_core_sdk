@@ -1,15 +1,16 @@
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../feature_flags.dart';
 import 'base.dart';
 
 /// UAT (User Acceptance Testing) environment configuration
 class HttpUat extends HttpBase {
   /// Create a new UAT environment configuration
-  HttpUat() : super(
-    isLogger: true,
-    isEnableLoggerDio: FeatureFlags.isEnableLogger,
-  );
+  HttpUat()
+    : super(
+        isLogger: true,
+        isEnableLoggerDio: CcFeatureFlags.isEnableLoggerDio,
+      );
 
   @override
   final String environmentName = 'UAT';
@@ -35,9 +36,9 @@ class HttpUat extends HttpBase {
 
   @override
   Map<String, String> get apiHeaders => {
-        ...super.apiHeaders,
-        'X-Environment': environmentName,
-        'X-Debug-Mode': 'true',
-        'X-Experimental-Features': enableExperimentalFeatures.toString(),
-      };
+    ...super.apiHeaders,
+    'X-Environment': environmentName,
+    'X-Debug-Mode': 'true',
+    'X-Experimental-Features': enableExperimentalFeatures.toString(),
+  };
 }

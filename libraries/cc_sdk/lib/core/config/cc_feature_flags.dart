@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -8,13 +10,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 ///
 /// Example usage:
 /// ```dart
-/// if (FeatureFlags.isEnableLogger) {
+/// if (CcFeatureFlags.isEnableLogger) {
 ///   // Enable logging
 /// }
 /// ```
-class FeatureFlags {
-  // Private constructor to prevent instantiation
-  FeatureFlags._();
+abstract final class CcFeatureFlags {
+  CcFeatureFlags._();
 
   /// Whether logging is enabled
   static bool get isEnableLogger => _getBool('ENABLE_LOGGER', !kReleaseMode);
@@ -24,11 +25,15 @@ class FeatureFlags {
       _getBool('ENABLE_LOGGER_DIO', !kReleaseMode);
 
   /// Whether analytics is enabled
-  static bool get isAnalyticsEnabled => _getBool('ANALYTICS_ENABLED', true);
+  static bool get isAnalyticsEnabled => _getBool('ENABLE_ANALYTICS', true);
 
   /// Whether crash reporting is enabled
   static bool get isCrashReportingEnabled =>
-      _getBool('CRASH_REPORTING_ENABLED', true);
+      _getBool('ENABLE_CRASH_REPORTING', true);
+
+  /// Whether certificate pinning is enabled for HTTP requests
+  static bool get isCertificatePinningEnabled =>
+      _getBool('ENABLE_CERT_PINNING', true);
 
   /// Retrieves a boolean configuration value with a default fallback.
   ///
@@ -36,12 +41,15 @@ class FeatureFlags {
   /// [defaultValue]: The default value to return if the key is not found or invalid
   ///
   /// Returns `true` if the environment variable is 'true' (case-insensitive),
-  /// otherwise returns [defaultValue].
+  /// returns `false` if the environment variable is 'false' (case-insensitive),
+  /// otherwise returns [defaultValue] if the key is missing or invalid.
   static bool _getBool(String key, bool defaultValue) {
     try {
-      final value = dotenv.maybeGet(key)?.toLowerCase();
-      return value == 'true';
+      final value = dotenv.maybeGet(key);
+      if (value == null) return defaultValue;
+      return value.toLowerCase() == 'true';
     } catch (e) {
+      developer.log('Failed to parse boolean feature flag for $key: $e');
       return defaultValue;
     }
   }

@@ -113,11 +113,11 @@ Hive.registerAdapter(UserModelAdapter());
 
 ## Feature Flags
 
-Control feature availability using `FeatureFlags`:
+Control feature availability using `CcFeatureFlags`:
 
-```
-if (FeatureFlags.isNewFeatureEnabled) {
-  // New feature implementation
+```dart
+if (CcFeatureFlags.isEnableLogger) {
+  // Logger is enabled
 }
 ```
 

@@ -15,11 +15,6 @@ export 'package:cc_sdk/core/helper/cc_network_helper.dart';
 
 export 'core/config/app/cc_app_config.dart';
 // =================================
-// FEATURE FLAGS
-// =================================
-
-export 'core/config/feature_flags.dart';
-// =================================
 // ENVIRONMENT CONFIGURATIONS
 // =================================
 

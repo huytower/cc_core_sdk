@@ -2,6 +2,7 @@ import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:cc_sdk/core/failure/app_config/app_config_failure.dart';
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -91,35 +92,18 @@ class HttpProd extends HttpBase {
   /// Whether analytics collection is enabled.
   ///
   /// Can be overridden with `ENABLE_ANALYTICS=false` in .env
-  bool get enableAnalytics => _getBool('ENABLE_ANALYTICS', true);
+  bool get enableAnalytics => CcFeatureFlags.isAnalyticsEnabled;
 
   /// Whether crash reporting is enabled.
   ///
   /// Can be overridden with `ENABLE_CRASH_REPORTING=false` in .env
-  bool get enableCrashReporting => _getBool('ENABLE_CRASH_REPORTING', true);
+  bool get enableCrashReporting => CcFeatureFlags.isCrashReportingEnabled;
 
   /// Whether certificate pinning is enabled for http requests.
   ///
   /// Can be overridden with `ENABLE_CERT_PINNING=false` in .env
-  bool get enableCertificatePinning => _getBool('ENABLE_CERT_PINNING', true);
-
-  /// Gets a boolean value from env variables with validation.
-  ///
-  /// [key] - The env variable key to read
-  /// [defaultValue] - The default value if the key is not set
-  ///
-  /// Returns the parsed boolean value
-  bool _getBool(String key, bool defaultValue) {
-    try {
-      final value = dotenv.maybeGet(key);
-      if (value == null) return defaultValue;
-
-      return value.toLowerCase() == 'true';
-    } catch (e) {
-      developer.log('Failed to parse boolean value for $key: $e');
-      return defaultValue;
-    }
-  }
+  bool get enableCertificatePinning =>
+      CcFeatureFlags.isCertificatePinningEnabled;
 
   @override
   Map<String, String> get apiHeaders => {
