@@ -38,8 +38,10 @@ Future<void> initializeDependencies() async {
 
 Future<void> _configureCoreDependencies() async {
   // Initialize SharedPreferences
-  final sharedPrefs = await SharedPreferences.getInstance();
-  getIt.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
+  if (!getIt.isRegistered<SharedPreferences>()) {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    getIt.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
+  }
 
   // Register common managers and initializers
   if (!getIt.isRegistered<HiveManager>()) {
@@ -61,9 +63,7 @@ Future<void> _configureCoreDependencies() async {
 
   if (!getIt.isRegistered<DeviceInitializer>()) {
     getIt.registerLazySingleton<DeviceInitializer>(
-      () => DeviceInitializer.withDefaults(
-        deviceInfo: getIt<CcDeviceInfo>(),
-      ),
+      () => DeviceInitializer.withDefaults(deviceInfo: getIt<CcDeviceInfo>()),
     );
   }
 }

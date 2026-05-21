@@ -1,7 +1,10 @@
+import 'package:injectable/injectable.dart';
+
 import '../../domain/entities/counter_entity.dart';
 import '../../domain/repositories/counter_repository.dart';
 import '../datasources/counter_local_data_source.dart';
 
+@LazySingleton(as: CounterRepository)
 class CounterRepositoryImpl implements CounterRepository {
   final CounterLocalDataSource localDataSource;
 

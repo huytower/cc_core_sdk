@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/entities/counter_entity.dart';
@@ -9,6 +10,7 @@ abstract class CounterLocalDataSource {
   Future<void> saveCounter(CounterEntity counter);
 }
 
+@LazySingleton(as: CounterLocalDataSource)
 class CounterLocalDataSourceImpl implements CounterLocalDataSource {
   static const _counterKey = 'counter_value';
   final SharedPreferences sharedPreferences;

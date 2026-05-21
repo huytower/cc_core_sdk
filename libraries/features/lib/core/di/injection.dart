@@ -13,8 +13,7 @@ final getIt = GetIt.instance;
   initializerName: r'$initFeaturesGetIt',
   preferRelativeImports: true,
   asExtension: false,
-  generateForDir: ['lib/features'],
 )
 Future<void> configureDependencies() async {
-  $initFeaturesGetIt(getIt);
+  await $initFeaturesGetIt(getIt);
 }

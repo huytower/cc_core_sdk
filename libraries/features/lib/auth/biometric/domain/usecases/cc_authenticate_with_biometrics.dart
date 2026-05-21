@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:features/auth/biometric/domain/entities/cc_biometric_auth_result.dart';
 import 'package:features/auth/biometric/domain/repositories/cc_biometric_auth_repository.dart';
@@ -21,6 +22,7 @@ class CcAuthenticateWithBiometricsParams {
 }
 
 /// Use case for authenticating with biometrics
+@lazySingleton
 class CcAuthenticateWithBiometrics {
   final CcBiometricAuthRepository repository;
 

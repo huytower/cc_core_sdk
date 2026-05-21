@@ -1,9 +1,11 @@
-import 'package:multiple_result/multiple_result.dart';
 import 'package:features/auth/biometric/data/datasources/local/cc_biometric_auth_datasource.dart';
 import 'package:features/auth/biometric/domain/entities/cc_biometric_auth_result.dart';
 import 'package:features/auth/biometric/domain/models/cc_biometric_auth_type.dart';
 import 'package:features/auth/biometric/domain/repositories/cc_biometric_auth_repository.dart';
+import 'package:injectable/injectable.dart';
+import 'package:multiple_result/multiple_result.dart';
 
+@LazySingleton(as: CcBiometricAuthRepository)
 class CcBiometricAuthRepositoryImpl implements CcBiometricAuthRepository {
   final CcBiometricAuthDatasource _datasource;
 
@@ -15,7 +17,11 @@ class CcBiometricAuthRepositoryImpl implements CcBiometricAuthRepository {
       final isAvailable = await _datasource.isBiometricAvailable();
       return Success(isAvailable);
     } catch (e) {
-      return Error(e is Exception ? e : Exception('Failed to check biometric availability'));
+      return Error(
+        e is Exception
+            ? e
+            : Exception('Failed to check biometric availability'),
+      );
     }
   }
 
@@ -34,7 +40,9 @@ class CcBiometricAuthRepositoryImpl implements CcBiometricAuthRepository {
 
       if (isAuthenticated) {
         final biometrics = await _datasource.getAvailableBiometrics();
-        final authType = biometrics.isNotEmpty ? biometrics.first : CcBiometricAuthType.none;
+        final authType = biometrics.isNotEmpty
+            ? biometrics.first
+            : CcBiometricAuthType.none;
         return Success(CcBiometricAuthResult.success(authType: authType));
       } else {
         return Error(Exception('Authentication failed'));
@@ -45,12 +53,15 @@ class CcBiometricAuthRepositoryImpl implements CcBiometricAuthRepository {
   }
 
   @override
-  Future<Result<List<CcBiometricAuthType>, Exception>> getAvailableBiometrics() async {
+  Future<Result<List<CcBiometricAuthType>, Exception>>
+  getAvailableBiometrics() async {
     try {
       final biometrics = await _datasource.getAvailableBiometrics();
       return Success(biometrics);
     } catch (e) {
-      return Error(e is Exception ? e : Exception('Failed to get available biometrics'));
+      return Error(
+        e is Exception ? e : Exception('Failed to get available biometrics'),
+      );
     }
   }
 }

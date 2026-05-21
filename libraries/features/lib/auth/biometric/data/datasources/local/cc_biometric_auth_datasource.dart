@@ -9,7 +9,10 @@ import 'package:local_auth_darwin/local_auth_darwin.dart';
 
 import '../../../domain/models/cc_biometric_auth_type.dart';
 
+import 'package:injectable/injectable.dart';
+
 /// Data source for handling local biometric authentication
+@lazySingleton
 class CcBiometricAuthDatasource {
   final LocalAuthentication _auth;
   bool _canAuthenticate = false;
