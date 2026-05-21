@@ -1,9 +1,8 @@
-import 'package:cc_sdk/core/helper/network_helper.dart';
+import 'package:cc_sdk/core/helper/cc_network_helper.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 import '../../../data/datasource/local/box/app_storage/cc_app_storage.dart';
-import '../../../data/datasource/local/box/app_track_log/cc_app_track_log.dart';
 import '../../../data/datasource/local/box/device_info/cc_device_info.dart';
 import '../../../data/datasource/remote/app_version_api.dart';
 
@@ -27,19 +26,9 @@ abstract class AppConfigModule {
   @lazySingleton
   CcDeviceInfo get ccDeviceInfo => CcDeviceInfo.instance;
 
-  /// Provides a singleton instance of [CcAppTrackLog].
-  ///
-  /// [CcAppTrackLog] handles application logging and tracking, registered
-  /// as a lazy singleton to maintain consistent logging throughout the app.
-  @lazySingleton
-  CcAppTrackLog get ccAppTrackLog => CcAppTrackLog.instance;
-
-  /// Provides a singleton instance of [NetworkHelper].
-  ///
-  /// The [NetworkHelper] is a utility class for handling network-related operations
-  /// and is registered as a singleton to ensure consistent network state management.
+  /// Provides a singleton instance of [CcNetworkHelper].
   @singleton
-  NetworkHelper get networkHelper => NetworkHelper(InternetConnection());
+  CcNetworkHelper get networkHelper => CcNetworkHelper(InternetConnection());
 
   /// Provides a singleton instance of [AppVersionAPI].
   ///

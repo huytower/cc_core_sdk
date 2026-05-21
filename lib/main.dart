@@ -1,9 +1,14 @@
 import 'package:app_config/data/datasource/local/box/register_hive_adapter.dart';
+import 'package:catcher_2/catcher_2.dart';
 import 'package:content_locale/cc_localization.dart' as localization;
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'core/crash_reporting/cc_catcher_bootstrap.dart';
+import 'core/crash_reporting/cc_crash_log_paths.dart';
+import 'core/crash_reporting/cc_crash_log_uploader.dart';
+import 'core/crash_reporting/crash_log_dev_overlay.dart';
 import 'core/di/dependency_register.dart';
 import 'core/di/inject/inject.dart';
 import 'core/runner/app_runner.dart';
@@ -11,35 +16,35 @@ import 'main_logging.dart';
 
 /// NOTICE : there are 3 env. : FREE_FAKE_API (FREE) | UAT | PROD
 /// MUST write necessary code in this file
-///
 void main() async {
-  // Initialize Flutter bindings
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Load env variables
   await logEnv();
   await logVersionInfo();
 
-  /// where init dependency injection, ex. : @singleton, @module, @injection ...
   await initializeDependencies();
-
-  /// manually register into memory by using get_it lib,
-  /// anyway, RECOMMEND use `injectable` for auto-inject
   registerSingletonApp();
 
-  /// region Register hive adapter.
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
-
   await registerHiveAdapter();
 
-  /// endregion
-
-  // Initialize localization with debug logging disabled
   await localization.CcLocalization.initialize();
 
-  /// Run App Prj.
-  runApp(
-    localization.CcLocalization.wrapWithLocalization(child: const AppRunner()),
+  final logFile = await CcCrashLogPaths.resolveLogFile();
+  await CcCrashLogUploader.uploadPendingOnRestart();
+
+  final rootWidget = CrashLogDevOverlay(
+    child: localization.CcLocalization.wrapWithLocalization(
+      child: const AppRunner(),
+    ),
+  );
+
+  Catcher2(
+    rootWidget: rootWidget,
+    ensureInitialized: false,
+    debugConfig: CcCatcherBootstrap.debugOptions(logFile),
+    releaseConfig: CcCatcherBootstrap.releaseOptions(logFile),
+    profileConfig: CcCatcherBootstrap.profileOptions(logFile),
   );
 }

@@ -1,5 +1,5 @@
 import 'package:app_config/core/config/feature_flags.dart';
-import 'package:cc_sdk/core/helper/network_helper.dart';
+import 'package:cc_sdk/core/helper/cc_network_helper.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:cc_sdk/core/network/curl/curl_utils.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
@@ -49,7 +49,7 @@ var ccReqInterceptors = InterceptorsWrapper(
   onRequest: (options, handler) async {
     /// Check internet connection
     final hasInternet =
-        await NetworkHelper(InternetConnection())
+        await CcNetworkHelper(InternetConnection())
             .hasInternet;
     if (!hasInternet) {
       'No internet connection'.Log();

@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/di/inject/inject.dart';
-import '../../../../presentation/getx/app_track_log/cubit/ui/app_track_log_page.dart';
+import '../../../../presentation/crash_log/crash_log_viewer_page.dart';
 import 'simple_cubit.dart';
 import 'simple_cubit_interface.dart';
 import 'simple_cubit_state.dart';
@@ -56,7 +56,7 @@ class SimpleCubitPage extends StatelessWidget {
 
   CcNextBtn buildShowAppTrackLogBtn(context) {
     return CcNextBtn(() {
-      OpenDialog.showBottomSheet(context, const AppTrackLogPage());
+      OpenDialog.showBottomSheet(context, const CrashLogViewerPage());
     }, 'Show Track Log');
   }
 

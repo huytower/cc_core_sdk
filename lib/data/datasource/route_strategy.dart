@@ -1,3 +1,4 @@
+import 'package:catcher_2/catcher_2.dart';
 import 'package:content_locale/cc_localization.dart' as localization;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class AutoRouteStrategy implements RoutingStrategy {
   @override
   Widget build() {
     return _buildThemedApp(
-      routerConfig: AppRouter().config(),
+      routerConfig: AppRouter(navigatorKey: Catcher2.navigatorKey).config(),
     );
   }
 
@@ -73,6 +74,7 @@ class GetxRouteStrategy implements RoutingStrategy {
           return localization.CcLocalization.wrapWithLocalization(
             child: Builder(builder: (context) {
               return GetMaterialApp(
+                navigatorKey: Catcher2.navigatorKey,
                 debugShowCheckedModeBanner: false,
                 theme: createLightTheme(),
                 darkTheme: createDarkTheme(),

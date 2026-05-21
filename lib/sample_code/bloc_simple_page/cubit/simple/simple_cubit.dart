@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../../../../core/common/extensions/tracking_log_extension.dart';
+import 'package:catcher_2/catcher_2.dart';
 import 'simple_cubit_interface.dart';
 import 'simple_cubit_state.dart';
 
@@ -37,7 +37,7 @@ class SimpleCubit extends SimpleCubitInterface {
           errorMessage: errorMessage,
         ),
       );
-      errorMessage.addAppTrackingLog();
+      Catcher2.reportCheckedError(e, stackTrace);
     }
   }
 
@@ -68,7 +68,7 @@ class SimpleCubit extends SimpleCubitInterface {
           errorMessage: errorMessage,
         ),
       );
-      errorMessage.addAppTrackingLog();
+      Catcher2.reportCheckedError(e, stackTrace);
     }
   }
 

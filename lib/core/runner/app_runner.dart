@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../data/datasource/route_datasource.dart';
 import '../common/device/device_initializer.dart';
-import '../common/extensions/tracking_log_extension.dart';
 import '../common/managers/hive_manager.dart';
 import '../di/inject/inject.dart';
 import '../navigation/route_strategy_provider.dart';
@@ -59,7 +58,7 @@ class AppRunnerState extends State<AppRunner> {
   }
 
   Widget _buildErrorWidget(String message) {
-    message.Log().addAppTrackingLog();
+    message.Log();
     return MaterialApp(
       home: Scaffold(
         body: Center(

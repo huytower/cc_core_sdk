@@ -1,5 +1,5 @@
 import 'package:app_config/data/datasource/local/box/device_info/cc_device_info.dart';
-import 'package:cc_sdk/core/utils/common/device_utils.dart';
+import 'package:cc_sdk/core/utils/common/cc_device_utils.dart';
 
 import 'device_dimension_manager.dart';
 import 'device_info_manager.dart';

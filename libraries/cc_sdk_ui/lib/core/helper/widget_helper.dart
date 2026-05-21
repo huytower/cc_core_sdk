@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cc_sdk/core/utils/common/device_utils.dart';
+import 'package:cc_sdk/core/utils/common/cc_device_utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

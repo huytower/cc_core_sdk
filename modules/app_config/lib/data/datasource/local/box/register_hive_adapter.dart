@@ -1,7 +1,6 @@
 import 'dart:developer' as developer;
 
 import 'app_storage/cc_app_storage.dart';
-import 'app_track_log/cc_app_track_log.dart';
 import 'device_info/cc_device_info.dart';
 
 /// Registers all Hive adapters used in the application.
@@ -32,10 +31,6 @@ Future<void> registerHiveAdapter() async {
       () => CcDeviceInfo.register(),
     );
 
-    await _registerAdapterWithErrorHandling(
-      'CcAppTrackLog',
-      () => CcAppTrackLog.register(),
-    );
   } catch (e, stackTrace) {
     developer.log(
       'Failed to register one or more Hive adapters',

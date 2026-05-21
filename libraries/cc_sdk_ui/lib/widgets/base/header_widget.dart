@@ -1,5 +1,5 @@
-import 'package:cc_sdk/core/utils/common/device_utils.dart';
-import 'package:cc_sdk/core/utils/common/image_utils.dart';
+import 'package:cc_sdk/core/utils/common/cc_device_utils.dart';
+import 'package:cc_sdk/core/utils/common/cc_image_utils.dart';
 import 'package:cc_sdk_ui/core/constants/cc_padding_params.dart';
 import 'package:cc_sdk_ui/core/theme/base_colors.dart';
 import 'package:cc_sdk_ui/widgets/base/cc_position.dart';
@@ -152,7 +152,7 @@ class HeaderWidget extends StatelessWidget {
   );
 
   Widget getImageResWidget(String iconPageAssetRes) =>
-      ImageUtils.isSvgExtension(iconPageAssetRes)
+      CcImageUtils.isSvg(iconPageAssetRes)
       ? SvgPicture.asset(iconPageAssetRes)
       : Image.asset(iconPageAssetRes, height: 35, fit: BoxFit.contain);
 
