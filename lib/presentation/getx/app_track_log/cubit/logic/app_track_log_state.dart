@@ -1,4 +1,4 @@
-import 'package:data/data/model/device/device_model.dart';
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:equatable/equatable.dart';
 
 /// State class for AppTrackLog feature
@@ -11,7 +11,7 @@ import 'package:equatable/equatable.dart';
 class AppTrackLogState extends Equatable {
   final bool isReady;
   final String appVersion;
-  final DeviceModelOri deviceModel;
+  final CcDeviceModel deviceModel;
   final List<String>? loggingMessages;
 
   const AppTrackLogState({
@@ -29,7 +29,7 @@ class AppTrackLogState extends Equatable {
     return AppTrackLogState(
       isReady: false,
       appVersion: '',
-      deviceModel: DeviceModelOri(deviceInfo: ''),
+      deviceModel: const CcDeviceModel(deviceInfo: ''),
       loggingMessages: null,
     );
   }
@@ -38,7 +38,7 @@ class AppTrackLogState extends Equatable {
   AppTrackLogState copyWith({
     bool? isReady,
     String? appVersion,
-    DeviceModelOri? deviceModel,
+    CcDeviceModel? deviceModel,
     List<String>? loggingMessages,
   }) {
     return AppTrackLogState(
@@ -50,6 +50,10 @@ class AppTrackLogState extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [isReady, appVersion, deviceModel, loggingMessages];
+  List<Object?> get props => [
+    isReady,
+    appVersion,
+    deviceModel,
+    loggingMessages,
+  ];
 }

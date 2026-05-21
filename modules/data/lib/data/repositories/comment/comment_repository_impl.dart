@@ -3,12 +3,10 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 
 import '../../../core/config/retrofit/response/body/cc_res_body_model.dart';
-import '../../../data/datasource/remote/comment/comment_remote.dart';
-import '../../entities/comment/comment.dart';
-
-abstract class CommentRepository {
-  Future<CcResBodyModel<Comment>> getListComments();
-}
+import '../../datasource/remote/comment/comment_remote.dart';
+import '../../model/comment/comment_model.dart';
+import '../../../domain/entities/comment/comment.dart';
+import '../../../domain/repositories/comment/comment_repository.dart';
 
 @Singleton(as: CommentRepository)
 class CommentRepositoryImpl implements CommentRepository {
@@ -22,7 +20,7 @@ class CommentRepositoryImpl implements CommentRepository {
     /// 1: call api
     final res = await commentRemote.getListComments();
 
-    /// 2: parse data
-    return res.flatMapToList((map) => Comment.fromJson(map));
+    /// 2: parse to model and map to entity
+    return res.flatMapToList((map) => CommentModel.fromJson(map).toEntity());
   }
 }

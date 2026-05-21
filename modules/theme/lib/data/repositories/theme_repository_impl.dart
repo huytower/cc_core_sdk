@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/cc_themes.dart';
-import 'theme_repository.dart';
+import '../../../domain/repository/theme_repository.dart';
 
 class ThemeRepositoryImpl implements ThemeRepository {
   @override

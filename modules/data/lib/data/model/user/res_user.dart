@@ -79,14 +79,20 @@ class ResUser {
     enable2FA = json['Enable2FA'];
     secret2FAKey = json['Secret2FAKey'];
     createdUser = json['CreatedUser'];
-    createdDate = DateTime.parse(json['CreatedDate']);
+    createdDate = json['CreatedDate'] != null
+        ? DateTime.tryParse(json['CreatedDate'])
+        : null;
     updatedUser = json['UpdatedUser'];
-    updatedDate = DateTime.parse(json['UpdatedDate']);
+    updatedDate = json['UpdatedDate'] != null
+        ? DateTime.tryParse(json['UpdatedDate'])
+        : null;
     isDeleted = json['IsDeleted'];
     groupName = json['GroupName'];
     genderID = json['GenderID'];
     countryID = json['CountryID'];
-    birthDay = DateTime.parse(json['BirthDay']);
+    birthDay = json['BirthDay'] != null
+        ? DateTime.tryParse(json['BirthDay'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -109,14 +115,14 @@ class ResUser {
     data['Enable2FA'] = this.enable2FA;
     data['Secret2FAKey'] = this.secret2FAKey;
     data['CreatedUser'] = this.createdUser;
-    data['CreatedDate'] = this.createdDate.toString();
+    data['CreatedDate'] = this.createdDate?.toIso8601String();
     data['UpdatedUser'] = this.updatedUser;
-    data['UpdatedDate'] = this.updatedDate;
+    data['UpdatedDate'] = this.updatedDate?.toIso8601String();
     data['IsDeleted'] = this.isDeleted;
     data['GroupName'] = this.groupName;
     data['GenderID'] = this.genderID;
     data['CountryID'] = this.countryID;
-    data['BirthDay'] = this.birthDay.toString();
+    data['BirthDay'] = this.birthDay?.toIso8601String();
     return data;
   }
 }

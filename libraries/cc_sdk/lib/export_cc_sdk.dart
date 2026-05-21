@@ -1,5 +1,6 @@
 // Core Constants
 export 'package:cc_sdk/core/config/cc_app_track_info.dart';
+export 'package:cc_sdk/core/config/cc_device_model.dart';
 export 'package:cc_sdk/core/config/cc_feature_flags.dart';
 export 'package:cc_sdk/core/constants/cc_constants.dart';
 export 'package:cc_sdk/core/constants/cc_number_format_params.dart';
