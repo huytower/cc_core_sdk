@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-/// Resolves and reads the on-device Catcher 2 log file.
+/// On-device path for [catcher_2](https://pub.dev/packages/catcher_2) file logs.
 abstract final class CcCrashLogPaths {
   CcCrashLogPaths._();
 
@@ -11,7 +11,6 @@ abstract final class CcCrashLogPaths {
 
   static File? _cachedFile;
 
-  /// Log file under the app documents directory.
   static Future<File> resolveLogFile() async {
     if (_cachedFile != null) return _cachedFile!;
     final dir = await getApplicationDocumentsDirectory();

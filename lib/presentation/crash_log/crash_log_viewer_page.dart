@@ -1,4 +1,5 @@
-import 'package:app_config/core/config/app/cc_app_track_info.dart';
+import 'package:cc_sdk/core/config/cc_app_track_info.dart';
+import 'package:cc_sdk/core/crash_reporting/cc_crash_log_paths.dart';
 import 'package:cc_sdk/core/utils/common/cc_device_utils.dart';
 import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
 import 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
@@ -6,8 +7,6 @@ import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/app_name_widget.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
-
-import '../../core/crash_reporting/cc_crash_log_paths.dart';
 
 /// Bottom sheet that shows the on-device [catcher_2](https://pub.dev/packages/catcher_2) log file.
 ///

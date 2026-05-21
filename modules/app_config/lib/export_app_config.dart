@@ -14,7 +14,6 @@ export 'package:cc_sdk/core/constants/cc_constants.dart';
 export 'package:cc_sdk/core/helper/cc_network_helper.dart';
 
 export 'core/config/app/cc_app_config.dart';
-export 'core/config/app/cc_app_track_info.dart';
 // =================================
 // FEATURE FLAGS
 // =================================
