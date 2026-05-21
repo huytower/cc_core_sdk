@@ -12,6 +12,7 @@ dependencies:
   cc_sdk_ui:
     path: ../cc_sdk_ui
   dio: ^5.9.2
+  easy_localization: ^3.0.8
   equatable: ^2.0.8
   flutter:
     sdk: flutter

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -47,7 +48,7 @@ class BodyShowMessage extends StatelessWidget {
                         onTap: () => Get.back(),
                         iconColor: Colors.pink,
                         textColor: Colors.white,
-                        title: 'Cancel',
+                        title: el.tr('common.cancel'),
                       ),
                     )
                   : const SizedBox(),
@@ -56,7 +57,7 @@ class BodyShowMessage extends StatelessWidget {
                   onTap: onTabOK,
                   iconColor: Colors.pink,
                   textColor: Colors.white,
-                  title: 'OK',
+                  title: el.tr('common.ok'),
                 ),
               ),
             ],

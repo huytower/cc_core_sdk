@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +34,7 @@ class PageError extends StatelessWidget {
                     Image.asset(assetIcon!, width: 100, fit: BoxFit.fitWidth),
                   const SizedBox(height: 15),
                   Text(
-                    "Đã xảy ra lỗi",
+                    el.tr("app.error.general"),
                     style: WidgetHelper.getTextStyleRoboto(
                       fontSize: 20,
                       color: BaseColors.textSecondary,
@@ -41,7 +42,7 @@ class PageError extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Nhấn vào đây để tải lại",
+                    el.tr("app.error.retry"),
                     style: WidgetHelper.getTextStyleRoboto(
                       fontSize: 20,
                       color: BaseColors.textSecondary,

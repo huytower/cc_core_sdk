@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
@@ -73,7 +74,7 @@ class CcBiometricAuthDatasource {
   Future<bool> authenticate({
     required String localizedReason,
     String? androidSignInTitle,
-    String? cancelButtonText = 'Cancel',
+    String? cancelButtonText,
     bool biometricOnly = true,
     bool sensitiveTransaction = false,
   }) async {
@@ -89,13 +90,12 @@ class CcBiometricAuthDatasource {
         sensitiveTransaction: sensitiveTransaction,
         authMessages: [
           AndroidAuthMessages(
-            signInTitle: androidSignInTitle ?? 'Authentication required',
-            cancelButton: cancelButtonText,
+            signInTitle: androidSignInTitle ?? el.tr('auth.biometric.reason'),
+            cancelButton: cancelButtonText ?? el.tr('common.cancel'),
           ),
-          const IOSAuthMessages(
-            cancelButton: 'Cancel',
-            localizedFallbackTitle:
-                'Please enable biometrics for this app in Settings.',
+          IOSAuthMessages(
+            cancelButton: cancelButtonText ?? el.tr('common.cancel'),
+            localizedFallbackTitle: el.tr('auth.biometric.fallback'),
           ),
         ],
       );

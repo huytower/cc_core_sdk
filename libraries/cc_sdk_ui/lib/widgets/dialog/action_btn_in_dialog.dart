@@ -4,6 +4,7 @@ import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
 import 'package:cc_sdk_ui/widgets/container/container_rounded_corner_widget.dart';
 import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -94,7 +95,7 @@ class ActionBtnInDialog extends StatelessWidget {
         children: [
           ContainerRoundedCorner(color: btnBgColor ?? BaseColors.brand700),
           CcText(
-            cancelText ?? 'Cancel',
+            cancelText ?? el.tr('common.cancel'),
             align: Alignment.center,
             color: cancelTextColor ?? BaseColors.textInvert,
             fontSize: fontSize ?? 14.0,
@@ -114,7 +115,7 @@ class ActionBtnInDialog extends StatelessWidget {
         children: [
           ContainerRoundedCorner(color: btnBgColor ?? BaseColors.brand700),
           CcText(
-            agreeText ?? 'OK',
+            agreeText ?? el.tr('common.ok'),
             align: Alignment.center,
             color: confirmTextColor ?? BaseColors.textInvert,
             fontWeight: FontWeight.w600,

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:theme/data/data_source/color/prj_color.dart';
+import '../../../../core/theme/base_colors.dart';
 
 // Purpose:
 // full-page status/error views for the application
 // more specific to app flow and user-facing status screens
 
-class NotFondScreen extends StatelessWidget {
-  const NotFondScreen({Key? key}) : super(key: key);
+class CcErrorPageV2 extends StatelessWidget {
+  const CcErrorPageV2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Container(color: PrjColors.error));
+    return Scaffold(body: Container(color: BaseColors.error));
   }
 }

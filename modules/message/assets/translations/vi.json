@@ -5,6 +5,7 @@
     "loading": "Đang tải...",
     "error": {
       "general": "Đã xảy ra lỗi",
+      "retry": "Nhấn vào đây để tải lại",
       "network": "Lỗi kết nối mạng. Vui lòng kiểm tra kết nối của bạn.",
       "server": "Lỗi máy chủ. Vui lòng thử lại sau."
     }
@@ -20,7 +21,8 @@
     "skip": "Bỏ qua",
     "done": "Xong",
     "search": "Tìm kiếm",
-    "no_results": "Không tìm thấy kết quả"
+    "no_results": "Không tìm thấy kết quả",
+    "no_data": "Không có dữ liệu"
   },
   "auth": {
     "login": "Đăng nhập",
@@ -32,7 +34,11 @@
     "no_account": "Chưa có tài khoản?",
     "have_account": "Đã có tài khoản?",
     "login_success": "Đăng nhập thành công",
-    "login_failed": "Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập."
+    "login_failed": "Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập.",
+    "biometric": {
+      "reason": "Yêu cầu xác thực",
+      "fallback": "Vui lòng bật sinh trắc học cho ứng dụng này trong Cài đặt."
+    }
   },
   "validation": {
     "required": "Trường này là bắt buộc",

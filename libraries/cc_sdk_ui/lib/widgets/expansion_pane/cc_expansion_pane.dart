@@ -42,8 +42,8 @@ class _ExpansionPaneState extends State<CcExpansionPane> {
         backgroundColor: widget.backgroundColor,
         trailing: RotatedBox(
           quarterTurns: rotate,
-          child: SizedBox(
-            child: Image.asset("packages/utils/assets/images/ic_right.png"),
+          child: const SizedBox(
+            child: Icon(Icons.keyboard_arrow_right, size: 15),
             height: 15,
             width: 15,
           ),

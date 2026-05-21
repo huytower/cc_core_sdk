@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:theme/data/data_source/color/prj_color.dart';
+
+import '../../core/theme/base_colors.dart';
 
 // Purpose: a reusable form field with validation, optional outline, and configurable behavior for app widgets.
 
@@ -119,12 +120,15 @@ class _TextFieldBaseState extends State<CcTextField> {
           ),
           enabledBorder: getInputBorder(
             widget.enableOutline,
-            PrjColors.secondary,
+            BaseColors.secondary500,
           ),
-          errorBorder: getInputBorder(widget.enableOutline, PrjColors.outline),
+          errorBorder: getInputBorder(
+            widget.enableOutline,
+            BaseColors.neutral30,
+          ),
           focusedErrorBorder: getInputBorder(
             widget.enableOutline,
-            PrjColors.outline,
+            BaseColors.neutral30,
           ),
           errorStyle: theme.textTheme.headlineSmall,
           hintStyle: theme.textTheme.headlineSmall,

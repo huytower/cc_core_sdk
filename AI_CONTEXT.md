@@ -33,8 +33,7 @@ flutter-get-starter-template/
 │   ├── app_config/              # Configuration, DI, storage
 │   ├── data/                    # Data sources, repositories, entities
 │   ├── message/                 # i18n/localization
-│   ├── theme/                   # Theming system
-│   └── widget/                  # App-specific widgets
+  └── theme/                   # Theming system
 ├── libraries/                    # Reusable libraries
 │   ├── cc_sdk/                  # Core SDK (network, device, failures)
 │   ├── cc_sdk_ui/               # UI component library
@@ -184,11 +183,6 @@ modules/message/
 
 **Dependencies:** easy_localization
 
-### modules/widget
-**Purpose:** Application-specific widgets (non-reusable)
-
-**Focus:** Custom widgets specific to this application that are not meant for reuse across projects.
-
 ## Key Technologies
 
 ### Dependency Injection
@@ -249,43 +243,45 @@ modules/message/
 
 ## Adding New Code
 
-### Development Decision Tree: Where to implement?
+### UI Implementation: The 2-Location Rule
+To prevent confusion and "decision fatigue," all UI components must live in ONLY one of these two places:
 
-To keep the project clean, use this guide to decide where your code belongs:
+1. **Design System (`libraries/cc_sdk_ui`)**: 
+   - **What**: Generic, highly reusable widgets with NO business logic.
+   - **Criteria**: If you can use it in a different app, it goes here.
+   - **Examples**: `CcButton`, `CcTextField`, `CcDialog`, `LoadingScreen`.
 
-| Requirement Type | Target Location | Example |
-| :--- | :--- | :--- |
-| **Main App Logic / Core Screens** | `lib/presentation/` | Home Page, Profile Screen, Login flow |
-| **App-Specific Business Logic** | `lib/domain/usecases/` | `calculate_user_score.dart` |
-| **Global Infrastructure** | `modules/` | App Config, Auth, Theming, Networking |
-| **Reusable Feature** | `libraries/features/` | A Chat module to be used in multiple apps |
-| **Generic UI Component** | `libraries/cc_sdk_ui/` | Custom Button, Card, or Loading Spinner |
-| **App-Specific Widget** | `modules/widget/` | A very specific header used only in this app |
+2. **Feature Widgets (`lib/presentation/pages/[feature]/widgets`)**: 
+   - **What**: Widgets specific to a single feature or page.
+   - **Criteria**: If it's part of a specific user requirement (e.g., "Home User Card"), it goes here.
+   - **Examples**: `HomeHeader`, `LoginSubmitButton`, `ProfileAvatar`.
 
----
-
-### Implementation Guidelines
-
-#### 1. Root Project (`lib/`)
-**Purpose:** This is the "brain" of your specific application.
-- **Implement here if:** The requirement is unique to this app's user journey.
-- **Focus:** Screens (Pages), State Management (BLoC/GetX/Provider), and orchestrating modules.
-- **Dependency:** Can depend on `modules/` and `libraries/`.
-
-#### 2. App Modules (`modules/`)
-**Purpose:** Infrastructure and cross-cutting concerns that support the app.
-- **Implement here if:** You are changing *how* the app handles configuration, data storage, or themes.
-- **Focus:** `app_config`, `data` (Retrofit/Floor), `theme`, `message`.
-- **Note:** Keep business logic out of here. For example, `app_config` should handle *loading* the config, but not *deciding* what the user sees on the Home screen.
-
-#### 3. Libraries (`libraries/`)
-**Purpose:** Pure, reusable code and shared UI.
-- **Implement here if:** The code is generic enough to be moved to a different project without changes.
-- **Focus:** `cc_sdk` (utilities), `cc_sdk_ui` (design system).
+**Note**: If a widget is shared between two features but isn't a "Design System" component, prefer moving it to `cc_sdk_ui` and making it generic, or keep it in the feature that "owns" it. **`modules/widget` has been removed to simplify the architecture.**
 
 ---
 
-### Where to Place New Features
+### Content Localization: The Global Dictionary Way
+To keep multi-language support simple and avoid hunting for text in widgets, we use a **Single Source of Truth** for all strings.
+
+1. **The Dictionary (One Place)**: All translation files live **ONLY** in `modules/message/assets/translations/` (e.g., `en.json`, `vi.json`).
+2. **The Key (The ID)**: Every piece of text has a unique ID with a prefix (e.g., `sdk.no_data`, `auth.login`).
+3. **The Workflow**:
+   - **Step 1**: Add your key and translation to the JSON files in `modules/message`.
+   - **Step 2**: Use it in **any** widget (Root, Library, or Module) by typing `'key.id'.tr()`.
+
+**Rule**: Never hardcode strings in the UI. Always use the Global Dictionary.
+
+---
+
+### Development Decision Tree
+
+| Requirement Type | Target Location |
+| :--- | :--- |
+| **General UI Component** | `libraries/cc_sdk_ui/` |
+| **Screen / Feature UI** | `lib/presentation/pages/[feature]/` |
+| **Business Logic (Use Case)**| `lib/domain/usecases/` |
+| **Infrastructure / Config** | `modules/app_config/` |
+| **Data / API / Models** | `modules/data/` |
 
 **Reusable Features** (to be shared across projects):
 - Use `libraries/features/` - Follow the Clean Architecture structure (data/domain/presentation)
@@ -294,7 +290,6 @@ To keep the project clean, use this guide to decide where your code belongs:
 
 **App-Specific Features** (unique to this project):
 - Data operations → `modules/data/` (datasource, entities, repositories)
-- UI components (non-reusable) → `modules/widget/`
 - UI components (reusable) → `libraries/cc_sdk_ui/`
 - Configuration → `modules/app_config/`
 - Theming → `modules/theme/`
