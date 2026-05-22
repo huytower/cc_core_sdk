@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/failure/failure.dart';
+import 'package:cc_sdk/domain/failures/cc_failure.dart';
 import 'package:cc_sdk/domain/repositories/cc_sdk_repository.dart';
 import 'package:cc_sdk/domain/usecases/usecase.dart';
 import 'package:multiple_result/multiple_result.dart';

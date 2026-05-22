@@ -1,7 +1,7 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:cc_sdk/core/failure/app_config/app_config_failure.dart';
+import 'package:cc_sdk/domain/failures/app_config/app_config_failure.dart';
 import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

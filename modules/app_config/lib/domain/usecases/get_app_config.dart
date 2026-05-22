@@ -1,5 +1,5 @@
-import 'package:cc_sdk/core/failure/app_config/app_config_failure.dart';
-import 'package:cc_sdk/core/failure/failure.dart';
+import 'package:cc_sdk/domain/failures/app_config/app_config_failure.dart';
+import 'package:cc_sdk/domain/failures/cc_failure.dart';
 import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
