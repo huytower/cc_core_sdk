@@ -21,27 +21,30 @@ import '../helper/cc_network_helper.dart' as _i260;
 import '../network/network_info.dart' as _i932;
 import 'module/cc_sdk_module.dart' as _i568;
 
-// initializes the registration of main-scope dependencies inside of GetIt
-_i174.GetIt $initCcSdkDependencies(
-  _i174.GetIt getIt, {
-  String? environment,
-  _i526.EnvironmentFilter? environmentFilter,
-}) {
-  final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
-  final ccSdkModule = _$CcSdkModule();
-  gh.singleton<_i161.InternetConnection>(() => ccSdkModule.internetConnection);
-  gh.singleton<_i895.Connectivity>(() => ccSdkModule.connectivity);
-  gh.singleton<_i833.DeviceInfoPlugin>(() => ccSdkModule.deviceInfoPlugin);
-  gh.lazySingleton<_i627.CcDeviceLocalDataSource>(
-    () => ccSdkModule.deviceLocalDataSource(gh<_i833.DeviceInfoPlugin>()),
-  );
-  gh.singleton<_i932.NetworkInfo>(
-    () => ccSdkModule.networkInfo(gh<_i895.Connectivity>()),
-  );
-  gh.singleton<_i260.CcNetworkHelper>(
-    () => ccSdkModule.networkHelper(gh<_i161.InternetConnection>()),
-  );
-  return getIt;
+extension GetItInjectableX on _i174.GetIt {
+  // initializes the registration of main-scope dependencies inside of GetIt
+  _i174.GetIt init({
+    String? environment,
+    _i526.EnvironmentFilter? environmentFilter,
+  }) {
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final ccSdkModule = _$CcSdkModule();
+    gh.singleton<_i161.InternetConnection>(
+      () => ccSdkModule.internetConnection,
+    );
+    gh.singleton<_i895.Connectivity>(() => ccSdkModule.connectivity);
+    gh.singleton<_i833.DeviceInfoPlugin>(() => ccSdkModule.deviceInfoPlugin);
+    gh.lazySingleton<_i627.CcDeviceLocalDataSource>(
+      () => ccSdkModule.deviceLocalDataSource(gh<_i833.DeviceInfoPlugin>()),
+    );
+    gh.singleton<_i932.NetworkInfo>(
+      () => ccSdkModule.networkInfo(gh<_i895.Connectivity>()),
+    );
+    gh.singleton<_i260.CcNetworkHelper>(
+      () => ccSdkModule.networkHelper(gh<_i161.InternetConnection>()),
+    );
+    return this;
+  }
 }
 
 class _$CcSdkModule extends _i568.CcSdkModule {}
