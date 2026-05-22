@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/core/constants/cc_padding_params.dart';
+import 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

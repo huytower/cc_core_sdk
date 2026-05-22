@@ -64,9 +64,10 @@ class CcBackAssetBtn extends StatelessWidget {
 }
 
 class CcBackDividerBtn extends StatelessWidget {
+  static const double heightBack = 5, widthBack = 36, paddingBack = 14;
+
   const CcBackDividerBtn({super.key, required this.onPress});
 
-  final double heightBack = 5, widthBack = 36, paddingBack = 14;
   final VoidCallback onPress;
 
   @override
@@ -75,20 +76,21 @@ class CcBackDividerBtn extends StatelessWidget {
     top: paddingBack,
     child: Stack(
       children: <Widget>[
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(bottom: paddingBack),
-          child: Container(
+          child: DecoratedBox(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: WidgetHelper.getBorderRoundedSmall(),
+              borderRadius: BorderRadius.all(
+                Radius.circular(4),
+              ), // Assuming small rounded
             ),
-            width: widthBack,
-            height: heightBack,
+            child: SizedBox(width: widthBack, height: heightBack),
           ),
         ),
         CcInkWell(
           onTap: onPress,
-          borderRadius: WidgetHelper.getBorderRoundedSmall(),
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
           width: widthBack,
           height: heightBack,
         ),

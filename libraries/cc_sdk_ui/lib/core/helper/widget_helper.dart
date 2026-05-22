@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../theme/base_colors.dart';
+import '../config/tokens/base_colors.dart';
 
 /// Widget utilities
 class WidgetHelper {

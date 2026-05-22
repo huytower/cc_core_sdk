@@ -1,5 +1,5 @@
-import 'package:cc_sdk_ui/core/constants/cc_padding_params.dart';
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
+import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';

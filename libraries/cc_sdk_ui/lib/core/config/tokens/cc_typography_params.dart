@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 /// 1. Import from the SDK:
 ///
 /// ```dart
-/// import 'package:cc_sdk_ui/core/constants/cc_typography_params.dart';
+/// import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 /// ```
 ///
 /// 2. Use the tokens directly in `TextStyle` or theme definitions:
@@ -44,7 +44,8 @@ abstract class CcTypographyParams {
   static const FontWeight bold = FontWeight.w700;
 
   // Font sizes (logical pixels)
-  static const double displayLarge = 57; // displayLarge: page-level or hero headings, very large font-size (high visual priority).
+  static const double displayLarge =
+      57; // displayLarge: page-level or hero headings, very large font-size (high visual priority).
   static const double displayMedium = 45;
   static const double displaySmall = 36;
   static const double headlineLarge = 32;
@@ -56,7 +57,8 @@ abstract class CcTypographyParams {
   static const double bodyLarge = 16;
   static const double bodyMedium = 14;
   static const double bodySmall = 12;
-  static const double labelLarge = 14; // labelLarge: UI control label (buttons, chips), small compact text meant to sit inside controls.
+  static const double labelLarge =
+      14; // labelLarge: UI control label (buttons, chips), small compact text meant to sit inside controls.
   static const double labelMedium = 12;
   static const double labelSmall = 11;
 }

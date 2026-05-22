@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/base_colors.dart';
+
+import '../../../../core/config/tokens/base_colors.dart';
 
 // Purpose:
 // full-page status/error views for the application

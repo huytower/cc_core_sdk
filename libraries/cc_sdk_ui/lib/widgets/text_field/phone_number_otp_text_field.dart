@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../../core/config/tokens/base_colors.dart';
 import '../../core/helper/widget_helper.dart';
-import '../../core/theme/base_colors.dart';
 import '../divider_line/cc_divider.dart';
 import '../flex/cc_flex.dart';
 

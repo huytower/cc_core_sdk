@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

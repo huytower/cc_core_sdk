@@ -1,6 +1,6 @@
-import 'package:cc_sdk_ui/widgets/api/base_progress_indicator.dart';
 import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+import 'package:cc_sdk_ui/widgets/state/base_progress_indicator.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';

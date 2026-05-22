@@ -1,7 +1,7 @@
 import 'package:features/auth/biometric/domain/entities/cc_biometric_auth_result.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-import '../models/cc_biometric_auth_type.dart';
+import '../entities/cc_biometric_auth_type.dart';
 
 abstract class CcBiometricAuthRepository {
   /// Checks if biometric authentication is available on the device

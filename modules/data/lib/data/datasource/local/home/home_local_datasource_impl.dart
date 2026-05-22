@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../domain/entities/home_entity.dart';
-import '../models/home_model.dart';
+import '../../../../domain/entities/home/home_entity.dart';
+import '../../../models/home/home_model.dart';
 import 'home_local_datasource.dart';
 
 /// Home Local Data Source Implementation - Data Layer
@@ -22,7 +22,8 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   Future<HomeEntity> getHomeData() async {
     try {
       final title = _sharedPreferences.getString(_titleKey) ?? 'Welcome Home';
-      final description = _sharedPreferences.getString(_descriptionKey) ??
+      final description =
+          _sharedPreferences.getString(_descriptionKey) ??
           'This is your home presentation';
       final itemCount = _sharedPreferences.getInt(_itemCountKey) ?? 0;
       final lastUpdatedString = _sharedPreferences.getString(_lastUpdatedKey);
@@ -55,7 +56,9 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
       await _sharedPreferences.setString(_descriptionKey, homeData.description);
       await _sharedPreferences.setInt(_itemCountKey, homeData.itemCount);
       await _sharedPreferences.setString(
-          _lastUpdatedKey, homeData.lastUpdated.toIso8601String());
+        _lastUpdatedKey,
+        homeData.lastUpdated.toIso8601String(),
+      );
     } catch (e) {
       throw Exception('Failed to save home data: $e');
     }

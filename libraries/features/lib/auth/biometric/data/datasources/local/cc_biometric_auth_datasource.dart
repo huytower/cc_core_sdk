@@ -3,13 +3,12 @@ import 'dart:async';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/services.dart';
+import 'package:injectable/injectable.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 import 'package:local_auth_darwin/local_auth_darwin.dart';
 
-import '../../../domain/models/cc_biometric_auth_type.dart';
-
-import 'package:injectable/injectable.dart';
+import '../../../domain/entities/cc_biometric_auth_type.dart';
 
 /// Data source for handling local biometric authentication
 @lazySingleton

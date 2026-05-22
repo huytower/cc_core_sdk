@@ -1,4 +1,4 @@
-import '../../domain/entities/home_entity.dart';
+import '../../../../domain/entities/home/home_entity.dart';
 
 /// Home Local Data Source Interface - Data Layer
 ///

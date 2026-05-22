@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:data/domain/entities/home/home_entity.dart';
+import 'package:data/domain/usecases/home/get_home_data_usecase.dart';
+import 'package:data/domain/usecases/home/refresh_home_data_usecase.dart';
+import 'package:data/domain/usecases/home/update_home_data_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../domain/entities/home_entity.dart';
-import '../../domain/usecases/get_home_data_usecase.dart';
-import '../../domain/usecases/refresh_home_data_usecase.dart';
-import '../../domain/usecases/update_home_data_usecase.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -25,10 +24,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required GetHomeDataUseCase getHomeDataUseCase,
     required UpdateHomeDataUseCase updateHomeDataUseCase,
     required RefreshHomeDataUseCase refreshHomeDataUseCase,
-  })  : _getHomeDataUseCase = getHomeDataUseCase,
-        _updateHomeDataUseCase = updateHomeDataUseCase,
-        _refreshHomeDataUseCase = refreshHomeDataUseCase,
-        super(HomeInitial()) {
+  }) : _getHomeDataUseCase = getHomeDataUseCase,
+       _updateHomeDataUseCase = updateHomeDataUseCase,
+       _refreshHomeDataUseCase = refreshHomeDataUseCase,
+       super(HomeInitial()) {
     // Register event handlers
     on<LoadHomeDataEvent>(_onLoadHomeData);
     on<RefreshHomeDataEvent>(_onRefreshHomeData);

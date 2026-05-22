@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../../core/constants/cc_padding_params.dart';
+import '../../core/config/tokens/cc_padding_params.dart';
 
 /// Extra Small Space (4pt)
 class CcSpaceXS extends StatelessWidget {

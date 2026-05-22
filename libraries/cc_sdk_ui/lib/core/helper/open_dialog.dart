@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/api/loading_icon_widget.dart';
 import '../../widgets/base/cc_keyboard_dismisser.dart';
 import '../../widgets/dialog/body_modal_bottom_sheet.dart';
 import '../../widgets/dialog/body_show_message.dart';
+import '../../widgets/state/loading_icon_widget.dart';
 
 class OpenDialog {
   static Future<dynamic> showBottomSheet(
@@ -23,23 +23,18 @@ class OpenDialog {
       enableDrag: enableDrag,
       isDismissible: enableDrag,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(border))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(border)),
+      ),
       backgroundColor: Colors.white,
       context: contextReq,
       isScrollControlled: true,
       builder: (context) {
-        Widget child = SafeArea(
-          child: BodyModalBottomSheet(
-            w: w,
-          ),
-        );
+        Widget child = SafeArea(child: BodyModalBottomSheet(w: w));
 
         if (isHasIgnore) {
           return child;
         }
-        return CcKeyboardDismisser(
-          child: child,
-        );
+        return CcKeyboardDismisser(child: child);
       },
     ).then((x) {
       if (x == null) {
@@ -64,7 +59,8 @@ class OpenDialog {
       enableDrag: isDrag,
       isDismissible: isDrag,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+      ),
       backgroundColor: Colors.white,
       context: Get.context!,
       isScrollControlled: true,
@@ -86,7 +82,8 @@ class OpenDialog {
               exit(0);
             },
             isExistOK: isExistOK,
-            child: w ??
+            child:
+                w ??
                 Text(
                   content,
                   textAlign: TextAlign.center,
@@ -134,20 +131,24 @@ class OpenDialog {
     return rs;
   }
 
-  static Future<dynamic> showDialogBottomSheetCustomer(Widget? w,
-      {BuildContext? context,
-      Color? backgroundColor,
-      Color? barrierColor,
-      Widget Function(BuildContext)? builder}) async {
+  static Future<dynamic> showDialogBottomSheetCustomer(
+    Widget? w, {
+    BuildContext? context,
+    Color? backgroundColor,
+    Color? barrierColor,
+    Widget Function(BuildContext)? builder,
+  }) async {
     // bool rs = false;
     var result = await showModalBottomSheet(
-        isScrollControlled: true,
-        context: context ?? Get.context!,
-        backgroundColor: backgroundColor ?? Colors.white,
-        barrierColor: barrierColor ?? const Color(0x80000000),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-        builder: builder ?? (BuildContext context) => w!);
+      isScrollControlled: true,
+      context: context ?? Get.context!,
+      backgroundColor: backgroundColor ?? Colors.white,
+      barrierColor: barrierColor ?? const Color(0x80000000),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: builder ?? (BuildContext context) => w!,
+    );
     return result;
   }
 }

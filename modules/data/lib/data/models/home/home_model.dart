@@ -1,4 +1,4 @@
-import '../../domain/entities/home_entity.dart';
+import '../../../domain/entities/home/home_entity.dart';
 
 /// Home Model - Data Layer
 ///

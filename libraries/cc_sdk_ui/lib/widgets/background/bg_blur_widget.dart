@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
 import 'package:flutter/material.dart';
 
 /// load Background thumbnail ui from server api, attr : blur
@@ -17,7 +17,7 @@ class BackgroundBlurWidget extends StatelessWidget {
   Widget build(BuildContext context) => ClipRect(
     child: BackdropFilter(
       filter: ImageFilter.blur(sigmaX: blurX, sigmaY: blurY),
-      child: DecoratedBox(
+      child: const DecoratedBox(
         decoration: BoxDecoration(
           color: BaseColors.white20,
           backgroundBlendMode: BlendMode.screen,

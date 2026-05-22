@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/base_colors.dart';
+import '../../core/config/tokens/base_colors.dart';
 import '../padding/cc_padding.dart';
 
 /// TOP POPULAR RE-USE WIDGET

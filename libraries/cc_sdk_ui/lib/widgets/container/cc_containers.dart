@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/helper/widget_helper.dart';
 
 /// A circular container with optional shadow and border.
@@ -24,16 +25,18 @@ class CcContainerCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        width: width,
-        height: width,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: bgColor,
-          border: Border.all(color: strokeColor, width: strokeWidth),
-          boxShadow: hasShadow ? WidgetHelper.getBoxShadows(shadowColor: shadowColor) : [],
-        ),
-        child: child ?? const SizedBox(),
-      );
+    width: width,
+    height: width,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: bgColor,
+      border: Border.all(color: strokeColor, width: strokeWidth),
+      boxShadow: hasShadow
+          ? WidgetHelper.getBoxShadows(shadowColor: shadowColor)
+          : const [],
+    ),
+    child: child ?? const SizedBox(),
+  );
 }
 
 /// A rectangular container with small rounded corners.
@@ -53,14 +56,14 @@ class CcContainerRect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: WidgetHelper.getBorderRoundedSmall(),
-        ),
-        width: width,
-        height: height,
-        child: child,
-      );
+    decoration: BoxDecoration(
+      color: bgColor,
+      borderRadius: WidgetHelper.getBorderRoundedSmall(),
+    ),
+    width: width,
+    height: height,
+    child: child,
+  );
 }
 
 /// A square container with small rounded corners.
@@ -78,12 +81,12 @@ class CcContainerSquare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: WidgetHelper.getBorderRoundedSmall(),
-        ),
-        width: width,
-        height: width,
-        child: child,
-      );
+    decoration: BoxDecoration(
+      color: bgColor,
+      borderRadius: WidgetHelper.getBorderRoundedSmall(),
+    ),
+    width: width,
+    height: width,
+    child: child,
+  );
 }

@@ -1,5 +1,5 @@
-import 'package:cc_sdk_ui/core/constants/cc_padding_params.dart';
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
+import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
 import 'package:cc_sdk_ui/widgets/container/container_rounded_corner_widget.dart';
 import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';

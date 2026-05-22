@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/cupertino.dart';

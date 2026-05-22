@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
+import '../../core/config/tokens/base_colors.dart';
 import '../../core/helper/widget_helper.dart';
-import '../../core/theme/base_colors.dart';
 
 /// A customized InkWell that respects design standards and fixes common focus issues.
 class CcInkWell extends StatelessWidget {
@@ -32,18 +33,14 @@ class CcInkWell extends StatelessWidget {
         onLongPress: onLongPress,
         splashColor: splashColor ?? BaseColors.neutral5,
         borderRadius: borderRadius ?? WidgetHelper.getBorderRoundedSmall(),
+
         /// Prevents common focus issues in lists
         canRequestFocus: false,
-        child: SizedBox(
-          width: width,
-          height: height,
-          child: child,
-        ),
+        child: SizedBox(width: width, height: height, child: child),
       ),
     );
   }
 }
-
 
 /// Helper widget for circular ink well button with rounded corners
 class ButtonInkWellCircleWidget extends StatelessWidget {
@@ -96,4 +93,3 @@ class ButtonInkWellClipWidget extends StatelessWidget {
     );
   }
 }
-

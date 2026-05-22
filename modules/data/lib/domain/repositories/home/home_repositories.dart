@@ -15,10 +15,7 @@ abstract class HomeRepositories {
 
 // @Singleton(as: HomeRepositories)
 class HomeRepositoriesImpl implements HomeRepositories {
-  HomeRepositoriesImpl({
-    required this.dio,
-    required this.homeRemote,
-  });
+  HomeRepositoriesImpl({required this.dio, required this.homeRemote});
 
   final Dio dio;
   final HomeRemote homeRemote;

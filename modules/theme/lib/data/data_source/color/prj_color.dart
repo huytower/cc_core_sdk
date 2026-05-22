@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
 import 'package:flutter/material.dart';
 
 /// `PrjColors` — Semantic color aliases for the application.
@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 /// final primary = cs.primary; // backed by PrjColors.primary -> BaseColors
 /// ```
 ///
-/// Note: To change brand/primitive values, update `libraries/cc_sdk_ui/lib/core/theme/base_colors.dart`.
+/// Note: To change brand/primitive values, update `libraries/cc_sdk_ui/lib/core/config/tokens/base_colors.dart`.
 /// This keeps color changes centralized and consistent with Figma tokens.
 class PrjColors {
   // ====================================

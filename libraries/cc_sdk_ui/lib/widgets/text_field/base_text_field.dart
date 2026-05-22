@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../../core/theme/base_colors.dart';
+import '../../core/config/tokens/base_colors.dart';
 import '../divider_line/cc_divider.dart';
 import '../flex/cc_flex.dart';
 
@@ -79,7 +79,11 @@ class BaseTextField extends StatelessWidget {
         keyboardType: keyboardType,
         style:
             textStyle ??
-            const TextStyle(fontSize: 18, color: BaseColors.white80, height: 1.2),
+            const TextStyle(
+              fontSize: 18,
+              color: BaseColors.white80,
+              height: 1.2,
+            ),
         textInputAction: textInputAction,
       ),
 

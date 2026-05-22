@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
 import 'package:cc_sdk_ui/widgets/base/cc_position.dart';
 import 'package:cc_sdk_ui/widgets/padding/cc_padding.dart';
 import 'package:flutter/cupertino.dart';

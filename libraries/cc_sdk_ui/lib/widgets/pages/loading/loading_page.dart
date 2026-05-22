@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../core/theme/base_colors.dart';
+import '../../../core/config/tokens/base_colors.dart';
 
 class PageLoading extends StatelessWidget {
   const PageLoading({super.key});

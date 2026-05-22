@@ -1,4 +1,4 @@
-import '../entities/home_entity.dart';
+import '../../entities/home/home_entity.dart';
 
 /// Home Repository Interface - Domain Layer
 ///

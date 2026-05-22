@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../core/theme/base_colors.dart';
+import '../../core/config/tokens/base_colors.dart';
 
 // Purpose: a reusable form field with validation, optional outline, and configurable behavior for app widgets.
 

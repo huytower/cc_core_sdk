@@ -1,5 +1,5 @@
+import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 import 'package:flutter/material.dart';
-import 'package:cc_sdk_ui/core/constants/cc_typography_params.dart';
 
 import '../../data/data_source/color/prj_color.dart';
 
@@ -189,7 +189,6 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
     );
   }
 
-  /// Creates a dark utils text style configuration.
   /// Creates a dark utils text style configuration.
   factory CcTextStyle.dark() {
     final light = CcTextStyle.light();

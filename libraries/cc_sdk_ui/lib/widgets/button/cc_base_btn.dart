@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/config/tokens/base_colors.dart';
 import '../../core/helper/widget_helper.dart';
-import '../../core/theme/base_colors.dart';
 import '../flex/cc_flex.dart';
 import '../inkwell/cc_inkwell.dart';
 import '../text/cc_text.dart';
@@ -84,7 +84,7 @@ class CcSplashBtn extends StatelessWidget {
     gradient: LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
-      colors: bgColor ?? [BaseColors.neutral70, BaseColors.neutral70],
+      colors: bgColor ?? const [BaseColors.neutral70, BaseColors.neutral70],
     ),
     borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
   );
@@ -150,7 +150,8 @@ class CcNextBtn extends StatelessWidget {
     gradient: LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
-      colors: colorsGradient ?? [BaseColors.neutral70, BaseColors.neutral70],
+      colors:
+          colorsGradient ?? const [BaseColors.neutral70, BaseColors.neutral70],
     ),
     borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
   );
@@ -177,7 +178,7 @@ class CcBlackShadowBtn extends StatelessWidget {
       color: Colors.transparent,
       elevation: 10,
       shadowColor: Colors.black38,
-      child: Container(child: widget),
+      child: widget,
     ),
   );
 }
@@ -194,7 +195,7 @@ class CcWhiteShadowBtn extends StatelessWidget {
       color: Colors.transparent,
       elevation: 10,
       shadowColor: Colors.white38,
-      child: Container(child: widget),
+      child: widget,
     ),
   );
 }

@@ -4,8 +4,8 @@ import 'package:cc_sdk/core/extensions/common/when_expression.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/constants/cc_padding_params.dart';
-import '../../core/theme/base_colors.dart';
+import '../../core/config/tokens/base_colors.dart';
+import '../../core/config/tokens/cc_padding_params.dart';
 import '../flex/cc_flex.dart';
 import '../space/cc_space.dart';
 import '../text/cc_text.dart';

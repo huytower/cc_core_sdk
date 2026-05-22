@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,7 @@ class IconHeart extends StatelessWidget {
         gradient: LinearGradient(
           begin: begin ?? Alignment.topCenter,
           end: end ?? Alignment.bottomCenter,
-          colors: [BaseColors.actionPrimary, BaseColors.actionPrimary],
+          colors: const [BaseColors.actionPrimary, BaseColors.actionPrimary],
         ),
       ),
       width: width ?? height,

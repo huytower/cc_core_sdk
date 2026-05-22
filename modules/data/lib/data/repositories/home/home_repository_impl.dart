@@ -1,7 +1,7 @@
-import '../../domain/entities/home_entity.dart';
-import '../../domain/repositories/home_repository.dart';
-import '../datasources/home_local_datasource.dart';
-import '../datasources/home_remote_datasource.dart';
+import '../../../domain/entities/home/home_entity.dart';
+import '../../../domain/repositories/home/home_repository.dart';
+import '../../datasource/local/home/home_local_datasource.dart';
+import '../../datasource/remote/home/home_remote_datasource.dart';
 
 /// Home Repository Implementation - Data Layer
 ///
@@ -15,8 +15,8 @@ class HomeRepositoryImpl implements HomeRepository {
   const HomeRepositoryImpl({
     required HomeLocalDataSource localDataSource,
     required HomeRemoteDataSource remoteDataSource,
-  })  : _localDataSource = localDataSource,
-        _remoteDataSource = remoteDataSource;
+  }) : _localDataSource = localDataSource,
+       _remoteDataSource = remoteDataSource;
 
   @override
   Future<HomeEntity> getHomeData() async {
@@ -50,7 +50,8 @@ class HomeRepositoryImpl implements HomeRepository {
         return remoteData;
       } catch (remoteError) {
         throw Exception(
-            'Failed to get home data from both local and remote sources: $remoteError');
+          'Failed to get home data from both local and remote sources: $remoteError',
+        );
       }
     }
   }
@@ -59,8 +60,9 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<HomeEntity> updateHomeData(HomeEntity homeData) async {
     try {
       // Update remote first
-      final updatedRemoteData =
-          await _remoteDataSource.updateHomeData(homeData);
+      final updatedRemoteData = await _remoteDataSource.updateHomeData(
+        homeData,
+      );
 
       // Then update local cache
       await _localDataSource.saveHomeData(updatedRemoteData);
@@ -73,7 +75,8 @@ class HomeRepositoryImpl implements HomeRepository {
         return homeData;
       } catch (localError) {
         throw Exception(
-            'Failed to update home data: $e, Local error: $localError');
+          'Failed to update home data: $e, Local error: $localError',
+        );
       }
     }
   }

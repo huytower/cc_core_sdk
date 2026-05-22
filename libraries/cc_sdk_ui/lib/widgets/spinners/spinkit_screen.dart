@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../../core/theme/base_colors.dart';
+import '../../core/config/tokens/base_colors.dart';
 
 class SpinKitScreen extends StatefulWidget {
   const SpinKitScreen({Key? key}) : super(key: key);

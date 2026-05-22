@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:features/auth/biometric/domain/models/cc_biometric_auth_type.dart';
+import 'cc_biometric_auth_type.dart';
 
 /// Represents the result of a biometric authentication attempt
 class CcBiometricAuthResult extends Equatable {

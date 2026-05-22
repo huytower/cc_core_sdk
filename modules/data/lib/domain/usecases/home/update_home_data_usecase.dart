@@ -1,5 +1,5 @@
-import '../entities/home_entity.dart';
-import '../repositories/home_repository.dart';
+import '../../entities/home/home_entity.dart';
+import '../../repositories/home/home_repository.dart';
 
 /// Update Home Data Use Case - Domain Layer
 ///

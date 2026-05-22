@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/entities/cc_biometric_auth_result.dart';
-import '../../domain/models/cc_biometric_auth_type.dart';
+import '../../domain/entities/cc_biometric_auth_type.dart';
 import '../../domain/repositories/cc_biometric_auth_repository.dart';
 import '../../domain/usecases/cc_authenticate_with_biometrics.dart';
 

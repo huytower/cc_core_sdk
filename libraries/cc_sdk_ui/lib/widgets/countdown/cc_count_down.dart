@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text_spans.dart';
 import 'package:flutter/material.dart';

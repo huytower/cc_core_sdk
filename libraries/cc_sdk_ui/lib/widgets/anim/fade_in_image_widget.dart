@@ -1,8 +1,8 @@
 import 'package:cc_sdk_ui/core/constants/cc_constants_multimedia.dart';
-import 'package:cc_sdk_ui/core/theme/base_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/base_colors.dart';
 import '../../core/helper/widget_helper.dart';
 
 /// Customize Image ui, params :

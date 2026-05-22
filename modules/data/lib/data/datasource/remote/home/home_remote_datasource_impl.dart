@@ -1,5 +1,5 @@
-import '../../domain/entities/home_entity.dart';
-import '../models/home_model.dart';
+import '../../../../domain/entities/home/home_entity.dart';
+import '../../../models/home/home_model.dart';
 import 'home_remote_datasource.dart';
 
 /// Home Remote Data Source Implementation - Data Layer
@@ -40,8 +40,6 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
     // In a real app, this would send data to the server
     // For now, just return the updated data with a new timestamp
-    return homeData.copyWith(
-      lastUpdated: DateTime.now(),
-    );
+    return homeData.copyWith(lastUpdated: DateTime.now());
   }
 }
