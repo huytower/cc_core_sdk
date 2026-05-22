@@ -1,45 +1,21 @@
-import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/datasource/route_datasource.dart';
-import '../common/device/device_initializer.dart';
 import '../common/managers/hive_manager.dart';
-import '../di/inject/inject.dart';
 import '../navigation/route_strategy_provider.dart';
 
 class AppRunner extends StatefulWidget {
-  const AppRunner({Key? key}) : super(key: key);
+  const AppRunner({super.key});
 
   @override
   State<AppRunner> createState() => AppRunnerState();
 }
 
 class AppRunnerState extends State<AppRunner> {
-  late final DeviceInitializer _deviceInitializer;
   late final HiveManager _hiveManager;
 
   @override
-  void initState() {
-    super.initState();
-    _initializeDependencies();
-    _initializeDevice();
-  }
-
-  void _initializeDependencies() {
-    _deviceInitializer = getIt<DeviceInitializer>();
-    _hiveManager = getIt<HiveManager>();
-  }
-
-  Future<void> _initializeDevice() => _deviceInitializer.initialize();
-
-  @override
   Widget build(BuildContext context) {
-    _updateDeviceDimensions(context);
-
-    if (!_deviceInitializer.dimensionManager.hasValidDimensions()) {
-      return _buildErrorWidget('Error: Unable to get device resolution');
-    }
-
     return buildBody();
   }
 
@@ -47,29 +23,6 @@ class AppRunnerState extends State<AppRunner> {
   /// Delegates to [buildAppByRoutingManager] in route_strategy.dart for functional clarity.
   Widget buildBody() {
     return buildAppByRoutingManager(RouteDatasource.currentStrategy);
-  }
-
-  void _updateDeviceDimensions(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    _deviceInitializer.dimensionManager.updateDimensions(
-      mediaQuery.size.height,
-      mediaQuery.size.width,
-    );
-  }
-
-  Widget _buildErrorWidget(String message) {
-    message.Log();
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            message,
-            style: const TextStyle(fontSize: 16, color: Colors.red),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
   }
 
   @override

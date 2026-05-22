@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
+
 import '../../core/network/network_info.dart';
 import '../../domain/entities/cc_device_entity.dart';
 import '../../domain/failures/cc_failure.dart';
@@ -9,6 +11,7 @@ import '../../domain/repositories/cc_sdk_repository.dart';
 import '../datasources/local/cc_device_local_data_source.dart';
 import '../datasources/remote/cc_sdk_remote_data_source.dart';
 
+@LazySingleton(as: CCSDKRepository)
 /// Coordination layer that implementation the [CCSDKRepository] interface.
 class CCSDKRepositoryImpl implements CCSDKRepository {
   final CCSDKRemoteDataSource remoteDataSource;
