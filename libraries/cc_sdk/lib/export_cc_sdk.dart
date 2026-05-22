@@ -1,3 +1,5 @@
+// Core DI
+export 'package:cc_sdk/core/di/di_export.dart';
 // Core Constants
 export 'package:cc_sdk/core/config/cc_app_track_info.dart';
 export 'package:cc_sdk/core/config/cc_feature_flags.dart';
