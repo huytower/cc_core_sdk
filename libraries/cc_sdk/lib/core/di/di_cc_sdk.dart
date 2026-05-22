@@ -6,6 +6,9 @@ import 'di_cc_sdk.config.dart';
 
 final ccSdkLocator = GetIt.instance;
 
+/// Configures and initializes all dependencies in the cc_sdk library.
+///
+/// Returns the configured [GetIt] instance.
 @InjectableInit(
   initializerName: 'init', // default
   preferRelativeImports: true, // default
