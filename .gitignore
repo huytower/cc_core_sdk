@@ -82,7 +82,7 @@ migrate_working_dir/
 pubspec.lock
 .android/
 **/*.g.dart
-# **/*.config.dart  # Removed: injectable .config.dart files must be committed
+**/*.config.dart
 **/*.freezed.dart
 **/*.gr.dart
 

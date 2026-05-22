@@ -10,9 +10,9 @@ final ccSdkLocator = GetIt.instance;
 ///
 /// Returns the configured [GetIt] instance.
 @InjectableInit(
-  initializerName: 'init', // default
+  initializerName: r'$initCcSdkDependencies',
   preferRelativeImports: true, // default
-  asExtension: true, // default
+  asExtension: false,
 )
 GetIt configureDependencies() => $initCcSdkDependencies(ccSdkLocator);
 
