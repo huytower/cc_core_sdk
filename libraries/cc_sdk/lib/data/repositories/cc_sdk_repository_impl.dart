@@ -1,22 +1,35 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cc_sdk/core/failure/failure.dart';
-import 'package:cc_sdk/core/network/network_info.dart';
-import 'package:cc_sdk/data/datasources/remote/cc_sdk_remote_data_source.dart';
-import 'package:cc_sdk/domain/repositories/cc_sdk_repository.dart';
 import 'package:multiple_result/multiple_result.dart';
+import '../../core/network/network_info.dart';
+import '../../domain/entities/cc_device_entity.dart';
+import '../../domain/failures/cc_failure.dart';
+import '../../domain/repositories/cc_sdk_repository.dart';
+import '../datasources/local/cc_device_local_data_source.dart';
+import '../datasources/remote/cc_sdk_remote_data_source.dart';
 
-/// STEP 3: THE REPOSITORY IMPLEMENTATION (The "Manager")
-/// This class does the real coordination work.
+/// Coordination layer that implementation the [CCSDKRepository] interface.
 class CCSDKRepositoryImpl implements CCSDKRepository {
   final CCSDKRemoteDataSource remoteDataSource;
+  final CcDeviceLocalDataSource deviceLocalDataSource;
   final NetworkInfo networkInfo;
 
   const CCSDKRepositoryImpl({
     required this.remoteDataSource,
+    required this.deviceLocalDataSource,
     required this.networkInfo,
   });
+
+  @override
+  Future<Result<CcDeviceEntity, Failure>> getDeviceInfo() async {
+    try {
+      final model = await deviceLocalDataSource.getDeviceInfo();
+      return Success(model.toEntity());
+    } catch (e) {
+      return Error(DeviceFailure('Failed to fetch device info: $e'));
+    }
+  }
 
   @override
   Future<Result<String, Failure>> executeCurlRequest({
@@ -27,13 +40,11 @@ class CCSDKRepositoryImpl implements CCSDKRepository {
     bool useProxy = false,
     Duration? timeout,
   }) async {
-    // 3a. First, check if there is internet.
     if (!await networkInfo.isConnected) {
       return const Error(NetworkFailure('No internet connection'));
     }
 
     try {
-      // 3b. Ask the Data Source to fetch the raw data.
       final response = await remoteDataSource.executeCurlRequest(
         url: url,
         headers: headers,
@@ -43,13 +54,10 @@ class CCSDKRepositoryImpl implements CCSDKRepository {
         timeout: timeout,
       );
 
-      // 3c. If successful, return the data.
       return Success(response);
     } on HttpException catch (e) {
-      // 3d. If a network error happens, translate it to a "ServerFailure".
       return Error(ServerFailure(e.message));
     } catch (e) {
-      // 3e. Any other unknown error becomes a "CurlFailure".
       return Error(CurlFailure('Unexpected error: $e'));
     }
   }

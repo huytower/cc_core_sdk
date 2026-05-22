@@ -1,7 +1,9 @@
-import 'package:equatable/equatable.dart';
+import '../../domain/entities/cc_device_entity.dart';
 
-/// Represents the device information for tracking and logging.
-class CcDeviceModel extends Equatable {
+/// Data Transfer Object (DTO) for Device information.
+///
+/// This class handles data mapping and serialization.
+class CcDeviceModel {
   final String? deviceName;
   final String? deviceId;
   final String? osName;
@@ -12,8 +14,6 @@ class CcDeviceModel extends Equatable {
   final String? model;
   final String? brand;
   final bool? isPhysicalDevice;
-
-  /// The raw device info string for backward compatibility or quick logging.
   final String deviceInfo;
 
   const CcDeviceModel({
@@ -30,20 +30,20 @@ class CcDeviceModel extends Equatable {
     this.isPhysicalDevice,
   });
 
-  @override
-  List<Object?> get props => [
-    deviceInfo,
-    deviceName,
-    deviceId,
-    osName,
-    osVersion,
-    appName,
-    appVersion,
-    packageName,
-    model,
-    brand,
-    isPhysicalDevice,
-  ];
+  /// Maps the DTO to a pure Domain Entity.
+  CcDeviceEntity toEntity() => CcDeviceEntity(
+    deviceInfo: deviceInfo,
+    deviceName: deviceName,
+    deviceId: deviceId,
+    osName: osName,
+    osVersion: osVersion,
+    appName: appName,
+    appVersion: appVersion,
+    packageName: packageName,
+    model: model,
+    brand: brand,
+    isPhysicalDevice: isPhysicalDevice,
+  );
 
   Map<String, dynamic> toMap() {
     return {

@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// STEP 5: THE FAILURE (The "Report")
-/// Failures are simple objects that tell the UI what went wrong
-/// without crashing the app with low-level exceptions.
+/// Base class for all Business Failures in the Domain layer.
 abstract class Failure extends Equatable {
   final String message;
   final int? statusCode;
@@ -13,7 +11,6 @@ abstract class Failure extends Equatable {
   List<Object?> get props => [message, statusCode];
 }
 
-// General failures
 class ServerFailure extends Failure {
   const ServerFailure(String message, {int? statusCode})
     : super(message, statusCode: statusCode);
@@ -29,6 +26,10 @@ class NetworkFailure extends Failure {
 
 class BiometricFailure extends Failure {
   const BiometricFailure(String message) : super(message);
+}
+
+class DeviceFailure extends Failure {
+  const DeviceFailure(String message) : super(message);
 }
 
 class CurlFailure extends Failure {

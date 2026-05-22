@@ -11,7 +11,7 @@ import 'package:equatable/equatable.dart';
 class AppTrackLogState extends Equatable {
   final bool isReady;
   final String appVersion;
-  final CcDeviceModel deviceModel;
+  final CcDeviceEntity deviceModel;
   final List<String>? loggingMessages;
 
   const AppTrackLogState({
@@ -22,14 +22,11 @@ class AppTrackLogState extends Equatable {
   });
 
   /// Creates an initial state with default values
-  ///
-  /// This method is provided for consistency with the project's existing patterns,
-  /// even though we're using Equatable for state management.
-  static AppTrackLogState init() {
+  static AppTrackLogState init(CcDeviceEntity deviceModel) {
     return AppTrackLogState(
       isReady: false,
-      appVersion: '',
-      deviceModel: const CcDeviceModel(deviceInfo: ''),
+      appVersion: deviceModel.appVersion ?? '',
+      deviceModel: deviceModel,
       loggingMessages: null,
     );
   }
@@ -38,7 +35,7 @@ class AppTrackLogState extends Equatable {
   AppTrackLogState copyWith({
     bool? isReady,
     String? appVersion,
-    CcDeviceModel? deviceModel,
+    CcDeviceEntity? deviceModel,
     List<String>? loggingMessages,
   }) {
     return AppTrackLogState(

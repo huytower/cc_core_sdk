@@ -1,12 +1,14 @@
-import 'package:cc_sdk/core/failure/failure.dart';
 import 'package:multiple_result/multiple_result.dart';
+import '../entities/cc_device_entity.dart';
+import '../failures/cc_failure.dart';
 
-/// STEP 2: THE REPOSITORY INTERFACE (The "Rules")
-/// This is a contract. It says "Anyone who wants to be a CCSDKRepository
-/// MUST provide these three functions."
-/// It lives in the Domain because it defines business rules.
+/// Contract defining the core SDK capabilities.
+/// Lives in the Domain layer to protect business logic from implementation changes.
 abstract class CCSDKRepository {
-  /// Executes a CURL request
+  /// Fetches structured device information from the local platform.
+  Future<Result<CcDeviceEntity, Failure>> getDeviceInfo();
+
+  /// Executes a CURL request.
   Future<Result<String, Failure>> executeCurlRequest({
     required String url,
     Map<String, String>? headers,
@@ -16,9 +18,9 @@ abstract class CCSDKRepository {
     Duration? timeout,
   });
 
-  /// Converts an object to JSON
+  /// Converts an object to JSON.
   Future<Result<Map<String, dynamic>, Failure>> convertToJson(dynamic object);
 
-  /// Converts JSON back to an object
+  /// Converts JSON back to an object.
   Future<Result<T, Failure>> convertFromJson<T>(String jsonString);
 }

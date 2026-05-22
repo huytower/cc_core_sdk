@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import '../failure.dart';
+import '../cc_failure.dart';
 
 part 'invalid_config_failure.dart';
 part 'missing_config_failure.dart';
