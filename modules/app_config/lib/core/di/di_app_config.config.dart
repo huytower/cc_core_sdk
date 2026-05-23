@@ -9,7 +9,6 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:cc_sdk/core/helper/cc_network_helper.dart' as _i548;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -26,34 +25,38 @@ import '../../domain/usecases/get_feature_flag.dart' as _i1044;
 import '../../domain/usecases/refresh_app_config.dart' as _i75;
 import 'module/dependencies.dart' as _i264;
 
-// initializes the registration of main-scope dependencies inside of GetIt
-_i174.GetIt $initAppConfigDependencies(
-  _i174.GetIt getIt, {
-  String? environment,
-  _i526.EnvironmentFilter? environmentFilter,
-}) {
-  final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
-  final appConfigModule = _$AppConfigModule();
-  gh.singleton<_i548.CcNetworkHelper>(() => appConfigModule.networkHelper);
-  gh.lazySingleton<_i811.CcAppStorage>(() => appConfigModule.ccAppStorage);
-  gh.lazySingleton<_i24.CcDeviceInfo>(() => appConfigModule.ccDeviceInfo);
-  gh.lazySingleton<_i65.AppVersionAPI>(() => appConfigModule.appVersionService);
-  gh.lazySingleton<_i79.AppConfigRepository>(
-    () => _i701.AppConfigRepositoryImpl(gh<_i65.AppVersionAPI>()),
-  );
-  gh.lazySingleton<_i935.CheckUpdateRequired>(
-    () => _i935.CheckUpdateRequired(gh<_i79.AppConfigRepository>()),
-  );
-  gh.lazySingleton<_i897.GetAppConfig>(
-    () => _i897.GetAppConfig(gh<_i79.AppConfigRepository>()),
-  );
-  gh.lazySingleton<_i1044.GetFeatureFlag>(
-    () => _i1044.GetFeatureFlag(gh<_i79.AppConfigRepository>()),
-  );
-  gh.lazySingleton<_i75.RefreshAppConfig>(
-    () => _i75.RefreshAppConfig(gh<_i79.AppConfigRepository>()),
-  );
-  return getIt;
+extension GetItInjectableX on _i174.GetIt {
+  // initializes the registration of main-scope dependencies inside of GetIt
+  _i174.GetIt init({
+    String? environment,
+    _i526.EnvironmentFilter? environmentFilter,
+  }) {
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final appConfigDependencies = _$AppConfigDependencies();
+    gh.lazySingleton<_i811.CcAppStorage>(
+      () => appConfigDependencies.ccAppStorage,
+    );
+    gh.lazySingleton<_i24.CcDeviceInfo>(
+      () => appConfigDependencies.ccDeviceInfo,
+    );
+    gh.lazySingleton<_i65.AppVersionAPI>(() => _i65.AppVersionAPI());
+    gh.lazySingleton<_i79.AppConfigRepository>(
+      () => _i701.AppConfigRepositoryImpl(gh<_i65.AppVersionAPI>()),
+    );
+    gh.lazySingleton<_i935.CheckUpdateRequired>(
+      () => _i935.CheckUpdateRequired(gh<_i79.AppConfigRepository>()),
+    );
+    gh.lazySingleton<_i897.GetAppConfig>(
+      () => _i897.GetAppConfig(gh<_i79.AppConfigRepository>()),
+    );
+    gh.lazySingleton<_i1044.GetFeatureFlag>(
+      () => _i1044.GetFeatureFlag(gh<_i79.AppConfigRepository>()),
+    );
+    gh.lazySingleton<_i75.RefreshAppConfig>(
+      () => _i75.RefreshAppConfig(gh<_i79.AppConfigRepository>()),
+    );
+    return this;
+  }
 }
 
-class _$AppConfigModule extends _i264.AppConfigModule {}
+class _$AppConfigDependencies extends _i264.AppConfigDependencies {}

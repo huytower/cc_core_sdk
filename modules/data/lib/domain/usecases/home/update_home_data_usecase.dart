@@ -1,3 +1,5 @@
+import 'package:injectable/injectable.dart';
+
 import '../../entities/home/home_entity.dart';
 import '../../repositories/home/home_repository.dart';
 
@@ -6,6 +8,7 @@ import '../../repositories/home/home_repository.dart';
 /// This use case is responsible for updating home data.
 /// It follows the Single Responsibility Principle by having only one reason to change.
 /// It also follows the Dependency Inversion Principle by depending on the repository interface.
+@lazySingleton
 class UpdateHomeDataUseCase {
   final HomeRepository repository;
 

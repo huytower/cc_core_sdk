@@ -1,17 +1,18 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../data/datasources/local/cc_device_local_data_source.dart';
 import '../../helper/cc_network_helper.dart';
-import '../../network/network_info.dart';
 
+/// Registers third-party dependencies that cannot be auto-registered
+/// (they don't have injectable constructors we control).
 @module
-abstract class CcSdkModule {
-  @singleton
-  Dio get dio => Dio();
+abstract class CcSdkDependencies {
+  @preResolve
+  Future<SharedPreferences> get sharedPreferences =>
+      SharedPreferences.getInstance();
 
   @singleton
   InternetConnection get internetConnection => InternetConnection();
@@ -23,15 +24,5 @@ abstract class CcSdkModule {
   DeviceInfoPlugin get deviceInfoPlugin => DeviceInfoPlugin();
 
   @singleton
-  CcNetworkHelper networkHelper(InternetConnection connection) =>
-      CcNetworkHelper(connection);
-
-  @singleton
-  NetworkInfo networkInfo(Connectivity connectivity) =>
-      NetworkInfoImpl(connectivity);
-
-  @lazySingleton
-  CcDeviceLocalDataSource deviceLocalDataSource(
-    DeviceInfoPlugin deviceInfoPlugin,
-  ) => CcDeviceLocalDataSourceImpl(deviceInfoPlugin: deviceInfoPlugin);
+  CcNetworkHelper get networkHelper => CcNetworkHelper(internetConnection);
 }

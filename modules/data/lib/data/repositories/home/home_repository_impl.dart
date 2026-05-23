@@ -1,3 +1,5 @@
+import 'package:injectable/injectable.dart';
+
 import '../../../domain/entities/home/home_entity.dart';
 import '../../../domain/repositories/home/home_repository.dart';
 import '../../datasource/local/home/home_local_datasource.dart';
@@ -8,6 +10,7 @@ import '../../datasource/remote/home/home_remote_datasource.dart';
 /// This class implements the HomeRepository interface and coordinates
 /// between local and remote data sources. It follows the Repository Pattern
 /// and the Single Responsibility Principle by managing data operations.
+@LazySingleton(as: HomeRepository)
 class HomeRepositoryImpl implements HomeRepository {
   final HomeLocalDataSource _localDataSource;
   final HomeRemoteDataSource _remoteDataSource;

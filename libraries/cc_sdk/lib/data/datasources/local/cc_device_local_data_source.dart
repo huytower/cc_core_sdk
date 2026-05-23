@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cc_sdk/core/utils/common/cc_device_utils.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../../models/cc_device_model.dart';
 
@@ -11,6 +12,7 @@ abstract class CcDeviceLocalDataSource {
 }
 
 /// Implementation using [DeviceInfoPlugin] and [PackageInfo].
+@LazySingleton(as: CcDeviceLocalDataSource)
 class CcDeviceLocalDataSourceImpl implements CcDeviceLocalDataSource {
   final DeviceInfoPlugin deviceInfoPlugin;
 

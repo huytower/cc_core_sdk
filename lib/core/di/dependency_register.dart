@@ -1,35 +1,7 @@
-// Feature dependencies
-import 'package:data/domain/repositories/comment/comment_repository.dart';
-
-import '../../presentation/getx/comment/get_x/comment_controller.dart';
-import '../../presentation/getx/web/get_x/web_controller.dart';
-// Local dependencies
-import 'inject/inject.dart';
-
-/// Centralized dependency registration for the application.
+/// Controllers and feature dependencies are now auto-registered via
+/// annotations on the implementation classes (see inject.config.dart).
 ///
-/// This file is responsible for registering all singleton dependencies
-/// used throughout the application. It's organized by feature and dependency type
-/// for better maintainability and discoverability.
-
-/// Initializes all singleton dependencies in the application.
-///
-/// This should be called during app startup to ensure all dependencies
-/// are properly registered before they're needed.
+/// This function is kept for backward compatibility but is now a no-op.
 void registerSingletonApp() {
-  _registerControllers();
-}
-
-/// Registers all controller-related singletons.
-///
-/// Controllers are registered as lazy singletons and may depend on
-/// other registered services or repositories.
-void _registerControllers() {
-  // Register web controller
-  getIt.registerLazySingleton<WebController>(() => WebController());
-
-  // Register comment controller with its dependencies
-  getIt.registerLazySingleton<CommentController>(
-    () => CommentController(getIt<CommentRepository>()),
-  );
+  // All registrations are handled by injectable auto-register.
 }

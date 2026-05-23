@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'injection.config.dart';
 
@@ -10,10 +11,10 @@ final getIt = GetIt.instance;
 ///
 /// Call this function during app initialization to set up all dependencies
 @InjectableInit(
-  initializerName: r'$initFeaturesGetIt',
+  initializerName: 'init',
   preferRelativeImports: true,
-  asExtension: false,
+  asExtension: true,
 )
 Future<void> configureDependencies() async {
-  await $initFeaturesGetIt(getIt);
+  await getIt.init();
 }
