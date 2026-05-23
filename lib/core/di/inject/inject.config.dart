@@ -41,7 +41,6 @@ import '../../../sample_code/bloc_simple_page/origin/advance/advance_bloc.dart'
     as _i403;
 import '../../../sample_code/getx_simple_page/way_1/getx/get_view_controller.dart'
     as _i313;
-import '../../navigation/route_strategy_provider.dart' as _i740;
 import '../module/infrastructure_module.dart' as _i450;
 import '../module/route_strategy_module.dart' as _i210;
 
@@ -69,17 +68,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i602.RoutingStrategy>(
       () => _i602.AutoRouteStrategy(gh<_i901.ThemeProvider>()),
-      instanceName: 'autoRoute',
-    );
-    gh.lazySingleton<_i602.RoutingStrategy>(
-      () => _i602.GetXRouteStrategy(gh<_i901.ThemeProvider>()),
-      instanceName: 'getX',
-    );
-    gh.lazySingleton<_i740.RouteStrategyProvider>(
-      () => _i740.RouteStrategyProvider(
-        gh<_i602.RoutingStrategy>(instanceName: 'autoRoute'),
-        gh<_i602.RoutingStrategy>(instanceName: 'getX'),
-      ),
     );
     await gh.singletonAsync<_i54.CcDeviceEntity>(
       () => infrastructureModule.deviceModel(gh<_i833.DeviceInfoPlugin>()),
