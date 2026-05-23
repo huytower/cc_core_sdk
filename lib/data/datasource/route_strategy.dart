@@ -50,6 +50,7 @@ abstract class RoutingStrategy {
 
   /// Releases resources held by this strategy.
   @mustCallSuper
+  @disposeMethod
   void dispose() {
     _themeProvider.removeListener(_themeListener);
     _themeModeController.close();

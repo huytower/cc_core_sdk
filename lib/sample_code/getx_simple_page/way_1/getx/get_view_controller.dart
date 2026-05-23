@@ -122,4 +122,10 @@ class GetViewController extends CcGetController {
 
     fetchNewsApi();
   }
+
+  @override
+  @disposeMethod
+  void onClose() {
+    super.onClose();
+  }
 }

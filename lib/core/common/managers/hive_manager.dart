@@ -1,9 +1,12 @@
 import 'package:app_config/data/datasource/local/box/cc_hive_box.dart';
 import 'package:hive_ce/hive_ce.dart';
+import 'package:injectable/injectable.dart';
 
 /// Manages Hive database operations
+@lazySingleton
 class HiveManager {
   /// Closes all Hive boxes
+  @disposeMethod
   Future<void> closeBoxes() async {
     await Future.wait([
       Hive.box(CcHiveBox.APP_BOX_NAME).close(),
