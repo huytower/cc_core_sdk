@@ -1,41 +1,44 @@
 import 'package:app_config/core/enum/routing_manager_enum.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../core/navigation/enums/page_name_enum.dart';
+import '../../core/navigation/route_names.dart';
 
-/// Handles application routing configuration and route resolution
+/// Handles application routing configuration and route resolution.
+///
+/// Route values can be overridden from the root env files in `/env`.
 class RouteDatasource {
-  // Private constants
-  static const RoutingManagerEnum _currentStrategy = RoutingManagerEnum.AUTO_ROUTE;
-  // static const PageNameEnum _defaultStartRoute = PageNameEnum.HOME;
-  static const PageNameEnum _defaultStartRoute = PageNameEnum.COMMENT;
+  static const String _envRoutingManager = 'ROUTING_MANAGER';
+  static const String _envStartRoute = 'ROUTE_START';
 
-  final PageNameEnum _startRoute;
+  static const RoutingManagerEnum _defaultStrategy =
+      RoutingManagerEnum.AUTO_ROUTE;
+  static const AppRoute _defaultStartRoute = AppRoute.comment;
 
-  const RouteDatasource({
-    RoutingManagerEnum? routingStrategy,
-    PageNameEnum? startRoute,
-  }) : _startRoute = startRoute ?? _defaultStartRoute;
+  const RouteDatasource();
 
-  // Public Getters
+  String getStartRoute() => startRoute.path;
 
-  /// Gets the start route as a string
-  String getStartRoute() => _resolveRouteName(_startRoute);
-
-  /// Gets the current routing strategy
-  static RoutingManagerEnum get currentStrategy => _currentStrategy;
-
-  /// Checks if the current routing strategy is AutoRoute
-  static bool get isAutoRoute => _isStrategyAutoRoute(_currentStrategy);
-
-  // Private Helpers
-
-  /// Resolves the route name from PageNameEnum
-  static String _resolveRouteName(PageNameEnum route) {
-    return getPageName(route);
+  static RoutingManagerEnum get currentStrategy {
+    final rawStrategy = dotenv.maybeGet(
+      _envRoutingManager,
+      fallback: _defaultStrategy.name,
+    );
+    return _parseRoutingManager(rawStrategy) ?? _defaultStrategy;
   }
 
-  /// Checks if the given strategy is AutoRoute
-  static bool _isStrategyAutoRoute(RoutingManagerEnum strategy) {
-    return strategy == RoutingManagerEnum.AUTO_ROUTE;
+  static AppRoute get startRoute {
+    final rawRoute = dotenv.maybeGet(
+      _envStartRoute,
+      fallback: _defaultStartRoute.name,
+    );
+    return appRouteFromString(rawRoute) ?? _defaultStartRoute;
+  }
+
+  static RoutingManagerEnum? _parseRoutingManager(String? raw) {
+    if (raw == null || raw.trim().isEmpty) return null;
+    return RoutingManagerEnum.values.firstWhere(
+      (value) => value.name.toUpperCase() == raw.trim().toUpperCase(),
+      orElse: () => _defaultStrategy,
+    );
   }
 }

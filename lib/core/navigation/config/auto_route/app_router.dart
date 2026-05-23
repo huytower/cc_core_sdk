@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 
-import '../../enums/page_name_by_route_strategy_enum.dart';
-import '../../enums/page_name_enum.dart';
+import '../../route_names.dart';
 import 'app_router.gr.dart';
 
 /// Centralized router configuration for the application.
@@ -14,51 +13,28 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    // Core application routes
     AutoRoute(page: SplashRoute.page, initial: true),
-    AutoRoute(page: HomeRoute.page, path: getPageName(PageNameEnum.HOME)),
-    AutoRoute(page: CommentRoute.page, path: getPageName(PageNameEnum.COMMENT)),
+    AutoRoute(page: HomeRoute.page, path: AppRoute.home.path),
+    AutoRoute(page: CommentRoute.page, path: AppRoute.comment.path),
     AutoRoute(
       page: FeaturesCounterRoute.page,
-      path: getPageName(PageNameEnum.FEATURES_COUNTER),
+      path: AppRoute.featuresCounter.path,
     ),
-
-    // Example routes (BLoC pattern)
-    ..._buildBlocExampleRoutes(),
-
-    // Example routes (GetX pattern)
-    ..._buildGetXExampleRoutes(),
-  ];
-
-  // Example Routes (BLoC) ============================================
-
-  /// Returns all BLoC pattern example routes
-  List<AutoRoute> _buildBlocExampleRoutes() => [
     AutoRoute(
       page: SimpleCubitRoute.page,
-      path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.BLOC_SIMPLE),
+      path: ExampleRoute.blocSimple.path,
     ),
     AutoRoute(
       page: AdvanceBlocRoute.page,
-      path: getPageNameByRouteStrategy(
-        PageNameByRouteStrategyEnum.BLOC_ADVANCE,
-      ),
+      path: ExampleRoute.blocAdvance.path,
     ),
-  ];
-
-  // Example Routes (GetX) ============================================
-
-  /// Returns all GetX pattern example routes
-  List<AutoRoute> _buildGetXExampleRoutes() => [
     AutoRoute(
       page: GetViewRoute.page,
-      path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.GETX_SIMPLE),
+      path: ExampleRoute.getxSimple.path,
     ),
     AutoRoute(
       page: GetViewV2Route.page,
-      path: getPageNameByRouteStrategy(
-        PageNameByRouteStrategyEnum.GETX_SIMPLE_V2,
-      ),
+      path: ExampleRoute.getxSimpleV2.path,
     ),
   ];
 }

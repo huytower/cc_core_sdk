@@ -11,7 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:app_config/core/di/di_app_config.module.dart' as _i72;
 import 'package:cc_sdk/core/di/di_cc_sdk.module.dart' as _i586;
-import 'package:cc_sdk/export_cc_sdk.dart' as _i54;
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' as _i631;
 import 'package:data/core/di/inject/data_inject.module.dart' as _i787;
 import 'package:data/domain/repositories/comment/comment_repository.dart'
     as _i683;
@@ -27,18 +27,18 @@ import 'package:features/core/di/injection.module.dart' as _i168;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../../examples/bloc_simple_page/cubit/simple/simple_cubit.dart'
+    as _i168;
+import '../../../examples/bloc_simple_page/cubit/simple/simple_cubit_interface.dart'
+    as _i571;
+import '../../../examples/bloc_simple_page/origin/advance/advance_bloc.dart'
+    as _i74;
+import '../../../examples/getx_simple_page/way_1/getx/get_view_controller.dart'
+    as _i600;
 import '../../../presentation/getx/comment/get_x/comment_controller.dart'
     as _i551;
 import '../../../presentation/getx/web/get_x/web_controller.dart' as _i523;
 import '../../../presentation/home/presentation/bloc/home_bloc.dart' as _i336;
-import '../../../sample_code/bloc_simple_page/cubit/simple/simple_cubit.dart'
-    as _i271;
-import '../../../sample_code/bloc_simple_page/cubit/simple/simple_cubit_interface.dart'
-    as _i439;
-import '../../../sample_code/bloc_simple_page/origin/advance/advance_bloc.dart'
-    as _i403;
-import '../../../sample_code/getx_simple_page/way_1/getx/get_view_controller.dart'
-    as _i313;
 import '../../common/managers/hive_manager.dart' as _i942;
 import '../module/infrastructure_module.dart' as _i450;
 
@@ -54,19 +54,19 @@ extension GetItInjectableX on _i174.GetIt {
     await _i72.AppConfigPackageModule().init(gh);
     await _i168.FeaturesPackageModule().init(gh);
     final infrastructureModule = _$InfrastructureModule();
+    gh.factory<_i600.GetViewBinding>(() => _i600.GetViewBinding());
     gh.factory<_i551.CommentBinding>(() => _i551.CommentBinding());
     gh.factory<_i523.WebBinding>(() => _i523.WebBinding());
     gh.factory<_i523.WebController>(() => _i523.WebController());
-    gh.factory<_i313.GetViewBinding>(() => _i313.GetViewBinding());
     gh.lazySingleton<_i942.HiveManager>(() => _i942.HiveManager());
-    gh.lazySingleton<_i403.AdvanceBloc>(() => _i403.AdvanceBloc());
-    gh.lazySingleton<_i439.SimpleCubitInterface>(() => _i271.SimpleCubit());
-    await gh.singletonAsync<_i54.CcDeviceEntity>(
+    gh.lazySingleton<_i74.AdvanceBloc>(() => _i74.AdvanceBloc());
+    gh.lazySingleton<_i571.SimpleCubitInterface>(() => _i168.SimpleCubit());
+    await gh.singletonAsync<_i631.CcDeviceEntity>(
       () => infrastructureModule.deviceModel(gh<_i833.DeviceInfoPlugin>()),
       preResolve: true,
     );
-    gh.lazySingleton<_i313.GetViewController>(
-      () => _i313.GetViewController(
+    gh.lazySingleton<_i600.GetViewController>(
+      () => _i600.GetViewController(
         repository: gh<_i872.SampleCodeFakeApiImpl>(),
       ),
     );
