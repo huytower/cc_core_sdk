@@ -9,10 +9,10 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:app_config/core/di/di_app_config.module.dart' as _i72;
-import 'package:cc_sdk/core/di/di_cc_sdk.module.dart' as _i586;
+import 'package:app_config/core/di/di.module.dart' as _i72;
+import 'package:cc_sdk/core/di/di.module.dart' as _i586;
 import 'package:cc_sdk/export_cc_sdk.dart' as _i54;
-import 'package:data/core/di/inject/data_inject.module.dart' as _i787;
+import 'package:data/core/di/di.module.dart' as _i787;
 import 'package:data/domain/repositories/comment/comment_repository.dart'
     as _i683;
 import 'package:data/domain/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart'
@@ -23,7 +23,7 @@ import 'package:data/domain/usecases/home/refresh_home_data_usecase.dart'
 import 'package:data/domain/usecases/home/update_home_data_usecase.dart'
     as _i15;
 import 'package:device_info_plus/device_info_plus.dart' as _i833;
-import 'package:features/core/di/injection.module.dart' as _i168;
+import 'package:features/core/di/di.module.dart' as _i168;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:theme/presentation/provider/theme_provider.dart' as _i901;

@@ -39,7 +39,7 @@ class GetViewController extends CcGetController {
   final RxList<ResSampleCodeFakeModel> sampleCodeFakeList =
       <ResSampleCodeFakeModel>[].obs; // init: data observable
 
-  // SampleCodeFakeApiImpl repositories = getItData<SampleCodeFakeApiImpl>();
+  // SampleCodeFakeApiImpl repositories = getIt<SampleCodeFakeApiImpl>();
 
   @override
   void onInit() {

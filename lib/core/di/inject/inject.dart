@@ -1,8 +1,8 @@
-import 'package:app_config/core/di/di_app_config.module.dart';
-import 'package:cc_sdk/core/di/di_cc_sdk.module.dart';
-import 'package:data/core/di/inject/data_inject.module.dart';
+import 'package:app_config/core/di/di.module.dart';
+import 'package:cc_sdk/core/di/di.module.dart';
+import 'package:data/core/di/di.module.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:features/core/di/injection.module.dart';
+import 'package:features/core/di/di.module.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
