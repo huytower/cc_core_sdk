@@ -7,7 +7,6 @@ import 'package:path_provider/path_provider.dart';
 
 import 'core/crash_reporting/crash_log_dev_overlay.dart';
 import 'core/crash_reporting/crash_log_startup.dart';
-import 'core/di/dependency_register.dart';
 import 'core/di/inject/inject.dart';
 import 'core/runner/app_runner.dart';
 import 'main_logging.dart';
@@ -21,7 +20,6 @@ void main() async {
   await logVersionInfo();
 
   await initializeDependencies();
-  registerSingletonApp();
 
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);

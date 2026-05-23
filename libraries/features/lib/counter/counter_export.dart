@@ -1,11 +1,8 @@
 // Domain Layer
 // Main export
-export 'counter_init.dart';
 export 'data/datasources/counter_local_data_source.dart';
 // Data Layer
 export 'data/repositories/counter_repository_impl.dart';
-// Dependency Injection
-export 'di/counter_module.dart';
 // Domain
 export 'domain/entities/counter_entity.dart';
 export 'domain/repositories/counter_repository.dart';

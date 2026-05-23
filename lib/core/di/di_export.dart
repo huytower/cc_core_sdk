@@ -1,4 +1,3 @@
-library core_di;
+library;
 
 export 'inject/inject.dart';
-export 'module/presentation_module.dart' show configurePresentationDependencies;
