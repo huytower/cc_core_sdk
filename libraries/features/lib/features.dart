@@ -1,7 +1,7 @@
 library features;
 
 // Core
-export 'core/di/injection.dart';
+export 'core/di/di.dart';
 
 // Features
 export 'auth/biometric/biometric_export.dart';

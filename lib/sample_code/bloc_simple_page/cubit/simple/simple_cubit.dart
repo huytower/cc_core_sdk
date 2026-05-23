@@ -78,4 +78,8 @@ class SimpleCubit extends SimpleCubitInterface {
       emit(state.copyWith(errorMessage: null));
     }
   }
+
+  @override
+  @disposeMethod
+  Future<void> close() => super.close();
 }

@@ -1,12 +1,11 @@
-import 'package:app_config/core/di/di_app_config.module.dart';
-import 'package:cc_sdk/core/di/di_cc_sdk.module.dart';
-import 'package:data/core/di/inject/data_inject.module.dart';
+import 'package:app_config/core/di/di.module.dart';
+import 'package:cc_sdk/core/di/di.module.dart';
+import 'package:data/core/di/di.module.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:features/core/di/injection.module.dart';
+import 'package:features/core/di/di.module.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../common/managers/hive_manager.dart';
 import '../di_export.dart';
 import 'inject.config.dart';
 
@@ -25,20 +24,11 @@ final GetIt getIt = GetIt.instance;
   ignoreUnregisteredTypes: [DeviceInfoPlugin],
 )
 Future<void> initializeDependencies() async {
-  // Initialize common dependencies that might be needed by others
-  await _configureCoreDependencies();
-
   // Initialize all dependencies (including Micro-Packages from cc_sdk, features, data, etc.)
   // This will automatically call the init functions of all discovered micro-packages.
+  // All singletons with @disposeMethod are auto-wired for disposal via getIt.reset().
   await getIt.init();
 
   // Initialize presentation layer dependencies
   await configurePresentationDependencies();
-}
-
-Future<void> _configureCoreDependencies() async {
-  // Register common managers and initializers
-  if (!getIt.isRegistered<HiveManager>()) {
-    getIt.registerLazySingleton<HiveManager>(() => HiveManager());
-  }
 }

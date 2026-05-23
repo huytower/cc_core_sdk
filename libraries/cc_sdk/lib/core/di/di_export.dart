@@ -1,2 +1,2 @@
-export 'di_cc_sdk.dart';
+export 'di.dart';
 export 'module/dependencies.dart';

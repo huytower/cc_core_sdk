@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../data/datasource/route_strategy.dart';
-import '../common/managers/hive_manager.dart';
 import '../di/inject/inject.dart';
 
 class AppRunner extends StatefulWidget {
@@ -12,7 +11,6 @@ class AppRunner extends StatefulWidget {
 }
 
 class AppRunnerState extends State<AppRunner> {
-  late final HiveManager _hiveManager;
   late final RoutingStrategy _routingStrategy;
 
   @override
@@ -28,8 +26,7 @@ class AppRunnerState extends State<AppRunner> {
 
   @override
   void dispose() {
-    _routingStrategy.dispose();
-    _hiveManager.closeBoxes();
+    getIt.reset();
     super.dispose();
   }
 }

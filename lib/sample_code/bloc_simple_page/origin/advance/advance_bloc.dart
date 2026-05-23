@@ -25,6 +25,10 @@ class AdvanceBloc extends Bloc<AdvanceBlocEvent, AdvanceBlocState> {
 
     emit(state.clone());
   }
+
+  @override
+  @disposeMethod
+  Future<void> close() => super.close();
 }
 
 enum BlocType { builder, selector, listener, consumer }

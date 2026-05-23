@@ -151,7 +151,7 @@ class FeatureNameWidget extends StatelessWidget {
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../common/di/injection.dart';
+import '../../common/di/di.dart';
 import '../data/datasources/feature_name_datasource.dart';
 import '../data/repositories/feature_name_repository_impl.dart';
 import '../domain/repositories/feature_name_repository.dart';
@@ -183,7 +183,7 @@ library features;
 
 // Core exports
 export 'common/constants/app_constants.dart';
-export 'common/di/injection.dart';
+export 'common/di/di.dart';
 
 // Feature exports
 export 'counter/presentation/pages/counter_page.dart';
@@ -192,7 +192,7 @@ export 'feature_name/presentation/pages/feature_name_page.dart';  // Add this li
 
 ### 2. Register Dependencies
 
-Update `core/di/injection.dart` to include your feature module:
+Update `core/di/di.dart` to include your feature module:
 
 ```dart
 @injectableInit
@@ -236,7 +236,7 @@ void configureDependencies() {
 5. Build the UI in the presentation layer
 6. Set up dependency injection
 7. Add feature exports to `features.dart`
-8. Register dependencies in `injection.dart`
+8. Register dependencies in `di.dart`
 
 ## See Also
 

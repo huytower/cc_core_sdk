@@ -6,7 +6,7 @@ import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/di/injection.dart';
+import '../../../core/di/di.dart';
 import '../bloc/counter_bloc.dart';
 
 class CounterPage extends StatelessWidget {

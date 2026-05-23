@@ -10,7 +10,7 @@ Config remote server-side, include :
 
 ### How to use?
 
-1. `injection.dart` : Init data, module ..v.v. before launching app (using `injectable` lib)
+1. `di.dart` : Init data, module ..v.v. before launching app (using `injectable` lib)
 
 2. `data_module.dart` : Config remote server-url (using `retrofit` lib)
 

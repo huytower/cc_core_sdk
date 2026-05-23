@@ -13,5 +13,5 @@ export 'counter_export.dart';
 /// This function should be called during app startup to configure
 /// all dependencies for the counter feature.
 void initCounterFeature(GetIt getIt) {
-  // Dependencies are now handled by injectable in core/di/injection.dart
+  // Dependencies are now handled by injectable in core/di/di.dart
 }

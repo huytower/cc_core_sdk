@@ -1,4 +1,4 @@
-import 'package:features/core/di/injection.dart' as features_di;
+import 'package:features/core/di/di.dart' as features_di;
 import 'package:features/counter/counter_init.dart';
 import 'package:get_it/get_it.dart';
 
