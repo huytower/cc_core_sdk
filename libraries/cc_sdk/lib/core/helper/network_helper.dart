@@ -3,8 +3,8 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 
 /// Connectivity helper backed by [InternetConnection].
 @singleton
-class CcNetworkHelper {
-  const CcNetworkHelper(this._connection);
+class NetworkHelper {
+  const NetworkHelper(this._connection);
 
   final InternetConnection _connection;
 

@@ -11,7 +11,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:app_config/core/di/di.module.dart' as _i418;
 import 'package:cc_sdk/core/di/di.module.dart' as _i915;
-import 'package:cc_sdk/core/helper/device_info_service.dart' as _i474;
 import 'package:cc_sdk/export_cc_sdk.dart' as _i54;
 import 'package:data/core/di/di.module.dart' as _i658;
 import 'package:data/domain/repositories/comment/comment_repository.dart'
@@ -77,12 +76,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i168.SimpleCubit(),
       dispose: (i) => i.close(),
     );
+    await gh.singletonAsync<_i54.CcDeviceEntity>(
+      () => infrastructureModule.deviceModel(gh<_i54.DeviceInfoHelper>()),
+      preResolve: true,
+    );
     gh.lazySingleton<_i278.RoutingStrategy>(
       () => _i278.AutoRouteStrategy(gh<_i577.ThemeProvider>()),
-    );
-    await gh.singletonAsync<_i54.CcDeviceEntity>(
-      () => infrastructureModule.deviceModel(gh<_i474.DeviceInfoService>()),
-      preResolve: true,
     );
     gh.lazySingleton<_i600.GetViewController>(
       () => _i600.GetViewController(

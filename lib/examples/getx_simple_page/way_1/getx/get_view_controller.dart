@@ -1,13 +1,13 @@
 import 'package:app_config/core/enum/layout_status.dart';
-import 'package:cc_sdk/core/helper/cc_network_helper.dart';
+import 'package:catcher_2/catcher_2.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/helper/network_helper.dart';
 import 'package:data/core/models/pagination_request.dart';
 import 'package:data/domain/entities/sample_code_fake_api/res_sample_code_fake_model.dart';
 import 'package:data/domain/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:catcher_2/catcher_2.dart';
 import '../../../../../../core/di/inject/inject.dart';
 import '../../../../presentation/getx/base/structure/getx/cc_get_controller/cc_get_controller.dart';
 
@@ -58,7 +58,7 @@ class GetViewController extends CcGetController {
   var l = <ResSampleCodeFakeModel>[];
 
   Future fetchNewsApi() async {
-    final hasInternet = await getIt<CcNetworkHelper>().hasInternet;
+    final hasInternet = await getIt<NetworkHelper>().hasInternet;
 
     "fetchNews() :.. "
             "\n hasInternet = $hasInternet"
@@ -114,9 +114,7 @@ class GetViewController extends CcGetController {
   }
 
   Future onRefresh() async {
-    await Future.delayed(const Duration(
-      seconds: 1,
-    ));
+    await Future.delayed(const Duration(seconds: 1));
 
     sampleCodeFakeList.clear();
 

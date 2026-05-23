@@ -1,6 +1,6 @@
 import 'package:cc_sdk/core/config/cc_app_track_info.dart';
 import 'package:cc_sdk/core/crash_reporting/cc_crash_log_paths.dart';
-import 'package:cc_sdk/core/utils/common/cc_device_info_service.dart';
+import 'package:cc_sdk/core/helper/device_info_helper.dart';
 import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
 import 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
@@ -32,7 +32,7 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
   }
 
   Future<void> _load() async {
-    final version = await GetIt.instance<DeviceInfoService>().getAppVersion();
+    final version = await GetIt.instance<DeviceInfoHelper>().getAppVersion();
     final logs = await CcCrashLogPaths.readLogContent();
     if (!mounted) return;
     setState(() {

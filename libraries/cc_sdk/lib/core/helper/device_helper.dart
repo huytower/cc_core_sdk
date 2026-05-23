@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Utility class for screen-layout and platform helpers.
 ///
 /// Device-information queries (device ID, OS info, app version) have been
-/// consolidated into [DeviceInfoService] which reuses the DI-registered
+/// consolidated into [DeviceInfoHelper] which reuses the DI-registered
 /// [DeviceInfoPlugin] singleton.
 class DeviceHelper {
   // ==========================================================================

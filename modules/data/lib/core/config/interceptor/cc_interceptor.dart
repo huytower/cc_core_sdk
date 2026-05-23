@@ -1,5 +1,5 @@
-import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:cc_sdk/core/network/curl/curl_utils.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
@@ -10,9 +10,8 @@ import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 Iterable<Interceptor> ccInterceptors() {
   final loggerCurl = CurlLoggerDioInterceptor(printOnSuccess: true);
   final loggerTalker = TalkerDioLogger(
-      settings: const TalkerDioLoggerSettings(
-    printResponseData: false,
-  ));
+    settings: const TalkerDioLoggerSettings(printResponseData: false),
+  );
 
   final cacheStore = MemCacheStore(maxSize: 10485760, maxEntrySize: 1048576);
   final cacheOptions = CacheOptions(
@@ -21,12 +20,7 @@ Iterable<Interceptor> ccInterceptors() {
   );
   final cache = DioCacheInterceptor(options: cacheOptions);
 
-  return [
-    ccReqInterceptors,
-    loggerCurl,
-    loggerTalker,
-    cache,
-  ];
+  return [ccReqInterceptors, loggerCurl, loggerTalker, cache];
 }
 
 // TODO(huy): Add this interceptor.
@@ -46,9 +40,7 @@ String request = "";
 var ccReqInterceptors = InterceptorsWrapper(
   onRequest: (options, handler) async {
     /// Check internet connection
-    final hasInternet =
-        await CcNetworkHelper(InternetConnection())
-            .hasInternet;
+    final hasInternet = await NetworkHelper(InternetConnection()).hasInternet;
     if (!hasInternet) {
       'No internet connection'.Log();
       return handler.reject(
@@ -73,7 +65,7 @@ var ccReqInterceptors = InterceptorsWrapper(
         },
         options.headers.containsValue("host_es"): () {
           options.headers = {};
-        }
+        },
       },
       orElse: () {
         options.headers = {};
@@ -84,8 +76,9 @@ var ccReqInterceptors = InterceptorsWrapper(
   onResponse: (response, handler) async {
     'onResponse() : response = $response'.Log();
 
-    var _curl =
-        await CurlUtils.instance.representation(response.requestOptions);
+    var _curl = await CurlUtils.instance.representation(
+      response.requestOptions,
+    );
 
     if (CcFeatureFlags.isEnableLoggerDio) {
       var url =

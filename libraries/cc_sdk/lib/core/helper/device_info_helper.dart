@@ -12,10 +12,10 @@ import '../../../domain/entities/cc_device_entity.dart';
 /// Reuses the DI-registered [DeviceInfoPlugin] singleton instead of
 /// creating ad-hoc instances throughout the codebase.
 @lazySingleton
-class DeviceInfoService {
+class DeviceInfoHelper {
   final DeviceInfoPlugin _deviceInfoPlugin;
 
-  const DeviceInfoService(this._deviceInfoPlugin);
+  const DeviceInfoHelper(this._deviceInfoPlugin);
 
   /// Builds a complete [CcDeviceEntity] from platform plugins.
   Future<CcDeviceEntity> getDeviceEntity() async {
