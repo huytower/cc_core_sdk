@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-/// Utility class for screen/layout operations.
+/// Utility class for screen-layout and platform helpers.
 ///
-/// This class intentionally does not contain device info logic.
-/// Device identity and platform metadata are handled by
-/// [CcDeviceInfoService].
+/// Device-information queries (device ID, OS info, app version) have been
+/// consolidated into [CcDeviceInfoService] which reuses the DI-registered
+/// [DeviceInfoPlugin] singleton.
 class DeviceUtils {
   // ==========================================================================
   // SCREEN & LAYOUT PROPERTIES
@@ -20,8 +22,6 @@ class DeviceUtils {
   static double minScreen = 0;
 
   /// Whether the current iOS device has a home button.
-  ///
-  /// Devices without home button include iPhone X, XS, XR, and later.
   static bool hasHomeBtnIOSDevice = true;
 
   /// Whether the current platform is iOS.
@@ -44,8 +44,6 @@ class DeviceUtils {
   ///
   /// Must be called once during app initialization to populate screen
   /// dimensions and platform information.
-  ///
-  /// [context] - The BuildContext from MaterialApp or widget tree
   static void init(BuildContext context) {
     isIOS = Theme.of(context).platform == TargetPlatform.iOS;
     isAndroid = Theme.of(context).platform == TargetPlatform.android;
@@ -55,7 +53,6 @@ class DeviceUtils {
 
     hasHomeBtnIOSDevice = true;
 
-    // Detect iPhone models without home button
     bool isIphoneXs = widthScreen == 414.0 && heightScreen == 896.0;
     bool isIphoneXsMax = widthScreen == 1242 && heightScreen == 2688;
     bool isIphoneXr = widthScreen == 828 && heightScreen == 1792;
@@ -70,9 +67,6 @@ class DeviceUtils {
   // ==========================================================================
 
   /// Gets the current keyboard height from [BuildContext].
-  ///
-  /// Returns the height of the software keyboard in pixels.
-  /// If keyboard is not visible, returns 0.
   static double getHeightKeyBoard(BuildContext context) {
     double heightKeyboard = MediaQuery.of(context).viewInsets.bottom;
 
@@ -87,18 +81,14 @@ class DeviceUtils {
   }
 
   /// Checks if the device has a small screen (iPhone 5/SE size).
-  ///
-  /// Returns true if screen width is less than 390 logical pixels.
   static bool isSmallScreen(double screenWidth) => screenWidth < 390.0;
 
   /// Checks if the device has a large screen (typically iPhone Pro Max models).
-  ///
-  /// Returns true if screen width is >= 400 and has bottom padding > 20.
-  ///
-  /// [screenWidth] - The width of the screen in logical pixels
-  /// [bottomPadding] - The bottom padding from MediaQuery
   static bool isLargeScreen({
     required double screenWidth,
     required double bottomPadding,
   }) => screenWidth >= 400.0 && bottomPadding > 20.0;
+
+  /// Checks if the current device locale is Vietnamese.
+  static bool isVietnameseLocale() => Platform.localeName.contains('VN');
 }

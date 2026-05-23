@@ -63,7 +63,7 @@ dependencies:
 This library uses `injectable` for automated dependency injection.
 
 - **Implementation**: Annotate your implementation classes (e.g., `@LazySingleton(as: MyRepository)`).
-- **Core Config**: Located in `lib/core/di/injection.dart`.
+- **Core Config**: Located in `lib/core/di/di.dart`.
 - **Async Deps**: Use `@preResolve` in `ExternalModule` (e.g., for `SharedPreferences`).
 
 ## 🧪 Testing

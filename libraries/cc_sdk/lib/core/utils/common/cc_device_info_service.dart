@@ -2,60 +2,106 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_udid/flutter_udid.dart';
+import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-/// Service dedicated to device identity, device metadata, and platform info.
+import '../../../domain/entities/cc_device_entity.dart';
+
+/// Centralised service for all device-information queries.
 ///
-/// This service prefers one shared [DeviceInfoPlugin] instance and keeps
-/// all device-info logic separate from screen/layout helpers.
+/// Reuses the DI-registered [DeviceInfoPlugin] singleton instead of
+/// creating ad-hoc instances throughout the codebase.
+@LazySingleton()
 class CcDeviceInfoService {
-  final DeviceInfoPlugin deviceInfoPlugin;
+  final DeviceInfoPlugin _deviceInfoPlugin;
 
-  CcDeviceInfoService({DeviceInfoPlugin? deviceInfoPlugin})
-      : deviceInfoPlugin = deviceInfoPlugin ?? DeviceInfoPlugin();
+  const CcDeviceInfoService(this._deviceInfoPlugin);
 
-  /// Returns a unique device identifier.
-  Future<String> getDeviceId() async {
-    if (Platform.isIOS || Platform.isMacOS) {
-      final iosDeviceInfo = await deviceInfoPlugin.iosInfo;
-      return iosDeviceInfo.identifierForVendor ?? '';
-    }
-    return getDeviceAndroidId();
-  }
-
-  /// Returns the Android device identifier via flutter_udid.
-  Future<String> getDeviceAndroidId() async {
-    return FlutterUdid.udid;
-  }
-
-  /// Returns a raw device information JSON string.
-  Future<String> getDeviceInfo() async {
+  /// Builds a complete [CcDeviceEntity] from platform plugins.
+  Future<CcDeviceEntity> getDeviceEntity() async {
     final packageInfo = await PackageInfo.fromPlatform();
-    var uri = '';
-    var osName = '';
+    final deviceId = await getDeviceId();
+    final rawDeviceInfo = await getRawDeviceInfo();
 
     if (Platform.isAndroid) {
-      final androidInfo = await deviceInfoPlugin.androidInfo;
-      final String androidId = await getDeviceAndroidId();
-      osName = 'ANDROID';
-      uri =
-          '${'${'{"DeviceName":"${androidInfo.device}","DeviceID":"$androidId","OsName":"$osName","OsVersion":"${androidInfo.bootloader}","AppName":"${packageInfo.appName}'}","AppVersion":"${packageInfo.version}'}","UserName":"","LocationInfo":"","Adv":"0"}';
+      final android = await _deviceInfoPlugin.androidInfo;
+      return CcDeviceEntity(
+        deviceInfo: rawDeviceInfo,
+        deviceName: android.device,
+        deviceId: deviceId,
+        osName: 'Android',
+        osVersion: android.version.release,
+        appName: packageInfo.appName,
+        appVersion: packageInfo.version,
+        packageName: packageInfo.packageName,
+        model: android.model,
+        brand: android.brand,
+        isPhysicalDevice: android.isPhysicalDevice,
+      );
     } else if (Platform.isIOS) {
-      final iosInfo = await deviceInfoPlugin.iosInfo;
-      osName = 'iOS';
-      uri =
-          '${'${'{"DeviceName":"${iosInfo.name}","DeviceID":"${iosInfo.identifierForVendor!}","OsName":"$osName","OsVersion":"${iosInfo.systemVersion}","AppName":"${packageInfo.appName}'}","AppVersion":"${packageInfo.version}'}","UserName":"","LocationInfo":"","Adv":"0"}';
+      final ios = await _deviceInfoPlugin.iosInfo;
+      return CcDeviceEntity(
+        deviceInfo: rawDeviceInfo,
+        deviceName: ios.name,
+        deviceId: deviceId,
+        osName: 'iOS',
+        osVersion: ios.systemVersion,
+        appName: packageInfo.appName,
+        appVersion: packageInfo.version,
+        packageName: packageInfo.packageName,
+        model: ios.model,
+        brand: 'Apple',
+        isPhysicalDevice: ios.isPhysicalDevice,
+      );
     } else {
-      osName = 'other';
+      return CcDeviceEntity(
+        deviceInfo: rawDeviceInfo,
+        deviceId: deviceId,
+        appName: packageInfo.appName,
+        appVersion: packageInfo.version,
+        packageName: packageInfo.packageName,
+      );
     }
-
-    return uri;
   }
 
-  /// Returns whether the current locale is Vietnamese.
-  bool isVietnameseLocale() => Platform.localeName.contains('VN');
+  /// Unique device identifier (vendor ID on iOS, UDID on Android).
+  Future<String> getDeviceId() async {
+    if (Platform.isIOS || Platform.isMacOS) {
+      final iosInfo = await _deviceInfoPlugin.iosInfo;
+      return iosInfo.identifierForVendor ?? '';
+    } else {
+      return await FlutterUdid.udid;
+    }
+  }
 
-  /// Returns the application version and build number.
+  /// JSON-formatted string with device + app metadata (used by request headers).
+  Future<String> getRawDeviceInfo() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+
+    if (Platform.isAndroid) {
+      final android = await _deviceInfoPlugin.androidInfo;
+      final androidId = await FlutterUdid.udid;
+      return '{"DeviceName":"${android.device}",'
+          '"DeviceID":"$androidId",'
+          '"OsName":"ANDROID",'
+          '"OsVersion":"${android.bootloader}",'
+          '"AppName":"${packageInfo.appName}",'
+          '"AppVersion":"${packageInfo.version}",'
+          '"UserName":"","LocationInfo":"","Adv":"0"}';
+    } else if (Platform.isIOS) {
+      final ios = await _deviceInfoPlugin.iosInfo;
+      return '{"DeviceName":"${ios.name}",'
+          '"DeviceID":"${ios.identifierForVendor!}",'
+          '"OsName":"iOS",'
+          '"OsVersion":"${ios.systemVersion}",'
+          '"AppName":"${packageInfo.appName}",'
+          '"AppVersion":"${packageInfo.version}",'
+          '"UserName":"","LocationInfo":"","Adv":"0"}';
+    }
+    return '';
+  }
+
+  /// Application version string, e.g. `"1.0.0(code: 1)"`.
   Future<String> getAppVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
     if (Platform.isAndroid || Platform.isIOS) {
@@ -64,11 +110,11 @@ class CcDeviceInfoService {
     return 'unknown';
   }
 
-  /// Returns whether the iOS device version is above 10.5.
+  /// Whether the iOS hardware is newer than iPhone 8 Plus.
   Future<bool> getDeviceVersion() async {
     try {
       if (Platform.isIOS) {
-        final iosInfo = await deviceInfoPlugin.iosInfo;
+        final iosInfo = await _deviceInfoPlugin.iosInfo;
         final version = double.parse(
           iosInfo.utsname.machine.split('iPhone')[1],
         );

@@ -7,6 +7,7 @@ import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/app_name_widget.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 /// Bottom sheet that shows the on-device [catcher_2](https://pub.dev/packages/catcher_2) log file.
 ///
@@ -31,7 +32,7 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
   }
 
   Future<void> _load() async {
-    final version = await CcDeviceInfoService().getAppVersion();
+    final version = await GetIt.instance<CcDeviceInfoService>().getAppVersion();
     final logs = await CcCrashLogPaths.readLogContent();
     if (!mounted) return;
     setState(() {

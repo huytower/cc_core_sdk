@@ -27,8 +27,8 @@ class CCSDKRepositoryImpl implements CCSDKRepository {
   @override
   Future<Result<CcDeviceEntity, Failure>> getDeviceInfo() async {
     try {
-      final model = await deviceLocalDataSource.getDeviceInfo();
-      return Success(model.toEntity());
+      final entity = await deviceLocalDataSource.getDeviceInfo();
+      return Success(entity);
     } catch (e) {
       return Error(DeviceFailure('Failed to fetch device info: $e'));
     }

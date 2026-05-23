@@ -18,8 +18,7 @@ export 'package:content_locale/cc_locale_keys.dart';
 export 'package:content_locale/cc_localization.dart';
 
 export 'package:cc_sdk/data/datasources/local/cc_device_local_data_source.dart';
-// Data Models & implementation
-export 'package:cc_sdk/data/models/cc_device_model.dart';
+// Data implementation
 export 'package:cc_sdk/data/repositories/cc_sdk_repository_impl.dart';
 // Domain Entities & Failures
 export 'package:cc_sdk/domain/entities/cc_device_entity.dart';

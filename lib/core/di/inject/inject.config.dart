@@ -9,10 +9,11 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:app_config/core/di/di_app_config.module.dart' as _i72;
-import 'package:cc_sdk/core/di/di_cc_sdk.module.dart' as _i586;
-import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' as _i631;
-import 'package:data/core/di/inject/data_inject.module.dart' as _i787;
+import 'package:app_config/core/di/di.module.dart' as _i418;
+import 'package:cc_sdk/core/di/di.module.dart' as _i915;
+import 'package:cc_sdk/core/utils/common/cc_device_info_service.dart' as _i252;
+import 'package:cc_sdk/export_cc_sdk.dart' as _i54;
+import 'package:data/core/di/di.module.dart' as _i658;
 import 'package:data/domain/repositories/comment/comment_repository.dart'
     as _i683;
 import 'package:data/domain/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart'
@@ -22,8 +23,7 @@ import 'package:data/domain/usecases/home/refresh_home_data_usecase.dart'
     as _i176;
 import 'package:data/domain/usecases/home/update_home_data_usecase.dart'
     as _i15;
-import 'package:device_info_plus/device_info_plus.dart' as _i833;
-import 'package:features/core/di/injection.module.dart' as _i168;
+import 'package:features/core/di/di.module.dart' as _i102;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:theme/presentation/provider/theme_provider.dart' as _i577;
@@ -52,10 +52,10 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    await _i586.CcSdkPackageModule().init(gh);
-    await _i787.DataPackageModule().init(gh);
-    await _i72.AppConfigPackageModule().init(gh);
-    await _i168.FeaturesPackageModule().init(gh);
+    await _i915.CcSdkPackageModule().init(gh);
+    await _i658.DataPackageModule().init(gh);
+    await _i418.AppConfigPackageModule().init(gh);
+    await _i102.FeaturesPackageModule().init(gh);
     final routeStrategyModule = _$RouteStrategyModule();
     final infrastructureModule = _$InfrastructureModule();
     gh.factory<_i600.GetViewBinding>(() => _i600.GetViewBinding());
@@ -69,11 +69,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i577.ThemeProvider>(
       () => routeStrategyModule.provideThemeProvider(),
     );
-    gh.lazySingleton<_i74.AdvanceBloc>(() => _i74.AdvanceBloc());
-    gh.lazySingleton<_i571.SimpleCubitInterface>(() => _i168.SimpleCubit());
-    await gh.singletonAsync<_i631.CcDeviceEntity>(
-      () => infrastructureModule.deviceModel(gh<_i833.DeviceInfoPlugin>()),
-      preResolve: true,
+    gh.lazySingleton<_i74.AdvanceBloc>(
+      () => _i74.AdvanceBloc(),
+      dispose: (i) => i.close(),
+    );
+    gh.lazySingleton<_i571.SimpleCubitInterface>(
+      () => _i168.SimpleCubit(),
+      dispose: (i) => i.close(),
     );
     gh.lazySingleton<_i278.RoutingStrategy>(
       () => _i278.AutoRouteStrategy(gh<_i577.ThemeProvider>()),
@@ -82,6 +84,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i600.GetViewController(
         repository: gh<_i872.SampleCodeFakeApiImpl>(),
       ),
+      dispose: (i) => i.onClose(),
     );
     gh.factory<_i551.CommentController>(
       () => _i551.CommentController(gh<_i683.CommentRepository>()),
@@ -92,6 +95,10 @@ extension GetItInjectableX on _i174.GetIt {
         updateHomeDataUseCase: gh<_i15.UpdateHomeDataUseCase>(),
         refreshHomeDataUseCase: gh<_i176.RefreshHomeDataUseCase>(),
       ),
+    );
+    await gh.singletonAsync<_i54.CcDeviceEntity>(
+      () => infrastructureModule.deviceModel(gh<_i252.CcDeviceInfoService>()),
+      preResolve: true,
     );
     return this;
   }

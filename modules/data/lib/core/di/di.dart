@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final GetIt getItData = GetIt.instance;
+final GetIt getIt = GetIt.instance;
 
 /// Configures dependency injection for the data module.
 /// Uses the Micro-Package pattern for injectable.

@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 class HiveManager {
   @disposeMethod
   /// Closes all Hive boxes
+  @disposeMethod
   Future<void> closeBoxes() async {
     final boxNames = [
       CcHiveBox.APP_BOX_NAME,

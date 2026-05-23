@@ -32,7 +32,7 @@ export 'core/config/http/models/request_header.dart';
 // DI CONFIGURATION
 // =================================
 
-export 'core/di/di_app_config.dart';
+export 'core/di/di.dart';
 export 'core/di/export_di_app_config.dart';
 // =================================
 // ENUMS
