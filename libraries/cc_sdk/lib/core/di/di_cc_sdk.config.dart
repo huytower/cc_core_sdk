@@ -17,31 +17,47 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
     as _i161;
 
 import '../../data/datasources/local/cc_device_local_data_source.dart' as _i627;
+import '../../data/datasources/remote/cc_sdk_remote_data_source.dart' as _i536;
+import '../../data/repositories/cc_sdk_repository_impl.dart' as _i489;
 import '../helper/cc_network_helper.dart' as _i260;
 import '../network/network_info.dart' as _i932;
-import 'module/cc_sdk_module.dart' as _i568;
+import 'module/dependencies.dart' as _i264;
 
-// initializes the registration of main-scope dependencies inside of GetIt
-_i174.GetIt $initCcSdkDependencies(
-  _i174.GetIt getIt, {
-  String? environment,
-  _i526.EnvironmentFilter? environmentFilter,
-}) {
-  final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
-  final ccSdkModule = _$CcSdkModule();
-  gh.singleton<_i161.InternetConnection>(() => ccSdkModule.internetConnection);
-  gh.singleton<_i895.Connectivity>(() => ccSdkModule.connectivity);
-  gh.singleton<_i833.DeviceInfoPlugin>(() => ccSdkModule.deviceInfoPlugin);
-  gh.lazySingleton<_i627.CcDeviceLocalDataSource>(
-    () => ccSdkModule.deviceLocalDataSource(gh<_i833.DeviceInfoPlugin>()),
-  );
-  gh.singleton<_i932.NetworkInfo>(
-    () => ccSdkModule.networkInfo(gh<_i895.Connectivity>()),
-  );
-  gh.singleton<_i260.CcNetworkHelper>(
-    () => ccSdkModule.networkHelper(gh<_i161.InternetConnection>()),
-  );
-  return getIt;
+extension GetItInjectableX on _i174.GetIt {
+  // initializes the registration of main-scope dependencies inside of GetIt
+  _i174.GetIt init({
+    String? environment,
+    _i526.EnvironmentFilter? environmentFilter,
+  }) {
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final ccSdkDependencies = _$CcSdkDependencies();
+    gh.singleton<_i161.InternetConnection>(
+      () => ccSdkDependencies.internetConnection,
+    );
+    gh.singleton<_i895.Connectivity>(() => ccSdkDependencies.connectivity);
+    gh.singleton<_i833.DeviceInfoPlugin>(
+      () => ccSdkDependencies.deviceInfoPlugin,
+    );
+    gh.singleton<_i932.NetworkInfo>(
+      () => _i932.NetworkInfoImpl(gh<_i895.Connectivity>()),
+    );
+    gh.lazySingleton<_i627.CcDeviceLocalDataSource>(
+      () => _i627.CcDeviceLocalDataSourceImpl(
+        deviceInfoPlugin: gh<_i833.DeviceInfoPlugin>(),
+      ),
+    );
+    gh.singleton<_i260.CcNetworkHelper>(
+      () => _i260.CcNetworkHelper(gh<_i161.InternetConnection>()),
+    );
+    gh.factory<_i489.CCSDKRepositoryImpl>(
+      () => _i489.CCSDKRepositoryImpl(
+        remoteDataSource: gh<_i536.CCSDKRemoteDataSource>(),
+        deviceLocalDataSource: gh<_i627.CcDeviceLocalDataSource>(),
+        networkInfo: gh<_i932.NetworkInfo>(),
+      ),
+    );
+    return this;
+  }
 }
 
-class _$CcSdkModule extends _i568.CcSdkModule {}
+class _$CcSdkDependencies extends _i264.CcSdkDependencies {}

@@ -17,11 +17,11 @@ final GetIt appConfigLocator = GetIt.instance;
 ///
 /// Returns the configured [GetIt] instance.
 @InjectableInit(
-  initializerName: r'$initAppConfigDependencies',
+  initializerName: 'init',
   preferRelativeImports: true,
-  asExtension: false,
+  asExtension: true,
 )
-GetIt configureDependencies() => $initAppConfigDependencies(appConfigLocator);
+void configureDependencies() => appConfigLocator.init();
 
 /// Initializes the AppConfig module with all its dependencies.
 ///

@@ -1,3 +1,5 @@
+import 'package:injectable/injectable.dart';
+
 import '../../../../domain/entities/home/home_entity.dart';
 import '../../../models/home/home_model.dart';
 import 'home_remote_datasource.dart';
@@ -7,6 +9,7 @@ import 'home_remote_datasource.dart';
 /// This is a mock implementation of the HomeRemoteDataSource interface.
 /// In a real application, this would make HTTP requests to a remote API.
 /// It follows the Single Responsibility Principle by only handling remote data operations.
+@LazySingleton(as: HomeRemoteDataSource)
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   const HomeRemoteDataSourceImpl();
 

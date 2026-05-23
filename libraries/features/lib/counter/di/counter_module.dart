@@ -1,8 +1,4 @@
-import 'package:injectable/injectable.dart';
-
-@module
-abstract class CounterModule {
-  // We don't necessarily need manual registration here anymore
-  // if we use @injectable on the implementation classes.
-  // This module can be used to provide third-party dependencies if needed.
-}
+/// Counter dependencies are now auto-registered via annotations
+/// on the implementation classes.
+/// See: counter/data/datasources/counter_local_data_source.dart
+/// See: counter/data/repositories/counter_repository_impl.dart

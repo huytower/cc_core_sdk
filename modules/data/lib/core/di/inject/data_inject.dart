@@ -5,14 +5,12 @@ import 'data_inject.config.dart';
 
 GetIt getItData = GetIt.instance;
 
-@InjectableInit(initializerName: r'$initModuleGetIt')
+@InjectableInit(
+  initializerName: 'init',
+  preferRelativeImports: true,
+  asExtension: true,
+)
 Future<void> configureDataDependencies(GetIt getIt) async {
   getItData = getIt;
-
-  getIt.$initModuleGetIt();
+  getIt.init();
 }
-
-// @singleton
-// class TestService {
-//   String value = "test_service";
-// }

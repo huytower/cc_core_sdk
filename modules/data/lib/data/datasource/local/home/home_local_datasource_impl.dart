@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../domain/entities/home/home_entity.dart';
@@ -8,6 +9,7 @@ import 'home_local_datasource.dart';
 ///
 /// This class implements the HomeLocalDataSource interface using SharedPreferences.
 /// It follows the Single Responsibility Principle by only handling local storage operations.
+@LazySingleton(as: HomeLocalDataSource)
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   static const String _titleKey = 'home_title';
   static const String _descriptionKey = 'home_description';
