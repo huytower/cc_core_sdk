@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cc_sdk/export_cc_sdk.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';

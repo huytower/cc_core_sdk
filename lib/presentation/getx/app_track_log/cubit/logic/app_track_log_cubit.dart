@@ -1,5 +1,5 @@
 import 'package:app_config/data/datasource/local/box/app_track_log/cc_app_track_log.dart';
-import 'package:cc_sdk/export_cc_sdk.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

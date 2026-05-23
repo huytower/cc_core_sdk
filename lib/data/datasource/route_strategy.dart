@@ -1,5 +1,5 @@
 import 'package:catcher_2/catcher_2.dart';
-import 'package:cc_sdk/export_cc_sdk.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
