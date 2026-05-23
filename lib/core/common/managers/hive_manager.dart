@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 /// Manages Hive database operations
 @lazySingleton
 class HiveManager {
+  @disposeMethod
   /// Closes all Hive boxes
   Future<void> closeBoxes() async {
     final boxNames = [

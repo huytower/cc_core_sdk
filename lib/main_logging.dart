@@ -5,8 +5,6 @@ import 'package:app_config/core/enum/environment.dart';
 import 'package:app_config/data/datasource/remote/app_version_api.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'data/datasource/route_datasource.dart';
-
 /// Logs the current app version and build information
 Future<void> logVersionInfo() async {
   try {
@@ -78,7 +76,6 @@ Future<void> logEnv() async {
         );
       });
       developer.log(buffer.toString(), name: 'EnvConfig');
-      developer.log('Routing Management = ${RouteDatasource.currentStrategy}');
 
       return true;
     }());

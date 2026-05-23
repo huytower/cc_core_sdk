@@ -26,7 +26,9 @@ import 'package:device_info_plus/device_info_plus.dart' as _i833;
 import 'package:features/core/di/injection.module.dart' as _i168;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:theme/presentation/provider/theme_provider.dart' as _i577;
 
+import '../../../data/datasource/route_strategy.dart' as _i278;
 import '../../../examples/bloc_simple_page/cubit/simple/simple_cubit.dart'
     as _i168;
 import '../../../examples/bloc_simple_page/cubit/simple/simple_cubit_interface.dart'
@@ -41,6 +43,7 @@ import '../../../presentation/getx/web/get_x/web_controller.dart' as _i523;
 import '../../../presentation/home/presentation/bloc/home_bloc.dart' as _i336;
 import '../../common/managers/hive_manager.dart' as _i942;
 import '../module/infrastructure_module.dart' as _i450;
+import '../module/route_strategy_module.dart' as _i324;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -53,17 +56,27 @@ extension GetItInjectableX on _i174.GetIt {
     await _i787.DataPackageModule().init(gh);
     await _i72.AppConfigPackageModule().init(gh);
     await _i168.FeaturesPackageModule().init(gh);
+    final routeStrategyModule = _$RouteStrategyModule();
     final infrastructureModule = _$InfrastructureModule();
     gh.factory<_i600.GetViewBinding>(() => _i600.GetViewBinding());
     gh.factory<_i551.CommentBinding>(() => _i551.CommentBinding());
     gh.factory<_i523.WebBinding>(() => _i523.WebBinding());
     gh.factory<_i523.WebController>(() => _i523.WebController());
-    gh.lazySingleton<_i942.HiveManager>(() => _i942.HiveManager());
+    gh.lazySingleton<_i942.HiveManager>(
+      () => _i942.HiveManager(),
+      dispose: (i) => i.closeBoxes(),
+    );
+    gh.lazySingleton<_i577.ThemeProvider>(
+      () => routeStrategyModule.provideThemeProvider(),
+    );
     gh.lazySingleton<_i74.AdvanceBloc>(() => _i74.AdvanceBloc());
     gh.lazySingleton<_i571.SimpleCubitInterface>(() => _i168.SimpleCubit());
     await gh.singletonAsync<_i631.CcDeviceEntity>(
       () => infrastructureModule.deviceModel(gh<_i833.DeviceInfoPlugin>()),
       preResolve: true,
+    );
+    gh.lazySingleton<_i278.RoutingStrategy>(
+      () => _i278.AutoRouteStrategy(gh<_i577.ThemeProvider>()),
     );
     gh.lazySingleton<_i600.GetViewController>(
       () => _i600.GetViewController(
@@ -83,5 +96,7 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$RouteStrategyModule extends _i324.RouteStrategyModule {}
 
 class _$InfrastructureModule extends _i450.InfrastructureModule {}

@@ -6,7 +6,6 @@ import 'package:features/core/di/injection.module.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../common/managers/hive_manager.dart';
 import 'inject.config.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -27,8 +26,4 @@ Future<void> initializeDependencies() async {
   // Initialize all dependencies (including Micro-Packages from cc_sdk, features, data, etc.)
   // This will automatically call the init functions of all discovered micro-packages.
   await getIt.init();
-
-  if (!getIt.isRegistered<HiveManager>()) {
-    getIt.registerLazySingleton<HiveManager>(() => HiveManager());
-  }
 }

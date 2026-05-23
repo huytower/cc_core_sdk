@@ -39,8 +39,6 @@ export 'core/di/export_di_app_config.dart';
 // =================================
 
 export 'core/enum/environment.dart';
-export 'core/enum/layout_status.dart';
-export 'core/enum/routing_manager_enum.dart';
 // =================================
 // EXTENSIONS
 // =================================
