@@ -1,4 +1,5 @@
 import 'package:app_config/core/di/di_app_config.dart';
+import 'package:cc_sdk/export_cc_sdk.dart' as cc_sdk;
 import 'package:data/core/di/inject/data_inject.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -16,6 +17,9 @@ final GetIt getIt = GetIt.instance;
   asExtension: true,
 )
 Future<void> initializeDependencies() async {
+  // Initialize cc_sdk dependencies
+  await cc_sdk.configureCcSdkDependencies();
+
   // Initialize app http dependencies
   await initAppConfig();
 

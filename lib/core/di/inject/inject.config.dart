@@ -22,8 +22,6 @@ import 'package:data/domain/usecases/home/update_home_data_usecase.dart'
 import 'package:device_info_plus/device_info_plus.dart' as _i833;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
-    as _i161;
 
 import '../../../presentation/getx/comment/get_x/comment_controller.dart'
     as _i551;
@@ -51,18 +49,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i523.WebBinding>(() => _i523.WebBinding());
     gh.factory<_i523.WebController>(() => _i523.WebController());
     gh.factory<_i313.GetViewBinding>(() => _i313.GetViewBinding());
-    gh.singleton<_i161.InternetConnection>(
-      () => infrastructureModule.connectionChecker,
-    );
-    gh.singleton<_i833.DeviceInfoPlugin>(
-      () => infrastructureModule.deviceInfoPlugin,
-    );
-    await gh.singletonAsync<_i54.CcDeviceEntity>(
-      () => infrastructureModule.deviceModel,
-      preResolve: true,
-    );
     gh.lazySingleton<_i403.AdvanceBloc>(() => _i403.AdvanceBloc());
     gh.lazySingleton<_i439.SimpleCubitInterface>(() => _i271.SimpleCubit());
+    await gh.singletonAsync<_i54.CcDeviceEntity>(
+      () => infrastructureModule.deviceModel(gh<_i833.DeviceInfoPlugin>()),
+      preResolve: true,
+    );
     gh.lazySingleton<_i313.GetViewController>(
       () => _i313.GetViewController(
         repository: gh<_i872.SampleCodeFakeApiImpl>(),

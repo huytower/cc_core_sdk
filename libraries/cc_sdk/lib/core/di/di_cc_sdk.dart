@@ -14,4 +14,4 @@ final GetIt ccSdkLocator = GetIt.instance;
   preferRelativeImports: true,
   asExtension: true,
 )
-void configureCcSdkDependencies() => ccSdkLocator.init();
+Future<void> configureCcSdkDependencies() async => await ccSdkLocator.init();
