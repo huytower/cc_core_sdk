@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../../../core/utils/common/cc_device_utils.dart';
+import '../../../core/utils/common/cc_device_info_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -21,8 +21,11 @@ class CcDeviceLocalDataSourceImpl implements CcDeviceLocalDataSource {
   @override
   Future<CcDeviceModel> getDeviceInfo() async {
     final packageInfo = await PackageInfo.fromPlatform();
-    final deviceId = await DeviceUtils.getDeviceId();
-    final rawDeviceInfo = await DeviceUtils.getDeviceInfo();
+    final deviceInfoService = CcDeviceInfoService(
+      deviceInfoPlugin: deviceInfoPlugin,
+    );
+    final deviceId = await deviceInfoService.getDeviceId();
+    final rawDeviceInfo = await deviceInfoService.getDeviceInfo();
 
     if (Platform.isAndroid) {
       final android = await deviceInfoPlugin.androidInfo;
