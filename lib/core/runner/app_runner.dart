@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../data/datasource/route_datasource.dart';
+import '../../data/datasource/route_strategy.dart';
 import '../common/managers/hive_manager.dart';
-import '../navigation/route_strategy_provider.dart';
+import '../di/inject/inject.dart';
 
 class AppRunner extends StatefulWidget {
   const AppRunner({super.key});
@@ -13,20 +13,22 @@ class AppRunner extends StatefulWidget {
 
 class AppRunnerState extends State<AppRunner> {
   late final HiveManager _hiveManager;
+  late final RoutingStrategy _routingStrategy;
+
+  @override
+  void initState() {
+    super.initState();
+    _routingStrategy = getIt<RoutingStrategy>();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return buildBody();
-  }
-
-  /// Builds the main app ui according to the selected navigate strategy.
-  /// Delegates to [buildAppByRoutingManager] in route_strategy.dart for functional clarity.
-  Widget buildBody() {
-    return buildAppByRoutingManager(RouteDatasource.currentStrategy);
+    return _routingStrategy.buildApp();
   }
 
   @override
   void dispose() {
+    _routingStrategy.dispose();
     _hiveManager.closeBoxes();
     super.dispose();
   }

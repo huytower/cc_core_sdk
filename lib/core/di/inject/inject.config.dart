@@ -26,7 +26,9 @@ import 'package:device_info_plus/device_info_plus.dart' as _i833;
 import 'package:features/core/di/injection.module.dart' as _i168;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:theme/presentation/provider/theme_provider.dart' as _i901;
 
+import '../../../data/datasource/route_strategy.dart' as _i602;
 import '../../../presentation/getx/comment/get_x/comment_controller.dart'
     as _i551;
 import '../../../presentation/getx/web/get_x/web_controller.dart' as _i523;
@@ -40,6 +42,7 @@ import '../../../sample_code/bloc_simple_page/origin/advance/advance_bloc.dart'
 import '../../../sample_code/getx_simple_page/way_1/getx/get_view_controller.dart'
     as _i313;
 import '../module/infrastructure_module.dart' as _i450;
+import '../module/route_strategy_module.dart' as _i210;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -53,12 +56,19 @@ extension GetItInjectableX on _i174.GetIt {
     await _i72.AppConfigPackageModule().init(gh);
     await _i168.FeaturesPackageModule().init(gh);
     final infrastructureModule = _$InfrastructureModule();
+    final routeStrategyModule = _$RouteStrategyModule();
     gh.factory<_i551.CommentBinding>(() => _i551.CommentBinding());
     gh.factory<_i523.WebBinding>(() => _i523.WebBinding());
     gh.factory<_i523.WebController>(() => _i523.WebController());
     gh.factory<_i313.GetViewBinding>(() => _i313.GetViewBinding());
     gh.lazySingleton<_i403.AdvanceBloc>(() => _i403.AdvanceBloc());
     gh.lazySingleton<_i439.SimpleCubitInterface>(() => _i271.SimpleCubit());
+    gh.lazySingleton<_i901.ThemeProvider>(
+      () => routeStrategyModule.provideThemeProvider(),
+    );
+    gh.lazySingleton<_i602.RoutingStrategy>(
+      () => _i602.AutoRouteStrategy(gh<_i901.ThemeProvider>()),
+    );
     await gh.singletonAsync<_i54.CcDeviceEntity>(
       () => infrastructureModule.deviceModel(gh<_i833.DeviceInfoPlugin>()),
       preResolve: true,
@@ -83,3 +93,5 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$InfrastructureModule extends _i450.InfrastructureModule {}
+
+class _$RouteStrategyModule extends _i210.RouteStrategyModule {}
