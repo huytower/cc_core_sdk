@@ -1,7 +1,6 @@
 import 'package:app_config/core/di/di.module.dart';
 import 'package:cc_sdk/core/di/di.module.dart';
 import 'package:data/core/di/di.module.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:features/core/di/di.module.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -21,7 +20,7 @@ final GetIt getIt = GetIt.instance;
     ExternalModule(AppConfigPackageModule),
     ExternalModule(FeaturesPackageModule),
   ],
-  ignoreUnregisteredTypes: [DeviceInfoPlugin],
+
 )
 Future<void> initializeDependencies() async {
   // Initialize all dependencies (including Micro-Packages from cc_sdk, features, data, etc.)

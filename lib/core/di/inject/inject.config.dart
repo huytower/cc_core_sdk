@@ -11,6 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:app_config/core/di/di.module.dart' as _i72;
 import 'package:cc_sdk/core/di/di.module.dart' as _i586;
+import 'package:cc_sdk/core/utils/common/cc_device_info_service.dart'
+    as _i750;
 import 'package:cc_sdk/export_cc_sdk.dart' as _i54;
 import 'package:data/core/di/di.module.dart' as _i787;
 import 'package:data/domain/repositories/comment/comment_repository.dart'
@@ -22,7 +24,6 @@ import 'package:data/domain/usecases/home/refresh_home_data_usecase.dart'
     as _i176;
 import 'package:data/domain/usecases/home/update_home_data_usecase.dart'
     as _i15;
-import 'package:device_info_plus/device_info_plus.dart' as _i833;
 import 'package:features/core/di/di.module.dart' as _i168;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -78,7 +79,7 @@ extension GetItInjectableX on _i174.GetIt {
       dispose: (i) => i.dispose(),
     );
     await gh.singletonAsync<_i54.CcDeviceEntity>(
-      () => infrastructureModule.deviceModel(gh<_i833.DeviceInfoPlugin>()),
+      () => infrastructureModule.deviceModel(gh<_i750.CcDeviceInfoService>()),
       preResolve: true,
     );
     gh.lazySingleton<_i42.HiveManager>(
