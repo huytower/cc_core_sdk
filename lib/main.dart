@@ -1,8 +1,6 @@
 import 'package:app_config/data/datasource/local/box/register_hive_adapter.dart';
 import 'package:catcher_2/catcher_2.dart';
-import 'package:cc_sdk/core/crash_reporting/cc_catcher_bootstrap.dart';
-import 'package:cc_sdk/core/crash_reporting/cc_crash_log_paths.dart';
-import 'package:content_locale/cc_localization.dart' as localization;
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:path_provider/path_provider.dart';
@@ -29,16 +27,14 @@ void main() async {
   Hive.init(appDocumentDir.path);
   await registerHiveAdapter();
 
-  await localization.CcLocalization.initialize();
+  await CcLocalization.initialize();
 
   await uploadPendingCrashLogsOnStartup();
 
   final logFile = await CcCrashLogPaths.resolveLogFile();
 
   final rootWidget = CrashLogDevOverlay(
-    child: localization.CcLocalization.wrapWithLocalization(
-      child: const AppRunner(),
-    ),
+    child: CcLocalization.wrapWithLocalization(child: const AppRunner()),
   );
 
   Catcher2(

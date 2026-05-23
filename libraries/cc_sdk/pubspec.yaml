@@ -11,6 +11,8 @@ dependencies:
 
   catcher_2: ^2.1.9
   connectivity_plus: ^7.1.1
+  content_locale:
+    path: ../../modules/message
   crypto: ^3.0.7
   custom_refresh_indicator: ^4.0.1
   dartx: ^1.2.0

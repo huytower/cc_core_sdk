@@ -1,5 +1,5 @@
 import 'package:catcher_2/catcher_2.dart';
-import 'package:content_locale/cc_localization.dart' as localization;
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,19 +32,21 @@ class AutoRouteStrategy implements RoutingStrategy {
       create: (_) => ThemeProvider(),
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, _) {
-          return localization.CcLocalization.wrapWithLocalization(
-            child: Builder(builder: (context) {
-              return MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                theme: createLightTheme(),
-                darkTheme: createDarkTheme(),
-                themeMode: themeProvider.themeMode,
-                routerConfig: routerConfig,
-                locale: localization.CcLocalization.getCurrentLocale(context),
-                localizationsDelegates: context.localizationDelegates,
-                supportedLocales: context.supportedLocales,
-              );
-            }),
+          return CcLocalization.wrapWithLocalization(
+            child: Builder(
+              builder: (context) {
+                return MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  theme: createLightTheme(),
+                  darkTheme: createDarkTheme(),
+                  themeMode: themeProvider.themeMode,
+                  routerConfig: routerConfig,
+                  locale: CcLocalization.getCurrentLocale(context),
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                );
+              },
+            ),
           );
         },
       ),
@@ -71,21 +73,23 @@ class GetxRouteStrategy implements RoutingStrategy {
       create: (_) => ThemeProvider(),
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, _) {
-          return localization.CcLocalization.wrapWithLocalization(
-            child: Builder(builder: (context) {
-              return GetMaterialApp(
-                navigatorKey: Catcher2.navigatorKey,
-                debugShowCheckedModeBanner: false,
-                theme: createLightTheme(),
-                darkTheme: createDarkTheme(),
-                themeMode: themeProvider.themeMode,
-                initialRoute: initialRoute,
-                getPages: getPages,
-                locale: localization.CcLocalization.getCurrentLocale(context),
-                localizationsDelegates: context.localizationDelegates,
-                supportedLocales: context.supportedLocales,
-              );
-            }),
+          return CcLocalization.wrapWithLocalization(
+            child: Builder(
+              builder: (context) {
+                return GetMaterialApp(
+                  navigatorKey: Catcher2.navigatorKey,
+                  debugShowCheckedModeBanner: false,
+                  theme: createLightTheme(),
+                  darkTheme: createDarkTheme(),
+                  themeMode: themeProvider.themeMode,
+                  initialRoute: initialRoute,
+                  getPages: getPages,
+                  locale: CcLocalization.getCurrentLocale(context),
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                );
+              },
+            ),
           );
         },
       ),

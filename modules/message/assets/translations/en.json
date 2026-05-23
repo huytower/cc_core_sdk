@@ -37,7 +37,20 @@
     "login_failed": "Login failed. Please check your credentials.",
     "biometric": {
       "reason": "Authentication required",
-      "fallback": "Please enable biometrics for this app in Settings."
+      "fallback": "Please enable biometrics for this app in Settings.",
+      "not_available_log": "Biometric authentication not available",
+      "init_error": "Biometric initialization error: {error}",
+      "error": {
+        "not_available": "Biometric authentication is not available on this device.",
+        "not_enrolled": "No biometrics enrolled on this device.",
+        "locked_out": "Too many failed attempts. Try again later.",
+        "permanently_locked_out": "Biometric authentication is permanently locked out.",
+        "passcode_not_set": "No passcode is set on the device.",
+        "user_canceled": "Authentication was canceled by user.",
+        "app_canceled": "Authentication was canceled by the app.",
+        "system_canceled": "Authentication was canceled by the system.",
+        "generic": "Authentication error: {error}"
+      }
     }
   },
   "validation": {

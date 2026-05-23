@@ -13,6 +13,10 @@ export 'package:cc_sdk/core/extensions/export_extensions.dart';
 export 'package:cc_sdk/core/helper/cc_network_helper.dart';
 // Utils
 export 'package:cc_sdk/core/utils/export_utils.dart';
+// Localization (Transitive export from content_locale module)
+export 'package:content_locale/cc_locale_keys.dart';
+export 'package:content_locale/cc_localization.dart';
+
 export 'package:cc_sdk/data/datasources/local/cc_device_local_data_source.dart';
 // Data Models & implementation
 export 'package:cc_sdk/data/models/cc_device_model.dart';
