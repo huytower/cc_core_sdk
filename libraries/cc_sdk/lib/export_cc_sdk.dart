@@ -10,9 +10,7 @@ export 'package:cc_sdk/core/crash_reporting/cc_crash_log_paths.dart';
 // Extensions (includes dartx)
 export 'package:cc_sdk/core/extensions/export_extensions.dart';
 // Helpers
-export 'package:cc_sdk/core/helper/cc_network_helper.dart';
-// Utils
-export 'package:cc_sdk/core/utils/export_utils.dart';
+export 'package:cc_sdk/core/helper/export_helper.dart';
 // Localization (Transitive export from content_locale module)
 export 'package:content_locale/cc_locale_keys.dart';
 export 'package:content_locale/cc_localization.dart';

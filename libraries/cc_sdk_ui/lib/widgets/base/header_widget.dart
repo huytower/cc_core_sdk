@@ -1,5 +1,5 @@
-import 'package:cc_sdk/core/utils/common/cc_device_utils.dart';
-import 'package:cc_sdk/core/utils/common/cc_image_utils.dart';
+import 'package:cc_sdk/core/helper/device_helper.dart';
+import 'package:cc_sdk/core/helper/image_helper.dart';
 import '../../core/config/tokens/cc_padding_params.dart';
 import '../../core/config/tokens/base_colors.dart';
 import 'cc_position.dart';
@@ -81,7 +81,7 @@ class HeaderWidget extends StatelessWidget {
                       final mediaQuery = MediaQuery.of(context);
                       final screenWidth = mediaQuery.size.width;
                       final bottomPadding = mediaQuery.padding.bottom;
-                      final isLarge = DeviceUtils.isLargeScreen(
+                      final isLarge = DeviceHelper.isLargeScreen(
                         screenWidth: screenWidth,
                         bottomPadding: bottomPadding,
                       );
@@ -153,7 +153,7 @@ class HeaderWidget extends StatelessWidget {
   );
 
   Widget getImageResWidget(String iconPageAssetRes) =>
-      CcImageUtils.isSvg(iconPageAssetRes)
+      ImageHelper.isSvg(iconPageAssetRes)
       ? SvgPicture.asset(iconPageAssetRes)
       : Image.asset(iconPageAssetRes, height: 35, fit: BoxFit.contain);
 
@@ -162,12 +162,12 @@ class HeaderWidget extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
     final bottomPadding = mediaQuery.padding.bottom;
 
-    if (DeviceUtils.isLargeScreen(
+    if (DeviceHelper.isLargeScreen(
       screenWidth: screenWidth,
       bottomPadding: bottomPadding,
     )) {
       return 3;
-    } else if (DeviceUtils.isSmallScreen(screenWidth)) {
+    } else if (DeviceHelper.isSmallScreen(screenWidth)) {
       return 6;
     } else {
       return 12;

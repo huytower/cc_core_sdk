@@ -49,7 +49,7 @@ class WidgetHelper {
     required double screenWidth,
     required double bottomPadding,
   }) {
-    if (DeviceUtils.isLargeScreen(
+    if (DeviceHelper.isLargeScreen(
       screenWidth: screenWidth,
       bottomPadding: bottomPadding,
     )) {

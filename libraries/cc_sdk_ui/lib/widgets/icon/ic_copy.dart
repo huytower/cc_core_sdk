@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/utils/common/cc_string_utils.dart';
+import 'package:cc_sdk/core/helper/string_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../flex/cc_flex.dart';
@@ -32,7 +32,7 @@ class CcCopyBtn extends StatelessWidget {
   Widget build(BuildContext context) => Stack(
     children: [
       const IconCopy(),
-      CcInkWell(onTap: onTap ?? () => CcStringUtils.copyToClipboard(title ?? '')),
+      CcInkWell(onTap: onTap ?? () => StringHelper.copyToClipboard(title ?? '')),
     ],
   );
 }

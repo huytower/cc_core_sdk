@@ -1,8 +1,8 @@
 import 'package:path/path.dart' as p;
 
 /// Asset path helpers for common image and animation formats.
-abstract final class CcImageUtils {
-  CcImageUtils._();
+abstract final class ImageHelper {
+  ImageHelper._();
 
   static const String extensionJpg = '.jpg';
   static const String extensionLottie = '.json';

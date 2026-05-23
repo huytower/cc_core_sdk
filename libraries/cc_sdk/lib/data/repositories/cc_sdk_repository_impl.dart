@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../core/network/network_info.dart';
-import '../../domain/entities/cc_device_entity.dart';
 import '../../domain/failures/cc_failure.dart';
 import '../../domain/repositories/cc_sdk_repository.dart';
 import '../datasources/local/cc_device_local_data_source.dart';
@@ -23,16 +22,6 @@ class CCSDKRepositoryImpl implements CCSDKRepository {
     required this.deviceLocalDataSource,
     required this.networkInfo,
   });
-
-  @override
-  Future<Result<CcDeviceEntity, Failure>> getDeviceInfo() async {
-    try {
-      final entity = await deviceLocalDataSource.getDeviceInfo();
-      return Success(entity);
-    } catch (e) {
-      return Error(DeviceFailure('Failed to fetch device info: $e'));
-    }
-  }
 
   @override
   Future<Result<String, Failure>> executeCurlRequest({

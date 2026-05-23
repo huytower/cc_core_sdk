@@ -1,6 +1,6 @@
 /// Common validation regex patterns.
-abstract final class CcRegexPatterns {
-  CcRegexPatterns._();
+abstract final class ValidationPatterns {
+  ValidationPatterns._();
 
   /// Phone numbers with optional `+0` or `0` prefix, 10–12 digits.
   static const String phone =

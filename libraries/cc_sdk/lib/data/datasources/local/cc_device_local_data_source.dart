@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../core/utils/common/cc_device_info_service.dart';
+import '../../../core/helper/device_info_service.dart';
 import '../../../domain/entities/cc_device_entity.dart';
 
 /// Contract for fetching device info from the local platform.
@@ -8,11 +8,11 @@ abstract class CcDeviceLocalDataSource {
   Future<CcDeviceEntity> getDeviceInfo();
 }
 
-/// Delegates to [CcDeviceInfoService] which reuses the DI-registered
+/// Delegates to [DeviceInfoService] which reuses the DI-registered
 /// [DeviceInfoPlugin] singleton.
 @LazySingleton(as: CcDeviceLocalDataSource)
 class CcDeviceLocalDataSourceImpl implements CcDeviceLocalDataSource {
-  final CcDeviceInfoService deviceInfoService;
+  final DeviceInfoService deviceInfoService;
 
   const CcDeviceLocalDataSourceImpl({required this.deviceInfoService});
 

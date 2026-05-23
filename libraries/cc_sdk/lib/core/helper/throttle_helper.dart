@@ -1,8 +1,8 @@
 import 'dart:async';
 
 /// Throttles rapid repeated calls to a callback.
-abstract final class CcThrottleUtils {
-  CcThrottleUtils._();
+abstract final class ThrottleHelper {
+  ThrottleHelper._();
 
   /// Returns a function that invokes [callback] at most once per [duration].
   static void Function() debounce(

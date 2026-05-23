@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/utils/common/cc_device_info_service.dart';
+import 'package:cc_sdk/core/helper/device_info_service.dart';
 import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:injectable/injectable.dart';
 
@@ -7,7 +7,7 @@ abstract class InfrastructureModule {
   @preResolve
   @singleton
   Future<CcDeviceEntity> deviceModel(
-    CcDeviceInfoService deviceInfoService,
+    DeviceInfoService deviceInfoService,
   ) =>
       deviceInfoService.getDeviceEntity();
 }

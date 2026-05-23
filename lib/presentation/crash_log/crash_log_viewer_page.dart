@@ -32,7 +32,7 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
   }
 
   Future<void> _load() async {
-    final version = await GetIt.instance<CcDeviceInfoService>().getAppVersion();
+    final version = await GetIt.instance<DeviceInfoService>().getAppVersion();
     final logs = await CcCrashLogPaths.readLogContent();
     if (!mounted) return;
     setState(() {

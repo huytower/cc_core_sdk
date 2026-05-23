@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 
 /// String utilities not covered by [dartx](https://pub.dev/packages/dartx).
-abstract final class CcStringUtils {
-  CcStringUtils._();
+abstract final class StringHelper {
+  StringHelper._();
 
   /// Copies [text] to the system clipboard.
   static Future<void> copyToClipboard(String text) =>

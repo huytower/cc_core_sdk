@@ -1,6 +1,6 @@
 /// Date and time formatting utilities.
-abstract final class DateTimeUtils {
-  DateTimeUtils._();
+abstract final class DateTimeHelper {
+  DateTimeHelper._();
 
   /// Converts a [Duration] to `MM:SS` or `H:MM:SS`.
   static String durationToTimeString(Duration duration) {
