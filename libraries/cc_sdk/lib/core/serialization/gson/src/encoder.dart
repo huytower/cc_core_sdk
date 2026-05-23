@@ -9,23 +9,26 @@ class GsonEncoder {
   GsonEncoder();
 
   /// Insert object to encode it as GSON
-  String encode(dynamic obj,
-      {bool beautify = false,
-      int indent = 2,
-      bool quoteMapKeys = false,
-      jsonBooleans = false}) {
+  String encode(
+    dynamic obj, {
+    bool beautify = false,
+    int indent = 2,
+    bool quoteMapKeys = false,
+    jsonBooleans = false,
+  }) {
     if (beautify) {
-      return beautyEncode(obj,
-              indent: indent,
-              quoteMapKeys: quoteMapKeys,
-              jsonBooleans: jsonBooleans)
-          .join('\n');
+      return beautyEncode(
+        obj,
+        indent: indent,
+        quoteMapKeys: quoteMapKeys,
+        jsonBooleans: jsonBooleans,
+      ).join('\n');
     }
     if (obj is bool) {
       return jsonBooleans ? (obj ? 'true' : 'false') : (obj ? '1b' : '0b');
     }
     if (obj is double) {
-      return obj.toString() + 'd';
+      return '${obj}d';
     }
     if (obj is GsonValue) {
       return obj.toString();
@@ -33,13 +36,17 @@ class GsonEncoder {
     if (obj is List) {
       var cont = [];
       obj.forEach((e) {
-        cont.add(encode(e,
+        cont.add(
+          encode(
+            e,
             indent: indent,
             beautify: beautify,
             quoteMapKeys: quoteMapKeys,
-            jsonBooleans: jsonBooleans));
+            jsonBooleans: jsonBooleans,
+          ),
+        );
       });
-      return '[' + cont.join(',') + ']';
+      return '[${cont.join(',')}]';
     }
     if (obj is Map) {
       var cont = [];
@@ -48,21 +55,26 @@ class GsonEncoder {
           k = json.encode(k);
         }
         cont.add(
-            '${k}:${encode(v, indent: indent, beautify: beautify, quoteMapKeys: quoteMapKeys, jsonBooleans: jsonBooleans)}');
+          '${k}:${encode(v, indent: indent, beautify: beautify, quoteMapKeys: quoteMapKeys, jsonBooleans: jsonBooleans)}',
+        );
       });
-      return '{' + cont.join(',') + '}';
+      return '{${cont.join(',')}}';
     }
     return json.encode(obj);
   }
 
   /// encode beautified gson
-  List<String> beautyEncode(dynamic obj,
-      {int indent = 2, bool quoteMapKeys = false, jsonBooleans = false}) {
+  List<String> beautyEncode(
+    dynamic obj, {
+    int indent = 2,
+    bool quoteMapKeys = false,
+    jsonBooleans = false,
+  }) {
     if (obj is bool) {
       return [jsonBooleans ? (obj ? 'true' : 'false') : (obj ? '1b' : '0b')];
     }
     if (obj is double) {
-      return [obj.toString() + 'd'];
+      return ['${obj}d'];
     }
     if (obj is GsonValue) {
       return [obj.toString()];
@@ -71,14 +83,16 @@ class GsonEncoder {
       if (obj.isEmpty) return ['[]'];
       var cont = ['['];
       for (var c = 0; c < obj.length; c++) {
-        var e = beautyEncode(obj[c],
-            indent: indent,
-            quoteMapKeys: quoteMapKeys,
-            jsonBooleans: jsonBooleans);
+        var e = beautyEncode(
+          obj[c],
+          indent: indent,
+          quoteMapKeys: quoteMapKeys,
+          jsonBooleans: jsonBooleans,
+        );
         for (var i = 0; i < e.length; i++) {
-          cont.add(_repeatString(' ', indent) +
-              e[i] +
-              (i == e.length - 1 && c < obj.length - 1 ? ',' : ''));
+          cont.add(
+            '${_repeatString(' ', indent)}${e[i]}${i == e.length - 1 && c < obj.length - 1 ? ',' : ''}',
+          );
         }
       }
       cont.add(']');
@@ -92,15 +106,16 @@ class GsonEncoder {
         if (quoteMapKeys) {
           k = json.encode(k);
         }
-        var e = beautyEncode(v,
-            indent: indent,
-            quoteMapKeys: quoteMapKeys,
-            jsonBooleans: jsonBooleans);
+        var e = beautyEncode(
+          v,
+          indent: indent,
+          quoteMapKeys: quoteMapKeys,
+          jsonBooleans: jsonBooleans,
+        );
         for (var i = 0; i < e.length; i++) {
-          cont.add(_repeatString(' ', indent) +
-              (i == 0 ? k + ': ' : '') +
-              e[i] +
-              (i == e.length - 1 && c < obj.length - 1 ? ',' : ''));
+          cont.add(
+            '${_repeatString(' ', indent)}${i == 0 ? '$k: ' : ''}${e[i]}${i == e.length - 1 && c < obj.length - 1 ? ',' : ''}',
+          );
         }
         c++;
       });
@@ -111,10 +126,10 @@ class GsonEncoder {
   }
 
   String _repeatString(String s, int number) {
-    var ret = '';
+    var buffer = StringBuffer();
     for (var i = 0; i < number; i++) {
-      ret += s;
+      buffer.write(s);
     }
-    return ret;
+    return buffer.toString();
   }
 }

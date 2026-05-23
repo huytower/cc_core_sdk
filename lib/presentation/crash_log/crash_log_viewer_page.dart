@@ -54,7 +54,7 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
         const CcSpaceSM(),
         const CcDividerLine(color: Colors.grey),
         const CcSpaceSM(),
-        CcText(
+        const CcText(
           'Long-press anywhere on the app to open this screen (debug).',
           color: Colors.grey,
           fontSize: 11,
@@ -62,14 +62,11 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
           align: Alignment.center,
         ),
         const CcSpaceSM(),
-        Flexible(
-          fit: FlexFit.loose,
-          child: _buildLogBody(),
-        ),
+        Flexible(fit: FlexFit.loose, child: _buildLogBody()),
         const CcSpaceSM(),
         const CcDividerLine(color: Colors.grey),
         const CcSpaceSM(),
-        CcCopyWidget(
+        const CcCopyWidget(
           title: CcCrashLogPaths.logFileName,
           child: CcText(
             CcCrashLogPaths.logFileName,

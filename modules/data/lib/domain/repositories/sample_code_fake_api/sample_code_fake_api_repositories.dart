@@ -133,9 +133,6 @@ class SampleCodeFakeApiImpl implements SampleCodeFakeApiRepositories {
       }
 
       final response = await remote.getObj(id);
-      if (response.firstElement == null) {
-        throw Exception('No data found for ID: $id');
-      }
 
       return response.firstElement;
       // return ResSampleCodeFakeModel.fromJson(response.data!);

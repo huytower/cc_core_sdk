@@ -106,9 +106,9 @@ class OpenDialog {
       barrierDismissible: false, // user must tap button!
       barrierColor: Colors.grey.withOpacity(0.3),
       builder: (BuildContext context) {
-        return PopScope(
+        return const PopScope(
           canPop: false,
-          child: const SizedBox(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: LoadingIconWidget(),

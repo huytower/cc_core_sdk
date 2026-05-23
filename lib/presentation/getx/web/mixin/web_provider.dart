@@ -9,14 +9,14 @@ mixin WebRedirectProvider<T extends WebController> on CcGetView<T> {
   @override
   PreferredSizeWidget? appBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(20.0), // here the desired height
+      preferredSize: const Size.fromHeight(20),
       child: AppBar(
         elevation: 0,
         backgroundColor: Colors.pink,
         foregroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         toolbarHeight: 0,
-        leading: const SizedBox(),
+        leading: const SizedBox.shrink(),
         leadingWidth: 0,
       ),
     );

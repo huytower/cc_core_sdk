@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/core/constants/cc_constants_multimedia.dart';
+import '../../core/constants/cc_constants_multimedia.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -12,7 +12,7 @@ import '../widgets/home_content.dart';
 /// It follows the BLoC pattern and Clean Architecture principles.
 @RoutePage()
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
 /// This ui handles the main UI structure and delegates content
 /// rendering to the HomeContent ui.
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

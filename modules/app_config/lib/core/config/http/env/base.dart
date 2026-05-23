@@ -128,7 +128,7 @@ abstract class HttpBase extends Equatable {
 
     // Validate URL format
     if (!baseUrl.startsWith('http')) {
-      throw MissingConfigFailure(
+      throw const MissingConfigFailure(
         'baseUrl',
         message: 'Must start with http:// or https://',
       );
@@ -136,7 +136,7 @@ abstract class HttpBase extends Equatable {
 
     // Validate timeouts
     if (apiTimeoutSeconds <= 0) {
-      throw MissingConfigFailure(
+      throw const MissingConfigFailure(
         'apiTimeoutSeconds',
         message: 'Must be greater than 0',
       );
@@ -146,7 +146,7 @@ abstract class HttpBase extends Equatable {
     if (isEnvPro &&
         baseUrl.startsWith('http://') &&
         !baseUrl.contains('localhost')) {
-      throw SecurityConfigFailure(
+      throw const SecurityConfigFailure(
         'Insecure HTTP protocol detected in production env',
         key: 'baseUrl',
         securityRule: 'insecure_protocol',

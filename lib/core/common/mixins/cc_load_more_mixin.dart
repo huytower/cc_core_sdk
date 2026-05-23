@@ -61,7 +61,7 @@ class CcLoadMoreItem extends LoadMoreDelegate {
   Widget buildIcLoading(String text) {
     return CcRowCenter(
       children: <Widget>[
-        Center(child: const CcProgressIndicator(paddingTop: 0)),
+        const Center(child: CcProgressIndicator(paddingTop: 0)),
         const CcSpaceLG(),
         buildText(text),
       ],

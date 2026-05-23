@@ -19,8 +19,8 @@ class GsonDecoder {
     var p = gson is GsonParsable
         ? gson
         : gson is String
-            ? GsonParsable(gson)
-            : throw ('The gson is not a valid input to decode an Array from');
+        ? GsonParsable(gson)
+        : throw ('The gson is not a valid input to decode an Array from');
 
     if (p.actual() == '{') {
       return decodeMap(p);
@@ -44,7 +44,7 @@ class GsonDecoder {
         _PURE_STRING.hasMatch(p.actual())) {
       return decodeString(p);
     } else {
-      throw p.error('Unexpected character ' + p.actual());
+      throw p.error('Unexpected character ${p.actual()}');
     }
   }
 
@@ -53,8 +53,8 @@ class GsonDecoder {
     var p = src is GsonParsable
         ? src
         : src is String
-            ? GsonParsable(src)
-            : throw ('The core is not a valid input to decode an Array from');
+        ? GsonParsable(src)
+        : throw ('The core is not a valid input to decode an Array from');
     var arr = [];
     var foundComma = true;
     if (p.next() != '[') {
@@ -90,8 +90,8 @@ class GsonDecoder {
     var p = src is GsonParsable
         ? src
         : src is String
-            ? GsonParsable(src)
-            : throw ('The core is not a valid input to decode an Array from');
+        ? GsonParsable(src)
+        : throw ('The core is not a valid input to decode an Array from');
     var map = <String, dynamic>{};
     var foundComma = true;
     if (p.next() != '{') {
@@ -103,14 +103,16 @@ class GsonDecoder {
       }
       foundComma = false;
       _skipIgnored(p);
-      var key = '';
+      var keyBuffer = StringBuffer();
       if (p.actual() == '"' || p.actual() == "'") {
-        key = decodeString(src);
+        var key = decodeString(src);
+        keyBuffer.write(key);
       } else {
         while (_KEY_CHARACTERS.hasMatch(p.actual())) {
-          key += p.next();
+          keyBuffer.write(p.next());
         }
       }
+      var key = keyBuffer.toString();
 
       _skipIgnored(p);
 
@@ -145,21 +147,21 @@ class GsonDecoder {
     var p = src is GsonParsable
         ? src
         : src is String
-            ? GsonParsable(src)
-            : throw ('The core is not a valid input to decode an Array from');
+        ? GsonParsable(src)
+        : throw ('The core is not a valid input to decode an Array from');
 
-    var str = '"';
+    var str = StringBuffer('"');
 
     if (p.actual() == '"' || p.actual() == "'") {
       var search = p.next();
       while (p.actual() != search) {
         if (p.actual() == '\\') {
-          str += p.next();
+          str.write(p.next());
         } else if (p.actual() == '"') {
-          str += '\\' + p.next();
+          str.write('\\${p.next()}');
           continue;
         }
-        str += p.next();
+        str.write(p.next());
       }
       if (!p.ended) {
         p.skip();
@@ -167,16 +169,17 @@ class GsonDecoder {
     } else if (_PURE_STRING.hasMatch(p.actual())) {
       while (_PURE_STRING.hasMatch(p.actual())) {
         if (p.actual() == '\\') {
-          str += p.next();
+          str.write(p.next());
         }
-        str += p.next();
+        str.write(p.next());
       }
     } else {
       throw p.error(
-          'String has to start with a \"\\\"\" or \"\\\'\" when it contains some characters');
+        'String has to start with a "\" or "\'" when it contains some characters',
+      );
     }
 
-    return json.decode(str + '"');
+    return json.decode('${str}"');
   }
 
   /// Decode a number
@@ -184,15 +187,16 @@ class GsonDecoder {
     var p = src is GsonParsable
         ? src
         : src is String
-            ? GsonParsable(src)
-            : throw ('The core is not a valid input to decode an Array from');
+        ? GsonParsable(src)
+        : throw ('The core is not a valid input to decode an Array from');
     if (!RegExp(r'[0-9\.]').hasMatch(p.actual())) {
       throw p.error('Any number has to start with a number between 0 and 9');
     }
-    var number = '';
+    var numberBuffer = StringBuffer();
     while (RegExp(r'[0-9\.]').hasMatch(p.actual())) {
-      number += p.next();
+      numberBuffer.write(p.next());
     }
+    var number = numberBuffer.toString();
 
     NumberValue ret;
 

@@ -7,12 +7,12 @@ import '../cc_get_controller/cc_get_controller.dart';
 abstract class CcGetView<T extends CcGetController> extends GetView<T> {
   //----------------------------------------------------------------------------
   const CcGetView({
-    Key? key,
+    super.key,
     this.isEnableAppBar = true,
     this.isEnableBottomNavigation = true,
     this.isEnableTabBar = true,
     this.layoutStatus = LayoutStatus.success,
-  }) : super(key: key);
+  });
 
   final bool isEnableAppBar;
   final bool isEnableBottomNavigation;
@@ -40,27 +40,32 @@ abstract class CcGetView<T extends CcGetController> extends GetView<T> {
   //----------------------------------------------------------------------------
   Widget _contentLayout() {
     return Container(
-      child: controller.multipleLayoutStates(onLoading: () {
-        // if (layoutStatus == LayoutStatus.loadingLayer) {
-        //   return Stack(
-        //     children: [
-        //       content.call() ?? _emptyWidget(),
-        //       Container(
-        //         color: Colors.red,
-        //         height: MediaQuery.of(Get.context!).size.height,
-        //         width: MediaQuery.of(Get.context!).size.width,
-        //       ),
-        //     ],
-        //   );
-        // }
-        return loadingLayout();
-      }, onSuccess: () {
-        return content.call() ?? _emptyWidget();
-      }, onEmpty: () {
-        return _emptyWidget();
-      }, onError: (String code) {
-        return errorLayout(code);
-      }),
+      child: controller.multipleLayoutStates(
+        onLoading: () {
+          // if (layoutStatus == LayoutStatus.loadingLayer) {
+          //   return Stack(
+          //     children: [
+          //       content.call() ?? _emptyWidget(),
+          //       Container(
+          //         color: Colors.red,
+          //         height: MediaQuery.of(Get.context!).size.height,
+          //         width: MediaQuery.of(Get.context!).size.width,
+          //       ),
+          //     ],
+          //   );
+          // }
+          return loadingLayout();
+        },
+        onSuccess: () {
+          return content.call() ?? _emptyWidget();
+        },
+        onEmpty: () {
+          return _emptyWidget();
+        },
+        onError: (String code) {
+          return errorLayout(code);
+        },
+      ),
     );
   }
 
@@ -75,9 +80,7 @@ abstract class CcGetView<T extends CcGetController> extends GetView<T> {
       height: 200,
       width: 200,
       color: Colors.red,
-      child: Center(
-        child: Text(code),
-      ),
+      child: Center(child: Text(code)),
     );
   }
 
@@ -87,17 +90,13 @@ abstract class CcGetView<T extends CcGetController> extends GetView<T> {
       height: 200,
       width: 200,
       color: Colors.transparent,
-      child: const Center(
-        child: Text("Loading..."),
-      ),
+      child: const Center(child: Text("Loading...")),
     );
   }
 
   //----------------------------------------------------------------------------
   PreferredSizeWidget _appBarDefault() {
-    return AppBar(
-      title: _emptyWidget(),
-    );
+    return AppBar(title: _emptyWidget());
   }
 
   //----------------------------------------------------------------------------

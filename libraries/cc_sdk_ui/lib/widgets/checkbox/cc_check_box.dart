@@ -1,6 +1,6 @@
-import 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
-import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
-import 'package:cc_sdk_ui/widgets/padding/cc_padding.dart';
+import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/config/tokens/base_colors.dart';
+import '../padding/cc_padding.dart';
 import 'package:flutter/material.dart';
 
 class CcCheckBox extends StatelessWidget {

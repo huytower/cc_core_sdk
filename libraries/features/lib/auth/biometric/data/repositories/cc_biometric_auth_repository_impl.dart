@@ -1,7 +1,7 @@
-import 'package:features/auth/biometric/data/datasources/local/cc_biometric_auth_datasource.dart';
-import 'package:features/auth/biometric/domain/entities/cc_biometric_auth_result.dart';
-import 'package:features/auth/biometric/domain/entities/cc_biometric_auth_type.dart';
-import 'package:features/auth/biometric/domain/repositories/cc_biometric_auth_repository.dart';
+import '../datasources/local/cc_biometric_auth_datasource.dart';
+import '../../domain/entities/cc_biometric_auth_result.dart';
+import '../../domain/entities/cc_biometric_auth_type.dart';
+import '../../domain/repositories/cc_biometric_auth_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 

@@ -1,5 +1,5 @@
-import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
-import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+import '../divider_line/cc_divider.dart';
+import '../space/cc_space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

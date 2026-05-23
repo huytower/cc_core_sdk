@@ -1,5 +1,5 @@
-import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
-import 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
+import '../../core/config/tokens/base_colors.dart';
+import '../button/cc_base_btn.dart';
 import 'package:flutter/material.dart';
 
 class IconHeart extends StatelessWidget {

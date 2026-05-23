@@ -1,7 +1,6 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:cc_sdk/domain/failures/app_config/app_config_failure.dart';
 import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -122,7 +121,7 @@ class HttpProd extends HttpBase {
     if (kReleaseMode) {
       // Additional production-specific validations
       if (baseUrl.startsWith('http://') && !baseUrl.contains('localhost')) {
-        throw SecurityConfigFailure(
+        throw const SecurityConfigFailure(
           'Insecure HTTP protocol detected in production environment',
           key: 'baseUrl',
           securityRule: 'insecure_protocol',

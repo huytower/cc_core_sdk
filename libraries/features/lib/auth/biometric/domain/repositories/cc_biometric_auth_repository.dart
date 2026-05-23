@@ -1,4 +1,4 @@
-import 'package:features/auth/biometric/domain/entities/cc_biometric_auth_result.dart';
+import '../entities/cc_biometric_auth_result.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../entities/cc_biometric_auth_type.dart';

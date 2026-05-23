@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cc_sdk/core/utils/common/cc_device_utils.dart';
+import '../../../core/utils/common/cc_device_utils.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';

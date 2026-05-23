@@ -90,7 +90,7 @@ class CcSplashBtn extends StatelessWidget {
   );
 
   Widget getIconWidget() => ConstrainedBox(
-    constraints: BoxConstraints(minWidth: 60),
+    constraints: const BoxConstraints(minWidth: 60),
     child: child ?? Icon(icon, size: 20, color: iconColor),
   );
 

@@ -13,7 +13,9 @@ class CrashLogDevOverlay extends StatefulWidget {
   final Widget child;
 
   static bool get isViewerEnabled {
-    if (kDebugMode) return true;
+    if (kDebugMode) {
+      return true;
+    }
     final flag = dotenv.maybeGet('ENABLE_DEV_CRASH_LOG_VIEWER', fallback: 'false');
     return flag?.toLowerCase() == 'true';
   }
@@ -25,7 +27,9 @@ class CrashLogDevOverlay extends StatefulWidget {
 class _CrashLogDevOverlayState extends State<CrashLogDevOverlay> {
   void _openCrashLogViewer() {
     final navContext = Catcher2.navigatorKey.currentContext;
-    if (navContext == null) return;
+    if (navContext == null) {
+      return;
+    }
     OpenDialog.showBottomSheet(navContext, const CrashLogViewerPage());
   }
 

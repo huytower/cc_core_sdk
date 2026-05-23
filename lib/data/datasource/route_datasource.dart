@@ -5,9 +5,9 @@ import '../../core/navigation/enums/page_name_enum.dart';
 /// Handles application routing configuration and route resolution
 class RouteDatasource {
   // Private constants
-  static const RoutingManagerEnum _currentStrategy = RoutingManagerEnum.GETX;
-  static const PageNameEnum _defaultStartRoute = PageNameEnum.COMMENT;
+  static const RoutingManagerEnum _currentStrategy = RoutingManagerEnum.AUTO_ROUTE;
   // static const PageNameEnum _defaultStartRoute = PageNameEnum.HOME;
+  static const PageNameEnum _defaultStartRoute = PageNameEnum.COMMENT;
 
   final PageNameEnum _startRoute;
 
@@ -37,12 +37,5 @@ class RouteDatasource {
   /// Checks if the given strategy is AutoRoute
   static bool _isStrategyAutoRoute(RoutingManagerEnum strategy) {
     return strategy == RoutingManagerEnum.AUTO_ROUTE;
-  }
-
-  /// Validates if the provided route is valid
-  static bool _isValidRoute(PageNameEnum? route) {
-    return route != null &&
-        route.index >= 0 &&
-        route.index < PageNameEnum.values.length;
   }
 }

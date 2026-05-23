@@ -70,16 +70,14 @@ class GsonParsable extends ErrorGenerator {
   /// generate a error at the position of the parsable
   @override
   Exception error(String message, {int from = 0, int to = 0}) {
-    return Exception(
-        message + ' at ' + toString(from: from, to: to, err: true));
+    return Exception('$message at ${toString(from: from, to: to, err: true)}');
   }
 
   /// reformat error
   Exception reformatError(Exception e, [StackTrace? stack]) {
-    return Exception(e.toString().substring(10) +
-        'at ' +
-        toString() +
-        (stack != null ? stack.toString() : ''));
+    return Exception(
+      '${e.toString().substring(10)}at ${toString()}${stack != null ? stack.toString() : ''}',
+    );
   }
 
   /// String representation of parsable (marks actual position)
@@ -130,56 +128,44 @@ class GsonParsable extends ErrorGenerator {
       }
 
       var pos = position - start + startletters.length + 3;
-      var code = '$startletters...' +
-          parsable.substring(start, end) +
-          '...$endletters\n';
+      var code =
+          '$startletters...${parsable.substring(start, end)}...$endletters\n';
 
       var beforeSelect = code.substring(0, pos - from);
       var selected = code.substring(pos - from, pos + to + 1);
       var afterSelect = code.substring(pos + to + 1);
 
-      var bottom = _repeatString(' ', pos - from) +
-          _repeatString('^', 1 + from + to) +
-          '\n';
+      var bottom =
+          '${_repeatString(' ', pos - from)}${_repeatString('^', 1 + from + to)}\n';
       if (err) {
         bottom = red(bottom);
         selected = redBg(selected);
       }
 
-      return 'position ${position + 1}/${parsable.length} (\"${actual()}\")\n\nHere:\n' +
-          beforeSelect +
-          selected.toString() +
-          afterSelect +
-          bottom.toString();
+      return 'position ${position + 1}/${parsable.length} ("${actual()}")\n\nHere:\n$beforeSelect$selected$afterSelect$bottom';
     }
 
     var beforeSelect = parsable.substring(0, position - from);
     var selected = parsable.substring(position - from, position + to + 1);
     var afterSelect = parsable.substring(position + to + 1);
 
-    var bottom = _repeatString(' ', position - from) +
-        _repeatString('^', 1 + from + to) +
-        '\n';
+    var bottom =
+        '${_repeatString(' ', position - from)}${_repeatString('^', 1 + from + to)}\n';
 
     if (err) {
       bottom = red(bottom);
       selected = redBg(selected);
     }
 
-    return 'position ${position + 1}/${parsable.length} (\"${actual()}\")\n\nHere:\n' +
-        beforeSelect +
-        selected.toString() +
-        afterSelect +
-        '\n' +
-        bottom.toString();
+    return 'position ${position + 1}/${parsable.length} ("${actual()}")\n\nHere:\n$beforeSelect$selected$afterSelect\n$bottom';
   }
 
   String _repeatString(String s, int number) {
-    var ret = '';
+    var buffer = StringBuffer();
     for (var i = 0; i < number; i++) {
-      ret += s;
+      buffer.write(s);
     }
-    return ret;
+    return buffer.toString();
   }
 
   void _checkEnded() {

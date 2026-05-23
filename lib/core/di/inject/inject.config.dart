@@ -39,6 +39,7 @@ import '../../../sample_code/bloc_simple_page/origin/advance/advance_bloc.dart'
     as _i403;
 import '../../../sample_code/getx_simple_page/way_1/getx/get_view_controller.dart'
     as _i313;
+import '../../common/managers/hive_manager.dart' as _i942;
 import '../module/infrastructure_module.dart' as _i450;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -57,6 +58,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i523.WebBinding>(() => _i523.WebBinding());
     gh.factory<_i523.WebController>(() => _i523.WebController());
     gh.factory<_i313.GetViewBinding>(() => _i313.GetViewBinding());
+    gh.lazySingleton<_i942.HiveManager>(() => _i942.HiveManager());
     gh.lazySingleton<_i403.AdvanceBloc>(() => _i403.AdvanceBloc());
     gh.lazySingleton<_i439.SimpleCubitInterface>(() => _i271.SimpleCubit());
     await gh.singletonAsync<_i54.CcDeviceEntity>(

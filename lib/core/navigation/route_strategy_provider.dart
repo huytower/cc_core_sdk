@@ -3,29 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../data/datasource/route_strategy.dart';
 
-/// Provides access to all available routing strategies
-class RouteStrategyProvider {
-  /// Gets the appropriate routing strategy based on the provided enum
-  static RoutingStrategy getStrategy(RoutingManagerEnum manager) {
-    return _routingStrategies[manager] ?? _getDefaultStrategy();
-  }
-
-  /// Gets the default routing strategy
-  static RoutingStrategy _getDefaultStrategy() {
-    return _routingStrategies[RoutingManagerEnum.AUTO_ROUTE]!;
-  }
-
-  /// Map of all available routing strategies
-  static final Map<RoutingManagerEnum, RoutingStrategy> _routingStrategies = {
-    RoutingManagerEnum.AUTO_ROUTE: AutoRouteStrategy(),
-    RoutingManagerEnum.GETX: GetxRouteStrategy(),
-  };
-}
-
-/// Returns the main app UI for the given navigate manager
+/// Returns the main app UI for the given navigate manager.
 ///
-/// Throws [UnimplementedError] if the routing manager is not supported
+/// Since only AutoRoute is supported now, this always uses [AutoRouteStrategy].
 Widget buildAppByRoutingManager(RoutingManagerEnum manager) {
-  final strategy = RouteStrategyProvider.getStrategy(manager);
-  return strategy.build();
+  return AutoRouteStrategy().build();
 }

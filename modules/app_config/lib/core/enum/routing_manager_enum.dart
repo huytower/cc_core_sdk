@@ -3,4 +3,4 @@
 /// - GA4
 
 /// PRJ. PAGE
-enum RoutingManagerEnum { AUTO_ROUTE, GETX }
+enum RoutingManagerEnum { AUTO_ROUTE }

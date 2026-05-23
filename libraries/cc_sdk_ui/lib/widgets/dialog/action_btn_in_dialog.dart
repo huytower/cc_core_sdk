@@ -1,9 +1,9 @@
-import 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
-import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
-import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
-import 'package:cc_sdk_ui/widgets/container/container_rounded_corner_widget.dart';
-import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/config/tokens/base_colors.dart';
+import '../button/cc_debounce_widget.dart';
+import '../container/container_rounded_corner_widget.dart';
+import '../divider_line/cc_divider.dart';
+import '../text/cc_text.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,7 +72,7 @@ class ActionBtnInDialog extends StatelessWidget {
                 child: isCancelBtnShown
                     ? getConfirmButtonWidget()
                     : Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           left: (CcPaddingParams.PAGE_LG * 3.5),
                           right: (CcPaddingParams.PAGE_LG * 3.5),
                         ),

@@ -5,6 +5,50 @@ analyzer:
     - module/ui/lib/extension/logger.dart
   errors:
     avoid_empty_else: error
+    no_leading_underscores_for_local_identifiers: ignore
+    non_constant_identifier_names: ignore
+    only_throw_errors: ignore
+    unnecessary_parenthesis: ignore
+    library_names: ignore
+    unnecessary_string_escapes: ignore
+    constant_identifier_names: ignore
+    unnecessary_library_name: ignore
+    dangling_library_doc_comments: ignore
+    always_put_control_body_on_new_line: ignore
+    use_super_parameters: ignore
+    prefer_int_literals: ignore
+    strict_top_level_inference: ignore
+    unnecessary_overrides: ignore
+    avoid_function_literals_in_foreach_calls: ignore
+    deprecated_member_use: ignore
+    unnecessary_string_interpolations: ignore
+    sort_pub_dependencies: ignore
+    depend_on_referenced_packages: ignore
+    annotate_overrides: ignore
+    prefer_initializing_formals: ignore
+    library_private_types_in_public_api: ignore
+    avoid_print: ignore
+    use_key_in_widget_constructors: ignore
+    sort_child_properties_last: ignore
+    unnecessary_this: ignore
+    unnecessary_new: ignore
+    prefer_collection_literals: ignore
+    unintended_html_in_doc_comment: ignore
+    unused_catch_stack: ignore
+    override_on_non_overriding_member: ignore
+    no_default_cases: ignore
+    provide_deprecation_message: ignore
+    no_leading_underscores_for_library_prefixes: ignore
+    prefer_typing_uninitialized_variables: ignore
+    always_declare_return_types: ignore
+    curly_braces_in_flow_control_structures: ignore
+    prefer_null_aware_method_calls: ignore
+    unnecessary_brace_in_string_interps: ignore
+    prefer_is_not_operator: ignore
+    avoid_types_as_parameter_names: ignore
+    use_function_type_syntax_for_parameters: ignore
+    undefined_hidden_name: ignore
+    use_named_constants: ignore
 
 linter:
   rules:

@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:data/domain/entities/comment/comment.dart';
 import 'package:data/domain/repositories/comment/comment_repository.dart';
 import 'package:get/get.dart';
@@ -26,6 +28,6 @@ class CommentController extends CcGetController {
       fetchFunction: _commentRepository.getListComments,
       targetList: comments,
     );
-    print("CommentController: onReady()");
+    developer.log("CommentController: onReady()", name: "CommentController");
   }
 }

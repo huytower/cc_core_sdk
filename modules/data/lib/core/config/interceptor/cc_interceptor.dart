@@ -1,6 +1,4 @@
 import 'package:cc_sdk/export_cc_sdk.dart';
-import 'package:cc_sdk/core/helper/cc_network_helper.dart';
-import 'package:cc_sdk/core/extensions/export_extensions.dart';
 import 'package:cc_sdk/core/network/curl/curl_utils.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';

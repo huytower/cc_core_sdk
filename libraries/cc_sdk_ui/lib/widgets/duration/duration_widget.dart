@@ -1,5 +1,5 @@
-import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import '../../core/config/tokens/base_colors.dart';
+import '../text/cc_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

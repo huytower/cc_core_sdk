@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
+import '../../core/config/tokens/base_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 

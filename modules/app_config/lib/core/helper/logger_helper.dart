@@ -1,4 +1,4 @@
-import 'package:app_config/core/config/http/http_client/http_client_config.dart';
+import '../config/http/http_client/http_client_config.dart';
 import 'package:cc_sdk/core/constants/cc_constants.dart';
 import 'package:intl/intl.dart';
 

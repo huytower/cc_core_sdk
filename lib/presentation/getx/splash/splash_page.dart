@@ -6,10 +6,10 @@ import 'splash_init.dart';
 
 @RoutePage()
 class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   @override
-  _SplashPageState createState() => _SplashPageState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {
@@ -17,10 +17,11 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     // Navigate after a short delay
-    Future.delayed(
-      const Duration(milliseconds: 200),
-      () => navigateFromSplash(context),
-    );
+    Future.delayed(const Duration(milliseconds: 200), () {
+      if (mounted) {
+        navigateFromSplash(context);
+      }
+    });
   }
 
   @override
@@ -33,10 +34,7 @@ class _SplashPageState extends State<SplashPage> {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage(path),
-          ),
+          image: DecorationImage(fit: BoxFit.cover, image: AssetImage(path)),
         ),
       ),
     );

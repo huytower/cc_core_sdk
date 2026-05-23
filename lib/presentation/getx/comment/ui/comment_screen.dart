@@ -1,19 +1,23 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../base/structure/getx/cc_get_view/cc_get_view.dart';
+import '../../../../core/di/inject/inject.dart';
 import '../get_x/comment_controller.dart';
 
-class CommentScreen extends CcGetView<CommentController> {
-  const CommentScreen({Key? key}) : super(key: key, isEnableAppBar: true);
+@RoutePage()
+class CommentScreen extends StatelessWidget {
+  const CommentScreen({super.key});
 
   @override
-  PreferredSizeWidget? appBar() => AppBar(
-        title: const Text('Comments'),
-      );
+  Widget build(BuildContext context) {
+    final CommentController controller = Get.isRegistered<CommentController>()
+        ? Get.find<CommentController>()
+        : Get.put(getIt<CommentController>());
 
-  @override
-  Widget? content() => Obx(() {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Comments')),
+      body: Obx(() {
         final comments = controller.comments;
 
         return ListView.builder(
@@ -28,13 +32,17 @@ class CommentScreen extends CcGetView<CommentController> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: ListTile(
-                  title: Text(comment.name,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  title: Text(
+                    comment.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(comment.email,
-                          style: const TextStyle(color: Colors.grey)),
+                      Text(
+                        comment.email,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
                       const SizedBox(height: 4),
                       Text(comment.body),
                     ],
@@ -44,5 +52,7 @@ class CommentScreen extends CcGetView<CommentController> {
             );
           },
         );
-      });
+      }),
+    );
+  }
 }

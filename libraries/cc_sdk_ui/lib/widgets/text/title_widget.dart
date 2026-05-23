@@ -1,6 +1,6 @@
-import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
-import 'package:cc_sdk_ui/widgets/text/title_loading_widget.dart';
+import '../../core/config/tokens/base_colors.dart';
+import 'cc_text.dart';
+import 'title_loading_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

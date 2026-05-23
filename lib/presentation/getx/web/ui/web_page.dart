@@ -7,7 +7,7 @@ import '../get_x/web_controller.dart';
 import '../mixin/web_provider.dart';
 
 class WebPage extends CcGetView<WebController> with WebRedirectProvider {
-  const WebPage({Key? key}) : super(key: key, isEnableAppBar: true);
+  const WebPage({super.key}) : super(isEnableAppBar: true);
 
   @override
   Widget? bottomNavigationBar() => const SizedBox();

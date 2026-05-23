@@ -14,49 +14,51 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        // Core application routes
-        AutoRoute(page: SplashRoute.page, initial: true),
-        AutoRoute(page: HomeRoute.page, path: getPageName(PageNameEnum.HOME)),
-        AutoRoute(
-            page: FeaturesCounterRoute.page,
-            path: getPageName(PageNameEnum.FEATURES_COUNTER)),
+    // Core application routes
+    AutoRoute(page: SplashRoute.page, initial: true),
+    AutoRoute(page: HomeRoute.page, path: getPageName(PageNameEnum.HOME)),
+    AutoRoute(page: CommentRoute.page, path: getPageName(PageNameEnum.COMMENT)),
+    AutoRoute(
+      page: FeaturesCounterRoute.page,
+      path: getPageName(PageNameEnum.FEATURES_COUNTER),
+    ),
 
-        // Example routes (BLoC pattern)
-        ..._buildBlocExampleRoutes(),
+    // Example routes (BLoC pattern)
+    ..._buildBlocExampleRoutes(),
 
-        // Example routes (GetX pattern)
-        ..._buildGetXExampleRoutes(),
-      ];
+    // Example routes (GetX pattern)
+    ..._buildGetXExampleRoutes(),
+  ];
 
   // Example Routes (BLoC) ============================================
 
   /// Returns all BLoC pattern example routes
   List<AutoRoute> _buildBlocExampleRoutes() => [
-        AutoRoute(
-          page: SimpleCubitRoute.page,
-          path: getPageNameByRouteStrategy(
-              PageNameByRouteStrategyEnum.BLOC_SIMPLE),
-        ),
-        AutoRoute(
-          page: AdvanceBlocRoute.page,
-          path: getPageNameByRouteStrategy(
-              PageNameByRouteStrategyEnum.BLOC_ADVANCE),
-        ),
-      ];
+    AutoRoute(
+      page: SimpleCubitRoute.page,
+      path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.BLOC_SIMPLE),
+    ),
+    AutoRoute(
+      page: AdvanceBlocRoute.page,
+      path: getPageNameByRouteStrategy(
+        PageNameByRouteStrategyEnum.BLOC_ADVANCE,
+      ),
+    ),
+  ];
 
   // Example Routes (GetX) ============================================
 
   /// Returns all GetX pattern example routes
   List<AutoRoute> _buildGetXExampleRoutes() => [
-        AutoRoute(
-          page: GetViewRoute.page,
-          path: getPageNameByRouteStrategy(
-              PageNameByRouteStrategyEnum.GETX_SIMPLE),
-        ),
-        AutoRoute(
-          page: GetViewV2Route.page,
-          path: getPageNameByRouteStrategy(
-              PageNameByRouteStrategyEnum.GETX_SIMPLE_V2),
-        ),
-      ];
+    AutoRoute(
+      page: GetViewRoute.page,
+      path: getPageNameByRouteStrategy(PageNameByRouteStrategyEnum.GETX_SIMPLE),
+    ),
+    AutoRoute(
+      page: GetViewV2Route.page,
+      path: getPageNameByRouteStrategy(
+        PageNameByRouteStrategyEnum.GETX_SIMPLE_V2,
+      ),
+    ),
+  ];
 }

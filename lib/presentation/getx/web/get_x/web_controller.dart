@@ -17,7 +17,7 @@ class WebBinding extends Bindings {
 
 // @singleton
 class WebController extends CcGetController {
-  var webViewController;
+  late final WebViewController webViewController;
 
   @override
   void onInit() {

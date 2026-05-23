@@ -50,7 +50,6 @@ export 'core/enum/routing_manager_enum.dart';
 // =================================
 
 export 'core/helper/logger_helper.dart';
-export 'core/helper/routing_helper.dart';
 // =================================
 // DATA LAYER
 // =================================
