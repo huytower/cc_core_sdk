@@ -241,5 +241,5 @@ void configureDependencies() {
 ## See Also
 
 - [Counter Feature Example](/libraries/features/lib/counter)
-- [Project Architecture Documentation](/docs/ARCHITECTURE.md)
-- [Coding Guidelines](/docs/CODING_GUIDELINES.md)
+- [Project Architecture Documentation](/doc/ARCHITECTURE.md)
+- [Coding Guidelines](/doc/CODING_GUIDELINES.md)

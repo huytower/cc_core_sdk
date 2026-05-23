@@ -7,7 +7,7 @@ Flutter starter template following **Clean Architecture** and **SOLID principles
 **Project Path:** `C:\Users\Admin\repository\flutter-get-starter-template`
 
 ## Architecture Principles
-````
+
 ### Clean Architecture
 - **Domain Layer**: Business logic, use cases, entities, repository interfaces
 - **Data Layer**: Data sources (remote/local), repository implementations, entities
@@ -26,6 +26,7 @@ Flutter starter template following **Clean Architecture** and **SOLID principles
 flutter-get-starter-template/
 ├── lib/                          # Main app code
 │   ├── core/                     # Core app logic
+│   │   └── di/                  # Centralized DI entry point
 │   ├── data/                     # Data layer
 │   ├── presentation/             # UI layer
 │   └── main*.dart               # Entry points (prod, uat, logging, free)
@@ -40,6 +41,35 @@ flutter-get-starter-template/
 │   └── features/                # Modular feature packages
 └── docs/                        # Documentation
 ```
+
+## Dependency Injection (DI) Convention
+
+To ensure consistency and simplicity across all modules, follow the **Predictable Pattern**.
+
+| Category | Convention | Location / Example |
+| :--- | :--- | :--- |
+| **File Location** | Always `lib/core/di/di.dart` | `data/lib/core/di/di.dart` |
+| **Method Name** | Always `initMicroPackage()` | `void initMicroPackage() {}` |
+| **Locator Name** | Always `getIt` | `final getIt = GetIt.instance;` |
+| **Generated File**| Always `di.module.dart` | `import 'di.module.dart';` |
+
+### Module Implementation
+Every library and module must implement DI using the **Micro-Package** pattern:
+```dart
+import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
+
+final getIt = GetIt.instance;
+
+@InjectableInit.microPackage()
+void initMicroPackage() {}
+```
+
+### Main App Integration
+The main app consolidates all modules in `lib/core/di/inject.dart`:
+- Uses `@InjectableInit` with `externalPackageModulesBefore`.
+- Includes all generated `MicroPackageModule` classes from dependencies.
+- Use `ignoreUnregisteredTypes` for common third-party types (e.g., `SharedPreferences`, `Dio`).
 
 ## Core Libraries
 
@@ -60,7 +90,7 @@ flutter-get-starter-template/
 2. **Data Layer**: Repository Implementations (managers) + DataSources (laborers)
 3. **Core Layer**: Standardized failures (NetworkFailure, ServerFailure, AppConfigFailure)
 
-**Dependencies:** connectivity_plus, dio, device_info_plus, crypto, equatable, google_fonts, intl, multiple_result, package_info_plus
+**DI File:** `libraries/cc_sdk/lib/core/di/di.dart`
 
 ### libraries/cc_sdk_ui (UI Components)
 **Purpose:** Reusable, customizable UI components
@@ -78,8 +108,6 @@ flutter-get-starter-template/
 - `BaseColors`: Color palette (brand, neutral, semantic)
 - `CcTypographyParams`: Typography system (sizes, weights)
 
-**Dependencies:** cc_sdk, flutter_svg, google_fonts, custom_refresh_indicator, mask_text_input_formatter, shimmer
-
 ### libraries/features (Feature Modules)
 **Purpose:** Modular, reusable feature packages
 
@@ -89,18 +117,15 @@ flutter-get-starter-template/
 ├── data/
 │   ├── datasources/          # API, local storage
 │   └── repositories/         # Repository implementations
-├── di/
-│   └── {feature_name}_module.dart  # Feature-specific DI
 ├── domain/
 │   ├── entities/             # Business objects
 │   ├── repositories/         # Repository contracts
 │   └── usecases/            # Business logic
-└── presentation/
-    ├── pages/               # Feature screens
-    └── widgets/             # Reusable UI components
+├── presentation/
+│   ├── pages/               # Feature screens
+│   └── widgets/             # Reusable UI components
+└── core/di/di.dart          # Standardized DI entry
 ```
-
-**Dependencies:** get_it, injectable, equatable, dio, shared_preferences
 
 ## App Modules
 
@@ -110,16 +135,10 @@ flutter-get-starter-template/
 **Features:**
 - Version and build information
 - Environment-specific settings (.env files)
-- Global application constants
-- Centralized dependency registration
+- Centralized dependency registration (Micro-Package)
 - Hive-based local storage with type adapters
 
-**Environment Files:**
-- `.env` - Development
-- `.env.uat` - UAT
-- `.env.production` - Production
-
-**Dependencies:** hive, get_it, injectable, package_info_plus
+**DI File:** `modules/app_config/lib/core/di/di.dart`
 
 ### modules/data
 **Purpose:** Data layer configuration and implementation
@@ -131,89 +150,26 @@ flutter-get-starter-template/
 - Local database (Floor)
 - Repository pattern
 
-**Key Files:**
-- `injection.dart`: DI initialization
-- `data_module.dart`: Server URL configuration
-- `response.dart`: JSON parser and response handler
-- `/datasource`: API definitions with Retrofit
-- `/entities`: Data models with @JsonSerializable()
-- `/repositories`: Data storage implementations
-
-**Dependencies:** retrofit, floor, json_serializable, injectable
+**DI File:** `modules/data/lib/core/di/di.dart`
 
 ### modules/theme
 **Purpose:** Theming system with Clean Architecture
 
-**Structure:**
-- `core/`: Low-level theme configuration and helpers
-  - `config/cc_themes.dart`: ThemeData definitions
-  - `utils/theme_utils.dart`: ColorScheme builders
-- `data/`: Data sources, color tokens
-  - `data_source/color/prj_color.dart`: Maps to cc_sdk_ui BaseColors
-- `presentation/`: UI-facing styles
-  - `style/cc_text_style.dart`: ThemeExtension for TextTheme
-  - `provider/`: Theme provider for runtime selection
-
-**Design Principles:**
-- Single Source of Truth: cc_sdk_ui exports BaseColors and CcTypographyParams
-- Theme-level usage: Use Theme.of(context).textTheme and colorScheme
-- Central tokens: Update primitives in cc_sdk_ui
-
-**Dependencies:** cc_sdk_ui
-
 ### modules/message
 **Purpose:** Internationalization (i18n) and localization
-
-**Features:**
-- Multi-language support
-- Multi-locale configuration
-- Easy string translation
-- Pluralization support
-- RTL language support
-- Fallback locale handling
-
-**Structure:**
-```
-modules/message/
-├── lib/cc_localization.dart    # Main localization service
-└── assets/translations/         # Translation files
-    ├── en.json                 # English
-    └── vi.json                 # Vietnamese
-```
-
-**Dependencies:** easy_localization
 
 ## Key Technologies
 
 ### Dependency Injection
 - **get_it**: Service locator
-- **injectable**: Code generation for DI
-- **Annotations**: @injectable, @module, @preResolve, @named, @singleton, @lazySingleton
+- **injectable**: Code generation for DI (v3.0+)
+- **Micro-Packages**: For modular DI discovery
+- **Annotations**: @injectable, @module, @preResolve, @named, @singleton, @lazySingleton, @InjectableInit.microPackage()
 
 ### State Management
 - **GetX**: State management, routing, dependency injection
 - **Bloc**: State management with streams
 - **Provider**: State management (alternative)
-
-### Networking
-- **Retrofit**: Type-safe HTTP client with annotations
-- **Dio**: HTTP client with interceptors
-
-### Storage
-- **Hive**: Fast, lightweight NoSQL database
-- **Floor**: SQLite ORM with automatic mapping
-- **SharedPreferences**: Simple key-value storage
-
-### Code Generation
-- **build_runner**: Code generation runner
-- **json_serializable**: JSON serialization/deserialization
-- **injectable**: DI code generation
-
-### UI & Utilities
-- **flutter_hooks**: Code sharing between widgets, animations
-- **flutter_svg**: SVG image support
-- **google_fonts**: Custom typography
-- **shimmer**: Loading placeholders
 
 ## Coding Standards
 
@@ -223,114 +179,18 @@ modules/message/
 - **Presentation layer** depends on Domain layer (use cases)
 - Use dependency injection to invert dependencies
 
-### SOLID Principles
-- Each class should have a single responsibility
-- Use interfaces/abstract classes for contracts
-- Depend on abstractions, not concretions
-- Use dependency injection extensively
-
 ### Naming Conventions
-- Feature names: lowercase with underscores (e.g., `user_profile`)
+- **DI Locator**: Always `getIt`
+- **DI Entry**: `lib/core/di/di.dart`
 - Classes: PascalCase (e.g., `UserProfileRepository`)
 - Files: snake_case (e.g., `user_profile_repository.dart`)
-- Private members: prefix with underscore (e.g., `_privateMethod`)
-
-### Annotations
-- Use `@JsonSerializable()` for data models
-- Use `@injectable`, `@singleton`, `@lazySingleton` for DI
-- Use `@RestApi()` for Retrofit clients
-- Use `@HiveType()`, `@HiveField()` for Hive models
 
 ## Adding New Code
 
-### UI Implementation: The 2-Location Rule
-To prevent confusion and "decision fatigue," all UI components must live in ONLY one of these two places:
-
-1. **Design System (`libraries/cc_sdk_ui`)**: 
-   - **What**: Generic, highly reusable widgets with NO business logic.
-   - **Criteria**: If you can use it in a different app, it goes here.
-   - **Examples**: `CcButton`, `CcTextField`, `CcDialog`, `LoadingScreen`.
-
-2. **Feature Widgets (`lib/presentation/pages/[feature]/widgets`)**: 
-   - **What**: Widgets specific to a single feature or page.
-   - **Criteria**: If it's part of a specific user requirement (e.g., "Home User Card"), it goes here.
-   - **Examples**: `HomeHeader`, `LoginSubmitButton`, `ProfileAvatar`.
-
-**Note**: If a widget is shared between two features but isn't a "Design System" component, prefer moving it to `cc_sdk_ui` and making it generic, or keep it in the feature that "owns" it. **`modules/widget` has been removed to simplify the architecture.**
-
----
-
-### Content Localization: The Global Dictionary Way
-To keep multi-language support simple and avoid hunting for text in widgets, we use a **Single Source of Truth** for all strings.
-
-1. **The Dictionary (One Place)**: All translation files live **ONLY** in `modules/message/assets/translations/` (e.g., `en.json`, `vi.json`).
-2. **The Key (The ID)**: Every piece of text has a unique ID with a prefix (e.g., `sdk.no_data`, `auth.login`).
-3. **The Workflow**:
-   - **Step 1**: Add your key and translation to the JSON files in `modules/message`.
-   - **Step 2**: Use it in **any** widget (Root, Library, or Module) by typing `'key.id'.tr()`.
-
-**Rule**: Never hardcode strings in the UI. Always use the Global Dictionary.
-
----
-
-### Development Decision Tree
-
-| Requirement Type | Target Location |
-| :--- | :--- |
-| **General UI Component** | `libraries/cc_sdk_ui/` |
-| **Screen / Feature UI** | `lib/presentation/pages/[feature]/` |
-| **Business Logic (Use Case)**| `lib/domain/usecases/` |
-| **Infrastructure / Config** | `modules/app_config/` |
-| **Data / API / Models** | `modules/data/` |
-
-**Reusable Features** (to be shared across projects):
-- Use `libraries/features/` - Follow the Clean Architecture structure (data/domain/presentation)
-- Set up DI in `di/{feature_name}_module.dart`
-- Export from `lib/features.dart`
-
-**App-Specific Features** (unique to this project):
-- Data operations → `modules/data/` (datasource, entities, repositories)
-- UI components (reusable) → `libraries/cc_sdk_ui/`
-- Configuration → `modules/app_config/`
-- Theming → `modules/theme/`
-- Localization → `modules/message/`
-
-### Integration Steps
-
-1. **Create the feature structure** following Clean Architecture layers
-2. **Add DI annotations** (@injectable, @module, @singleton, etc.)
-3. **Register in appropriate module** (data_module.dart, feature module, etc.)
-4. **Run build_runner** to generate DI code: `flutter pub run build_runner build --delete-conflicting-outputs`
-5. **Import and use** in presentation layer
-
-### Entry Points
-
-- `main.dart` - Production build
-- `main_uat.dart` - UAT environment
-- `main_logging.dart` - Debug with logging
-- `main_free.dart` - Free tier build
-
-Each entry point initializes:
-- Dependency injection
-- Hive storage
-- Localization
-- Theme provider
-
-## Error Handling
-
-### Failure Types (from cc_sdk)
-- `NetworkFailure`: Network connectivity issues
-- `ServerFailure`: Server-side errors
-- `AppConfigFailure`: Configuration errors
-  - `MissingConfigFailure`: Missing configuration key
-  - `InvalidConfigFailure`: Invalid configuration value
-  - `SecurityConfigFailure`: Security-related issues
-
-## Important Notes
-
-- This project uses **modular architecture** - understand the difference between libraries (reusable) and modules (app-specific)
-- **cc_sdk** and **cc_sdk_ui** are shared libraries - changes affect all projects using them
-- **modules** are app-specific - can be customized without affecting other projects
-- **Always follow Clean Architecture** - don't create circular dependencies
-- **Use build_runner** after any DI or JSON serialization changes
-- **Theme tokens** are the single source of truth - update in cc_sdk_ui, not in individual widgets
+### DI Implementation Steps
+1. Create/Update `lib/core/di/di.dart` in your module.
+2. Annotate with `@InjectableInit.microPackage()`.
+3. Add injectable annotations to your classes.
+4. Run `build_runner` in the module.
+5. Reference the generated `MicroPackageModule` in the main app's `inject.dart`.
+6. Run `build_runner` in the main app.

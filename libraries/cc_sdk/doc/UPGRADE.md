@@ -142,7 +142,7 @@ targetSdkVersion 37
 compileSdkVersion 37
 ```
 
-![](/docs/os_usage/user_usage_android.jpg)
+![](/doc/os_usage/user_usage_android.jpg)
 
 **Refs.**
 <br />
@@ -183,7 +183,7 @@ in the file path : `/${prj_name}/ios/Podfile`
     platform :ios, '12.0'
 ```
 
-![](/docs/os_usage/user_usage_ios.png)
+![](/doc/os_usage/user_usage_ios.png)
 
 **Refs.**
 <br />
@@ -193,4 +193,4 @@ in the file path : `/${prj_name}/ios/Podfile`
 <br />
 4. Define|Request `Info.plist` `permission reason` exactly
 
-![](/docs/submit_store/define_permisison_reason.png)
+![](/doc/submit_app_store/define_permisison_reason.png)

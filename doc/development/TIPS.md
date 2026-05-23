@@ -40,24 +40,24 @@ This way will `increase capacity` significantly
 <br />
 - Remove many unnecessary `system_image` files (`android emulator` os version)
 
-![](/docs/increase_capacity/delete_system_image.png)
+![](/doc/increase_capacity/delete_system_image.png)
 
 <br />
 - Remove old version, ex. `kotlin_version`, `jdk version` ...
 
-![](/docs/increase_capacity/delete_old_version.png)
+![](/doc/increase_capacity/delete_old_version.png)
 
 <br />
 - Delete folder `CoreSimulator` (`ios simulator` os version), by this way :
 
-![](/docs/increase_capacity/select_xcode_device_emulator.png)
+![](/doc/increase_capacity/select_xcode_device_emulator.png)
 
 <br />
 then, `delete all unnecessary simulator version`, as below example :
 
-![](/docs/increase_capacity/xcode_simulator_list.png)
+![](/doc/increase_capacity/xcode_simulator_list.png)
 
-![](/docs/increase_capacity/delete_folder_core_simulator.png)
+![](/doc/increase_capacity/delete_folder_core_simulator.png)
 
 <br />
 - Only build|run app with `Real Device`, not use `Emulator|Simulator` anymore
@@ -68,7 +68,7 @@ then, `delete all unnecessary simulator version`, as below example :
 <br />
 - Delete `App Caches`
 
-![](/docs/increase_capacity/delete_app_cache.png)
+![](/doc/increase_capacity/delete_app_cache.png)
 
 <br />
 - Delete old|unnecessary `gradle` version, keep `using stable gradle version`
@@ -79,7 +79,7 @@ then, `delete all unnecessary simulator version`, as below example :
 <br />
 - Delete old|unnecessary `android ndk` version, keep `using stable ndk version`
 
-![](/docs/increase_capacity/delete_unnecessary_ndk_version.png)
+![](/doc/increase_capacity/delete_unnecessary_ndk_version.png)
 
 <br />
 - Delete all `*.apk` was built by `Developer Tools`
