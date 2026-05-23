@@ -1,9 +1,7 @@
 import 'package:app_config/core/config/http/http_client/http_client_config.dart';
-import 'package:cc_sdk/core/helper/cc_network_helper.dart';
 import 'package:cc_sdk/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/helper/cc_network_helper.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
-// import 'package:data/datasource/local/home/home_database.dart';
-// import 'package:data/datasource/local/setting/setting_database.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
@@ -70,7 +68,7 @@ abstract class DataModule {
         retryDelays: const [
           Duration(seconds: 1),
           Duration(seconds: 2),
-          Duration(seconds: 3)
+          Duration(seconds: 3),
         ],
       ),
     );
@@ -78,7 +76,7 @@ abstract class DataModule {
     return _dio;
   }
 
-// Dio dio = ccDio();
+  // Dio dio = ccDio();
 
   // Interceptors
   @singleton
@@ -105,67 +103,67 @@ abstract class DataModule {
 
   @singleton
   Interceptor get ccReqInterceptors => InterceptorsWrapper(
-        onRequest: (options, handler) async {
-          /// Check internet connection
-          final hasInternet =
-              await CcNetworkHelper(InternetConnection())
-                  .hasInternet;
-          if (!hasInternet) {
-            'No internet connection'.Log();
-            return handler.reject(
-              DioException(
-                requestOptions: options,
-                type: DioExceptionType.connectionError,
-                error: 'No internet connection',
-              ),
-            );
-          }
+    onRequest: (options, handler) async {
+      /// Check internet connection
+      final hasInternet = await CcNetworkHelper(
+        InternetConnection(),
+      ).hasInternet;
+      if (!hasInternet) {
+        'No internet connection'.Log();
+        return handler.reject(
+          DioException(
+            requestOptions: options,
+            type: DioExceptionType.connectionError,
+            error: 'No internet connection',
+          ),
+        );
+      }
 
-          'onRequest() '.Log();
+      'onRequest() '.Log();
 
-          /// handle token invalid :
-          /// call app get token.
-          when(
-            conditions: {
-              options.headers.containsValue("empty"): () {
-                options.headers = {};
-              },
-              options.headers.containsValue("host_es"): () {
-                options.headers = {};
-              }
-            },
-            orElse: () {
-              options.headers = {};
-            },
-          );
-          return handler.next(options);
+      /// handle token invalid :
+      /// call app get token.
+      when(
+        conditions: {
+          options.headers.containsValue("empty"): () {
+            options.headers = {};
+          },
+          options.headers.containsValue("host_es"): () {
+            options.headers = {};
+          },
         },
-        onResponse: (response, handler) async {
-          'onResponse() : response = $response'.Log();
-
-          /// Wrap response data into Map<String, dynamic> if response data is a List
-          try {
-            if (response.data != null && response.data is List) {
-              response.data = wrapListResponse(response.data);
-            }
-          } catch (e) {
-            print('Error transforming response data: $e');
-          }
-          return handler.next(response);
-        },
-        onError: (e, handler) {
-          'onError() : $e'.Log();
-
-          // Handle 403 errors specifically
-          if (e.response?.statusCode == 403) {
-            // Add a delay before retrying
-            Future.delayed(const Duration(seconds: 2));
-            return handler.next(e);
-          }
-
-          return handler.next(e);
+        orElse: () {
+          options.headers = {};
         },
       );
+      return handler.next(options);
+    },
+    onResponse: (response, handler) async {
+      'onResponse() : response = $response'.Log();
+
+      /// Wrap response data into Map<String, dynamic> if response data is a List
+      try {
+        if (response.data != null && response.data is List) {
+          response.data = wrapListResponse(response.data);
+        }
+      } catch (e) {
+        print('Error transforming response data: $e');
+      }
+      return handler.next(response);
+    },
+    onError: (e, handler) {
+      'onError() : $e'.Log();
+
+      // Handle 403 errors specifically
+      if (e.response?.statusCode == 403) {
+        // Add a delay before retrying
+        Future.delayed(const Duration(seconds: 2));
+        return handler.next(e);
+      }
+
+      return handler.next(e);
+    },
+  );
 
   /// Helper method to wrap list response data into a map
   Map<String, dynamic> wrapListResponse(List<dynamic> data) {

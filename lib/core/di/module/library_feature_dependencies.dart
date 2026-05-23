@@ -10,7 +10,7 @@ Future<void> configureLibraryFeatureDependencies() async {
   final getIt = GetIt.instance;
 
   // Initialize features module
-  await features_di.configureDependencies();
+  features_di.initMicroPackage();
 
   // Initialize counter feature
   initCounterFeature(getIt);

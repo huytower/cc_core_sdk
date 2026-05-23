@@ -1,12 +1,13 @@
-import 'package:app_config/core/di/di_app_config.dart';
-import 'package:cc_sdk/export_cc_sdk.dart' as cc_sdk;
-import 'package:data/core/di/inject/data_inject.dart';
+import 'package:app_config/core/di/di_app_config.module.dart';
+import 'package:cc_sdk/core/di/di_cc_sdk.module.dart';
+import 'package:data/core/di/inject/data_inject.module.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:features/core/di/injection.module.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../common/managers/hive_manager.dart';
 import '../di_export.dart';
-import '../module/library_feature_dependencies.dart';
 import 'inject.config.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -15,28 +16,24 @@ final GetIt getIt = GetIt.instance;
   initializerName: 'init',
   preferRelativeImports: true,
   asExtension: true,
+  externalPackageModulesBefore: [
+    ExternalModule(CcSdkPackageModule),
+    ExternalModule(DataPackageModule),
+    ExternalModule(AppConfigPackageModule),
+    ExternalModule(FeaturesPackageModule),
+  ],
+  ignoreUnregisteredTypes: [DeviceInfoPlugin],
 )
 Future<void> initializeDependencies() async {
-  // Initialize cc_sdk dependencies
-  await cc_sdk.configureCcSdkDependencies();
-
-  // Initialize app http dependencies
-  await initAppConfig();
-
-  // Initialize common dependencies (SharedPreferences needed by data layer)
+  // Initialize common dependencies that might be needed by others
   await _configureCoreDependencies();
 
-  // Initialize feature dependencies (provides SharedPreferences via @preResolve)
-  await configureLibraryFeatureDependencies();
-
-  // Initialize data layer dependencies
-  await configureDataDependencies(getIt);
+  // Initialize all dependencies (including Micro-Packages from cc_sdk, features, data, etc.)
+  // This will automatically call the init functions of all discovered micro-packages.
+  await getIt.init();
 
   // Initialize presentation layer dependencies
   await configurePresentationDependencies();
-
-  // Initialize the rest of dependencies
-  getIt.init();
 }
 
 Future<void> _configureCoreDependencies() async {

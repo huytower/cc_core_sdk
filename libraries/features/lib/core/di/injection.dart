@@ -2,19 +2,9 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'injection.config.dart';
+final GetIt getIt = GetIt.instance;
 
-/// Global service locator for the features library
-final getIt = GetIt.instance;
-
-/// Configures dependency injection for the features library
-///
-/// Call this function during app initialization to set up all dependencies
-@InjectableInit(
-  initializerName: 'init',
-  preferRelativeImports: true,
-  asExtension: true,
-)
-Future<void> configureDependencies() async {
-  await getIt.init();
-}
+/// Configures dependency injection for the features library.
+/// Uses the Micro-Package pattern for injectable.
+@InjectableInit.microPackage(ignoreUnregisteredTypes: [SharedPreferences])
+void initMicroPackage() {}

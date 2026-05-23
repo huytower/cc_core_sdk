@@ -1,3 +1,4 @@
 library data_di;
 
-export 'inject/data_inject.dart' show configureDataDependencies;
+export 'inject/data_inject.dart';
+export 'module/data_module.dart';

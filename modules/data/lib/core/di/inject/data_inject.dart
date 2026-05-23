@@ -1,16 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'data_inject.config.dart';
+final GetIt getItData = GetIt.instance;
 
-GetIt getItData = GetIt.instance;
-
-@InjectableInit(
-  initializerName: 'init',
-  preferRelativeImports: true,
-  asExtension: true,
-)
-Future<void> configureDataDependencies(GetIt getIt) async {
-  getItData = getIt;
-  getIt.init();
-}
+/// Configures dependency injection for the data module.
+/// Uses the Micro-Package pattern for injectable.
+@InjectableInit.microPackage(ignoreUnregisteredTypes: [SharedPreferences, Dio])
+void initMicroPackage() {}

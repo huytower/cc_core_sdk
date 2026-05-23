@@ -1,12 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 
+part 'paginated_response.g.dart';
+
 /// Response model for paginated data
 @JsonSerializable(genericArgumentFactories: true)
 class PaginatedResponse<T> {
   final List<T>? data;
+  @JsonKey(name: 'current_page')
   final int? currentPage;
+  @JsonKey(name: 'per_page')
   final int? perPage;
   final int? total;
+  @JsonKey(name: 'total_pages')
   final int? totalPages;
 
   PaginatedResponse({
@@ -20,25 +25,8 @@ class PaginatedResponse<T> {
   factory PaginatedResponse.fromJson(
     Map<String, dynamic> json,
     T Function(Object?) fromJsonT,
-  ) {
-    return PaginatedResponse<T>(
-      data: (json['data'] as List<dynamic>?)
-          ?.map((item) => fromJsonT(item as Map<String, dynamic>))
-          .toList(),
-      currentPage: json['current_page'] as int?,
-      perPage: json['per_page'] as int?,
-      total: json['total'] as int?,
-      totalPages: json['total_pages'] as int?,
-    );
-  }
+  ) => _$PaginatedResponseFromJson(json, fromJsonT);
 
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
-    return {
-      'data': data?.map((item) => toJsonT(item)).toList(),
-      'current_page': currentPage,
-      'per_page': perPage,
-      'total': total,
-      'total_pages': totalPages,
-    };
-  }
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
+      _$PaginatedResponseToJson(this, toJsonT);
 }
