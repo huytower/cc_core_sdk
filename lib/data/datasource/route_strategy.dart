@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:catcher_2/catcher_2.dart';
 import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,60 +9,26 @@ import 'package:theme/presentation/provider/theme_provider.dart';
 
 import '../../core/navigation/config/auto_route/app_router.dart';
 
-// ---------------------------------------------------------------------------
-// Base
-// ---------------------------------------------------------------------------
-
-/// Contract for routing strategies.
+/// A strategy that builds the app shell and router widget.
 ///
-/// Subclasses supply a specific router widget (e.g. [MaterialApp.router]).
-/// The shared theme / localisation wiring lives in [buildThemedApp] and is
-/// written only once.
+/// This class isolates routing implementation details from app setup logic.
+/// The shared theme and localization wiring is handled in one place.
 abstract class RoutingStrategy {
   final ThemeProvider _themeProvider;
 
-  final StreamController<ThemeMode> _themeModeController =
-      StreamController<ThemeMode>.broadcast();
-
-  late final VoidCallback _themeListener;
-
-  RoutingStrategy(this._themeProvider) {
-    _themeListener = () => _themeModeController.add(_themeProvider.themeMode);
-    _themeProvider.addListener(_themeListener);
-  }
-
-  // -- public API -----------------------------------------------------------
+  const RoutingStrategy(this._themeProvider);
 
   /// Builds the fully-configured application widget.
   Widget buildApp();
 
-  /// Reactive stream of [ThemeMode] updates — use with `listen` / `StreamBuilder`.
-  Stream<ThemeMode> get themeModeChanges => _themeModeController.stream;
-
-  /// Subscribes [listener] to theme changes.
-  /// Returns an *unsubscribe* callback for easy cleanup.
-  VoidCallback onThemeChanged(VoidCallback listener) {
-    _themeProvider.addListener(listener);
-    return () => _themeProvider.removeListener(listener);
-  }
-
-  /// Releases resources held by this strategy.
-  @disposeMethod
-  @mustCallSuper
-  @disposeMethod
-  void dispose() {
-    _themeProvider.removeListener(_themeListener);
-    _themeModeController.close();
-  }
-
-  // -- shared builder -------------------------------------------------------
-
-  /// Wraps [routerBuilder] with the common [ChangeNotifierProvider],
-  /// [Consumer<ThemeProvider>], and [CcLocalization] layers.
+  /// Wraps the router with shared app-level wiring.
+  ///
+  /// This keeps theme/localization/provider setup in one location and makes
+  /// it easier for junior developers to understand the application shell.
   @protected
   Widget buildThemedApp(
     Widget Function(BuildContext context, ThemeProvider themeProvider)
-    routerBuilder,
+        routerBuilder,
   ) {
     return ChangeNotifierProvider<ThemeProvider>.value(
       value: _themeProvider,
@@ -79,11 +43,12 @@ abstract class RoutingStrategy {
       ),
     );
   }
-}
 
-// ---------------------------------------------------------------------------
-// AutoRoute implementation
-// ---------------------------------------------------------------------------
+  /// Resources are owned by DI, so override only if this strategy needs cleanup.
+  @disposeMethod
+  @mustCallSuper
+  void dispose() {}
+}
 
 /// [RoutingStrategy] backed by the `auto_route` package.
 @LazySingleton(as: RoutingStrategy)

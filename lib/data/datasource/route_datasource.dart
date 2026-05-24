@@ -6,13 +6,12 @@ import '../../core/navigation/route_names.dart';
 class RouteDatasource {
   static const String _envAutoRouteStart = 'AUTO_ROUTE_START';
 
-  static const AppRoute _defaultAutoRouteStart = AppRoute.comment;
-
   const RouteDatasource();
 
   String getStartRoute() => autoRouteStart.path;
 
   static AppRoute get autoRouteStart {
+    const _defaultAutoRouteStart = AppRoute.home;
     final rawRoute = dotenv.maybeGet(
       _envAutoRouteStart,
       fallback: _defaultAutoRouteStart.name,
