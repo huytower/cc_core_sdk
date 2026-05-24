@@ -12,7 +12,7 @@ class CcLocalization {
   /// The path to the directory containing the translation files.
   // In modules/message/lib/cc_localization.dart
   static const String translationsPath =
-      'packages/content_locale/assets/translations';
+      'packages/message/assets/translations';
 
   /// The fallback locale to use when a locale is not supported.
   static const Locale fallbackLocale = Locale('en');

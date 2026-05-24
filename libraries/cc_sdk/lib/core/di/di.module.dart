@@ -10,15 +10,8 @@ import 'package:cc_sdk/core/helper/device_helper.dart' as _i208;
 import 'package:cc_sdk/core/helper/device_info_helper.dart' as _i514;
 import 'package:cc_sdk/core/helper/network_helper.dart' as _i624;
 import 'package:cc_sdk/core/network/network_info.dart' as _i36;
-import 'package:cc_sdk/data/datasources/local/cc_device_local_data_source.dart'
-    as _i1021;
-import 'package:cc_sdk/data/datasources/remote/cc_sdk_remote_data_source.dart'
-    as _i469;
-import 'package:cc_sdk/data/repositories/cc_sdk_repository_impl.dart' as _i101;
-import 'package:cc_sdk/domain/repositories/cc_sdk_repository.dart' as _i70;
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:device_info_plus/device_info_plus.dart' as _i833;
-import 'package:dio/dio.dart' as _i361;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
     as _i161;
@@ -41,20 +34,10 @@ class CcSdkPackageModule extends _i526.MicroPackageModule {
         () => ccSdkDependencies.deviceInfoPlugin);
     gh.singleton<_i36.NetworkInfo>(
         () => _i36.NetworkInfoImpl(gh<_i895.Connectivity>()));
-    gh.lazySingleton<_i469.CCSDKRemoteDataSource>(
-        () => _i469.CCSDKRemoteDataSourceImpl(dio: gh<_i361.Dio>()));
     gh.singleton<_i624.NetworkHelper>(
         () => _i624.NetworkHelper(gh<_i161.InternetConnection>()));
     gh.lazySingleton<_i514.DeviceInfoHelper>(
         () => _i514.DeviceInfoHelper(gh<_i833.DeviceInfoPlugin>()));
-    gh.lazySingleton<_i1021.CcDeviceLocalDataSource>(() =>
-        _i1021.CcDeviceLocalDataSourceImpl(
-            deviceInfoHelper: gh<_i514.DeviceInfoHelper>()));
-    gh.lazySingleton<_i70.CCSDKRepository>(() => _i101.CCSDKRepositoryImpl(
-          remoteDataSource: gh<_i469.CCSDKRemoteDataSource>(),
-          deviceLocalDataSource: gh<_i1021.CcDeviceLocalDataSource>(),
-          networkInfo: gh<_i36.NetworkInfo>(),
-        ));
   }
 }
 
