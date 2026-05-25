@@ -1,11 +1,11 @@
 import 'package:app_config/data/datasource/local/box/register_hive_adapter.dart';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:features/features/crash_log/export_crash_log.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'core/crash_reporting/crash_log_dev_overlay.dart';
 import 'core/crash_reporting/crash_log_startup.dart';
 import 'core/di/inject/inject.dart';
 import 'core/runner/app_runner.dart';

@@ -1,4 +1,14 @@
-# Project Structure Template - Project Base
+# Flutter Get Starter Template
+
+A modular starter kit built around **Clean Architecture** and **SOLID** principles. Designed to help junior and new developers find the right entry points, understand module boundaries, and extend the app safely.
+
+## Quick start for new developers
+
+1. Read `AI_CONTEXT.md` for architecture overview and project intent.
+2. Open `lib/main.dart` to follow app startup and feature wiring.
+3. Inspect `lib/core/di/inject/inject.dart` for global dependency registration.
+4. Explore `modules/` for app-specific domain/data modules.
+5. Explore `libraries/features/lib/features/` for reusable feature packages.
 
 Project Structure templates enable you to capture and re-use the structure and content of existing
 projects, including :

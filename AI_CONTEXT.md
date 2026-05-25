@@ -1,5 +1,19 @@
 # AI Context - Flutter Get Starter Template
 
+## AI Context - Flutter Get Starter Template
+
+A modular Flutter starter built around **Clean Architecture** and **SOLID principles**, with reusable packages for core SDK, UI, and feature modules.
+
+**Project Path:** `C:\Users\Admin\repository\flutter-get-starter-template`
+
+## Recommended Onboarding Path
+
+- Start with `README.md` and this `AI_CONTEXT.md` for architecture intent.
+- Open `lib/main.dart` to understand how the app boots, loads dependencies, and wraps the root widget.
+- Check `lib/core/di/inject/inject.dart` for the global DI assembly and module registration.
+- Review `libraries/features/lib/export_features.dart` to find reusable feature exports.
+- Use `modules/` for app-specific domain and data logic.
+
 ## Project Overview
 
 Flutter starter template following **Clean Architecture** and **SOLID principles** with modular structure.

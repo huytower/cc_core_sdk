@@ -7,11 +7,11 @@ import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
 import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import 'package:features/features/crash_log/export_crash_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/di/inject/inject.dart';
-import '../../../../presentation/crash_log/crash_log_viewer_page.dart';
 import 'simple_cubit.dart';
 import 'simple_cubit_interface.dart';
 import 'simple_cubit_state.dart';

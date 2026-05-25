@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../presentation/crash_log/crash_log_viewer_page.dart';
+import 'crash_log_viewer_page.dart';
 
 /// Wraps the app root; **long-press** anywhere opens the on-device crash log viewer (dev).
 class CrashLogDevOverlay extends StatefulWidget {
