@@ -43,6 +43,6 @@ mixin WebRedirectProvider<T extends WebController> on CcGetView<T> {
 
   //----------------------------------------------------------------------------
   @override
-  Widget loadingLayout() => const PageLoading();
+  Widget loadingLayout() => const LoadingPage();
   //----------------------------------------------------------------------------
 }

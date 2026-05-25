@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../core/helper/widget_helper.dart';
+import '../../core/helper/cc_widget_helper.dart';
 import '../icon/cc_icon.dart';
 import '../inkwell/cc_inkwell.dart';
 import '../padding/cc_padding.dart';
@@ -25,7 +25,7 @@ class CcBackBtn extends StatelessWidget {
         ),
         CcInkWell(
           onTap: onPress,
-          borderRadius: WidgetHelper.getCircleBorderRadius(),
+          borderRadius: CcWidgetHelper.getCircleBorderRadius(),
         ),
       ],
     ),
@@ -52,7 +52,7 @@ class CcBackAssetBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CcInkWell(
     onTap: onTap ?? () => Get.back(),
-    borderRadius: WidgetHelper.getCircleBorderRadius(),
+    borderRadius: CcWidgetHelper.getCircleBorderRadius(),
     child: SizedBox(
       height: 45.0,
       width: 45.0,
@@ -91,8 +91,7 @@ class CcBackDividerBtn extends StatelessWidget {
         CcInkWell(
           onTap: onPress,
           borderRadius: const BorderRadius.all(Radius.circular(4)),
-          width: widthBack,
-          height: heightBack,
+          child: SizedBox(width: widthBack, height: heightBack),
         ),
       ],
     ),

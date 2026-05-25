@@ -176,7 +176,7 @@ abstract class FeatureNameModule {
 
 ### 1. Update Features Exports
 
-Add your feature exports to `lib/features.dart`:
+Add your feature exports to `lib/export_features.dart`:
 
 ```dart
 library features;
@@ -235,7 +235,7 @@ void configureDependencies() {
 4. Define domain entities and use cases
 5. Build the UI in the presentation layer
 6. Set up dependency injection
-7. Add feature exports to `features.dart`
+7. Add feature exports to `export_features.dart`
 8. Register dependencies in `di.dart`
 
 ## See Also

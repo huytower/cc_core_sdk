@@ -15,17 +15,20 @@ import 'package:features/auth/biometric/domain/usecases/cc_authenticate_with_bio
     as _i142;
 import 'package:features/auth/biometric/presentation/bloc/biometric_bloc.dart'
     as _i18;
-import 'package:features/counter/data/datasources/counter_local_data_source.dart'
-    as _i785;
-import 'package:features/counter/data/repositories/counter_repository_impl.dart'
-    as _i784;
-import 'package:features/counter/domain/repositories/counter_repository.dart'
-    as _i598;
-import 'package:features/counter/domain/usecases/get_counter_use_case.dart'
-    as _i371;
-import 'package:features/counter/domain/usecases/increment_counter_use_case.dart'
-    as _i696;
-import 'package:features/counter/presentation/bloc/counter_bloc.dart' as _i433;
+import 'package:features/features/counter/data/datasources/counter_local_data_source.dart'
+    as _i19;
+import 'package:features/features/counter/data/repositories/counter_repository_impl.dart'
+    as _i345;
+import 'package:features/features/counter/domain/repositories/counter_repository.dart'
+    as _i112;
+import 'package:features/features/counter/domain/usecases/decrement_counter_use_case.dart'
+    as _i678;
+import 'package:features/features/counter/domain/usecases/get_counter_use_case.dart'
+    as _i476;
+import 'package:features/features/counter/domain/usecases/increment_counter_use_case.dart'
+    as _i827;
+import 'package:features/features/counter/presentation/bloc/counter_bloc.dart'
+    as _i8;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
@@ -38,25 +41,28 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
     gh.lazySingleton<_i85.CcBiometricAuthRepository>(() =>
         _i507.CcBiometricAuthRepositoryImpl(
             gh<_i820.CcBiometricAuthDatasource>()));
-    gh.lazySingleton<_i785.CounterLocalDataSource>(() =>
-        _i785.CounterLocalDataSourceImpl(
+    gh.lazySingleton<_i19.CounterLocalDataSource>(() =>
+        _i19.CounterLocalDataSourceImpl(
             sharedPreferences: gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i112.CounterRepository>(() => _i345.CounterRepositoryImpl(
+        localDataSource: gh<_i19.CounterLocalDataSource>()));
+    gh.lazySingleton<_i678.DecrementCounterUseCase>(
+        () => _i678.DecrementCounterUseCase(gh<_i112.CounterRepository>()));
+    gh.lazySingleton<_i476.GetCounterUseCase>(
+        () => _i476.GetCounterUseCase(gh<_i112.CounterRepository>()));
+    gh.lazySingleton<_i827.IncrementCounterUseCase>(
+        () => _i827.IncrementCounterUseCase(gh<_i112.CounterRepository>()));
     gh.lazySingleton<_i142.CcAuthenticateWithBiometrics>(() =>
         _i142.CcAuthenticateWithBiometrics(
             gh<_i85.CcBiometricAuthRepository>()));
-    gh.lazySingleton<_i598.CounterRepository>(() => _i784.CounterRepositoryImpl(
-        localDataSource: gh<_i785.CounterLocalDataSource>()));
     gh.factory<_i18.BiometricBloc>(() => _i18.BiometricBloc(
           gh<_i142.CcAuthenticateWithBiometrics>(),
           gh<_i85.CcBiometricAuthRepository>(),
         ));
-    gh.lazySingleton<_i371.GetCounterUseCase>(
-        () => _i371.GetCounterUseCase(gh<_i598.CounterRepository>()));
-    gh.lazySingleton<_i696.IncrementCounterUseCase>(
-        () => _i696.IncrementCounterUseCase(gh<_i598.CounterRepository>()));
-    gh.factory<_i433.CounterBloc>(() => _i433.CounterBloc(
-          getCounterUseCase: gh<_i371.GetCounterUseCase>(),
-          incrementCounterUseCase: gh<_i696.IncrementCounterUseCase>(),
+    gh.factory<_i8.CounterBloc>(() => _i8.CounterBloc(
+          getCounterUseCase: gh<_i476.GetCounterUseCase>(),
+          incrementCounterUseCase: gh<_i827.IncrementCounterUseCase>(),
+          decrementCounterUseCase: gh<_i678.DecrementCounterUseCase>(),
         ));
   }
 }

@@ -1,116 +1,85 @@
-import 'package:cc_sdk/core/helper/device_helper.dart';
-import 'package:cc_sdk/core/helper/image_helper.dart';
-import '../../core/config/tokens/cc_padding_params.dart';
-import '../../core/config/tokens/base_colors.dart';
-import 'cc_position.dart';
-import '../button/cc_back_btn.dart';
-import '../padding/cc_padding.dart';
-import '../space/cc_space.dart';
-import '../text/cc_text.dart';
+import 'package:cc_sdk/core/helper/cc_device_helper.dart';
+import 'package:cc_sdk/core/helper/cc_image_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../flex/cc_flex.dart';
+import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/config/tokens/cc_padding_params.dart';
+import '../button/cc_back_btn.dart';
+import '../padding/cc_padding.dart';
+import '../space/cc_space.dart';
+import '../text/cc_text.dart';
+import 'cc_position.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({
     Key? key,
     this.onTapBack,
     this.onTapAtRightButton,
-    this.bgAssetRes,
-    required this.iconBackAssetRes,
+    this.iconBackAssetRes,
     this.iconPageAssetRes,
     this.isBackButtonVisible = true,
-    this.isRightButtonVisible = false,
-    this.title = '',
-    this.spaceHeader,
+    required this.title,
   }) : super(key: key);
 
   final VoidCallback? onTapBack, onTapAtRightButton;
 
-  final String? bgAssetRes, iconBackAssetRes, iconPageAssetRes;
+  final String? iconBackAssetRes, iconPageAssetRes;
+
+  final bool isBackButtonVisible;
 
   final String title;
 
-  final double? spaceHeader;
-
-  final bool isBackButtonVisible, isRightButtonVisible;
-
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        /// Section : Background
-        getBackgroundWidget(),
+  Widget build(BuildContext context) => Stack(
+    children: [
+      /// icon page (ex. : News logo, ...)
+      getIconPageWidget(context),
 
-        /// Section : Title
-        _buildHeaderContent(context),
+      /// header body
+      Row(
+        children: [
+          const CcSpaceLG(),
+          SizedBox(
+            height: 76,
+            child: Row(
+              children: [
+                /// Space left
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final mediaQuery = MediaQuery.of(context);
+                    final screenWidth = mediaQuery.size.width;
+                    final bottomPadding = mediaQuery.padding.bottom;
+                    final isLarge = CcDeviceHelper.isLargeScreen(
+                      screenWidth: screenWidth,
+                      bottomPadding: bottomPadding,
+                    );
+                    return SizedBox(width: isLarge ? 16.5 : 12.0);
+                  },
+                ),
 
-        /// Section : Space
-        const CcSpace(),
-      ],
-    );
-  }
+                /// Back button
+                Opacity(
+                  opacity: isBackButtonVisible ? 1.0 : 0.0,
+                  child: CcBackAssetBtn(iconBackAssetRes!, onTap: onTapBack!),
+                ),
 
-  Widget getBackgroundWidget() => bgAssetRes != null
-      ? Image.asset(
-          bgAssetRes!,
-          height: 120,
-          width: double.infinity,
-          fit: BoxFit.fitWidth,
-        )
-      : const SizedBox();
-
-  Widget _buildHeaderContent(BuildContext context) {
-    return Stack(
-      children: [
-        /// Section : Icon Page, show at middle side
-        getIconPageWidget(context),
-
-        /// Section : Content
-        CcRowStart(
-          children: [
-            /// Left side: Back button and title
-            Expanded(
-              child: CcRowStart(
-                children: [
-                  /// Space left
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final mediaQuery = MediaQuery.of(context);
-                      final screenWidth = mediaQuery.size.width;
-                      final bottomPadding = mediaQuery.padding.bottom;
-                      final isLarge = DeviceHelper.isLargeScreen(
-                        screenWidth: screenWidth,
-                        bottomPadding: bottomPadding,
-                      );
-                      return SizedBox(width: isLarge ? 16.5 : 12.0);
-                    },
-                  ),
-
-                  /// Back button
-                  Opacity(
-                    opacity: isBackButtonVisible ? 1.0 : 0.0,
-                    child: CcBackAssetBtn(iconBackAssetRes!, onTap: onTapBack!),
-                  ),
-
-                  /// Title
-                  Expanded(child: getTitlePageWidget()),
-                ],
-              ),
+                /// Title
+                Expanded(child: getTitlePageWidget()),
+              ],
             ),
+          ),
 
-            /// Right side: Skip button
-            getRightButtonWidget(),
+          /// Right side: Skip button
+          getRightButtonWidget(),
 
-            /// Space right
-            const SizedBox(width: 15),
-          ],
-        ),
-      ],
-    );
-  }
+          /// Space right
+          const SizedBox(width: 15),
+        ],
+      ),
+    ],
+  );
 
   Widget getRightButtonWidget() => onTapAtRightButton != null
       ? Positioned(
@@ -124,11 +93,10 @@ class HeaderWidget extends StatelessWidget {
               child: const SizedBox(
                 width: 103,
                 height: 76,
-                // color: Colors.red,
                 child: Center(
                   child: CcText(
                     'Bỏ qua',
-                    color: BaseColors.surfaceVariant,
+                    color: CcBaseColors.surfaceVariant,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,
@@ -153,7 +121,7 @@ class HeaderWidget extends StatelessWidget {
   );
 
   Widget getImageResWidget(String iconPageAssetRes) =>
-      ImageHelper.isSvg(iconPageAssetRes)
+      CcImageHelper.isSvg(iconPageAssetRes)
       ? SvgPicture.asset(iconPageAssetRes)
       : Image.asset(iconPageAssetRes, height: 35, fit: BoxFit.contain);
 
@@ -162,12 +130,12 @@ class HeaderWidget extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
     final bottomPadding = mediaQuery.padding.bottom;
 
-    if (DeviceHelper.isLargeScreen(
+    if (CcDeviceHelper.isLargeScreen(
       screenWidth: screenWidth,
       bottomPadding: bottomPadding,
     )) {
       return 3;
-    } else if (DeviceHelper.isSmallScreen(screenWidth)) {
+    } else if (CcDeviceHelper.isSmallScreen(screenWidth)) {
       return 6;
     } else {
       return 12;

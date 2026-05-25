@@ -5,6 +5,6 @@ import 'package:injectable/injectable.dart';
 abstract class InfrastructureModule {
   @preResolve
   @singleton
-  Future<CcDeviceEntity> deviceModel(DeviceInfoHelper deviceInfoHelper) =>
+  Future<CcDeviceEntity> deviceModel(CcDeviceInfoHelper deviceInfoHelper) =>
       deviceInfoHelper.getDeviceEntity();
 }

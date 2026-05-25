@@ -24,7 +24,7 @@ This SDK follows **Clean Architecture** to keep the code organized and easy to t
 *   **The Laborer (DataSource):** Does the heavy lifting. It talks directly to the server and returns raw data.
 
 ### 3. Core Layer
-*   **The Failures:** Standardized error reports (e.g., `NetworkFailure`, `ServerFailure`, `AppConfigFailure`) that the Boss (UI) can easily understand.
+*   **The Failures:** Standardized error reports (e.g., `NetworkFailure`, `CcServerFailure`, `CcAppConfigFailure`).gFailure`) that the Boss (UI) can easily understand.
 
 ### Visual Flow
 
@@ -98,15 +98,15 @@ class MyUseCase {
 ```dart
 import 'package:cc_sdk/domain/failures/app_config/app_config_failure.dart';
 
-void handleConfigError(AppConfigFailure failure) {
+void handleConfigError(CcAppConfigFailure failure) {
   switch (failure) {
-    case MissingConfigFailure():
+    case CcMissingConfigFailure():
       print('Missing key: ${failure.key}');
-    case InvalidConfigFailure():
+    case CcInvalidConfigFailure():
       print('Invalid value for ${failure.key}: ${failure.actualValue}');
-    case SecurityConfigFailure():
+    case CcSecurityConfigFailure():
       print('Security issue: ${failure.message}');
-    case ConfigFailure():
+    case CcConfigFailure():
       print('General config error: ${failure.message}');
   }
 }

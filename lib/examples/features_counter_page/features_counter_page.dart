@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
-import 'package:cc_sdk_ui/core/helper/open_dialog.dart';
+import 'package:cc_sdk_ui/core/helper/cc_open_dialog.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
-import 'package:features/counter/counter_export.dart';
+import 'package:features/features/counter/export_counter.dart';
 import 'package:flutter/material.dart';
 
 /// Features Counter Example Page
@@ -21,7 +21,7 @@ class FeaturesCounterPage extends StatelessWidget {
           InkWell(
             onTap: () {
               // Show dialog with information about the counter feature
-              OpenDialog.showDialogMessage(
+              CcOpenDialog.showDialogMessage(
                 content:
                     'This page demonstrates the use of the counter feature from the features package. It includes a simple counter that can be incremented or decremented.',
                 title: 'Features Counter',

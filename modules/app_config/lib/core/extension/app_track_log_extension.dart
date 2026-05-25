@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 
 import '../../data/datasource/local/box/app_track_log/cc_app_track_log.dart';
 import '../di/di.dart';

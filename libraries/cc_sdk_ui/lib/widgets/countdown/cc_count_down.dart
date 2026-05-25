@@ -1,99 +1,67 @@
 import 'dart:async';
 
-import '../../core/config/tokens/base_colors.dart';
-import '../text/cc_text.dart';
-import '../text/cc_text_spans.dart';
 import 'package:flutter/material.dart';
-import 'package:quiver/async.dart';
 
-import '../../core/helper/widget_helper.dart';
+import '../../core/config/tokens/cc_base_colors.dart';
+import '../text/cc_text.dart';
 
 class CcCountDown extends StatefulWidget {
   const CcCountDown({
     Key? key,
-    required this.callback,
-    this.start = 60,
-
-    /// default para.
-    this.isInlineSpan = false,
+    required this.seconds,
+    this.onTimerFinish,
+    this.style,
   }) : super(key: key);
 
-  final int start;
-
-  final bool isInlineSpan;
-
-  final callback;
-
-  /// return method, return value to called ui
+  final int seconds;
+  final VoidCallback? onTimerFinish;
+  final TextStyle? style;
 
   @override
-  State<CcCountDown> createState() => _CcCountDownState();
+  _CcCountDownState createState() => _CcCountDownState();
 }
 
 class _CcCountDownState extends State<CcCountDown> {
-  late int current;
-
-  late StreamSubscription sub;
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    sub.cancel();
-  }
+  late Timer _timer;
+  int _start = 0;
 
   @override
   void initState() {
     super.initState();
+    _start = widget.seconds;
+    _startTimer();
+  }
 
-    current = widget.start;
-
-    startTimer();
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_start == 0) {
+        setState(() {
+          timer.cancel();
+          widget.onTimerFinish?.call();
+        });
+      } else {
+        setState(() {
+          _start--;
+        });
+      }
+    });
   }
 
   @override
-  Widget build(BuildContext context) =>
-      widget.isInlineSpan ? buildTextSpansWidget() : buildTextWidget();
-
-  CcTextSpans buildTextSpansWidget() => CcTextSpans([
-    WidgetHelper.getTextSpanMontserrat(
-      " $current' ",
-      color: BaseColors.neutral100,
-      fontSize: 20.0,
-      heightLine: 1.4,
-    ),
-  ]);
-
-  CcText buildTextWidget() =>
-      CcText('$current', color: Colors.black, fontSize: 20);
-
-  void startTimer() {
-    var countDownTimer = CountdownTimer(
-      Duration(seconds: widget.start),
-      const Duration(seconds: 1),
-    );
-
-    sub = countDownTimer.listen(null);
-
-    sub.onData((d) {
-      int elapse = d.elapsed.inSeconds;
-
-      setState(() {
-        current = widget.start - elapse;
-      });
-
-      /// Logic : call this function at second = 0
-      if (current == 0) {
-        widget.callback();
-      }
-    });
-
-    sub.onDone(() {
-      sub.cancel();
-    });
-
-    sub.onError((_) {
-      sub.cancel();
-    });
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
+
+  @override
+  Widget build(BuildContext context) => CcText(
+    '$_start',
+    textStyle:
+        widget.style ??
+        TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: CcBaseColors.neutral100,
+        ),
+  );
 }

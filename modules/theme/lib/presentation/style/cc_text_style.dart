@@ -11,9 +11,9 @@ import '../../data/data_source/color/prj_color.dart';
 /// ## Usage
 ///
 /// ```dart
-/// // In your utils configuration:
+/// // In your theme configuration:
 /// MaterialApp(
-///   utils: ThemeData(
+///   theme: ThemeData(
 ///     extensions: <ThemeExtension<dynamic>>[
 ///       CcTextStyle.light(),
 ///     ],
@@ -78,7 +78,7 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
     required this.labelSmall,
   });
 
-  /// Creates a light utils text style configuration.
+  /// Creates a light theme text style configuration.
   factory CcTextStyle.light() {
     return const CcTextStyle(
       // Display Styles
@@ -189,11 +189,11 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
     );
   }
 
-  /// Creates a dark utils text style configuration.
+  /// Creates a dark theme text style configuration.
   factory CcTextStyle.dark() {
     final light = CcTextStyle.light();
     return CcTextStyle(
-      // Update colors for dark utils
+      // Update colors for dark theme
       displayLarge: light.displayLarge.copyWith(color: PrjColors.onSurface),
       displayMedium: light.displayMedium.copyWith(color: PrjColors.onSurface),
       displaySmall: light.displaySmall.copyWith(color: PrjColors.onSurface),
@@ -280,7 +280,7 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
     );
   }
 
-  /// Returns the text utils for Material 3.
+  /// Returns the text theme for Material 3.
   TextTheme get textTheme {
     return TextTheme(
       displayLarge: displayLarge,
@@ -304,10 +304,10 @@ class CcTextStyle extends ThemeExtension<CcTextStyle> {
 
 // Extension for easy access to text styles from BuildContext
 extension CcTextStyleExtension on BuildContext {
-  /// Returns the current [CcTextStyle] from the utils.
+  /// Returns the current [CcTextStyle] from the theme.
   CcTextStyle? get textStyle => Theme.of(this).extension<CcTextStyle>();
 
-  /// Returns the text utils from the current [CcTextStyle].
+  /// Returns the text theme from the current [CcTextStyle].
   TextTheme get textTheme =>
       Theme.of(this).extension<CcTextStyle>()?.textTheme ??
       Theme.of(this).textTheme;

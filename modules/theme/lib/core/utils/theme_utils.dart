@@ -51,7 +51,7 @@ List<Locale> getSupportedLocales() {
   ];
 }
 
-/// Creates a light utils configuration
+/// Creates a light theme configuration
 ThemeData createLightTheme() {
   return ThemeData(
     useMaterial3: true,
@@ -62,7 +62,7 @@ ThemeData createLightTheme() {
   );
 }
 
-/// Creates a dark utils configuration
+/// Creates a dark theme configuration
 ThemeData createDarkTheme() {
   return ThemeData.dark().copyWith(
     useMaterial3: true,

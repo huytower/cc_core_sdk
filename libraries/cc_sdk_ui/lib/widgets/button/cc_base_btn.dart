@@ -1,220 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../core/config/tokens/base_colors.dart';
-import '../../core/helper/widget_helper.dart';
+import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/helper/cc_widget_helper.dart';
 import '../flex/cc_flex.dart';
 import '../inkwell/cc_inkwell.dart';
 import '../text/cc_text.dart';
 
-class CcSplashBtn extends StatelessWidget {
-  const CcSplashBtn(
-    this.onTap,
-    this.text, {
-    Key? key,
-    this.borderRadius,
+class CcBaseBtn extends StatelessWidget {
+  const CcBaseBtn({
+    super.key,
+    required this.onTap,
+    this.title,
     this.bgColor,
-    this.fontSize,
-    this.heightLine,
-    this.child,
-    this.icon,
-    this.iconColor = Colors.white,
+    this.textColor,
     this.isEnable = true,
-    this.isTextCenter = false,
-    this.maxWidth,
-    this.maxHeight,
-    this.shadowColor,
-    this.textColor = Colors.white,
-  }) : super(key: key);
-
-  final bool isEnable, isTextCenter;
-
-  final BorderRadius? borderRadius;
-
-  final Color? iconColor, shadowColor, textColor;
-
-  final double? fontSize, heightLine, maxHeight, maxWidth;
-
-  final IconData? icon;
-
-  final List<Color>? bgColor;
-
-  final String text;
-
-  final VoidCallback onTap;
-
-  final Widget? child;
-
-  @override
-  Widget build(c) => CcShadowBtn(getContainerWidget(), color: shadowColor);
-
-  BoxConstraints getConstraints() => BoxConstraints(
-    maxWidth: maxWidth ?? Get.width,
-    maxHeight: maxHeight ?? 44.5,
-    minHeight: maxHeight ?? 44.5,
-  );
-
-  Widget getContainerWidget() => ButtonInkWellCircleWidget(
-    onTap: onTap,
-    child: Align(
-      alignment: Alignment.center,
-      child: ConstrainedBox(
-        constraints: getConstraints(),
-        child: DecoratedBox(
-          decoration: getDecoration(),
-          child: getDataWidget(),
-        ),
-      ),
-    ),
-  );
-
-  Widget getDataWidget() => (icon == null && child == null)
-      ? getTextWidget()
-      : CcRowCenter(
-          children: <Widget>[
-            /// Section : Icon
-            Expanded(flex: 1, child: getIconWidget()),
-
-            /// Section : Text
-            Expanded(flex: 2, child: getTextWidget()),
-          ],
-        );
-
-  BoxDecoration getDecoration() => BoxDecoration(
-    gradient: LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-      colors: bgColor ?? const [BaseColors.neutral70, BaseColors.neutral70],
-    ),
-    borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
-  );
-
-  Widget getIconWidget() => ConstrainedBox(
-    constraints: const BoxConstraints(minWidth: 60),
-    child: child ?? Icon(icon, size: 20, color: iconColor),
-  );
-
-  Widget getTextWidget() => CcText(
-    text,
-    align: isTextCenter ? Alignment.center : Alignment.centerLeft,
-    color: isEnable ? textColor : BaseColors.textInvert,
-    fontSize: fontSize ?? 20.0,
-    fontWeight: FontWeight.w600,
-    heightLine: heightLine ?? 1.2,
-    textAlign: isTextCenter ? TextAlign.center : TextAlign.left,
-  );
-}
-
-class CcNextBtn extends StatelessWidget {
-  const CcNextBtn(
-    this.onTap,
-    this.text, {
-    Key? key,
-    this.isEnable = true,
-
-    /// default param. =
-    /// 72/9 - closely full width
-    /// 40/9 - normal width
-    this.aspectRatio,
+    this.height,
+    this.width,
     this.borderRadius,
     this.colorsGradient,
-    this.fontSize,
-    this.textColor = BaseColors.textInvert,
-  }) : super(key: key);
-
-  final bool isEnable;
-
-  final BorderRadius? borderRadius;
-
-  final Color textColor;
-
-  final double? aspectRatio;
-  final double? fontSize;
-
-  final List<Color>? colorsGradient;
-
-  final String text;
+  });
 
   final VoidCallback onTap;
+  final String? title;
+  final List<Color>? bgColor;
+  final Color? textColor;
+  final bool isEnable;
+  final double? height, width;
+  final BorderRadius? borderRadius;
+  final List<Color>? colorsGradient;
 
   @override
-  Widget build(c) => getContainerWidget();
-
-  Widget getContainerWidget() => ButtonInkWellClipWidget(
-    aspectRatio: aspectRatio ?? (72 / 9),
-    onTap: onTap,
-    child: DecoratedBox(decoration: getDecoration(), child: getTextWidget()),
-  );
-
-  BoxDecoration getDecoration() => BoxDecoration(
-    gradient: LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-      colors:
-          colorsGradient ?? const [BaseColors.neutral70, BaseColors.neutral70],
-    ),
-    borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
-  );
-
-  Widget getTextWidget() => CcText(
-    text,
-    align: Alignment.center,
-    color: isEnable ? textColor : Colors.white,
-    fontSize: fontSize ?? 20.0,
-    fontWeight: FontWeight.w600,
-    textAlign: TextAlign.center,
-  );
-}
-
-class CcBlackShadowBtn extends StatelessWidget {
-  const CcBlackShadowBtn(this.widget, {Key? key}) : super(key: key);
-
-  final Widget widget;
-
-  @override
-  Align build(c) => Align(
-    alignment: Alignment.center,
-    child: Material(
-      color: Colors.transparent,
-      elevation: 10,
-      shadowColor: Colors.black38,
-      child: widget,
-    ),
-  );
-}
-
-class CcWhiteShadowBtn extends StatelessWidget {
-  const CcWhiteShadowBtn(this.widget, {Key? key}) : super(key: key);
-
-  final Widget widget;
-
-  @override
-  Align build(c) => Align(
-    alignment: Alignment.center,
-    child: Material(
-      color: Colors.transparent,
-      elevation: 10,
-      shadowColor: Colors.white38,
-      child: widget,
-    ),
-  );
-}
-
-class CcShadowBtn extends StatelessWidget {
-  const CcShadowBtn(this.widget, {Key? key, this.color}) : super(key: key);
-
-  final Widget widget;
-
-  final Color? color;
-
-  @override
-  Align build(c) => Align(
-    alignment: Alignment.center,
-    child: Material(
-      color: Colors.transparent,
-      elevation: 20,
-      shadowColor: color ?? BaseColors.shadow,
-      child: widget,
-    ),
-  );
+  Widget build(BuildContext context) {
+    return CcInkWell(
+      onTap: isEnable ? onTap : () {},
+      borderRadius: borderRadius ?? CcWidgetHelper.getBorderRoundedSmall(),
+      child: Container(
+        height: height ?? 48,
+        width: width ?? double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: borderRadius ?? CcWidgetHelper.getBorderRoundedSmall(),
+          gradient: LinearGradient(
+            colors:
+                bgColor ??
+                colorsGradient ??
+                const [CcBaseColors.neutral70, CcBaseColors.neutral70],
+          ),
+        ),
+        child: Center(
+          child: CcText(
+            title ?? '',
+            color: isEnable ? textColor : CcBaseColors.textInvert,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
 }

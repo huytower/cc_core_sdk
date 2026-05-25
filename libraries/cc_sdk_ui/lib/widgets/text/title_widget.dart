@@ -1,40 +1,36 @@
-import '../../core/config/tokens/base_colors.dart';
-import 'cc_text.dart';
-import 'title_loading_widget.dart';
-import 'package:flutter/cupertino.dart';
+import '../../core/config/tokens/cc_base_colors.dart';
 import 'package:flutter/material.dart';
 
+import 'cc_text.dart';
+
+/// POPULAR WIDGET
+/// Main Title widget
 class TitleWidget extends StatelessWidget {
   const TitleWidget({
     Key? key,
     required this.title,
-    this.align,
     this.color,
     this.fontSize,
     this.fontWeight,
-    this.heightLine,
-    this.maxLines,
+    this.align,
   }) : super(key: key);
 
-  final Alignment? align;
-  final Color? color;
-  final FontWeight? fontWeight;
-  final double? fontSize, heightLine;
-  final int? maxLines;
   final String title;
 
-  @override
-  Widget build(BuildContext context) => getTitleWidget();
+  final Color? color;
 
-  Widget getTitleWidget() => title.isNotEmpty
-      ? CcText(
-          title,
-          fontSize: fontSize ?? 16.0,
-          color: color ?? BaseColors.textPrimary,
-          fontWeight: fontWeight ?? FontWeight.w600,
-          align: align ?? Alignment.centerLeft,
-          maxLines: maxLines ?? 1,
-          heightLine: heightLine ?? 1.2,
-        )
-      : const TitleLoadingWidget(lineWidth: 150);
+  final double? fontSize;
+
+  final FontWeight? fontWeight;
+
+  final Alignment? align;
+
+  @override
+  Widget build(BuildContext context) => CcText(
+    title,
+    align: align ?? Alignment.centerLeft,
+    fontWeight: fontWeight ?? FontWeight.w500,
+    fontSize: fontSize ?? 16,
+    color: color ?? CcBaseColors.textPrimary,
+  );
 }

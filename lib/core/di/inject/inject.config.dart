@@ -77,7 +77,7 @@ extension GetItInjectableX on _i174.GetIt {
       dispose: (i) => i.close(),
     );
     await gh.singletonAsync<_i54.CcDeviceEntity>(
-      () => infrastructureModule.deviceModel(gh<_i54.DeviceInfoHelper>()),
+      () => infrastructureModule.deviceModel(gh<_i54.CcDeviceInfoHelper>()),
       preResolve: true,
     );
     gh.lazySingleton<_i278.RoutingStrategy>(

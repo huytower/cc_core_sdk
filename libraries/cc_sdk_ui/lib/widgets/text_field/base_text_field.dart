@@ -1,99 +1,54 @@
-import 'package:cc_sdk/core/constants/cc_number_format_params.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../../core/config/tokens/base_colors.dart';
 import '../divider_line/cc_divider.dart';
-import '../flex/cc_flex.dart';
-
-// Purpose: a lightweight SDK text field with custom mask/filter behavior and a bottom line style.
 
 class BaseTextField extends StatelessWidget {
-  final String? hintText;
-  final Function onChanged, onSubmit;
-  final int? maxLength;
-  final Map<String, RegExp>? filter;
-  final String? formatter;
-  final TextEditingController controller;
-  final TextInputAction textInputAction;
-  final TextInputType keyboardType;
-  final TextStyle? hintStyle, textStyle;
-  final Widget? suffix;
-
-  const BaseTextField(
-    this.hintText, {
+  const BaseTextField({
     super.key,
-    required this.onChanged,
-    required this.onSubmit,
-    this.textInputAction = TextInputAction.next,
     required this.controller,
-    this.filter,
-    this.formatter,
-    this.hintStyle,
+    this.hintText,
+    this.obscureText = false,
     this.keyboardType = TextInputType.text,
-    this.maxLength,
-    this.suffix,
-    this.textStyle,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.onChanged,
+    this.validator,
   });
 
+  final TextEditingController controller;
+  final String? hintText;
+  final bool obscureText;
+  final TextInputType keyboardType;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final Function(String)? onChanged;
+  final String? Function(String?)? validator;
+
   @override
-  Widget build(BuildContext context) => Material(
-    color: Colors.transparent,
-    child: CcColStart(
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /// Section : Edit text
-        getEditTextWidget(),
-
-        const SizedBox(height: 8),
-
-        /// Section : Line
-        const CcDividerLine(color: BaseColors.divider, height: 1),
-      ],
-    ),
-  );
-
-  Widget getEditTextWidget() => Stack(
-    children: [
-      /// Section : Edit text
-      TextFormField(
-        onChanged: (v) => onChanged(v),
-        onFieldSubmitted: (v) => onSubmit(v),
-        decoration: InputDecoration.collapsed(
-          hintText: hintText,
-          hintStyle:
-              hintStyle ??
-              const TextStyle(color: Colors.white, fontSize: 17, height: 1.2),
-        ),
-        controller: controller,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(maxLength ?? 12),
-
-          /// Logic : validate input text,
-          /// ex. : https://stackoverflow.com/questions/52835450/flutter-how-to-avoid-special-characters-in-validator
-          MaskTextInputFormatter(
-            mask: formatter ?? CcNumberFormatParams.NUMBER,
-            filter: filter ?? {'#': RegExp(r'^[a-zA-Z0-9_\-=@,\.;]+$')},
+        TextFormField(
+          controller: controller,
+          obscureText: obscureText,
+          keyboardType: keyboardType,
+          onChanged: onChanged,
+          validator: validator,
+          decoration: InputDecoration(
+            hintText: hintText,
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            border: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            focusedErrorBorder: InputBorder.none,
           ),
-        ],
-        keyboardType: keyboardType,
-        style:
-            textStyle ??
-            const TextStyle(
-              fontSize: 18,
-              color: BaseColors.white80,
-              height: 1.2,
-            ),
-        textInputAction: textInputAction,
-      ),
-
-      /// Section : Icon
-      Positioned(
-        bottom: 0,
-        right: 0,
-        top: 0,
-        child: suffix ?? const SizedBox(),
-      ),
-    ],
-  );
+        ),
+        const CcDividerLine(color: CcBaseColors.divider, height: 1),
+      ],
+    );
+  }
 }

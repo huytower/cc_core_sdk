@@ -1,24 +1,22 @@
-import '../../core/config/tokens/base_colors.dart';
-import '../padding/cc_padding.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HorizontalLineWidget extends StatelessWidget {
-  const HorizontalLineWidget({Key? key, this.flex, required this.height})
-    : super(key: key);
+import '../../core/config/tokens/cc_base_colors.dart';
 
-  final int? flex;
-  final double height;
+class CcDividerHorizontalLine extends StatelessWidget {
+  const CcDividerHorizontalLine({
+    super.key,
+    this.color,
+    this.height,
+    this.width,
+  });
+
+  final Color? color;
+  final double? height, width;
 
   @override
-  Flexible build(BuildContext context) => Flexible(
-    flex: flex ?? 0,
-    child: CcPadding(
-      Container(color: BaseColors.neutral5, width: 1, height: height),
-      0,
-      0,
-      10,
-      0,
-    ),
+  Widget build(BuildContext context) => Container(
+    height: height ?? 1,
+    width: width ?? double.infinity,
+    color: color ?? CcBaseColors.neutral5,
   );
 }

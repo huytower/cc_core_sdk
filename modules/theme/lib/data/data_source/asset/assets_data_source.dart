@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 /// // Use with Image.asset
 /// Image.asset(
 ///   AssetUtils.getIcon(IconAsset.analytics),
-///   package: 'utils', // The package that contains the assets
+///   package: 'theme', // The package that contains the assets
 /// );
 /// ```
 
@@ -134,18 +134,18 @@ class AssetUtils {
   /// Validates that the asset path exists in the pubspec.yaml
   ///
   /// In debug mode, this will throw an exception if the asset is not found
-  /// in the pubspec.yaml of the utils package.
+  /// in the pubspec.yaml of the theme package.
   static String _validatePath(String path) {
     // Only validate in debug mode
     assert(() {
       try {
         // This will throw an exception if the asset is not found
-        AssetImage(path, package: 'utils');
+        AssetImage(path, package: 'theme');
       } catch (e) {
         throw FlutterError('''
         Asset not found: $path
         Make sure to:
-        1. Add the asset to the pubspec.yaml of the utils package
+        1. Add the asset to the pubspec.yaml of the theme package
         2. Run 'flutter pub get'
         3. Verify the asset exists in the correct directory
         ''');

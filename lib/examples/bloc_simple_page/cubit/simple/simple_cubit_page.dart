@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
-import 'package:cc_sdk/core/extensions/export_extensions.dart';
-import 'package:cc_sdk_ui/core/helper/open_dialog.dart';
+import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
+import 'package:cc_sdk_ui/core/helper/cc_open_dialog.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
@@ -54,10 +54,17 @@ class SimpleCubitPage extends StatelessWidget {
     ],
   );
 
-  CcNextBtn buildShowAppTrackLogBtn(context) {
-    return CcNextBtn(() {
-      OpenDialog.showBottomSheet(context, const CrashLogViewerPage());
-    }, 'Show Track Log');
+  Widget buildShowAppTrackLogBtn(context) {
+    return CcBaseBtn(
+      onTap: () {
+        CcOpenDialog.showBottomSheet(context, const CrashLogViewerPage());
+      },
+      title: 'Show Track Log',
+      bgColor: const [Colors.blue],
+      textColor: Colors.white,
+      height: 48,
+      width: double.infinity,
+    );
   }
 
   SizedBox buildTitle(context) {

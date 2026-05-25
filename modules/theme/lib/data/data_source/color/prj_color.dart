@@ -1,94 +1,71 @@
-import 'package:cc_sdk_ui/core/config/tokens/base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 import 'package:flutter/material.dart';
 
-/// `PrjColors` — Semantic color aliases for the application.
+/// PrjColors: Maps the UI Library's design tokens to the application's specific
+/// color requirements.
 ///
-/// Purpose:
-/// - Provide semantic color names used by the app (e.g. `primary`, `error`).
-/// - Map those names to the design token SSOT in `cc_sdk_ui.BaseColors`.
+/// ## Principles
+/// - Avoid defining raw hex codes here.
+/// - Map those names to the design token SSOT in `cc_sdk_ui.CcBaseColors`.
 ///
-/// Usage:
+/// ## Usage (App Side)
 /// ```dart
-/// // Use Theme's colorScheme in widgets
 /// final cs = Theme.of(context).colorScheme;
-/// final primary = cs.primary; // backed by PrjColors.primary -> BaseColors
+/// final primary = cs.primary; // backed by PrjColors.primary -> CcBaseColors
 /// ```
 ///
-/// Note: To change brand/primitive values, update `libraries/cc_sdk_ui/lib/core/config/tokens/base_colors.dart`.
-/// This keeps color changes centralized and consistent with Figma tokens.
-class PrjColors {
-  // ====================================
-  // Primary Colors (Brand Identity)
-  // ====================================
+/// Note: To change brand/primitive values, update `libraries/cc_sdk_ui/lib/core/config/tokens/cc_base_colors.dart`.
+abstract final class PrjColors {
+  PrjColors._();
 
-  static const Color primary = BaseColors.actionPrimary;
-  static const Color onPrimary = BaseColors.textInvert;
-  static const Color primaryContainer = BaseColors.brand300;
-  static const Color onPrimaryContainer = BaseColors.neutral100;
-  static const Color primaryPressed = BaseColors.actionPrimaryPressed;
+  // -- Brand/Primary
+  static const Color primary = CcBaseColors.actionPrimary;
+  static const Color onPrimary = CcBaseColors.textInvert;
+  static const Color primaryContainer = CcBaseColors.brand300;
+  static const Color onPrimaryContainer = CcBaseColors.neutral100;
+  static const Color primaryPressed = CcBaseColors.actionPrimaryPressed;
 
-  // ====================================
-  // Secondary Colors
-  // ====================================
+  // -- Secondary
+  static const Color secondary = CcBaseColors.secondary500;
+  static const Color onSecondary = CcBaseColors.textInvert;
+  static const Color secondaryContainer = CcBaseColors.secondary800;
+  static const Color onSecondaryContainer = CcBaseColors.textInvert;
 
-  static const Color secondary = BaseColors.secondary500;
-  static const Color onSecondary = BaseColors.textInvert;
-  static const Color secondaryContainer = BaseColors.secondary800;
-  static const Color onSecondaryContainer = BaseColors.textInvert;
+  // -- Status/Feedback
+  static const Color success = CcBaseColors.success;
+  static const Color onSuccess = CcBaseColors.textInvert;
 
-  // ====================================
-  // Semantic Colors (States)
-  // ====================================
+  static const Color warning = CcBaseColors.warning;
+  static const Color onWarning = CcBaseColors.neutral100;
 
-  static const Color success = BaseColors.success;
-  static const Color onSuccess = BaseColors.textInvert;
+  static const Color error = CcBaseColors.error;
+  static const Color onError = CcBaseColors.textInvert;
 
-  static const Color warning = BaseColors.warning;
-  static const Color onWarning = BaseColors.neutral100;
+  static const Color info = CcBaseColors.info;
+  static const Color onInfo = CcBaseColors.textInvert;
 
-  static const Color error = BaseColors.error;
-  static const Color onError = BaseColors.textInvert;
+  // -- Surfaces
+  static const Color background = CcBaseColors.surfaceDefault;
+  static const Color onBackground = CcBaseColors.textPrimary;
 
-  static const Color info = BaseColors.info;
-  static const Color onInfo = BaseColors.textInvert;
+  static const Color surface = CcBaseColors.surfaceDefault;
+  static const Color onSurface = CcBaseColors.textPrimary;
+  static const Color surfaceVariant = CcBaseColors.surfaceVariant;
+  static const Color onSurfaceVariant = CcBaseColors.textSecondary;
+  static const Color surfaceOverlay = CcBaseColors.surfaceOverlay;
 
-  // ====================================
-  // Background & Surface
-  // ====================================
+  // -- Text Emphasis
+  static const Color highEmphasis = CcBaseColors.textPrimary;
+  static const Color mediumEmphasis = CcBaseColors.textSecondary;
+  static const Color disabled = CcBaseColors.textDisabled;
+  static const Color hint = CcBaseColors.textDisabled;
 
-  static const Color background = BaseColors.surfaceDefault;
-  static const Color onBackground = BaseColors.textPrimary;
+  // -- Borders/Dividers
+  static const Color outline = CcBaseColors.neutral30;
+  static const Color outlineVariant = CcBaseColors.neutral10;
+  static const Color divider = CcBaseColors.divider;
 
-  static const Color surface = BaseColors.surfaceDefault;
-  static const Color onSurface = BaseColors.textPrimary;
-  static const Color surfaceVariant = BaseColors.surfaceVariant;
-  static const Color onSurfaceVariant = BaseColors.textSecondary;
-  static const Color surfaceOverlay = BaseColors.surfaceOverlay;
-
-  // ====================================
-  // Text Selection
-  // ====================================
-
-  static const Color highEmphasis = BaseColors.textPrimary;
-  static const Color mediumEmphasis = BaseColors.textSecondary;
-  static const Color disabled = BaseColors.textDisabled;
-  static const Color hint = BaseColors.textDisabled;
-
-  // ====================================
-  // Borders & Dividers
-  // ====================================
-
-  static const Color outline = BaseColors.neutral30;
-  static const Color outlineVariant = BaseColors.neutral10;
-  static const Color divider = BaseColors.divider;
-
-  // Functional Aliases
-  static const Color blue = BaseColors.info;
-  static const Color pink = BaseColors.actionPrimary;
-}
-
-/// Extension methods for consistent opacity handling
-extension PrjColorsExtension on PrjColors {
-  static Color withOpacity(Color color, double opacity) =>
-      color.withOpacity(opacity);
+  // -- Common/Utils
+  static const Color blue = CcBaseColors.info;
+  static const Color pink = CcBaseColors.actionPrimary;
 }

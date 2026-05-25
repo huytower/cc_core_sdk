@@ -1,51 +1,27 @@
 import 'dart:ui';
 
-import '../../core/config/tokens/base_colors.dart';
 import 'package:flutter/material.dart';
 
-/// load Background thumbnail ui from server api, attr : scale
+import '../../core/config/tokens/cc_base_colors.dart';
+
 class BackgroundScaleWidget extends StatelessWidget {
-  const BackgroundScaleWidget({Key? key, @required this.thumbnail})
-    : super(key: key);
-
-  final String? thumbnail;
-
-  @override
-  Widget build(BuildContext context) => Transform.scale(
-    scale: 3,
-    child: DecoratedBox(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        image: DecorationImage(
-          image: NetworkImage(thumbnail!),
-          fit: BoxFit.fitHeight,
-        ),
-      ),
-    ),
-  );
-}
-
-/// load Background thumbnail ui from server api, attr : blur
-class BackgroundBlurWidget extends StatelessWidget {
-  const BackgroundBlurWidget({
+  const BackgroundScaleWidget({
     Key? key,
-    required this.blurX,
-    required this.blurY,
+    required this.child,
+    this.sigmaX = 5.0,
+    this.sigmaY = 5.0,
+    this.color,
   }) : super(key: key);
 
-  final double blurX, blurY;
+  final Widget child;
+  final double sigmaX, sigmaY;
+  final Color? color;
 
   @override
-  Widget build(BuildContext context) => ClipRect(
+  Widget build(BuildContext context) => ClipRRect(
     child: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: blurX, sigmaY: blurY),
-      child: const DecoratedBox(
-        decoration: BoxDecoration(
-          color: BaseColors.white20,
-          backgroundBlendMode: BlendMode.screen,
-          shape: BoxShape.rectangle,
-        ),
-      ),
+      filter: ImageFilter.blur(sigmaX: sigmaX, sigmaY: sigmaY),
+      child: Container(color: color ?? CcBaseColors.white20, child: child),
     ),
   );
 }

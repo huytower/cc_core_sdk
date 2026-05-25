@@ -40,7 +40,7 @@ String request = "";
 var ccReqInterceptors = InterceptorsWrapper(
   onRequest: (options, handler) async {
     /// Check internet connection
-    final hasInternet = await NetworkHelper(InternetConnection()).hasInternet;
+    final hasInternet = await CcNetworkHelper(InternetConnection()).hasInternet;
     if (!hasInternet) {
       'No internet connection'.Log();
       return handler.reject(
@@ -58,7 +58,7 @@ var ccReqInterceptors = InterceptorsWrapper(
 
     /// handle token invalid :
     /// call app get token.
-    when(
+    ccWhen(
       conditions: {
         options.headers.containsValue("empty"): () {
           options.headers = {};

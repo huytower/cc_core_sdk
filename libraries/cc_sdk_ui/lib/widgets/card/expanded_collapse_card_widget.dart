@@ -1,54 +1,88 @@
-import '../../core/config/tokens/base_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
-class ExpandCollapseCardWidget extends StatelessWidget {
-  const ExpandCollapseCardWidget({
+import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/helper/cc_widget_helper.dart';
+import '../space/cc_space.dart';
+
+class ExpandedCollapseCardWidget extends StatefulWidget {
+  const ExpandedCollapseCardWidget({
     Key? key,
-    required this.bodyWidget,
-    this.dividerColor,
-    this.elevationCard = 8,
-    this.elevationExpand = 1,
-    required this.headerCollapseWidget,
-    required this.headerExpandedWidget,
-    required this.isExpandedStatus,
-    this.shadowColor = BaseColors.divider,
+    required this.title,
+    required this.child,
+    this.backgroundColor = Colors.white,
+    this.shadowColor = CcBaseColors.divider,
+    this.isExpanded = false,
   }) : super(key: key);
 
-  final RxBool isExpandedStatus;
-
-  final double elevationCard, elevationExpand;
-
-  final Color? dividerColor, shadowColor;
-
-  final Widget bodyWidget, headerCollapseWidget, headerExpandedWidget;
+  final String title;
+  final Widget child;
+  final Color backgroundColor;
+  final Color shadowColor;
+  final bool isExpanded;
 
   @override
-  Widget build(BuildContext context) => Card(
-    color: BaseColors.transparent,
-    margin: EdgeInsets.zero,
-    elevation: elevationCard,
-    shadowColor: shadowColor,
-    child: buildExpansionPanelList(),
-  );
+  _ExpandedCollapseCardWidgetState createState() =>
+      _ExpandedCollapseCardWidgetState();
+}
 
-  Widget buildExpansionPanelList() => Obx(
-    () => ExpansionPanelList(
-      dividerColor: dividerColor ?? Colors.transparent,
-      elevation: elevationExpand,
-      children: [
-        ExpansionPanel(
-          headerBuilder: (c, isExpanded) => buildHeader(isExpanded),
-          body: bodyWidget,
-          isExpanded: isExpandedStatus.value,
+class _ExpandedCollapseCardWidgetState
+    extends State<ExpandedCollapseCardWidget> {
+  bool _isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _isExpanded = widget.isExpanded;
+  }
+
+  @override
+  Widget build(BuildContext context) => Container(
+    margin: const EdgeInsets.only(bottom: 12),
+    decoration: BoxDecoration(
+      color: widget.backgroundColor,
+      borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+      boxShadow: [
+        BoxShadow(
+          color: widget.shadowColor.withOpacity(0.5),
+          blurRadius: 8,
+          offset: const Offset(0, 2),
         ),
       ],
-      expansionCallback: (i, isExpanded) =>
-          isExpandedStatus.value = !isExpanded,
+    ),
+    child: Column(
+      children: [
+        InkWell(
+          onTap: () {
+            setState(() {
+              _isExpanded = !_isExpanded;
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    widget.title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Icon(
+                  _isExpanded ? Icons.expand_less : Icons.expand_more,
+                  color: Colors.grey,
+                ),
+              ],
+            ),
+          ),
+        ),
+        if (_isExpanded) ...[
+          const CcSpaceXS(),
+          Padding(padding: const EdgeInsets.all(16), child: widget.child),
+        ],
+      ],
     ),
   );
-
-  Widget buildHeader(bool isExpanded) =>
-      isExpanded ? headerExpandedWidget : headerCollapseWidget;
 }

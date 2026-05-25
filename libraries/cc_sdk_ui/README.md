@@ -43,7 +43,7 @@ CcCloseBtn(
     // Handle button press
   },
   icon: Icon(Icons.close),
-  bgColor: BaseColors.actionPrimary,
+  bgColor: CcBaseColors.actionPrimary,
 )
 ```
 
@@ -84,7 +84,7 @@ Text(
   style: TextStyle(
     fontSize: CcTypographyParams.titleLarge,
     fontWeight: CcTypographyParams.medium,
-    color: BaseColors.textPrimary,
+    color: CcBaseColors.textPrimary,
   ),
 )
 ```

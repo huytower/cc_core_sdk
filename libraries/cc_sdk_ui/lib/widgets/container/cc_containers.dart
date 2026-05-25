@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/helper/widget_helper.dart';
+import '../../core/helper/cc_widget_helper.dart';
 
 /// A circular container with optional shadow and border.
 class CcContainerCircle extends StatelessWidget {
@@ -32,7 +32,7 @@ class CcContainerCircle extends StatelessWidget {
       color: bgColor,
       border: Border.all(color: strokeColor, width: strokeWidth),
       boxShadow: hasShadow
-          ? WidgetHelper.getBoxShadows(shadowColor: shadowColor)
+          ? CcWidgetHelper.getBoxShadows(shadowColor: shadowColor)
           : const [],
     ),
     child: child ?? const SizedBox(),
@@ -58,7 +58,7 @@ class CcContainerRect extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     decoration: BoxDecoration(
       color: bgColor,
-      borderRadius: WidgetHelper.getBorderRoundedSmall(),
+      borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
     ),
     width: width,
     height: height,
@@ -83,7 +83,7 @@ class CcContainerSquare extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     decoration: BoxDecoration(
       color: bgColor,
-      borderRadius: WidgetHelper.getBorderRoundedSmall(),
+      borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
     ),
     width: width,
     height: width,

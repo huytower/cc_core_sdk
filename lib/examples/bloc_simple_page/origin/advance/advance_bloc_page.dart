@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:cc_sdk/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
 import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
@@ -40,7 +40,7 @@ class AdvanceBlocPage extends StatelessWidget {
   );
 
   SizedBox buildTitle(context) {
-    Widget child = when(
+    Widget child = ccWhen(
       variable: getIt<AdvanceBloc>().blocType,
       conditions: {
         BlocType.builder: () => buildBlocBuilder(context),

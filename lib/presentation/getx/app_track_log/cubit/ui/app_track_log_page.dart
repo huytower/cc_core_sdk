@@ -1,5 +1,5 @@
 import 'package:app_config/data/datasource/local/box/device_info/cc_device_info.dart';
-import 'package:cc_sdk/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
 import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
@@ -16,7 +16,7 @@ import '../logic/app_track_log_state.dart';
 /// SHOW APP TRACKING LOG PAGE
 ///
 /// ex.
-/// OpenDialog.showBottomSheet(context, AppTrackLogPage(),);
+/// CcOpenDialog.showBottomSheet(context, AppTrackLogPage(),);
 ///
 @immutable
 class AppTrackLogPage extends StatelessWidget {

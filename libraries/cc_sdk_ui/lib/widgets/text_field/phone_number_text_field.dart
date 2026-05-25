@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../../core/helper/widget_helper.dart';
+import '../../core/helper/cc_widget_helper.dart';
 import '../divider_line/cc_divider.dart';
 import '../flex/cc_flex.dart';
 import '../space/cc_space.dart';
@@ -64,7 +64,7 @@ class PhoneNumberTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle:
               hintStyle ??
-              WidgetHelper.getTextStyleRoboto(
+              CcWidgetHelper.getTextStyleRoboto(
                 fontSize: 17,
                 fontStyle: FontStyle.italic,
                 heightLine: 1.2,
@@ -85,7 +85,7 @@ class PhoneNumberTextField extends StatelessWidget {
         ),
         style:
             textStyle ??
-            WidgetHelper.getTextStyleRoboto(fontSize: 18, heightLine: 1.2),
+            CcWidgetHelper.getTextStyleRoboto(fontSize: 18, heightLine: 1.2),
         textInputAction: action ?? TextInputAction.next,
       ),
 

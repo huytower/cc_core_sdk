@@ -1,7 +1,7 @@
-import '../../core/config/tokens/base_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/config/tokens/cc_base_colors.dart';
 import '../anim/fade_widget.dart';
 import 'base_progress_indicator.dart';
 
@@ -31,7 +31,7 @@ class LoadingPageWidget extends StatelessWidget {
         Container(
           height: Get.height,
           width: Get.width,
-          color: BaseColors.neutral70,
+          color: CcBaseColors.neutral70,
         ),
 
         /// Progress loading icon

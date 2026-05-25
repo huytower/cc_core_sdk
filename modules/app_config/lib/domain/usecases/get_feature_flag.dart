@@ -1,4 +1,4 @@
-import 'package:cc_sdk/domain/failures/app_config/app_config_failure.dart';
+import 'package:cc_sdk/domain/failures/app_config/cc_app_config_failure.dart';
 import 'package:cc_sdk/domain/failures/cc_failure.dart';
 import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -29,7 +29,7 @@ class GetFeatureFlag {
     } on Failure catch (e) {
       return Error(e);
     } catch (e) {
-      return Error(ConfigFailure('Failed to get feature flag: $e'));
+      return Error(CcConfigFailure('Failed to get feature flag: $e'));
     }
   }
 }

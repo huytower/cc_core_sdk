@@ -88,7 +88,7 @@ The main app consolidates all modules in `lib/core/di/inject.dart`:
 **Architecture Flow:**
 1. **Domain Layer**: UseCases (business logic) + Repository Interfaces (contracts)
 2. **Data Layer**: Repository Implementations (managers) + DataSources (laborers)
-3. **Core Layer**: Standardized failures (NetworkFailure, ServerFailure, AppConfigFailure)
+3. **Core Layer**: Standardized failures (CcNetworkFailure, CcServerFailure, CcAppConfigFailure)
 
 **DI File:** `libraries/cc_sdk/lib/core/di/di.dart`
 
@@ -105,7 +105,7 @@ The main app consolidates all modules in `lib/core/di/inject.dart`:
 - Animations (fade, scale, transitions)
 
 **Theme Tokens:**
-- `BaseColors`: Color palette (brand, neutral, semantic)
+- `CcBaseColors`: Color palette (brand, neutral, semantic)
 - `CcTypographyParams`: Typography system (sizes, weights)
 
 ### libraries/features (Feature Modules)

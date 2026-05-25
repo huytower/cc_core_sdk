@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/helper/image_helper.dart';
+import 'package:cc_sdk/core/helper/cc_image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -36,9 +36,7 @@ class CcCloseBtn extends StatelessWidget {
 
   Widget buildIcon() =>
       icon ??
-      (ImageHelper.isSvg(src)
-          ? SvgPicture.asset(src)
-          : Image.asset(src));
+      (CcImageHelper.isSvg(src) ? SvgPicture.asset(src) : Image.asset(src));
 
   Widget buildSizedBox() => Center(
     child: SizedBox(

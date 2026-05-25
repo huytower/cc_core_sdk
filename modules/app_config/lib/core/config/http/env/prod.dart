@@ -47,7 +47,7 @@ class HttpProd extends HttpBase {
       fallback: 'https://api.production.com',
     );
     if (url == null || url.isEmpty) {
-      throw const MissingConfigFailure(
+      throw const CcMissingConfigFailure(
         'API_URL',
         message: 'API base URL is required in production',
       );
@@ -69,14 +69,14 @@ class HttpProd extends HttpBase {
   /// [key] - The env variable key to read
   ///
   /// Returns the parsed version number
-  /// Throws [MissingConfigFailure] if the version is invalid
+  /// Throws [CcMissingConfigFailure] if the version is invalid
   int _getVersion(String key) {
     try {
       final value = dotenv.maybeGet(key, fallback: '1') ?? '1';
       final version = int.tryParse(value);
 
       if (version == null || version <= 0) {
-        throw MissingConfigFailure(
+        throw CcMissingConfigFailure(
           key,
           message: 'Version must be a positive integer',
         );
@@ -84,7 +84,7 @@ class HttpProd extends HttpBase {
 
       return version;
     } catch (e, stackTrace) {
-      throw MissingConfigFailure(key, message: 'Failed to parse version: $e');
+      throw CcMissingConfigFailure(key, message: 'Failed to parse version: $e');
     }
   }
 
@@ -121,7 +121,7 @@ class HttpProd extends HttpBase {
     if (kReleaseMode) {
       // Additional production-specific validations
       if (baseUrl.startsWith('http://') && !baseUrl.contains('localhost')) {
-        throw const SecurityConfigFailure(
+        throw const CcSecurityConfigFailure(
           'Insecure HTTP protocol detected in production environment',
           key: 'baseUrl',
           securityRule: 'insecure_protocol',

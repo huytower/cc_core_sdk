@@ -1,59 +1,57 @@
-import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../../core/helper/widget_helper.dart';
-import '../../../core/config/tokens/base_colors.dart';
+import '../../../core/config/tokens/cc_base_colors.dart';
+import '../../../core/helper/cc_widget_helper.dart';
+import '../../button/cc_back_btn.dart';
+import '../../button/cc_debounce_widget.dart';
+import '../../flex/cc_flex.dart';
+import '../../space/cc_space.dart';
+import '../../text/cc_text.dart';
 
-class PageError extends StatelessWidget {
-  final VoidCallback onTapReload;
-  final String? assetIcon;
+class ErrorPage extends StatelessWidget {
+  const ErrorPage({Key? key, this.message = 'An error occurred', this.onRetry})
+    : super(key: key);
 
-  const PageError({super.key, required this.onTapReload, this.assetIcon});
+  final String message;
+  final VoidCallback? onRetry;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: double.maxFinite,
-      width: double.maxFinite,
-      child: GestureDetector(
-        onTap: onTapReload,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: Get.width - 50,
-              width: Get.width - 50,
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(
+      leading: CcBackBtn(
+        onPress: () => Navigator.of(context).pop(),
+        icon: Icons.arrow_back,
+      ),
+      title: const CcText('Error'),
+    ),
+    body: CcColCenter(
+      children: [
+        const Icon(Icons.error_outline, size: 80, color: CcBaseColors.errorRed),
+        const CcSpaceLG(),
+        CcText(
+          message,
+          fontSize: 16,
+          color: CcBaseColors.textSecondary,
+          textAlign: TextAlign.center,
+        ),
+        const CcSpaceLG(),
+        if (onRetry != null)
+          CcDebounce(
+            onTap: onRetry!,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               decoration: BoxDecoration(
-                border: Border.all(color: BaseColors.divider, width: 1),
+                color: CcBaseColors.brand500,
+                borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (assetIcon != null)
-                    Image.asset(assetIcon!, width: 100, fit: BoxFit.fitWidth),
-                  const SizedBox(height: 15),
-                  Text(
-                    el.tr("app.error.general"),
-                    style: WidgetHelper.getTextStyleRoboto(
-                      fontSize: 20,
-                      color: BaseColors.textSecondary,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    el.tr("app.error.retry"),
-                    style: WidgetHelper.getTextStyleRoboto(
-                      fontSize: 20,
-                      color: BaseColors.textSecondary,
-                    ),
-                  ),
-                ],
+              child: const CcText(
+                'Retry',
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
+          ),
+      ],
+    ),
+  );
 }

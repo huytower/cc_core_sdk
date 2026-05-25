@@ -1,6 +1,6 @@
 import 'dart:io' show Platform;
 
-import 'package:cc_sdk/domain/failures/app_config/app_config_failure.dart';
+import 'package:cc_sdk/domain/failures/app_config/cc_app_config_failure.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../app/cc_app_config.dart';
@@ -110,25 +110,25 @@ abstract class HttpBase extends Equatable {
   /// This method should be called during app initialization to catch
   /// configuration issues early.
   ///
-  /// Throws [AppConfigFailure] if any required configuration is missing or invalid.
+  /// Throws [CcAppConfigFailure] if any required configuration is missing or invalid.
   ///
   /// Example:
   /// ```dart
   /// try {
   ///   http.validate();
-  /// } on AppConfigFailure catch (e) {
+  /// } on CcAppConfigFailure catch (e) {
   ///   // Handle configuration error
   /// }
   /// ```
   void validate() {
     // Validate baseUrl
     if (baseUrl.isEmpty) {
-      throw const MissingConfigFailure('baseUrl');
+      throw const CcMissingConfigFailure('baseUrl');
     }
 
     // Validate URL format
     if (!baseUrl.startsWith('http')) {
-      throw const MissingConfigFailure(
+      throw const CcMissingConfigFailure(
         'baseUrl',
         message: 'Must start with http:// or https://',
       );
@@ -136,7 +136,7 @@ abstract class HttpBase extends Equatable {
 
     // Validate timeouts
     if (apiTimeoutSeconds <= 0) {
-      throw const MissingConfigFailure(
+      throw const CcMissingConfigFailure(
         'apiTimeoutSeconds',
         message: 'Must be greater than 0',
       );
@@ -146,7 +146,7 @@ abstract class HttpBase extends Equatable {
     if (isEnvPro &&
         baseUrl.startsWith('http://') &&
         !baseUrl.contains('localhost')) {
-      throw const SecurityConfigFailure(
+      throw const CcSecurityConfigFailure(
         'Insecure HTTP protocol detected in production env',
         key: 'baseUrl',
         securityRule: 'insecure_protocol',

@@ -1,36 +1,43 @@
-import '../../core/config/tokens/base_colors.dart';
-import '../button/cc_base_btn.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/config/tokens/cc_base_colors.dart';
 
 class IconHeart extends StatelessWidget {
   const IconHeart({
     Key? key,
-    required this.height,
+    this.height,
     this.width,
-    this.size,
-    this.begin,
-    this.end,
+    this.colors,
+    this.isCircleIcon = false,
   }) : super(key: key);
 
-  final double height;
-  final double? size, width;
+  final double? height, width;
 
-  final AlignmentGeometry? begin, end;
+  final List<Color>? colors;
+
+  final bool isCircleIcon;
 
   @override
-  CcBlackShadowBtn build(c) => CcBlackShadowBtn(
-    Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
-        gradient: LinearGradient(
-          begin: begin ?? Alignment.topCenter,
-          end: end ?? Alignment.bottomCenter,
-          colors: const [BaseColors.actionPrimary, BaseColors.actionPrimary],
-        ),
-      ),
-      width: width ?? height,
-      height: height,
-      child: Icon(Icons.favorite, color: Colors.white, size: size ?? 70),
-    ),
+  Widget build(BuildContext context) =>
+      isCircleIcon ? getCircleIcon() : getIcon();
+
+  Widget getIcon() => ShaderMask(
+    shaderCallback: (Rect bounds) {
+      return LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors:
+            colors ??
+            const [CcBaseColors.actionPrimary, CcBaseColors.actionPrimary],
+      ).createShader(bounds);
+    },
+    child: Icon(Icons.favorite, color: Colors.white, size: height ?? 20),
+  );
+
+  Widget getCircleIcon() => Container(
+    width: width ?? 30,
+    height: height ?? 30,
+    decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+    child: getIcon(),
   );
 }

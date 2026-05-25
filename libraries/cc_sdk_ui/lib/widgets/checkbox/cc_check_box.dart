@@ -1,39 +1,35 @@
-import '../../core/config/tokens/cc_padding_params.dart';
-import '../../core/config/tokens/base_colors.dart';
-import '../padding/cc_padding.dart';
 import 'package:flutter/material.dart';
 
-class CcCheckBox extends StatelessWidget {
-  const CcCheckBox({Key? key, required this.onPress, required this.isChecked})
-    : super(key: key);
+import '../../core/config/tokens/cc_base_colors.dart';
 
-  final VoidCallback onPress;
+class CcCheckBox extends StatelessWidget {
+  const CcCheckBox({
+    Key? key,
+    required this.isChecked,
+    required this.onChanged,
+  }) : super(key: key);
 
   final bool isChecked;
+  final ValueChanged<bool> onChanged;
 
   @override
-  CcPadding build(c) => CcPadding(
-    Material(
-      color: Colors.transparent,
-      child: Container(
-        color: Colors.transparent,
-        width: 25,
-        child: IconButton(
-          onPressed: onPress,
-          icon: Icon(
-            isChecked ? Icons.check : Icons.radio_button_unchecked,
-            size: 20,
-            color: isChecked ? BaseColors.info : Colors.black,
-          ),
-          color: Colors.transparent,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+  Widget build(BuildContext context) => GestureDetector(
+    onTap: () => onChanged(!isChecked),
+    child: Container(
+      width: 24,
+      height: 24,
+      decoration: BoxDecoration(
+        color: isChecked ? CcBaseColors.info : Colors.transparent,
+        border: Border.all(
+          color: isChecked ? CcBaseColors.info : Colors.grey,
+          width: 2,
         ),
+        borderRadius: BorderRadius.circular(4),
       ),
+      child:
+          isChecked
+              ? const Icon(Icons.check, size: 16, color: Colors.white)
+              : null,
     ),
-    0,
-    CcPaddingParams.PAGE_MD,
-    0,
-    0,
   );
 }

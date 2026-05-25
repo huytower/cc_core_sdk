@@ -1,36 +1,24 @@
-import '../../core/config/tokens/base_colors.dart';
-import '../text/cc_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_base_colors.dart';
+import '../text/cc_text.dart';
+
 class DurationWidget extends StatelessWidget {
-  const DurationWidget({Key? key, required this.duration, this.widgetLoading})
-    : super(key: key);
+  const DurationWidget({Key? key, required this.duration}) : super(key: key);
 
   final String duration;
 
-  final Widget? widgetLoading;
-
   @override
-  Widget build(c) => Positioned(
-    bottom: 4,
-    right: 4,
-    child: Row(
-      children: [
-        widgetLoading ?? Container(),
-        const SizedBox(width: 10),
-        SizedBox(
-          height: 16,
-          width: 32,
-          child: CcText(
-            duration,
-            color: BaseColors.textInvert,
-            fontSize: 10,
-            align: Alignment.center,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+    decoration: BoxDecoration(
+      color: Colors.black54,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: CcText(
+      duration,
+      fontSize: 12,
+      color: CcBaseColors.textInvert,
     ),
   );
 }

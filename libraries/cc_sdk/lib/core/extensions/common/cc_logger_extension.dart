@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 import 'package:stack_trace/stack_trace.dart';
 
-import '../../config/library_config.dart';
-import '../../enum/symbol_logger.dart';
-import '../../serialization/gson/gson.dart';
-import 'when_expression.dart';
+import '../../config/cc_library_config.dart';
+import '../../enum/cc_symbol_logger.dart';
+import '../../serialization/gson/cc_gson.dart';
+import 'cc_when_expression.dart';
 
 /// Debug logging extension for any value.
 ///
@@ -33,11 +33,11 @@ extension CcLoggerExtension<T> on T {
     final library = path.prettyUri(trace.uri);
     final url = '$library ${trace.line}:${trace.column} ⇙';
 
-    final content = when(
+    final content = ccWhen(
       conditions: {
         this is Object: () {
           try {
-            return gson.encode(this);
+            return ccGson.encode(this);
           } catch (e) {
             return '[Serialization Error] $e | $this';
           }
@@ -47,7 +47,7 @@ extension CcLoggerExtension<T> on T {
       orElse: toString(),
     );
 
-    when(
+    ccWhen(
       conditions: {
         isLargeString: () {
           developer.log(
@@ -70,20 +70,20 @@ extension CcLoggerExtension<T> on T {
     );
 
     if (!isLargeString) {
-      when(
-        variable: LibraryConfig.symbolLogger,
+      ccWhen(
+        variable: CcLibraryConfig.symbolLogger,
         conditions: {
-          SymbolLogger.INFO: () {
+          CcSymbolLogger.INFO: () {
             if (kDebugMode) {
               print('\n$blue━━━━━━━━━━ ℹ️ INFO ━━━━━━━━━━$reset');
             }
           },
-          SymbolLogger.ERROR: () {
+          CcSymbolLogger.ERROR: () {
             if (kDebugMode) {
               print('\n$red━━━━━━━━━━ ❌ ERROR ━━━━━━━━━━$reset');
             }
           },
-          SymbolLogger.WARNING: () {
+          CcSymbolLogger.WARNING: () {
             if (kDebugMode) {
               print('\n$green━━━━━━━━━━ 😃 WARNING ━━━━━━━━━━$reset');
             }

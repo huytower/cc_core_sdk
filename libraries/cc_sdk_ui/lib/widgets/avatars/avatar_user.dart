@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/helper/widget_helper.dart';
+import '../../core/helper/cc_widget_helper.dart';
 import '../container/cc_containers.dart';
 
 class AvatarUser extends StatelessWidget {
@@ -33,7 +33,7 @@ class AvatarUser extends StatelessWidget {
           width: width,
           decoration: BoxDecoration(
             color: Colors.grey.shade200,
-            borderRadius: WidgetHelper.getCircleBorderRadius(),
+            borderRadius: CcWidgetHelper.getCircleBorderRadius(),
           ),
           child: _buildImage(),
         ),

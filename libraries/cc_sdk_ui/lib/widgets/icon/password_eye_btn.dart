@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../core/helper/widget_helper.dart';
+import '../../core/helper/cc_widget_helper.dart';
 import '../inkwell/cc_inkwell.dart';
 
 /// Use *.svg icon only
@@ -23,7 +23,7 @@ class PasswordEyeButtonWidget extends StatelessWidget {
       if (onTap != null)
         CcInkWell(
           onTap: onTap!,
-          borderRadius: WidgetHelper.getCircleBorderRadius(),
+          borderRadius: CcWidgetHelper.getCircleBorderRadius(),
         ),
     ],
   );

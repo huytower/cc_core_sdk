@@ -3,7 +3,7 @@ import '../space/cc_space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../core/helper/widget_helper.dart';
+import '../../core/helper/cc_widget_helper.dart';
 import '../flex/cc_flex.dart';
 
 class PasswordTextField extends StatelessWidget {
@@ -65,7 +65,7 @@ class PasswordTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle:
               hintStyle ??
-              WidgetHelper.getTextStyleRoboto(
+              CcWidgetHelper.getTextStyleRoboto(
                 fontSize: 17,
                 fontStyle: FontStyle.italic,
                 heightLine: 1.2,
@@ -78,7 +78,7 @@ class PasswordTextField extends StatelessWidget {
         keyboardType: TextInputType.text,
         style:
             textStyle ??
-            WidgetHelper.getTextStyleRoboto(fontSize: 18, heightLine: 1.2),
+            CcWidgetHelper.getTextStyleRoboto(fontSize: 18, heightLine: 1.2),
         textInputAction: action ?? TextInputAction.next,
       ),
 

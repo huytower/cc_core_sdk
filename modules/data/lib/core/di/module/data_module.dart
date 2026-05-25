@@ -1,6 +1,7 @@
 import 'package:app_config/core/config/http/http_client/http_client_config.dart';
-import 'package:cc_sdk/core/extensions/export_extensions.dart';
-import 'package:cc_sdk/core/helper/network_helper.dart';
+import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
+import 'package:cc_sdk/core/extensions/common/cc_when_expression.dart';
+import 'package:cc_sdk/core/helper/cc_network_helper.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
@@ -105,7 +106,9 @@ abstract class DataModule {
   Interceptor get ccReqInterceptors => InterceptorsWrapper(
     onRequest: (options, handler) async {
       /// Check internet connection
-      final hasInternet = await NetworkHelper(InternetConnection()).hasInternet;
+      final hasInternet = await CcNetworkHelper(
+        InternetConnection(),
+      ).hasInternet;
       if (!hasInternet) {
         'No internet connection'.Log();
         return handler.reject(
@@ -121,7 +124,7 @@ abstract class DataModule {
 
       /// handle token invalid :
       /// call app get token.
-      when(
+      ccWhen(
         conditions: {
           options.headers.containsValue("empty"): () {
             options.headers = {};

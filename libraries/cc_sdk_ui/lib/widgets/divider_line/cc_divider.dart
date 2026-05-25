@@ -1,55 +1,36 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/base_colors.dart';
-import '../padding/cc_padding.dart';
+import '../../core/config/tokens/cc_base_colors.dart';
 
-/// TOP POPULAR RE-USE WIDGET
-/// vertical divider, small vertical divider_line ui
 class CcDividerLine extends StatelessWidget {
-  const CcDividerLine({Key? key, this.color, this.height, this.padding})
-    : super(key: key);
-
-  final double? padding, height;
+  const CcDividerLine({super.key, this.color, this.height, this.thickness});
 
   final Color? color;
+  final double? height, thickness;
 
   @override
-  CcPadding build(c) => CcPadding(
-    Divider(
-      height: height ?? 0.5,
-      color: color ?? BaseColors.white10,
-      thickness: 1,
-    ),
-    0,
-    padding ?? 0.0,
-    padding ?? 0.0,
-    0,
+  Widget build(BuildContext context) => Divider(
+    height: height ?? 16,
+    thickness: thickness ?? 1,
+    color: color ?? CcBaseColors.white10,
   );
 }
 
 class CcDividerHorizontalLine extends StatelessWidget {
   const CcDividerHorizontalLine({
-    Key? key,
+    super.key,
     this.color,
     this.height,
-    this.padding,
     this.width,
-  }) : super(key: key);
-
-  final double? height, padding, width;
+  });
 
   final Color? color;
+  final double? height, width;
 
   @override
-  CcPadding build(c) => CcPadding(
-    Container(
-      width: width ?? 0.1,
-      height: height ?? 45.0,
-      color: color ?? BaseColors.white15,
-    ),
-    0,
-    padding ?? 0.0,
-    padding ?? 0.0,
-    0,
+  Widget build(BuildContext context) => Container(
+    height: height ?? 1,
+    width: width ?? double.infinity,
+    color: color ?? CcBaseColors.white15,
   );
 }

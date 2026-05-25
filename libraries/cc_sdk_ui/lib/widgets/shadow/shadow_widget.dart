@@ -1,35 +1,29 @@
-import '../../core/config/tokens/base_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/helper/widget_helper.dart';
+import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/helper/cc_widget_helper.dart';
 
 class ShadowWidget extends StatelessWidget {
-  const ShadowWidget(
-    this.widget, {
+  const ShadowWidget({
     Key? key,
+    required this.child,
     this.bgColor,
     this.shadowColor,
-    this.borderRadius,
-    this.elevation = 8,
   }) : super(key: key);
 
-  final BorderRadius? borderRadius;
-
-  final Color? bgColor, shadowColor;
-
-  final double elevation;
-
-  final Widget widget;
+  final Widget child;
+  final Color? bgColor;
+  final Color? shadowColor;
 
   @override
-  Align build(context) => Align(
-    alignment: Alignment.center,
-    child: Material(
-      borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
-      color: bgColor ?? BaseColors.white80,
-      elevation: elevation,
-      shadowColor: shadowColor ?? BaseColors.brand300,
-      child: widget,
+  Widget build(BuildContext context) => Container(
+    decoration: BoxDecoration(
+      borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+      boxShadow: CcWidgetHelper.getBoxShadows(
+        bgColor: bgColor ?? CcBaseColors.white80,
+        shadowColor: shadowColor ?? CcBaseColors.brand300,
+      ),
     ),
+    child: child,
   );
 }

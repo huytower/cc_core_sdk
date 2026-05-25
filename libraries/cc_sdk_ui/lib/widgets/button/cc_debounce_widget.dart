@@ -1,114 +1,104 @@
-import '../../core/config/tokens/cc_padding_params.dart';
-import '../../core/config/tokens/base_colors.dart';
-import '../space/cc_space.dart';
-import '../text/cc_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:get/get.dart';
 
-import '../../core/helper/widget_helper.dart';
-import '../flex/cc_flex.dart';
+import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/helper/cc_widget_helper.dart';
+import '../text/cc_text.dart';
 
-/// POPULAR WIDGET
-/// + make bounce|debounce animation for input ui, ex. button .v.v.
-class CcDebounce extends StatelessWidget {
-  final VoidCallback? onTap;
-
-  final bool isEnable, isTextCenter, isVisible;
-
-  final BorderRadius? borderRadius;
-  final BoxDecoration? decoration;
-
-  final Color? iconColor, shadowColor, textColor;
-
-  final double? fontSize, height, width;
-
-  final Duration? cooldown;
-  final EdgeInsets? margin;
-
-  final IconData? icon;
-
-  final List<Color>? bgColor;
-
-  final String title;
-
-  /// Input ui, ex. : Text component or [Icon + Text] components
-  final Widget? child;
-
+class CcDebounce extends StatefulWidget {
   const CcDebounce({
-    Key? key,
+    super.key,
     required this.onTap,
-    this.height,
-    this.width,
+    this.child,
+    this.duration = const Duration(milliseconds: 500),
+    this.title,
     this.bgColor,
-    this.borderRadius,
-    this.cooldown = const Duration(milliseconds: 750),
-    this.decoration,
-    this.fontSize,
+    this.textColor,
     this.icon,
     this.iconColor,
     this.isEnable = true,
-    this.isTextCenter = true,
-    this.isVisible = true,
-    this.margin,
-    this.shadowColor,
-    this.textColor,
-    this.title = '',
-    this.child,
-  }) : super(key: key);
+  });
+
+  final VoidCallback? onTap;
+  final Widget? child;
+  final Duration duration;
+  final String? title;
+  final List<Color>? bgColor;
+  final Color? textColor, iconColor;
+  final IconData? icon;
+  final bool isEnable;
 
   @override
-  Widget build(BuildContext context) => Visibility(
-    visible: isVisible,
-    child: Bounceable(onTap: onTap, child: buildBody()),
-  );
+  _CcDebounceState createState() => _CcDebounceState();
+}
 
-  Widget buildBody() =>
-      child ??
-      Container(
-        width: width ?? Get.width,
-        height: height ?? 45,
-        alignment: Alignment.center,
-        decoration: decoration ?? buildDecoration(),
-        margin:
-            margin ??
-            const EdgeInsets.only(
-              left: CcPaddingParams.PAGE_MD,
-              right: CcPaddingParams.PAGE_MD,
-            ),
-        child: icon != null ? buildIconRow() : buildBtnText(),
+class _CcDebounceState extends State<CcDebounce> {
+  bool _isDebouncing = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.child != null) {
+      return GestureDetector(
+        onTap:
+            widget.isEnable && !_isDebouncing
+                ? () {
+                  setState(() => _isDebouncing = true);
+                  widget.onTap?.call();
+                  Future.delayed(
+                    widget.duration,
+                    () => setState(() => _isDebouncing = false),
+                  );
+                }
+                : null,
+        child: widget.child,
       );
+    }
 
-  CcText buildBtnText() => CcText(
-    title,
-    align: isTextCenter ? Alignment.center : Alignment.centerLeft,
-    color: isEnable ? textColor : BaseColors.textSecondary,
-    fontSize: fontSize ?? 16.0,
-    fontWeight: FontWeight.w500,
-    textAlign: isTextCenter ? TextAlign.center : TextAlign.left,
-  );
-
-  BoxDecoration buildDecoration() => BoxDecoration(
-    gradient: LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-      colors: bgColor ?? [BaseColors.brand700, BaseColors.brand700],
-    ),
-    borderRadius: borderRadius ?? WidgetHelper.getCircleBorderRadius(),
-  );
-
-  Widget buildIcon() =>
-      Icon(icon, size: 15, color: iconColor ?? BaseColors.white80);
-
-  Widget buildIconRow() => CcRowCenter(
-    children: [
-      /// icon
-      buildIcon(),
-
-      const CcSpaceSM(),
-
-      /// text
-      buildBtnText(),
-    ],
-  );
+    return GestureDetector(
+      onTap:
+          widget.isEnable && !_isDebouncing
+              ? () {
+                setState(() => _isDebouncing = true);
+                widget.onTap?.call();
+                Future.delayed(
+                  widget.duration,
+                  () => setState(() => _isDebouncing = false),
+                );
+              }
+              : null,
+      child: Container(
+        height: 48,
+        decoration: BoxDecoration(
+          borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
+          gradient: LinearGradient(
+            colors:
+                widget.bgColor ??
+                [CcBaseColors.brand700, CcBaseColors.brand700],
+          ),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (widget.icon != null) ...[
+                Icon(
+                  widget.icon,
+                  size: 15,
+                  color: widget.iconColor ?? CcBaseColors.white80,
+                ),
+                const SizedBox(width: 8),
+              ],
+              CcText(
+                widget.title ?? '',
+                color:
+                    widget.isEnable
+                        ? widget.textColor
+                        : CcBaseColors.textSecondary,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

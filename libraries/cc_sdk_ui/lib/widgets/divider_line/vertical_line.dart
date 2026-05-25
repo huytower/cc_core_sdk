@@ -1,47 +1,52 @@
-import '../../core/config/tokens/base_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/helper/widget_helper.dart';
+import '../../core/config/tokens/cc_base_colors.dart';
 
-class VerticalLineWidget extends StatelessWidget {
-  const VerticalLineWidget({Key? key, required this.flex}) : super(key: key);
+class CcDividerVerticalLine extends StatelessWidget {
+  const CcDividerVerticalLine({
+    super.key,
+    this.color,
+    this.width,
+    this.height,
+  });
 
-  final int flex;
+  final Color? color;
+  final double? width, height;
 
   @override
-  Flexible build(BuildContext context) => Flexible(
-    flex: flex,
+  Widget build(BuildContext context) => Container(
+    width: width ?? 1,
+    height: height ?? 12,
+    color: color ?? CcBaseColors.neutral5,
+  );
+}
+
+class CcDividerIndicatorLine extends StatelessWidget {
+  const CcDividerIndicatorLine({super.key, this.width});
+
+  final double? width;
+
+  @override
+  Widget build(BuildContext context) => Center(
     child: Container(
-      margin: const EdgeInsets.only(left: 0, top: 2),
-      color: BaseColors.neutral5,
-      height: 1,
+      color: CcBaseColors.neutral5,
+      width: width ?? 96,
+      height: 6,
     ),
   );
 }
 
-class VerticalLineShadowFirstWidget extends StatelessWidget {
-  const VerticalLineShadowFirstWidget({Key? key, required this.width})
-    : super(key: key);
+class CcDividerShadowLine extends StatelessWidget {
+  const CcDividerShadowLine({super.key, this.width});
 
   final double? width;
 
   @override
-  ClipRRect build(BuildContext context) => ClipRRect(
-    borderRadius: WidgetHelper.getBorderRoundedSquareTopLeftRight(),
-    child: Container(color: BaseColors.neutral5, width: width ?? 96, height: 6),
-  );
-}
-
-class VerticalLineShadowSecondWidget extends StatelessWidget {
-  const VerticalLineShadowSecondWidget({Key? key, required this.width})
-    : super(key: key);
-
-  final double? width;
-
-  @override
-  ClipRRect build(BuildContext context) => ClipRRect(
-    borderRadius: WidgetHelper.getBorderRoundedSquareTopLeftRight(),
-    child: Container(color: BaseColors.shadow, width: width ?? 128, height: 6),
+  Widget build(BuildContext context) => Center(
+    child: Container(
+      color: CcBaseColors.shadow,
+      width: width ?? 128,
+      height: 6,
+    ),
   );
 }

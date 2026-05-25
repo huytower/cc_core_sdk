@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_config/core/enum/layout_status.dart';
-import 'package:cc_sdk/core/extensions/export_extensions.dart';
+import 'package:cc_sdk/core/extensions/common/cc_when_expression.dart';
 
 @deprecated
 class CcResponse<T> {
@@ -15,21 +15,23 @@ class CcResponse<T> {
   CcResponse.loading();
 
   CcResponse.fromJson(dynamic json) {
-    status =
-        json['status'] != null ? StatusCode.fromJson(json['status']) : null;
+    status = json['status'] != null
+        ? StatusCode.fromJson(json['status'])
+        : null;
     _elements = json['elements'] as List<dynamic>;
   }
 
   /// Using when call api success.
   CcResponse<T> convertToModel(
-      T Function(Map<String, dynamic> element) create) {
+    T Function(Map<String, dynamic> element) create,
+  ) {
     listElements = [];
     _elements?.forEach((element) {
       listElements!.add(create(element));
     });
     firstElement = listElements?.first;
     // handle layout status.
-    when(
+    ccWhen(
       variable: status?.code,
       conditions: {
         200: () {
@@ -62,11 +64,7 @@ class StatusCode {
   dynamic errors;
   int? code;
 
-  StatusCode({
-    bool? success,
-    dynamic errors,
-    int? code,
-  }) {
+  StatusCode({bool? success, dynamic errors, int? code}) {
     success = success;
     errors = errors;
     code = code;

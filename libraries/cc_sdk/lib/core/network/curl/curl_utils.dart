@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
+import '../../extensions/common/cc_when_expression.dart';
 import '../../../export_cc_sdk.dart';
 
 class CurlUtils {
@@ -89,7 +90,7 @@ class CurlUtils {
       }
       var response = (_result as Response<dynamic>).data;
 
-      when(
+      ccWhen(
           conditions: {
             response is List: () {
               for (Map<String, dynamic> item in response) {
@@ -186,7 +187,7 @@ class CurlUtils {
       }
       var response = (_result as Response<dynamic>).data;
 
-      when(
+      ccWhen(
           conditions: {
             response is List: () {
               for (Map<String, dynamic> item in response) {

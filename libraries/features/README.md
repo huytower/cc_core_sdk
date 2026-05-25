@@ -29,7 +29,7 @@ lib/
 │   ├── {feature_name}_init.dart    # Initialization logic
 │   └── {feature_name}_export.dart  # Public API exports
 │
-└── features.dart          # Root export for all features
+└── export_features.dart          # Root export for all features
 ```
 
 ## 🚀 Getting Started
@@ -55,7 +55,7 @@ dependencies:
 4. **Set up DI**: Use `@injectable`, `@lazySingleton`, or `@factory` annotations on your classes.
 5. **Register Exports**: 
     - Add your internal files to `{feature_name}_export.dart`.
-    - Export the feature from the root `lib/features.dart`.
+    - Export the feature from the root `lib/export_features.dart`.
 6. **Generate Code**: Run `build_runner` to update the DI configuration.
 
 ## 🏗️ Dependency Injection
