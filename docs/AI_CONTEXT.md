@@ -9,6 +9,7 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
 ## Recommended Onboarding Path
 
 - Start with `README.md` and this `AI_CONTEXT.md` for architecture intent.
+- Read `docs/onboarding.md` for a step-by-step developer guide.
 - Open `lib/main.dart` to understand how the app boots, loads dependencies, and wraps the root widget.
 - Check `lib/core/di/inject/inject.dart` for the global DI assembly and module registration.
 - Review `libraries/features/lib/export_features.dart` to find reusable feature exports.

@@ -4,11 +4,13 @@ A modular starter kit built around **Clean Architecture** and **SOLID** principl
 
 ## Quick start for new developers
 
-1. Read `AI_CONTEXT.md` for architecture overview and project intent.
+1. Read `docs/AI_CONTEXT.md` for architecture overview and project intent.
 2. Open `lib/main.dart` to follow app startup and feature wiring.
 3. Inspect `lib/core/di/inject/inject.dart` for global dependency registration.
 4. Explore `modules/` for app-specific domain/data modules.
 5. Explore `libraries/features/lib/features/` for reusable feature packages.
+6. Read `docs/onboarding.md` for step-by-step developer onboarding.
+7. Use `docs/CONTRIBUTING.md` for workflow, code review, and documentation sync rules.
 
 Project Structure templates enable you to capture and re-use the structure and content of existing
 projects, including :
