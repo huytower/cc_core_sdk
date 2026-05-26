@@ -1,0 +1,90 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      flavor:
+        description: 'App flavor'
+        required: true
+        default: 'uat'
+        type: choice
+        options: [ free, uat, prod ]
+
+env:
+  FLUTTER_VERSION: '3.24.5'
+
+jobs:
+  # 1. Quality Gate: Runs for everything.
+  quality-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/flutter-setup
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+      - name: Lint & Test
+        run: |
+          melos run analyze
+          melos run test
+
+  # 2. Android Deployment: Only on Main or Dispatch.
+  android-distribute:
+    needs: quality-check
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/flutter-setup
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          setup-java: 'true'
+          ruby-dir: 'android'
+      
+      - name: Prep Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+          cat > android/key.properties << EOF
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=keystore.jks
+          EOF
+
+      - name: Fastlane Distribute
+        run: cd android && bundle exec fastlane distribute_firebase flavor:${{ github.event.inputs.flavor || 'uat' }}
+        env:
+          FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID }}
+          FIREBASE_SERVICE_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_CREDENTIALS }}
+
+  # 3. iOS Deployment: Only on Main or Dispatch.
+  ios-distribute:
+    needs: quality-check
+    if: github.event_name != 'pull_request'
+    runs-on: macos-latest
+    steps:
+      - uses: ./.github/actions/flutter-setup
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          ruby-dir: 'ios'
+
+      - name: Fastlane TestFlight
+        run: cd ios && bundle exec fastlane beta flavor:${{ github.event.inputs.flavor || 'uat' }}
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_KEY_CONTENT }}
+
+  # 4. PR Smoke Test: Ensures the app still compiles.
+  pr-build-test:
+    needs: quality-check
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/flutter-setup
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          setup-java: 'true'
+      - name: Compile Check
+        run: flutter build appbundle --release --flavor free

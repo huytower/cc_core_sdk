@@ -76,7 +76,7 @@ migrate_working_dir/
 #.vscode/
 
 # Flutter/Dart/Pub related
-**/doc/api/
+docs/tech/api/
 .pub-cache/
 /build/
 pubspec.lock
@@ -96,6 +96,8 @@ lib/generated_plugin_registrant.dart
 # Android Studio will place build artifacts here
 # android
 /android/local.properties
+/android/key.properties
+/android/app/keystore.jks
 /android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 /android/.gradle
 /android/app/.cxx/
@@ -116,3 +118,19 @@ lib/generated_plugin_registrant.dart
 
 # FVM Version Cache
 .fvm/
+
+# Fastlane
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+**/fastlane/gc_keys.json
+# Auth Keys
+*.p8
+
+# Melos
+melos_*.log
+
+# Ruby / Bundler
+.bundle/
+vendor/bundle/

@@ -1,0 +1,8 @@
+# For more information about the Appfile, see:
+# https://docs.fastlane.tools/advanced/#appfile
+
+# Default package names for the flavors
+# These can be overridden in the Fastfile if needed
+package_name("mobile.template")
+
+# json_key_file("path/to/google-play-service-key.json")

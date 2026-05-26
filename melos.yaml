@@ -1,0 +1,26 @@
+name: mobile_flutter_template
+
+packages:
+  - .
+  - modules/**
+  - libraries/**
+
+scripts:
+  # Run pub get in all modules
+  get:
+    description: Run `flutter pub get` in all packages.
+    run: melos exec -- "flutter pub get"
+
+  # Run code generation where needed
+  gen:
+    description: Run `build_runner` in all packages that depend on it.
+    run: melos exec --depends-on="build_runner" -- "flutter pub run build_runner build --delete-conflicting-outputs"
+
+  # Quality Gates
+  analyze:
+    description: Analyze all packages.
+    run: melos exec -- "flutter analyze"
+
+  test:
+    description: Run all tests across the workspace.
+    run: melos exec -- "flutter test"
