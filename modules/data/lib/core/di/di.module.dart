@@ -43,6 +43,8 @@ import 'package:data/domain/usecases/upload_pending_crash_logs_usecase.dart'
     as _i813;
 import 'package:dio/dio.dart' as _i361;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
+    as _i161;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 class DataPackageModule extends _i526.MicroPackageModule {
@@ -50,8 +52,6 @@ class DataPackageModule extends _i526.MicroPackageModule {
   @override
   _i687.FutureOr<void> init(_i526.GetItHelper gh) {
     final dataModule = _$DataModule();
-    gh.singleton<Iterable<_i361.Interceptor>>(() => dataModule.ccInterceptors);
-    gh.singleton<_i361.Interceptor>(() => dataModule.ccReqInterceptors);
     gh.lazySingleton<_i198.SampleCodeFakeApiRemote>(
         () => _i198.SampleCodeFakeApiRemote(
               gh<_i361.Dio>(),
@@ -64,31 +64,48 @@ class DataPackageModule extends _i526.MicroPackageModule {
               dio: gh<_i361.Dio>(),
               remote: gh<_i198.SampleCodeFakeApiRemote>(),
             ));
+    gh.singleton<_i361.Interceptor>(
+      () => dataModule.cacheInterceptor,
+      instanceName: 'cacheInterceptor',
+    );
     gh.factory<String>(
       () => dataModule.baseUrl,
       instanceName: 'baseUrl',
+    );
+    gh.singleton<_i361.Interceptor>(
+      () => dataModule.talkerDioLogger,
+      instanceName: 'talkerDioLogger',
+    );
+    gh.singleton<_i361.Interceptor>(
+      () => dataModule.curlLoggerInterceptor,
+      instanceName: 'curlLoggerInterceptor',
+    );
+    gh.singleton<_i361.Interceptor>(
+      () => dataModule.ccReqInterceptor(gh<_i161.InternetConnection>()),
+      instanceName: 'ccReqInterceptor',
     );
     gh.lazySingleton<_i67.HomeRemoteDataSource>(
         () => const _i848.HomeRemoteDataSourceImpl());
     gh.lazySingleton<_i199.HomeLocalDataSource>(
         () => _i419.HomeLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
-    gh.singleton<_i361.Dio>(
-      () => dataModule.dio(gh<String>(instanceName: 'baseUrl')),
+    gh.lazySingleton<_i361.BaseOptions>(
+        () => dataModule.baseOptions(gh<String>(instanceName: 'baseUrl')));
+    gh.singleton<List<_i361.Interceptor>>(() => dataModule.interceptors(
+          gh<_i361.Interceptor>(instanceName: 'ccReqInterceptor'),
+          gh<_i361.Interceptor>(instanceName: 'curlLoggerInterceptor'),
+          gh<_i361.Interceptor>(instanceName: 'talkerDioLogger'),
+          gh<_i361.Interceptor>(instanceName: 'cacheInterceptor'),
+        ));
+    gh.lazySingleton<_i361.Dio>(
+      () => dataModule.dio(
+        gh<_i361.BaseOptions>(),
+        gh<List<_i361.Interceptor>>(),
+      ),
       instanceName: 'baseDio',
     );
-    gh.factory<_i516.HomeRemote>(
-        () => _i516.HomeRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
-    gh.singleton<_i574.CommentRemote>(
-        () => _i574.CommentRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
-    gh.singleton<_i683.CommentRepository>(() =>
-        _i576.CommentRepositoryImpl(commentRemote: gh<_i574.CommentRemote>()));
     gh.lazySingleton<_i515.HomeRepository>(() => _i114.HomeRepositoryImpl(
           localDataSource: gh<_i199.HomeLocalDataSource>(),
           remoteDataSource: gh<_i67.HomeRemoteDataSource>(),
-        ));
-    gh.factory<_i2.HomeRepositoriesImpl>(() => _i2.HomeRepositoriesImpl(
-          dio: gh<_i361.Dio>(),
-          homeRemote: gh<_i516.HomeRemote>(),
         ));
     gh.lazySingleton<_i313.CrashLogRemote>(
         () => _i313.CrashLogRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
@@ -100,8 +117,18 @@ class DataPackageModule extends _i526.MicroPackageModule {
         () => _i15.UpdateHomeDataUseCase(gh<_i515.HomeRepository>()));
     gh.lazySingleton<_i63.CrashLogRepository>(
         () => _i701.CrashLogRepositoryImpl(gh<_i313.CrashLogRemote>()));
+    gh.factory<_i516.HomeRemote>(
+        () => _i516.HomeRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
+    gh.singleton<_i574.CommentRemote>(
+        () => _i574.CommentRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
     gh.lazySingleton<_i813.UploadPendingCrashLogsUseCase>(() =>
         _i813.UploadPendingCrashLogsUseCase(gh<_i63.CrashLogRepository>()));
+    gh.singleton<_i683.CommentRepository>(() =>
+        _i576.CommentRepositoryImpl(commentRemote: gh<_i574.CommentRemote>()));
+    gh.factory<_i2.HomeRepositoriesImpl>(() => _i2.HomeRepositoriesImpl(
+          dio: gh<_i361.Dio>(),
+          homeRemote: gh<_i516.HomeRemote>(),
+        ));
   }
 }
 

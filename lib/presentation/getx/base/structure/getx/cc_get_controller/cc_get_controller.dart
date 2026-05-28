@@ -1,33 +1,22 @@
-import 'dart:io';
-
 import 'package:app_config/core/enum/layout_status.dart';
 import 'package:cc_sdk/core/helper/cc_network_helper.dart';
-import 'package:data/core/config/retrofit/response/body/cc_res_body_model.dart';
+import 'package:cc_sdk/domain/failures/cc_failure.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:message/cc_locale_keys.dart';
+import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../../../core/di/inject/inject.dart';
 
-abstract class CcGetController extends SuperController {
+abstract class CcGetController extends GetxController {
   Rx<LayoutStatus> layoutStatus = Rx<LayoutStatus>(LayoutStatus.loading);
   RxString errorMessage = RxString('');
 
-  @override
-  void onDetached() {}
-
-  @override
-  void onHidden() {}
-
-  @override
-  void onInactive() {}
-
-  @override
-  void onPaused() {}
-
-  @override
-  void onResumed() {}
-
-  /// is override? onChangeState?
+  /// Handles UI rendering based on the current [layoutStatus].
+  ///
+  /// This widget automatically reacts to changes in [layoutStatus] and
+  /// switches between loading, success, empty, and error states.
   Widget multipleLayoutStates({
     Function(LayoutStatus? layoutStatus)? onChangeState,
     required Widget Function() onLoading,
@@ -36,18 +25,6 @@ abstract class CcGetController extends SuperController {
     Function()? empty,
     required Widget Function(String code) onError,
   }) {
-    // onChangeState?.call(LayoutStatus.loading);
-    //
-    // if (!initialized) {
-    //   return const SizedBox();
-    // }
-    //
-    // if (layoutStatus.value == LayoutStatus.loading) {
-    //   return onLoading();
-    // } else {
-    //   return onSuccess();
-    // }
-
     onChangeState?.call(layoutStatus.value);
 
     return Obx(() {
@@ -62,51 +39,55 @@ abstract class CcGetController extends SuperController {
         case LayoutStatus.empty:
           return onEmpty();
         case LayoutStatus.load_more:
-          return const SizedBox(); // or handle as needed
+          return const SizedBox();
       }
-      // return when(
-      //   variable: layoutStatus,
-      //   conditions: {
-      //     LayoutStatus.loading: () {
-      //       return onLoading();
-      //     },
-      //     LayoutStatus.success: () {
-      //       // return onSuccess(response);
-      //       return onSuccess();
-      //     }
-      //   },
-      //   orElse: onError("100"),
-      // );
-      // if (layoutStatus.value == LayoutStatus.loading || layoutStatus.value == LayoutStatus.loadingLayer) {
-      //   return onLoading();
-      // } else {
-      //   return onSuccess();
-      // }
     });
   }
 
-  Future<void> ccFetchData<T>({
-    required Future<CcResBodyModel<T>> Function() fetchFunction,
-    required RxList<T> targetList,
+  /// A helper method to fetch data and automatically manage the [layoutStatus].
+  ///
+  /// - [fetchFunction]: The repository call returning a [Result].
+  /// - [targetList]: Optional [RxList] to automatically populate on success.
+  ///
+  /// Returns the [Result] for further processing if needed.
+  Future<Result<List<T>, Failure>> ccFetchData<T>({
+    required Future<Result<List<T>, Failure>> Function() fetchFunction,
+    RxList<T>? targetList,
   }) async {
     layoutStatus.value = LayoutStatus.loading;
     try {
       final hasInternet = await getIt<CcNetworkHelper>().hasInternet;
       if (!hasInternet) {
-        throw const SocketException("No internet connection");
+        final errorMsg = el.tr(CcLocaleKeys.app_error_network);
+        errorMessage.value = errorMsg;
+        layoutStatus.value = LayoutStatus.error;
+        return Error(NetworkFailure(errorMsg));
       }
 
       final result = await fetchFunction();
-      targetList.assignAll(result.listElements);
-      layoutStatus.value = LayoutStatus.success;
 
-      /// Check if whether targetList is empty or not
-      if (targetList.isEmpty) {
-        layoutStatus.value = LayoutStatus.empty;
-      }
+      result.when(
+        (success) {
+          targetList?.assignAll(success);
+
+          if (success.isEmpty) {
+            layoutStatus.value = LayoutStatus.empty;
+          } else {
+            layoutStatus.value = LayoutStatus.success;
+          }
+        },
+        (error) {
+          errorMessage.value = error.message;
+          layoutStatus.value = LayoutStatus.error;
+        },
+      );
+
+      return result;
     } catch (e) {
-      errorMessage.value = e.toString();
+      final errorMsg = e.toString();
+      errorMessage.value = errorMsg;
       layoutStatus.value = LayoutStatus.error;
+      return Error(ServerFailure(errorMsg));
     }
   }
 }

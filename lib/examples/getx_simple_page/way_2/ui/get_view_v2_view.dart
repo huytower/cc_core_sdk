@@ -9,12 +9,13 @@ import 'package:get/get.dart';
 
 import '../../../../presentation/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
 import '../getx/get_view_v2_logic.dart';
+import '../getx/get_view_v2_state.dart';
 import '../mixin/get_view_v2_provider.dart';
 
 @RoutePage()
 class GetViewV2Page extends CcGetView<GetViewV2Logic> with GetViewV2Provider {
-  final logic = Get.find<GetViewV2Logic>();
-  final state = Get.find<GetViewV2Logic>().state;
+  GetViewV2Logic get logic => controller;
+  GetViewV2State get state => controller.pageState;
 
   GetViewV2Page({super.key});
 

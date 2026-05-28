@@ -1,146 +1,119 @@
 import 'package:app_config/core/config/http/http_client/http_client_config.dart';
+import 'package:cc_sdk/core/config/cc_feature_flags.dart';
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:cc_sdk/core/extensions/common/cc_when_expression.dart';
 import 'package:cc_sdk/core/helper/cc_network_helper.dart';
+import 'package:cc_sdk/core/network/curl/curl_utils.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:message/cc_locale_keys.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
 @module
 abstract class DataModule {
-  // @preResolve
-  // Future<HomeDatabase> get homeDatabase async {
-  //   return $FloorHomeDatabase.databaseBuilder('home_database.db').build();
-  // }
-
-  // @preResolve
-  // Future<SettingDatabase> get settingDatabase async {
-  //   return $FloorSettingDatabase.databaseBuilder('setting_database.db').build();
-  // }
-
   //region Register dependency name
   @Named("baseUrl")
   String get baseUrl => HttpClientConfig.baseUrl;
 
-  @singleton
+  @lazySingleton
+  BaseOptions baseOptions(@Named("baseUrl") String baseUrl) {
+    final httpConfig = HttpClientConfig.httpConfig;
+    final timeout = Duration(seconds: httpConfig.apiTimeoutSeconds);
+
+    return BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: timeout,
+      receiveTimeout: timeout,
+      sendTimeout: timeout,
+      headers: HttpClientConfig.apiHeaders,
+    );
+  }
+
+  @lazySingleton
   @Named("baseDio")
-  Dio dio(@Named("baseUrl") String baseUrl) {
-    var _dio = Dio(
-      BaseOptions(
-        /// baseUrl: NOT DEFINE HERE, FOLLOW RETROFIT ANNOTATION
-        baseUrl: baseUrl,
+  Dio dio(BaseOptions options, List<Interceptor> interceptors) {
+    final dio = Dio(options);
 
-        /// Set default timeout for retrofit.
-        connectTimeout: const Duration(seconds: 40),
-        receiveTimeout: const Duration(seconds: 40),
-        sendTimeout: const Duration(seconds: 40),
-        headers: {
-          'User-Agent':
-              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-          'Accept': 'application/json, text/plain, */*',
-          'Accept-Language': 'en-US,en;q=0.9',
-          'Connection': 'keep-alive',
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache',
-        },
-      ),
-    );
+    dio.interceptors.addAll(interceptors);
 
-    _dio.interceptors.addAll(ccInterceptors);
+    // Add retry interceptor separately because it needs the dio instance
+    dio.interceptors.add(_retryInterceptor(dio));
 
-    // Add retry interceptor
-    _dio.interceptors.add(
-      RetryInterceptor(
-        dio: _dio,
-        logPrint: print,
-        retries: 3,
-        retryEvaluator: (e, attempt) {
-          if (e.type == DioExceptionType.badResponse &&
-              e.response?.statusCode == 403) {
-            return true;
-          }
-          return false;
-        },
-        retryDelays: const [
-          Duration(seconds: 1),
-          Duration(seconds: 2),
-          Duration(seconds: 3),
-        ],
-      ),
-    );
-
-    return _dio;
-  }
-
-  // Dio dio = ccDio();
-
-  // Interceptors
-  @singleton
-  Iterable<Interceptor> get ccInterceptors {
-    final loggerCurl = CurlLoggerDioInterceptor(printOnSuccess: true);
-    final loggerTalker = TalkerDioLogger(
-      settings: const TalkerDioLoggerSettings(
-        printResponseData: false,
-        printRequestData: true,
-      ),
-    );
-
-    final cacheStore = MemCacheStore(maxSize: 10485760, maxEntrySize: 1048576);
-    final cache = DioCacheInterceptor(
-      options: CacheOptions(
-        store: cacheStore,
-        allowPostMethod: false,
-        policy: CachePolicy.request,
-      ),
-    );
-
-    return [ccReqInterceptors, loggerCurl, loggerTalker, cache];
+    return dio;
   }
 
   @singleton
-  Interceptor get ccReqInterceptors => InterceptorsWrapper(
+  List<Interceptor> interceptors(
+    @Named("ccReqInterceptor") Interceptor ccReqInterceptor,
+    @Named("curlLoggerInterceptor") Interceptor curlLoggerInterceptor,
+    @Named("talkerDioLogger") Interceptor talkerDioLogger,
+    @Named("cacheInterceptor") Interceptor cacheInterceptor,
+  ) {
+    return [
+      ccReqInterceptor,
+      if (CcFeatureFlags.isEnableLoggerDio) curlLoggerInterceptor,
+      if (CcFeatureFlags.isEnableLoggerDio) talkerDioLogger,
+      cacheInterceptor,
+    ];
+  }
+
+  @singleton
+  @Named("ccReqInterceptor")
+  Interceptor ccReqInterceptor(
+    InternetConnection internetConnection,
+  ) => InterceptorsWrapper(
     onRequest: (options, handler) async {
       /// Check internet connection
-      final hasInternet = await CcNetworkHelper(
-        InternetConnection(),
-      ).hasInternet;
+      final hasInternet = await CcNetworkHelper(internetConnection).hasInternet;
       if (!hasInternet) {
-        'No internet connection'.Log();
+        final errorMsg = el.tr(CcLocaleKeys.app_error_network);
+        errorMsg.Log();
         return handler.reject(
           DioException(
             requestOptions: options,
             type: DioExceptionType.connectionError,
-            error: 'No internet connection',
+            error: errorMsg,
           ),
         );
       }
 
-      'onRequest() '.Log();
+      'onRequest() : ${options.uri}'.Log();
 
-      /// handle token invalid :
-      /// call app get token.
+      /// Handle token logic or specific header cleanup
+      /// IMPORTANT: Be careful not to wipe ALL headers unless intended.
       ccWhen(
         conditions: {
           options.headers.containsValue("empty"): () {
-            options.headers = {};
+            options.headers.removeWhere((key, value) => value == "empty");
           },
           options.headers.containsValue("host_es"): () {
-            options.headers = {};
+            // Handle specific host logic if needed
           },
         },
-        orElse: () {
-          options.headers = {};
-        },
       );
+
       return handler.next(options);
     },
     onResponse: (response, handler) async {
-      'onResponse() : response = $response'.Log();
+      'onResponse() : status = ${response.statusCode}'.Log();
+
+      if (CcFeatureFlags.isEnableLoggerDio) {
+        final curl = await CurlUtils.instance.representation(
+          response.requestOptions,
+        );
+        var url =
+            "[Dio Interceptor]\n[Request: ${response.requestOptions.method}] : ${response.requestOptions.uri}\n";
+        var _message =
+            "$url[Curl]:\n$curl\n[Response: ${response.statusCode}]:\n ${response.data}";
+
+        _message.Log("", true, "logger:###/");
+      }
 
       /// Wrap response data into Map<String, dynamic> if response data is a List
       try {
@@ -148,29 +121,75 @@ abstract class DataModule {
           response.data = wrapListResponse(response.data);
         }
       } catch (e) {
-        print('Error transforming response data: $e');
+        'Error transforming response data: $e'.Log();
       }
       return handler.next(response);
     },
     onError: (e, handler) {
-      'onError() : $e'.Log();
-
-      // Handle 403 errors specifically
-      if (e.response?.statusCode == 403) {
-        // Add a delay before retrying
-        Future.delayed(const Duration(seconds: 2));
-        return handler.next(e);
-      }
-
+      'onError() : [${e.response?.statusCode}] $e'.Log();
       return handler.next(e);
     },
   );
+
+  @singleton
+  @Named("curlLoggerInterceptor")
+  Interceptor get curlLoggerInterceptor =>
+      CurlLoggerDioInterceptor(printOnSuccess: true);
+
+  @singleton
+  @Named("talkerDioLogger")
+  Interceptor get talkerDioLogger => TalkerDioLogger(
+    settings: const TalkerDioLoggerSettings(
+      printResponseData: false,
+      printRequestData: true,
+    ),
+  );
+
+  @singleton
+  @Named("cacheInterceptor")
+  Interceptor get cacheInterceptor {
+    final cacheStore = MemCacheStore(maxSize: 10485760, maxEntrySize: 1048576);
+    return DioCacheInterceptor(
+      options: CacheOptions(
+        store: cacheStore,
+        allowPostMethod: false,
+        policy: CachePolicy.request,
+      ),
+    );
+  }
+
+  /// Helper to configure RetryInterceptor without circularity
+  Interceptor _retryInterceptor(Dio dio) {
+    final httpConfig = HttpClientConfig.httpConfig;
+    return RetryInterceptor(
+      dio: dio,
+      logPrint: (message) => message.Log("RetryInterceptor"),
+      retries: httpConfig.maxRetries,
+      retryEvaluator: (e, attempt) {
+        // Retry on connection issues or 403
+        if (e.type == DioExceptionType.connectionError ||
+            e.type == DioExceptionType.connectionTimeout) {
+          return true;
+        }
+        if (e.type == DioExceptionType.badResponse &&
+            e.response?.statusCode == 403) {
+          return true;
+        }
+        return false;
+      },
+      retryDelays: List.generate(
+        httpConfig.maxRetries,
+        (index) =>
+            Duration(milliseconds: httpConfig.retryDelayMs * (index + 1)),
+      ),
+    );
+  }
 
   /// Helper method to wrap list response data into a map
   Map<String, dynamic> wrapListResponse(List<dynamic> data) {
     return {
       "status": true,
-      "message": "Data fetched successfully",
+      "message": el.tr(CcLocaleKeys.home_recent_activity),
       "total": data.length,
       "data": data,
     };

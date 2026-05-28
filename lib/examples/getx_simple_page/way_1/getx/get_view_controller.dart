@@ -31,7 +31,7 @@ class GetViewBinding extends Bindings {
 
 @lazySingleton
 class GetViewController extends CcGetController {
-  SampleCodeFakeApiImpl repository;
+  final SampleCodeFakeApiRepositories repository;
 
   @factoryMethod
   GetViewController({required this.repository});
@@ -65,6 +65,8 @@ class GetViewController extends CcGetController {
         .Log();
 
     try {
+      layoutStatus.value = LayoutStatus.loading;
+
       // Create a pagination request with default values
       const paginationRequest = PaginationRequest(
         page: 1, // Start with page 1
@@ -75,40 +77,59 @@ class GetViewController extends CcGetController {
         paginationRequest: paginationRequest,
       );
 
-      // Clear existing data before adding new data
-      sampleCodeFakeList.clear();
+      res.when(
+        (success) {
+          // Clear existing data before adding new data
+          sampleCodeFakeList.clear();
 
-      // Add new data if available
-      if (res.items.isNotEmpty) {
-        l = res.items;
-        sampleCodeFakeList.addAll(l);
-      }
+          // Add new data if available
+          if (success.items.isNotEmpty) {
+            l = List.from(success.items);
+            sampleCodeFakeList.addAll(l);
+          }
 
-      layoutStatus.value = LayoutStatus.success;
+          layoutStatus.value = LayoutStatus.success;
+        },
+        (error) {
+          'Error fetching news: ${error.message}'.Log();
+          layoutStatus.value = LayoutStatus.error;
+        },
+      );
     } catch (e, stackTrace) {
       'catch: e = $e'.Log();
       Catcher2.reportCheckedError(e, stackTrace);
+      layoutStatus.value = LayoutStatus.error;
     }
   }
 
   Future fetchNewsDetailApi(String id) async {
     try {
+      layoutStatus.value = LayoutStatus.loading;
+
       final res = await repository.getById(id);
 
-      'res = $res'.Log();
-
-      layoutStatus.value = LayoutStatus.success;
+      res.when(
+        (success) {
+          'res detail = $success'.Log();
+          layoutStatus.value = LayoutStatus.success;
+        },
+        (error) {
+          'Error fetching news detail: ${error.message}'.Log();
+          layoutStatus.value = LayoutStatus.error;
+        },
+      );
     } catch (e) {
       'e = $e'.Log();
+      layoutStatus.value = LayoutStatus.error;
     }
   }
 
   Future<bool> onLoadMore() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    l.forEach((element) {
+    for (var element in l) {
       sampleCodeFakeList.add(element);
-    });
+    }
 
     return true;
   }

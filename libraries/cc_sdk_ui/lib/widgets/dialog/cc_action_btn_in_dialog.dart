@@ -1,14 +1,15 @@
-import '../../core/config/tokens/cc_padding_params.dart';
-import '../../core/config/tokens/cc_base_colors.dart';
-import '../button/cc_debounce_widget.dart';
-import '../container/cc_container_rounded_corner_widget.dart';
-import '../divider_line/cc_divider.dart';
-import '../text/cc_text.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:message/cc_locale_keys.dart';
 
+import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/config/tokens/cc_padding_params.dart';
+import '../button/cc_debounce_widget.dart';
+import '../container/cc_container_rounded_corner_widget.dart';
+import '../divider_line/cc_divider.dart';
 import '../flex/cc_flex.dart';
+import '../text/cc_text.dart';
 
 /// Action buttons, ex. : cancel, okay .v.v.
 class CcActionBtnInDialog extends StatelessWidget {
@@ -95,7 +96,7 @@ class CcActionBtnInDialog extends StatelessWidget {
         children: [
           CcContainerRoundedCorner(color: btnBgColor ?? CcBaseColors.brand700),
           CcText(
-            cancelText ?? el.tr('common.cancel'),
+            cancelText ?? el.tr(CcLocaleKeys.common_cancel),
             align: Alignment.center,
             color: cancelTextColor ?? CcBaseColors.textInvert,
             fontSize: fontSize ?? 14.0,
@@ -115,7 +116,7 @@ class CcActionBtnInDialog extends StatelessWidget {
         children: [
           CcContainerRoundedCorner(color: btnBgColor ?? CcBaseColors.brand700),
           CcText(
-            agreeText ?? el.tr('common.ok'),
+            agreeText ?? el.tr(CcLocaleKeys.common_ok),
             align: Alignment.center,
             color: confirmTextColor ?? CcBaseColors.textInvert,
             fontWeight: FontWeight.w600,

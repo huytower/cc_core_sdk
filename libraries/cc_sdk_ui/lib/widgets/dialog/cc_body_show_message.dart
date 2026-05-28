@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:message/cc_locale_keys.dart';
 
 import '../../widgets/button/cc_debounce_widget.dart';
 import '../../widgets/space/cc_space.dart';
@@ -48,7 +49,7 @@ class CcBodyShowMessage extends StatelessWidget {
                         onTap: () => Get.back(),
                         iconColor: Colors.pink,
                         textColor: Colors.white,
-                        title: el.tr('common.cancel'),
+                        title: el.tr(CcLocaleKeys.common_cancel),
                       ),
                     )
                   : const SizedBox(),
@@ -57,7 +58,7 @@ class CcBodyShowMessage extends StatelessWidget {
                   onTap: onTabOK,
                   iconColor: Colors.pink,
                   textColor: Colors.white,
-                  title: el.tr('common.ok'),
+                  title: el.tr(CcLocaleKeys.common_ok),
                 ),
               ),
             ],

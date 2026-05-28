@@ -1,210 +1,112 @@
-# CI/CD Setup Guide
+# CI/CD Setup Guide (Pro Version)
 
-This guide explains how to set up CI/CD for building and distributing AAB files to Firebase App Distribution using GitHub Actions.
+This guide explains how to set up the automated CI/CD pipeline for this modular Flutter project using **Melos**, **Fastlane**, and **GitHub Actions**.
 
 ## Overview
 
 The CI/CD pipeline automatically:
-- Builds Android App Bundle (AAB) for different flavors (free, uat, prod)
-- Signs the AAB with your release keystore
-- Uploads the AAB to Firebase App Distribution for testing
+- **Validates**: Runs Linting and Tests across all modules using **Melos**.
+- **Android**: Builds AAB and distributes to **Firebase App Distribution**.
+- **iOS**: Builds IPA (Gym) and distributes to **TestFlight** (Pilot) using App Store Connect API Keys.
 
 ## Prerequisites
 
-1. **GitHub Repository** with Actions enabled
-2. **Firebase Project** with App Distribution configured
-3. **Android Keystore** for signing release builds
+1.  **GitHub Repository** with Actions enabled.
+2.  **Firebase Project** for Android testing.
+3.  **Apple Developer Program** membership for TestFlight.
+4.  **Melos** installed locally for management (`dart pub global activate melos`).
+
+---
 
 ## Required GitHub Secrets
 
-Configure these secrets in your GitHub repository settings (`Settings > Secrets and variables > Actions`):
+Configure these secrets in `Settings > Secrets and variables > Actions`:
 
-### Android Signing Secrets
+### 1. Android Signing & Firebase
 
-| Secret Name | Description | How to Generate |
-|-------------|-------------|-----------------|
-| `KEYSTORE_BASE64` | Base64-encoded keystore file | `base64 -i your-keystore.jks \| pbcopy` (Mac) or `base64 -w 0 your-keystore.jks` (Linux) |
-| `KEYSTORE_PASSWORD` | Password for the keystore | Set when creating keystore |
-| `KEY_PASSWORD` | Password for the key | Set when creating keystore |
-| `KEY_ALIAS` | Alias of the key in keystore | Set when creating keystore |
+| Secret Name | Description |
+| :--- | :--- |
+| `KEYSTORE_BASE64` | Base64-encoded `.jks` file |
+| `KEYSTORE_PASSWORD` | Password for the keystore |
+| `KEY_PASSWORD` | Password for the key |
+| `KEY_ALIAS` | Alias of the key in keystore |
+| `FIREBASE_APP_ID` | Android App ID from Firebase |
+| `FIREBASE_SERVICE_CREDENTIALS` | Service Account JSON for Firebase |
 
-### Firebase App Distribution Secrets
+### 2. iOS & TestFlight (App Store Connect API)
 
-| Secret Name | Description | How to Generate |
-|-------------|-------------|-----------------|
-| `FIREBASE_APP_ID` | Your Firebase App ID | Found in Firebase Console > Project Settings > General |
-| `FIREBASE_SERVICE_CREDENTIALS` | Firebase service account JSON | See Firebase Service Account Setup below |
-| `FIREBASE_TESTER_GROUPS` | Comma-separated tester groups | Create groups in Firebase App Distribution |
+| Secret Name | Description | How to Get |
+| :--- | :--- | :--- |
+| `APP_STORE_CONNECT_KEY_ID` | 10-char Key ID | App Store Connect > Users > Keys |
+| `APP_STORE_CONNECT_ISSUER_ID` | Issuer ID UUID | App Store Connect > Users > Keys |
+| `APP_STORE_CONNECT_KEY_CONTENT` | Base64 encoded `.p8` key | `base64 AuthKey_XXX.p8` |
+
+---
 
 ## Setup Steps
 
-### 1. Create Android Keystore
-
-If you don't have a keystore, create one:
-
+### 1. Workspace Management (Melos)
+This project is modular. Locally, always run:
 ```bash
-keytool -genkey -v -keystore ~/keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias your-alias
+melos bootstrap
 ```
+This links all packages (`cc_sdk`, `message`, `data`, etc.) and runs `pub get` everywhere.
 
-Remember to:
-- Store the keystore file securely
-- Remember all passwords (keystore password and key password)
-- Note the key alias
-
-### 2. Encode Keystore to Base64
-
-**On Mac/Linux:**
-```bash
-base64 -i your-keystore.jks | pbcopy
-```
-
-**On Windows (PowerShell):**
+### 2. Android Keystore
+Generate a keystore and encode it for GitHub:
 ```powershell
+# Windows PowerShell
 [Convert]::ToBase64String([IO.File]::ReadAllBytes("your-keystore.jks")) | Set-Clipboard
 ```
+Paste this into the `KEYSTORE_BASE64` secret.
 
-### 3. Setup Firebase App Distribution
+### 3. iOS Fastlane Setup
+1.  Go to [App Store Connect > Users and Access > Integrations](https://appstoreconnect.apple.com/access/api).
+2.  Generate an **App Store Connect API Key** (Admin or App Manager access).
+3.  Download the `.p8` file, encode it to base64, and add to GitHub Secrets.
+4.  Update `ios/fastlane/Appfile` with your `team_id` and `itc_team_id`.
 
-#### a. Create Firebase Project
+---
 
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Create a new project or select existing one
-3. Add an Android app with your package name:
-   - `mobile.template` (prod)
-   - `mobile.template.uat` (uat)
-   - `mobile.template.free` (free)
+## Workflow Structure
 
-#### b. Get Firebase App ID
+The pipeline is defined in `.github/workflows/firebase-app-distribution.yml` and uses a composite action for speed.
 
-1. Go to Project Settings > General
-2. Scroll to "Your apps" section
-3. Find your Android app and copy the App ID (format: `1:123456789:android:abcdef`)
-
-#### c. Create Service Account
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Select your Firebase project
-3. Navigate to IAM & Admin > Service Accounts
-4. Click "Create Service Account"
-5. Grant the following roles:
-   - Firebase App Distribution Admin
-   - (Optional) Firebase Viewer
-6. Create and download the JSON key file
-7. Copy the entire content of the JSON file
-
-#### d. Create Tester Groups
-
-1. Go to Firebase Console > App Distribution
-2. Create tester groups (e.g., `internal-testers`, `beta-testers`)
-3. Add testers to groups via email
-
-### 4. Add Secrets to GitHub
-
-1. Go to your GitHub repository
-2. Navigate to `Settings > Secrets and variables > Actions`
-3. Click "New repository secret"
-4. Add each secret from the tables above
-
-### 5. Configure Local Signing (Optional)
-
-For local release builds, create `android/key.properties`:
-
-```properties
-storePassword=your_keystore_password
-keyPassword=your_key_password
-keyAlias=your_key_alias
-storeFile=keystore.jks
-```
-
-Place your keystore file at `android/app/keystore.jks`
-
-Add `android/key.properties` to `.gitignore` (it should already be there).
-
-## Workflow Triggers
-
-The GitHub Actions workflow triggers on:
-
-1. **Push to main branch** - Builds and deploys `uat` flavor by default
-2. **Pull requests to main** - Builds `free` flavor for testing (no deployment)
-3. **Manual dispatch** - Choose any flavor (free, uat, prod) to build and deploy
+### Jobs:
+1.  **Quality Check**: Runs `melos run analyze` and `melos run test`. **Must pass** for any build to start.
+2.  **Android Distribute**: Triggered on push to `main` or manual dispatch. Uses Fastlane `distribute_firebase`.
+3.  **iOS Distribute**: Triggered on push to `main` or manual dispatch. Uses Fastlane `beta` (Gym + Pilot).
+4.  **PR Smoke Test**: Runs on Pull Requests to ensure the app compiles (`free` flavor).
 
 ### Manual Deployment
+1.  Go to **Actions** tab.
+2.  Select **CI/CD Pipeline**.
+3.  Click **Run workflow**, choose your branch and **Flavor** (free, uat, prod).
 
-To manually deploy a specific flavor:
-
-1. Go to GitHub Actions tab
-2. Select "Build and Distribute AAB to Firebase App Distribution"
-3. Click "Run workflow"
-4. Choose the flavor you want to build
-5. Click "Run workflow"
-
-## Workflow Features
-
-- **Automatic flavor detection**: Uses `uat` by default, or chosen flavor in manual dispatch
-- **Artifact retention**: AAB files are kept as GitHub artifacts for 30 days
-- **Security**: Keystore is cleaned up after the build
-- **Release notes**: Automatically includes commit SHA, branch, and build number
-- **Pull request handling**: Builds but doesn't deploy for PRs
-
-## Build Output
-
-The AAB file will be at:
-```
-build/app/outputs/bundle/{FLAVOR}Release/app-{FLAVOR}-release.aab
-```
-
-Flavors:
-- `free`: `build/app/outputs/bundle/freeRelease/app-free-release.aab`
-- `uat`: `build/app/outputs/bundle/uatRelease/app-uat-release.aab`
-- `prod`: `build/app/outputs/bundle/prodRelease/app-prod-release.aab`
+---
 
 ## Troubleshooting
 
-### Build fails with signing errors
+### Melos Issues
+- If dependencies aren't found, run `melos bootstrap`.
+- To run code gen everywhere: `melos run gen`.
 
-- Verify all secrets are correctly set
-- Check that `KEYSTORE_BASE64` is properly encoded
-- Ensure passwords match your keystore credentials
+### Fastlane Errors
+- **Android**: Verify `FIREBASE_SERVICE_CREDENTIALS` is the full JSON string.
+- **iOS**: If upload fails, check if the `APP_STORE_CONNECT_KEY_CONTENT` base64 string includes the "BEGIN/END" headers (it should).
 
-### Firebase App Distribution fails
+### Local Testing
+You can run the exact same logic as the CI locally:
+```bash
+# Android
+cd android && bundle exec fastlane distribute_firebase flavor:uat
 
-- Verify `FIREBASE_APP_ID` is correct
-- Check that service account has proper permissions
-- Ensure `FIREBASE_SERVICE_CREDENTIALS` is valid JSON
-- Verify tester groups exist in Firebase Console
+# iOS
+cd ios && bundle exec fastlane beta flavor:uat
+```
 
-### Local build issues
+---
 
-- Ensure `android/key.properties` exists for local builds
-- Verify keystore file path in `key.properties`
-- Check that local.properties contains Flutter version info
-
-### Flutter version mismatch
-
-The workflow uses Flutter 3.24.5. To change:
-- Update `FLUTTER_VERSION` in `.github/workflows/firebase-app-distribution.yml`
-
-## Security Best Practices
-
-1. **Never commit keystore files** to the repository
-2. **Rotate credentials** periodically
-3. **Limit access** to service accounts
-4. **Use different keys** for different environments
-5. **Monitor Firebase App Distribution** access logs
-
-## Next Steps
-
-After setup:
-
-1. Test the workflow by manually triggering it
-2. Verify the AAB appears in Firebase App Distribution
-3. Invite testers to your configured groups
-4. Set up branch protection rules if needed
-5. Consider adding automated testing to the workflow
-
-## Additional Resources
-
-- [Firebase App Distribution Documentation](https://firebase.google.com/docs/app-distribution)
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [Android App Bundle Guide](https://developer.android.com/guide/app-bundle)
-- [Flutter Build Documentation](https://docs.flutter.dev/deployment/android)
+## Maintenance
+- **Flutter Version**: Update `FLUTTER_VERSION` in the `.yml` file.
+- **Tools**: The setup logic is shared in `.github/actions/flutter-setup/action.yml`. Update there to affect all jobs.
