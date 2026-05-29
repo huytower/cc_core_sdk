@@ -54,7 +54,7 @@ jobs:
           keyPassword=${{ secrets.KEY_PASSWORD }}
           keyAlias=${{ secrets.KEY_ALIAS }}
           storeFile=keystore.jks
-        EOF
+          EOF
 
       - name: Generate Code
         run: melos run gen
