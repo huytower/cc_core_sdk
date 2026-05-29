@@ -81,8 +81,13 @@ docs/tech/api/
 /build/
 pubspec.lock
 .android/
+# Exclude generated files globally, but allow specific modules
 **/*.g.dart
+!modules/app_config/lib/**/*.g.dart
+!modules/data/lib/**/*.g.dart
 **/*.config.dart
+!modules/app_config/lib/**/*.config.dart
+!modules/data/lib/**/*.config.dart
 **/*.freezed.dart
 **/*.gr.dart
 
@@ -112,7 +117,7 @@ lib/generated_plugin_registrant.dart
 /ios/Podfile.lock
 /ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
 /ios/Runner.xcodeproj/xcshareddata
-/ios/Runner.xcworkspace/contents.xcworkspacedata
+/ios/Runner.xcodeworkspace/contents.xcworkspacedata
 # MUST only commit for the first time push in .git
 /ios/Runner.xcodeproj/project.pbxproj
 
