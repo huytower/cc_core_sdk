@@ -8,9 +8,9 @@ environment:
 
 dependencies:
   cc_sdk:
-    path: ../cc_sdk
+    path: ../libraries/cc_sdk
   cc_sdk_ui:
-    path: ../cc_sdk_ui
+    path: ../libraries/cc_sdk_ui
   dio: ^5.9.2
   easy_localization: ^3.0.8
   equatable: ^2.0.8
