@@ -29,6 +29,7 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
       - name: Lint & Test
         run: |
+          melos run gen
           melos run analyze
           melos run test
 
