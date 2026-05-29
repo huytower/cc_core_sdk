@@ -10,6 +10,7 @@ import '../../../../core/models/pagination_request.dart';
 import '../../../../core/repository/cc_base_repository.dart';
 import '../../../data/datasource/remote/sample_code_fake_api/sample_code_fake_api_remote.dart';
 import '../../entities/sample_code_fake_api/res_sample_code_fake_model.dart';
+import '../../entities/sample_code_fake_api/sample_code_fake_entity.dart';
 
 /// [SampleCodeFakeApiRepositories] - Domain Layer Contract
 ///
@@ -18,17 +19,17 @@ import '../../entities/sample_code_fake_api/res_sample_code_fake_model.dart';
 /// [Success] and [Failure] cases, preventing unexpected crashes.
 abstract class SampleCodeFakeApiRepositories {
   /// Get a paginated list of items.
-  Future<Result<PaginationModel<ResSampleCodeFakeModel>, Failure>>
+  Future<Result<PaginationModel<SampleCodeFakeEntity>, Failure>>
   getPaginatedList({
     required PaginationRequest paginationRequest,
     Map<String, dynamic>? queryParameters,
   });
 
   /// Get a single item by ID.
-  Future<Result<ResSampleCodeFakeModel, Failure>> getById(String id);
+  Future<Result<SampleCodeFakeEntity, Failure>> getById(String id);
 
   /// Get all items.
-  Future<Result<List<ResSampleCodeFakeModel>, Failure>> getAll();
+  Future<Result<List<SampleCodeFakeEntity>, Failure>> getAll();
 }
 
 /// [SampleCodeFakeApiImpl] - Data Layer Implementation
@@ -61,11 +62,12 @@ class SampleCodeFakeApiImpl
     required this.remote,
   });
 
+  @override
   final Dio dio;
   final SampleCodeFakeApiRemote remote;
 
   @override
-  Future<Result<PaginationModel<ResSampleCodeFakeModel>, Failure>>
+  Future<Result<PaginationModel<SampleCodeFakeEntity>, Failure>>
   getPaginatedList({
     required PaginationRequest paginationRequest,
     Map<String, dynamic>? queryParameters,
@@ -78,9 +80,11 @@ class SampleCodeFakeApiImpl
       // [Step 3] Call Remote DataSource
       final response = await remote.getPaginatedList(params);
 
-      // [Step 4] Map Response DTO to Domain Model
-      return PaginationModel<ResSampleCodeFakeModel>(
-        items: response.data ?? [],
+      // [Step 4] Map Response DTO to Domain Entity
+      final items = (response.data ?? []).map((dto) => dto.toEntity()).toList();
+
+      return PaginationModel<SampleCodeFakeEntity>(
+        items: items,
         currentPage: response.currentPage ?? 1,
         itemsPerPage: response.perPage ?? 10,
         totalItems: response.total ?? 0,
@@ -89,16 +93,22 @@ class SampleCodeFakeApiImpl
   }
 
   @override
-  Future<Result<List<ResSampleCodeFakeModel>, Failure>> getAll() async {
+  Future<Result<List<SampleCodeFakeEntity>, Failure>> getAll() async {
     return safeRequest(() async {
       final response = await remote.getList();
-      // Returns the firstElement (Domain list) handled by CcResBodyModel
-      return response.firstElement;
+
+      // Use flatMapToList to parse the elements
+      final parsed = response.flatMapToList(
+        (map) => ResSampleCodeFakeModel.fromJson(map),
+      );
+
+      // Map DTOs to Entities
+      return parsed.listElements.map((dto) => dto.toEntity()).toList();
     });
   }
 
   @override
-  Future<Result<ResSampleCodeFakeModel, Failure>> getById(String id) async {
+  Future<Result<SampleCodeFakeEntity, Failure>> getById(String id) async {
     // [Step 5] Business validation before network call
     if (id.isEmpty) {
       return const Error(DeviceFailure('ID cannot be empty'));
@@ -106,7 +116,21 @@ class SampleCodeFakeApiImpl
 
     return safeRequest(() async {
       final response = await remote.getObj(id);
-      return response.firstElement;
+
+      // Use flatMapToList and access firstElement safely
+      final parsed = response.flatMapToList(
+        (map) => ResSampleCodeFakeModel.fromJson(map),
+      );
+
+      final element = parsed.firstElement;
+      if (element == null) {
+        throw Exception(
+          'Item not found',
+        ); // Caught by safeRequest as ServerFailure
+      }
+
+      // Convert DTO to Entity
+      return element.toEntity();
     });
   }
 }

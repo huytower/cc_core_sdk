@@ -59,11 +59,6 @@ class DataPackageModule extends _i526.MicroPackageModule {
             ));
     gh.factory<Map<String, dynamic>>(
         () => dataModule.wrapListResponse(gh<List<dynamic>>()));
-    gh.lazySingleton<_i872.SampleCodeFakeApiRepositories>(
-        () => _i872.SampleCodeFakeApiImpl(
-              dio: gh<_i361.Dio>(),
-              remote: gh<_i198.SampleCodeFakeApiRemote>(),
-            ));
     gh.singleton<_i361.Interceptor>(
       () => dataModule.cacheInterceptor,
       instanceName: 'cacheInterceptor',
@@ -115,6 +110,11 @@ class DataPackageModule extends _i526.MicroPackageModule {
         () => _i176.RefreshHomeDataUseCase(gh<_i515.HomeRepository>()));
     gh.lazySingleton<_i15.UpdateHomeDataUseCase>(
         () => _i15.UpdateHomeDataUseCase(gh<_i515.HomeRepository>()));
+    gh.lazySingleton<_i872.SampleCodeFakeApiRepositories>(
+        () => _i872.SampleCodeFakeApiImpl(
+              dio: gh<_i361.Dio>(instanceName: 'baseDio'),
+              remote: gh<_i198.SampleCodeFakeApiRemote>(),
+            ));
     gh.lazySingleton<_i63.CrashLogRepository>(
         () => _i701.CrashLogRepositoryImpl(gh<_i313.CrashLogRemote>()));
     gh.factory<_i516.HomeRemote>(

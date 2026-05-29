@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'sample_code_fake_entity.dart';
+
 part 'res_sample_code_fake_model.g.dart';
 
 @JsonSerializable()
@@ -19,22 +21,40 @@ class ResSampleCodeFakeModel {
   final String? updatedAt;
 
   ResSampleCodeFakeModel(
-      this.id,
-      this.title,
-      this.description,
-      this.content,
-      this.url,
-      this.image,
-      this.author,
-      this.slug,
-      this.name,
-      this.memberId,
-      this.publishedAt,
-      this.createdAt,
-      this.updatedAt);
+    this.id,
+    this.title,
+    this.description,
+    this.content,
+    this.url,
+    this.image,
+    this.author,
+    this.slug,
+    this.name,
+    this.memberId,
+    this.publishedAt,
+    this.createdAt,
+    this.updatedAt,
+  );
 
   factory ResSampleCodeFakeModel.fromJson(Map<String, dynamic> json) =>
       _$ResSampleCodeFakeModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResSampleCodeFakeModelToJson(this);
+
+  /// Mapper to convert Data Model (DTO) to Domain Entity
+  SampleCodeFakeEntity toEntity() => SampleCodeFakeEntity(
+    id: id ?? '',
+    title: title ?? '',
+    description: description ?? '',
+    content: content ?? '',
+    url: url ?? '',
+    image: image ?? '',
+    author: author ?? '',
+    name: name ?? '',
+    slug: slug ?? '',
+    memberId: memberId ?? '',
+    publishedAt: publishedAt ?? '',
+    createdAt: createdAt ?? '',
+    updatedAt: updatedAt ?? '',
+  );
 }

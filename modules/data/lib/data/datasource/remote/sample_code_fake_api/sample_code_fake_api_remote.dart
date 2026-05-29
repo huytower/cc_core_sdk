@@ -13,19 +13,19 @@ part 'sample_code_fake_api_remote.g.dart';
 abstract class SampleCodeFakeApiRemote {
   @factoryMethod
   factory SampleCodeFakeApiRemote(
-    Dio dio, {
+    @Named('baseDio') Dio dio, {
     @Named('baseUrl') String? baseUrl,
   }) = _SampleCodeFakeApiRemote;
 
   /// Get a paginated list of items
   @GET('/api/category/list')
   Future<PaginatedResponse<ResSampleCodeFakeModel>> getPaginatedList(
-    @Queries() Map<String, dynamic> queryParameters,
+    @Queries() Map<String, dynamic> params,
   );
 
   /// Get all items (use with caution for large datasets)
   @GET('/api/category/list')
-  Future<CcResBodyModel<List<ResSampleCodeFakeModel>>> getList();
+  Future<CcResBodyModel<ResSampleCodeFakeModel>> getList();
 
   /// Get a single item by ID
   @GET('/api/news/get-id/{id}')

@@ -1,159 +1,110 @@
-import 'dart:convert';
-
-import 'package:app_config/core/enum/layout_status.dart';
-
 import '../../params/cc_rest_api_params.dart';
 import '../header/cc_res_header_model.dart';
 
-/// POPULAR RESTFUL API RESPONSE
+/// Standard Wrapper for RESTful API responses.
 ///
-/// NOTICE : IT WORKS FOR THIS REST API TYPE
+/// It splits the response into a "Header" (envelope) and "Data" (payload).
+/// Supports both Single Object and List responses.
 ///
-/// - _resHeaderModel;  // include : (*) & (**) & (***)
-/// - _resBody;  // include : (****)
-///
-/// ex.
-/// {
-///     "status": true,             (*)
-///     "message": "News fetched",  (**)
-///     "total": 196,               (***)
-///     "data": [                   (****)
-///     ...
-///     ]
-///  }
-
+/// **Usage Example:**
+/// ```dart
+/// // In your repository:
+/// final response = await remote.getUserProfile();
+/// final user = response.flatMapToList((json) => User.fromJson(json)).firstElement;
+/// ```
 class CcResBodyModel<T> {
   CcResBodyModel();
 
-  /// Http json mapping : header
-  CcResHeaderModel? _resHeader; // (*) & (**) & (***)
+  /// Contains status, message, and metadata
+  CcResHeaderModel? _resHeader;
 
-  /// Http json mapping : body || data
-  List<dynamic>? _resBodyList; // (****)
-  Map<String, dynamic>? _resBodyObj; // (****)
+  /// Raw data as a List (unified internally)
+  List<dynamic>? _resBodyList;
 
-  /// Http json mapping : body || data
-  /// parsing to Model Object : CcResBodyModel,
-  /// get more data,
-  /// for resolving more logic
-  late T firstElement;
+  /// Raw data as a Map (if the response was a single object)
+  Map<String, dynamic>? _resBodyObj;
+
+  /// The first or only element of the response data.
+  /// Null if the data payload is empty.
+  T? firstElement;
+
+  /// The full list of parsed elements
   List<T> listElements = [];
 
-  /// progress
-  LayoutStatus? layoutStatus = LayoutStatus.loading;
+  /// Getters for ease of use
+  bool get isSuccess => _resHeader?.status ?? false;
+  String get message => _resHeader?.message ?? '';
+  int get total => _resHeader?.total ?? 0;
+  String? get code => _resHeader?.code;
+  Map<String, dynamic>? get meta => _resHeader?.meta;
 
+  /// General error message or detail
+  String? get error => _resHeader?.error;
+
+  /// Map of validation errors (e.g., {"field": ["error message"]})
+  Map<String, List<String>>? get errors => _resHeader?.errors;
+
+  /// Maps the raw JSON data into typed objects [T].
   ///
-  /// parsing original data for get more detail data,
-  /// serves for more logic
-  ///
-  /// ex. : var result = value.flatMap((map) => SampleCodeFakeModel.fromJson(map));
-  ///
+  /// Example:
+  /// ```dart
+  /// final result = response.flatMapToList((json) => User.fromJson(json));
+  /// ```
   CcResBodyModel<T> flatMapToList(
-      T Function(Map<String, dynamic> element) getList) {
+    T Function(Map<String, dynamic> json) mapper,
+  ) {
     listElements.clear();
 
-    if (_resBodyList == null || _resBodyList!.isEmpty) {
-      return this;
+    if (_resBodyList != null) {
+      for (var element in _resBodyList!) {
+        if (element is Map<String, dynamic>) {
+          listElements.add(mapper(element));
+        }
+      }
     }
 
-    for (var e in _resBodyList!) {
-      listElements.add(getList(e as Map<String, dynamic>));
-    }
-
-    if (listElements.isNotEmpty) {
-      firstElement = listElements.first;
-    }
+    // Safely initialize firstElement if data exists
+    firstElement = listElements.isNotEmpty ? listElements.first : null;
 
     return this;
-
-    // TODO(huy): MOVE CODE
-    /// handle layout status.
-    // when(
-    //   variable: _resHeaderModel?.code,
-    //   conditions: {
-    //     200: () {
-    //       layoutStatus = LayoutStatus.success;
-    //     },
-    //     // 401: () {},
-    //     // 400: () {},
-    //   },
-    //   orElse: () {
-    //     layoutStatus = LayoutStatus.error;
-    //   },
-    // );
   }
 
-  /// There are 2 response `data` types via RestApi service (from BE)
-  /// - Object
-  /// - List
-  /// So, mobile apps also get :
-  /// - _resBodyObj
-  /// - _resBodyList (RECOMMEND|PREFER USE THIS)
-  ///
-  CcResBodyModel.fromJson(dynamic apiJson) {
-    /// HEADER LAYER - REST API
-    ///
-    /// ex.
-    ///
-    /// { status: 200, message : , error:
-    _resHeader = apiJson != null
-        ? CcResHeaderModel.fromJson(apiJson)
-        : null; // (*) & (**) & (***)
+  /// Parses the response from dynamic JSON (Map).
+  /// This method is robust and will not crash if fields are missing.
+  CcResBodyModel.fromJson(dynamic json) {
+    if (json is! Map<String, dynamic>) return;
 
-    final _resData = apiJson[CcRestApiParams.data.name];
+    // Root-level fields (status, message, code, etc.)
+    // CcResHeaderModel is designed to handle missing root fields gracefully.
+    _resHeader = CcResHeaderModel.fromJson(json);
 
-    /// DATA LAYER - REST API
-    ///
-    /// ex.
-    ///
-    /// { data: []}
-    ///
-    /// WAY 1
-    /// - Object
-    /// - _resBodyList (RECOMMEND|PREFER USE THIS)
-    if (_resData is List<dynamic>) {
-      _resBodyList = _resData; // (****)
+    // Payload extraction
+    final data = json[CcRestApiParams.data.name];
 
-      return;
+    if (data is List) {
+      _resBodyList = data;
+    } else if (data is Map<String, dynamic>) {
+      _resBodyObj = data;
+      _resBodyList = [
+        data,
+      ]; // Normalize single object to list for flatMapToList
     }
-
-    /// DATA LAYER - REST API
-    ///
-    /// ex.
-    ///
-    /// { data: {}}
-    ///
-    /// WAY 2
-    /// - Object
-    /// - _resBodyObj
-    assert(_resData is Map<String, dynamic>);
-
-    final map = _resData as Map<String, dynamic>;
-
-    List? list = [];
-
-    list.add(map);
-
-    _resBodyList = list; // (****)
-    _resBodyObj = map; // (****)
   }
 
+  /// Converts the model back to a JSON Map.
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
 
-    // (*) & (**) & (***)
+    // Include header fields
     if (_resHeader != null) {
-      map[CcRestApiParams.status.name] = _resHeader?.toJson();
+      map.addAll(_resHeader!.toJson());
     }
 
-    // (****)
-    if (_resBodyList != null) {
-      map[CcRestApiParams.data.name] =
-          _resBodyList?.map((v) => jsonEncode(v)).toList();
-    }
-    // (****)
+    // Include data
     if (_resBodyObj != null) {
       map[CcRestApiParams.data.name] = _resBodyObj;
+    } else if (_resBodyList != null) {
+      map[CcRestApiParams.data.name] = _resBodyList;
     }
 
     return map;
