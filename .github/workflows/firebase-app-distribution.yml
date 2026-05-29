@@ -54,7 +54,10 @@ jobs:
           keyPassword=${{ secrets.KEY_PASSWORD }}
           keyAlias=${{ secrets.KEY_ALIAS }}
           storeFile=keystore.jks
-          EOF
+        EOF
+
+      - name: Generate Code
+        run: melos run gen
 
       - name: Fastlane Distribute
         run: cd android && bundle exec fastlane distribute_firebase flavor:${{ github.event.inputs.flavor || 'uat' }}
@@ -74,6 +77,9 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           ruby-dir: 'ios'
 
+      - name: Generate Code
+        run: melos run gen
+
       - name: Fastlane TestFlight
         run: cd ios && bundle exec fastlane beta flavor:${{ github.event.inputs.flavor || 'uat' }}
         env:
@@ -92,5 +98,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           setup-java: 'true'
+      - name: Generate Code
+        run: melos run gen
       - name: Compile Check
         run: flutter build appbundle --release --flavor free
