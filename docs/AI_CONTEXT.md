@@ -24,6 +24,7 @@ To ensure high-quality, predictable development and maintain project integrity, 
 - **Standardized Failure Adoption**: Transition all features (like Dashboard) to use the `Result<T, Failure>` pattern for robust error handling.
 - **Enhanced Data Parsing**: Integrate `CcResBodyModel` across all Remote DataSources for consistent envelope peeling.
 - **Persistence Optimization**: Migrate remaining in-memory caches to `Hive` storage within the `modules/app_config` framework.
+- **Code Generation**: Ensure all generated files (.g.dart, .config.dart) are properly handled in CI analysis.
 
 ### Long-Term Strategic Vision
 - **Module Decoupling**: Progressively isolate feature modules to ensure they can be tested and developed independently.
@@ -210,7 +211,76 @@ The main app consolidates all modules in `lib/core/di/di.dart`:
 - **Bloc**: State management with streams
 - **Provider**: State management (alternative)
 
-## Coding Standards
+## CI/CD Configuration
+
+### Melos 7.x.x Workspace
+The project uses **Melos 7.x.x** with pub workspaces instead of the traditional melos.yaml approach:
+
+- **Workspace Configuration:** Defined in root `pubspec.yaml` with `workspace` key
+- **Package Dependencies:** Packages use `resolution: workspace` instead of path-based dependencies
+- **Global Melos Activation:** Required in CI for script compatibility
+- **Code Generation:** Runs before analysis to ensure generated files are available
+
+### CI Requirements
+- **Flutter:** 3.41.9 or higher (includes Dart 3.11.5+)
+- **Melos:** 7.8.0 (workspace version)
+- **Generated Files:** .g.dart files committed for app_config and data modules
+- **Analysis Rules:** Configured for generated file compatibility
+
+### CI Workflow
+The GitHub Actions CI pipeline follows this sequence:
+1. Setup Flutter 3.41.9 with caching
+2. Activate Melos globally and add to PATH
+3. Bootstrap workspace with pub workspaces
+4. Run code generation (`melos run gen`)
+5. Run analysis (`melos run analyze`)
+6. Run tests (`melos run test`)
+
+### Generated Files Handling
+- **app_config module:** Hive adapter .g.dart files committed
+- **data module:** JSON serialization and Retrofit .g.dart files committed
+- **.gitignore:** Configured to allow generated files from specific modules
+- **Analysis rules:** `prefer_relative_imports` disabled for generated files
+
+### Local Development Setup
+1. **Prerequisites:** Ensure Flutter 3.41.9+ and Dart 3.11.5+ are installed
+2. **Workspace Bootstrap:** Run `melos bootstrap` to set up the workspace
+3. **Code Generation:** Run `melos run gen` after adding new models or DI annotations
+4. **Analysis:** Run `melos run analyze` to check code quality
+5. **Testing:** Run `melos run test` to ensure tests pass
+
+### Common Development Commands
+```bash
+# Bootstrap workspace
+melos bootstrap
+
+# Generate code (after adding models, adapters, or DI annotations)
+melos run gen
+
+# Analyze code
+melos run analyze
+
+# Run tests
+melos run test
+
+# Clean workspace
+melos clean
+```
+
+### Adding New Dependencies
+When adding dependencies to packages in the workspace:
+1. Add dependencies to the package's `pubspec.yaml` without `path:` for workspace packages
+2. Run `melos bootstrap` to resolve workspace dependencies
+3. Run `melos run gen` if the dependency requires code generation
+4. Commit the updated `pubspec.yaml` files
+
+### Code Generation Guidelines
+- **When to run:** After adding new models, Hive adapters, or DI annotations
+- **Which modules:** All modules that depend on build_runner
+- **Generated files:** Commit .g.dart files for app_config and data modules
+- **CI integration:** Code generation runs automatically before analysis in CI
+
+## Development Workflow
 
 ### Clean Architecture Rules
 - **Domain layer** must not depend on Data or Presentation layers

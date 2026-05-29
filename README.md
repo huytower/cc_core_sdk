@@ -2,17 +2,64 @@
 
 A modular starter kit built around **Clean Architecture** and **SOLID** principles. Designed to help junior and new developers find the right entry points, understand module boundaries, and extend the app safely.
 
+## Development Requirements
+
+- **Flutter:** 3.41.9 or higher
+- **Dart:** 3.11.5 or higher  
+- **Melos:** 7.8.0 (workspace version)
+- **Code Generation:** Required for Hive adapters, JSON serialization, DI setup
+
 ## Quick start for new developers
 
 1. Read `docs/AI_CONTEXT.md` for architecture overview and project intent.
-2. Open `lib/main.dart` to follow app startup and feature wiring.
-3. Inspect `lib/core/di/inject/inject.dart` for global dependency registration.
-4. Explore `modules/` for app-specific domain/data modules.
-5. Explore `libraries/features/lib/features/` for reusable feature packages.
-6. Read `docs/onboarding.md` for step-by-step developer onboarding.
-7. Use `docs/CONTRIBUTING.md` for workflow, code review, and documentation sync rules.
+2. Ensure you have Flutter 3.41.9+ and Dart 3.11.5+ installed
+3. Run `melos bootstrap` to set up the workspace
+4. Run `melos run gen` to generate code for Hive adapters, JSON serialization, etc.
+5. Open `lib/main.dart` to follow app startup and feature wiring.
+6. Inspect `lib/core/di/di.dart` for global dependency registration.
+7. Explore `modules/` for app-specific domain/data modules.
+8. Explore `libraries/features/lib/export_features.dart` for reusable feature packages.
+9. Read `docs/onboarding.md` for step-by-step developer onboarding.
+10. Use `docs/CONTRIBUTING.md` for workflow, code review, and documentation sync rules.
 
-Project Structure templates enable you to capture and re-use the structure and content of existing
+## Development Workflow
+
+```bash
+# Bootstrap the workspace
+melos bootstrap
+
+# Generate code (after adding new models, adapters, or DI annotations)
+melos run gen
+
+# Run analysis
+melos run analyze
+
+# Run tests
+melos run test
+
+# Clean and rebuild
+melos clean
+melos bootstrap
+melos run gen
+```
+
+## CI/CD Setup
+
+This project uses **Melos 7.x.x** with pub workspaces for monorepo management. The CI/CD pipeline requires:
+
+1. **Flutter 3.41.9+** with Dart 3.11.5+ for workspace compatibility
+2. **Code generation** runs before analysis to ensure generated files are available
+3. **Generated files** are committed for app_config and data modules (.g.dart files)
+4. **Analysis rules** configured for generated file compatibility
+
+### CI Configuration
+
+- **Workspace:** Melos 7.x.x pub workspaces (no melos.yaml, uses pubspec.yaml workspace config)
+- **Global Melos activation:** Required for script compatibility in CI
+- **Generated files:** Selected modules commit generated files for analysis
+- **Lint rules:** `prefer_relative_imports` disabled for generated files
+
+## Project Structure templates enable you to capture and re-use the structure and content of existing
 projects, including :
 
     - project pages,
@@ -35,6 +82,7 @@ Allows us to focus on logic and not worry how we are going to access it.
 
 ## Libraries & Tools Used
 
+- [melos](https://pub.dev/packages/melos) - Monorepo management with pub workspaces
 - [getx](https://pub.dev/packages/get)
 - [bloc](https://pub.dev/packages/bloc)
 
@@ -45,6 +93,7 @@ Allows us to focus on logic and not worry how we are going to access it.
 - [injectable](https://pub.dev/packages/injectable)
 - [floor](https://pub.dev/packages/floor)
 - [hive_box](https://pub.dev/packages/hive)
+- [hive_ce](https://pub.dev/packages/hive_ce)
 
 - [flutter_hooks](https://pub.dev/packages/flutter_hooks)
 
@@ -242,155 +291,65 @@ those implementations globally, anywhere in your app.
     /// `Ex.`
     abstract class RestService {}
 
-    // Initialize
-    getIt.registerLazySingleton<PregnancyService>(() => RestService());
-
-    // Using
-    PregnancyService pregnancyService = getIt<PregnancyService>();
-
-##### Floor
-
-The *floor* library provides a lightweight SQLite abstraction with automatic mapping between
-in-memory objects and database rows while still offering full control of the database with the use
-of SQL.
-
-    /// `Ex.`
-    @dao
-    abstract class PersonDao {
-      @Query('SELECT * FROM Person')
-      Future<List<Person>> findAllPersons();
-
-      @Query('SELECT * FROM Person WHERE id = :id')
-      Stream<Person?> findPersonById(int id);
-
-      @insert
-      Future<void> insertPerson(Person person);
+    // Initialize it
+    void main() {
+      // Initialize get_it
+      get_it.RestService restService = get_it.RestService();
     }
 
-##### Retrofit
-
-*retrofit* is a networking library that is used to call the API to fetch or post the data to the
-server,
-
-+ JSON data parse into models,
-+ easy make GET, POST, PUT, etc requests by using awesome annotations.
-
-    ```
-    /// `Ex.`
-    @RestApi(baseUrl: "https://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/")
-    abstract class RestClient { 
-  
-        factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
-    
-        @GET("/tasks")
-        Future<List<Task>> getTasks();
-    }
-    ```
-
-##### Hive Box
-
-*hive* is a fast, lightweight, NoSQL database, for flutter and dart apps. Using same
-as `shared_preference`, but faster.
-
-    /// `Ex.`
-    var box = Hive.box('myBox'); /// Initialize
-
-    box.put('name', 'David'); /// Save
-
-    var name = box.get('name'); /// Get
-
-    print('Name: $name');
-
-##### Flutter Hooks
-
-The *flutter_hooks* library increasing code-sharing between widgets and reducing duplicates in code.
-Most using with `flutter animation`.
-
-    /// `Ex.`
-    class Example extends HookWidget {
-        const Example({Key key, required this.duration}) : super(key: key);
-
-        final Duration duration;
-
-        @override
-        Widget build(BuildContext context) {
-            final controller = useAnimationController(duration: duration);
-            return Container();
-        }
+    // Use it
+    void someFunction() {
+      // Access the rest service
+      restService.getData();
     }
 
-### Folder Structure
+### Melos Workspace Management
 
+This project uses **Melos 7.x.x** with pub workspaces for monorepo management. Key features:
+
+- **Workspace Configuration:** Defined in root `pubspec.yaml` with `workspace` key
+- **Package Dependencies:** Uses `resolution: workspace` in package `pubspec.yaml` files
+- **Code Generation:** Run `melos run gen` to generate files across all packages
+- **Scripts:** Predefined scripts in root `pubspec.yaml` under `melos:` section
+
+Common Melos commands:
+
+```bash
+# Bootstrap workspace (link packages, install dependencies)
+melos bootstrap
+
+# Run scripts across packages
+melos run get        # Run pub get in all packages
+melos run gen        # Run build_runner in packages that depend on it
+melos run analyze    # Analyze all packages
+melos run test       # Run tests across workspace
+
+# Execute commands in specific packages
+melos exec --scope=app_config -- "flutter analyze"
+melos exec --depends-on="build_runner" -- "dart run build_runner build"
 ```
-Template
-    ├── lib
-    │    ├── src
-    │    │    ├── app
-    │    │    │    ├── app.dar
-    │    │    │    └── app_impl.dart
-    │    │    ├── core
-    │    │    │    ├── di
-    │    │    │    │    ├── module
-    │    │    │    │    │      └── ...
-    │    │    │    │    └── di.dart
-    │    │    │    ├── network
-    │    │    │    │    └── ...
-    │    │    │    ├── page
-    │    │    │    │    └── page_config.dart
-    │    │    │    └── state_management
-    │    │    └── presentation
-    │    │            ├── home
-    │    │            │     └── ...
-    │    │            └── setting
-    │    │                  └── ...
-    │    ├── main.dart
-    │    └── main_uat.dart
-    │
-    ├── modules 
-    │   ├── cc_library                                     │
-    │   ├── app_config_prefs
-    │   │      │
-    │   │      ├── box
-    │   │      │    ├── cc_hive_box.dart                   │    define type_id for hive_box    
-    │   │      │    └── register_type_adapter              │
-    │   │      │              └── type_adapter.dart        │    đăng ký type_adapter của hive_box.
-    │   │      ├── config
-    │   │      │    ├── app_config 
-    │   │      │    │         └──  cc_app_config.dart
-    │   │      │    ├── application
-    │   │      │    │         └──  cc_application.dart
-    │   │      │    └──  device_info 
-    │   │      │              └──  cc_device_info.dart     │
-    │   │      └── enum                                    │    Nơi chứa class enum.     
-    │   │           └── ...
-    │   ├── content
-    │   │      └── cc_localization.dart 
-    │   │      
-    │   ├── data
-    │   │     │
-    │   │     ├── config
-    │   │     │     ├── floor
-    │   │     │     │      └── ...
-    │   │     │     ├── di
-    │   │     │     │      └── ...
-    │   │     │     └── retrofit
-    │   │     │            └── ...
-    │   │     ├── datasource
-    │   │     │      ├── local
-    │   │     │      │      └── ...                         │    Nơi chứa local database.    
-    │   │     │      └── remote
-    │   │     │             └── ...    
-    │   │     ├── entities
-    │   │     │      └── ...    
-    │   │     └── repositories
-    │   │            └── ...  
-    │   ├── reusable
-    │   │     └── custom_widget
-    │   │            └── ...    
-    │   ├── theme
-    │   │     └── src  
-    │   │          ├── cc_color.dart                        │         
-    │   │          └── cc_text_style.dart                   │
-    │   └── widget
-    └── End
-```
+
+## Architecture & Module Structure
+
+The project follows **Clean Architecture** with clear separation between:
+
+- **libraries/**: Reusable packages (cc_sdk, cc_sdk_ui, features)
+- **modules/**: App-specific modules (app_config, data, message, theme)
+- **lib/**: Main application code
+
+Each module follows the Clean Architecture layers:
+- **domain/**: Business logic, use cases, repository interfaces
+- **data/**: Data sources, repository implementations, entities  
+- **presentation/**: UI components, pages, widgets
+
+## Contributing
+
+Before contributing, ensure you:
+
+1. Run `melos bootstrap` to set up the workspace
+2. Run `melos run gen` after adding new models or DI annotations
+3. Run `melos run analyze` to check code quality
+4. Run `melos run test` to ensure tests pass
+5. Commit generated files (.g.dart) for app_config and data modules
+
+For detailed contribution guidelines, see `docs/CONTRIBUTING.md`.
