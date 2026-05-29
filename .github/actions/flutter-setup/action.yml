@@ -39,6 +39,6 @@ runs:
     - if: inputs.ruby-dir != ''
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.3'
+        ruby-version: '3.2'
         bundler-cache: true
         working-directory: ${{ inputs.ruby-dir }}
