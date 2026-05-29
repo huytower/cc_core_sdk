@@ -29,8 +29,8 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
       - name: Lint & Test
         run: |
-          melos run analyze
-          melos run test
+          dart run melos run analyze
+          dart run melos run test
 
   # 2. Android Deployment: Only on Main or Dispatch.
   android-distribute:

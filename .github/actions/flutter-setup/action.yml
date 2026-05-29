@@ -28,7 +28,7 @@ runs:
 
     - name: Bootstrap Workspace
       shell: bash
-      run: melos bootstrap
+      run: dart run melos bootstrap
 
     - if: inputs.ruby-dir != ''
       uses: ruby/setup-ruby@v1
