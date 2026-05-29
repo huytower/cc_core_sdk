@@ -7,11 +7,11 @@ environment:
   sdk: '^3.11.5'
   flutter: '>=3.41.9'
 
+resolution: workspace
+
 dependencies:
   cc_sdk:
-    path: ../../libraries/cc_sdk
   data:
-    path: ../data
   equatable: ^2.0.8
   flutter:
     sdk: flutter

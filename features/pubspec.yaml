@@ -6,13 +6,12 @@ publish_to: none
 environment:
   sdk: '^3.11.5'
 
+resolution: workspace
+
 dependencies:
   cc_sdk:
-    path: ../libraries/cc_sdk
   cc_sdk_ui:
-    path: ../libraries/cc_sdk_ui
   data:
-    path: ../modules/data
   dio: ^5.9.2
   easy_localization: ^3.0.8
   equatable: ^2.0.8

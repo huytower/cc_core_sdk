@@ -7,13 +7,12 @@ environment:
   sdk: '^3.11.5'
   flutter: '>=3.41.9'
 
+resolution: workspace
+
 dependencies:
   app_config:
-    path: ../app_config
   cc_sdk:
-    path: ../../libraries/cc_sdk
   cc_sdk_ui:
-    path: ../../libraries/cc_sdk_ui
 
   curl_logger_dio_interceptor: ^1.0.1
   dartx: ^1.2.0
