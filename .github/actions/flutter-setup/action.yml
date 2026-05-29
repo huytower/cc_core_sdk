@@ -26,9 +26,15 @@ runs:
         flutter-version: ${{ inputs.flutter-version }}
         cache: true
 
+    - name: Setup Melos
+      shell: bash
+      run: |
+        dart pub global activate melos
+        echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
     - name: Bootstrap Workspace
       shell: bash
-      run: dart run melos bootstrap
+      run: melos bootstrap
 
     - if: inputs.ruby-dir != ''
       uses: ruby/setup-ruby@v1
