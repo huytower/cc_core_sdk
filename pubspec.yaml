@@ -104,7 +104,7 @@ melos:
 
     test:
       description: Run all tests across the workspace.
-      run: melos exec -- "flutter test"
+      run: melos exec --dir-exists="test" -- "flutter test"
 
 flutter:
   uses-material-design: true
