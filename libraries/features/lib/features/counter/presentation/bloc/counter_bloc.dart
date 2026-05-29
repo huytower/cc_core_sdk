@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:cc_sdk/domain/failures/cc_failure.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:multiple_result/multiple_result.dart';
 
 import '../../domain/entities/counter_entity.dart';
 import '../../domain/usecases/decrement_counter_use_case.dart';

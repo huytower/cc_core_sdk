@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../core/common/mixins/cc_load_more_mixin.dart';
 import '../../../../../../core/common/mixins/cc_pull_to_refresh_mixin.dart';
-import '../../../../presentation/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
+import '../../../../presentation/getx_state_management/base/structure/getx/cc_get_view/cc_get_view.dart';
 import '../getx/get_view_controller.dart';
 import '../mixin/get_view_provider.dart';
 

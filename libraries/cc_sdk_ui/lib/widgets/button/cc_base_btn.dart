@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/helper/cc_widget_helper.dart';
-import '../flex/cc_flex.dart';
 import '../inkwell/cc_inkwell.dart';
 import '../text/cc_text.dart';
 

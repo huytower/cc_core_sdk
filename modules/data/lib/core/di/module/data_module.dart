@@ -1,19 +1,16 @@
 import 'package:app_config/core/config/http/http_client/http_client_config.dart';
 import 'package:cc_sdk/core/config/cc_feature_flags.dart';
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
-import 'package:cc_sdk/core/extensions/common/cc_when_expression.dart';
-import 'package:cc_sdk/core/helper/cc_network_helper.dart';
-import 'package:cc_sdk/core/network/curl/curl_utils.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
-import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:injectable/injectable.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:message/cc_locale_keys.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
+
+import '../../config/retrofit/interceptors/cc_request_interceptor.dart';
+import '../../config/retrofit/interceptors/cc_response_interceptor.dart';
 
 @module
 abstract class DataModule {
@@ -50,13 +47,15 @@ abstract class DataModule {
 
   @singleton
   List<Interceptor> interceptors(
-    @Named("ccReqInterceptor") Interceptor ccReqInterceptor,
+    @Named("ccRequestInterceptor") Interceptor ccRequestInterceptor,
+    @Named("ccResponseInterceptor") Interceptor ccResponseInterceptor,
     @Named("curlLoggerInterceptor") Interceptor curlLoggerInterceptor,
     @Named("talkerDioLogger") Interceptor talkerDioLogger,
     @Named("cacheInterceptor") Interceptor cacheInterceptor,
   ) {
     return [
-      ccReqInterceptor,
+      ccRequestInterceptor,
+      ccResponseInterceptor,
       if (CcFeatureFlags.isEnableLoggerDio) curlLoggerInterceptor,
       if (CcFeatureFlags.isEnableLoggerDio) talkerDioLogger,
       cacheInterceptor,
@@ -64,72 +63,48 @@ abstract class DataModule {
   }
 
   @singleton
-  @Named("ccReqInterceptor")
-  Interceptor ccReqInterceptor(
-    InternetConnection internetConnection,
-  ) => InterceptorsWrapper(
-    onRequest: (options, handler) async {
-      /// Check internet connection
-      final hasInternet = await CcNetworkHelper(internetConnection).hasInternet;
-      if (!hasInternet) {
-        final errorMsg = el.tr(CcLocaleKeys.app_error_network);
-        errorMsg.Log();
-        return handler.reject(
-          DioException(
-            requestOptions: options,
-            type: DioExceptionType.connectionError,
-            error: errorMsg,
-          ),
-        );
-      }
+  @Named('ccRequestInterceptor')
+  Interceptor get ccRequestInterceptor => CcRequestInterceptor();
 
-      'onRequest() : ${options.uri}'.Log();
+  @singleton
+  @Named("ccResponseInterceptor")
+  Interceptor get ccResponseInterceptor => CcResponseInterceptor();
 
-      /// Handle token logic or specific header cleanup
-      /// IMPORTANT: Be careful not to wipe ALL headers unless intended.
-      ccWhen(
-        conditions: {
-          options.headers.containsValue("empty"): () {
-            options.headers.removeWhere((key, value) => value == "empty");
-          },
-          options.headers.containsValue("host_es"): () {
-            // Handle specific host logic if needed
-          },
-        },
-      );
-
-      return handler.next(options);
-    },
-    onResponse: (response, handler) async {
-      'onResponse() : status = ${response.statusCode}'.Log();
-
-      if (CcFeatureFlags.isEnableLoggerDio) {
-        final curl = await CurlUtils.instance.representation(
-          response.requestOptions,
-        );
-        var url =
-            "[Dio Interceptor]\n[Request: ${response.requestOptions.method}] : ${response.requestOptions.uri}\n";
-        var _message =
-            "$url[Curl]:\n$curl\n[Response: ${response.statusCode}]:\n ${response.data}";
-
-        _message.Log("", true, "logger:###/");
-      }
-
-      /// Wrap response data into Map<String, dynamic> if response data is a List
-      try {
-        if (response.data != null && response.data is List) {
-          response.data = wrapListResponse(response.data);
-        }
-      } catch (e) {
-        'Error transforming response data: $e'.Log();
-      }
-      return handler.next(response);
-    },
-    onError: (e, handler) {
-      'onError() : [${e.response?.statusCode}] $e'.Log();
-      return handler.next(e);
-    },
-  );
+  // @singleton
+  // @Named("ccRequestInterceptor")
+  // Interceptor ccRequestInterceptor(InternetConnection internetConnection) =>
+  //     InterceptorsWrapper(
+  //       onRequest: (options, handler) async {
+  //         /// Check internet connection
+  //         final hasInternet = await CcNetworkHelper(
+  //           internetConnection,
+  //         ).hasInternet;
+  //         if (!hasInternet) {
+  //           final errorMsg = el.tr(CcLocaleKeys.app_error_network);
+  //           errorMsg.Log();
+  //           return handler.reject(
+  //             DioException(
+  //               requestOptions: options,
+  //               type: DioExceptionType.connectionError,
+  //               error: errorMsg,
+  //             ),
+  //           );
+  //         }
+  //
+  //         'onRequest() : ${options.uri}'.Log();
+  //
+  //         /// Handle token logic or specific header cleanup
+  //         ccWhen(
+  //           conditions: {
+  //             options.headers.containsValue("empty"): () {
+  //               options.headers.removeWhere((key, value) => value == "empty");
+  //             },
+  //           },
+  //         );
+  //
+  //         return handler.next(options);
+  //       },
+  //     );
 
   @singleton
   @Named("curlLoggerInterceptor")
@@ -166,7 +141,6 @@ abstract class DataModule {
       logPrint: (message) => message.Log("RetryInterceptor"),
       retries: httpConfig.maxRetries,
       retryEvaluator: (e, attempt) {
-        // Retry on connection issues or 403
         if (e.type == DioExceptionType.connectionError ||
             e.type == DioExceptionType.connectionTimeout) {
           return true;
@@ -183,15 +157,5 @@ abstract class DataModule {
             Duration(milliseconds: httpConfig.retryDelayMs * (index + 1)),
       ),
     );
-  }
-
-  /// Helper method to wrap list response data into a map
-  Map<String, dynamic> wrapListResponse(List<dynamic> data) {
-    return {
-      "status": true,
-      "message": el.tr(CcLocaleKeys.home_recent_activity),
-      "total": data.length,
-      "data": data,
-    };
   }
 }

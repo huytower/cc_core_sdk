@@ -11,7 +11,7 @@ class RouteDatasource {
   String getStartRoute() => autoRouteStart.path;
 
   static AppRoute get autoRouteStart {
-    const _defaultAutoRouteStart = AppRoute.home;
+    const _defaultAutoRouteStart = AppRoute.dashboard;
     final rawRoute = dotenv.maybeGet(
       _envAutoRouteStart,
       fallback: _defaultAutoRouteStart.name,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../presentation/getx/base/structure/getx/cc_get_view/cc_get_view.dart';
+import '../../../../presentation/getx_state_management/base/structure/getx/cc_get_view/cc_get_view.dart';
 import '../getx/get_view_v2_logic.dart';
 
 /// GETX : UI app bar
@@ -49,10 +49,9 @@ mixin GetViewV2Provider<T extends GetViewV2Logic> on CcGetView<T> {
       height: 100,
       width: 100,
       color: Colors.yellow,
-      child: const Center(
-        child: Text("Loading..."),
-      ),
+      child: const Center(child: Text("Loading...")),
     );
   }
-//----------------------------------------------------------------------------
+
+  //----------------------------------------------------------------------------
 }

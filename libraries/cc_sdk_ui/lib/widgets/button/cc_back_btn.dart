@@ -91,7 +91,7 @@ class CcBackDividerBtn extends StatelessWidget {
         CcInkWell(
           onTap: onPress,
           borderRadius: const BorderRadius.all(Radius.circular(4)),
-          child: SizedBox(width: widthBack, height: heightBack),
+          child: const SizedBox(width: widthBack, height: heightBack),
         ),
       ],
     ),

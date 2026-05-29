@@ -9,7 +9,6 @@ import '../../../../core/models/pagination_model.dart';
 import '../../../../core/models/pagination_request.dart';
 import '../../../../core/repository/cc_base_repository.dart';
 import '../../../data/datasource/remote/sample_code_fake_api/sample_code_fake_api_remote.dart';
-import '../../entities/sample_code_fake_api/res_sample_code_fake_model.dart';
 import '../../entities/sample_code_fake_api/sample_code_fake_entity.dart';
 
 /// [SampleCodeFakeApiRepositories] - Domain Layer Contract
@@ -95,15 +94,12 @@ class SampleCodeFakeApiImpl
   @override
   Future<Result<List<SampleCodeFakeEntity>, Failure>> getAll() async {
     return safeRequest(() async {
+      // The interceptor already "peeled" the response.
+      // Retrofit returns the List<ResSampleCodeFakeModel> directly.
       final response = await remote.getList();
 
-      // Use flatMapToList to parse the elements
-      final parsed = response.flatMapToList(
-        (map) => ResSampleCodeFakeModel.fromJson(map),
-      );
-
-      // Map DTOs to Entities
-      return parsed.listElements.map((dto) => dto.toEntity()).toList();
+      // Just map DTOs to Entities
+      return response.map((dto) => dto.toEntity()).toList();
     });
   }
 
@@ -115,22 +111,12 @@ class SampleCodeFakeApiImpl
     }
 
     return safeRequest(() async {
+      // The interceptor already "peeled" the response.
+      // Retrofit returns the ResSampleCodeFakeModel directly.
       final response = await remote.getObj(id);
 
-      // Use flatMapToList and access firstElement safely
-      final parsed = response.flatMapToList(
-        (map) => ResSampleCodeFakeModel.fromJson(map),
-      );
-
-      final element = parsed.firstElement;
-      if (element == null) {
-        throw Exception(
-          'Item not found',
-        ); // Caught by safeRequest as ServerFailure
-      }
-
-      // Convert DTO to Entity
-      return element.toEntity();
+      // Just convert DTO to Entity
+      return response.toEntity();
     });
   }
 }

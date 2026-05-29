@@ -16,7 +16,7 @@ class ShadowWidget extends StatelessWidget {
   final Color? shadowColor;
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => DecoratedBox(
     decoration: BoxDecoration(
       borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
       boxShadow: CcWidgetHelper.getBoxShadows(

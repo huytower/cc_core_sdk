@@ -6,12 +6,36 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
 
 **Project Path:** `C:\Users\Admin\repository\flutter-get-starter-template`
 
+## AI Guidelines & Strategic Guardrails (POSITIVE)
+
+To ensure high-quality, predictable development and maintain project integrity, the AI must adhere to these standards:
+
+1.  **Architecture Respect**: Maintain the existing patterns and architecture. Propose refactors only when requested or when essential for a new feature's stability.
+2.  **Precise Scope**: Limit modifications strictly to files directly required for the current task. Keep surrounding code stable.
+3.  **Final-State Delivery**: Provide the final, production-ready implementation immediately. Skip intermediate wrappers or temporary helper files.
+4.  **SDK-First Component Reuse**: Prioritize components from `libraries/cc_sdk_ui`. Use existing buttons, error pages, and layouts to ensure design consistency.
+5.  **Clean Bootstrap Integrity**: Preserve `main.dart` as a lean, service-only entry point (Env -> DI -> Hive -> Localization). Delegate UI construction to `AppRunner.dart` or Feature modules.
+6.  **Collaborative Evolution**: For structural changes (file movements, return type updates, DI shifts), present a clear plan and proceed only after developer confirmation.
+7.  **Evidence-Based Implementation**: Use `read_file` and `analyze_file` to verify the current structure before proposing any changes.
+
+## Future Development Goals & Strategy
+
+### Short-Term Feature Goals
+- **Standardized Failure Adoption**: Transition all features (like Dashboard) to use the `Result<T, Failure>` pattern for robust error handling.
+- **Enhanced Data Parsing**: Integrate `CcResBodyModel` across all Remote DataSources for consistent envelope peeling.
+- **Persistence Optimization**: Migrate remaining in-memory caches to `Hive` storage within the `modules/app_config` framework.
+
+### Long-Term Strategic Vision
+- **Module Decoupling**: Progressively isolate feature modules to ensure they can be tested and developed independently.
+- **DI Optimization**: Refine the Micro-Package DI strategy to ensure faster build times and clearer dependency graphs.
+- **UI Component Maturity**: Expand `cc_sdk_ui` to include all common app patterns, reducing the need for feature-specific widgets.
+
 ## Recommended Onboarding Path
 
 - Start with `README.md` and this `AI_CONTEXT.md` for architecture intent.
 - Read `docs/onboarding.md` for a step-by-step developer guide.
 - Open `lib/main.dart` to understand how the app boots, loads dependencies, and wraps the root widget.
-- Check `lib/core/di/inject/inject.dart` for the global DI assembly and module registration.
+- Check `lib/core/di/di.dart` for the global DI assembly and module registration.
 - Review `libraries/features/lib/export_features.dart` to find reusable feature exports.
 - Use `modules/` for app-specific domain and data logic.
 
@@ -81,7 +105,7 @@ void initMicroPackage() {}
 ```
 
 ### Main App Integration
-The main app consolidates all modules in `lib/core/di/inject.dart`:
+The main app consolidates all modules in `lib/core/di/di.dart`:
 - Uses `@InjectableInit` with `externalPackageModulesBefore`.
 - Includes all generated `MicroPackageModule` classes from dependencies.
 - Use `ignoreUnregisteredTypes` for common third-party types (e.g., `SharedPreferences`, `Dio`).
@@ -200,6 +224,19 @@ The main app consolidates all modules in `lib/core/di/inject.dart`:
 - Classes: PascalCase (e.g., `UserProfileRepository`)
 - Files: snake_case (e.g., `user_profile_repository.dart`)
 
+### Linter & Code Style
+- **Prefer Relative Imports**: Use relative paths for imports within the same package to maintain modularity and avoid brittle package-name dependencies.
+- **Const Constructors**: Use `const` for widgets and objects whenever possible to optimize performance and widget tree rebuilding.
+- **Clean Imports**:
+    - Remove unnecessary or unused imports.
+    - Avoid redundant imports (e.g., don't import a file if all its elements are already provided by another broader export or import).
+    - Group imports: Flutter/Dart first, then third-party packages, then project-specific modules.
+    - Follow naming conventions: Follow consistent naming conventions for classes, files, and variables to improve code readability and maintainability.
+    - Use type annotations: Use type annotations to improve code clarity and help the Dart analyzer provide better code suggestions and error messages.
+- **Analyze code with Dart analysis tools**: Use Dart analysis tools like dartanalyzer or dartfmt to catch potential issues and enforce coding standards.
+- **Review generated code**: Review the generated code to ensure it aligns with the project's requirements and coding standards.
+
+
 ## Adding New Code
 
 ### DI Implementation Steps
@@ -207,5 +244,5 @@ The main app consolidates all modules in `lib/core/di/inject.dart`:
 2. Annotate with `@InjectableInit.microPackage()`.
 3. Add injectable annotations to your classes.
 4. Run `build_runner` in the module.
-5. Reference the generated `MicroPackageModule` in the main app's `inject.dart`.
+5. Reference the generated `MicroPackageModule` in the main app's `di.dart`.
 6. Run `build_runner` in the main app.

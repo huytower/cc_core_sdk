@@ -1,30 +1,29 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../domain/entities/comment/comment.dart';
+import '../../../domain/entities/comment/comment_entity.dart';
 
 part 'comment_model.g.dart';
 
 @JsonSerializable()
 class CommentModel {
-  final int postId;
-  final int id;
-  final String name;
-  final String email;
-  final String body;
+  final int? postId;
+  final int? id;
+  final String? name;
+  final String? email;
+  final String? body;
 
-  CommentModel({
-    required this.postId,
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.body,
-  });
+  CommentModel({this.postId, this.id, this.name, this.email, this.body});
 
   factory CommentModel.fromJson(Map<String, dynamic> json) =>
       _$CommentModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CommentModelToJson(this);
 
-  Comment toEntity() =>
-      Comment(postId: postId, id: id, name: name, email: email, body: body);
+  CommentEntity toEntity() => CommentEntity(
+    postId: postId ?? 0,
+    id: id ?? 0,
+    name: name ?? '',
+    email: email ?? '',
+    body: body ?? '',
+  );
 }

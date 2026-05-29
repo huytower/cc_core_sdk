@@ -51,11 +51,15 @@ class CcAppStorage extends HiveObject {
   @HiveField(3)
   String? userRole;
 
+  @HiveField(4)
+  String? dashboardData;
+
   CcAppStorage({
     this.accessToken,
     this.fcmToken,
     this.gpsLocation,
     this.userRole,
+    this.dashboardData,
   });
 
   ///

@@ -1,7 +1,6 @@
-import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 
-import '../divider_line/cc_divider.dart';
+import '../../export_cc_sdk_ui.dart';
 
 class BaseTextField extends StatelessWidget {
   const BaseTextField({

@@ -11,7 +11,7 @@ import 'package:features/features/crash_log/export_crash_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/di/inject/inject.dart';
+import '../../../../../../core/di/di.dart';
 import 'simple_cubit.dart';
 import 'simple_cubit_interface.dart';
 import 'simple_cubit_state.dart';

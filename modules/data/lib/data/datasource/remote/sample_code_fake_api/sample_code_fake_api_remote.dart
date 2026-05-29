@@ -25,9 +25,9 @@ abstract class SampleCodeFakeApiRemote {
 
   /// Get all items (use with caution for large datasets)
   @GET('/api/category/list')
-  Future<CcResBodyModel<ResSampleCodeFakeModel>> getList();
+  Future<List<ResSampleCodeFakeModel>> getList();
 
   /// Get a single item by ID
   @GET('/api/news/get-id/{id}')
-  Future<CcResBodyModel<ResSampleCodeFakeModel>> getObj(@Path('id') String id);
+  Future<ResSampleCodeFakeModel> getObj(@Path('id') String id);
 }

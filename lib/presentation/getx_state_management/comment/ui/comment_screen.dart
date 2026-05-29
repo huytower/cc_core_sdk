@@ -1,0 +1,58 @@
+import 'package:auto_route/annotations.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../core/di/di.dart';
+import '../get_x/comment_controller.dart';
+
+@RoutePage()
+class CommentScreen extends StatelessWidget {
+  const CommentScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final CommentController controller = Get.isRegistered<CommentController>()
+        ? Get.find<CommentController>()
+        : Get.put(getIt<CommentController>());
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Comments')),
+      body: Obx(() {
+        final comments = controller.comments;
+
+        return ListView.builder(
+          itemCount: comments.length,
+          itemBuilder: (context, index) {
+            final comment = comments[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ListTile(
+                  title: Text(
+                    comment.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        comment.email,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(comment.body),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      }),
+    );
+  }
+}

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../../../core/config/tokens/cc_base_colors.dart';
 
@@ -11,7 +10,7 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: CupertinoActivityIndicator(radius: 15, color: CcBaseColors.info),
     );
   }

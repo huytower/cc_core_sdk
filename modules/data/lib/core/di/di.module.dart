@@ -5,60 +5,57 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i687;
 
+import 'package:app_config/data/datasource/local/box/app_storage/cc_app_storage.dart'
+    as _i215;
 import 'package:data/core/di/module/data_module.dart' as _i532;
-import 'package:data/data/datasource/local/home/home_local_datasource.dart'
-    as _i199;
-import 'package:data/data/datasource/local/home/home_local_datasource_impl.dart'
-    as _i419;
+import 'package:data/data/datasource/local/dashboard/dashboard_local_datasource.dart'
+    as _i966;
+import 'package:data/data/datasource/local/dashboard/dashboard_local_datasource_impl.dart'
+    as _i774;
 import 'package:data/data/datasource/remote/comment/comment_remote.dart'
     as _i574;
 import 'package:data/data/datasource/remote/crash_log/crash_log_remote.dart'
     as _i313;
-import 'package:data/data/datasource/remote/home/home_remote.dart' as _i516;
-import 'package:data/data/datasource/remote/home/home_remote_datasource.dart'
-    as _i67;
-import 'package:data/data/datasource/remote/home/home_remote_datasource_impl.dart'
-    as _i848;
+import 'package:data/data/datasource/remote/dashboard/dashboard_remote_datasource.dart'
+    as _i480;
+import 'package:data/data/datasource/remote/dashboard/dashboard_remote_datasource_impl.dart'
+    as _i434;
 import 'package:data/data/datasource/remote/sample_code_fake_api/sample_code_fake_api_remote.dart'
     as _i198;
 import 'package:data/data/repositories/comment/comment_repository_impl.dart'
     as _i576;
 import 'package:data/data/repositories/crash_log/crash_log_repository_impl.dart'
     as _i701;
-import 'package:data/data/repositories/home/home_repository_impl.dart' as _i114;
+import 'package:data/data/repositories/dashboard/dashboard_repository_impl.dart'
+    as _i254;
 import 'package:data/domain/repositories/comment/comment_repository.dart'
     as _i683;
 import 'package:data/domain/repositories/crash_log/crash_log_repository.dart'
     as _i63;
-import 'package:data/domain/repositories/home/home_repositories.dart' as _i2;
-import 'package:data/domain/repositories/home/home_repository.dart' as _i515;
+import 'package:data/domain/repositories/dashboard/dashboard_repository.dart'
+    as _i866;
 import 'package:data/domain/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart'
     as _i872;
-import 'package:data/domain/usecases/home/get_home_data_usecase.dart' as _i5;
-import 'package:data/domain/usecases/home/refresh_home_data_usecase.dart'
-    as _i176;
-import 'package:data/domain/usecases/home/update_home_data_usecase.dart'
-    as _i15;
+import 'package:data/domain/usecases/dashboard/get_dashboard_data_usecase.dart'
+    as _i208;
+import 'package:data/domain/usecases/dashboard/refresh_dashboard_data_usecase.dart'
+    as _i393;
+import 'package:data/domain/usecases/dashboard/update_dashboard_data_usecase.dart'
+    as _i695;
 import 'package:data/domain/usecases/upload_pending_crash_logs_usecase.dart'
     as _i813;
 import 'package:dio/dio.dart' as _i361;
 import 'package:injectable/injectable.dart' as _i526;
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
-    as _i161;
-import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 class DataPackageModule extends _i526.MicroPackageModule {
 // initializes the registration of main-scope dependencies inside of GetIt
   @override
   _i687.FutureOr<void> init(_i526.GetItHelper gh) {
     final dataModule = _$DataModule();
-    gh.lazySingleton<_i198.SampleCodeFakeApiRemote>(
-        () => _i198.SampleCodeFakeApiRemote(
-              gh<_i361.Dio>(),
-              baseUrl: gh<String>(instanceName: 'baseUrl'),
-            ));
-    gh.factory<Map<String, dynamic>>(
-        () => dataModule.wrapListResponse(gh<List<dynamic>>()));
+    gh.singleton<_i361.Interceptor>(
+      () => dataModule.ccResponseInterceptor,
+      instanceName: 'ccResponseInterceptor',
+    );
     gh.singleton<_i361.Interceptor>(
       () => dataModule.cacheInterceptor,
       instanceName: 'cacheInterceptor',
@@ -71,26 +68,32 @@ class DataPackageModule extends _i526.MicroPackageModule {
       () => dataModule.talkerDioLogger,
       instanceName: 'talkerDioLogger',
     );
+    gh.lazySingleton<_i966.DashboardLocalDataSource>(
+        () => _i774.DashboardLocalDataSourceImpl(gh<_i215.CcAppStorage>()));
+    gh.singleton<_i361.Interceptor>(
+      () => dataModule.ccRequestInterceptor,
+      instanceName: 'ccRequestInterceptor',
+    );
     gh.singleton<_i361.Interceptor>(
       () => dataModule.curlLoggerInterceptor,
       instanceName: 'curlLoggerInterceptor',
     );
-    gh.singleton<_i361.Interceptor>(
-      () => dataModule.ccReqInterceptor(gh<_i161.InternetConnection>()),
-      instanceName: 'ccReqInterceptor',
-    );
-    gh.lazySingleton<_i67.HomeRemoteDataSource>(
-        () => const _i848.HomeRemoteDataSourceImpl());
-    gh.lazySingleton<_i199.HomeLocalDataSource>(
-        () => _i419.HomeLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
-    gh.lazySingleton<_i361.BaseOptions>(
-        () => dataModule.baseOptions(gh<String>(instanceName: 'baseUrl')));
+    gh.lazySingleton<_i480.DashboardRemoteDataSource>(
+        () => const _i434.DashboardRemoteDataSourceImpl());
     gh.singleton<List<_i361.Interceptor>>(() => dataModule.interceptors(
-          gh<_i361.Interceptor>(instanceName: 'ccReqInterceptor'),
+          gh<_i361.Interceptor>(instanceName: 'ccRequestInterceptor'),
+          gh<_i361.Interceptor>(instanceName: 'ccResponseInterceptor'),
           gh<_i361.Interceptor>(instanceName: 'curlLoggerInterceptor'),
           gh<_i361.Interceptor>(instanceName: 'talkerDioLogger'),
           gh<_i361.Interceptor>(instanceName: 'cacheInterceptor'),
         ));
+    gh.lazySingleton<_i361.BaseOptions>(
+        () => dataModule.baseOptions(gh<String>(instanceName: 'baseUrl')));
+    gh.lazySingleton<_i866.DashboardRepository>(
+        () => _i254.DashboardRepositoryImpl(
+              localDataSource: gh<_i966.DashboardLocalDataSource>(),
+              remoteDataSource: gh<_i480.DashboardRemoteDataSource>(),
+            ));
     gh.lazySingleton<_i361.Dio>(
       () => dataModule.dio(
         gh<_i361.BaseOptions>(),
@@ -98,18 +101,19 @@ class DataPackageModule extends _i526.MicroPackageModule {
       ),
       instanceName: 'baseDio',
     );
-    gh.lazySingleton<_i515.HomeRepository>(() => _i114.HomeRepositoryImpl(
-          localDataSource: gh<_i199.HomeLocalDataSource>(),
-          remoteDataSource: gh<_i67.HomeRemoteDataSource>(),
-        ));
+    gh.lazySingleton<_i198.SampleCodeFakeApiRemote>(
+        () => _i198.SampleCodeFakeApiRemote(
+              gh<_i361.Dio>(instanceName: 'baseDio'),
+              baseUrl: gh<String>(instanceName: 'baseUrl'),
+            ));
     gh.lazySingleton<_i313.CrashLogRemote>(
         () => _i313.CrashLogRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
-    gh.lazySingleton<_i5.GetHomeDataUseCase>(
-        () => _i5.GetHomeDataUseCase(gh<_i515.HomeRepository>()));
-    gh.lazySingleton<_i176.RefreshHomeDataUseCase>(
-        () => _i176.RefreshHomeDataUseCase(gh<_i515.HomeRepository>()));
-    gh.lazySingleton<_i15.UpdateHomeDataUseCase>(
-        () => _i15.UpdateHomeDataUseCase(gh<_i515.HomeRepository>()));
+    gh.lazySingleton<_i208.GetDashboardDataUseCase>(
+        () => _i208.GetDashboardDataUseCase(gh<_i866.DashboardRepository>()));
+    gh.lazySingleton<_i393.RefreshDashboardDataUseCase>(() =>
+        _i393.RefreshDashboardDataUseCase(gh<_i866.DashboardRepository>()));
+    gh.lazySingleton<_i695.UpdateDashboardDataUseCase>(() =>
+        _i695.UpdateDashboardDataUseCase(gh<_i866.DashboardRepository>()));
     gh.lazySingleton<_i872.SampleCodeFakeApiRepositories>(
         () => _i872.SampleCodeFakeApiImpl(
               dio: gh<_i361.Dio>(instanceName: 'baseDio'),
@@ -117,18 +121,12 @@ class DataPackageModule extends _i526.MicroPackageModule {
             ));
     gh.lazySingleton<_i63.CrashLogRepository>(
         () => _i701.CrashLogRepositoryImpl(gh<_i313.CrashLogRemote>()));
-    gh.factory<_i516.HomeRemote>(
-        () => _i516.HomeRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
     gh.singleton<_i574.CommentRemote>(
         () => _i574.CommentRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
     gh.lazySingleton<_i813.UploadPendingCrashLogsUseCase>(() =>
         _i813.UploadPendingCrashLogsUseCase(gh<_i63.CrashLogRepository>()));
     gh.singleton<_i683.CommentRepository>(() =>
         _i576.CommentRepositoryImpl(commentRemote: gh<_i574.CommentRemote>()));
-    gh.factory<_i2.HomeRepositoriesImpl>(() => _i2.HomeRepositoriesImpl(
-          dio: gh<_i361.Dio>(),
-          homeRemote: gh<_i516.HomeRemote>(),
-        ));
   }
 }
 

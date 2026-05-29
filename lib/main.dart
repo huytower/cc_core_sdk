@@ -1,42 +1,60 @@
+import 'dart:developer' as developer;
+
 import 'package:app_config/data/datasource/local/box/register_hive_adapter.dart';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
-import 'package:features/features/crash_log/export_crash_log.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'core/crash_reporting/crash_log_startup.dart';
-import 'core/di/inject/inject.dart';
+import 'core/di/di.dart';
 import 'core/runner/app_runner.dart';
 import 'main_logging.dart';
 
-/// NOTICE : there are 3 env. : FREE_FAKE_API (FREE) | UAT | PROD
-/// MUST write necessary code in this file
+/// The entry point of the application.
+///
+/// Sequence:
+/// 1. Initialize Flutter & Environment
+/// 2. Setup Dependency Injection
+/// 3. Initialize Local Storage (Hive)
+/// 4. Initialize Localization
+/// 5. Start App via Catcher2 (Global Error Handling)
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  await logEnv();
-  await logVersionInfo();
+    await logEnv();
+    await logVersionInfo();
 
-  await initializeDependencies();
+    await initializeDependencies();
 
-  final appDocumentDir = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir.path);
-  await registerHiveAdapter();
+    final appDocumentDir = await getApplicationDocumentsDirectory();
+    Hive.init(appDocumentDir.path);
+    await registerHiveAdapter();
 
-  await CcLocalization.initialize();
+    await CcLocalization.initialize();
 
-  await uploadPendingCrashLogsOnStartup();
+    await uploadPendingCrashLogsOnStartup();
 
+    _runApplication();
+  } catch (error, stackTrace) {
+    developer.log(
+      'FATAL BOOTSTRAP ERROR',
+      error: error,
+      stackTrace: stackTrace,
+    );
+    // Minimal fallback: if the app fails to start, we must at least show something.
+    runApp(ErrorPage(message: error.toString()));
+  }
+}
+
+/// Configures and launches the application shell.
+void _runApplication() async {
   final logFile = await CcCrashLogPaths.resolveLogFile();
 
-  final rootWidget = CrashLogDevOverlay(
-    child: CcLocalization.wrapWithLocalization(child: const AppRunner()),
-  );
-
   Catcher2(
-    rootWidget: rootWidget,
+    rootWidget: const AppRunner(),
     ensureInitialized: false,
     debugConfig: CcCatcherBootstrap.debugOptions(logFile),
     releaseConfig: CcCatcherBootstrap.releaseOptions(logFile),

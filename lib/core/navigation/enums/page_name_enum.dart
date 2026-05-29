@@ -4,7 +4,7 @@
 
 /// PRJ. PAGE
 enum PageNameEnum {
-  HOME,
+  DASHBOARD,
   SPLASH,
   SETTING,
   LOGIN,
@@ -13,7 +13,7 @@ enum PageNameEnum {
   UPDATE_VERSION,
   WEB,
   COMMENT,
-  FEATURES_COUNTER
+  FEATURES_COUNTER,
 }
 
 String getPageName(PageNameEnum pageName) => '/${pageName.name.toLowerCase()}';

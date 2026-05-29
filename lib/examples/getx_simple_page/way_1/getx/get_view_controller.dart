@@ -8,8 +8,8 @@ import 'package:data/domain/repositories/sample_code_fake_api/sample_code_fake_a
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../../../core/di/inject/inject.dart';
-import '../../../../presentation/getx/base/structure/getx/cc_get_controller/cc_get_controller.dart';
+import '../../../../../../core/di/di.dart';
+import '../../../../presentation/getx_state_management/base/structure/getx/cc_get_controller/cc_get_controller.dart';
 
 /// GETX : BINDINGS + CONTROLLER
 /// Step 1 : create Binding + Controller
@@ -127,9 +127,7 @@ class GetViewController extends CcGetController {
   Future<bool> onLoadMore() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    for (var element in l) {
-      sampleCodeFakeList.add(element);
-    }
+    l.forEach(sampleCodeFakeList.add);
 
     return true;
   }

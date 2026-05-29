@@ -5,7 +5,7 @@
 
 enum AppRoute {
   splash,
-  home,
+  dashboard,
   setting,
   login,
   logout,
@@ -20,12 +20,7 @@ extension AppRoutePath on AppRoute {
   String get path => '/${_snakeCase(name)}';
 }
 
-enum ExampleRoute {
-  blocSimple,
-  blocAdvance,
-  getxSimple,
-  getxSimpleV2,
-}
+enum ExampleRoute { blocSimple, blocAdvance, getxSimple, getxSimpleV2 }
 
 extension ExampleRoutePath on ExampleRoute {
   String get path => '/${_snakeCase(name)}';
@@ -54,10 +49,12 @@ ExampleRoute? exampleRouteFromString(String? raw) {
 }
 
 String _snakeCase(String input) {
-  return input.replaceAllMapped(
-    RegExp(r'([a-z0-9])([A-Z])'),
-    (match) => '${match[1]}_${match[2]}',
-  ).toLowerCase();
+  return input
+      .replaceAllMapped(
+        RegExp(r'([a-z0-9])([A-Z])'),
+        (match) => '${match[1]}_${match[2]}',
+      )
+      .toLowerCase();
 }
 
 String _normalizeRouteKey(String? raw) {

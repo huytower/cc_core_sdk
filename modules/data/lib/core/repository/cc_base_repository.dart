@@ -1,3 +1,4 @@
+import 'package:cc_sdk/core/error/cc_exceptions.dart';
 import 'package:cc_sdk/domain/failures/cc_failure.dart';
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -14,7 +15,22 @@ mixin CcBaseRepository {
     try {
       final response = await request();
       return Success(response);
+    } on CcServerException catch (e) {
+      // Handle business failure thrown from the interceptor
+      return Error(
+        ServerFailure(e.message, statusCode: int.tryParse(e.code ?? '')),
+      );
     } on DioException catch (e) {
+      // Check if it's a CcServerException wrapped inside DioException
+      if (e.error is CcServerException) {
+        final serverEx = e.error as CcServerException;
+        return Error(
+          ServerFailure(
+            serverEx.message,
+            statusCode: int.tryParse(serverEx.code ?? ''),
+          ),
+        );
+      }
       return Error(mapDioErrorToFailure(e));
     } catch (e) {
       return Error(ServerFailure(e.toString()));

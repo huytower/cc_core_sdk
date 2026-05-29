@@ -58,7 +58,7 @@ class _CcCountDownState extends State<CcCountDown> {
     '$_start',
     textStyle:
         widget.style ??
-        TextStyle(
+        const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: CcBaseColors.neutral100,

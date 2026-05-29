@@ -2,8 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../../../core/config/retrofit/response/body/cc_res_body_model.dart';
-import '../../../../domain/entities/comment/comment.dart';
+import '../../../model/comment/comment_model.dart';
 
 part 'comment_remote.g.dart';
 
@@ -13,6 +12,8 @@ abstract class CommentRemote {
   @factoryMethod
   factory CommentRemote(@Named('baseDio') Dio dio) = _CommentRemote;
 
+  /// Get all comments.
+  /// The CcResponseInterceptor handles peeling the envelope.
   @GET('/comments')
-  Future<CcResBodyModel<Comment>> getListComments();
+  Future<List<CommentModel>> getListComments();
 }
