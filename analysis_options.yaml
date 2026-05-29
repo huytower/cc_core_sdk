@@ -53,7 +53,7 @@ analyzer:
 
 linter:
   rules:
-    - prefer_relative_imports
+    # prefer_relative_imports is disabled for generated files that use absolute imports
     - avoid_empty_else
     - avoid_print
     - avoid_slow_async_io
