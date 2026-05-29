@@ -60,11 +60,7 @@ logs
 build/
 **/build/
 
-# Generated files
-*.g.dart
-*.freezed.dart
-*.inject.summary
-*.inject.dart
+# Generated files - handled by root .gitignore for workspace consistency
 
 # Web related
 .webpack_staging/
