@@ -130,6 +130,7 @@ lib/generated_plugin_registrant.dart
 
 # Melos
 melos_*.log
+pubspec_overrides.yaml
 
 # Ruby / Bundler
 .bundle/

@@ -27,8 +27,8 @@ dependencies:
   local_auth: ^3.0.1
   local_auth_android: ^2.0.0
   local_auth_darwin: ^2.0.0
-  shared_preferences: ^2.5.2
   multiple_result: ^5.3.0
+  shared_preferences: ^2.5.2
 
 dev_dependencies:
   build_runner: ^2.15.0
