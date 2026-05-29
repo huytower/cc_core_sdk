@@ -6,11 +6,15 @@ platform :android do
   lane :distribute_firebase do |options|
     flavor = options[:flavor] || "uat"
 
-    # 1. Build the Flutter App Bundle
+    # 1. Generate code (run from root directory)
+    # Move to root and run code generation with melos
+    sh("cd ../.. && melos run gen")
+
+    # 2. Build the Flutter App Bundle
     # We move up to the root to run flutter commands
     sh("cd ../.. && flutter build appbundle --release --flavor #{flavor}")
 
-    # 2. Upload to Firebase
+    # 3. Upload to Firebase
     # Assumes FIREBASE_APP_ID is in your environment variables
     # You need the 'fastlane-plugin-firebase_app_distribution' plugin
     firebase_app_distribution(
@@ -24,6 +28,10 @@ platform :android do
 
   desc "Build and sign the release AAB for Play Store"
   lane :build_release do
+    # 1. Generate code (run from root directory)
+    sh("cd ../.. && melos run gen")
+    
+    # 2. Build the Flutter App Bundle
     sh("cd ../.. && flutter build appbundle --release --flavor prod")
   end
 end
