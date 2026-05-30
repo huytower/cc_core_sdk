@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../core/repository/cc_base_repository.dart';
+import '../../../core/models/pagination_request.dart';
 import '../../../domain/entities/comment/comment_entity.dart';
 import '../../../domain/repositories/comment/comment_repository.dart';
 import '../../datasource/remote/comment/comment_remote.dart';
@@ -21,6 +22,23 @@ class CommentRepositoryImpl with CcBaseRepository implements CommentRepository {
     return safeRequest(() async {
       // 1. Call the remote source (The interceptor already peeled the JSON)
       final response = await commentRemote.getListComments();
+
+      // 2. Map DTOs to Entities
+      return response.map((model) => model.toEntity()).toList();
+    });
+  }
+
+  @override
+  Future<Result<List<CommentEntity>, Failure>> getComments(
+    PaginationRequest request,
+  ) async {
+    return safeRequest(() async {
+      // 1. Call the remote source with pagination parameters
+      // The interceptor already peeled the JSON and preserved pagination metadata
+      final response = await commentRemote.getComments(
+        request.page,
+        request.itemsPerPage,
+      );
 
       // 2. Map DTOs to Entities
       return response.map((model) => model.toEntity()).toList();

@@ -1,10 +1,23 @@
 name: CI/CD Pipeline
 
+# TEMPORARILY DISABLED - Comment out triggers to prevent auto-runs and notifications
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+#   workflow_dispatch:
+#     inputs:
+#       flavor:
+#         description: 'App flavor'
+#         required: true
+#         default: 'uat'
+#         type: choice
+#         options: [ free, uat, prod ]
+
+# TEMPORARILY DISABLED - Add condition to prevent any job from running
+# Uncomment the 'on:' section above and remove this 'if:' condition to re-enable
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
     inputs:
       flavor:
@@ -13,6 +26,12 @@ on:
         default: 'uat'
         type: choice
         options: [ free, uat, prod ]
+      enable_ci:
+        description: 'Enable CI/CD pipeline'
+        required: true
+        default: 'false'
+        type: choice
+        options: [ 'true', 'false' ]
 
 env:
   FLUTTER_VERSION: '3.41.9'

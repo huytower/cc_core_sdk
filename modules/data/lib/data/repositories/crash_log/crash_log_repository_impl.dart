@@ -4,9 +4,9 @@ import 'package:cc_sdk/core/config/cc_app_track_info.dart';
 import 'package:cc_sdk/core/crash_reporting/cc_crash_log_paths.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../datasource/remote/crash_log/crash_log_remote.dart';
-import '../../model/crash_log/crash_log_upload_body.dart';
 import '../../../domain/repositories/crash_log/crash_log_repository.dart';
+import '../../datasource/remote/crash_log/crash_log_remote.dart';
+import '../../models/crash_log/crash_log_upload_body.dart';
 
 @LazySingleton(as: CrashLogRepository)
 class CrashLogRepositoryImpl implements CrashLogRepository {

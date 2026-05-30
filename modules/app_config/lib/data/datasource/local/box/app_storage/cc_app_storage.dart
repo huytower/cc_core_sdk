@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:data/data/model/user/res_user.dart';
+import 'package:data/data/models/user/res_user.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:json_annotation/json_annotation.dart';
 

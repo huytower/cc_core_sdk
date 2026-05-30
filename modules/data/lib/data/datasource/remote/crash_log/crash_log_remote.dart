@@ -2,7 +2,7 @@ import 'package:cc_sdk/core/config/cc_app_track_info.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../model/crash_log/crash_log_upload_body.dart';
+import '../../../models/crash_log/crash_log_upload_body.dart';
 
 /// Posts crash log payloads using the shared [baseDio] instance.
 @lazySingleton
@@ -12,9 +12,6 @@ class CrashLogRemote {
   final Dio _dio;
 
   Future<void> upload(CrashLogUploadBody body) async {
-    await _dio.post<void>(
-      CcCrashLogEnv.apiPath,
-      data: body.toJson(),
-    );
+    await _dio.post<void>(CcCrashLogEnv.apiPath, data: body.toJson());
   }
 }
