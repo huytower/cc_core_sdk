@@ -7,8 +7,8 @@ platform :android do
     flavor = options[:flavor] || "uat"
 
     # 1. Generate code (run from root directory)
-    # Move to root and run code generation with melos
-    sh("cd ../.. && melos run gen")
+    # Use direct Flutter command instead of melos to avoid PATH issues
+    sh("cd ../.. && flutter pub run build_runner build --delete-conflicting-outputs")
 
     # 2. Build the Flutter App Bundle
     # We move up to the root to run flutter commands
@@ -29,7 +29,7 @@ platform :android do
   desc "Build and sign the release AAB for Play Store"
   lane :build_release do
     # 1. Generate code (run from root directory)
-    sh("cd ../.. && melos run gen")
+    sh("cd ../.. && flutter pub run build_runner build --delete-conflicting-outputs")
     
     # 2. Build the Flutter App Bundle
     sh("cd ../.. && flutter build appbundle --release --flavor prod")

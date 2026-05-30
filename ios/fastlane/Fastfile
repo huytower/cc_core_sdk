@@ -6,8 +6,8 @@ platform :ios do
     flavor = options[:flavor] || "uat"
 
     # 1. Generate code (run from root directory)
-    # Move to root and run code generation with melos
-    sh("cd ../.. && melos run gen")
+    # Use direct Flutter command instead of melos to avoid PATH issues
+    sh("cd ../.. && flutter pub run build_runner build --delete-conflicting-outputs")
 
     # 2. Setup API Key (to bypass 2FA)
     api_key = app_store_connect_api_key(
