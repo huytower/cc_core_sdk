@@ -2,7 +2,6 @@ import 'package:app_config/core/di/di.module.dart';
 import 'package:cc_sdk/core/di/di.module.dart';
 import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:data/core/di/di.module.dart';
-import 'package:data/domain/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart';
 import 'package:data/domain/usecases/dashboard/get_dashboard_data_usecase.dart';
 import 'package:data/domain/usecases/dashboard/refresh_dashboard_data_usecase.dart';
 import 'package:data/domain/usecases/dashboard/update_dashboard_data_usecase.dart';
@@ -15,7 +14,6 @@ class CcDiModuleConfig {
   /// Types that are registered in Micro-Packages but used as dependencies in lib/
   static const List<Type> ignoreUnregisteredTypes = [
     CcDeviceInfoHelper,
-    SampleCodeFakeApiRepositories,
     GetDashboardDataUseCase,
     UpdateDashboardDataUseCase,
     RefreshDashboardDataUseCase,

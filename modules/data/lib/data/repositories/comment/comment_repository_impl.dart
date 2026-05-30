@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:cc_sdk/domain/failures/cc_failure.dart';
+import 'package:cc_sdk/domain/models/pagination_request.dart';
 import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../core/repository/cc_base_repository.dart';
-import '../../../core/models/pagination_request.dart';
 import '../../../domain/entities/comment/comment_entity.dart';
 import '../../../domain/repositories/comment/comment_repository.dart';
 import '../../datasource/remote/comment/comment_remote.dart';

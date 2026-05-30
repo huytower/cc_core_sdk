@@ -20,8 +20,6 @@ import 'package:data/data/datasource/remote/dashboard/dashboard_remote_datasourc
     as _i480;
 import 'package:data/data/datasource/remote/dashboard/dashboard_remote_datasource_impl.dart'
     as _i434;
-import 'package:data/data/datasource/remote/sample_code_fake_api/sample_code_fake_api_remote.dart'
-    as _i198;
 import 'package:data/data/repositories/comment/comment_repository_impl.dart'
     as _i576;
 import 'package:data/data/repositories/crash_log/crash_log_repository_impl.dart'
@@ -34,8 +32,6 @@ import 'package:data/domain/repositories/crash_log/crash_log_repository.dart'
     as _i63;
 import 'package:data/domain/repositories/dashboard/dashboard_repository.dart'
     as _i866;
-import 'package:data/domain/repositories/sample_code_fake_api/sample_code_fake_api_repositories.dart'
-    as _i872;
 import 'package:data/domain/usecases/dashboard/get_dashboard_data_usecase.dart'
     as _i208;
 import 'package:data/domain/usecases/dashboard/refresh_dashboard_data_usecase.dart'
@@ -101,11 +97,6 @@ class DataPackageModule extends _i526.MicroPackageModule {
       ),
       instanceName: 'baseDio',
     );
-    gh.lazySingleton<_i198.SampleCodeFakeApiRemote>(
-        () => _i198.SampleCodeFakeApiRemote(
-              gh<_i361.Dio>(instanceName: 'baseDio'),
-              baseUrl: gh<String>(instanceName: 'baseUrl'),
-            ));
     gh.lazySingleton<_i313.CrashLogRemote>(
         () => _i313.CrashLogRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
     gh.lazySingleton<_i208.GetDashboardDataUseCase>(
@@ -114,11 +105,6 @@ class DataPackageModule extends _i526.MicroPackageModule {
         _i393.RefreshDashboardDataUseCase(gh<_i866.DashboardRepository>()));
     gh.lazySingleton<_i695.UpdateDashboardDataUseCase>(() =>
         _i695.UpdateDashboardDataUseCase(gh<_i866.DashboardRepository>()));
-    gh.lazySingleton<_i872.SampleCodeFakeApiRepositories>(
-        () => _i872.SampleCodeFakeApiImpl(
-              dio: gh<_i361.Dio>(instanceName: 'baseDio'),
-              remote: gh<_i198.SampleCodeFakeApiRemote>(),
-            ));
     gh.lazySingleton<_i63.CrashLogRepository>(
         () => _i701.CrashLogRepositoryImpl(gh<_i313.CrashLogRemote>()));
     gh.singleton<_i574.CommentRemote>(

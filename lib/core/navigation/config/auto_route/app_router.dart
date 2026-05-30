@@ -16,13 +16,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SplashRoute.page, initial: true),
     AutoRoute(page: DashboardRoute.page, path: AppRoute.dashboard.path),
     AutoRoute(page: CommentRoute.page, path: AppRoute.comment.path),
-    AutoRoute(
-      page: FeaturesCounterRoute.page,
-      path: AppRoute.featuresCounter.path,
-    ),
     AutoRoute(page: SimpleCubitRoute.page, path: ExampleRoute.blocSimple.path),
     AutoRoute(page: AdvanceBlocRoute.page, path: ExampleRoute.blocAdvance.path),
-    AutoRoute(page: GetViewRoute.page, path: ExampleRoute.getxSimple.path),
-    AutoRoute(page: GetViewV2Route.page, path: ExampleRoute.getxSimpleV2.path),
   ];
 }

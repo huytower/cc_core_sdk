@@ -1,9 +1,10 @@
+import 'package:cc_mixin/export_cc_mixin.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:data/domain/entities/comment/comment_entity.dart';
 import 'package:data/domain/repositories/comment/comment_repository.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/di/di.dart';
-import '../../base/mixins/pagination_mixin.dart';
 import '../../base/structure/getx/cc_get_controller/cc_get_controller.dart';
 
 class CommentBinding extends Bindings {
@@ -18,43 +19,71 @@ class CommentController extends CcGetController with PaginationMixin {
 
   final CommentRepository _commentRepository;
 
-  // List to store comments
+  // Reactive list to store comments
   final comments = <CommentEntity>[].obs;
 
   @override
   void onReady() {
     super.onReady();
 
-    // Initialize pagination
-    initPagination();
-    
-    // Load first page of comments
+    // Initialize pagination with default settings
+    initPagination(initialItemsPerPage: 20);
+
+    // Initial load
     loadComments();
   }
 
-  /// Load comments for the current page
+  /// Load comments with pagination support.
+  /// Set [refresh] to true to reload from the first page.
   Future<void> loadComments({bool refresh = false}) async {
-    await loadPaginatedData<CommentEntity>(
-      refresh: refresh,
-      targetList: comments,
-      fetchFunction: (request) => _commentRepository.getComments(request),
+    // 1. Guard check
+    if (!canFetchMore && !refresh) return;
+
+    // 2. Set loading states
+    setPaginationLoading(true);
+    layoutStatus.value = refresh
+        ? CcLayoutStatus.loading
+        : CcLayoutStatus.loadMore;
+
+    // 3. Fetch data using the current request from mixin
+    final result = await _commentRepository.getComments(
+      refresh
+          ? const PaginationRequest(page: 1, itemsPerPage: 20)
+          : currentPaginationRequest,
     );
+
+    // 4. Update pagination logic (page counter and hasMore)
+    handlePaginationResult(result, isRefresh: refresh);
+
+    // 5. Handle UI State and Data updates
+    result.when(
+      (success) {
+        if (refresh) {
+          comments.assignAll(success);
+        } else {
+          comments.addAll(success);
+        }
+
+        // Determine final layout status
+        if (comments.isEmpty) {
+          layoutStatus.value = CcLayoutStatus.empty;
+        } else {
+          layoutStatus.value = CcLayoutStatus.success;
+        }
+      },
+      (error) {
+        errorMessage.value = error.message;
+        layoutStatus.value = CcLayoutStatus.error;
+      },
+    );
+
+    // 6. Reset loading state
+    setPaginationLoading(false);
   }
 
-  /// Load next page of comments
-  Future<void> loadNextPageComments() {
-    return loadPaginatedData<CommentEntity>(
-      targetList: comments,
-      fetchFunction: (request) => _commentRepository.getComments(request),
-    );
-  }
+  /// Convenience method for load-more events
+  Future<void> loadNextPage() => loadComments(refresh: false);
 
-  /// Refresh comments from first page
-  Future<void> refresh() {
-    return loadPaginatedData<CommentEntity>(
-      refresh: true,
-      targetList: comments,
-      fetchFunction: (request) => _commentRepository.getComments(request),
-    );
-  }
+  /// Convenience method for pull-to-refresh events
+  Future<void> refreshData() => loadComments(refresh: true);
 }

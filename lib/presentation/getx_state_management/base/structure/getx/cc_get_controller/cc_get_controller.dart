@@ -1,16 +1,13 @@
-import 'package:app_config/core/enum/layout_status.dart';
-import 'package:cc_sdk/core/helper/cc_network_helper.dart';
-import 'package:cc_sdk/domain/failures/cc_failure.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:message/cc_locale_keys.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../../../core/di/di.dart';
 
 abstract class CcGetController extends GetxController {
-  Rx<LayoutStatus> layoutStatus = Rx<LayoutStatus>(LayoutStatus.loading);
+  Rx<CcLayoutStatus> layoutStatus = Rx<CcLayoutStatus>(CcLayoutStatus.loading);
   RxString errorMessage = RxString('');
 
   /// Handles UI rendering based on the current [layoutStatus].
@@ -18,7 +15,7 @@ abstract class CcGetController extends GetxController {
   /// This widget automatically reacts to changes in [layoutStatus] and
   /// switches between loading, success, empty, and error states.
   Widget multipleLayoutStates({
-    Function(LayoutStatus? layoutStatus)? onChangeState,
+    Function(CcLayoutStatus? layoutStatus)? onChangeState,
     required Widget Function() onLoading,
     required Widget Function() onSuccess,
     required Widget Function() onEmpty,
@@ -29,17 +26,19 @@ abstract class CcGetController extends GetxController {
 
     return Obx(() {
       switch (layoutStatus.value) {
-        case LayoutStatus.loading:
+        case CcLayoutStatus.loading:
           return onLoading();
-        case LayoutStatus.success:
+        case CcLayoutStatus.success:
           return onSuccess();
-        case LayoutStatus.error:
+        case CcLayoutStatus.error:
           final message = errorMessage.value != '' ? errorMessage.value : '100';
           return onError(message);
-        case LayoutStatus.empty:
+        case CcLayoutStatus.empty:
           return onEmpty();
-        case LayoutStatus.load_more:
+        case CcLayoutStatus.loadMore:
           return const SizedBox();
+        case CcLayoutStatus.refresh:
+          return onLoading();
       }
     });
   }
@@ -54,13 +53,13 @@ abstract class CcGetController extends GetxController {
     required Future<Result<List<T>, Failure>> Function() fetchFunction,
     RxList<T>? targetList,
   }) async {
-    layoutStatus.value = LayoutStatus.loading;
+    layoutStatus.value = CcLayoutStatus.loading;
     try {
       final hasInternet = await getIt<CcNetworkHelper>().hasInternet;
       if (!hasInternet) {
         final errorMsg = el.tr(CcLocaleKeys.app_error_network);
         errorMessage.value = errorMsg;
-        layoutStatus.value = LayoutStatus.error;
+        layoutStatus.value = CcLayoutStatus.error;
         return Error(NetworkFailure(errorMsg));
       }
 
@@ -71,14 +70,14 @@ abstract class CcGetController extends GetxController {
           targetList?.assignAll(success);
 
           if (success.isEmpty) {
-            layoutStatus.value = LayoutStatus.empty;
+            layoutStatus.value = CcLayoutStatus.empty;
           } else {
-            layoutStatus.value = LayoutStatus.success;
+            layoutStatus.value = CcLayoutStatus.success;
           }
         },
         (error) {
           errorMessage.value = error.message;
-          layoutStatus.value = LayoutStatus.error;
+          layoutStatus.value = CcLayoutStatus.error;
         },
       );
 
@@ -86,7 +85,7 @@ abstract class CcGetController extends GetxController {
     } catch (e) {
       final errorMsg = e.toString();
       errorMessage.value = errorMsg;
-      layoutStatus.value = LayoutStatus.error;
+      layoutStatus.value = CcLayoutStatus.error;
       return Error(ServerFailure(errorMsg));
     }
   }

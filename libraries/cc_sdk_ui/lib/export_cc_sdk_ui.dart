@@ -1,9 +1,10 @@
 // Core SDK Exports
 export 'package:cc_sdk/export_cc_sdk.dart';
-// Core Config & Tokens
+// Core Config, Enums & Tokens
 export 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
+export 'package:cc_sdk_ui/core/enum/cc_layout_status.dart';
 // Core Constants
 export 'package:cc_sdk_ui/core/constants/cc_constants_multimedia.dart';
 // Helper

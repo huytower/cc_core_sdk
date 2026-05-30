@@ -1,7 +1,6 @@
 import 'dart:ui';
 
-import 'package:app_config/core/enum/layout_status.dart';
-import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -22,7 +21,6 @@ class WebController extends CcGetController {
   @override
   void onInit() {
     super.onInit();
-    'onInit(): '.Log();
 
     webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -45,6 +43,6 @@ class WebController extends CcGetController {
       )
       ..loadRequest(Uri.parse('https://flutter.dev'));
 
-    layoutStatus.value = LayoutStatus.success;
+    layoutStatus.value = CcLayoutStatus.success;
   }
 }

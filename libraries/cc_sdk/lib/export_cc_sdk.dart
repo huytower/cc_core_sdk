@@ -11,10 +11,11 @@ export 'package:cc_sdk/core/di/export_cc_di.dart';
 export 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 // Helpers
 export 'package:cc_sdk/core/helper/export_cc_helper.dart';
-// Domain Entities & Failures
+// Domain Entities, Models & Failures
 export 'package:cc_sdk/domain/entities/cc_device_entity.dart';
 export 'package:cc_sdk/domain/failures/app_config/cc_app_config_failure.dart';
 export 'package:cc_sdk/domain/failures/cc_failure.dart';
+export 'package:cc_sdk/domain/models/pagination_request.dart';
 // Localization (Transitive export from content_locale module)
 export 'package:message/cc_locale_keys.dart';
 export 'package:message/cc_localization.dart';

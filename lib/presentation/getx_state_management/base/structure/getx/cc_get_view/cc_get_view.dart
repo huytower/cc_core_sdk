@@ -1,4 +1,4 @@
-import 'package:app_config/core/enum/layout_status.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,13 +11,13 @@ abstract class CcGetView<T extends CcGetController> extends GetView<T> {
     this.isEnableAppBar = true,
     this.isEnableBottomNavigation = true,
     this.isEnableTabBar = true,
-    this.layoutStatus = LayoutStatus.success,
+    this.layoutStatus = CcLayoutStatus.success,
   });
 
   final bool isEnableAppBar;
   final bool isEnableBottomNavigation;
   final bool isEnableTabBar;
-  final LayoutStatus layoutStatus;
+  final CcLayoutStatus layoutStatus;
 
   //----------------------------------------------------------------------------
   PreferredSizeWidget? appBar() {
@@ -42,18 +42,6 @@ abstract class CcGetView<T extends CcGetController> extends GetView<T> {
     return Container(
       child: controller.multipleLayoutStates(
         onLoading: () {
-          // if (layoutStatus == LayoutStatus.loadingLayer) {
-          //   return Stack(
-          //     children: [
-          //       content.call() ?? _emptyWidget(),
-          //       Container(
-          //         color: Colors.red,
-          //         height: MediaQuery.of(Get.context!).size.height,
-          //         width: MediaQuery.of(Get.context!).size.width,
-          //       ),
-          //     ],
-          //   );
-          // }
           return loadingLayout();
         },
         onSuccess: () {
