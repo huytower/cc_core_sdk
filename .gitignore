@@ -20,11 +20,16 @@ DerivedData/
 .env
 .env.*
 !.env.template
+# Allow environment files in env/ directory for CI builds
+!env/.env.development
+!env/.env.uat
+!env/.env.production
 
 .generated/
 
 *.pbxuser
 *.mode1v3
+*.mode2v3
 *.mode2v3
 *.perspectivev3
 
@@ -113,6 +118,7 @@ lib/generated_plugin_registrant.dart
 /ios/Flutter/flutter_export_environment.sh
 /ios/Flutter/Generated.xcconfig
 /ios/Flutter/Flutter.podspec
+/ios/Flutter/flutter_export_environment.sh
 /ios/Pods
 /ios/Podfile.lock
 /ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
