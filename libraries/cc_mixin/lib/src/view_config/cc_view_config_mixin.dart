@@ -13,24 +13,21 @@ import 'package:flutter/material.dart';
 ///
 /// Usage:
 /// 1. Override [buildContent] to provide your main content widget (REQUIRED)
-/// 2. Override [layoutStatus] to control which layout page is shown (loading, success, error, etc.)
-/// 3. Override [isEnableAppBar], [isEnableBottomNavigation], [floatingActionButton]
-///    to configure the view behavior
-/// 4. Override [appBar] and [bottomNavigationBar] for custom navigation
-/// 5. Override [onRetry] to handle retry action for error state
+/// 2. Customize behavior by overriding optional getters/methods:
+///    - [layoutStatus]: Control which layout page is shown
+///    - [onRetry]: Hook for retry action on error state
+///    - [isEnableAppBar], [appBar], [floatingActionButton]: Navigation config
 ///
 /// Example:
 /// ```dart
-/// class MyView extends CcGetView<MyController> {
+/// class MyView extends StatelessWidget with CcViewConfigMixin {
 ///   @override
-///   Widget? buildContent() {
-///     return MyCustomWidget(); // Your content here
-///   }
+///   Widget? buildContent() => Text('Success Content');
 /// }
 /// ```
 mixin CcViewConfigMixin {
   // ============================================
-  // Configuration Parameters
+  // Configuration (Optional Overrides)
   // ============================================
 
   /// Controls whether the app bar is enabled for this view
@@ -46,6 +43,9 @@ mixin CcViewConfigMixin {
   /// Current layout status that determines which page is shown
   CcLayoutStatus get layoutStatus => CcLayoutStatus.success;
 
+  /// Controls whether the loading page is enabled for this view
+  bool get isEnableLoading => true;
+
   /// Error message to display in error layout
   String get errorMessage => 'An error occurred';
 
@@ -53,12 +53,12 @@ mixin CcViewConfigMixin {
   // Required Methods
   // ============================================
 
-  /// Main content widget for the view
-  /// This MUST be overridden by the using class
+  /// Main content widget for the view.
+  /// This is the only method that MUST be overridden.
   Widget? buildContent();
 
   // ============================================
-  // Optional Override Methods
+  // Hooks (Optional Overrides)
   // ============================================
 
   /// App bar for the view
@@ -67,7 +67,7 @@ mixin CcViewConfigMixin {
   /// Bottom navigation bar for the view
   Widget? bottomNavigationBar() => null;
 
-  /// Retry action handler for error state
+  /// Action handler for the retry button in error state
   void onRetry() {}
 
   /// Floating action button tap handler
@@ -115,7 +115,9 @@ mixin CcViewConfigMixin {
   Widget get body {
     switch (layoutStatus) {
       case CcLayoutStatus.loading:
-        return const LoadingPage();
+        return isEnableLoading
+            ? const LoadingPage()
+            : (buildContent() ?? const SizedBox.shrink());
       case CcLayoutStatus.loadMore:
         return buildContent() ?? const SizedBox.shrink();
       case CcLayoutStatus.success:
@@ -125,7 +127,9 @@ mixin CcViewConfigMixin {
       case CcLayoutStatus.error:
         return ErrorPage(message: errorMessage, onRetry: onRetry);
       case CcLayoutStatus.refresh:
-        return const LoadingPage();
+        return isEnableLoading
+            ? const LoadingPage()
+            : (buildContent() ?? const SizedBox.shrink());
     }
   }
 }

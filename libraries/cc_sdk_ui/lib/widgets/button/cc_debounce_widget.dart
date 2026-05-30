@@ -38,25 +38,8 @@ class _CcDebounceState extends State<CcDebounce> {
   Widget build(BuildContext context) {
     if (widget.child != null) {
       return GestureDetector(
-        onTap:
-            widget.isEnable && !_isDebouncing
-                ? () {
-                  setState(() => _isDebouncing = true);
-                  widget.onTap?.call();
-                  Future.delayed(
-                    widget.duration,
-                    () => setState(() => _isDebouncing = false),
-                  );
-                }
-                : null,
-        child: widget.child,
-      );
-    }
-
-    return GestureDetector(
-      onTap:
-          widget.isEnable && !_isDebouncing
-              ? () {
+        onTap: widget.isEnable && !_isDebouncing
+            ? () {
                 setState(() => _isDebouncing = true);
                 widget.onTap?.call();
                 Future.delayed(
@@ -64,7 +47,22 @@ class _CcDebounceState extends State<CcDebounce> {
                   () => setState(() => _isDebouncing = false),
                 );
               }
-              : null,
+            : null,
+        child: widget.child,
+      );
+    }
+
+    return GestureDetector(
+      onTap: widget.isEnable && !_isDebouncing
+          ? () {
+              setState(() => _isDebouncing = true);
+              widget.onTap?.call();
+              Future.delayed(
+                widget.duration,
+                () => setState(() => _isDebouncing = false),
+              );
+            }
+          : null,
       child: Container(
         height: 48,
         decoration: BoxDecoration(
@@ -89,10 +87,9 @@ class _CcDebounceState extends State<CcDebounce> {
               ],
               CcText(
                 widget.title ?? '',
-                color:
-                    widget.isEnable
-                        ? widget.textColor
-                        : CcBaseColors.textSecondary,
+                color: widget.isEnable
+                    ? widget.textColor
+                    : CcBaseColors.textSecondary,
                 fontWeight: FontWeight.bold,
               ),
             ],

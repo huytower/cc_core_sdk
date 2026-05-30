@@ -1,3 +1,4 @@
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,36 +6,19 @@ import '../bloc/dashboard_bloc.dart';
 
 /// Dashboard Content Widget - Presentation Layer
 class DashboardContent extends StatelessWidget {
-  const DashboardContent({Key? key}) : super(key: key);
+  final dynamic dashboardData;
+  final bool isRefreshing;
+  final bool isUpdating;
+
+  const DashboardContent({
+    Key? key,
+    required this.dashboardData,
+    this.isRefreshing = false,
+    this.isUpdating = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DashboardBloc, DashboardState>(
-      builder: (context, state) {
-        if (state is DashboardLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is DashboardLoaded) {
-          return _buildDashboardContent(
-            context,
-            state.dashboardData,
-            isRefreshing: state is DashboardRefreshing,
-            isUpdating: state is DashboardUpdating,
-          );
-        } else if (state is DashboardError) {
-          return _buildErrorContent(context, state.message);
-        } else {
-          return const Center(child: Text('Welcome to Dashboard!'));
-        }
-      },
-    );
-  }
-
-  Widget _buildDashboardContent(
-    BuildContext context,
-    dynamic dashboardData, {
-    bool isRefreshing = false,
-    bool isUpdating = false,
-  }) {
     return Stack(
       children: [
         Padding(
@@ -76,15 +60,17 @@ class DashboardContent extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          IconButton(
-                            onPressed: () {
+                          CcDebounce(
+                            onTap: () {
                               context.read<DashboardBloc>().add(
                                 const DecrementItemCountEvent(),
                               );
                             },
-                            icon: const Icon(Icons.remove_circle_outline),
-                            iconSize: 32,
-                            color: Colors.red,
+                            child: const Icon(
+                              Icons.remove_circle_outline,
+                              size: 32,
+                              color: Colors.red,
+                            ),
                           ),
                           const SizedBox(width: 24),
                           Text(
@@ -96,15 +82,17 @@ class DashboardContent extends StatelessWidget {
                                 ),
                           ),
                           const SizedBox(width: 24),
-                          IconButton(
-                            onPressed: () {
+                          CcDebounce(
+                            onTap: () {
                               context.read<DashboardBloc>().add(
                                 const IncrementItemCountEvent(),
                               );
                             },
-                            icon: const Icon(Icons.add_circle_outline),
-                            iconSize: 32,
-                            color: Colors.green,
+                            child: const Icon(
+                              Icons.add_circle_outline,
+                              size: 32,
+                              color: Colors.green,
+                            ),
                           ),
                         ],
                       ),
@@ -164,32 +152,6 @@ class DashboardContent extends StatelessWidget {
             child: Center(child: CircularProgressIndicator()),
           ),
       ],
-    );
-  }
-
-  Widget _buildErrorContent(BuildContext context, String message) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.error_outline, size: 64, color: Colors.red),
-          const SizedBox(height: 16),
-          Text('Error', style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: 8),
-          Text(
-            message,
-            style: Theme.of(context).textTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {
-              context.read<DashboardBloc>().add(const LoadDashboardDataEvent());
-            },
-            child: const Text('Retry'),
-          ),
-        ],
-      ),
     );
   }
 
