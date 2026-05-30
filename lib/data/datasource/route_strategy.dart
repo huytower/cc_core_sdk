@@ -24,11 +24,10 @@ abstract class RoutingStrategy {
   /// Wraps the router with shared app-level wiring.
   ///
   /// This keeps theme/localization/provider setup in one location and makes
-  /// it easier for junior developers to understand the application shell.
   @protected
   Widget buildThemedApp(
     Widget Function(BuildContext context, ThemeProvider themeProvider)
-        routerBuilder,
+    routerBuilder,
   ) {
     return ChangeNotifierProvider<ThemeProvider>.value(
       value: _themeProvider,

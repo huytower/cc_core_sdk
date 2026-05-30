@@ -5,7 +5,7 @@ import 'package:data/domain/repositories/comment/comment_repository.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/di/di.dart';
-import '../../base/structure/getx/cc_get_controller/cc_get_controller.dart';
+import '../../base/getx/cc_get_controller.dart';
 
 class CommentBinding extends Bindings {
   @override

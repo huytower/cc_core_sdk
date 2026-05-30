@@ -1,0 +1,131 @@
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:flutter/material.dart';
+
+/// Mixin providing reusable view configuration and UI building logic.
+///
+/// This mixin is designed to be state management agnostic and can be used
+/// with different approaches (GetX, Bloc, Provider, Riverpod, etc.).
+///
+/// ⚠️ IMPORTANT: Do NOT override the standard Flutter [build()] method.
+/// Instead, override [buildContent()] to provide your main content widget.
+/// The mixin handles the [build()] method internally to provide consistent
+/// scaffolding, layout states, and error handling.
+///
+/// Usage:
+/// 1. Override [buildContent] to provide your main content widget (REQUIRED)
+/// 2. Override [layoutStatus] to control which layout page is shown (loading, success, error, etc.)
+/// 3. Override [isEnableAppBar], [isEnableBottomNavigation], [floatingActionButton]
+///    to configure the view behavior
+/// 4. Override [appBar] and [bottomNavigationBar] for custom navigation
+/// 5. Override [onRetry] to handle retry action for error state
+///
+/// Example:
+/// ```dart
+/// class MyView extends CcGetView<MyController> {
+///   @override
+///   Widget? buildContent() {
+///     return MyCustomWidget(); // Your content here
+///   }
+/// }
+/// ```
+mixin CcViewConfigMixin {
+  // ============================================
+  // Configuration Parameters
+  // ============================================
+
+  /// Controls whether the app bar is enabled for this view
+  bool get isEnableAppBar => true;
+
+  /// Controls whether the bottom navigation bar is enabled for this view
+  bool get isEnableBottomNavigation => true;
+
+  /// Optional floating action button for the view
+  Widget? get floatingActionButton =>
+      CcFloatingActionButton(onTap: onTapFloatingActionButton);
+
+  /// Current layout status that determines which page is shown
+  CcLayoutStatus get layoutStatus => CcLayoutStatus.success;
+
+  /// Error message to display in error layout
+  String get errorMessage => 'An error occurred';
+
+  // ============================================
+  // Required Methods
+  // ============================================
+
+  /// Main content widget for the view
+  /// This MUST be overridden by the using class
+  Widget? buildContent();
+
+  // ============================================
+  // Optional Override Methods
+  // ============================================
+
+  /// App bar for the view
+  PreferredSizeWidget? appBar() => AppBar();
+
+  /// Bottom navigation bar for the view
+  Widget? bottomNavigationBar() => null;
+
+  /// Retry action handler for error state
+  void onRetry() {}
+
+  /// Floating action button tap handler
+  void onTapFloatingActionButton() {}
+
+  // ============================================
+  // Build Methods
+  // ============================================
+
+  /// Standard Flutter build method.
+  /// This method calls [buildView] to construct the UI.
+  Widget build(BuildContext context) {
+    return buildView(context);
+  }
+
+  /// Main build method - builds the complete view with scaffold
+  ///
+  /// ⚠️ DO NOT OVERRIDE THIS METHOD in your view classes.
+  /// This method is called by the base class (e.g., CcGetView) and
+  /// handles the complete scaffold structure including app bar, bottom
+  /// navigation, floating action button, and body based on layout status.
+  ///
+  /// To customize your view content, override [buildContent()] instead.
+  @mustCallSuper
+  Widget buildView(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(child: body),
+      appBar: isEnableAppBar ? appBar() : null,
+      bottomNavigationBar: isEnableBottomNavigation
+          ? bottomNavigationBar()
+          : null,
+      floatingActionButton: floatingActionButton,
+    );
+  }
+
+  /// Returns the body content based on current [layoutStatus]
+  ///
+  /// Layout mapping:
+  /// - [CcLayoutStatus.loading] → Shows loading page
+  /// - [CcLayoutStatus.success] → Shows main content from [buildContent]
+  /// - [CcLayoutStatus.empty] → Shows empty page
+  /// - [CcLayoutStatus.error] → Shows error page with retry
+  /// - [CcLayoutStatus.loadMore] → Shows main content (for pagination)
+  /// - [CcLayoutStatus.refresh] → Shows loading page
+  Widget get body {
+    switch (layoutStatus) {
+      case CcLayoutStatus.loading:
+        return const LoadingPage();
+      case CcLayoutStatus.loadMore:
+        return buildContent() ?? const SizedBox.shrink();
+      case CcLayoutStatus.success:
+        return buildContent() ?? const SizedBox.shrink();
+      case CcLayoutStatus.empty:
+        return const EmptyPage();
+      case CcLayoutStatus.error:
+        return ErrorPage(message: errorMessage, onRetry: onRetry);
+      case CcLayoutStatus.refresh:
+        return const LoadingPage();
+    }
+  }
+}

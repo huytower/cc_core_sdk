@@ -209,7 +209,6 @@ The main app consolidates all modules in `lib/core/di/di.dart`:
 ### State Management
 - **GetX**: State management, routing, dependency injection
 - **Bloc**: State management with streams
-- **Provider**: State management (alternative)
 
 ## CI/CD Configuration
 
