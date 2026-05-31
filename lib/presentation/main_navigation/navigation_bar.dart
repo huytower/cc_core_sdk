@@ -3,8 +3,8 @@ import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/common/managers/splash_manager.dart';
 import 'tabs/dashboard_tab_content.dart';
 import 'tabs/notification_tab_content.dart';
 import 'tabs/profile_tab_content.dart';
@@ -30,28 +30,27 @@ class _NavigationBarState extends State<NavigationBar>
   // This can be replaced with your preferred state management approach
   late int _currentIndex;
   late bool _showQuickTestAsSecondTab;
+  bool _showSplash = true;
 
   @override
   void initState() {
     super.initState();
+
     // Initialize with default value immediately
     _currentIndex = 0;
-    
+
     // Read from dotenv to determine if second tab should be QuickTesting or Notification
     final startRoute = dotenv.maybeGet(
       'AUTO_ROUTE_START',
       fallback: 'DASHBOARD',
     );
     _showQuickTestAsSecondTab = _isQuickTestRoute(startRoute);
-    _loadSavedIndex();
+    _checkSplash();
   }
 
-  Future<void> _loadSavedIndex() async {
-    final prefs = await SharedPreferences.getInstance();
-    final savedIndex = prefs.getInt('navigation_index');
-    if (savedIndex != null) {
-      setState(() => _currentIndex = savedIndex);
-    }
+  Future<void> _checkSplash() async {
+    final shouldShow = await SplashManager.shouldShowSplash();
+    setState(() => _showSplash = shouldShow);
   }
 
   bool _isQuickTestRoute(String? route) {
@@ -62,11 +61,8 @@ class _NavigationBarState extends State<NavigationBar>
   int get currentIndex => _currentIndex;
 
   @override
-  void setIndex(int index) async {
+  void setIndex(int index) {
     setState(() => _currentIndex = index);
-    // Save index to persist across hot reload
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('navigation_index', index);
   }
 
   @override
@@ -108,7 +104,16 @@ class _NavigationBarState extends State<NavigationBar>
 
   @override
   Widget? buildContent() {
+    if (_showSplash) {
+      return _buildSplashOverlay();
+    }
     return _buildContentForIndex(currentIndex);
+  }
+
+  Widget _buildSplashOverlay() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
   }
 
   Widget _buildContentForIndex(int index) {

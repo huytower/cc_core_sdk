@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     // Remove native splash screen
     FlutterNativeSplash.remove();
     _controller = AnimationController(vsync: this);
-    
+
     // Check if splash should be shown (only once per week)
     SplashManager.shouldShowSplash().then((shouldShow) {
       if (!shouldShow && mounted) {

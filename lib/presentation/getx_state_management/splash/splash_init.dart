@@ -6,5 +6,6 @@ import '../../../core/navigation/route_names.dart';
 void navigateFromSplash(BuildContext context) {
   // Always navigate to MainNavigationRoute as the main shell
   // The AUTO_ROUTE_START value controls what content shows inside it
+  // context.router.replacePath(AppRoute.dashboard.path);
   context.router.replacePath(AppRoute.mainNavigation.path);
 }
