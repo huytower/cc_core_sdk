@@ -34,7 +34,7 @@ void main() async {
 
     await CcLocalization.initialize();
 
-    /// NOTICE: TEMP DISABLE, enable when BE support api logging
+    // TODO(huy): NOTICE: TEMP DISABLE, enable when BE support api logging
     // await uploadPendingCrashLogsOnStartup();
 
     _runApplication();

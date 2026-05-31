@@ -26,6 +26,9 @@ class _NavigationBarState extends State<NavigationBar>
   static const int _indexSecondTab = 1;
   static const int _indexProfile = 2;
 
+  // Singleton to persist index across hot reload
+  static int? _persistentIndex;
+
   // Example state management implementation
   // This can be replaced with your preferred state management approach
   late int _currentIndex;
@@ -35,9 +38,16 @@ class _NavigationBarState extends State<NavigationBar>
   @override
   void initState() {
     super.initState();
+    print('[NavigationBar] initState called at ${DateTime.now()}');
 
-    // Initialize with default value immediately
-    _currentIndex = 0;
+    // Restore from persistent index if available (hot reload case)
+    if (_persistentIndex != null) {
+      _currentIndex = _persistentIndex!;
+      print('[NavigationBar] Restored _currentIndex from persistent: $_currentIndex');
+    } else {
+      _currentIndex = 0;
+      print('[NavigationBar] _currentIndex initialized to: $_currentIndex');
+    }
 
     // Read from dotenv to determine if second tab should be QuickTesting or Notification
     final startRoute = dotenv.maybeGet(
@@ -50,7 +60,19 @@ class _NavigationBarState extends State<NavigationBar>
 
   Future<void> _checkSplash() async {
     final shouldShow = await SplashManager.shouldShowSplash();
-    setState(() => _showSplash = shouldShow);
+    print('[NavigationBar] _checkSplash: shouldShow = $shouldShow');
+    if (shouldShow) {
+      setState(() => _showSplash = true);
+      // Hide splash after 2 seconds
+      Future.delayed(const Duration(seconds: 2), () {
+        if (mounted) {
+          print('[NavigationBar] Hiding splash overlay');
+          setState(() => _showSplash = false);
+        }
+      });
+    } else {
+      setState(() => _showSplash = false);
+    }
   }
 
   bool _isQuickTestRoute(String? route) {
@@ -58,11 +80,18 @@ class _NavigationBarState extends State<NavigationBar>
   }
 
   @override
-  int get currentIndex => _currentIndex;
+  int get currentIndex {
+    print('[NavigationBar] currentIndex getter called, returning: $_currentIndex');
+    return _currentIndex;
+  }
 
   @override
   void setIndex(int index) {
+    print('[NavigationBar] setIndex called with: $index at ${DateTime.now()}');
+    print('[NavigationBar] Previous _currentIndex: $_currentIndex');
     setState(() => _currentIndex = index);
+    _persistentIndex = index; // Persist for hot reload
+    print('[NavigationBar] New _currentIndex: $_currentIndex');
   }
 
   @override
@@ -136,6 +165,7 @@ class _NavigationBarState extends State<NavigationBar>
 
   @override
   Widget build(BuildContext context) {
+    print('[NavigationBar] build called at ${DateTime.now()}, _currentIndex: $_currentIndex');
     super.build(context);
     return Scaffold(
       body: SafeArea(child: body),
