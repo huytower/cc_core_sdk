@@ -1,7 +1,5 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:message/cc_locale_keys.dart';
-import 'package:message/cc_localization.dart';
 
 class ProfileTabContent extends StatelessWidget {
   const ProfileTabContent({super.key});

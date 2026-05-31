@@ -3,8 +3,6 @@ import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:message/cc_locale_keys.dart';
-import 'package:message/cc_localization.dart';
 
 import 'tabs/dashboard_tab_content.dart';
 import 'tabs/notification_tab_content.dart';

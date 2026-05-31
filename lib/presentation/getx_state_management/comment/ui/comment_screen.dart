@@ -30,11 +30,14 @@ class CommentScreen extends CcGetView<CommentController> with CcPullRefreshMixin
 
           final comment = comments[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(
+              horizontal: CcPaddingParams.PAGE_XS,
+              vertical: CcPaddingParams.SPACE_SM,
+            ),
             child: Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_MD),
               ),
               child: ListTile(
                 title: Text(
@@ -48,7 +51,7 @@ class CommentScreen extends CcGetView<CommentController> with CcPullRefreshMixin
                       comment.email,
                       style: const TextStyle(color: Colors.grey),
                     ),
-                    const SizedBox(height: 4),
+                    const CcSpaceXS(),
                     Text(comment.body),
                   ],
                 ),
@@ -62,39 +65,42 @@ class CommentScreen extends CcGetView<CommentController> with CcPullRefreshMixin
 
   Widget _buildShimmerComment() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: CcPaddingParams.PAGE_XS,
+        vertical: CcPaddingParams.SPACE_SM,
+      ),
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_MD),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CcShimmer(
                 width: double.infinity,
                 height: 20,
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_XS),
               ),
-              const SizedBox(height: 8),
+              const CcSpaceSM(),
               CcShimmer(
                 width: 200,
                 height: 14,
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_XS),
               ),
-              const SizedBox(height: 8),
+              const CcSpaceSM(),
               CcShimmer(
                 width: double.infinity,
                 height: 14,
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_XS),
               ),
-              const SizedBox(height: 4),
+              const CcSpaceXS(),
               CcShimmer(
                 width: double.infinity,
                 height: 14,
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_XS),
               ),
             ],
           ),
