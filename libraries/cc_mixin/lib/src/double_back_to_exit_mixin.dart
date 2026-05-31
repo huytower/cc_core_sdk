@@ -5,14 +5,31 @@ import 'package:flutter/services.dart';
 
 /// Mixin for implementing "press back twice to exit" functionality.
 ///
-/// This mixin provides a consistent way to handle back button presses
-/// across Android and iOS platforms:
-/// - Android: Requires two back button presses within 2 seconds to exit
-/// - iOS: Respects the swipe gesture (no double-tap needed)
+/// Provides platform-specific back button handling:
+/// - Android: Requires two back presses within 1 second to exit
+/// - iOS: Respects default swipe gesture (1 swipe to exit)
 ///
-/// Usage:
+/// Override [handleCustomNavigation] to handle custom navigation logic
+/// (e.g., navigate to index 0 before allowing exit).
+///
+/// Override [shouldEnableDoubleBackToExit] to control when double back
+/// behavior is enabled (e.g., only on index 0).
+///
+/// Example:
 /// ```dart
 /// class MyWidgetState extends State<MyWidget> with DoubleBackToExitMixin {
+///   @override
+///   bool handleCustomNavigation() {
+///     if (currentIndex != 0) {
+///       setIndex(0);
+///       return true;
+///     }
+///     return false;
+///   }
+///
+///   @override
+///   bool get shouldEnableDoubleBackToExit => currentIndex == 0;
+///
 ///   @override
 ///   Widget build(BuildContext context) {
 ///     return PopScope(
@@ -25,111 +42,69 @@ import 'package:flutter/services.dart';
 /// ```
 mixin DoubleBackToExitMixin<T extends StatefulWidget> on State<T> {
   DateTime? _lastBackPressedAt;
-  static const Duration _backPressWindow = Duration(seconds: 2);
   bool _canPop = false;
+  static const _messageDuration = Duration(seconds: 1);
 
-  /// Message shown when user presses back for the first time.
+  /// Message shown on first back press.
+  ///
+  /// Override this to provide localized message.
   String get backPressMessage => 'Press back again to exit';
 
-  /// Whether to enable double back to exit on iOS.
-  /// iOS uses swipe gesture by default, so this is typically false.
+  /// Enable double back behavior on iOS (default: false).
   bool get enableDoubleBackOnIOS => false;
 
-  /// Override this to handle custom navigation before double back to exit.
+  /// Handle custom navigation before double back logic.
   ///
-  /// Return true if navigation was handled (should not proceed with double back logic),
-  /// false otherwise.
-  bool handleCustomNavigation() {
-    print('[DoubleBackToExitMixin] handleCustomNavigation called (default: false)');
-    return false;
-  }
+  /// Return true to prevent double back logic (navigation handled),
+  /// false to proceed with double back check.
+  bool handleCustomNavigation() => false;
 
-  /// Override this to check if double back to exit should be enabled.
+  /// Enable double back to exit behavior.
   ///
-  /// Return true if double back to exit should be enabled (e.g., on index 0),
-  /// false otherwise (e.g., on other tabs).
-  bool get shouldEnableDoubleBackToExit {
-    print('[DoubleBackToExitMixin] shouldEnableDoubleBackToExit called (default: true)');
-    return true;
-  }
+  /// Return true to require double back, false to allow single back.
+  bool get shouldEnableDoubleBackToExit => true;
 
-  /// Determines whether the route can pop.
-  ///
-  /// Returns false if waiting for second back press, true otherwise.
+  /// Check if the route can pop.
   bool get canPop {
-    print('[DoubleBackToExitMixin] canPop called, returning: $_canPop');
-    // iOS: Allow default behavior (swipe gesture) unless explicitly enabled
-    if (Platform.isIOS && !enableDoubleBackOnIOS) {
-      print('[DoubleBackToExitMixin] iOS: allowing default behavior');
-      return true;
-    }
-    // Always intercept back press to handle custom navigation or double back logic
+    if (Platform.isIOS && !enableDoubleBackOnIOS) return true;
     return _canPop;
   }
 
-  /// Handles the back press event.
-  ///
-  /// Called when a back gesture is invoked.
+  /// Handle back press invocation.
   void onPopInvoked(bool didPop) {
-    print('[DoubleBackToExitMixin] onPopInvoked called, didPop: $didPop');
-    print('[DoubleBackToExitMixin] shouldEnableDoubleBackToExit: $shouldEnableDoubleBackToExit');
-    if (didPop) {
-      print('[DoubleBackToExitMixin] Already popped, returning');
-      return;
-    }
+    if (didPop) return;
+    if (Platform.isIOS && !enableDoubleBackOnIOS) return;
+    if (handleCustomNavigation()) return;
 
-    // iOS: Allow default behavior (swipe gesture) unless explicitly enabled
-    if (Platform.isIOS && !enableDoubleBackOnIOS) {
-      print('[DoubleBackToExitMixin] iOS: allowing default behavior');
-      return;
-    }
-
-    // Check for custom navigation handling (only on actual back press)
-    print('[DoubleBackToExitMixin] Calling handleCustomNavigation');
-    if (handleCustomNavigation()) {
-      print('[DoubleBackToExitMixin] Custom navigation handled, returning');
-      return;
-    }
-
-    // If double back to exit is not enabled, allow pop immediately
     if (!shouldEnableDoubleBackToExit) {
-      print('[DoubleBackToExitMixin] Double back not enabled, allowing pop');
       setState(() => _canPop = true);
       Navigator.of(context).pop();
       return;
     }
 
     final now = DateTime.now();
+    final isFirstPress = _lastBackPressedAt == null ||
+        now.difference(_lastBackPressedAt!) > _messageDuration;
 
-    if (_lastBackPressedAt == null ||
-        now.difference(_lastBackPressedAt!) > _backPressWindow) {
-      // First press or time window expired
+    if (isFirstPress) {
       _lastBackPressedAt = now;
       _canPop = false;
-      print('[DoubleBackToExitMixin] First back press, showing message');
       _showBackPressMessage();
-      // Reset canPop after the window expires
-      Future.delayed(const Duration(seconds: 1), () {
-        if (mounted) {
-          print('[DoubleBackToExitMixin] Resetting canPop to true');
-          setState(() => _canPop = true);
-        }
+      Future.delayed(_messageDuration, () {
+        if (mounted) setState(() => _canPop = true);
       });
     } else {
-      // Second press within window - allow exit
       setState(() => _canPop = true);
-      print('[DoubleBackToExitMixin] Second back press within window, exiting');
-      // Use SystemNavigator.pop() to exit the app on Android
       SystemNavigator.pop();
     }
   }
 
-  /// Shows a message to the user indicating they need to press back again.
+  /// Show back press message to user.
   void _showBackPressMessage() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(backPressMessage),
-        duration: const Duration(seconds: 1), // Short duration
+        duration: _messageDuration,
         behavior: SnackBarBehavior.floating,
       ),
     );

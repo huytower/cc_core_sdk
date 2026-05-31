@@ -3,6 +3,7 @@ import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:message/cc_localization.dart';
 
 import '../../../../core/common/managers/splash_manager.dart';
 import 'tabs/dashboard_tab_content.dart';
@@ -31,10 +32,8 @@ class _NavigationBarState extends State<NavigationBar>
 
   @override
   bool handleCustomNavigation() {
-    print('[NavigationBar] handleCustomNavigation called, currentIndex: $currentIndex');
-    if (currentIndex != 0) {
-      print('[NavigationBar] Not on index 0, navigating to index 0');
-      setIndex(0);
+    if (currentIndex != _indexDashboard) {
+      setIndex(_indexDashboard);
       return true;
     }
     return false;
@@ -42,8 +41,12 @@ class _NavigationBarState extends State<NavigationBar>
 
   @override
   bool get shouldEnableDoubleBackToExit {
-    print('[NavigationBar] shouldEnableDoubleBackToExit called, currentIndex: $currentIndex');
-    return currentIndex == 0;
+    return currentIndex == _indexDashboard;
+  }
+
+  @override
+  String get backPressMessage {
+    return context.tr('common.press_back_again_to_exit');
   }
 
   // Example state management implementation

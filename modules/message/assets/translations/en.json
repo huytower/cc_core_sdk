@@ -22,7 +22,8 @@
     "done": "Done",
     "search": "Search",
     "no_results": "No results found",
-    "no_data": "No data found"
+    "no_data": "No data found",
+    "press_back_again_to_exit": "Press back again to exit"
   },
   "auth": {
     "login": "Login",
