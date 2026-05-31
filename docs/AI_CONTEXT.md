@@ -28,6 +28,14 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
 
 8. **Evidence-Based Implementation**: Use read_file and analyze_file to verify current structure before proposing changes.
 
+9. **Import Hygiene (CRITICAL)**: Avoid unnecessary imports to prevent linter warnings and maintain clean code.
+
+   **Requirements:**
+   - Before adding imports, check if the required elements are already available through existing imports (especially `export_cc_sdk_ui.dart`)
+   - Prefer using centralized export files (e.g., `export_cc_sdk_ui.dart`, `export_cc_mixin.dart`) over individual file imports
+   - Remove unused imports after code changes
+   - Example: If importing from `cc_sdk_ui/export_cc_sdk_ui.dart`, do not also import from individual widget files or from modules that are already exported through cc_sdk_ui
+
 ## Project Structure
 
 ```

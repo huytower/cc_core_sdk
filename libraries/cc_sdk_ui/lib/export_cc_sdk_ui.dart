@@ -78,6 +78,8 @@ export 'package:cc_sdk_ui/widgets/pages/status/error_page_v2.dart';
 export 'package:cc_sdk_ui/widgets/pages/status/not_found_page.dart';
 // Space Widgets
 export 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+// Shimmer Widgets
+export 'package:cc_sdk_ui/widgets/shimmer/cc_shimmer.dart';
 // Special Status Widgets
 export 'package:cc_sdk_ui/widgets/spinners/spinkit_screen.dart';
 // Splash Widgets

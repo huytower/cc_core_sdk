@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class CcShimmer extends StatelessWidget {
   const CcShimmer(
@@ -9,7 +9,9 @@ class CcShimmer extends StatelessWidget {
       this.borderRadius,
       this.margin,
       this.baseColor,
-      this.highlightColor})
+      this.highlightColor,
+      this.duration,
+      this.enabled = true})
       : super(key: key);
 
   final double? width;
@@ -18,20 +20,25 @@ class CcShimmer extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
   final Color? baseColor;
   final Color? highlightColor;
+  final Duration? duration;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: baseColor ?? Colors.grey.withOpacity(0.5),
-      highlightColor: highlightColor ?? Colors.grey,
-      period: const Duration(seconds: 3),
+    print('CcShimmer.build - width: $width, height: $height, enabled: $enabled, baseColor: $baseColor');
+    return Shimmer(
+      duration: duration ?? const Duration(milliseconds: 1500),
+      color: baseColor ?? Colors.white,
+      colorOpacity: 0.5,
+      enabled: enabled,
+      direction: ShimmerDirection.fromLTRB(),
       child: Container(
         width: width,
         height: height,
         margin: margin,
         decoration: BoxDecoration(
             borderRadius: borderRadius ?? BorderRadius.circular(10),
-            color: Colors.grey),
+            color: Colors.grey[400]),
       ),
     );
   }
