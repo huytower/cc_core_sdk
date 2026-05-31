@@ -83,6 +83,7 @@ dev_dependencies:
   bloc_test: ^10.0.0
   build_runner: ^2.15.0
   flutter_launcher_icons: ^0.14.1
+  flutter_native_splash: ^2.4.1
   flutter_test:
     sdk: flutter
   injectable_generator: ^3.0.2
@@ -118,8 +119,18 @@ flutter:
     - env/.env.uat
     - env/.env.production
     - assets/icon/
+    - assets/lottie/
 
 flutter_launcher_icons:
   ios: true
   image_path: "assets/icon/app_icon.png"
   adaptive_icon_background: "#ffffff"
+
+flutter_native_splash:
+  color: "#36454F"
+  image: assets/icon/app_icon.png
+  android_gravity: center
+  ios_content_mode: center
+  android_12:
+    image: assets/icon/app_icon.png
+    color: "#36454F"

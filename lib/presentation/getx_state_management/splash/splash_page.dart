@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:theme/data/data_source/asset/assets_data_source.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:lottie/lottie.dart';
 
 import 'splash_init.dart';
 
@@ -12,29 +13,40 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
   @override
   void initState() {
     super.initState();
-    // Navigate after a short delay
-    Future.delayed(const Duration(milliseconds: 200), () {
-      if (mounted) {
-        navigateFromSplash(context);
-      }
-    });
+    // Remove native splash screen
+    FlutterNativeSplash.remove();
+    _controller = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final path =
-        "packages/theme/${AssetUtils.getBackground(BackgroundAsset.splash)}";
-
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(fit: BoxFit.cover, image: AssetImage(path)),
+      body: Center(
+        child: Lottie.asset(
+          'assets/lottie/splash.json',
+          controller: _controller,
+          onLoaded: (composition) {
+            _controller.duration = composition.duration;
+            _controller.forward();
+            // Navigate after 500ms from when animation loads
+            Future.delayed(const Duration(milliseconds: 2000), () {
+              if (mounted) {
+                navigateFromSplash(context);
+              }
+            });
+          },
         ),
       ),
     );

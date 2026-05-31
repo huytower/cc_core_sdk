@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 class CcShimmer extends StatelessWidget {
-  const CcShimmer(
-      {Key? key,
-      this.width,
-      this.height = 20,
-      this.borderRadius,
-      this.margin,
-      this.baseColor,
-      this.highlightColor,
-      this.duration,
-      this.enabled = true})
-      : super(key: key);
+  const CcShimmer({
+    Key? key,
+    this.width,
+    this.height = 20,
+    this.borderRadius,
+    this.margin,
+    this.baseColor,
+    this.highlightColor,
+    this.duration,
+    this.enabled = true,
+  }) : super(key: key);
 
   final double? width;
   final double? height;
@@ -25,20 +25,23 @@ class CcShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('CcShimmer.build - width: $width, height: $height, enabled: $enabled, baseColor: $baseColor');
+    print(
+      'CcShimmer.build - width: $width, height: $height, enabled: $enabled, baseColor: $baseColor',
+    );
     return Shimmer(
       duration: duration ?? const Duration(milliseconds: 1500),
       color: baseColor ?? Colors.white,
       colorOpacity: 0.5,
       enabled: enabled,
-      direction: ShimmerDirection.fromLTRB(),
+      direction: const ShimmerDirection.fromLTRB(),
       child: Container(
         width: width,
         height: height,
         margin: margin,
         decoration: BoxDecoration(
-            borderRadius: borderRadius ?? BorderRadius.circular(10),
-            color: Colors.grey[400]),
+          borderRadius: borderRadius ?? BorderRadius.circular(10),
+          color: Colors.grey[400],
+        ),
       ),
     );
   }
