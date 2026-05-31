@@ -20,7 +20,7 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar>
-    with CcCurvedNavigationMixin {
+    with CcCurvedNavigationMixin, DoubleBackToExitMixin {
   // Navigation indices
   static const int _indexDashboard = 0;
   static const int _indexNotification = 1;
@@ -28,6 +28,23 @@ class _NavigationBarState extends State<NavigationBar>
 
   // Singleton to persist index across hot reload
   static int? _persistentIndex;
+
+  @override
+  bool handleCustomNavigation() {
+    print('[NavigationBar] handleCustomNavigation called, currentIndex: $currentIndex');
+    if (currentIndex != 0) {
+      print('[NavigationBar] Not on index 0, navigating to index 0');
+      setIndex(0);
+      return true;
+    }
+    return false;
+  }
+
+  @override
+  bool get shouldEnableDoubleBackToExit {
+    print('[NavigationBar] shouldEnableDoubleBackToExit called, currentIndex: $currentIndex');
+    return currentIndex == 0;
+  }
 
   // Example state management implementation
   // This can be replaced with your preferred state management approach
@@ -37,7 +54,6 @@ class _NavigationBarState extends State<NavigationBar>
   @override
   void initState() {
     super.initState();
-    print('[NavigationBar] initState called at ${DateTime.now()}');
 
     // Read from dotenv to determine if second tab should be QuickTesting or Notification
     final startRoute = dotenv.maybeGet(
@@ -50,13 +66,11 @@ class _NavigationBarState extends State<NavigationBar>
 
   Future<void> _checkSplash() async {
     final shouldShow = await SplashManager.shouldShowSplash();
-    print('[NavigationBar] _checkSplash: shouldShow = $shouldShow');
     if (shouldShow) {
       setState(() => _showSplash = true);
       // Hide splash after 2 seconds
       Future.delayed(const Duration(seconds: 2), () {
         if (mounted) {
-          print('[NavigationBar] Hiding splash overlay');
           setState(() => _showSplash = false);
         }
       });
@@ -72,19 +86,13 @@ class _NavigationBarState extends State<NavigationBar>
   @override
   int get currentIndex {
     final index = _persistentIndex ?? 0;
-    print(
-      '[NavigationBar] currentIndex getter called, returning: $index (from singleton)',
-    );
     return index;
   }
 
   @override
   void setIndex(int index) {
-    print('[NavigationBar] setIndex called with: $index at ${DateTime.now()}');
-    print('[NavigationBar] Previous _persistentIndex: $_persistentIndex');
     _persistentIndex = index; // Persist for hot reload
     setState(() {});
-    print('[NavigationBar] New _persistentIndex: $_persistentIndex');
   }
 
   @override
@@ -153,15 +161,16 @@ class _NavigationBarState extends State<NavigationBar>
 
   @override
   Widget build(BuildContext context) {
-    print(
-      '[NavigationBar] build called at ${DateTime.now()}, currentIndex: ${currentIndex}',
-    );
-    return Scaffold(
-      body: SafeArea(child: body),
-      appBar: isEnableAppBar ? appBar() : null,
-      bottomNavigationBar: isEnableBottomNavigation
-          ? bottomNavigationBar()
-          : null,
+    return PopScope(
+      canPop: canPop,
+      onPopInvoked: onPopInvoked,
+      child: Scaffold(
+        body: SafeArea(child: body),
+        appBar: isEnableAppBar ? appBar() : null,
+        bottomNavigationBar: isEnableBottomNavigation
+            ? bottomNavigationBar()
+            : null,
+      ),
     );
   }
 
