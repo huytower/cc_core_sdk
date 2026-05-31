@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
 import '../../getx_state_management/comment/get_x/comment_controller.dart';
 import '../../getx_state_management/comment/ui/comment_page.dart';
@@ -24,6 +25,7 @@ class _QuickTestTabContentState extends State<QuickTestTabContent> {
 
   @override
   Widget build(BuildContext context) {
+    // return const DashboardPage();
     return const CommentPage();
   }
 }

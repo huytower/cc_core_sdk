@@ -14,11 +14,13 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) =>
-          getIt<DashboardBloc>()..add(const LoadDashboardDataEvent()),
-      child: BlocBuilder<DashboardBloc, DashboardState>(
-        builder: (context, state) => DashboardView(state, context),
+    return FadePageWrapper(
+      child: BlocProvider(
+        create: (_) =>
+            getIt<DashboardBloc>()..add(const LoadDashboardDataEvent()),
+        child: BlocBuilder<DashboardBloc, DashboardState>(
+          builder: (context, state) => DashboardView(state, context),
+        ),
       ),
     );
   }
@@ -31,11 +33,14 @@ class DashboardView extends StatelessWidget with CcViewConfigMixin {
   const DashboardView(this.state, this.blocContext, {super.key});
 
   @override
+  bool get isEnableLoading => false;
+
+  @override
   CcLayoutStatus get layoutStatus {
     if (state is DashboardLoading) return CcLayoutStatus.loading;
     if (state is DashboardError) return CcLayoutStatus.error;
     if (state is DashboardLoaded) return CcLayoutStatus.success;
-    return CcLayoutStatus.loading;
+    return CcLayoutStatus.success;
   }
 
   @override

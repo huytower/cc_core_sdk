@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/common/managers/splash_manager.dart';
 import 'splash_init.dart';
 
 @RoutePage()
@@ -22,6 +23,14 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     // Remove native splash screen
     FlutterNativeSplash.remove();
     _controller = AnimationController(vsync: this);
+    
+    // Check if splash should be shown (only once per week)
+    SplashManager.shouldShowSplash().then((shouldShow) {
+      if (!shouldShow && mounted) {
+        // Skip splash screen if shown within the last week
+        navigateFromSplash(context);
+      }
+    });
   }
 
   @override

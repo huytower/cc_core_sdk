@@ -36,6 +36,22 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
    - Remove unused imports after code changes
    - Example: If importing from `cc_sdk_ui/export_cc_sdk_ui.dart`, do not also import from individual widget files or from modules that are already exported through cc_sdk_ui
 
+10. **Multi-Screen Support (CRITICAL)**: All UI components and pages must support multiple screen sizes and orientations.
+
+    **Requirements:**
+    - Use `CcResponsiveHelper` from `cc_sdk` for screen type detection (mobile, tablet, desktop)
+    - Design layouts to adapt to different screen sizes using responsive breakpoints:
+      - Small mobile: < 360px (foldable covers, small phones)
+      - Mobile: 360px - 600px
+      - Tablet: 600px - 900px
+      - Desktop: > 900px
+    - Use responsive widgets like `CcResponsiveContainer` and `CcResponsiveFlex` from `cc_sdk_ui`
+    - Test UI on both portrait and landscape orientations
+    - Consider orientation-specific layouts when beneficial (e.g., landscape for data tables)
+    - Use `CcResponsiveHelper.isPortrait()` and `CcResponsiveHelper.isLandscape()` to check orientation
+    - Apply responsive padding, font sizes, and dimensions using helper methods
+    - Ensure touch targets are appropriately sized for different screen densities
+
 ## Project Structure
 
 ```
@@ -87,11 +103,17 @@ The main app consolidates all modules in `lib/core/di/di.dart` using `@Injectabl
 **Key Components:**
 - Network utilities (CURL, interceptors, connectivity)
 - Feature flags and environment toggles
-- Device information
+- Device information (`CcDeviceHelper`, `CcDeviceInfoHelper`)
+- Responsive design utilities (`CcResponsiveHelper` for multi-screen support)
 - Common extensions and helpers
 - Serialization (GSON-style)
 - Error handling with Failure types
 - Clean Architecture implementation (Domain/Data/Core layers)
+
+**Responsive Design Support:**
+- `CcDeviceHelper`: Screen dimensions, platform detection, keyboard height
+- `CcResponsiveHelper`: Screen type detection (mobile/tablet/desktop), responsive breakpoints, orientation helpers
+- Use these helpers to build adaptive UIs that work across all device sizes
 
 **DI File:** `libraries/cc_sdk/lib/core/di/di.dart`
 
@@ -109,6 +131,7 @@ The main app consolidates all modules in `lib/core/di/di.dart` using `@Injectabl
 - Form elements (text fields, validators)
 - Loaders & indicators (spinners, skeletons)
 - Layout components (containers, cards, dividers)
+- Responsive widgets (CcResponsiveContainer, CcResponsiveFlex for multi-screen support)
 - Text & typography widgets
 - Animations (fade, scale, transitions)
 - Navigation (CcCurvedNavigationBar - state-management agnostic)
@@ -230,6 +253,62 @@ The main app consolidates all modules in `lib/core/di/di.dart` using `@Injectabl
 - Keep core libraries (cc_sdk, cc_sdk_ui, cc_mixin, features) state-management agnostic
 - Provide abstract interfaces in features that can be implemented with GetX or Bloc
 - Use dependency injection to inject state management implementations
+
+## Multi-Screen & Orientation Support
+
+### Screen Size Breakpoints
+The app supports multiple screen sizes with the following breakpoints:
+- **Small Mobile**: < 360px (foldable covers, small phones)
+- **Mobile**: 360px - 600px (standard phones)
+- **Tablet**: 600px - 900px (tablets)
+- **Desktop**: > 900px (desktop screens)
+
+### Orientation Handling
+The app supports both portrait and landscape orientations. Before implementing UI components:
+
+**Check Orientation Conditions:**
+```dart
+// Check current orientation
+if (CcResponsiveHelper.isPortrait(context)) {
+  // Portrait-specific layout
+} else if (CcResponsiveHelper.isLandscape(context)) {
+  // Landscape-specific layout
+}
+```
+
+**Orientation-Specific Guidelines:**
+- **Portrait Mode**: Default layout for most screens, optimized for single-handed use
+- **Landscape Mode**: Consider for data-heavy screens (dashboards, tables, charts)
+- **Auto-Rotation**: Allow rotation on tablets and desktop devices, restrict on phones if needed
+- **Layout Adaptation**: Use `LayoutBuilder` or `OrientationBuilder` for orientation-specific widgets
+- **Safe Areas**: Always account for safe areas and notches in both orientations
+
+**Platform Configuration:**
+- **Android**: `android:screenOrientation="unspecified"` in AndroidManifest.xml
+- **iOS iPhone**: Portrait, LandscapeLeft, LandscapeRight in Info.plist
+- **iOS iPad**: All orientations supported (Portrait, PortraitUpsideDown, LandscapeLeft, LandscapeRight)
+
+### Responsive Design Implementation
+Use the following utilities from `cc_sdk` and `cc_sdk_ui`:
+
+**From cc_sdk:**
+- `CcResponsiveHelper`: Screen type detection, responsive values, orientation helpers
+- `CcDeviceHelper`: Screen dimensions, platform detection, keyboard height
+
+**From cc_sdk_ui:**
+- `CcResponsiveContainer`: Adaptive container with responsive padding/margin/width
+- `CcResponsiveFlex`: Adaptive flex layout that adjusts columns based on screen size
+
+**Implementation Checklist:**
+- [ ] Test on small mobile (< 360px)
+- [ ] Test on mobile (360px - 600px)
+- [ ] Test on tablet (600px - 900px)
+- [ ] Test on desktop (> 900px)
+- [ ] Test in portrait orientation
+- [ ] Test in landscape orientation
+- [ ] Verify touch targets are appropriate for all screen sizes
+- [ ] Ensure text is readable on all screen sizes
+- [ ] Check layout doesn't overflow on small screens
 
 ## CI/CD Configuration
 

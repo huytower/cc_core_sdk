@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 import 'package:cc_sdk_ui/core/helper/cc_open_dialog.dart';
+import 'package:cc_sdk_ui/widgets/anim/fade_page_wrapper.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
@@ -30,9 +31,11 @@ class SimpleCubitPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: BlocProvider<SimpleCubitInterface>(
-          create: (BuildContext context) => getIt<SimpleCubitInterface>(),
-          child: Builder(builder: (context) => buildPage(context)),
+        child: FadePageWrapper(
+          child: BlocProvider<SimpleCubitInterface>(
+            create: (BuildContext context) => getIt<SimpleCubitInterface>(),
+            child: Builder(builder: (context) => buildPage(context)),
+          ),
         ),
       ),
     );

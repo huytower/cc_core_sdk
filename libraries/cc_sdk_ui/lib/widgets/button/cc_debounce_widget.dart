@@ -37,18 +37,21 @@ class _CcDebounceState extends State<CcDebounce> {
   @override
   Widget build(BuildContext context) {
     if (widget.child != null) {
-      return GestureDetector(
-        onTap: widget.isEnable && !_isDebouncing
-            ? () {
-                setState(() => _isDebouncing = true);
-                widget.onTap?.call();
-                Future.delayed(
-                  widget.duration,
-                  () => setState(() => _isDebouncing = false),
-                );
-              }
-            : null,
-        child: widget.child,
+      return SizedBox(
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: widget.isEnable && !_isDebouncing
+              ? () {
+                  setState(() => _isDebouncing = true);
+                  widget.onTap?.call();
+                  Future.delayed(
+                    widget.duration,
+                    () => setState(() => _isDebouncing = false),
+                  );
+                }
+              : null,
+          child: widget.child,
+        ),
       );
     }
 

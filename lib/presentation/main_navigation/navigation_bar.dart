@@ -3,6 +3,7 @@ import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'tabs/dashboard_tab_content.dart';
 import 'tabs/notification_tab_content.dart';
@@ -19,7 +20,7 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar>
-    with CcCurvedNavigationMixin {
+    with AutomaticKeepAliveClientMixin, CcCurvedNavigationMixin {
   // Navigation indices
   static const int _indexDashboard = 0;
   static const int _indexSecondTab = 1;
@@ -33,13 +34,24 @@ class _NavigationBarState extends State<NavigationBar>
   @override
   void initState() {
     super.initState();
+    // Initialize with default value immediately
+    _currentIndex = 0;
+    
     // Read from dotenv to determine if second tab should be QuickTesting or Notification
     final startRoute = dotenv.maybeGet(
       'AUTO_ROUTE_START',
       fallback: 'DASHBOARD',
     );
     _showQuickTestAsSecondTab = _isQuickTestRoute(startRoute);
-    _currentIndex = 0;
+    _loadSavedIndex();
+  }
+
+  Future<void> _loadSavedIndex() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedIndex = prefs.getInt('navigation_index');
+    if (savedIndex != null) {
+      setState(() => _currentIndex = savedIndex);
+    }
   }
 
   bool _isQuickTestRoute(String? route) {
@@ -50,8 +62,11 @@ class _NavigationBarState extends State<NavigationBar>
   int get currentIndex => _currentIndex;
 
   @override
-  void setIndex(int index) {
+  void setIndex(int index) async {
     setState(() => _currentIndex = index);
+    // Save index to persist across hot reload
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('navigation_index', index);
   }
 
   @override
@@ -112,7 +127,11 @@ class _NavigationBarState extends State<NavigationBar>
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SafeArea(child: body),
       appBar: isEnableAppBar ? appBar() : null,
@@ -123,11 +142,12 @@ class _NavigationBarState extends State<NavigationBar>
   }
 
   Widget get body {
+    final content = buildContent() ?? const SizedBox.shrink();
     if (layoutStatus == CcLayoutStatus.success) {
-      return buildContent() ?? const SizedBox.shrink();
+      return FadePageWrapper(child: content);
     }
     // For simplicity, just show content for now
-    return buildContent() ?? const SizedBox.shrink();
+    return FadePageWrapper(child: content);
   }
 
   CcLayoutStatus get layoutStatus => CcLayoutStatus.success;

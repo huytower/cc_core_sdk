@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'core/crash_reporting/crash_log_startup.dart';
 import 'core/di/di.dart';
 import 'core/logging/init_logger.dart';
 import 'core/runner/app_runner.dart';
@@ -35,7 +34,8 @@ void main() async {
 
     await CcLocalization.initialize();
 
-    await uploadPendingCrashLogsOnStartup();
+    /// NOTICE: TEMP DISABLE, enable when BE support api logging
+    // await uploadPendingCrashLogsOnStartup();
 
     _runApplication();
   } catch (error, stackTrace) {

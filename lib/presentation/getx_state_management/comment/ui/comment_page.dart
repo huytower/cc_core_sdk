@@ -28,47 +28,49 @@ class CommentPage extends CcGetView<CommentController> with CcPullRefreshMixin {
       'buildContent - isLoading: $isLoading, layoutStatus: ${controller.layoutStatus.value}, comments length: ${comments.length}',
     );
 
-    return buildPullToRefresh(
-      onRefresh: controller.refreshData,
-      child: ListView.builder(
-        itemCount: isLoading ? 5 : comments.length,
-        itemBuilder: (context, index) {
-          if (isLoading) {
-            print('Building shimmer item at index $index');
-            return const ShimmerCommentCard();
-          }
+    return FadePageWrapper(
+      child: buildPullToRefresh(
+        onRefresh: controller.refreshData,
+        child: ListView.builder(
+          itemCount: isLoading ? 5 : comments.length,
+          itemBuilder: (context, index) {
+            if (isLoading) {
+              print('Building shimmer item at index $index');
+              return const ShimmerCommentCard();
+            }
 
-          final comment = comments[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: CcPaddingParams.PAGE_XS,
-              vertical: CcPaddingParams.SPACE_SM,
-            ),
-            child: Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_MD),
+            final comment = comments[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: CcPaddingParams.PAGE_XS,
+                vertical: CcPaddingParams.SPACE_SM,
               ),
-              child: ListTile(
-                title: Text(
-                  comment.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+              child: Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_MD),
                 ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      comment.email,
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                    const CcSpaceXS(),
-                    Text(comment.body),
-                  ],
+                child: ListTile(
+                  title: Text(
+                    comment.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        comment.email,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                      const CcSpaceXS(),
+                      Text(comment.body),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

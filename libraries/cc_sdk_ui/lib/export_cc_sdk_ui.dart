@@ -19,6 +19,7 @@ export 'package:cc_sdk_ui/core/helper/cc_widget_helper.dart';
 
 // Animation Widgets
 export 'package:cc_sdk_ui/widgets/anim/fade_widget.dart';
+export 'package:cc_sdk_ui/widgets/anim/fade_page_wrapper.dart';
 // Avatar Widgets
 export 'package:cc_sdk_ui/widgets/avatars/avatar_user.dart';
 // Background Widgets
@@ -47,6 +48,7 @@ export 'package:cc_sdk_ui/widgets/container/cc_container_rounded_corner_widget.d
     hide ContainerRoundedCornerTopLeftRight;
 // Container Widgets
 export 'package:cc_sdk_ui/widgets/container/cc_containers.dart';
+export 'package:cc_sdk_ui/widgets/container/cc_responsive_container.dart';
 export 'package:cc_sdk_ui/widgets/container/container_rounded_corner_top_left_right.dart';
 // Countdown Widgets
 export 'package:cc_sdk_ui/widgets/countdown/cc_count_down.dart';
@@ -64,6 +66,7 @@ export 'package:cc_sdk_ui/widgets/duration/duration_widget.dart';
 export 'package:cc_sdk_ui/widgets/expansion_pane/cc_expansion_pane.dart';
 // Flex Widgets (Consolidated)
 export 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
+export 'package:cc_sdk_ui/widgets/flex/cc_responsive_flex.dart';
 // InkWell Widgets (Consolidated)
 export 'package:cc_sdk_ui/widgets/inkwell/cc_inkwell.dart';
 // Navigation Widgets
