@@ -1,14 +1,26 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 /// Manages the application's theme state and provides theme-related functionality
 class ThemeProvider extends ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode;
 
   /// Gets the current theme mode
   ThemeMode get themeMode => _themeMode;
 
   /// Checks if dark mode is currently active
   bool get isDarkMode => _themeMode == ThemeMode.dark;
+
+  ThemeProvider() : _themeMode = _detectSystemTheme();
+
+  /// Detect system theme on initialization
+  static ThemeMode _detectSystemTheme() {
+    final platformBrightness = PlatformDispatcher.instance.platformBrightness;
+    return platformBrightness == Brightness.dark
+        ? ThemeMode.dark
+        : ThemeMode.light;
+  }
 
   /// Toggles between light and dark theme modes
   void toggleTheme(bool isOn) {

@@ -83,7 +83,8 @@ mixin DoubleBackToExitMixin<T extends StatefulWidget> on State<T> {
     }
 
     final now = DateTime.now();
-    final isFirstPress = _lastBackPressedAt == null ||
+    final isFirstPress =
+        _lastBackPressedAt == null ||
         now.difference(_lastBackPressedAt!) > _messageDuration;
 
     if (isFirstPress) {
@@ -101,11 +102,28 @@ mixin DoubleBackToExitMixin<T extends StatefulWidget> on State<T> {
 
   /// Show back press message to user.
   void _showBackPressMessage() {
-    ScaffoldMessenger.of(context).showSnackBar(
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+    // Clear any existing snackbars to prevent stacking
+    scaffoldMessenger.hideCurrentSnackBar();
+
+    scaffoldMessenger.showSnackBar(
       SnackBar(
-        content: Text(backPressMessage),
+        content: Text(
+          backPressMessage,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         duration: _messageDuration,
         behavior: SnackBarBehavior.floating,
+        // Modern styling: rounded corners and slight margin
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        margin: const EdgeInsets.all(16),
+        // Use a subtle dark theme or your primary brand color
+        backgroundColor: Colors.grey[850],
+        elevation: 6,
       ),
     );
   }
