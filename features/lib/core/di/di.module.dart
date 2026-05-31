@@ -29,6 +29,8 @@ import 'package:features/features/counter/domain/usecases/increment_counter_use_
     as _i827;
 import 'package:features/features/counter/presentation/bloc/counter_bloc.dart'
     as _i8;
+import 'package:features/features/web/presentation/cubit/web_cubit.dart'
+    as _i312;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
@@ -38,6 +40,7 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
   _i687.FutureOr<void> init(_i526.GetItHelper gh) {
     gh.lazySingleton<_i820.CcBiometricAuthDatasource>(
         () => _i820.CcBiometricAuthDatasource());
+    gh.lazySingleton<_i312.WebCubit>(() => _i312.WebCubit());
     gh.lazySingleton<_i85.CcBiometricAuthRepository>(() =>
         _i507.CcBiometricAuthRepositoryImpl(
             gh<_i820.CcBiometricAuthDatasource>()));

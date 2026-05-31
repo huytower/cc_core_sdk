@@ -14,6 +14,7 @@ enum AppRoute {
   web,
   comment,
   featuresCounter,
+  mainNavigation,
 }
 
 extension AppRoutePath on AppRoute {

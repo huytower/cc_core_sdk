@@ -1,64 +1,32 @@
 # AI Context - Flutter Get Starter Template
 
-## AI Context - Flutter Get Starter Template
-
 A modular Flutter starter built around **Clean Architecture** and **SOLID principles**, with reusable packages for core SDK, UI, and feature modules.
 
 **Project Path:** `C:\Users\Admin\repository\flutter-get-starter-template`
 
-## AI Guidelines & Strategic Guardrails (POSITIVE)
+## AI Guidelines & Strategic Guardrails
 
-To ensure high-quality, predictable development and maintain project integrity, the AI must adhere to these standards:
+1. **State-Management Agnostic Design (CRITICAL)**: All components in `cc_sdk`, `cc_sdk_ui`, `cc_mixin`, and `features` MUST be state-management agnostic. Components must work with GetX or Bloc without being tied to a specific one.
 
-1.  **Architecture Respect**: Maintain the existing patterns and architecture. Propose refactors only when requested or when essential for a new feature's stability.
-2.  **Precise Scope**: Limit modifications strictly to files directly required for the current task. Keep surrounding code stable.
-3.  **Final-State Delivery**: Provide the final, production-ready implementation immediately. Skip intermediate wrappers or temporary helper files.
-4.  **SDK-First Component Reuse**: Prioritize components from `libraries/cc_sdk_ui`. Use existing buttons, error pages, and layouts to ensure design consistency.
-5.  **Clean Bootstrap Integrity**: Preserve `main.dart` as a lean, service-only entry point (Env -> DI -> Hive -> Localization). Delegate UI construction to `AppRunner.dart` or Feature modules.
-6.  **Collaborative Evolution**: For structural changes (file movements, return type updates, DI shifts), present a clear plan and proceed only after developer confirmation.
-7.  **Evidence-Based Implementation**: Use `read_file` and `analyze_file` to verify the current structure before proposing any changes.
+   **Requirements:**
+   - Core SDK libraries must not depend on specific state management libraries
+   - Use mixins to provide reusable functionality across GetX and Bloc
+   - Use required/optional methods for implementation details with default implementations
+   - Use dependency injection to inject implementations rather than hard-coding state management
 
-## Future Development Goals & Strategy
+2. **Architecture Respect**: Maintain existing patterns and architecture. Propose refactors only when requested or essential for new feature stability.
 
-### Short-Term Feature Goals
-- **Standardized Failure Adoption**: Transition all features (like Dashboard) to use the `Result<T, Failure>` pattern for robust error handling.
-- **Enhanced Data Parsing**: Integrate `CcResBodyModel` across all Remote DataSources for consistent envelope peeling.
-- **Persistence Optimization**: Migrate remaining in-memory caches to `Hive` storage within the `modules/app_config` framework.
-- **Code Generation**: Ensure all generated files (.g.dart, .config.dart) are properly handled in CI analysis.
+3. **Precise Scope**: Limit modifications strictly to files directly required for the current task.
 
-### Long-Term Strategic Vision
-- **Module Decoupling**: Progressively isolate feature modules to ensure they can be tested and developed independently.
-- **DI Optimization**: Refine the Micro-Package DI strategy to ensure faster build times and clearer dependency graphs.
-- **UI Component Maturity**: Expand `cc_sdk_ui` to include all common app patterns, reducing the need for feature-specific widgets.
+4. **Final-State Delivery**: Provide final, production-ready implementation immediately. Skip intermediate wrappers or temporary helper files.
 
-## Recommended Onboarding Path
+5. **SDK-First Component Reuse**: Prioritize components from `libraries/cc_sdk_ui`.
 
-- Start with `README.md` and this `AI_CONTEXT.md` for architecture intent.
-- Read `docs/onboarding.md` for a step-by-step developer guide.
-- Open `lib/main.dart` to understand how the app boots, loads dependencies, and wraps the root widget.
-- Check `lib/core/di/di.dart` for the global DI assembly and module registration.
-- Review `libraries/features/lib/export_features.dart` to find reusable feature exports.
-- Use `modules/` for app-specific domain and data logic.
+6. **Clean Bootstrap Integrity**: Preserve `main.dart` as lean, service-only entry point (Env -> DI -> Hive -> Localization).
 
-## Project Overview
+7. **Collaborative Evolution**: For structural changes (file movements, return type updates, DI shifts), present clear plan and proceed after developer confirmation.
 
-Flutter starter template following **Clean Architecture** and **SOLID principles** with modular structure.
-
-**Project Path:** `C:\Users\Admin\repository\flutter-get-starter-template`
-
-## Architecture Principles
-
-### Clean Architecture
-- **Domain Layer**: Business logic, use cases, entities, repository interfaces
-- **Data Layer**: Data sources (remote/local), repository implementations, entities
-- **Presentation Layer**: UI components, pages, widgets
-
-### SOLID Principles
-- **Single Responsibility**: Each class/module has one reason to change
-- **Open/Closed**: Open for extension, closed for modification
-- **Liskov Substitution**: Subtypes must be substitutable for base types
-- **Interface Segregation**: Clients shouldn't depend on unused interfaces
-- **Dependency Inversion**: Depend on abstractions, not concretions
+8. **Evidence-Based Implementation**: Use read_file and analyze_file to verify current structure before proposing changes.
 
 ## Project Structure
 
@@ -74,19 +42,18 @@ flutter-get-starter-template/
 │   ├── app_config/              # Configuration, DI, storage
 │   ├── data/                    # Data sources, repositories, entities
 │   ├── message/                 # i18n/localization
-  └── theme/                   # Theming system
+│   └── theme/                   # Theming system
 ├── libraries/                    # Reusable libraries
 │   ├── cc_sdk/                  # Core SDK (network, device, failures)
 │   ├── cc_sdk_ui/               # UI component library
+│   ├── cc_mixin/                # Reusable mixins
 │   └── features/                # Modular feature packages
 └── docs/                        # Documentation
 ```
 
 ## Dependency Injection (DI) Convention
 
-To ensure consistency and simplicity across all modules, follow the **Predictable Pattern**.
-
-| Category | Convention | Location / Example |
+| Category | Convention | Example |
 | :--- | :--- | :--- |
 | **File Location** | Always `lib/core/di/di.dart` | `data/lib/core/di/di.dart` |
 | **Method Name** | Always `initMicroPackage()` | `void initMicroPackage() {}` |
@@ -94,27 +61,20 @@ To ensure consistency and simplicity across all modules, follow the **Predictabl
 | **Generated File**| Always `di.module.dart` | `import 'di.module.dart';` |
 
 ### Module Implementation
-Every library and module must implement DI using the **Micro-Package** pattern:
-```dart
-import 'package:get_it/get_it.dart';
-import 'package:injectable/injectable.dart';
-
-final getIt = GetIt.instance;
-
-@InjectableInit.microPackage()
-void initMicroPackage() {}
-```
+Every library and module must implement DI using Micro-Package pattern with `@InjectableInit.microPackage()` annotation on `initMicroPackage()` method.
 
 ### Main App Integration
-The main app consolidates all modules in `lib/core/di/di.dart`:
-- Uses `@InjectableInit` with `externalPackageModulesBefore`.
-- Includes all generated `MicroPackageModule` classes from dependencies.
-- Use `ignoreUnregisteredTypes` for common third-party types (e.g., `SharedPreferences`, `Dio`).
+The main app consolidates all modules in `lib/core/di/di.dart` using `@InjectableInit` with `externalPackageModulesBefore`.
 
 ## Core Libraries
 
 ### libraries/cc_sdk (Core SDK)
 **Purpose:** Essential functionality and utilities
+
+**State-Management Requirements:**
+- Must NOT depend on specific state management libraries
+- All components must be state-management agnostic
+- Use mixins and interfaces for reusable functionality
 
 **Key Components:**
 - Network utilities (CURL, interceptors, connectivity)
@@ -123,54 +83,86 @@ The main app consolidates all modules in `lib/core/di/di.dart`:
 - Common extensions and helpers
 - Serialization (GSON-style)
 - Error handling with Failure types
-- Clean Architecture implementation
-
-**Architecture Flow:**
-1. **Domain Layer**: UseCases (business logic) + Repository Interfaces (contracts)
-2. **Data Layer**: Repository Implementations (managers) + DataSources (laborers)
-3. **Core Layer**: Standardized failures (CcNetworkFailure, CcServerFailure, CcAppConfigFailure)
+- Clean Architecture implementation (Domain/Data/Core layers)
 
 **DI File:** `libraries/cc_sdk/lib/core/di/di.dart`
 
 ### libraries/cc_sdk_ui (UI Components)
 **Purpose:** Reusable, customizable UI components
 
-**Components:**
-- Buttons: CcCloseBtn, CcDebounce, CcBaseBtn
+**State-Management Requirements:**
+- Must NOT depend on specific state management libraries
+- All widgets must be state-management agnostic
+- Use value parameters and callbacks rather than coupled state management
+
+**Key Components:**
+- Buttons (CcCloseBtn, CcDebounce, CcBaseBtn)
 - Dialogs and bottom sheets
 - Form elements (text fields, validators)
 - Loaders & indicators (spinners, skeletons)
 - Layout components (containers, cards, dividers)
 - Text & typography widgets
 - Animations (fade, scale, transitions)
+- Navigation (CcCurvedNavigationBar - state-management agnostic)
 
 **Theme Tokens:**
 - `CcBaseColors`: Color palette (brand, neutral, semantic)
 - `CcTypographyParams`: Typography system (sizes, weights)
 
+**DI File:** No DI file (stateless UI library)
+
+### libraries/cc_mixin (Reusable Mixins)
+**Purpose:** Reusable mixins for common functionality
+
+**State-Management Requirements:**
+- All mixins must be state-management agnostic
+- Provide reusable functionality without imposing specific state management patterns
+- Use required methods for implementation details, with default implementations for common cases
+
+**Key Mixins:**
+- **CcCurvedNavigationMixin**: Provides curved navigation bar functionality (Home, Notification, Profile items)
+  - Required: `currentIndex` getter and `setIndex` method
+  - Optional: Navigation items, colors, dimensions, style presets
+  - Works with any state management approach
+
+**DI File:** No DI file (mixin library)
+
 ### libraries/features (Feature Modules)
-**Purpose:** Modular, reusable feature packages
+**Purpose:** Standalone, shareable feature modules
+
+**State-Management Requirements:**
+- Feature modules should be designed to work with different state management approaches
+- Provide clear separation between feature logic (state-management agnostic) and presentation (state-management specific)
+- Use dependency injection to allow consuming applications to choose their preferred state management
 
 **Structure per feature:**
 ```
 {feature_name}/
-├── data/
-│   ├── datasources/          # API, local storage
-│   └── repositories/         # Repository implementations
-├── domain/
-│   ├── entities/             # Business objects
-│   ├── repositories/         # Repository contracts
-│   └── usecases/            # Business logic
-├── presentation/
-│   ├── pages/               # Feature screens
-│   └── widgets/             # Reusable UI components
-└── core/di/di.dart          # Standardized DI entry
+├── data/                        # State-management agnostic
+│   ├── datasources/             # API, local storage
+│   └── repositories/            # Repository implementations
+├── domain/                      # State-management agnostic
+│   ├── entities/                # Business objects
+│   ├── repositories/            # Repository contracts
+│   └── usecases/               # Business logic
+├── presentation/                # State-management specific
+│   ├── bloc/                    # Bloc implementation (optional)
+│   ├── getx/                    # GetX implementation (optional)
+│   ├── pages/                   # Feature screens
+│   └── widgets/                 # Reusable UI components (agnostic)
+└── core/di/di.dart             # Standardized DI entry
 ```
+
+**DI File:** `libraries/features/lib/core/di/di.dart`
 
 ## App Modules
 
 ### modules/app_config
 **Purpose:** Application configuration and dependency management
+
+**State-Management Requirements:**
+- Must be state-management agnostic
+- Configuration, DI, and storage should not depend on specific state management libraries
 
 **Features:**
 - Version and build information
@@ -182,6 +174,11 @@ The main app consolidates all modules in `lib/core/di/di.dart`:
 
 ### modules/data
 **Purpose:** Data layer configuration and implementation
+
+**State-Management Requirements:**
+- Must be state-management agnostic
+- Data sources, repositories, and parsing should not depend on specific state management
+- Provide data through standard interfaces (Result<T, Failure>) that work with any state management
 
 **Features:**
 - Remote server configuration (Retrofit)
@@ -195,8 +192,16 @@ The main app consolidates all modules in `lib/core/di/di.dart`:
 ### modules/theme
 **Purpose:** Theming system with Clean Architecture
 
+**State-Management Requirements:**
+- Must be state-management agnostic
+- Theme changes should be accessible through standard interfaces (not tied to specific state management)
+
 ### modules/message
 **Purpose:** Internationalization (i18n) and localization
+
+**State-Management Requirements:**
+- Must be state-management agnostic
+- Translation and localization should not depend on specific state management libraries
 
 ## Key Technologies
 
@@ -207,111 +212,45 @@ The main app consolidates all modules in `lib/core/di/di.dart`:
 - **Annotations**: @injectable, @module, @preResolve, @named, @singleton, @lazySingleton, @InjectableInit.microPackage()
 
 ### State Management
-- **GetX**: State management, routing, dependency injection
-- **Bloc**: State management with streams
+- **Multi-Support**: The project supports GetX and Bloc state management approaches
+- **State-Management Agnostic Core**: Core libraries (cc_sdk, cc_sdk_ui, cc_mixin, features) must be state-management agnostic
+- **Flexibility**: Choose the state management approach that works best for your feature or team
+- **No Lock-in**: Core components are not locked to any specific state management library
+
+**State-Management Usage:**
+- Use GetX or Bloc in the `lib/presentation` layer for specific features
+- Keep core libraries (cc_sdk, cc_sdk_ui, cc_mixin, features) state-management agnostic
+- Provide abstract interfaces in features that can be implemented with GetX or Bloc
+- Use dependency injection to inject state management implementations
 
 ## CI/CD Configuration
 
 ### Melos 7.x.x Workspace
-The project uses **Melos 7.x.x** with pub workspaces instead of the traditional melos.yaml approach:
-
-- **Workspace Configuration:** Defined in root `pubspec.yaml` with `workspace` key
-- **Package Dependencies:** Packages use `resolution: workspace` instead of path-based dependencies
-- **Global Melos Activation:** Required in CI for script compatibility
-- **Code Generation:** Runs before analysis to ensure generated files are available
-
-### CI Requirements
-- **Flutter:** 3.41.9 or higher (includes Dart 3.11.5+)
-- **Melos:** 7.8.0 (workspace version)
-- **Generated Files:** .g.dart files committed for app_config and data modules
-- **Analysis Rules:** Configured for generated file compatibility
-
-### CI Workflow
-The GitHub Actions CI pipeline follows this sequence:
-1. Setup Flutter 3.41.9 with caching
-2. Activate Melos globally and add to PATH
-3. Bootstrap workspace with pub workspaces
-4. Run code generation (`melos run gen`)
-5. Run analysis (`melos run analyze`)
-6. Run tests (`melos run test`)
-
-### Generated Files Handling
-- **app_config module:** Hive adapter .g.dart files committed
-- **data module:** JSON serialization and Retrofit .g.dart files committed
-- **.gitignore:** Configured to allow generated files from specific modules
-- **Analysis rules:** `prefer_relative_imports` disabled for generated files
-
-### Local Development Setup
-1. **Prerequisites:** Ensure Flutter 3.41.9+ and Dart 3.11.5+ are installed
-2. **Workspace Bootstrap:** Run `melos bootstrap` to set up the workspace
-3. **Code Generation:** Run `melos run gen` after adding new models or DI annotations
-4. **Analysis:** Run `melos run analyze` to check code quality
-5. **Testing:** Run `melos run test` to ensure tests pass
-
-### Common Development Commands
-```bash
-# Bootstrap workspace
-melos bootstrap
-
-# Generate code (after adding models, adapters, or DI annotations)
-melos run gen
-
-# Analyze code
-melos run analyze
-
-# Run tests
-melos run test
-
-# Clean workspace
-melos clean
-```
-
-### Adding New Dependencies
-When adding dependencies to packages in the workspace:
-1. Add dependencies to the package's `pubspec.yaml` without `path:` for workspace packages
-2. Run `melos bootstrap` to resolve workspace dependencies
-3. Run `melos run gen` if the dependency requires code generation
-4. Commit the updated `pubspec.yaml` files
-
-### Code Generation Guidelines
-- **When to run:** After adding new models, Hive adapters, or DI annotations
-- **Which modules:** All modules that depend on build_runner
-- **Generated files:** Commit .g.dart files for app_config and data modules
-- **CI integration:** Code generation runs automatically before analysis in CI
+- **Workspace:** Melos 7.x.x pub workspaces (no melos.yaml, uses pubspec.yaml workspace config)
+- **Global Melos activation:** Required for script compatibility in CI
+- **Generated files:** Selected modules commit generated files for analysis
+- **Lint rules:** `prefer_relative_imports` disabled for generated files
 
 ## Development Workflow
 
-### Clean Architecture Rules
-- **Domain layer** must not depend on Data or Presentation layers
-- **Data layer** depends on Domain layer (repository interfaces)
-- **Presentation layer** depends on Domain layer (use cases)
-- Use dependency injection to invert dependencies
+```bash
+melos bootstrap              # Bootstrap the workspace
+melos run gen                # Generate code
+melos run analyze            # Run analysis
+melos run test               # Run tests
+melos clean                  # Clean and rebuild
+```
 
-### Naming Conventions
-- **DI Locator**: Always `getIt`
-- **DI Entry**: `lib/core/di/di.dart`
-- Classes: PascalCase (e.g., `UserProfileRepository`)
-- Files: snake_case (e.g., `user_profile_repository.dart`)
+## Architecture Principles
 
-### Linter & Code Style
-- **Prefer Relative Imports**: Use relative paths for imports within the same package to maintain modularity and avoid brittle package-name dependencies.
-- **Const Constructors**: Use `const` for widgets and objects whenever possible to optimize performance and widget tree rebuilding.
-- **Clean Imports**:
-    - Remove unnecessary or unused imports.
-    - Avoid redundant imports (e.g., don't import a file if all its elements are already provided by another broader export or import).
-    - Group imports: Flutter/Dart first, then third-party packages, then project-specific modules.
-    - Follow naming conventions: Follow consistent naming conventions for classes, files, and variables to improve code readability and maintainability.
-    - Use type annotations: Use type annotations to improve code clarity and help the Dart analyzer provide better code suggestions and error messages.
-- **Analyze code with Dart analysis tools**: Use Dart analysis tools like dartanalyzer or dartfmt to catch potential issues and enforce coding standards.
-- **Review generated code**: Review the generated code to ensure it aligns with the project's requirements and coding standards.
+### Clean Architecture
+- **Domain Layer**: Business logic, use cases, entities, repository interfaces
+- **Data Layer**: Data sources (remote/local), repository implementations, entities
+- **Presentation Layer**: UI components, pages, widgets
 
-
-## Adding New Code
-
-### DI Implementation Steps
-1. Create/Update `lib/core/di/di.dart` in your module.
-2. Annotate with `@InjectableInit.microPackage()`.
-3. Add injectable annotations to your classes.
-4. Run `build_runner` in the module.
-5. Reference the generated `MicroPackageModule` in the main app's `di.dart`.
-6. Run `build_runner` in the main app.
+### SOLID Principles
+- **Single Responsibility**: Each class/module has one reason to change
+- **Open/Closed**: Open for extension, closed for modification
+- **Liskov Substitution**: Subtypes must be substitutable for base types
+- **Interface Segregation**: Clients shouldn't depend on unused interfaces
+- **Dependency Inversion**: Depend on abstractions, not concretions

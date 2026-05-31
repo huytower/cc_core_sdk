@@ -73,5 +73,12 @@
     "privacy": "Bảo mật",
     "help": "Trợ giúp & Hỗ trợ",
     "about": "Giới thiệu"
+  },
+  "nav": {
+    "dashboard": "Bảng điều khiển",
+    "quick_test": "Kiểm tra nhanh",
+    "quick_test_page": "Trang kiểm tra nhanh",
+    "notification": "Thông báo",
+    "profile": "Hồ sơ"
   }
 }

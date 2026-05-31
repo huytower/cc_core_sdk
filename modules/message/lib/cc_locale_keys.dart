@@ -71,4 +71,10 @@ abstract class CcLocaleKeys {
   static const settings_privacy = 'settings.privacy';
   static const settings_help = 'settings.help';
   static const settings_about = 'settings.about';
+
+  static const nav_dashboard = 'nav.dashboard';
+  static const nav_quick_test = 'nav.quick_test';
+  static const nav_quick_test_page = 'nav.quick_test_page';
+  static const nav_notification = 'nav.notification';
+  static const nav_profile = 'nav.profile';
 }

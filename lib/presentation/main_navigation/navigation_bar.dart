@@ -1,0 +1,142 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:cc_mixin/export_cc_mixin.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:message/cc_locale_keys.dart';
+import 'package:message/cc_localization.dart';
+
+import 'tabs/dashboard_tab_content.dart';
+import 'tabs/notification_tab_content.dart';
+import 'tabs/profile_tab_content.dart';
+import 'tabs/quick_test_tab_content.dart';
+
+/// Main navigation view with curved navigation bar.
+@RoutePage()
+class NavigationBar extends StatefulWidget {
+  const NavigationBar({super.key});
+
+  @override
+  State<NavigationBar> createState() => _NavigationBarState();
+}
+
+class _NavigationBarState extends State<NavigationBar>
+    with CcCurvedNavigationMixin {
+  // Navigation indices
+  static const int _indexFirstTab = 0;
+  static const int _indexNotification = 1;
+  static const int _indexProfile = 2;
+
+  // Example state management implementation
+  // This can be replaced with your preferred state management approach
+  late int _currentIndex;
+  late bool _showQuickTestAsFirstTab;
+
+  @override
+  void initState() {
+    super.initState();
+    // Read from dotenv to determine if first tab should be QuickTesting or Dashboard
+    final startRoute = dotenv.maybeGet(
+      'AUTO_ROUTE_START',
+      fallback: 'DASHBOARD',
+    );
+    _showQuickTestAsFirstTab = _isQuickTestRoute(startRoute);
+    _currentIndex = 0;
+  }
+
+  bool _isQuickTestRoute(String? route) {
+    return route?.toUpperCase() == QuickTestTabContent.routeName;
+  }
+
+  @override
+  int get currentIndex => _currentIndex;
+
+  @override
+  void setIndex(int index) {
+    setState(() => _currentIndex = index);
+  }
+
+  @override
+  List<CcCurvedNavigationItem> get navigationItems => [
+    _showQuickTestAsFirstTab
+        ? _quickTestNavigationItem()
+        : _dashboardNavigationItem(),
+    CcCurvedNavigationItem(
+      inactiveIcon: Icons.notifications_outlined,
+      activeIcon: Icons.notifications_rounded,
+      label: context.tr(CcLocaleKeys.nav_notification),
+    ),
+    CcCurvedNavigationItem(
+      inactiveIcon: Icons.person_outline_rounded,
+      activeIcon: Icons.person_rounded,
+      label: context.tr(CcLocaleKeys.nav_profile),
+    ),
+  ];
+
+  CcCurvedNavigationItem _quickTestNavigationItem() => CcCurvedNavigationItem(
+        inactiveIcon: Icons.bug_report_outlined,
+        activeIcon: Icons.bug_report_rounded,
+        label: context.tr(CcLocaleKeys.nav_quick_test),
+      );
+
+  CcCurvedNavigationItem _dashboardNavigationItem() => CcCurvedNavigationItem(
+        inactiveIcon: Icons.dashboard_outlined,
+        activeIcon: Icons.dashboard_rounded,
+        label: context.tr(CcLocaleKeys.nav_dashboard),
+      );
+
+  @override
+  bool get isEnableAppBar => false;
+
+  @override
+  bool get isEnableBottomNavigation => true;
+
+  @override
+  PreferredSizeWidget? appBar() => null;
+
+  @override
+  Widget? bottomNavigationBar() => buildCurvedNavigationBar();
+
+  @override
+  Widget? buildContent() {
+    return _buildContentForIndex(currentIndex);
+  }
+
+  Widget _buildContentForIndex(int index) {
+    switch (index) {
+      case _indexFirstTab:
+        return _showQuickTestAsFirstTab
+            ? const QuickTestTabContent()
+            : const DashboardTabContent();
+      case _indexNotification:
+        return const NotificationTabContent();
+      case _indexProfile:
+        return const ProfileTabContent();
+      default:
+        return _showQuickTestAsFirstTab
+            ? const QuickTestTabContent()
+            : const DashboardTabContent();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(child: body),
+      appBar: isEnableAppBar ? appBar() : null,
+      bottomNavigationBar: isEnableBottomNavigation
+          ? bottomNavigationBar()
+          : null,
+    );
+  }
+
+  Widget get body {
+    if (layoutStatus == CcLayoutStatus.success) {
+      return buildContent() ?? const SizedBox.shrink();
+    }
+    // For simplicity, just show content for now
+    return buildContent() ?? const SizedBox.shrink();
+  }
+
+  CcLayoutStatus get layoutStatus => CcLayoutStatus.success;
+}

@@ -70,42 +70,6 @@ abstract class DataModule {
   @Named("ccResponseInterceptor")
   Interceptor get ccResponseInterceptor => CcResponseInterceptor();
 
-  // @singleton
-  // @Named("ccRequestInterceptor")
-  // Interceptor ccRequestInterceptor(InternetConnection internetConnection) =>
-  //     InterceptorsWrapper(
-  //       onRequest: (options, handler) async {
-  //         /// Check internet connection
-  //         final hasInternet = await CcNetworkHelper(
-  //           internetConnection,
-  //         ).hasInternet;
-  //         if (!hasInternet) {
-  //           final errorMsg = el.tr(CcLocaleKeys.app_error_network);
-  //           errorMsg.Log();
-  //           return handler.reject(
-  //             DioException(
-  //               requestOptions: options,
-  //               type: DioExceptionType.connectionError,
-  //               error: errorMsg,
-  //             ),
-  //           );
-  //         }
-  //
-  //         'onRequest() : ${options.uri}'.Log();
-  //
-  //         /// Handle token logic or specific header cleanup
-  //         ccWhen(
-  //           conditions: {
-  //             options.headers.containsValue("empty"): () {
-  //               options.headers.removeWhere((key, value) => value == "empty");
-  //             },
-  //           },
-  //         );
-  //
-  //         return handler.next(options);
-  //       },
-  //     );
-
   @singleton
   @Named("curlLoggerInterceptor")
   Interceptor get curlLoggerInterceptor =>

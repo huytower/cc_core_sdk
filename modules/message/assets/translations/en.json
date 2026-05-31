@@ -73,5 +73,12 @@
     "privacy": "Privacy",
     "help": "Help & Support",
     "about": "About"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "quick_test": "Quick Test",
+    "quick_test_page": "Quick Testing Page",
+    "notification": "Notification",
+    "profile": "Profile"
   }
 }

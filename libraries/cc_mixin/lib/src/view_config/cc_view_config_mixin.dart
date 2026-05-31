@@ -38,7 +38,7 @@ mixin CcViewConfigMixin {
 
   /// Optional floating action button for the view
   Widget? get floatingActionButton =>
-      CcFloatingActionButton(onTap: onTapFloatingActionButton);
+      CcFloatingActionButton(onTap: onTapFloatingActionButton, showing: false);
 
   /// Current layout status that determines which page is shown
   CcLayoutStatus get layoutStatus => CcLayoutStatus.success;

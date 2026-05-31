@@ -16,6 +16,7 @@ class CcFloatingActionButton extends StatelessWidget {
     this.mini = false,
     this.elevation = 6.0,
     this.tooltip,
+    this.showing = true,
   }) : super(key: key);
 
   final VoidCallback onTap;
@@ -27,10 +28,15 @@ class CcFloatingActionButton extends StatelessWidget {
   final bool mini;
   final double elevation;
   final String? tooltip;
+  final bool showing;
 
   @override
   Widget build(BuildContext context) {
     final effectiveIcon = icon ?? Icon(iconData ?? Icons.add);
+
+    if (!showing) {
+      return const SizedBox.shrink();
+    }
 
     return FloatingActionButton(
       heroTag: heroTag ?? 'fab_${DateTime.now().millisecondsSinceEpoch}',

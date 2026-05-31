@@ -66,6 +66,8 @@ export 'package:cc_sdk_ui/widgets/expansion_pane/cc_expansion_pane.dart';
 export 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 // InkWell Widgets (Consolidated)
 export 'package:cc_sdk_ui/widgets/inkwell/cc_inkwell.dart';
+// Navigation Widgets
+export 'package:cc_sdk_ui/widgets/navigation/cc_curved_navigation_bar.dart';
 // Pages
 export 'package:cc_sdk_ui/widgets/pages/error/error_page.dart';
 export 'package:cc_sdk_ui/widgets/pages/loading/loading_page.dart';
