@@ -9,8 +9,8 @@ import 'package:path_provider/path_provider.dart';
 
 import 'core/crash_reporting/crash_log_startup.dart';
 import 'core/di/di.dart';
+import 'core/logging/init_logger.dart';
 import 'core/runner/app_runner.dart';
-import 'main_logging.dart';
 
 /// The entry point of the application.
 ///

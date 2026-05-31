@@ -23,24 +23,24 @@ class NavigationBar extends StatefulWidget {
 class _NavigationBarState extends State<NavigationBar>
     with CcCurvedNavigationMixin {
   // Navigation indices
-  static const int _indexFirstTab = 0;
-  static const int _indexNotification = 1;
+  static const int _indexDashboard = 0;
+  static const int _indexSecondTab = 1;
   static const int _indexProfile = 2;
 
   // Example state management implementation
   // This can be replaced with your preferred state management approach
   late int _currentIndex;
-  late bool _showQuickTestAsFirstTab;
+  late bool _showQuickTestAsSecondTab;
 
   @override
   void initState() {
     super.initState();
-    // Read from dotenv to determine if first tab should be QuickTesting or Dashboard
+    // Read from dotenv to determine if second tab should be QuickTesting or Notification
     final startRoute = dotenv.maybeGet(
       'AUTO_ROUTE_START',
       fallback: 'DASHBOARD',
     );
-    _showQuickTestAsFirstTab = _isQuickTestRoute(startRoute);
+    _showQuickTestAsSecondTab = _isQuickTestRoute(startRoute);
     _currentIndex = 0;
   }
 
@@ -58,32 +58,28 @@ class _NavigationBarState extends State<NavigationBar>
 
   @override
   List<CcCurvedNavigationItem> get navigationItems => [
-    _showQuickTestAsFirstTab
-        ? _quickTestNavigationItem()
-        : _dashboardNavigationItem(),
     CcCurvedNavigationItem(
-      inactiveIcon: Icons.notifications_outlined,
-      activeIcon: Icons.notifications_rounded,
-      label: context.tr(CcLocaleKeys.nav_notification),
+      inactiveIcon: Icons.dashboard_outlined,
+      activeIcon: Icons.dashboard_rounded,
+      label: context.tr(CcLocaleKeys.nav_dashboard),
     ),
+    _showQuickTestAsSecondTab
+        ? CcCurvedNavigationItem(
+            inactiveIcon: Icons.bug_report_outlined,
+            activeIcon: Icons.bug_report_rounded,
+            label: context.tr(CcLocaleKeys.nav_quick_test),
+          )
+        : CcCurvedNavigationItem(
+            inactiveIcon: Icons.notifications_outlined,
+            activeIcon: Icons.notifications_rounded,
+            label: context.tr(CcLocaleKeys.nav_notification),
+          ),
     CcCurvedNavigationItem(
       inactiveIcon: Icons.person_outline_rounded,
       activeIcon: Icons.person_rounded,
       label: context.tr(CcLocaleKeys.nav_profile),
     ),
   ];
-
-  CcCurvedNavigationItem _quickTestNavigationItem() => CcCurvedNavigationItem(
-        inactiveIcon: Icons.bug_report_outlined,
-        activeIcon: Icons.bug_report_rounded,
-        label: context.tr(CcLocaleKeys.nav_quick_test),
-      );
-
-  CcCurvedNavigationItem _dashboardNavigationItem() => CcCurvedNavigationItem(
-        inactiveIcon: Icons.dashboard_outlined,
-        activeIcon: Icons.dashboard_rounded,
-        label: context.tr(CcLocaleKeys.nav_dashboard),
-      );
 
   @override
   bool get isEnableAppBar => false;
@@ -104,18 +100,16 @@ class _NavigationBarState extends State<NavigationBar>
 
   Widget _buildContentForIndex(int index) {
     switch (index) {
-      case _indexFirstTab:
-        return _showQuickTestAsFirstTab
+      case _indexDashboard:
+        return const DashboardTabContent();
+      case _indexSecondTab:
+        return _showQuickTestAsSecondTab
             ? const QuickTestTabContent()
-            : const DashboardTabContent();
-      case _indexNotification:
-        return const NotificationTabContent();
+            : const NotificationTabContent();
       case _indexProfile:
         return const ProfileTabContent();
       default:
-        return _showQuickTestAsFirstTab
-            ? const QuickTestTabContent()
-            : const DashboardTabContent();
+        return const DashboardTabContent();
     }
   }
 

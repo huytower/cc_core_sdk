@@ -5,7 +5,7 @@ import '../../getx_state_management/comment/get_x/comment_controller.dart';
 import '../../getx_state_management/comment/ui/comment_screen.dart';
 
 class QuickTestTabContent extends StatefulWidget {
-  static const String routeName = 'COMMENT';
+  static const String routeName = 'QUICK_TEST';
 
   const QuickTestTabContent({super.key});
 
