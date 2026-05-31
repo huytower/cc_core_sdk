@@ -25,9 +25,6 @@ class CcShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-      'CcShimmer.build - width: $width, height: $height, enabled: $enabled, baseColor: $baseColor',
-    );
     return Shimmer(
       duration: duration ?? const Duration(milliseconds: 1500),
       color: baseColor ?? Colors.white,

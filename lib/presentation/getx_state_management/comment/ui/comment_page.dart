@@ -35,7 +35,6 @@ class CommentPage extends CcGetView<CommentController> with CcPullRefreshMixin {
           itemCount: isLoading ? 5 : comments.length,
           itemBuilder: (context, index) {
             if (isLoading) {
-              print('Building shimmer item at index $index');
               return const ShimmerCommentCard();
             }
 
