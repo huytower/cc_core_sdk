@@ -1,9 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:cc_sdk_ui/core/extensions/cc_context_extension.dart';
-import 'package:cc_sdk_ui/widgets/anim/fade_page_wrapper.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
-import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

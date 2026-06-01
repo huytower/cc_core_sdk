@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+/// Extension for responsive UI calculations
+extension ResponsiveExtension on BuildContext {
+  /// Get responsive icon size based on screen width
+  /// Base size: 24px for mobile, scales up to 32px for larger screens
+  ///
+  /// Formula: baseSize * (screenWidth / baselineWidth).clamp(1.0, maxMultiplier)
+  ///
+  /// Example usage:
+  /// ```dart
+  /// final iconSize = context.responsiveIconSize();
+  /// ```
+  double responsiveIconSize({
+    double baseSize = 24.0,
+    double baselineWidth = 360.0,
+    double maxMultiplier = 2,
+  }) {
+    final screenWidth = MediaQuery.of(this).size.width;
+    return baseSize * (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
+  }
+
+  /// Get responsive font size based on screen width
+  /// Base size scales up to 1.33x on larger screens
+  ///
+  /// Example usage:
+  /// ```dart
+  /// final fontSize = context.responsiveFontSize(16.0);
+  /// ```
+  double responsiveFontSize(
+    double baseSize, {
+    double baselineWidth = 360.0,
+    double maxMultiplier = 2,
+  }) {
+    final screenWidth = MediaQuery.of(this).size.width;
+    return baseSize * (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
+  }
+
+  /// Get responsive padding based on screen width
+  /// Base padding scales up to 1.5x on larger screens
+  ///
+  /// Example usage:
+  /// ```dart
+  /// final padding = context.responsivePadding(16.0);
+  /// ```
+  double responsivePadding(
+    double basePadding, {
+    double baselineWidth = 360.0,
+    double maxMultiplier = 2,
+  }) {
+    final screenWidth = MediaQuery.of(this).size.width;
+    return basePadding *
+        (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
+  }
+}

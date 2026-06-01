@@ -1,7 +1,5 @@
 import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
-import 'package:cc_sdk_ui/core/extensions/cc_context_extension.dart';
-import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
-import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 
 import '../simple_cubit_interface.dart';
@@ -17,10 +15,11 @@ class SimpleCounterItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return CcCard(
       height: 100,
       width: double.infinity,
-      color: context.ccColorScheme.surfaceContainerHighest,
+      backgroundColor: context.ccColorScheme.surfaceContainerHighest,
+      hasShadow: false,
       child: CcDebounce(
         onTap: () {
           'DebounceWidget'.Log();

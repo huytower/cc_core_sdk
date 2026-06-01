@@ -101,6 +101,7 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
       - Data transformation methods
       - Validation methods
       - Navigation methods
+    - **Constants**: Extract constants to dedicated files when needed
 
 ## Project Structure
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 /// Manages the application's theme state and provides theme-related functionality
 class ThemeProvider extends ChangeNotifier {
   ThemeMode _themeMode;
+  bool _followSystem = true;
 
   /// Gets the current theme mode
   ThemeMode get themeMode => _themeMode;
@@ -12,7 +13,12 @@ class ThemeProvider extends ChangeNotifier {
   /// Checks if dark mode is currently active
   bool get isDarkMode => _themeMode == ThemeMode.dark;
 
-  ThemeProvider() : _themeMode = _detectSystemTheme();
+  /// Checks if the app is following system theme
+  bool get followSystem => _followSystem;
+
+  ThemeProvider() : _themeMode = _detectSystemTheme() {
+    _listenToSystemBrightnessChanges();
+  }
 
   /// Detect system theme on initialization
   static ThemeMode _detectSystemTheme() {
@@ -22,18 +28,51 @@ class ThemeProvider extends ChangeNotifier {
         : ThemeMode.light;
   }
 
+  /// Listen to system brightness changes and automatically update theme
+  void _listenToSystemBrightnessChanges() {
+    PlatformDispatcher.instance.onPlatformBrightnessChanged = () {
+      if (_followSystem) {
+        final newThemeMode = _detectSystemTheme();
+        if (_themeMode != newThemeMode) {
+          _themeMode = newThemeMode;
+          notifyListeners();
+        }
+      }
+    };
+  }
+
   /// Toggles between light and dark theme modes
+  /// When manually toggling, it stops following system theme
   void toggleTheme(bool isOn) {
+    _followSystem = false; // Stop following system when manually toggled
     _themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
 
   /// Sets the theme mode explicitly
+  /// When explicitly set, it stops following system theme
   void setThemeMode(ThemeMode mode) {
     if (_themeMode != mode) {
+      _followSystem = false; // Stop following system when explicitly set
       _themeMode = mode;
       notifyListeners();
     }
+  }
+
+  /// Enable automatic system theme following
+  void enableSystemThemeFollowing() {
+    if (!_followSystem) {
+      _followSystem = true;
+      _themeMode = _detectSystemTheme();
+      notifyListeners();
+    }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the brightness change listener
+    PlatformDispatcher.instance.onPlatformBrightnessChanged = null;
+    super.dispose();
   }
 }
 

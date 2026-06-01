@@ -1,17 +1,8 @@
 import 'package:app_config/data/datasource/local/box/device_info/cc_device_info.dart';
-import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
-import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
-import 'package:cc_sdk_ui/core/extensions/cc_context_extension.dart';
-import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
-import 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
-import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
-import 'package:cc_sdk_ui/widgets/text/app_name_widget.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:message/cc_locale_keys.dart';
 import 'package:theme/data/data_source/color/prj_color.dart';
 
 import '../../../../../core/di/di.dart';

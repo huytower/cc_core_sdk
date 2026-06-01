@@ -1,3 +1,4 @@
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
@@ -62,14 +63,8 @@ class DashboardContent extends StatelessWidget {
   }
 
   Widget _buildInfoCard(BuildContext context) {
-    return Container(
+    return CcCard(
       width: double.infinity,
-      padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
-      decoration: BoxDecoration(
-        color: context.ccColorScheme.surface,
-        borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
-        boxShadow: CcWidgetHelper.getBoxShadows(context),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -95,14 +90,8 @@ class DashboardContent extends StatelessWidget {
   }
 
   Widget _buildCounterCard(BuildContext context) {
-    return Container(
+    return CcCard(
       width: double.infinity,
-      padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
-      decoration: BoxDecoration(
-        color: context.ccColorScheme.surface,
-        borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
-        boxShadow: CcWidgetHelper.getBoxShadows(context),
-      ),
       child: Column(
         children: [
           CcText(
@@ -122,7 +111,7 @@ class DashboardContent extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.remove_circle_outline,
-                  size: 32,
+                  size: context.responsiveIconSize(),
                   color: context.ccColorScheme.error,
                 ),
               ),
@@ -143,7 +132,7 @@ class DashboardContent extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.add_circle_outline,
-                  size: 32,
+                  size: context.responsiveIconSize(),
                   color: context.ccColorScheme.primary,
                 ),
               ),
@@ -155,14 +144,8 @@ class DashboardContent extends StatelessWidget {
   }
 
   Widget _buildUpdateCard(BuildContext context) {
-    return Container(
+    return CcCard(
       width: double.infinity,
-      padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
-      decoration: BoxDecoration(
-        color: context.ccColorScheme.surface,
-        borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
-        boxShadow: CcWidgetHelper.getBoxShadows(context),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
