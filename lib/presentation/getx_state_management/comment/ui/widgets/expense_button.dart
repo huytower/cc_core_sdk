@@ -1,4 +1,5 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
 class ExpenseButton extends StatelessWidget {
@@ -10,8 +11,7 @@ class ExpenseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CcBaseBtn(
       onTap: onTap,
-      title:
-          'Expense', // Should be localized if possible, but keeping it for now
+      title: el.tr(CcLocaleKeys.common_expense),
       width: 80,
       height: 36,
       colorsGradient: [

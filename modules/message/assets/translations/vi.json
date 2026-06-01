@@ -23,6 +23,8 @@
     "search": "Tìm kiếm",
     "no_results": "Không tìm thấy kết quả",
     "no_data": "Không có dữ liệu",
+    "income": "Thu nhập",
+    "expense": "Chi tiêu",
     "press_back_again_to_exit": "Nhấn lại để thoát"
   },
   "auth": {

@@ -51,6 +51,8 @@ class CcBaseBtn extends StatelessWidget {
         child: Center(
           child: CcText(
             title ?? '',
+            align: Alignment.center,
+            textAlign: TextAlign.center,
             color: isEnable ? textColor : context.ccColorScheme.onPrimary,
             fontWeight: FontWeight.bold,
           ),

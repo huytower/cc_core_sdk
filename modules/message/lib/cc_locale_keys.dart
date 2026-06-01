@@ -23,6 +23,8 @@ abstract class CcLocaleKeys {
   static const common_search = 'common.search';
   static const common_no_results = 'common.no_results';
   static const common_no_data = 'common.no_data';
+  static const common_income = 'common.income';
+  static const common_expense = 'common.expense';
 
   static const auth_login = 'auth.login';
   static const auth_logout = 'auth.logout';

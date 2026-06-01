@@ -23,6 +23,8 @@
     "search": "Search",
     "no_results": "No results found",
     "no_data": "No data found",
+    "income": "Income",
+    "expense": "Expense",
     "press_back_again_to_exit": "Press back again to exit"
   },
   "auth": {

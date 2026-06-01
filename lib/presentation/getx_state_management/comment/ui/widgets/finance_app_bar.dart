@@ -1,3 +1,4 @@
+import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -23,12 +24,16 @@ class FinanceAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Responsive icon size using cc_sdk extension: 24px base, scales up to 32px on larger screens
+    final iconSize = context.responsiveIconSize();
+
     return AppBar(
       backgroundColor: context.ccColorScheme.surface,
       elevation: 0,
       leading: IconButton(
         icon: Icon(Icons.history, color: context.ccColorScheme.onSurface),
         onPressed: onHistoryPressed ?? () {},
+        iconSize: iconSize,
       ),
       title: Row(
         mainAxisSize: MainAxisSize.min,
@@ -46,6 +51,7 @@ class FinanceAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: context.ccColorScheme.onSurface,
           ),
           onPressed: onApprovePressed ?? () {},
+          iconSize: iconSize,
         ),
       ],
     );
