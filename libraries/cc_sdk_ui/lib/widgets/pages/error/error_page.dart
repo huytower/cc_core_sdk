@@ -1,4 +1,4 @@
-import 'package:cc_sdk/export_cc_sdk.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
@@ -28,7 +28,7 @@ class ErrorPage extends StatelessWidget {
     ),
     body: CcColCenter(
       children: [
-        Icon(Icons.error_outline, size: 80, color: context.ccColorScheme.error),
+        Icon(Icons.error_outline, size: context.respIconSize(baseSize: 80.0), color: context.ccColorScheme.error),
         const CcSpaceLG(),
         CcText(
           message ?? el.tr(CcLocaleKeys.app_error_general),

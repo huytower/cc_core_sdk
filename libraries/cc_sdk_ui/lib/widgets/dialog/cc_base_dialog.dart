@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:cc_sdk/core/extensions/common/cc_when_expression.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,7 +79,7 @@ class CcBaseDialog extends StatelessWidget {
         const CcSpaceLG(),
 
         /// Icon : show alert icon : Error, Warning, Success mark
-        buildIconAlert(),
+        buildIconAlert(context),
 
         const CcSpaceLG(),
 
@@ -129,17 +130,17 @@ class CcBaseDialog extends StatelessWidget {
     ),
   );
 
-  Widget buildIconAlert() => ccWhen(
+  Widget buildIconAlert(BuildContext context) => ccWhen(
     variable: status,
     conditions: {
       CcDialogStatus.ERROR: () =>
-          const Icon(Icons.error_outline, size: 24, color: Colors.redAccent),
+          Icon(Icons.error_outline, size: context.respIconSize(), color: Colors.redAccent),
       CcDialogStatus.INFO: () =>
-          const Icon(Icons.announcement_outlined, size: 24, color: Colors.grey),
+          Icon(Icons.announcement_outlined, size: context.respIconSize(), color: Colors.grey),
       CcDialogStatus.SUCCESS: () =>
-          const Icon(Icons.check_circle, size: 24, color: Colors.green),
+          Icon(Icons.check_circle, size: context.respIconSize(), color: Colors.green),
       CcDialogStatus.WARNING: () =>
-          const Icon(Icons.warning_outlined, size: 24, color: Colors.yellow),
+          Icon(Icons.warning_outlined, size: context.respIconSize(), color: Colors.yellow),
     },
   );
 }

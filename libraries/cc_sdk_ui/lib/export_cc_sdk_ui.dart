@@ -6,6 +6,7 @@ export 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 // Core Extensions
 export 'package:cc_sdk_ui/core/extensions/cc_context_extension.dart';
+export 'package:cc_sdk_ui/core/extensions/common/cc_responsive_extension.dart';
 // Core Constants
 export 'package:cc_sdk_ui/core/constants/cc_constants_multimedia.dart';
 export 'package:cc_sdk_ui/core/enum/cc_layout_status.dart';

@@ -5,4 +5,3 @@ export 'common/cc_logger_extension.dart';
 export 'common/cc_scope_extensions.dart';
 export 'common/cc_string_extensions.dart';
 export 'common/cc_when_expression.dart';
-export 'common/cc_responsive_extension.dart';

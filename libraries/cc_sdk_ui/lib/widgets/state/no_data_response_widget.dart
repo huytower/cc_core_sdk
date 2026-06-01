@@ -1,3 +1,5 @@
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
@@ -17,10 +19,10 @@ class NoDataResponseWidget extends StatelessWidget {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(Icons.folder_open, size: 48, color: Colors.grey),
+        Icon(Icons.folder_open, size: context.respIconSize(baseSize: 48.0), color: Colors.grey),
         const CcSpaceSM(),
-        const CcText(
-          'Không có dữ liệu',
+        CcText(
+          el.tr(CcLocaleKeys.common_no_data),
           color: Colors.grey,
           textAlign: TextAlign.center,
           align: Alignment.center,
@@ -32,8 +34,8 @@ class NoDataResponseWidget extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: CcBaseColors.brand500,
             ),
-            child: const CcText(
-              'Tải lại',
+            child: CcText(
+              el.tr(CcLocaleKeys.app_error_retry),
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
