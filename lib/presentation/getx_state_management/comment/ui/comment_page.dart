@@ -2,7 +2,6 @@ import 'package:auto_route/annotations.dart';
 import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:theme/data/data_source/color/prj_color.dart';
 
 import '../../base/getx/cc_get_view.dart';
 import '../get_x/comment_controller.dart';
@@ -25,10 +24,6 @@ class CommentPage extends CcGetView<CommentController> with CcPullRefreshMixin {
         controller.layoutStatus.value == CcLayoutStatus.loading ||
         controller.layoutStatus.value == CcLayoutStatus.loadMore;
 
-    print(
-      'buildContent - isLoading: $isLoading, layoutStatus: ${controller.layoutStatus.value}, comments length: ${comments.length}',
-    );
-
     return FadePageWrapper(
       child: buildPullToRefresh(
         onRefresh: controller.refreshData,
@@ -40,33 +35,42 @@ class CommentPage extends CcGetView<CommentController> with CcPullRefreshMixin {
             }
 
             final comment = comments[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(
+            return Container(
+              margin: const EdgeInsets.symmetric(
                 horizontal: CcPaddingParams.PAGE_XS,
                 vertical: CcPaddingParams.SPACE_SM,
               ),
-              child: Card(
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_MD),
-                ),
-                child: ListTile(
-                  title: Text(
+              padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
+              decoration: BoxDecoration(
+                color: context.ccColorScheme.surface,
+                borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+                boxShadow: CcWidgetHelper.getBoxShadows(context),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CcText(
                     comment.name,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    textStyle: context.ccTextTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: context.ccColorScheme.primary,
+                    ),
                   ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        comment.email,
-                        style: const TextStyle(color: PrjColors.mediumEmphasis),
-                      ),
-                      const CcSpaceXS(),
-                      Text(comment.body),
-                    ],
+                  const CcSpaceXS(),
+                  CcText(
+                    comment.email,
+                    textStyle: context.ccTextTheme.bodySmall?.copyWith(
+                      color: context.ccColorScheme.onSurfaceVariant,
+                    ),
                   ),
-                ),
+                  const CcSpaceSM(),
+                  CcText(
+                    comment.body,
+                    textStyle: context.ccTextTheme.bodyMedium,
+                    maxLines: 10,
+                    overflow: TextOverflow.visible,
+                  ),
+                ],
               ),
             );
           },

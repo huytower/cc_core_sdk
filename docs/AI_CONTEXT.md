@@ -91,6 +91,17 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
     - **Modifications**: If a specific modification is needed (e.g., color), use `.copyWith()`: `context.ccTextTheme.bodyMedium.copyWith(color: context.ccColorScheme.primary)`.
     - **Forbidden**: `TextStyle(fontSize: 16, fontWeight: FontWeight.bold)` with hardcoded literals.
 
+14. **Git Management & Code Organization (CRITICAL)**: Follow these practices to reduce merge conflicts and improve code maintainability.
+
+    **File Organization:**
+    - **Single Responsibility**: Keep files focused on single responsibility (max 200-300 lines)
+    - **Widget Composition**: Split large widgets into smaller components (widget composition)
+    - **Method Extraction**:
+      - UI rendering methods (build methods)
+      - Data transformation methods
+      - Validation methods
+      - Navigation methods
+
 ## Project Structure
 
 ```

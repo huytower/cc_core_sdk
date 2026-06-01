@@ -1,14 +1,6 @@
-import 'package:cc_sdk/core/config/cc_app_track_info.dart';
-import 'package:cc_sdk/core/crash_reporting/cc_crash_log_paths.dart';
-import 'package:cc_sdk/core/helper/cc_device_info_helper.dart';
-import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
-import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
-import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
-import 'package:cc_sdk_ui/widgets/text/app_name_widget.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 
 /// Bottom sheet that shows the on-device [catcher_2](https://pub.dev/packages/catcher_2) log file.
 ///
@@ -33,7 +25,7 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
   }
 
   Future<void> _load() async {
-    final version = await GetIt.instance<CcDeviceInfoHelper>().getAppVersion();
+    final version = await getIt<CcDeviceInfoHelper>().getAppVersion();
     final logs = await CcCrashLogPaths.readLogContent();
     if (!mounted) return;
     setState(() {
@@ -57,11 +49,11 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
           ),
         ),
         const CcSpaceSM(),
-        const CcDividerLine(color: Colors.grey),
+        CcDividerLine(color: context.ccColorScheme.outlineVariant),
         const CcSpaceSM(),
-        const CcText(
+        CcText(
           'Long-press anywhere on the app to open this screen (debug).',
-          color: Colors.grey,
+          color: context.ccColorScheme.onSurfaceVariant,
           fontSize: CcTypographyParams.labelSmall,
           textAlign: TextAlign.center,
           align: Alignment.center,
@@ -69,13 +61,13 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
         const CcSpaceSM(),
         Flexible(fit: FlexFit.loose, child: _buildLogBody()),
         const CcSpaceSM(),
-        const CcDividerLine(color: Colors.grey),
+        CcDividerLine(color: context.ccColorScheme.outlineVariant),
         const CcSpaceSM(),
-        const CcCopyWidget(
+        CcCopyWidget(
           title: CcCrashLogPaths.logFileName,
           child: CcText(
             CcCrashLogPaths.logFileName,
-            color: Colors.grey,
+            color: context.ccColorScheme.onSurfaceVariant,
             fontSize: CcTypographyParams.labelSmall,
             textAlign: TextAlign.center,
             align: Alignment.center,
@@ -89,14 +81,14 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
   Widget _buildLogBody() {
     if (_loading) {
       return const Padding(
-        padding: EdgeInsets.all(24),
-        child: Center(child: CircularProgressIndicator()),
+        padding: EdgeInsets.all(CcPaddingParams.SPACE_XL),
+        child: Center(child: CcLoadingIconWidget()),
       );
     }
     if (_logContent.trim().isEmpty) {
-      return const CcText(
+      return CcText(
         'No crash logs yet.\nTrigger an error or restart after a crash.',
-        color: Colors.grey,
+        color: context.ccColorScheme.onSurfaceVariant,
         fontSize: CcTypographyParams.bodySmall,
         textAlign: TextAlign.center,
         align: Alignment.center,
@@ -108,12 +100,14 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
       child: CcCopyWidget(
         title: _logContent,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(
+            horizontal: CcPaddingParams.SPACE_MD,
+          ),
           child: SelectableText(
             _logContent,
-            style: const TextStyle(
-              fontSize: CcTypographyParams.labelSmall,
+            style: context.ccTextTheme.labelSmall?.copyWith(
               height: 1.4,
+              fontFamily: 'monospace',
             ),
           ),
         ),

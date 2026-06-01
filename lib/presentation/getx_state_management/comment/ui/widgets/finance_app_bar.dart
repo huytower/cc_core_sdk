@@ -24,11 +24,11 @@ class FinanceAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: context.ccColorScheme.surface,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.history, color: Colors.black),
-        onPressed: onHistoryPressed ?? () => print('History button pressed'),
+        icon: Icon(Icons.history, color: context.ccColorScheme.onSurface),
+        onPressed: onHistoryPressed ?? () {},
       ),
       title: Row(
         mainAxisSize: MainAxisSize.min,
@@ -41,8 +41,11 @@ class FinanceAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         IconButton(
-          icon: const Icon(Icons.check_circle, color: Colors.black),
-          onPressed: onApprovePressed ?? () => print('Approve button pressed'),
+          icon: Icon(
+            Icons.check_circle,
+            color: context.ccColorScheme.onSurface,
+          ),
+          onPressed: onApprovePressed ?? () {},
         ),
       ],
     );

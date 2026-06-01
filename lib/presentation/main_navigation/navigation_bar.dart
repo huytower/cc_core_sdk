@@ -144,7 +144,7 @@ class _NavigationBarState extends State<NavigationBar>
   }
 
   Widget _buildSplashOverlay() {
-    return const Center(child: CircularProgressIndicator());
+    return const Center(child: CcLoadingIconWidget());
   }
 
   Widget _buildContentForIndex(int index) {

@@ -1,82 +1,24 @@
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:theme/data/data_source/color/prj_color.dart';
 
-class IncomeButton extends StatefulWidget {
+class IncomeButton extends StatelessWidget {
   const IncomeButton({super.key, required this.onTap});
 
-  final VoidCallback? onTap;
-
-  @override
-  State<IncomeButton> createState() => _IncomeButtonState();
-}
-
-class _IncomeButtonState extends State<IncomeButton>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 150),
-      vsync: this,
-    );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.85).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  void _handleTapDown() {
-    _animationController.forward();
-  }
-
-  void _handleTapUp() {
-    _animationController.reverse();
-  }
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (_) => _handleTapDown(),
-      onTapUp: (_) {
-        _handleTapUp();
-        widget.onTap?.call();
-      },
-      onTapCancel: () => _handleTapUp(),
-      child: AnimatedBuilder(
-        animation: _scaleAnimation,
-        builder: (context, child) {
-          return Transform.scale(
-            scale: _scaleAnimation.value,
-            child: Container(
-              width: 80,
-              height: 36,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [PrjColors.secondary, PrjColors.secondaryContainer],
-                ),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text(
-                  'Income',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: PrjColors.onSecondary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+    return CcBaseBtn(
+      onTap: onTap,
+      title: 'Income', // Should be localized if possible
+      width: 80,
+      height: 36,
+      colorsGradient: [
+        context.ccColorScheme.secondary,
+        context.ccColorScheme.secondaryContainer,
+      ],
+      textColor: context.ccColorScheme.onSecondary,
+      borderRadius: BorderRadius.circular(8),
     );
   }
 }

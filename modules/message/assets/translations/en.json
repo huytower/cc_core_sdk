@@ -81,5 +81,19 @@
     "quick_test_page": "Quick Testing Page",
     "notification": "Notification",
     "profile": "Profile"
+  },
+  "dashboard": {
+    "item_count": "Item Count",
+    "last_updated": "Last Updated",
+    "refresh_data": "Refresh Data",
+    "time": {
+      "just_now": "Just now",
+      "day": "{count} day ago",
+      "days": "{count} days ago",
+      "hour": "{count} hour ago",
+      "hours": "{count} hours ago",
+      "minute": "{count} minute ago",
+      "minutes": "{count} minutes ago"
+    }
   }
 }

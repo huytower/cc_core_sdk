@@ -81,5 +81,19 @@
     "quick_test_page": "Trang kiểm tra nhanh",
     "notification": "Thông báo",
     "profile": "Hồ sơ"
+  },
+  "dashboard": {
+    "item_count": "Số lượng mục",
+    "last_updated": "Cập nhật lần cuối",
+    "refresh_data": "Làm mới dữ liệu",
+    "time": {
+      "just_now": "Vừa xong",
+      "day": "{count} ngày trước",
+      "days": "{count} ngày trước",
+      "hour": "{count} giờ trước",
+      "hours": "{count} giờ trước",
+      "minute": "{count} phút trước",
+      "minutes": "{count} phút trước"
+    }
   }
 }

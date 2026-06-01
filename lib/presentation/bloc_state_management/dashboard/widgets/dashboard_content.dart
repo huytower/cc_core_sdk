@@ -1,10 +1,16 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/dashboard_bloc.dart';
 
 /// Dashboard Content Widget - Presentation Layer
+/// Refactored to follow project guidelines:
+/// - Reuses components from cc_sdk_ui
+/// - Uses semantic design tokens for colors and typography
+/// - Supports multi-screen and orientation via responsive helpers
+/// - Implements full localization
 class DashboardContent extends StatelessWidget {
   final dynamic dashboardData;
   final bool isRefreshing;
@@ -21,149 +27,203 @@ class DashboardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
+        CcResponsiveContainer(
+          padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        dashboardData.title,
-                        style: Theme.of(context).textTheme.headlineMedium
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        dashboardData.description,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                    ],
-                  ),
+              Expanded(
+                child: CcResponsiveFlex(
+                  spacing: CcPaddingParams.SPACE_LG,
+                  tabletColumns: 2,
+                  desktopColumns: 3,
+                  children: [
+                    _buildInfoCard(context),
+                    _buildCounterCard(context),
+                    _buildUpdateCard(context),
+                  ],
                 ),
               ),
-              const SizedBox(height: 24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Item Count',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CcDebounce(
-                            onTap: () {
-                              context.read<DashboardBloc>().add(
-                                const DecrementItemCountEvent(),
-                              );
-                            },
-                            child: const Icon(
-                              Icons.remove_circle_outline,
-                              size: 32,
-                              color: Colors.red,
-                            ),
-                          ),
-                          const SizedBox(width: 24),
-                          Text(
-                            '${dashboardData.itemCount}',
-                            style: Theme.of(context).textTheme.headlineLarge
-                                ?.copyWith(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          const SizedBox(width: 24),
-                          CcDebounce(
-                            onTap: () {
-                              context.read<DashboardBloc>().add(
-                                const IncrementItemCountEvent(),
-                              );
-                            },
-                            child: const Icon(
-                              Icons.add_circle_outline,
-                              size: 32,
-                              color: Colors.green,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Last Updated',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        _formatDateTime(dashboardData.lastUpdated),
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const Spacer(),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        context.read<DashboardBloc>().add(
-                          const RefreshDashboardDataEvent(),
-                        );
-                      },
-                      icon: const Icon(Icons.refresh),
-                      label: const Text('Refresh Data'),
-                    ),
-                  ),
-                ],
-              ),
+              const CcSpaceLG(),
+              _buildRefreshButton(context),
             ],
           ),
         ),
         if (isRefreshing)
           const Positioned(
-            top: 16,
-            right: 16,
-            child: CircularProgressIndicator(),
+            top: CcPaddingParams.SPACE_LG,
+            right: CcPaddingParams.SPACE_LG,
+            child: CcLoadingIconWidget(),
           ),
         if (isUpdating)
-          const Positioned.fill(
-            child: Center(child: CircularProgressIndicator()),
-          ),
+          const Positioned.fill(child: Center(child: CcLoadingIconWidget())),
       ],
     );
   }
 
-  String _formatDateTime(DateTime dateTime) {
+  Widget _buildInfoCard(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
+      decoration: BoxDecoration(
+        color: context.ccColorScheme.surface,
+        borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+        boxShadow: CcWidgetHelper.getBoxShadows(context),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CcText(
+            dashboardData.title,
+            textStyle: context.ccTextTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: context.ccColorScheme.primary,
+            ),
+          ),
+          const CcSpaceSM(),
+          CcText(
+            dashboardData.description,
+            textStyle: context.ccTextTheme.bodyLarge?.copyWith(
+              color: context.ccColorScheme.onSurfaceVariant,
+            ),
+            maxLines: 5,
+            overflow: TextOverflow.visible,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCounterCard(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
+      decoration: BoxDecoration(
+        color: context.ccColorScheme.surface,
+        borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+        boxShadow: CcWidgetHelper.getBoxShadows(context),
+      ),
+      child: Column(
+        children: [
+          CcText(
+            el.tr(CcLocaleKeys.dashboard_item_count),
+            textStyle: context.ccTextTheme.titleLarge,
+            align: Alignment.center,
+          ),
+          const CcSpaceLG(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CcDebounce(
+                onTap: () {
+                  context.read<DashboardBloc>().add(
+                    const DecrementItemCountEvent(),
+                  );
+                },
+                child: Icon(
+                  Icons.remove_circle_outline,
+                  size: 32,
+                  color: context.ccColorScheme.error,
+                ),
+              ),
+              const CcSpaceXL(),
+              CcText(
+                '${dashboardData.itemCount}',
+                textStyle: context.ccTextTheme.headlineLarge?.copyWith(
+                  color: context.ccColorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const CcSpaceXL(),
+              CcDebounce(
+                onTap: () {
+                  context.read<DashboardBloc>().add(
+                    const IncrementItemCountEvent(),
+                  );
+                },
+                child: Icon(
+                  Icons.add_circle_outline,
+                  size: 32,
+                  color: context.ccColorScheme.primary,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUpdateCard(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
+      decoration: BoxDecoration(
+        color: context.ccColorScheme.surface,
+        borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+        boxShadow: CcWidgetHelper.getBoxShadows(context),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CcText(
+            el.tr(CcLocaleKeys.dashboard_last_updated),
+            textStyle: context.ccTextTheme.titleLarge,
+          ),
+          const CcSpaceSM(),
+          CcText(
+            _formatDateTime(context, dashboardData.lastUpdated),
+            textStyle: context.ccTextTheme.bodyMedium?.copyWith(
+              color: context.ccColorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRefreshButton(BuildContext context) {
+    return CcBaseBtn(
+      onTap: () {
+        context.read<DashboardBloc>().add(const RefreshDashboardDataEvent());
+      },
+      title: el.tr(CcLocaleKeys.dashboard_refresh_data),
+      bgColor: [
+        context.ccColorScheme.primary,
+        context.ccColorScheme.primary.withOpacity(0.8),
+      ],
+      textColor: context.ccColorScheme.onPrimary,
+    );
+  }
+
+  String _formatDateTime(BuildContext context, DateTime dateTime) {
     final now = DateTime.now();
     final difference = now.difference(dateTime);
-    if (difference.inDays > 0)
-      return '${difference.inDays} day${difference.inDays == 1 ? '' : 's'} ago';
-    if (difference.inHours > 0)
-      return '${difference.inHours} hour${difference.inHours == 1 ? '' : 's'} ago';
-    if (difference.inMinutes > 0)
-      return '${difference.inMinutes} minute${difference.inMinutes == 1 ? '' : 's'} ago';
-    return 'Just now';
+
+    if (difference.inDays > 0) {
+      return el.tr(
+        difference.inDays == 1
+            ? CcLocaleKeys.dashboard_time_day
+            : CcLocaleKeys.dashboard_time_days,
+        namedArgs: {'count': difference.inDays.toString()},
+      );
+    }
+    if (difference.inHours > 0) {
+      return el.tr(
+        difference.inHours == 1
+            ? CcLocaleKeys.dashboard_time_hour
+            : CcLocaleKeys.dashboard_time_hours,
+        namedArgs: {'count': difference.inHours.toString()},
+      );
+    }
+    if (difference.inMinutes > 0) {
+      return el.tr(
+        difference.inMinutes == 1
+            ? CcLocaleKeys.dashboard_time_minute
+            : CcLocaleKeys.dashboard_time_minutes,
+        namedArgs: {'count': difference.inMinutes.toString()},
+      );
+    }
+    return el.tr(CcLocaleKeys.dashboard_time_just_now);
   }
 }

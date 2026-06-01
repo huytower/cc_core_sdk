@@ -77,4 +77,15 @@ abstract class CcLocaleKeys {
   static const nav_quick_test_page = 'nav.quick_test_page';
   static const nav_notification = 'nav.notification';
   static const nav_profile = 'nav.profile';
+
+  static const dashboard_item_count = 'dashboard.item_count';
+  static const dashboard_last_updated = 'dashboard.last_updated';
+  static const dashboard_refresh_data = 'dashboard.refresh_data';
+  static const dashboard_time_just_now = 'dashboard.time.just_now';
+  static const dashboard_time_day = 'dashboard.time.day';
+  static const dashboard_time_days = 'dashboard.time.days';
+  static const dashboard_time_hour = 'dashboard.time.hour';
+  static const dashboard_time_hours = 'dashboard.time.hours';
+  static const dashboard_time_minute = 'dashboard.time.minute';
+  static const dashboard_time_minutes = 'dashboard.time.minutes';
 }

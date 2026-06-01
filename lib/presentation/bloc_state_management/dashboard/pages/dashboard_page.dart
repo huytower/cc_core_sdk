@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/di.dart';
 import '../bloc/dashboard_bloc.dart';
 import '../widgets/dashboard_content.dart';
+import 'widgets/dashboard_app_bar.dart';
 
 @RoutePage()
 class DashboardPage extends StatelessWidget {
@@ -36,7 +37,10 @@ class DashboardView extends StatelessWidget with CcViewConfigMixin {
   bool get isEnableLoading => false;
 
   @override
-  CcLayoutStatus get layoutStatus {
+  CcLayoutStatus get layoutStatus => _getLayoutStatus();
+
+  /// Determine layout status based on current state
+  CcLayoutStatus _getLayoutStatus() {
     if (state is DashboardLoading) return CcLayoutStatus.loading;
     if (state is DashboardError) return CcLayoutStatus.error;
     if (state is DashboardLoaded) return CcLayoutStatus.success;
@@ -44,33 +48,33 @@ class DashboardView extends StatelessWidget with CcViewConfigMixin {
   }
 
   @override
-  String get errorMessage => state is DashboardError
-      ? (state as DashboardError).message
-      : super.errorMessage;
+  String get errorMessage => _getErrorMessage();
+
+  /// Get error message from state or default
+  String _getErrorMessage() {
+    if (state is DashboardError) {
+      return (state as DashboardError).message;
+    }
+    return super.errorMessage;
+  }
 
   @override
-  PreferredSizeWidget? appBar() => AppBar(
-    title: const Text('Dashboard'),
-    actions: [
-      CcDebounce(
-        onTap: () => blocContext.read<DashboardBloc>().add(
-          const RefreshDashboardDataEvent(),
-        ),
-        child: const Icon(Icons.refresh),
-      ),
-    ],
+  PreferredSizeWidget? appBar() => DashboardAppBar(
+    blocContext: blocContext,
   );
 
   @override
-  Widget? buildContent() {
-    if (state is DashboardLoaded) {
-      final s = state as DashboardLoaded;
-      return DashboardContent(
-        dashboardData: s.dashboardData,
-        isRefreshing: state is DashboardRefreshing,
-        isUpdating: state is DashboardUpdating,
-      );
-    }
-    return null;
+  Widget? buildContent() => _buildContent();
+
+  /// Build content widget based on state
+  Widget? _buildContent() {
+    if (state is! DashboardLoaded) return null;
+
+    final loadedState = state as DashboardLoaded;
+    return DashboardContent(
+      dashboardData: loadedState.dashboardData,
+      isRefreshing: state is DashboardRefreshing,
+      isUpdating: state is DashboardUpdating,
+    );
   }
 }
