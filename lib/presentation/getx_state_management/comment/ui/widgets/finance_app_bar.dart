@@ -25,7 +25,7 @@ class FinanceAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     // Responsive icon size using cc_sdk extension: 24px base, scales up to 32px on larger screens
-    final iconSize = context.responsiveIconSize();
+    final iconSize = context.respIconSize();
 
     return AppBar(
       backgroundColor: context.ccColorScheme.surface,

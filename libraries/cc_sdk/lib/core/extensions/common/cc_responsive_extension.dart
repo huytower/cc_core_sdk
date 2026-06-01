@@ -9,9 +9,9 @@ extension ResponsiveExtension on BuildContext {
   ///
   /// Example usage:
   /// ```dart
-  /// final iconSize = context.responsiveIconSize();
+  /// final iconSize = context.respIconSize();
   /// ```
-  double responsiveIconSize({
+  double respIconSize({
     double baseSize = 24.0,
     double baselineWidth = 360.0,
     double maxMultiplier = 2,
@@ -25,9 +25,9 @@ extension ResponsiveExtension on BuildContext {
   ///
   /// Example usage:
   /// ```dart
-  /// final fontSize = context.responsiveFontSize(16.0);
+  /// final fontSize = context.respFontSize(16.0);
   /// ```
-  double responsiveFontSize(
+  double respFontSize(
     double baseSize, {
     double baselineWidth = 360.0,
     double maxMultiplier = 2,
@@ -41,9 +41,9 @@ extension ResponsiveExtension on BuildContext {
   ///
   /// Example usage:
   /// ```dart
-  /// final padding = context.responsivePadding(16.0);
+  /// final padding = context.respPadding(16.0);
   /// ```
-  double responsivePadding(
+  double respPadding(
     double basePadding, {
     double baselineWidth = 360.0,
     double maxMultiplier = 2,

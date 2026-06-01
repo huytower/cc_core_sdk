@@ -14,7 +14,7 @@ class NotificationTabContent extends StatelessWidget {
         children: [
           Icon(
             Icons.notifications_rounded,
-            size: context.responsiveIconSize(baseSize: 64.0),
+            size: context.respIconSize(baseSize: 64.0),
             color: context.ccColorScheme.primary,
           ),
           const CcSpaceLG(),

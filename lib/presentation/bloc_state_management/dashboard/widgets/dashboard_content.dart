@@ -111,7 +111,7 @@ class DashboardContent extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.remove_circle_outline,
-                  size: context.responsiveIconSize(),
+                  size: context.respIconSize(),
                   color: context.ccColorScheme.error,
                 ),
               ),
@@ -132,7 +132,7 @@ class DashboardContent extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.add_circle_outline,
-                  size: context.responsiveIconSize(),
+                  size: context.respIconSize(),
                   color: context.ccColorScheme.primary,
                 ),
               ),
