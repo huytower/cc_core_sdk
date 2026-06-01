@@ -1,14 +1,15 @@
 import 'package:flutter/widgets.dart';
 
 import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 
 /// Extra Small Space (4pt)
 class CcSpaceXS extends StatelessWidget {
   const CcSpaceXS({super.key});
   @override
-  Widget build(BuildContext context) => const SizedBox(
-    height: CcPaddingParams.SPACE_XS,
-    width: CcPaddingParams.SPACE_XS,
+  Widget build(BuildContext context) => SizedBox(
+    height: context.respPadding(CcPaddingParams.SPACE_XS),
+    width: context.respPadding(CcPaddingParams.SPACE_XS),
   );
 }
 
@@ -16,9 +17,9 @@ class CcSpaceXS extends StatelessWidget {
 class CcSpaceSM extends StatelessWidget {
   const CcSpaceSM({super.key});
   @override
-  Widget build(BuildContext context) => const SizedBox(
-    height: CcPaddingParams.SPACE_SM,
-    width: CcPaddingParams.SPACE_SM,
+  Widget build(BuildContext context) => SizedBox(
+    height: context.respPadding(CcPaddingParams.SPACE_SM),
+    width: context.respPadding(CcPaddingParams.SPACE_SM),
   );
 }
 
@@ -26,9 +27,9 @@ class CcSpaceSM extends StatelessWidget {
 class CcSpace extends StatelessWidget {
   const CcSpace({super.key});
   @override
-  Widget build(BuildContext context) => const SizedBox(
-    height: CcPaddingParams.SPACE_MD,
-    width: CcPaddingParams.SPACE_MD,
+  Widget build(BuildContext context) => SizedBox(
+    height: context.respPadding(CcPaddingParams.SPACE_MD),
+    width: context.respPadding(CcPaddingParams.SPACE_MD),
   );
 }
 
@@ -36,9 +37,9 @@ class CcSpace extends StatelessWidget {
 class CcSpaceLG extends StatelessWidget {
   const CcSpaceLG({super.key});
   @override
-  Widget build(BuildContext context) => const SizedBox(
-    height: CcPaddingParams.SPACE_LG,
-    width: CcPaddingParams.SPACE_LG,
+  Widget build(BuildContext context) => SizedBox(
+    height: context.respPadding(CcPaddingParams.SPACE_LG),
+    width: context.respPadding(CcPaddingParams.SPACE_LG),
   );
 }
 
@@ -46,9 +47,9 @@ class CcSpaceLG extends StatelessWidget {
 class CcSpaceXL extends StatelessWidget {
   const CcSpaceXL({super.key});
   @override
-  Widget build(BuildContext context) => const SizedBox(
-    height: CcPaddingParams.SPACE_XL,
-    width: CcPaddingParams.SPACE_XL,
+  Widget build(BuildContext context) => SizedBox(
+    height: context.respPadding(CcPaddingParams.SPACE_XL),
+    width: context.respPadding(CcPaddingParams.SPACE_XL),
   );
 }
 
@@ -57,7 +58,7 @@ class CcSpaceHeader extends StatelessWidget {
   const CcSpaceHeader({super.key});
   @override
   Widget build(BuildContext context) =>
-      const SizedBox(height: CcPaddingParams.SPACE_XL * 2);
+      SizedBox(height: context.respPadding(CcPaddingParams.SPACE_XL * 2));
 }
 
 /// Specialized Footer Space
@@ -65,5 +66,5 @@ class CcSpaceFooter extends StatelessWidget {
   const CcSpaceFooter({super.key});
   @override
   Widget build(BuildContext context) =>
-      const SizedBox(height: CcPaddingParams.SPACE_XL * 3);
+      SizedBox(height: context.respPadding(CcPaddingParams.SPACE_XL * 3));
 }

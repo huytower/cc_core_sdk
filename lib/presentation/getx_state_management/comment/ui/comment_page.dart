@@ -26,18 +26,21 @@ class CommentPage extends CcGetView<CommentController> with CcPullRefreshMixin {
         controller.layoutStatus.value == CcLayoutStatus.loadMore;
 
     return FadePageWrapper(
-      child: buildPullToRefresh(
-        onRefresh: controller.refreshData,
-        child: ListView.builder(
-          itemCount: isLoading ? 5 : comments.length,
-          itemBuilder: (context, index) {
-            if (isLoading) {
-              return const ShimmerCommentCard();
-            }
+      child: Builder(
+        builder: (context) => buildPullToRefresh(
+          context: context,
+          onRefresh: controller.refreshData,
+          child: ListView.builder(
+            itemCount: isLoading ? 5 : comments.length,
+            itemBuilder: (context, index) {
+              if (isLoading) {
+                return const ShimmerCommentCard();
+              }
 
-            final comment = comments[index];
-            return CommentCard(comment: comment);
-          },
+              final comment = comments[index];
+              return CommentCard(comment: comment);
+            },
+          ),
         ),
       ),
     );

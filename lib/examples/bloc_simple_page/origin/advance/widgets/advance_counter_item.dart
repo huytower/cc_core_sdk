@@ -1,4 +1,5 @@
 import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
+import 'package:cc_sdk_ui/core/extensions/common/cc_responsive_extension.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class AdvanceCounterItem extends StatelessWidget {
           icon: Icon(
             Icons.access_alarm,
             color: context.ccColorScheme.onSurface,
-            size: 80,
+            size: context.respIconSize(baseSize: 80.0),
           ),
           width: 120,
           bgColor: context.ccColorScheme.primary,

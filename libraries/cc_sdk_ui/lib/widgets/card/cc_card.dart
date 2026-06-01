@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_padding_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 
 /// A reusable card widget with consistent styling across the app.
@@ -26,16 +27,22 @@ class CcCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardBackgroundColor = backgroundColor ?? context.ccColorScheme.surface;
+    final cardBackgroundColor =
+        backgroundColor ?? context.ccColorScheme.surface;
     return Container(
       width: width,
       height: height,
-      padding: padding ?? const EdgeInsets.all(CcPaddingParams.SPACE_LG),
+      padding:
+          padding ??
+          EdgeInsets.all(context.respPadding(CcPaddingParams.SPACE_LG)),
       decoration: BoxDecoration(
         color: cardBackgroundColor,
         borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
         boxShadow: hasShadow
-            ? CcWidgetHelper.getBoxShadows(context, bgColor: cardBackgroundColor)
+            ? CcWidgetHelper.getBoxShadows(
+                context,
+                bgColor: cardBackgroundColor,
+              )
             : null,
       ),
       child: child,

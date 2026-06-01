@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 
 import '../../../core/extensions/cc_context_extension.dart';
+import '../../../core/extensions/common/cc_responsive_extension.dart';
 import '../../../core/helper/cc_widget_helper.dart';
 import '../../button/cc_back_btn.dart';
 import '../../button/cc_debounce_widget.dart';
@@ -42,7 +43,7 @@ class ErrorPage extends StatelessWidget {
           CcDebounce(
             onTap: onRetry!,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: context.respPadding(24.0), vertical: context.respPadding(12.0)),
               decoration: BoxDecoration(
                 color: context.ccColorScheme.primary,
                 borderRadius: CcWidgetHelper.getBorderRoundedSmall(),

@@ -1,6 +1,7 @@
 import '../../core/config/tokens/cc_base_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import 'cc_text.dart';
 
 class AppNameWidget extends StatelessWidget {
@@ -25,7 +26,7 @@ class AppNameWidget extends StatelessWidget {
     name,
     align: align ?? Alignment.center,
     fontWeight: FontWeight.w700,
-    fontSize: fontSize,
+    fontSize: context.respFontSize(fontSize),
     color: color ?? CcBaseColors.neutral40,
   );
 }

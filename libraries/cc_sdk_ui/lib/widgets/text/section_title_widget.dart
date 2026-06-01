@@ -1,28 +1,29 @@
-import '../../core/config/tokens/cc_padding_params.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 
 class SectionTitleWidget extends StatelessWidget {
-  const SectionTitleWidget({Key? key, required this.title}) : super(key: key);
+  const SectionTitleWidget({super.key, required this.title});
 
   final String title;
 
   @override
-  Widget build(c) => title.isNotEmpty
+  Widget build(BuildContext context) => title.isNotEmpty
       ? Container(
-          width: Get.width,
-          height: CcPaddingParams.SECTION_SM,
-          margin: const EdgeInsets.only(
-            bottom: 0,
-            left: CcPaddingParams.SECTION_SM,
-            right: CcPaddingParams.SECTION_SM,
-            top: CcPaddingParams.SECTION_SM,
+          width: MediaQuery.sizeOf(context).width,
+          height: context.respPadding(CcPaddingParams.SECTION_SM),
+          margin: EdgeInsets.only(
+            left: context.respPadding(CcPaddingParams.SECTION_SM),
+            right: context.respPadding(CcPaddingParams.SECTION_SM),
+            top: context.respPadding(CcPaddingParams.SECTION_SM),
           ),
           child: RichText(
             text: TextSpan(
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
+              style: TextStyle(
+                color: context.ccColorScheme.onSurface,
+                fontSize: context.respFontSize(20.0),
                 fontWeight: FontWeight.w600,
               ),
               text: title,
@@ -31,5 +32,5 @@ class SectionTitleWidget extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
         )
-      : const SizedBox(height: CcPaddingParams.PAGE_MD);
+      : SizedBox(height: context.respPadding(CcPaddingParams.PAGE_MD));
 }

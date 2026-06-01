@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../padding/cc_padding.dart';
 
 /// App logo ui,
@@ -26,7 +27,7 @@ class AppLogoWidget extends StatelessWidget {
             height: width,
             errorBuilder: (_, a, b) => Icon(
               Icons.account_balance, // Fallback icon instead of missing asset
-              size: width,
+              size: context.respIconSize(baseSize: width),
             ),
           )
         : const SizedBox(),

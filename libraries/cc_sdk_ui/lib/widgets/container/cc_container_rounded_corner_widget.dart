@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 
 class CcContainerRoundedCorner extends StatelessWidget {
-  const CcContainerRoundedCorner({Key? key, this.height, this.color})
-    : super(key: key);
+  const CcContainerRoundedCorner({super.key, this.height, this.color});
 
   final Color? color;
 
   final double? height;
 
   @override
-  Widget build(c) => Center(
+  Widget build(BuildContext context) => Center(
     child: Container(
       decoration: BoxDecoration(
-        color: color ?? CcBaseColors.white80,
+        color: color ?? context.ccColorScheme.surface.withOpacity(0.8),
         borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
       ),
-      width: Get.width,
-      height: height ?? 40,
-      margin: const EdgeInsets.only(
-        left: CcPaddingParams.PAGE_MD,
-        right: CcPaddingParams.PAGE_MD,
+      width: MediaQuery.sizeOf(context).width,
+      height: context.respPadding(height ?? 40),
+      margin: EdgeInsets.only(
+        left: context.respPadding(CcPaddingParams.PAGE_MD),
+        right: context.respPadding(CcPaddingParams.PAGE_MD),
       ),
     ),
   );

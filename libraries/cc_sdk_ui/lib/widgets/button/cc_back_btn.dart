@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../icon/cc_icon.dart';
 import '../inkwell/cc_inkwell.dart';
@@ -19,7 +20,7 @@ class CcBackBtn extends StatelessWidget {
       children: [
         CcIcon(
           icon: icon,
-          size: 20,
+          size: context.respIconSize(baseSize: 20.0),
           align: Alignment.center,
           color: Colors.white,
         ),

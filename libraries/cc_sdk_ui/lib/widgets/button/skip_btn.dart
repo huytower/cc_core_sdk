@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import '../../core/config/tokens/cc_padding_params.dart';
 import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../padding/cc_padding.dart';
 import '../text/cc_text.dart';
 
 class SkipBtn extends StatelessWidget {
-  const SkipBtn({Key? key, required this.onTap}) : super(key: key);
+  const SkipBtn({super.key, required this.onTap});
 
   final VoidCallback onTap;
 
@@ -19,8 +20,8 @@ class SkipBtn extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.translucent,
       child: SizedBox(
-        width: 103,
-        height: 76,
+        width: context.respIconSize(baseSize: 103.0),
+        height: context.respIconSize(baseSize: 76.0),
         child: Center(
           child: CcText(
             el.tr(CcLocaleKeys.common_skip),
@@ -34,7 +35,7 @@ class SkipBtn extends StatelessWidget {
       ),
     ),
     0,
-    CcPaddingParams.PAGE_LG,
+    context.respPadding(CcPaddingParams.PAGE_LG),
     0,
     0,
   );

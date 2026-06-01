@@ -1,23 +1,13 @@
-import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
-import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
-import 'package:cc_sdk_ui/widgets/state/base_progress_indicator.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
-import 'package:theme/data/data_source/color/prj_color.dart';
 
-/// Load More ui
-/// Only works after was included into `RefreshIndicator` ui
+import 'cc_load_more_item.dart';
+
+/// Mixin providing a reusable load-more wrapper.
 ///
-/// ex.
-/// RefreshIndicator(
-///       onRefresh: _refresh,
-///       child: buildLoadMore(
-///         onLoadMore: _loadMore,
-///         child: buildBody(),
-///       ))
-///
+/// The mixin is intentionally focused on construction and configuration.
+/// The indicator presentation is extracted to [CcLoadMoreItem].
 mixin CcLoadMoreMixin {
   Widget buildLoadMore({
     required Future<bool> Function() onLoadMore,
@@ -30,58 +20,6 @@ mixin CcLoadMoreMixin {
       textBuilder: DefaultLoadMoreTextBuilder.english,
       onLoadMore: onLoadMore,
       child: child,
-    );
-  }
-}
-
-class CcLoadMoreItem extends LoadMoreDelegate {
-  const CcLoadMoreItem();
-
-  @override
-  Widget buildChild(
-    LoadMoreStatus status, {
-    LoadMoreTextBuilder builder = DefaultLoadMoreTextBuilder.english,
-  }) {
-    String text = builder(status);
-
-    if (status == LoadMoreStatus.fail) {
-      return buildText(text, color: PrjColors.error);
-    }
-    if (status == LoadMoreStatus.idle) {
-      return buildText(text, color: PrjColors.warning);
-    }
-    if (status == LoadMoreStatus.loading) {
-      return buildIcLoading(text);
-    }
-    if (status == LoadMoreStatus.nomore) {
-      return buildText(text);
-    }
-
-    return buildText(text);
-  }
-
-  Widget buildIcLoading(String text) {
-    return CcRowCenter(
-      children: <Widget>[
-        const Center(child: CcProgressIndicator(paddingTop: 0)),
-        const CcSpaceLG(),
-        buildText(text),
-      ],
-    );
-  }
-
-  CcText buildText(
-    String text, {
-    Color? color,
-    TextAlign? textAlign,
-    Alignment? align,
-  }) {
-    return CcText(
-      text,
-      fontSize: CcTypographyParams.bodyLarge,
-      color: color ?? PrjColors.mediumEmphasis,
-      textAlign: textAlign ?? TextAlign.center,
-      align: align ?? Alignment.center,
     );
   }
 }

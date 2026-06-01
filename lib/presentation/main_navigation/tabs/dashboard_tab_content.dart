@@ -21,6 +21,7 @@ class DashboardTabContent extends StatelessWidget {
             el.tr(CcLocaleKeys.nav_dashboard),
             textStyle: context.ccTextTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
+              fontSize: context.respFontSize(CcTypographyParams.headlineSmall),
             ),
             align: Alignment.center,
           ),

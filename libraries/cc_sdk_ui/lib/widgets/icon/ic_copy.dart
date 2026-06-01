@@ -1,6 +1,7 @@
 import 'package:cc_sdk/core/helper/cc_string_helper.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../flex/cc_flex.dart';
 import '../inkwell/cc_inkwell.dart';
 import '../space/cc_space.dart';
@@ -13,27 +14,37 @@ class IconCopy extends StatelessWidget {
   final Color? color;
 
   @override
-  Center build(c) => Center(
-    child: SizedBox(
-      width: height ?? 25,
-      child: Icon(Icons.copy, color: color ?? Colors.grey, size: 15),
+  Center build(BuildContext context) => Center(
+    child: SizedBox.square(
+      dimension: height ?? 25,
+      child: Icon(
+        Icons.copy,
+        color: color ?? Colors.grey,
+        size: context.respIconSize(baseSize: 15.0),
+      ),
     ),
   );
 }
 
 @immutable
 class CcCopyBtn extends StatelessWidget {
-  const CcCopyBtn({super.key, this.onTap, this.title});
+  const CcCopyBtn({super.key, this.onTap, this.title, this.size = 25.0});
 
   final VoidCallback? onTap;
   final String? title;
+  final double size;
 
   @override
-  Widget build(BuildContext context) => Stack(
-    children: [
-      const IconCopy(),
-      CcInkWell(onTap: onTap ?? () => CcStringHelper.copyToClipboard(title ?? '')),
-    ],
+  Widget build(BuildContext context) => SizedBox.square(
+    dimension: size,
+    child: Stack(
+      children: [
+        IconCopy(height: size),
+        CcInkWell(
+          onTap: onTap ?? () => CcStringHelper.copyToClipboard(title ?? ''),
+        ),
+      ],
+    ),
   );
 }
 

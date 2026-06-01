@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import 'cc_text.dart';
 
 class TitleWarningWidget extends StatelessWidget {
@@ -16,7 +17,7 @@ class TitleWarningWidget extends StatelessWidget {
     title,
     align: Alignment.centerLeft,
     fontWeight: FontWeight.w500,
-    fontSize: 14,
+    fontSize: context.respFontSize(14.0),
     color: textColor ?? context.ccColorScheme.error,
   );
 }

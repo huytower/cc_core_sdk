@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 
 class IconHeart extends StatelessWidget {
   const IconHeart({
@@ -34,7 +35,7 @@ class IconHeart extends StatelessWidget {
             ],
       ).createShader(bounds);
     },
-    child: Icon(Icons.favorite, color: Colors.white, size: height ?? 20),
+    child: Icon(Icons.favorite, color: Colors.white, size: height ?? context.respIconSize(baseSize: 20.0)),
   );
 
   Widget getCircleIcon(BuildContext context) => Container(

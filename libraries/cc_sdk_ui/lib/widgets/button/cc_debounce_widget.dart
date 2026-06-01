@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../text/cc_text.dart';
 
@@ -67,7 +68,7 @@ class _CcDebounceState extends State<CcDebounce> {
             }
           : null,
       child: Container(
-        height: 48,
+        height: context.respIconSize(baseSize: 48.0),
         decoration: BoxDecoration(
           borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
           gradient: LinearGradient(
@@ -83,7 +84,7 @@ class _CcDebounceState extends State<CcDebounce> {
               if (widget.icon != null) ...[
                 Icon(
                   widget.icon,
-                  size: 15,
+                  size: context.respIconSize(baseSize: 15.0),
                   color: widget.iconColor ?? context.ccColorScheme.onPrimary,
                 ),
                 const SizedBox(width: 8),

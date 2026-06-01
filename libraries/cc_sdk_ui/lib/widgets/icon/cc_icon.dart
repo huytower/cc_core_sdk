@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../inkwell/cc_inkwell.dart';
 import '../padding/cc_padding.dart';
@@ -21,7 +22,7 @@ class CcIcon extends StatelessWidget {
   Widget build(BuildContext context) => Align(
     alignment: align ?? Alignment.center,
     child: CcPadding(
-      Icon(icon, size: size ?? 20.0, color: color ?? Colors.black),
+      Icon(icon, size: size ?? context.respIconSize(baseSize: 20.0), color: color ?? Colors.black),
       8,
       8,
       8,
@@ -52,7 +53,7 @@ class CcMediaIcon extends StatelessWidget {
       isVisible
           ? CcIcon(
               icon: icon,
-              size: iconSize ?? 20.0,
+              size: iconSize ?? context.respIconSize(baseSize: 20.0),
               color: color,
               align: Alignment.center,
             )

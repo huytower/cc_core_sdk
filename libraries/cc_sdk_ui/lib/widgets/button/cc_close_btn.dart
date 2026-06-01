@@ -2,6 +2,7 @@ import 'package:cc_sdk/core/helper/cc_image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../inkwell/cc_inkwell.dart';
 
 /// Use *.svg|icon|*.png assets
@@ -24,12 +25,12 @@ class CcCloseBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      CcInkWell(onTap: onTap, child: buildSizedBox());
+      CcInkWell(onTap: onTap, child: buildSizedBox(context));
 
-  Widget buildContainer() => Container(
+  Widget buildContainer(BuildContext context) => Container(
     alignment: Alignment.center,
-    height: 20.0,
-    width: 20.0,
+    height: context.respIconSize(baseSize: 20.0),
+    width: context.respIconSize(baseSize: 20.0),
     color: bgColor,
     child: buildIcon(),
   );
@@ -38,11 +39,11 @@ class CcCloseBtn extends StatelessWidget {
       icon ??
       (CcImageHelper.isSvg(src) ? SvgPicture.asset(src) : Image.asset(src));
 
-  Widget buildSizedBox() => Center(
+  Widget buildSizedBox(BuildContext context) => Center(
     child: SizedBox(
-      width: width ?? 35,
-      height: height ?? 35,
-      child: buildContainer(),
+      width: width ?? context.respIconSize(baseSize: 35.0),
+      height: height ?? context.respIconSize(baseSize: 35.0),
+      child: buildContainer(context),
     ),
   );
 }

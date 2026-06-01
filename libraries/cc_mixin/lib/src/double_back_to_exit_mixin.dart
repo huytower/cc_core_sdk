@@ -1,11 +1,10 @@
 import 'dart:io';
 
-import 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
-import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:theme/data/data_source/color/prj_color.dart';
+
+import 'double_back_to_exit_snackbar.dart';
 
 /// Mixin for implementing "press back twice to exit" functionality.
 ///
@@ -46,8 +45,7 @@ import 'package:theme/data/data_source/color/prj_color.dart';
 /// ```
 mixin DoubleBackToExitMixin<T extends StatefulWidget> on State<T> {
   DateTime? _lastBackPressedAt;
-  bool _canPop = false;
-  static const _messageDuration = Duration(seconds: 1);
+  static const _doubleBackDuration = Duration(seconds: 1);
 
   /// Message shown on first back press.
   ///
@@ -69,55 +67,66 @@ mixin DoubleBackToExitMixin<T extends StatefulWidget> on State<T> {
   bool get shouldEnableDoubleBackToExit => true;
 
   /// Check if the route can pop.
+  ///
+  /// On Android, we return false to ensure [onPopInvoked] is called with
+  /// didPop=false, allowing us to intercept and handle the double-back logic.
   bool get canPop {
     if (Platform.isIOS && !enableDoubleBackOnIOS) return true;
-    return _canPop;
+    return false;
   }
 
   /// Handle back press invocation.
   void onPopInvoked(bool didPop) {
-    if (didPop) return;
-    if (Platform.isIOS && !enableDoubleBackOnIOS) return;
-    if (handleCustomNavigation()) return;
+    debugPrint('DoubleBackToExitMixin: onPopInvoked(didPop: $didPop)');
 
-    if (!shouldEnableDoubleBackToExit) {
-      setState(() => _canPop = true);
-      Navigator.of(context).pop();
+    // If the system already popped the route, we don't need to do anything.
+    if (didPop) {
+      debugPrint('DoubleBackToExitMixin: already popped, ignoring');
       return;
     }
 
+    // Platform-specific bypass for iOS if double-back is disabled.
+    if (Platform.isIOS && !enableDoubleBackOnIOS) {
+      debugPrint('DoubleBackToExitMixin: iOS bypass enabled, ignoring');
+      return;
+    }
+
+    // 1. Try custom navigation first (e.g., navigate to index 0).
+    if (handleCustomNavigation()) {
+      debugPrint('DoubleBackToExitMixin: custom navigation handled');
+      return;
+    }
+
+    // 2. If double back behavior is not enabled (e.g., current index != 0),
+    // we exit/pop immediately on first press.
+    if (!shouldEnableDoubleBackToExit) {
+      debugPrint(
+        'DoubleBackToExitMixin: double back disabled, exiting immediately',
+      );
+      SystemNavigator.pop();
+      return;
+    }
+
+    // 3. Double-back logic for Android root navigation.
     final now = DateTime.now();
     final isFirstPress =
         _lastBackPressedAt == null ||
-        now.difference(_lastBackPressedAt!) > _messageDuration;
+        now.difference(_lastBackPressedAt!) > _doubleBackDuration;
 
     if (isFirstPress) {
+      debugPrint('DoubleBackToExitMixin: first press detected');
       _lastBackPressedAt = now;
-      _canPop = false;
       _showBackPressMessage();
-      Future.delayed(_messageDuration, () {
-        if (mounted) setState(() => _canPop = true);
-      });
     } else {
-      setState(() => _canPop = true);
+      debugPrint('DoubleBackToExitMixin: second press detected, exiting app');
+      // Second press within the time window.
       SystemNavigator.pop();
     }
   }
 
   /// Show back press message to user.
   void _showBackPressMessage() {
-    CcSnackBarHelper.showSnackBar(
-      message: backPressMessage,
-      duration: _messageDuration,
-      backgroundColor: PrjColors.darkSurface,
-      textColor: PrjColors.onPrimary,
-      fontWeight: FontWeight.w500,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(CcCircularParams.RADIUS_MD),
-      ),
-      margin: const EdgeInsets.all(CcPaddingParams.PAGE_SM),
-      elevation: 6,
-    );
+    showDoubleBackPressSnackBar(context, backPressMessage);
   }
 
   @override

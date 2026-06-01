@@ -1,16 +1,11 @@
-import 'package:cc_sdk/export_cc_sdk.dart' hide getIt;
-import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
-import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
-import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
-import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
-import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
-import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/di.dart';
 import '../bloc/counter_bloc.dart';
+import '../widgets/counter_action_button.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
@@ -57,7 +52,7 @@ class CounterDisplay extends StatelessWidget {
           return CcText(
             '${state.counter.value}',
             fontSize: CcTypographyParams.headlineLarge,
-            color: Colors.blue,
+            color: context.ccColorScheme.primary,
           );
         } else if (state is CounterError) {
           return CcText(
@@ -75,22 +70,12 @@ class IncrementButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CcDebounce(
+    return CounterActionButton(
       onTap: () {
         context.read<CounterBloc>().add(const IncrementCounterEvent());
       },
-      child: CcCloseBtn(
-        onTap: () {
-          context.read<CounterBloc>().add(const IncrementCounterEvent());
-        },
-        icon: const Icon(
-          Icons.add_circle_outline,
-          color: Colors.blue,
-          size: 48,
-        ),
-        width: 120,
-        bgColor: Colors.blue.withOpacity(0.1),
-      ),
+      icon: Icons.add_circle_outline,
+      color: context.ccColorScheme.primary,
     );
   }
 }
@@ -100,22 +85,12 @@ class DecrementButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CcDebounce(
+    return CounterActionButton(
       onTap: () {
         context.read<CounterBloc>().add(const DecrementCounterEvent());
       },
-      child: CcCloseBtn(
-        onTap: () {
-          context.read<CounterBloc>().add(const DecrementCounterEvent());
-        },
-        icon: const Icon(
-          Icons.remove_circle_outline,
-          color: Colors.red,
-          size: 48,
-        ),
-        width: 120,
-        bgColor: Colors.red.withOpacity(0.1),
-      ),
+      icon: Icons.remove_circle_outline,
+      color: context.ccColorScheme.error,
     );
   }
 }

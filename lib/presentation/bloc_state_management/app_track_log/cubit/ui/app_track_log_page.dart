@@ -3,7 +3,6 @@ import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:theme/data/data_source/color/prj_color.dart';
 
 import '../../../../../core/di/di.dart';
 import '../logic/app_track_log_cubit.dart';
@@ -83,7 +82,8 @@ class _AppTrackLogView extends StatelessWidget {
         child: CcText(
           state.deviceModel.deviceInfo,
           textStyle: context.ccTextTheme.bodySmall?.copyWith(
-            color: PrjColors.mediumEmphasis,
+            color: context.ccColorScheme.onSurfaceVariant,
+            fontSize: context.respFontSize(CcTypographyParams.bodySmall),
           ),
           textAlign: TextAlign.center,
           align: Alignment.center,
@@ -108,7 +108,7 @@ class _AppTrackLogView extends StatelessWidget {
   SizedBox _buildLogsList(BuildContext context, AppTrackLogCubit cubit) {
     return SizedBox(
       width: double.infinity,
-      height: getIt<CcDeviceInfo>().deviceHeight! - 250,
+      height: getIt<CcDeviceInfo>().deviceHeight! - context.respPadding(250.0),
       child: ListView.builder(
         itemCount: cubit.state.loggingMessages?.length,
         itemBuilder: (BuildContext context, int index) {
@@ -123,7 +123,8 @@ class _AppTrackLogView extends StatelessWidget {
     return CcText(
       el.tr(CcLocaleKeys.common_no_data),
       textStyle: context.ccTextTheme.bodySmall?.copyWith(
-        color: PrjColors.mediumEmphasis,
+        color: context.ccColorScheme.onSurfaceVariant,
+        fontSize: context.respFontSize(CcTypographyParams.bodySmall),
       ),
       textAlign: TextAlign.center,
       align: Alignment.center,
@@ -144,8 +145,9 @@ class _AppTrackLogView extends StatelessWidget {
           textStyle: context.ccTextTheme.bodySmall?.copyWith(
             color: (index.isEven)
                 ? context.ccColorScheme.secondary
-                : PrjColors.body,
+                : context.ccColorScheme.onSurface,
             height: 1.6,
+            fontSize: context.respFontSize(CcTypographyParams.bodySmall),
           ),
           marginLeft: 10,
           marginRight: 10,

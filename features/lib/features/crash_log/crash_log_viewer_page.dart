@@ -1,5 +1,4 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
-import 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
 import 'package:flutter/material.dart';
 
 /// Bottom sheet that shows the on-device [catcher_2](https://pub.dev/packages/catcher_2) log file.
@@ -59,7 +58,7 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
           align: Alignment.center,
         ),
         const CcSpaceSM(),
-        Flexible(fit: FlexFit.loose, child: _buildLogBody()),
+        _buildLogBody(),
         const CcSpaceSM(),
         CcDividerLine(color: context.ccColorScheme.outlineVariant),
         const CcSpaceSM(),
@@ -80,9 +79,9 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
 
   Widget _buildLogBody() {
     if (_loading) {
-      return const Padding(
-        padding: EdgeInsets.all(CcPaddingParams.SPACE_XL),
-        child: Center(child: CcLoadingIconWidget()),
+      return Padding(
+        padding: EdgeInsets.all(context.respPadding(CcPaddingParams.SPACE_XL)),
+        child: const Center(child: CcLoadingIconWidget()),
       );
     }
     if (_logContent.trim().isEmpty) {
@@ -100,14 +99,15 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
       child: CcCopyWidget(
         title: _logContent,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: CcPaddingParams.SPACE_MD,
+          padding: EdgeInsets.symmetric(
+            horizontal: context.respPadding(CcPaddingParams.SPACE_MD),
           ),
           child: SelectableText(
             _logContent,
             style: context.ccTextTheme.labelSmall?.copyWith(
               height: 1.4,
               fontFamily: 'monospace',
+              fontSize: context.respFontSize(CcTypographyParams.labelSmall),
             ),
           ),
         ),

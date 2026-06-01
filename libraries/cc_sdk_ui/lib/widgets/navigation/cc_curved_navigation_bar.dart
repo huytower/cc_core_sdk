@@ -1,6 +1,7 @@
 import 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 import 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
 import 'package:cc_sdk_ui/core/extensions/cc_context_extension.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:curved_navigation_bar_pro/curved_navigation_bar_pro.dart';
 import 'package:flutter/material.dart';
 
@@ -165,7 +166,7 @@ class CcCurvedNavigationBar extends StatelessWidget {
       inactiveTextStyle:
           inactiveTextStyle ??
           context.ccTextTheme.labelSmall?.copyWith(
-            fontSize: 10,
+            fontSize: context.respFontSize(10.0),
             fontWeight: FontWeight.w400,
           ),
       inactiveIconSize: inactiveIconSize ?? 24,

@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+
+import '../../core/extensions/common/cc_responsive_extension.dart';
 
 // Where it helps
 // Use it when you need:
@@ -42,13 +45,13 @@ class _ExpansionPaneState extends State<CcExpansionPane> {
         backgroundColor: widget.backgroundColor,
         trailing: RotatedBox(
           quarterTurns: rotate,
-          child: const SizedBox(
-            child: Icon(Icons.keyboard_arrow_right, size: 15),
-            height: 15,
-            width: 15,
+          child: SizedBox(
+            child: Icon(Icons.keyboard_arrow_right, size: context.respIconSize(baseSize: 15.0)),
+            height: context.respIconSize(baseSize: 15.0),
+            width: context.respIconSize(baseSize: 15.0),
           ),
         ),
-        tilePadding: const EdgeInsets.only(right: 12),
+        tilePadding: EdgeInsets.only(right: context.respPadding(12.0)),
         childrenPadding: EdgeInsets.zero,
         title: widget.collapse,
         children: [widget.expand],

@@ -5,7 +5,8 @@ import 'package:flutter/material.dart' as m;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/extensions/cc_context_extension.dart';
+import '../extensions/cc_context_extension.dart';
+import '../extensions/common/cc_responsive_extension.dart';
 import '../../widgets/base/cc_keyboard_dismisser.dart';
 import '../../widgets/dialog/cc_base_dialog.dart';
 import '../../widgets/dialog/cc_body_modal_bottom_sheet.dart';
@@ -91,7 +92,7 @@ class CcDialogHelper {
                 Text(
                   content,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 17),
+                  style: TextStyle(fontSize: context.respFontSize(17.0)),
                 ),
           ),
         );

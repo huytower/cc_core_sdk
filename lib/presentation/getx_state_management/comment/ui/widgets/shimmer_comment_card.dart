@@ -7,11 +7,11 @@ class ShimmerCommentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: CcPaddingParams.PAGE_XS,
-        vertical: CcPaddingParams.SPACE_SM,
+      margin: EdgeInsets.symmetric(
+        horizontal: context.respPadding(CcPaddingParams.PAGE_XS),
+        vertical: context.respPadding(CcPaddingParams.SPACE_SM),
       ),
-      padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
+      padding: EdgeInsets.all(context.respPadding(CcPaddingParams.SPACE_LG)),
       decoration: BoxDecoration(
         color: context.ccColorScheme.surface,
         borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
@@ -22,26 +22,34 @@ class ShimmerCommentCard extends StatelessWidget {
         children: [
           CcShimmer(
             width: double.infinity,
-            height: 20,
-            borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_XS),
+            height: context.respPadding(20),
+            borderRadius: BorderRadius.circular(
+              context.respPadding(CcPaddingParams.SPACE_XS),
+            ),
           ),
           const CcSpaceSM(),
           CcShimmer(
-            width: 200,
-            height: 14,
-            borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_XS),
+            width: context.respPadding(200),
+            height: context.respPadding(14),
+            borderRadius: BorderRadius.circular(
+              context.respPadding(CcPaddingParams.SPACE_XS),
+            ),
           ),
           const CcSpaceSM(),
           CcShimmer(
             width: double.infinity,
-            height: 14,
-            borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_XS),
+            height: context.respPadding(14),
+            borderRadius: BorderRadius.circular(
+              context.respPadding(CcPaddingParams.SPACE_XS),
+            ),
           ),
           const CcSpaceXS(),
           CcShimmer(
             width: double.infinity,
-            height: 14,
-            borderRadius: BorderRadius.circular(CcPaddingParams.SPACE_XS),
+            height: context.respPadding(14),
+            borderRadius: BorderRadius.circular(
+              context.respPadding(CcPaddingParams.SPACE_XS),
+            ),
           ),
         ],
       ),

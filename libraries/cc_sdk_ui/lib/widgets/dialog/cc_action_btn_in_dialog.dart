@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:message/cc_locale_keys.dart';
 
 import '../../core/config/tokens/cc_padding_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../button/cc_debounce_widget.dart';
 import '../container/cc_container_rounded_corner_widget.dart';
 import '../divider_line/cc_divider.dart';
@@ -39,7 +39,7 @@ class CcActionBtnInDialog extends StatelessWidget {
   Widget build(BuildContext context) => getActionButtonsWidget(context);
 
   Widget getActionButtonsWidget(BuildContext context) => SizedBox(
-    height: heightActionBtnBar ?? 60,
+    height: context.respPadding(heightActionBtnBar ?? 60),
     child: CcColStart(
       children: [
         /// line
@@ -53,23 +53,23 @@ class CcActionBtnInDialog extends StatelessWidget {
           child: CcRowCenter(
             children: [
               /// cancel button widget
-              isCancelBtnShown
-                  ? Expanded(flex: 1, child: getCancelButtonWidget(context))
-                  : const SizedBox(),
+              if (isCancelBtnShown)
+                Expanded(flex: 1, child: getCancelButtonWidget(context))
+              else
+                const SizedBox(),
 
               /// line widget
-              isCancelBtnShown
-                  ? Expanded(
-                      flex: 0,
-                      child: CcDividerHorizontalLine(
-                        color:
-                            dividerColor ??
-                            context.ccColorScheme.outlineVariant,
-                        width: 0.8,
-                        height: heightActionBtnBar ?? 60,
-                      ),
-                    )
-                  : const SizedBox(),
+              if (isCancelBtnShown)
+                Expanded(
+                  flex: 0,
+                  child: CcDividerHorizontalLine(
+                    color: dividerColor ?? context.ccColorScheme.outlineVariant,
+                    width: 0.8,
+                    height: context.respPadding(heightActionBtnBar ?? 60),
+                  ),
+                )
+              else
+                const SizedBox(),
 
               /// confirm button widget
               Expanded(
@@ -77,9 +77,10 @@ class CcActionBtnInDialog extends StatelessWidget {
                 child: isCancelBtnShown
                     ? getConfirmButtonWidget(context)
                     : Container(
-                        margin: const EdgeInsets.only(
-                          left: (CcPaddingParams.PAGE_LG * 3.5),
-                          right: (CcPaddingParams.PAGE_LG * 3.5),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: context.respPadding(
+                            CcPaddingParams.PAGE_LG * 3.5,
+                          ),
                         ),
                         child: getConfirmButtonWidget(context),
                       ),
@@ -93,9 +94,9 @@ class CcActionBtnInDialog extends StatelessWidget {
 
   /// cancel button ui
   Widget getCancelButtonWidget(BuildContext context) => SizedBox(
-    height: heightActionBtn ?? 35,
+    height: context.respPadding(heightActionBtn ?? 35),
     child: CcDebounce(
-      onTap: onTapCancel ?? () => Get.back(),
+      onTap: onTapCancel ?? () => Navigator.of(context).pop(),
       child: Stack(
         children: [
           CcContainerRoundedCorner(
@@ -115,9 +116,9 @@ class CcActionBtnInDialog extends StatelessWidget {
 
   /// confirm button ui
   Widget getConfirmButtonWidget(BuildContext context) => SizedBox(
-    height: heightActionBtn ?? 35,
+    height: context.respPadding(heightActionBtn ?? 35),
     child: CcDebounce(
-      onTap: onTapConfirm ?? () => Get.back(),
+      onTap: onTapConfirm ?? () => Navigator.of(context).pop(),
       child: Stack(
         children: [
           CcContainerRoundedCorner(

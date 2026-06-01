@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 
 class ContainerRoundedCornerTopLeftRight extends StatelessWidget {
-  const ContainerRoundedCornerTopLeftRight({Key? key}) : super(key: key);
+  const ContainerRoundedCornerTopLeftRight({super.key});
 
   @override
-  Container build(c) => Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: CcWidgetHelper.getBorderRoundedSquareTopLeftRight(),
-    ),
-    width: Get.width,
-    height: 4,
-  );
+  Widget build(BuildContext context) => Container(
+        decoration: BoxDecoration(
+          color: context.ccColorScheme.surface,
+          borderRadius: CcWidgetHelper.getBorderRoundedSquareTopLeftRight(),
+        ),
+        width: MediaQuery.sizeOf(context).width,
+        height: context.respPadding(4.0),
+      );
 }

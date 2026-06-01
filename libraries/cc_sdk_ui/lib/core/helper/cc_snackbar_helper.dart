@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../extensions/cc_context_extension.dart';
+import '../extensions/common/cc_responsive_extension.dart';
 
 /// Utility class for showing snackbars with consistent styling and behavior
 class CcSnackBarHelper {
   /// Shows a snackbar with the given parameters
   ///
+  /// [context] - The build context
   /// [message] - The message to display
   /// [duration] - How long the snackbar should be visible (default: 1.3s)
   /// [backgroundColor] - Background color of the snackbar
@@ -20,6 +21,7 @@ class CcSnackBarHelper {
   /// [elevation] - Elevation of the snackbar (default: null)
   /// [fontWeight] - Font weight of the text (default: normal)
   static void showSnackBar({
+    required BuildContext context,
     required String message,
     Duration? duration,
     Color? backgroundColor,
@@ -32,9 +34,6 @@ class CcSnackBarHelper {
     double? elevation,
     FontWeight? fontWeight,
   }) {
-    final context = Get.context;
-    if (context == null) return;
-
     final snackBar = SnackBar(
       content: Text(
         message,
@@ -60,7 +59,7 @@ class CcSnackBarHelper {
       },
       dismissDirection: DismissDirection.horizontal,
       behavior: SnackBarBehavior.floating,
-      margin: margin ?? const EdgeInsets.all(8.0),
+      margin: margin ?? EdgeInsets.all(context.respPadding(8.0)),
       shape: shape,
       elevation: elevation,
     );
@@ -77,15 +76,14 @@ class CcSnackBarHelper {
 
   /// Shows a snackbar with default error styling
   static void showErrorSnackBar({
+    required BuildContext context,
     required String message,
     Duration? duration,
     String? actionLabel,
     VoidCallback? onActionPressed,
   }) {
-    final context = Get.context;
-    if (context == null) return;
-
     showSnackBar(
+      context: context,
       message: message,
       duration: duration,
       backgroundColor: context.ccColorScheme.error,
@@ -97,15 +95,14 @@ class CcSnackBarHelper {
 
   /// Shows a snackbar with default success styling
   static void showSuccessSnackBar({
+    required BuildContext context,
     required String message,
     Duration? duration,
     String? actionLabel,
     VoidCallback? onActionPressed,
   }) {
-    final context = Get.context;
-    if (context == null) return;
-
     showSnackBar(
+      context: context,
       message: message,
       duration: duration,
       backgroundColor: context.ccColorScheme.primary,

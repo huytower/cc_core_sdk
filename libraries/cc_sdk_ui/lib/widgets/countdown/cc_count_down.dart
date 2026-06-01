@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../text/cc_text.dart';
 
 class CcCountDown extends StatefulWidget {
@@ -58,8 +59,8 @@ class _CcCountDownState extends State<CcCountDown> {
     '$_start',
     textStyle:
         widget.style ??
-        const TextStyle(
-          fontSize: 16,
+        TextStyle(
+          fontSize: context.respFontSize(16.0),
           fontWeight: FontWeight.bold,
           color: CcBaseColors.neutral100,
         ),

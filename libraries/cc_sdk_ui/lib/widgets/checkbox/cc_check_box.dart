@@ -1,7 +1,7 @@
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_circular_params.dart';
-import '../../core/extensions/cc_context_extension.dart';
 
 class CcCheckBox extends StatelessWidget {
   const CcCheckBox({Key? key, required this.isChecked, required this.onChanged})
@@ -14,22 +14,22 @@ class CcCheckBox extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
     onTap: () => onChanged(!isChecked),
     child: Container(
-      width: 24,
-      height: 24,
+      width: context.respIconSize(baseSize: 24.0),
+      height: context.respIconSize(baseSize: 24.0),
       decoration: BoxDecoration(
-        color: isChecked
-            ? context.ccColorScheme.primary
-            : Colors.transparent,
+        color: isChecked ? context.ccColorScheme.primary : Colors.transparent,
         border: Border.all(
-          color: isChecked
-              ? context.ccColorScheme.primary
-              : Colors.grey,
+          color: isChecked ? context.ccColorScheme.primary : Colors.grey,
           width: 2,
         ),
         borderRadius: BorderRadius.circular(CcCircularParams.RADIUS_XS),
       ),
       child: isChecked
-          ? const Icon(Icons.check, size: 16, color: Colors.white)
+          ? Icon(
+              Icons.check,
+              size: context.respIconSize(baseSize: 16.0),
+              color: Colors.white,
+            )
           : null,
     ),
   );

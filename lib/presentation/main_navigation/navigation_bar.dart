@@ -32,16 +32,27 @@ class _NavigationBarState extends State<NavigationBar>
 
   @override
   bool handleCustomNavigation() {
+    debugPrint(
+      'NavigationBar: handleCustomNavigation() called. Current index: $currentIndex',
+    );
     if (currentIndex != _indexDashboard) {
+      debugPrint('NavigationBar: Custom navigation - moving to Dashboard');
       setIndex(_indexDashboard);
       return true;
     }
+    debugPrint(
+      'NavigationBar: Custom navigation - already on Dashboard, proceeding to exit check',
+    );
     return false;
   }
 
   @override
   bool get shouldEnableDoubleBackToExit {
-    return currentIndex == _indexDashboard;
+    final isDashboard = currentIndex == _indexDashboard;
+    debugPrint(
+      'NavigationBar: shouldEnableDoubleBackToExit check. Current index: $currentIndex, Is Dashboard: $isDashboard',
+    );
+    return isDashboard;
   }
 
   @override

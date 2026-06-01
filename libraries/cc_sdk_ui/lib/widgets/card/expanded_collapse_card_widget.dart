@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+
 import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../space/cc_space.dart';
 
@@ -37,7 +40,7 @@ class _ExpandedCollapseCardWidgetState
 
   @override
   Widget build(BuildContext context) => Container(
-    margin: const EdgeInsets.only(bottom: 12),
+    margin: EdgeInsets.only(bottom: context.respPadding(12.0)),
     decoration: BoxDecoration(
       color: widget.backgroundColor,
       borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
@@ -61,14 +64,14 @@ class _ExpandedCollapseCardWidgetState
             });
           },
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(context.respPadding(16.0)),
             child: Row(
               children: [
                 Expanded(
                   child: Text(
                     widget.title,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: context.respFontSize(16.0),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -83,7 +86,7 @@ class _ExpandedCollapseCardWidgetState
         ),
         if (_isExpanded) ...[
           const CcSpaceXS(),
-          Padding(padding: const EdgeInsets.all(16), child: widget.child),
+          Padding(padding: EdgeInsets.all(context.respPadding(16.0)), child: widget.child),
         ],
       ],
     ),

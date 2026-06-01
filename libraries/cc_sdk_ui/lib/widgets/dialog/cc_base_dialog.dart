@@ -1,24 +1,14 @@
 import 'dart:ui';
 
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
-import 'package:cc_sdk/core/extensions/common/cc_when_expression.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../core/config/tokens/cc_padding_params.dart';
-import '../../core/extensions/cc_context_extension.dart';
-import '../flex/cc_flex.dart';
-import '../space/cc_space.dart';
-import '../text/cc_text.dart';
-import 'cc_action_btn_in_dialog.dart';
-
-/// Popular widgets :
 /// Basic dialog is shown on UI
 /// ex.
 /// CcDialogHelper.showConfirmationDialog(onTapConfirm: () {}, desc: 'ABC\nABC', );
 class CcBaseDialog extends StatelessWidget {
   const CcBaseDialog({
-    Key? key,
+    super.key,
     this.onTapCancel,
     this.onTapConfirm,
     this.agreeText,
@@ -33,7 +23,7 @@ class CcBaseDialog extends StatelessWidget {
     this.isCancelBtnShown = false,
     this.maxLines = 3,
     this.status = CcDialogStatus.ERROR,
-  }) : super(key: key);
+  });
 
   final VoidCallback? onTapCancel, onTapConfirm;
 
@@ -106,7 +96,7 @@ class CcBaseDialog extends StatelessWidget {
 
   Widget buildDialogWidget(BuildContext context) => Dialog(
     /// border padding at presentation left & presentation right
-    insetPadding: const EdgeInsets.all(15.0),
+    insetPadding: EdgeInsets.all(context.respPadding(15.0)),
 
     /// MUST set transparent bgColor to able avoid around white padding space
     backgroundColor: Colors.transparent,
@@ -119,8 +109,8 @@ class CcBaseDialog extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
         child: Container(
-          width: Get.width,
-          height: isActionBtnVisible ? 145 : 75,
+          width: MediaQuery.sizeOf(context).width,
+          height: context.respPadding(isActionBtnVisible ? 145 : 75),
           decoration: BoxDecoration(
             color: bgColor ?? context.ccColorScheme.surface.withOpacity(0.8),
           ),
@@ -133,14 +123,26 @@ class CcBaseDialog extends StatelessWidget {
   Widget buildIconAlert(BuildContext context) => ccWhen(
     variable: status,
     conditions: {
-      CcDialogStatus.ERROR: () =>
-          Icon(Icons.error_outline, size: context.respIconSize(), color: Colors.redAccent),
-      CcDialogStatus.INFO: () =>
-          Icon(Icons.announcement_outlined, size: context.respIconSize(), color: Colors.grey),
-      CcDialogStatus.SUCCESS: () =>
-          Icon(Icons.check_circle, size: context.respIconSize(), color: Colors.green),
-      CcDialogStatus.WARNING: () =>
-          Icon(Icons.warning_outlined, size: context.respIconSize(), color: Colors.yellow),
+      CcDialogStatus.ERROR: () => Icon(
+        Icons.error_outline,
+        size: context.respIconSize(),
+        color: Colors.redAccent,
+      ),
+      CcDialogStatus.INFO: () => Icon(
+        Icons.announcement_outlined,
+        size: context.respIconSize(),
+        color: Colors.grey,
+      ),
+      CcDialogStatus.SUCCESS: () => Icon(
+        Icons.check_circle,
+        size: context.respIconSize(),
+        color: Colors.green,
+      ),
+      CcDialogStatus.WARNING: () => Icon(
+        Icons.warning_outlined,
+        size: context.respIconSize(),
+        color: Colors.yellow,
+      ),
     },
   );
 }

@@ -2,23 +2,25 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../core/constants/cc_constants_ui.dart';
 import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 
 class Toast {
-  static const int LENGTH_SHORT = 1;
-  static const int LENGTH_LONG = 2;
-  static const int BOTTOM = 0;
-  static const int CENTER = 1;
-  static const int TOP = 2;
+  static const int LENGTH_SHORT = CcConstantsUI.toastLengthShort;
+  static const int LENGTH_LONG = CcConstantsUI.toastLengthLong;
+  static const int BOTTOM = CcConstantsUI.toastGravityBottom;
+  static const int CENTER = CcConstantsUI.toastGravityCenter;
+  static const int TOP = CcConstantsUI.toastGravityTop;
 
   static void show(
     String? msg,
     BuildContext context, {
-    int duration = 1,
-    int gravity = 0,
+    int duration = CcConstantsUI.defaultToastDuration,
+    int gravity = CcConstantsUI.toastGravityBottom,
     Color? backgroundColor,
     Color? textColor,
-    double backgroundRadius = 20,
+    double backgroundRadius = CcConstantsUI.defaultToastBackgroundRadius,
     Border? border,
   }) {
     ToastView.dismiss();
@@ -76,8 +78,8 @@ class ToastView {
                   borderRadius: BorderRadius.circular(backgroundRadius),
                   border: border,
                 ),
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+                margin: EdgeInsets.symmetric(horizontal: context.respPadding(20.0)),
+                padding: EdgeInsets.fromLTRB(context.respPadding(16.0), context.respPadding(10.0), context.respPadding(16.0), context.respPadding(10.0)),
                 child: Text(
                   msg ?? '',
                   softWrap: true,
@@ -119,7 +121,7 @@ class ToastWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 100,
+      bottom: CcConstantsUI.defaultToastBottomPosition,
       child: Material(color: Colors.transparent, child: widget),
     );
   }

@@ -10,11 +10,11 @@ class CommentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: CcPaddingParams.PAGE_XS,
-        vertical: CcPaddingParams.SPACE_SM,
+      margin: EdgeInsets.symmetric(
+        horizontal: context.respPadding(CcPaddingParams.PAGE_XS),
+        vertical: context.respPadding(CcPaddingParams.SPACE_SM),
       ),
-      padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
+      padding: EdgeInsets.all(context.respPadding(CcPaddingParams.SPACE_LG)),
       decoration: BoxDecoration(
         color: context.ccColorScheme.surface,
         borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
@@ -28,6 +28,7 @@ class CommentCard extends StatelessWidget {
             textStyle: context.ccTextTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: context.ccColorScheme.primary,
+              fontSize: context.respFontSize(CcTypographyParams.titleMedium),
             ),
           ),
           const CcSpaceXS(),
@@ -35,12 +36,15 @@ class CommentCard extends StatelessWidget {
             comment.email,
             textStyle: context.ccTextTheme.bodySmall?.copyWith(
               color: context.ccColorScheme.onSurfaceVariant,
+              fontSize: context.respFontSize(CcTypographyParams.bodySmall),
             ),
           ),
           const CcSpaceSM(),
           CcText(
             comment.body,
-            textStyle: context.ccTextTheme.bodyMedium,
+            textStyle: context.ccTextTheme.bodyMedium?.copyWith(
+              fontSize: context.respFontSize(CcTypographyParams.bodyMedium),
+            ),
             maxLines: 10,
             overflow: TextOverflow.visible,
           ),

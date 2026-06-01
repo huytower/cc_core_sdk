@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+export 'localization_extension.dart';
+
 /// A centralized localization service for the application.
 ///
 /// This class provides static methods to handle all localization needs,
@@ -115,18 +117,5 @@ class CcLocalization {
       const Locale('vi'): 'Tiếng Việt',
       // Add more locales as needed
     };
-  }
-}
-
-/// Extension to easily access localization methods on BuildContext.
-extension LocalizationExtension on BuildContext {
-  /// Shortcut for CcLocalization.translate
-  String tr(String key, {List<String>? args, Map<String, String>? namedArgs}) {
-    return CcLocalization.translate(key, args: args, namedArgs: namedArgs);
-  }
-
-  /// Shortcut for CcLocalization.plural
-  String trPlural(String key, num count, {List<String>? args}) {
-    return CcLocalization.plural(key, count, args: args);
   }
 }
