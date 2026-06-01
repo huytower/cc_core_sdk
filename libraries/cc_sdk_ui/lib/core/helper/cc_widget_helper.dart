@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../config/tokens/cc_circular_params.dart';
+import '../extensions/cc_context_extension.dart';
 
 /// CcWidgetHelper: Utility class for common UI-related operations and styling.
 ///
@@ -28,7 +29,7 @@ class CcWidgetHelper {
   }) => [
     /// 2 - drop background of child widget
     BoxShadow(
-      color: shadowColor ?? Theme.of(context).colorScheme.outlineVariant,
+      color: shadowColor ?? context.ccColorScheme.outlineVariant,
       spreadRadius: spreadRadius ?? 0.0,
       blurRadius: blurRadius ?? 3.0,
       offset: Offset(x ?? 2.0, y ?? 2.0),

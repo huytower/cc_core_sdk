@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../space/cc_space.dart';
 
@@ -44,7 +45,7 @@ class _ExpandedCollapseCardWidgetState
         BoxShadow(
           color:
               (widget.shadowColor ??
-                      Theme.of(context).colorScheme.outlineVariant)
+                      context.ccColorScheme.outlineVariant)
                   .withOpacity(0.5),
           blurRadius: 8,
           offset: const Offset(0, 2),

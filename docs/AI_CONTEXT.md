@@ -55,17 +55,18 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
 11. **Color Single Source of Truth (CRITICAL)**: NEVER hardcode hex colors or use `Colors.*` directly for UI components. All colors must flow from the Design Token system via Semantic Synchronization.
 
     **Chain of Truth:**
-    1. **SDK Palette** (`CcBaseColors` in `cc_sdk_ui`): Defines generic **Primitives** (e.g., `brand500`, `gray900`). Reusable in any project.
+    1. **SDK Palette** (`CcBaseColors` in `cc_sdk_ui`): Defines generic **Primitives** (e.g., `brand500`, `gray900`, `indigo500`). This is a pure palette shared across projects.
     2. **App Mapping** (`PrjColors` in `theme` module): Defines **Semantic Roles** for THIS project. Maps app-specific names (e.g., `primary`, `background`) to SDK primitives.
-    3. **Theme Configuration** (`CcThemes` in `theme` module): Configures `ThemeData` using `PrjColors`.
+    3. **Theme Configuration** (`CcThemes` in `theme` module): Configures `ThemeData` and `ColorScheme` using `PrjColors`.
     4. **Widgets**: Access colors via **`context.ccColorScheme`** (provided by `CcContextExtension`).
 
     **Requirements:**
     - **Adding a new color?** Add a primitive to `CcBaseColors` (SDK), then a mapping to `PrjColors` (App).
     - **SDK Reuse**: `CcBaseColors` MUST stay project-agnostic. No 'actionPrimary' or 'textPrimary' in the SDK.
     - **Project SSOT**: `PrjColors` is the ONLY place to change the project's brand identity.
-    - **Dark mode support**: Map dark specifics (like `darkSurface`) in `PrjColors` using the primitive gray palette.
+    - **Dark mode support**: Map dark specifics (like `darkSurface`) in `PrjColors` using the primitive gray scale.
     - **Consistency**: Use `context.ccColorScheme.primary` in widgets to ensure automatic theme switching and modularity.
+    - **Agnostic UI**: UI components in `cc_sdk_ui` MUST NOT depend on the `theme` module. Use standard Material 3 roles from `context.ccColorScheme`.
 
 12. **Multi-Language Support (CRITICAL)**: NEVER hardcode user-facing strings. All strings must be localized using `easy_localization`.
 
@@ -82,12 +83,12 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
     1. `CcTypographyParams` (`libraries/cc_sdk_ui`): Defines raw tokens (sizes, weights).
     2. `CcTextStyle` (`modules/theme`): Implements `ThemeExtension` to provide semantic `TextStyle` objects.
     3. `CcThemes` (`modules/theme`): Sets **EB Garamond** as the default font and maps `CcTextStyle` to `ThemeData.textTheme`.
-    4. **Widgets**: Access styles via **`context.textTheme`** (provided by `CcContextExtension`).
+    4. **Widgets**: Access styles via **`context.ccTextTheme`** (provided by `CcContextExtension`).
 
     **Requirements:**
     - **Inheritance**: Standard widgets like `CcText` automatically use the ambient font (EB Garamond) from `ThemeData`. Do not specify `fontFamily` in widgets.
-    - **Semantic Access**: Use `context.textTheme.bodyLarge` (or similar) for standard Material 3 typography.
-    - **Modifications**: If a specific modification is needed (e.g., color), use `.copyWith()`: `context.textTheme.bodyMedium.copyWith(color: context.ccColorScheme.primary)`.
+    - **Semantic Access**: Use `context.ccTextTheme.bodyLarge` (or similar) for standard Material 3 typography.
+    - **Modifications**: If a specific modification is needed (e.g., color), use `.copyWith()`: `context.ccTextTheme.bodyMedium.copyWith(color: context.ccColorScheme.primary)`.
     - **Forbidden**: `TextStyle(fontSize: 16, fontWeight: FontWeight.bold)` with hardcoded literals.
 
 ## Project Structure
@@ -165,13 +166,13 @@ The main app consolidates all modules in `lib/core/di/di.dart` using `@Injectabl
 
 **Key Components:**
 - Buttons (CcCloseBtn, CcDebounce, CcBaseBtn)
-- Dialogs and bottom sheets
+- Dialogs and bottom sheets (`CcDialogHelper` - consolidated utility)
 - Form elements (text fields, validators)
 - Loaders & indicators (spinners, skeletons)
 - Layout components (containers, cards, dividers)
 - Responsive widgets (CcResponsiveContainer, CcResponsiveFlex for multi-screen support)
 - Text & typography widgets (CcText - inherits ambient EB Garamond font)
-- Theme Extensions (CcContextExtension for semantic access to colors/text)
+- Theme Extensions (CcContextExtension for semantic access to `ccTextTheme`/`ccColorScheme`)
 - Animations (fade, scale, transitions)
 - Navigation (CcCurvedNavigationBar - state-management agnostic)
 
@@ -196,6 +197,10 @@ The main app consolidates all modules in `lib/core/di/di.dart` using `@Injectabl
   - Required: `currentIndex` getter and `setIndex` method
   - Optional: Navigation items, colors, dimensions, style presets
   - Works with any state management approach
+- **CcPullRefreshMixin**: Agnostic pull-to-refresh logic
+- **CcLoadMoreMixin**: Agnostic infinite scroll logic
+- **DoubleBackToExitMixin**: Android back button handling
+- **CcViewConfigMixin**: Standardized scaffold/layout state builder
 
 **DI File:** No DI file (mixin library)
 
@@ -334,7 +339,7 @@ Use the following utilities from `cc_sdk` and `cc_sdk_ui`:
 
 **From cc_sdk:**
 - `CcResponsiveHelper`: Screen type detection, responsive values, orientation helpers
-- `CcDeviceHelper`: Screen dimensions, platform detection, keyboard height
+- `CcDeviceHelper`: Screen dimensions, platform detection, keyboard height, orientation control (`setLandscape`, `setPortrait`)
 
 **From cc_sdk_ui:**
 - `CcResponsiveContainer`: Adaptive container with responsive padding/margin/width

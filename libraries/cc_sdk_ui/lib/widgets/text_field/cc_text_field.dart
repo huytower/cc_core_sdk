@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/extensions/cc_context_extension.dart';
 
 class CcTextField extends StatelessWidget {
   const CcTextField({
@@ -52,7 +53,7 @@ class CcTextField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary,
+              color: context.ccColorScheme.primary,
             ),
           ),
         ),

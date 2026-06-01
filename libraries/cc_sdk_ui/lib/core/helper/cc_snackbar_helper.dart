@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../extensions/cc_context_extension.dart';
+
 /// Utility class for showing snackbars with consistent styling and behavior
 class CcSnackBarHelper {
   /// Shows a snackbar with the given parameters
@@ -33,17 +35,16 @@ class CcSnackBarHelper {
     final context = Get.context;
     if (context == null) return;
 
-    final theme = Theme.of(context);
     final snackBar = SnackBar(
       content: Text(
         message,
-        style: theme.textTheme.bodyLarge?.copyWith(
-          color: textColor ?? theme.colorScheme.onSurface,
+        style: context.ccTextTheme.bodyLarge?.copyWith(
+          color: textColor ?? context.ccColorScheme.onSurface,
           height: 1.2,
           fontWeight: fontWeight ?? FontWeight.normal,
         ),
       ),
-      backgroundColor: backgroundColor ?? theme.colorScheme.surface,
+      backgroundColor: backgroundColor ?? context.ccColorScheme.surface,
       duration: duration ?? const Duration(milliseconds: 1300),
       action: actionLabel != null
           ? SnackBarAction(
@@ -51,7 +52,7 @@ class CcSnackBarHelper {
               onPressed: onActionPressed ?? () {},
               textColor:
                   textColor?.withOpacity(0.8) ??
-                  theme.colorScheme.primary.withOpacity(0.8),
+                  context.ccColorScheme.primary.withOpacity(0.8),
             )
           : null,
       onVisible: () {
@@ -87,8 +88,8 @@ class CcSnackBarHelper {
     showSnackBar(
       message: message,
       duration: duration,
-      backgroundColor: Theme.of(context).colorScheme.error,
-      textColor: Theme.of(context).colorScheme.onError,
+      backgroundColor: context.ccColorScheme.error,
+      textColor: context.ccColorScheme.onError,
       actionLabel: actionLabel,
       onActionPressed: onActionPressed,
     );
@@ -107,8 +108,8 @@ class CcSnackBarHelper {
     showSnackBar(
       message: message,
       duration: duration,
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      textColor: Theme.of(context).colorScheme.onPrimary,
+      backgroundColor: context.ccColorScheme.primary,
+      textColor: context.ccColorScheme.onPrimary,
       actionLabel: actionLabel,
       onActionPressed: onActionPressed,
     );

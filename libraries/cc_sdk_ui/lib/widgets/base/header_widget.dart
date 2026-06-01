@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/extensions/cc_context_extension.dart';
 import '../button/cc_back_btn.dart';
 import '../padding/cc_padding.dart';
 import '../space/cc_space.dart';
@@ -95,7 +96,7 @@ class HeaderWidget extends StatelessWidget {
                 child: Center(
                   child: CcText(
                     'Bỏ qua',
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    color: context.ccColorScheme.onSurfaceVariant,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,

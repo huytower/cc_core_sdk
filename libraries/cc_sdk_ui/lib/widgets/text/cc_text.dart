@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_typography_params.dart';
+import '../../core/extensions/cc_context_extension.dart';
 
 class CcText extends StatelessWidget {
   final String? text;
@@ -33,7 +34,7 @@ class CcText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = Theme.of(context).textTheme.bodyMedium;
+    final defaultStyle = context.ccTextTheme.bodyMedium;
 
     return Align(
       alignment: align ?? Alignment.centerLeft,

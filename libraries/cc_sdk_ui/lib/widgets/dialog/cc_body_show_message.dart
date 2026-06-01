@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:message/cc_locale_keys.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
+
 import '../../widgets/button/cc_debounce_widget.dart';
 import '../../widgets/space/cc_space.dart';
 
@@ -35,7 +37,7 @@ class CcBodyShowMessage extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 20, top: 10),
                 child: Text(
                   title,
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: context.ccTextTheme.headlineSmall,
                 ),
               )
             : const SizedBox(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
+
 class IconHeart extends StatelessWidget {
   const IconHeart({
     Key? key,
@@ -27,8 +29,8 @@ class IconHeart extends StatelessWidget {
         colors:
             colors ??
             [
-              Theme.of(context).colorScheme.primary,
-              Theme.of(context).colorScheme.primary,
+              context.ccColorScheme.primary,
+              context.ccColorScheme.primary,
             ],
       ).createShader(bounds);
     },

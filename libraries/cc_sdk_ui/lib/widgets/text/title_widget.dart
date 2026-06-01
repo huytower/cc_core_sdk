@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
 import 'cc_text.dart';
 
 /// POPULAR WIDGET
@@ -30,6 +31,6 @@ class TitleWidget extends StatelessWidget {
     align: align ?? Alignment.centerLeft,
     fontWeight: fontWeight ?? FontWeight.w500,
     fontSize: fontSize ?? 16,
-    color: color ?? Theme.of(context).colorScheme.onSurface,
+    color: color ?? context.ccColorScheme.onSurface,
   );
 }

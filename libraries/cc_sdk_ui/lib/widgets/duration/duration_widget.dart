@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/extensions/cc_context_extension.dart';
 import '../text/cc_text.dart';
 
 class DurationWidget extends StatelessWidget {
@@ -18,7 +19,7 @@ class DurationWidget extends StatelessWidget {
     child: CcText(
       duration,
       fontSize: 12,
-      color: Theme.of(context).colorScheme.onPrimary,
+      color: context.ccColorScheme.onPrimary,
     ),
   );
 }

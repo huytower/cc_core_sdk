@@ -1,5 +1,6 @@
 import 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 import 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
+import 'package:cc_sdk_ui/core/extensions/cc_context_extension.dart';
 import 'package:curved_navigation_bar_pro/curved_navigation_bar_pro.dart';
 import 'package:flutter/material.dart';
 
@@ -110,8 +111,7 @@ class CcCurvedNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
+    final isDark = context.isDarkMode;
 
     // Theme-aware default colors
     final themeBackgroundColor =
@@ -161,10 +161,10 @@ class CcCurvedNavigationBar extends StatelessWidget {
       animationCurve: animationCurve ?? Curves.easeInOutCubic,
       activeTextStyle:
           activeTextStyle ??
-          theme.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w800),
+          context.ccTextTheme.labelSmall?.copyWith(fontWeight: FontWeight.w800),
       inactiveTextStyle:
           inactiveTextStyle ??
-          theme.textTheme.labelSmall?.copyWith(
+          context.ccTextTheme.labelSmall?.copyWith(
             fontSize: 10,
             fontWeight: FontWeight.w400,
           ),

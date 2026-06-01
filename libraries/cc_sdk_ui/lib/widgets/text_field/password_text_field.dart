@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../core/config/tokens/cc_typography_params.dart';
+import '../../core/extensions/cc_context_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../divider_line/cc_divider.dart';
 import '../flex/cc_flex.dart';
@@ -66,7 +67,7 @@ class PasswordTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle:
               hintStyle ??
-              Theme.of(context).textTheme.titleMedium?.copyWith(
+              context.ccTextTheme.titleMedium?.copyWith(
                 fontStyle: FontStyle.italic,
                 height: 1.2,
               ),
@@ -78,7 +79,7 @@ class PasswordTextField extends StatelessWidget {
         keyboardType: TextInputType.text,
         style:
             textStyle ??
-            Theme.of(context).textTheme.titleMedium?.copyWith(height: 1.2),
+            context.ccTextTheme.titleMedium?.copyWith(height: 1.2),
         textInputAction: action ?? TextInputAction.next,
       ),
 

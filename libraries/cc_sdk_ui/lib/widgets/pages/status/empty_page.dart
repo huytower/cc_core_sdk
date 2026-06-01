@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/config/tokens/cc_base_colors.dart';
+import '../../../../core/extensions/cc_context_extension.dart';
 
 // Purpose:
 // small reusable widgets for loading states and empty API responses
@@ -11,7 +12,7 @@ class EmptyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(color: Theme.of(context).colorScheme.error),
+      body: Container(color: context.ccColorScheme.error),
     );
   }
 }
