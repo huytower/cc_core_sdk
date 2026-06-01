@@ -1,4 +1,3 @@
-import 'package:features/features/crash_log/export_crash_log.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/datasource/route_strategy.dart';
@@ -27,9 +26,8 @@ class _AppRunnerState extends State<AppRunner> {
 
   @override
   Widget build(BuildContext context) {
-    // 1. CrashLogDevOverlay: Top-most layer for developer tools/logs.
-    // 2. _routingStrategy.buildApp(): Builds the themed MaterialApp + Router + Localization.
-    return CrashLogDevOverlay(child: _routingStrategy.buildApp());
+    // _routingStrategy.buildApp(): Builds the themed MaterialApp + Router + Localization.
+    return _routingStrategy.buildApp();
   }
 
   @override
