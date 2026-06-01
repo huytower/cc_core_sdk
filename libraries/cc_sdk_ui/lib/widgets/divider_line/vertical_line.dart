@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
-
 class CcDividerVerticalLine extends StatelessWidget {
-  const CcDividerVerticalLine({
-    super.key,
-    this.color,
-    this.width,
-    this.height,
-  });
+  const CcDividerVerticalLine({super.key, this.color, this.width, this.height});
 
   final Color? color;
   final double? width, height;
@@ -17,7 +10,7 @@ class CcDividerVerticalLine extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     width: width ?? 1,
     height: height ?? 12,
-    color: color ?? CcBaseColors.neutral5,
+    color: color ?? Theme.of(context).colorScheme.outlineVariant,
   );
 }
 
@@ -29,7 +22,7 @@ class CcDividerIndicatorLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
     child: Container(
-      color: CcBaseColors.neutral5,
+      color: Theme.of(context).colorScheme.outlineVariant,
       width: width ?? 96,
       height: 6,
     ),
@@ -44,7 +37,7 @@ class CcDividerShadowLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
     child: Container(
-      color: CcBaseColors.shadow,
+      color: Theme.of(context).colorScheme.shadow.withOpacity(0.1),
       width: width ?? 128,
       height: 6,
     ),

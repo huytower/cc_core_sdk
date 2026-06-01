@@ -1,10 +1,8 @@
 import 'package:cc_sdk/core/helper/cc_device_helper.dart';
 import 'package:cc_sdk/core/helper/cc_image_helper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/config/tokens/cc_padding_params.dart';
 import '../button/cc_back_btn.dart';
 import '../padding/cc_padding.dart';
@@ -72,7 +70,7 @@ class HeaderWidget extends StatelessWidget {
           ),
 
           /// Right side: Skip button
-          getRightButtonWidget(),
+          getRightButtonWidget(context),
 
           /// Space right
           const SizedBox(width: 15),
@@ -81,7 +79,8 @@ class HeaderWidget extends StatelessWidget {
     ],
   );
 
-  Widget getRightButtonWidget() => onTapAtRightButton != null
+  Widget getRightButtonWidget(BuildContext context) =>
+      onTapAtRightButton != null
       ? Positioned(
           top: 0,
           right: 0,
@@ -90,13 +89,13 @@ class HeaderWidget extends StatelessWidget {
             GestureDetector(
               onTap: onTapAtRightButton!,
               behavior: HitTestBehavior.translucent,
-              child: const SizedBox(
+              child: SizedBox(
                 width: 103,
                 height: 76,
                 child: Center(
                   child: CcText(
                     'Bỏ qua',
-                    color: CcBaseColors.surfaceVariant,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,

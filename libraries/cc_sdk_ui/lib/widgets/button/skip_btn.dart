@@ -1,7 +1,10 @@
+import 'package:cc_sdk/export_cc_sdk.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/config/tokens/cc_typography_params.dart';
+import '../../core/extensions/cc_context_extension.dart';
 import '../padding/cc_padding.dart';
 import '../text/cc_text.dart';
 
@@ -15,15 +18,15 @@ class SkipBtn extends StatelessWidget {
     GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.translucent,
-      child: const SizedBox(
+      child: SizedBox(
         width: 103,
         height: 76,
         child: Center(
           child: CcText(
-            'Bỏ qua',
-            color: CcBaseColors.surfaceVariant,
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+            el.tr(CcLocaleKeys.common_skip),
+            color: context.ccColorScheme.onSurfaceVariant,
+            fontSize: CcTypographyParams.bodyLarge,
+            fontWeight: CcTypographyParams.medium,
             textAlign: TextAlign.center,
             align: Alignment.center,
           ),

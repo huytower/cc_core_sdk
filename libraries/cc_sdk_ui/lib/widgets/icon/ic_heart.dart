@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
-
 class IconHeart extends StatelessWidget {
   const IconHeart({
     Key? key,
@@ -19,25 +17,31 @@ class IconHeart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      isCircleIcon ? getCircleIcon() : getIcon();
+      isCircleIcon ? getCircleIcon(context) : getIcon(context);
 
-  Widget getIcon() => ShaderMask(
+  Widget getIcon(BuildContext context) => ShaderMask(
     shaderCallback: (Rect bounds) {
       return LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors:
             colors ??
-            const [CcBaseColors.actionPrimary, CcBaseColors.actionPrimary],
+            [
+              Theme.of(context).colorScheme.primary,
+              Theme.of(context).colorScheme.primary,
+            ],
       ).createShader(bounds);
     },
     child: Icon(Icons.favorite, color: Colors.white, size: height ?? 20),
   );
 
-  Widget getCircleIcon() => Container(
+  Widget getCircleIcon(BuildContext context) => Container(
     width: width ?? 30,
     height: height ?? 30,
-    decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-    child: getIcon(),
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      shape: BoxShape.circle,
+    ),
+    child: getIcon(context),
   );
 }

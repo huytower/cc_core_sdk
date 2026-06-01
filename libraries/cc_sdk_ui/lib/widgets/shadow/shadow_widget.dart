@@ -20,6 +20,7 @@ class ShadowWidget extends StatelessWidget {
     decoration: BoxDecoration(
       borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
       boxShadow: CcWidgetHelper.getBoxShadows(
+        context,
         bgColor: bgColor ?? CcBaseColors.white80,
         shadowColor: shadowColor ?? CcBaseColors.brand300,
       ),

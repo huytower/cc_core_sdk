@@ -1,5 +1,5 @@
 import 'package:catcher_2/catcher_2.dart';
-import 'package:cc_sdk_ui/core/helper/cc_open_dialog.dart';
+import 'package:cc_sdk_ui/core/helper/cc_dialog_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -33,7 +33,7 @@ class _CrashLogDevOverlayState extends State<CrashLogDevOverlay> {
     if (navContext == null) {
       return;
     }
-    CcOpenDialog.showBottomSheet(navContext, const CrashLogViewerPage());
+    CcDialogHelper.showModalBottomSheet(navContext, const CrashLogViewerPage());
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
+import 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
 import 'package:curved_navigation_bar_pro/curved_navigation_bar_pro.dart';
 import 'package:flutter/material.dart';
 
@@ -113,27 +114,32 @@ class CcCurvedNavigationBar extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     // Theme-aware default colors
-    final themeBackgroundColor = backgroundColor ??
-        (isDark ? CcBaseColors.neutral90 : CcBaseColors.white100);
+    final themeBackgroundColor =
+        backgroundColor ??
+        (isDark ? CcBaseColors.gray900 : CcBaseColors.white100);
     final themeActiveColor = activeColor ?? CcBaseColors.brand500;
     final themeActiveIconColor = activeIconColor ?? CcBaseColors.white100;
-    final themeInactiveColor = inactiveColor ??
+    final themeInactiveColor =
+        inactiveColor ??
         (isDark ? CcBaseColors.white50 : CcBaseColors.neutral50);
     final themeFabColor = fabColor ?? CcBaseColors.brand500;
-    final themeShadowColor = shadowColor ??
+    final themeShadowColor =
+        shadowColor ??
         (isDark ? CcBaseColors.transparent : CcBaseColors.neutral10);
 
     return CurvedNavigationBarPro(
       items: items
-          .map((item) => CurvedNavigationItemPro(
-                inactiveIcon: item.inactiveIcon,
-                activeIcon: item.activeIcon,
-                label: item.label,
-                badgeText: item.badgeText,
-                badgeColor: item.badgeColor,
-                badgeTextColor: item.badgeTextColor,
-                badgeWidget: item.badgeWidget,
-              ))
+          .map(
+            (item) => CurvedNavigationItemPro(
+              inactiveIcon: item.inactiveIcon,
+              activeIcon: item.activeIcon,
+              label: item.label,
+              badgeText: item.badgeText,
+              badgeColor: item.badgeColor,
+              badgeTextColor: item.badgeTextColor,
+              badgeWidget: item.badgeWidget,
+            ),
+          )
           .toList(),
       currentIndex: currentIndex,
       onTap: onTap,
@@ -143,21 +149,25 @@ class CcCurvedNavigationBar extends StatelessWidget {
       inactiveColor: themeInactiveColor,
       fabColor: themeFabColor,
       barHeight: barHeight ?? 110,
-      fabRadius: fabRadius ?? 28,
+      fabRadius: fabRadius ?? CcCircularParams.FAB,
       fabGap: fabGap ?? 10,
       fabSink: fabSink ?? 22,
-      notchShoulderRadius: notchShoulderRadius ?? 12,
-      cornerRadius: cornerRadius ?? 16,
+      notchShoulderRadius: notchShoulderRadius ?? CcCircularParams.NOTCH,
+      cornerRadius: cornerRadius ?? CcCircularParams.DIALOG,
       contentPadding: contentPadding ?? 8,
       elevation: elevation ?? 14,
       shadowColor: themeShadowColor,
-      animationDuration:
-          animationDuration ?? const Duration(milliseconds: 400),
+      animationDuration: animationDuration ?? const Duration(milliseconds: 400),
       animationCurve: animationCurve ?? Curves.easeInOutCubic,
-      activeTextStyle: activeTextStyle ??
-          const TextStyle(fontSize: 11, fontWeight: FontWeight.w800),
-      inactiveTextStyle: inactiveTextStyle ??
-          const TextStyle(fontSize: 10, fontWeight: FontWeight.w400),
+      activeTextStyle:
+          activeTextStyle ??
+          theme.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w800),
+      inactiveTextStyle:
+          inactiveTextStyle ??
+          theme.textTheme.labelSmall?.copyWith(
+            fontSize: 10,
+            fontWeight: FontWeight.w400,
+          ),
       inactiveIconSize: inactiveIconSize ?? 24,
       activeIconSize: activeIconSize ?? 22,
       navbarStyle: navbarStyle,

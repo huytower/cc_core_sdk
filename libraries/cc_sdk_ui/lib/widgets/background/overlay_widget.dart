@@ -12,7 +12,8 @@ class OverlayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Positioned.fill(
     child: Container(
-      color: (color ?? CcBaseColors.surfaceOverlay).withOpacity(opacity),
+      color: (color ?? Theme.of(context).colorScheme.surfaceVariant)
+          .withOpacity(opacity),
     ),
   );
 }

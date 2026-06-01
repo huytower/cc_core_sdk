@@ -10,6 +10,8 @@ class NotFoundPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Container(color: CcBaseColors.error));
+    return Scaffold(
+      body: Container(color: Theme.of(context).colorScheme.error),
+    );
   }
 }

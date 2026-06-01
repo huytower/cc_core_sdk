@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
-import 'package:cc_sdk_ui/core/helper/cc_open_dialog.dart';
+import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
+import 'package:cc_sdk_ui/core/helper/cc_dialog_helper.dart';
 import 'package:cc_sdk_ui/widgets/anim/fade_page_wrapper.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
@@ -60,7 +61,10 @@ class SimpleCubitPage extends StatelessWidget {
   Widget buildShowAppTrackLogBtn(context) {
     return CcBaseBtn(
       onTap: () {
-        CcOpenDialog.showBottomSheet(context, const CrashLogViewerPage());
+        CcDialogHelper.showModalBottomSheet(
+          context,
+          const CrashLogViewerPage(),
+        );
       },
       title: 'Show Track Log',
       bgColor: const [Colors.blue],
@@ -79,7 +83,7 @@ class SimpleCubitPage extends StatelessWidget {
             return CcText(
               state.counter.toString(),
               color: Colors.red,
-              fontSize: 32,
+              fontSize: CcTypographyParams.headlineLarge,
             );
           },
         ),

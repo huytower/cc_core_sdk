@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../core/config/tokens/cc_base_colors.dart';
+import '../../../core/extensions/cc_context_extension.dart';
 
 // Purpose:
 // small reusable widgets for loading states and empty API responses
@@ -10,8 +10,11 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CupertinoActivityIndicator(radius: 15, color: CcBaseColors.info),
+    return Center(
+      child: CupertinoActivityIndicator(
+        radius: 15,
+        color: context.ccColorScheme.primary,
+      ),
     );
   }
 }

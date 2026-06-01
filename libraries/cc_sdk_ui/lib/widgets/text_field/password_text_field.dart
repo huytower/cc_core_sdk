@@ -1,10 +1,11 @@
-import '../divider_line/cc_divider.dart';
-import '../space/cc_space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/helper/cc_widget_helper.dart';
+import '../divider_line/cc_divider.dart';
 import '../flex/cc_flex.dart';
+import '../space/cc_space.dart';
 
 class PasswordTextField extends StatelessWidget {
   const PasswordTextField(
@@ -38,12 +39,12 @@ class PasswordTextField extends StatelessWidget {
   final Widget? suffix;
 
   @override
-  Widget build(c) => Material(
+  Widget build(BuildContext context) => Material(
     color: Colors.transparent,
     child: CcColStart(
       children: [
         /// Section : Edit text
-        getEditTextWidget(),
+        getEditTextWidget(context),
 
         const CcSpaceSM(),
 
@@ -53,7 +54,7 @@ class PasswordTextField extends StatelessWidget {
     ),
   );
 
-  Widget getEditTextWidget() => Stack(
+  Widget getEditTextWidget(BuildContext context) => Stack(
     children: [
       /// Section : Edit text
       TextFormField(
@@ -65,10 +66,9 @@ class PasswordTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle:
               hintStyle ??
-              CcWidgetHelper.getTextStyleRoboto(
-                fontSize: 17,
+              Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontStyle: FontStyle.italic,
-                heightLine: 1.2,
+                height: 1.2,
               ),
         ),
 
@@ -78,7 +78,7 @@ class PasswordTextField extends StatelessWidget {
         keyboardType: TextInputType.text,
         style:
             textStyle ??
-            CcWidgetHelper.getTextStyleRoboto(fontSize: 18, heightLine: 1.2),
+            Theme.of(context).textTheme.titleMedium?.copyWith(height: 1.2),
         textInputAction: action ?? TextInputAction.next,
       ),
 

@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 
-/// CcBaseColors: The "Single Source of Truth" (SSOT) for the UI Library theme.
+/// CcBaseColors: The "Palette" for the UI Library.
 ///
-/// This file follows the **Design Token** principle, facilitating collaboration between
-/// Product Owners (PO), Designers, and Developers.
+/// This file defines raw primitives (hex codes) and standardized color steps.
+/// It acts as the "Paint Box" shared across multiple projects.
 ///
-/// ## Color Roles (Standard Design Principles)
-/// 1. **Primitives (Palette)**: Raw colors. Avoid using these directly in widgets.
-/// 2. **Semantic Tokens**: Named after their purpose. Use these in widgets.
+/// ## Principles
+/// - **Primitives Only**: Do not define semantic roles (like 'actionPrimary') here.
+/// - **Project Agnostic**: This file should be reusable in any app.
 ///
 /// ## Best Practices
 /// - All colors are [const] for performance.
-/// - Opacity is handled via 8-digit hex (AARRGGBB) to ensure they are compile-time constants.
+/// - Opacity is handled via 8-digit hex (AARRGGBB).
 class CcBaseColors {
   // ===========================================================================
-  // 1. PRIMITIVES (Figma: "Foundation" Collection)
+  // PRIMITIVES (The Palette)
   // ===========================================================================
 
-  // -- Neutral Palette (Black/Gray/White)
+  // -- Neutral Palette (Slate/Zinc Style)
   static const Color neutral100 = Color(0xFF000000);
-  static const Color neutral90 = Color(0xE6000000); // 90%
-  static const Color neutral80 = Color(0xCC000000); // 80%
-  static const Color neutral70 = Color(0xB3000000); // 70%
-  static const Color neutral50 = Color(0x80000000); // 50%
-  static const Color neutral40 = Color(0x66000000); // 40%
-  static const Color neutral30 = Color(0x4D000000); // 30%
-  static const Color neutral20 = Color(0x33000000); // 20%
-  static const Color neutral10 = Color(0x1A000000); // 10%
-  static const Color neutral5 = Color(0x0D000000); // 5%
+  static const Color neutral90 = Color(0xE6000000);
+  static const Color neutral80 = Color(0xCC000000);
+  static const Color neutral70 = Color(0xB3000000);
+  static const Color neutral50 = Color(0x80000000);
+  static const Color neutral40 = Color(0x66000000);
+  static const Color neutral30 = Color(0x4D000000);
+  static const Color neutral20 = Color(0x33000000);
+  static const Color neutral10 = Color(0x1A000000);
+  static const Color neutral5 = Color(0x0D000000);
 
   static const Color white100 = Color(0xFFFFFFFF);
   static const Color white80 = Color(0xCCFFFFFF);
@@ -39,58 +39,71 @@ class CcBaseColors {
   static const Color white15 = Color(0x26FFFFFF);
   static const Color white10 = Color(0x1AFFFFFF);
 
-  static const Color gray100 = Color(0xFFE2E2E2);
-  static const Color gray90 = Color(0xE5E2E2E2);
-  static const Color gray80 = Color(0xCCE2E2E2);
-  static const Color gray70 = Color(0xB2E2E2E2);
-  static const Color gray40 = Color(0x66E2E2E2);
+  // -- Gray Scale
+  static const Color gray900 = Color(0xFF111827);
+  static const Color gray800 = Color(0xFF1F2937);
+  static const Color gray700 = Color(0xFF374151);
+  static const Color gray600 = Color(0xFF4B5563);
+  static const Color gray500 = Color(0xFF6B7280);
+  static const Color gray400 = Color(0xFF9CA3AF);
+  static const Color gray300 = Color(0xFFD1D5DB);
+  static const Color gray200 = Color(0xFFE5E7EB);
+  static const Color gray100 = Color(0xFFF3F4F6);
+  static const Color gray50 = Color(0xFFF9FAFB);
 
-  // -- Brand Palette (Pink)
-  static const Color brand900 = Color(0xE5D81B60); // 90%
-  static const Color brand800 = Color(0xCCD81B60); // 80%
-  static const Color brand700 = Color(0xB2D81B60); // 70%
-  static const Color brand600 = Color(0xFFAD1457); // Darker (Pressed)
-  static const Color brand500 = Color(0xFFD81B60); // Primary (100%)
-  static const Color brand300 = Color(0x4CD81B60); // 30%
-  static const Color brand100 = Color(0x19D81B60); // 10%
+  // -- Indigo (Popular Modern Brand)
+  static const Color indigo900 = Color(0xFF312E81);
+  static const Color indigo700 = Color(0xFF4338CA);
+  static const Color indigo600 = Color(0xFF4F46E5);
+  static const Color indigo500 = Color(0xFF6366F1);
+  static const Color indigo300 = Color(0xFFA5B4FC);
+  static const Color indigo100 = Color(0xFFE0E7FF);
 
-  // -- Secondary Palette (Blue)
-  static const Color secondary500 = Color(0xFF2196F3);
-  static const Color secondary800 = Color(0xCC1E88E5);
+  // -- Violet
+  static const Color violet600 = Color(0xFF7C3AED);
+  static const Color violet500 = Color(0xFF8B5CF6);
+
+  // -- Teal & Emerald (Financial/Success)
+  static const Color teal600 = Color(0xFF0D9488);
+  static const Color teal500 = Color(0xFF14B8A6);
+  static const Color emerald600 = Color(0xFF059669);
+  static const Color emerald500 = Color(0xFF10B981);
+
+  // -- Brand Palette (Original Pink)
+  static const Color brand900 = Color(0xFF880E4F);
+  static const Color brand800 = Color(0xFFAD1457);
+  static const Color brand700 = Color(0xFFC2185B);
+  static const Color brand600 = Color(0xFFD81B60);
+  static const Color brand500 = Color(0xFFE91E63);
+  static const Color brand300 = Color(0xFFF06292);
+  static const Color brand100 = Color(0xFFF8BBD0);
+
+  // -- Secondary Palette (Modern Blue)
+  static const Color blue900 = Color(0xFF1E3A8A);
+  static const Color blue700 = Color(0xFF1D4ED8);
+  static const Color blue600 = Color(0xFF2563EB);
+  static const Color blue500 = Color(0xFF3B82F6);
+  static const Color blue300 = Color(0xFF93C5FD);
+  static const Color blue100 = Color(0xFFDBEAFE);
+
+  // -- Yellow Palette (Modern/Trending)
+  static const Color yellow900 = Color(0xFF713F12);
+  static const Color yellow800 = Color(0xFF854D0E);
+  static const Color yellow700 = Color(0xFFA16207);
+  static const Color yellow600 = Color(0xFFCA8A04);
+  static const Color yellow500 = Color(0xFFEAB308);
+  static const Color yellow400 = Color(0xFFFACC15);
+  static const Color yellow300 = Color(0xFFFDE047);
+  static const Color yellow200 = Color(0xFFFEF08A);
+  static const Color yellow100 = Color(0xFFFEF9C3);
+  static const Color yellow50 = Color(0xFFFEFCE8);
 
   // -- Status Palette
-  static const Color errorRed = Color(0xFFF44336);
-  static const Color successGreen = Color(0xFF4CAF50);
-  static const Color warningAmber = Color(0xFFFFC107);
-
-  // ===========================================================================
-  // 2. SEMANTIC TOKENS (Figma: "Theme" Collection)
-  // ===========================================================================
-
-  // -- Actions
-  static const Color actionPrimary = brand500;
-  static const Color actionPrimaryPressed = brand600;
-  static const Color actionDisabled = Color(0xFFE0E0E0);
-
-  // -- Content (Text & Icons)
-  static const Color textPrimary = neutral80;
-  static const Color textSecondary = neutral50;
-  static const Color textDisabled = neutral30;
-  static const Color textInvert = white100;
-
-  // -- Surface
-  static const Color surfaceDefault = white100;
-  static const Color surfaceVariant = gray100;
-  static const Color surfaceOverlay = neutral50;
-
-  // -- Feedback
-  static const Color success = successGreen;
-  static const Color warning = warningAmber;
-  static const Color error = errorRed;
-  static const Color info = secondary500;
+  static const Color errorRed = Color(0xFFEF4444);
+  static const Color successGreen = Color(0xFF10B981);
+  static const Color warningAmber = Color(0xFFF59E0B);
+  static const Color infoBlue = Color(0xFF3B82F6);
 
   // -- Utils
   static const Color transparent = Color(0x00000000);
-  static const Color shadow = neutral10;
-  static const Color divider = gray40;
 }

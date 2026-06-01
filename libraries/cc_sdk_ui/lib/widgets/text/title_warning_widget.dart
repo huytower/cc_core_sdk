@@ -1,4 +1,3 @@
-import '../../core/config/tokens/cc_base_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'cc_text.dart';
@@ -17,6 +16,6 @@ class TitleWarningWidget extends StatelessWidget {
     align: Alignment.centerLeft,
     fontWeight: FontWeight.w500,
     fontSize: 14,
-    color: textColor ?? CcBaseColors.error,
+    color: textColor ?? Theme.of(context).colorScheme.error,
   );
 }

@@ -1,4 +1,6 @@
+import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
 class ProfileTabContent extends StatelessWidget {
@@ -13,9 +15,9 @@ class ProfileTabContent extends StatelessWidget {
           const Icon(Icons.person_rounded, size: 64),
           const SizedBox(height: 16),
           CcText(
-            context.tr(CcLocaleKeys.nav_profile),
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+            el.tr(CcLocaleKeys.nav_profile),
+            fontSize: CcTypographyParams.headlineSmall,
+            fontWeight: CcTypographyParams.bold,
           ),
         ],
       ),

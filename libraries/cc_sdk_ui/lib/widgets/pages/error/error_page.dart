@@ -1,6 +1,9 @@
+import 'package:cc_sdk/export_cc_sdk.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/context_extensions.dart';
 
-import '../../../core/config/tokens/cc_base_colors.dart';
+import '../../../core/extensions/cc_context_extension.dart';
 import '../../../core/helper/cc_widget_helper.dart';
 import '../../button/cc_back_btn.dart';
 import '../../button/cc_debounce_widget.dart';
@@ -9,10 +12,9 @@ import '../../space/cc_space.dart';
 import '../../text/cc_text.dart';
 
 class ErrorPage extends StatelessWidget {
-  const ErrorPage({Key? key, this.message = 'An error occurred', this.onRetry})
-    : super(key: key);
+  const ErrorPage({Key? key, this.message, this.onRetry}) : super(key: key);
 
-  final String message;
+  final String? message;
   final VoidCallback? onRetry;
 
   @override
@@ -22,16 +24,17 @@ class ErrorPage extends StatelessWidget {
         onPress: () => Navigator.of(context).pop(),
         icon: Icons.arrow_back,
       ),
-      title: const CcText('Error'),
+      title: CcText(el.tr(CcLocaleKeys.app_error_general)),
     ),
     body: CcColCenter(
       children: [
-        const Icon(Icons.error_outline, size: 80, color: CcBaseColors.errorRed),
+        Icon(Icons.error_outline, size: 80, color: context.ccColorScheme.error),
         const CcSpaceLG(),
         CcText(
-          message,
-          fontSize: 16,
-          color: CcBaseColors.textSecondary,
+          message ?? el.tr(CcLocaleKeys.app_error_general),
+          textStyle: context.ccTextTheme.bodyLarge?.copyWith(
+            color: context.ccColorScheme.onSurfaceVariant,
+          ),
           textAlign: TextAlign.center,
         ),
         const CcSpaceLG(),
@@ -41,13 +44,15 @@ class ErrorPage extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               decoration: BoxDecoration(
-                color: CcBaseColors.brand500,
+                color: context.ccColorScheme.primary,
                 borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
               ),
-              child: const CcText(
-                'Retry',
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+              child: CcText(
+                el.tr(CcLocaleKeys.app_error_retry),
+                textStyle: context.textTheme.labelLarge?.copyWith(
+                  color: context.ccColorScheme.onPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),

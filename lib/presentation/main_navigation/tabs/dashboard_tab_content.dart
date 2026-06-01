@@ -1,4 +1,6 @@
+import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
 class DashboardTabContent extends StatelessWidget {
@@ -13,9 +15,9 @@ class DashboardTabContent extends StatelessWidget {
           const Icon(Icons.dashboard_rounded, size: 64),
           const CcSpaceLG(),
           CcText(
-            context.tr(CcLocaleKeys.nav_dashboard),
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+            el.tr(CcLocaleKeys.nav_dashboard),
+            fontSize: CcTypographyParams.headlineSmall,
+            fontWeight: CcTypographyParams.bold,
           ),
         ],
       ),

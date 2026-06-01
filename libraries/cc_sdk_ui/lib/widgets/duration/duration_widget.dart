@@ -18,7 +18,7 @@ class DurationWidget extends StatelessWidget {
     child: CcText(
       duration,
       fontSize: 12,
-      color: CcBaseColors.textInvert,
+      color: Theme.of(context).colorScheme.onPrimary,
     ),
   );
 }

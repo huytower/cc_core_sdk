@@ -1,6 +1,7 @@
 import 'package:cc_sdk/core/config/cc_app_track_info.dart';
 import 'package:cc_sdk/core/crash_reporting/cc_crash_log_paths.dart';
 import 'package:cc_sdk/core/helper/cc_device_info_helper.dart';
+import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 import 'package:cc_sdk_ui/widgets/divider_line/cc_divider.dart';
 import 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
@@ -50,7 +51,10 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
         const CcSpaceSM(),
         CcCopyWidget(
           title: _appInfo,
-          child: AppNameWidget(_appInfo, fontSize: 12),
+          child: AppNameWidget(
+            _appInfo,
+            fontSize: CcTypographyParams.bodySmall,
+          ),
         ),
         const CcSpaceSM(),
         const CcDividerLine(color: Colors.grey),
@@ -58,7 +62,7 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
         const CcText(
           'Long-press anywhere on the app to open this screen (debug).',
           color: Colors.grey,
-          fontSize: 11,
+          fontSize: CcTypographyParams.labelSmall,
           textAlign: TextAlign.center,
           align: Alignment.center,
         ),
@@ -72,7 +76,7 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
           child: CcText(
             CcCrashLogPaths.logFileName,
             color: Colors.grey,
-            fontSize: 11,
+            fontSize: CcTypographyParams.labelSmall,
             textAlign: TextAlign.center,
             align: Alignment.center,
           ),
@@ -93,7 +97,7 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
       return const CcText(
         'No crash logs yet.\nTrigger an error or restart after a crash.',
         color: Colors.grey,
-        fontSize: 12,
+        fontSize: CcTypographyParams.bodySmall,
         textAlign: TextAlign.center,
         align: Alignment.center,
       );
@@ -107,7 +111,10 @@ class _CrashLogViewerPageState extends State<CrashLogViewerPage> {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: SelectableText(
             _logContent,
-            style: const TextStyle(fontSize: 11, height: 1.4),
+            style: const TextStyle(
+              fontSize: CcTypographyParams.labelSmall,
+              height: 1.4,
+            ),
           ),
         ),
       ),

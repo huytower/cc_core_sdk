@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:theme/data/data_source/color/prj_color.dart';
 
 import '../../base/getx/cc_get_view.dart';
 import '../get_x/comment_controller.dart';
@@ -59,7 +60,7 @@ class CommentPage extends CcGetView<CommentController> with CcPullRefreshMixin {
                     children: [
                       Text(
                         comment.email,
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: PrjColors.mediumEmphasis),
                       ),
                       const CcSpaceXS(),
                       Text(comment.body),

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -45,7 +46,7 @@ class _NavigationBarState extends State<NavigationBar>
 
   @override
   String get backPressMessage {
-    return context.tr('common.press_back_again_to_exit');
+    return el.tr('common.press_back_again_to_exit');
   }
 
   // Example state management implementation
@@ -102,23 +103,23 @@ class _NavigationBarState extends State<NavigationBar>
     CcCurvedNavigationItem(
       inactiveIcon: Icons.dashboard_outlined,
       activeIcon: Icons.dashboard_rounded,
-      label: context.tr(CcLocaleKeys.nav_dashboard),
+      label: el.tr(CcLocaleKeys.nav_dashboard),
     ),
     _showQuickTestAsSecondTab
         ? CcCurvedNavigationItem(
             inactiveIcon: Icons.bug_report_outlined,
             activeIcon: Icons.bug_report_rounded,
-            label: context.tr(CcLocaleKeys.nav_quick_test),
+            label: el.tr(CcLocaleKeys.nav_quick_test),
           )
         : CcCurvedNavigationItem(
             inactiveIcon: Icons.notifications_outlined,
             activeIcon: Icons.notifications_rounded,
-            label: context.tr(CcLocaleKeys.nav_notification),
+            label: el.tr(CcLocaleKeys.nav_notification),
           ),
     CcCurvedNavigationItem(
       inactiveIcon: Icons.person_outline_rounded,
       activeIcon: Icons.person_rounded,
-      label: context.tr(CcLocaleKeys.nav_profile),
+      label: el.tr(CcLocaleKeys.nav_profile),
     ),
   ];
 

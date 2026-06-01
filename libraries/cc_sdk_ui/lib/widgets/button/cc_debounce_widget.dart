@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/extensions/cc_context_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../text/cc_text.dart';
 
@@ -73,7 +73,7 @@ class _CcDebounceState extends State<CcDebounce> {
           gradient: LinearGradient(
             colors:
                 widget.bgColor ??
-                [CcBaseColors.brand700, CcBaseColors.brand700],
+                [context.ccColorScheme.primary, context.ccColorScheme.primary],
           ),
         ),
         child: Center(
@@ -84,7 +84,7 @@ class _CcDebounceState extends State<CcDebounce> {
                 Icon(
                   widget.icon,
                   size: 15,
-                  color: widget.iconColor ?? CcBaseColors.white80,
+                  color: widget.iconColor ?? context.ccColorScheme.onPrimary,
                 ),
                 const SizedBox(width: 8),
               ],
@@ -92,7 +92,7 @@ class _CcDebounceState extends State<CcDebounce> {
                 widget.title ?? '',
                 color: widget.isEnable
                     ? widget.textColor
-                    : CcBaseColors.textSecondary,
+                    : context.ccColorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.bold,
               ),
             ],

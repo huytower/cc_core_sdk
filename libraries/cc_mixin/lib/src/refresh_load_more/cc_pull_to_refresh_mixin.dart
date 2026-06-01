@@ -2,6 +2,7 @@ import 'package:cc_sdk_ui/widgets/pull_to_refresh/cc_refresh_indicator.dart';
 import 'package:cc_sdk_ui/widgets/pull_to_refresh/cc_refresh_indicator_icon.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:theme/data/data_source/color/prj_color.dart';
 
 /// Mixin providing pull-to-refresh functionality that is state-management agnostic.
 ///
@@ -53,18 +54,15 @@ mixin CcPullRefreshMixin {
   /// Default loading widget shown during refresh
   /// Override this to provide a custom loading widget
   Widget get defaultLoadingWidget => const SizedBox(
-        width: 24,
-        height: 24,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      );
+    width: 24,
+    height: 24,
+    child: CircularProgressIndicator(strokeWidth: 2),
+  );
 
   /// Default complete widget shown after refresh completes
   /// Override this to provide a custom complete widget
-  Widget get defaultCompleteWidget => const Icon(
-        Icons.check_circle,
-        color: Colors.green,
-        size: 24,
-      );
+  Widget get defaultCompleteWidget =>
+      const Icon(Icons.check_circle, color: PrjColors.success, size: 24);
 
   /// Default image size for the indicator icons
   double get defaultImageSize => 40;
@@ -73,7 +71,8 @@ mixin CcPullRefreshMixin {
   double get defaultIndicatorSize => 80;
 
   /// Default duration to show the complete state
-  Duration get defaultCompleteStateDuration => const Duration(milliseconds: 100);
+  Duration get defaultCompleteStateDuration =>
+      const Duration(milliseconds: 100);
 
   /// Builds the loading widget with optional custom widget
   Widget buildLoadingWidget(Widget? customLoadingWidget) {
@@ -131,7 +130,8 @@ mixin CcPullRefreshMixin {
       onCancel: onCancel,
       onRefresh: onRefresh,
       onStateChanged: onIndicatorStateChanged,
-      completeStateDuration: completeStateDuration ?? defaultCompleteStateDuration,
+      completeStateDuration:
+          completeStateDuration ?? defaultCompleteStateDuration,
       trigger: trigger ?? IndicatorTrigger.leadingEdge,
       triggerMode: triggerMode ?? IndicatorTriggerMode.onEdge,
       scrollDirection: scrollDirection ?? Axis.vertical,

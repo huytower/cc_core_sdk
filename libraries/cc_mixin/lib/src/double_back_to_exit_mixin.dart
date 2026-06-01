@@ -1,7 +1,11 @@
 import 'dart:io';
 
+import 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:theme/data/data_source/color/prj_color.dart';
 
 /// Mixin for implementing "press back twice to exit" functionality.
 ///
@@ -48,7 +52,7 @@ mixin DoubleBackToExitMixin<T extends StatefulWidget> on State<T> {
   /// Message shown on first back press.
   ///
   /// Override this to provide localized message.
-  String get backPressMessage => 'Press back again to exit';
+  String get backPressMessage => el.tr('common.press_back_again_to_exit');
 
   /// Enable double back behavior on iOS (default: false).
   bool get enableDoubleBackOnIOS => false;
@@ -102,29 +106,17 @@ mixin DoubleBackToExitMixin<T extends StatefulWidget> on State<T> {
 
   /// Show back press message to user.
   void _showBackPressMessage() {
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
-
-    // Clear any existing snackbars to prevent stacking
-    scaffoldMessenger.hideCurrentSnackBar();
-
-    scaffoldMessenger.showSnackBar(
-      SnackBar(
-        content: Text(
-          backPressMessage,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        duration: _messageDuration,
-        behavior: SnackBarBehavior.floating,
-        // Modern styling: rounded corners and slight margin
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        margin: const EdgeInsets.all(16),
-        // Use a subtle dark theme or your primary brand color
-        backgroundColor: Colors.grey[850],
-        elevation: 6,
+    CcSnackBarHelper.showSnackBar(
+      message: backPressMessage,
+      duration: _messageDuration,
+      backgroundColor: PrjColors.darkSurface,
+      textColor: PrjColors.onPrimary,
+      fontWeight: FontWeight.w500,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(CcCircularParams.RADIUS_MD),
       ),
+      margin: const EdgeInsets.all(CcPaddingParams.PAGE_SM),
+      elevation: 6,
     );
   }
 

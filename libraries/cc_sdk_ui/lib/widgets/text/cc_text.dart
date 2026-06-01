@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_typography_params.dart';
+
 class CcText extends StatelessWidget {
   final String? text;
   final Alignment? align;
@@ -31,6 +33,8 @@ class CcText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final defaultStyle = Theme.of(context).textTheme.bodyMedium;
+
     return Align(
       alignment: align ?? Alignment.centerLeft,
       child: Padding(
@@ -44,18 +48,21 @@ class CcText extends StatelessWidget {
           overflow: overflow ?? TextOverflow.ellipsis,
           text: TextSpan(
             text: text ?? '',
-            style: textStyle ?? _getTextStyle(),
+            style: textStyle ?? _getTextStyle(defaultStyle),
           ),
         ),
       ),
     );
   }
 
-  TextStyle _getTextStyle() => TextStyle(
-        height: heightLine ?? 1.2,
-        color: color ?? Colors.white,
-        fontSize: fontSize ?? 14.0,
-        fontWeight: fontWeight ?? FontWeight.w400,
-        fontStyle: fontStyle ?? FontStyle.normal,
-      );
+  TextStyle _getTextStyle(TextStyle? baseStyle) {
+    final style = baseStyle ?? const TextStyle();
+    return style.copyWith(
+      height: heightLine ?? 1.2,
+      color: color,
+      fontSize: fontSize ?? CcTypographyParams.bodyMedium,
+      fontWeight: fontWeight ?? CcTypographyParams.regular,
+      fontStyle: fontStyle ?? FontStyle.normal,
+    );
+  }
 }

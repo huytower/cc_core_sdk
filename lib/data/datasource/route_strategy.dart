@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:provider/provider.dart';
-import 'package:theme/core/utils/theme_utils.dart';
+import 'package:theme/core/helper/theme_helper.dart';
 import 'package:theme/presentation/provider/theme_provider.dart';
 
 import '../../core/navigation/config/auto_route/app_router.dart';

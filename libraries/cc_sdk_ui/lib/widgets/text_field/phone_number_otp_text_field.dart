@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/extensions/cc_context_extension.dart';
 
 class PhoneNumberOtpTextField extends StatelessWidget {
   const PhoneNumberOtpTextField({
@@ -28,8 +28,7 @@ class PhoneNumberOtpTextField extends StatelessWidget {
             LengthLimitingTextInputFormatter(6),
           ],
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 24,
+          style: context.ccTextTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.bold,
             letterSpacing: 8,
           ),
@@ -42,7 +41,7 @@ class PhoneNumberOtpTextField extends StatelessWidget {
         Container(
           height: 1,
           width: double.infinity,
-          color: colorDivider ?? CcBaseColors.surfaceVariant,
+          color: colorDivider ?? context.ccColorScheme.outlineVariant,
         ),
       ],
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../space/cc_space.dart';
 
@@ -10,14 +9,14 @@ class ExpandedCollapseCardWidget extends StatefulWidget {
     required this.title,
     required this.child,
     this.backgroundColor = Colors.white,
-    this.shadowColor = CcBaseColors.divider,
+    this.shadowColor,
     this.isExpanded = false,
   }) : super(key: key);
 
   final String title;
   final Widget child;
   final Color backgroundColor;
-  final Color shadowColor;
+  final Color? shadowColor;
   final bool isExpanded;
 
   @override
@@ -43,7 +42,10 @@ class _ExpandedCollapseCardWidgetState
       borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
       boxShadow: [
         BoxShadow(
-          color: widget.shadowColor.withOpacity(0.5),
+          color:
+              (widget.shadowColor ??
+                      Theme.of(context).colorScheme.outlineVariant)
+                  .withOpacity(0.5),
           blurRadius: 8,
           offset: const Offset(0, 2),
         ),

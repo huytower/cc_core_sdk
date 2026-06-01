@@ -1,5 +1,5 @@
-import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:theme/data/data_source/color/prj_color.dart';
 
 class IncomeButton extends StatefulWidget {
   const IncomeButton({super.key, required this.onTap});
@@ -60,20 +60,16 @@ class _IncomeButtonState extends State<IncomeButton>
               height: 36,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [
-                    CcBaseColors.secondary500,
-                    CcBaseColors.secondary800,
-                  ],
+                  colors: [PrjColors.secondary, PrjColors.secondaryContainer],
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Income',
-                  style: TextStyle(
-                    color: CcBaseColors.white100,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: PrjColors.onSecondary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
                   ),
                 ),
               ),

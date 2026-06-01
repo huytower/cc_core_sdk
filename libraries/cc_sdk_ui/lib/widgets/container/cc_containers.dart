@@ -32,7 +32,7 @@ class CcContainerCircle extends StatelessWidget {
       color: bgColor,
       border: Border.all(color: strokeColor, width: strokeWidth),
       boxShadow: hasShadow
-          ? CcWidgetHelper.getBoxShadows(shadowColor: shadowColor)
+          ? CcWidgetHelper.getBoxShadows(context, shadowColor: shadowColor)
           : const [],
     ),
     child: child ?? const SizedBox(),

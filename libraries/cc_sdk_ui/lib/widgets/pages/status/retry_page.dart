@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
-
-import '../../../../core/config/tokens/cc_base_colors.dart';
+import 'package:message/cc_locale_keys.dart';
 
 /// Retry page displayed when an action fails and can be retried.
 /// Shows a retry button to attempt the action again.
@@ -21,17 +21,16 @@ class RetryPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               Icons.refresh,
               size: 64,
-              color: CcBaseColors.error,
+              color: Theme.of(context).colorScheme.error,
             ),
             const SizedBox(height: 16),
             Text(
               message,
-              style: const TextStyle(
-                fontSize: 16,
-                color: CcBaseColors.error,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Theme.of(context).colorScheme.error,
               ),
               textAlign: TextAlign.center,
             ),
@@ -39,7 +38,7 @@ class RetryPage extends StatelessWidget {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: onRetry,
-                child: const Text('Retry'),
+                child: Text(el.tr(CcLocaleKeys.app_error_retry)),
               ),
             ],
           ],

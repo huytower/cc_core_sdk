@@ -1,8 +1,11 @@
+import 'package:cc_sdk/export_cc_sdk.dart' hide getIt;
+import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
 import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +30,7 @@ class CounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Counter Example')),
+      appBar: AppBar(title: CcText(el.tr(CcLocaleKeys.home_title))),
       body: const CcColCenter(
         children: [
           CounterDisplay(),
@@ -53,13 +56,15 @@ class CounterDisplay extends StatelessWidget {
         } else if (state is CounterLoaded) {
           return CcText(
             '${state.counter.value}',
-            fontSize: 32,
+            fontSize: CcTypographyParams.headlineLarge,
             color: Colors.blue,
           );
         } else if (state is CounterError) {
-          return Text('Error: ${state.message}');
+          return CcText(
+            '${el.tr(CcLocaleKeys.app_error_general)}: ${state.message}',
+          );
         }
-        return const Text('Press the button to start!');
+        return CcText(el.tr(CcLocaleKeys.home_welcome));
       },
     );
   }

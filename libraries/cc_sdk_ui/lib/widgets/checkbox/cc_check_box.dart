@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/config/tokens/cc_circular_params.dart';
 
 class CcCheckBox extends StatelessWidget {
-  const CcCheckBox({
-    Key? key,
-    required this.isChecked,
-    required this.onChanged,
-  }) : super(key: key);
+  const CcCheckBox({Key? key, required this.isChecked, required this.onChanged})
+    : super(key: key);
 
   final bool isChecked;
   final ValueChanged<bool> onChanged;
@@ -19,17 +16,20 @@ class CcCheckBox extends StatelessWidget {
       width: 24,
       height: 24,
       decoration: BoxDecoration(
-        color: isChecked ? CcBaseColors.info : Colors.transparent,
+        color: isChecked
+            ? Theme.of(context).colorScheme.primary
+            : Colors.transparent,
         border: Border.all(
-          color: isChecked ? CcBaseColors.info : Colors.grey,
+          color: isChecked
+              ? Theme.of(context).colorScheme.primary
+              : Colors.grey,
           width: 2,
         ),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(CcCircularParams.RADIUS_XS),
       ),
-      child:
-          isChecked
-              ? const Icon(Icons.check, size: 16, color: Colors.white)
-              : null,
+      child: isChecked
+          ? const Icon(Icons.check, size: 16, color: Colors.white)
+          : null,
     ),
   );
 }

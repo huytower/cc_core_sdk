@@ -4,8 +4,8 @@ import 'package:cc_sdk/core/extensions/common/cc_when_expression.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/extensions/cc_context_extension.dart';
 import '../flex/cc_flex.dart';
 import '../space/cc_space.dart';
 import '../text/cc_text.dart';
@@ -14,7 +14,7 @@ import 'cc_action_btn_in_dialog.dart';
 /// Popular widgets :
 /// Basic dialog is shown on UI
 /// ex.
-/// CcDialogUtils.showDialogConfirm(CcBaseDialog(desc: 'ABC\nABC', ));
+/// CcDialogHelper.showConfirmationDialog(onTapConfirm: () {}, desc: 'ABC\nABC', );
 class CcBaseDialog extends StatelessWidget {
   const CcBaseDialog({
     Key? key,
@@ -48,7 +48,7 @@ class CcBaseDialog extends StatelessWidget {
   final String? agreeText, cancelText, desc;
 
   @override
-  Widget build(BuildContext context) => buildDialogWidget();
+  Widget build(BuildContext context) => buildDialogWidget(context);
 
   Widget buildActionButtonsWidget() => CcActionBtnInDialog(
     onTapCancel: onTapCancel,
@@ -61,17 +61,17 @@ class CcBaseDialog extends StatelessWidget {
     dividerColor: dividerColor,
   );
 
-  Widget buildDialogBodyWidget() => CcColStart(
+  Widget buildDialogBodyWidget(BuildContext context) => CcColStart(
     children: [
       /// dialog description
-      buildDesc(),
+      buildDesc(context),
 
       /// action buttons
       isActionBtnVisible ? buildActionButtonsWidget() : const SizedBox(),
     ],
   );
 
-  Widget buildDesc() => Expanded(
+  Widget buildDesc(BuildContext context) => Expanded(
     child: CcRowBetween(
       children: [
         const CcSpaceLG(),
@@ -87,9 +87,10 @@ class CcBaseDialog extends StatelessWidget {
           child: CcText(
             desc,
             align: Alignment.centerLeft,
-            color: descTextColor ?? CcBaseColors.textSecondary,
-            fontSize: 13.0,
-            heightLine: 1.2,
+            textStyle: context.ccTextTheme.bodyMedium?.copyWith(
+              color: descTextColor ?? context.ccColorScheme.onSurfaceVariant,
+              height: 1.2,
+            ),
             maxLines: maxLines,
             marginLeft: CcPaddingParams.PAGE_MD,
             marginRight: CcPaddingParams.PAGE_MD,
@@ -102,14 +103,9 @@ class CcBaseDialog extends StatelessWidget {
     ),
   );
 
-  Widget buildDialogWidget() => Dialog(
+  Widget buildDialogWidget(BuildContext context) => Dialog(
     /// border padding at presentation left & presentation right
-    insetPadding: const EdgeInsets.only(
-      bottom: 27.0,
-      left: 15.0,
-      right: 15.0,
-      top: 15.0,
-    ),
+    insetPadding: const EdgeInsets.all(15.0),
 
     /// MUST set transparent bgColor to able avoid around white padding space
     backgroundColor: Colors.transparent,
@@ -124,8 +120,10 @@ class CcBaseDialog extends StatelessWidget {
         child: Container(
           width: Get.width,
           height: isActionBtnVisible ? 145 : 75,
-          decoration: BoxDecoration(color: bgColor ?? CcBaseColors.white80),
-          child: buildDialogBodyWidget(),
+          decoration: BoxDecoration(
+            color: bgColor ?? context.ccColorScheme.surface.withOpacity(0.8),
+          ),
+          child: buildDialogBodyWidget(context),
         ),
       ),
     ),

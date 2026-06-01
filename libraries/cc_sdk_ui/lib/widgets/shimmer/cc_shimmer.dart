@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
+import '../../core/config/tokens/cc_circular_params.dart';
+
 class CcShimmer extends StatelessWidget {
   const CcShimmer({
     Key? key,
@@ -36,7 +38,9 @@ class CcShimmer extends StatelessWidget {
         height: height,
         margin: margin,
         decoration: BoxDecoration(
-          borderRadius: borderRadius ?? BorderRadius.circular(10),
+          borderRadius:
+              borderRadius ??
+              BorderRadius.circular(CcCircularParams.SQUARE_TOP),
           color: Colors.grey[400],
         ),
       ),

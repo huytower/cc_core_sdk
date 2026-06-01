@@ -51,7 +51,9 @@ class CcTextField extends StatelessWidget {
           border: InputBorder.none,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: CcBaseColors.secondary500),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ),
       ),

@@ -33,7 +33,10 @@ class CcBodyShowMessage extends StatelessWidget {
         title.isNotEmpty
             ? Container(
                 margin: const EdgeInsets.only(bottom: 20, top: 10),
-                child: Text(title, style: const TextStyle(fontSize: 24)),
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
               )
             : const SizedBox(),
         child,

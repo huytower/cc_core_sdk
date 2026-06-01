@@ -1,5 +1,5 @@
-import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:theme/data/data_source/color/prj_color.dart';
 
 class ExpenseButton extends StatefulWidget {
   const ExpenseButton({super.key, required this.onTap});
@@ -60,17 +60,16 @@ class _ExpenseButtonState extends State<ExpenseButton>
               height: 36,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [CcBaseColors.brand500, CcBaseColors.brand900],
+                  colors: [PrjColors.primary, PrjColors.primaryGradientEnd],
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Expense',
-                  style: TextStyle(
-                    color: CcBaseColors.white100,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: PrjColors.onPrimary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
                   ),
                 ),
               ),

@@ -1,9 +1,11 @@
+import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
 import 'package:cc_sdk_ui/widgets/state/base_progress_indicator.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
+import 'package:theme/data/data_source/color/prj_color.dart';
 
 /// Load More ui
 /// Only works after was included into `RefreshIndicator` ui
@@ -43,10 +45,10 @@ class CcLoadMoreItem extends LoadMoreDelegate {
     String text = builder(status);
 
     if (status == LoadMoreStatus.fail) {
-      return buildText(text, color: Colors.red);
+      return buildText(text, color: PrjColors.error);
     }
     if (status == LoadMoreStatus.idle) {
-      return buildText(text, color: Colors.orange);
+      return buildText(text, color: PrjColors.warning);
     }
     if (status == LoadMoreStatus.loading) {
       return buildIcLoading(text);
@@ -76,8 +78,8 @@ class CcLoadMoreItem extends LoadMoreDelegate {
   }) {
     return CcText(
       text,
-      fontSize: 16,
-      color: color ?? Colors.grey,
+      fontSize: CcTypographyParams.bodyLarge,
+      color: color ?? PrjColors.mediumEmphasis,
       textAlign: textAlign ?? TextAlign.center,
       align: align ?? Alignment.center,
     );

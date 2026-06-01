@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:injectable/injectable.dart';
 
@@ -94,4 +95,41 @@ class CcDeviceHelper {
 
   /// Checks if the current device locale is Vietnamese.
   static bool isVietnameseLocale() => Platform.localeName.contains('VN');
+
+  // ==========================================================================
+  // ORIENTATION CONTROL HELPERS
+  // ==========================================================================
+
+  /// Set orientation to landscape only.
+  static Future<void> setLandscape() async {
+    try {
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+    } catch (e) {
+      debugPrint('Error setting landscape orientation: $e');
+    }
+  }
+
+  /// Set orientation to allow both portrait and landscape.
+  static Future<void> setOrientationDefault() async {
+    try {
+      await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+    } catch (e) {
+      debugPrint('Error setting default orientation: $e');
+    }
+  }
+
+  /// Set orientation to portrait only.
+  static Future<void> setPortrait() async {
+    try {
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    } catch (e) {
+      debugPrint('Error setting portrait orientation: $e');
+    }
+  }
 }

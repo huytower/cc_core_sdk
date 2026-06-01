@@ -1,71 +1,86 @@
 import 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 import 'package:flutter/material.dart';
 
-/// PrjColors: Maps the UI Library's design tokens to the application's specific
-/// color requirements.
+/// PrjColors: The Single Source of Truth (SSOT) for the application's look and feel.
+///
+/// This file maps generic "Palette Primitives" from the SDK to specific
+/// "Semantic Roles" for this application.
 ///
 /// ## Principles
-/// - Avoid defining raw hex codes here.
-/// - Map those names to the design token SSOT in `cc_sdk_ui.CcBaseColors`.
-///
-/// ## Usage (App Side)
-/// ```dart
-/// final cs = Theme.of(context).colorScheme;
-/// final primary = cs.primary; // backed by PrjColors.primary -> CcBaseColors
-/// ```
-///
-/// Note: To change brand/primitive values, update `libraries/cc_sdk_ui/lib/core/config/tokens/cc_base_colors.dart`.
+/// - **Role Ownership**: This is the ONLY place to define what a color "means" for this app.
+/// - **Primitive Mapping**: Map names to `CcBaseColors` primitives.
+/// - **Zero Redundancy**: If you change the primary color, change it HERE.
 abstract final class PrjColors {
   PrjColors._();
 
-  // -- Brand/Primary
-  static const Color primary = CcBaseColors.actionPrimary;
-  static const Color onPrimary = CcBaseColors.textInvert;
+  // ===========================================================================
+  // BRAND & PRIMARY
+  // ===========================================================================
+  static const Color primary = CcBaseColors.brand500;
+  static const Color onPrimary = CcBaseColors.white100;
   static const Color primaryContainer = CcBaseColors.brand300;
   static const Color onPrimaryContainer = CcBaseColors.neutral100;
-  static const Color primaryPressed = CcBaseColors.actionPrimaryPressed;
+  static const Color primaryPressed = CcBaseColors.brand600;
+  static const Color primaryGradientEnd = CcBaseColors.brand900;
 
-  // -- Secondary
-  static const Color secondary = CcBaseColors.secondary500;
-  static const Color onSecondary = CcBaseColors.textInvert;
-  static const Color secondaryContainer = CcBaseColors.secondary800;
-  static const Color onSecondaryContainer = CcBaseColors.textInvert;
+  // ===========================================================================
+  // SECONDARY
+  // ===========================================================================
+  static const Color secondary = CcBaseColors.blue500;
+  static const Color onSecondary = CcBaseColors.white100;
+  static const Color secondaryContainer = CcBaseColors.blue700;
+  static const Color onSecondaryContainer = CcBaseColors.white100;
 
-  // -- Status/Feedback
-  static const Color success = CcBaseColors.success;
-  static const Color onSuccess = CcBaseColors.textInvert;
+  // ===========================================================================
+  // STATUS & FEEDBACK
+  // ===========================================================================
+  static const Color success = CcBaseColors.successGreen;
+  static const Color onSuccess = CcBaseColors.white100;
 
-  static const Color warning = CcBaseColors.warning;
+  static const Color warning = CcBaseColors.warningAmber;
   static const Color onWarning = CcBaseColors.neutral100;
 
-  static const Color error = CcBaseColors.error;
-  static const Color onError = CcBaseColors.textInvert;
+  static const Color error = CcBaseColors.errorRed;
+  static const Color onError = CcBaseColors.white100;
 
-  static const Color info = CcBaseColors.info;
-  static const Color onInfo = CcBaseColors.textInvert;
+  static const Color info = CcBaseColors.infoBlue;
+  static const Color onInfo = CcBaseColors.white100;
 
-  // -- Surfaces
-  static const Color background = CcBaseColors.surfaceDefault;
-  static const Color onBackground = CcBaseColors.textPrimary;
+  // ===========================================================================
+  // SURFACES & BACKGROUNDS
+  // ===========================================================================
 
-  static const Color surface = CcBaseColors.surfaceDefault;
-  static const Color onSurface = CcBaseColors.textPrimary;
-  static const Color surfaceVariant = CcBaseColors.surfaceVariant;
-  static const Color onSurfaceVariant = CcBaseColors.textSecondary;
-  static const Color surfaceOverlay = CcBaseColors.surfaceOverlay;
+  // -- Light Mode
+  static const Color background = CcBaseColors.white100;
+  static const Color onBackground = CcBaseColors.neutral80;
 
-  // -- Text Emphasis
-  static const Color highEmphasis = CcBaseColors.textPrimary;
-  static const Color mediumEmphasis = CcBaseColors.textSecondary;
-  static const Color disabled = CcBaseColors.textDisabled;
-  static const Color hint = CcBaseColors.textDisabled;
+  static const Color surface = CcBaseColors.white100;
+  static const Color onSurface = CcBaseColors.neutral80;
+  static const Color surfaceVariant = CcBaseColors.gray100;
+  static const Color onSurfaceVariant = CcBaseColors.neutral50;
+  static const Color surfaceOverlay = CcBaseColors.neutral50;
 
-  // -- Borders/Dividers
+  // -- Dark Mode Specifics
+  static const Color darkBackground = CcBaseColors.neutral100;
+  static const Color darkSurface = CcBaseColors.gray900;
+  static const Color darkSurfaceVariant = CcBaseColors.gray800;
+  static const Color darkDivider = CcBaseColors.gray50;
+
+  // ===========================================================================
+  // CONTENT & UTILS
+  // ===========================================================================
+  static const Color highEmphasis = CcBaseColors.neutral80;
+  static const Color mediumEmphasis = CcBaseColors.neutral50;
+  static const Color body = CcBaseColors.gray500;
+  static const Color disabled = CcBaseColors.neutral30;
+  static const Color hint = CcBaseColors.neutral30;
+
   static const Color outline = CcBaseColors.neutral30;
   static const Color outlineVariant = CcBaseColors.neutral10;
-  static const Color divider = CcBaseColors.divider;
+  static const Color divider = CcBaseColors.gray50;
 
-  // -- Common/Utils
-  static const Color blue = CcBaseColors.info;
-  static const Color pink = CcBaseColors.actionPrimary;
+  // Legacy/Common Aliases
+  static const Color blue = CcBaseColors.blue500;
+  static const Color pink = CcBaseColors.brand500;
+  static const Color transparent = CcBaseColors.transparent;
 }

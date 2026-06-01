@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
+import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 import 'package:cc_sdk_ui/widgets/anim/fade_page_wrapper.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 import 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
@@ -104,7 +105,7 @@ class AdvanceBlocPage extends StatelessWidget {
     return CcText(
       getIt<AdvanceBloc>().counter.toString(),
       color: color,
-      fontSize: 32,
+      fontSize: CcTypographyParams.headlineLarge,
     );
   }
 

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
 
-import '../../getx_state_management/comment/get_x/comment_controller.dart';
-import '../../getx_state_management/comment/ui/comment_page.dart';
+import '../../bloc_state_management/dashboard/pages/dashboard_page.dart';
 
 class QuickTestTabContent extends StatefulWidget {
   static const String routeName = 'QUICK_TEST';
@@ -18,14 +15,14 @@ class _QuickTestTabContentState extends State<QuickTestTabContent> {
   @override
   void initState() {
     super.initState();
-    if (!Get.isRegistered<CommentController>()) {
-      CommentBinding().dependencies();
-    }
+    // if (!Get.isRegistered<CommentController>()) {
+    //   CommentBinding().dependencies();
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
-    // return const DashboardPage();
-    return const CommentPage();
+    return const DashboardPage();
+    // return const CommentPage();
   }
 }

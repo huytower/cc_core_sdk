@@ -52,6 +52,44 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
     - Apply responsive padding, font sizes, and dimensions using helper methods
     - Ensure touch targets are appropriately sized for different screen densities
 
+11. **Color Single Source of Truth (CRITICAL)**: NEVER hardcode hex colors or use `Colors.*` directly for UI components. All colors must flow from the Design Token system via Semantic Synchronization.
+
+    **Chain of Truth:**
+    1. **SDK Palette** (`CcBaseColors` in `cc_sdk_ui`): Defines generic **Primitives** (e.g., `brand500`, `gray900`). Reusable in any project.
+    2. **App Mapping** (`PrjColors` in `theme` module): Defines **Semantic Roles** for THIS project. Maps app-specific names (e.g., `primary`, `background`) to SDK primitives.
+    3. **Theme Configuration** (`CcThemes` in `theme` module): Configures `ThemeData` using `PrjColors`.
+    4. **Widgets**: Access colors via **`context.ccColorScheme`** (provided by `CcContextExtension`).
+
+    **Requirements:**
+    - **Adding a new color?** Add a primitive to `CcBaseColors` (SDK), then a mapping to `PrjColors` (App).
+    - **SDK Reuse**: `CcBaseColors` MUST stay project-agnostic. No 'actionPrimary' or 'textPrimary' in the SDK.
+    - **Project SSOT**: `PrjColors` is the ONLY place to change the project's brand identity.
+    - **Dark mode support**: Map dark specifics (like `darkSurface`) in `PrjColors` using the primitive gray palette.
+    - **Consistency**: Use `context.ccColorScheme.primary` in widgets to ensure automatic theme switching and modularity.
+
+12. **Multi-Language Support (CRITICAL)**: NEVER hardcode user-facing strings. All strings must be localized using `easy_localization`.
+
+    **Requirements:**
+    - Use `CcLocaleKeys` (from `modules/message`) for all string keys.
+    - Use `el.tr(CcLocaleKeys.your_key)` to translate strings, where `el` is the alias for `package:easy_localization/easy_localization.dart`.
+    - Example: `el.tr(CcLocaleKeys.auth_biometric_error_not_available)`
+    - All modules (`cc_sdk_ui`, `cc_mixin`, `features`) must follow this rule.
+    - Do not use `String` literals for UI text, error messages, or button labels.
+
+13. **Typography Single Source of Truth (CRITICAL)**: NEVER hardcode font sizes, weights, or font families in widgets. Use Semantic Synchronization to inherit the project standard (**EB Garamond**).
+
+    **Chain of Truth:**
+    1. `CcTypographyParams` (`libraries/cc_sdk_ui`): Defines raw tokens (sizes, weights).
+    2. `CcTextStyle` (`modules/theme`): Implements `ThemeExtension` to provide semantic `TextStyle` objects.
+    3. `CcThemes` (`modules/theme`): Sets **EB Garamond** as the default font and maps `CcTextStyle` to `ThemeData.textTheme`.
+    4. **Widgets**: Access styles via **`context.textTheme`** (provided by `CcContextExtension`).
+
+    **Requirements:**
+    - **Inheritance**: Standard widgets like `CcText` automatically use the ambient font (EB Garamond) from `ThemeData`. Do not specify `fontFamily` in widgets.
+    - **Semantic Access**: Use `context.textTheme.bodyLarge` (or similar) for standard Material 3 typography.
+    - **Modifications**: If a specific modification is needed (e.g., color), use `.copyWith()`: `context.textTheme.bodyMedium.copyWith(color: context.ccColorScheme.primary)`.
+    - **Forbidden**: `TextStyle(fontSize: 16, fontWeight: FontWeight.bold)` with hardcoded literals.
+
 ## Project Structure
 
 ```
@@ -132,13 +170,16 @@ The main app consolidates all modules in `lib/core/di/di.dart` using `@Injectabl
 - Loaders & indicators (spinners, skeletons)
 - Layout components (containers, cards, dividers)
 - Responsive widgets (CcResponsiveContainer, CcResponsiveFlex for multi-screen support)
-- Text & typography widgets
+- Text & typography widgets (CcText - inherits ambient EB Garamond font)
+- Theme Extensions (CcContextExtension for semantic access to colors/text)
 - Animations (fade, scale, transitions)
 - Navigation (CcCurvedNavigationBar - state-management agnostic)
 
 **Theme Tokens:**
 - `CcBaseColors`: Color palette (brand, neutral, semantic)
 - `CcTypographyParams`: Typography system (sizes, weights)
+- `CcPaddingParams`: Spacing and padding system
+- `CcCircularParams`: Border radius and circular dimensions
 
 **DI File:** No DI file (stateless UI library)
 

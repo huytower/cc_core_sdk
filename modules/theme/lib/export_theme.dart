@@ -4,7 +4,7 @@
 /// public surface minimal — prefer consuming `Theme.of(context)` in widgets.
 // Core
 export 'core/config/cc_themes.dart';
-export 'core/utils/theme_utils.dart';
+export 'core/helper/theme_helper.dart';
 // Data (semantic color mappings)
 export 'data/data_source/color/prj_color.dart';
 // Presentation

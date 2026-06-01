@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/extensions/cc_context_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../inkwell/cc_inkwell.dart';
 import '../text/cc_text.dart';
@@ -42,13 +42,16 @@ class CcBaseBtn extends StatelessWidget {
             colors:
                 bgColor ??
                 colorsGradient ??
-                const [CcBaseColors.neutral70, CcBaseColors.neutral70],
+                [
+                  context.ccColorScheme.surfaceVariant,
+                  context.ccColorScheme.surfaceVariant,
+                ],
           ),
         ),
         child: Center(
           child: CcText(
             title ?? '',
-            color: isEnable ? textColor : CcBaseColors.textInvert,
+            color: isEnable ? textColor : context.ccColorScheme.onPrimary,
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -10,10 +10,10 @@ class SpinkitScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: CcBaseColors.surfaceDefault,
+    backgroundColor: Theme.of(context).colorScheme.surface,
     body: Center(
       child: SpinKitDoubleBounce(
-        color: color ?? CcBaseColors.actionPrimary,
+        color: color ?? Theme.of(context).colorScheme.primary,
         size: 50.0,
       ),
     ),
