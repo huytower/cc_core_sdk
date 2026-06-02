@@ -17,6 +17,7 @@ class CcBaseBtn extends StatelessWidget {
     this.width,
     this.borderRadius,
     this.colorsGradient,
+    this.allowShowLoading = true,
   });
 
   final VoidCallback onTap;
@@ -27,6 +28,7 @@ class CcBaseBtn extends StatelessWidget {
   final double? height, width;
   final BorderRadius? borderRadius;
   final List<Color>? colorsGradient;
+  final bool allowShowLoading;
 
   @override
   Widget build(BuildContext context) {

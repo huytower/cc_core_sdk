@@ -17,6 +17,7 @@ class CcDebounce extends StatefulWidget {
     this.icon,
     this.iconColor,
     this.isEnable = true,
+    this.allowShowLoading = true,
   });
 
   final VoidCallback? onTap;
@@ -27,6 +28,7 @@ class CcDebounce extends StatefulWidget {
   final Color? textColor, iconColor;
   final IconData? icon;
   final bool isEnable;
+  final bool allowShowLoading;
 
   @override
   _CcDebounceState createState() => _CcDebounceState();

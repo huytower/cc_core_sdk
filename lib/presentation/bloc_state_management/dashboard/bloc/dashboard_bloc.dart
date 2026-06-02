@@ -46,10 +46,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     Emitter<DashboardState> emit,
   ) async {
     final currentState = state;
-    if (currentState is DashboardLoaded) {
-      emit(DashboardRefreshing(currentState.dashboardData));
-    } else {
-      emit(const DashboardLoading());
+    if (event.showLoading) {
+      if (currentState is DashboardLoaded) {
+        emit(DashboardRefreshing(currentState.dashboardData));
+      } else {
+        emit(const DashboardLoading());
+      }
     }
 
     final result = await _refreshDashboardDataUseCase();
@@ -68,7 +70,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       final newData = currentState.dashboardData.copyWith(
         itemCount: currentState.dashboardData.itemCount + 1,
       );
-      emit(DashboardUpdating(newData));
+
+      if (event.showLoading) {
+        emit(DashboardUpdating(newData));
+      }
 
       final result = await _updateDashboardDataUseCase(newData);
       result.when(
@@ -87,7 +92,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       final newData = currentState.dashboardData.copyWith(
         itemCount: currentState.dashboardData.itemCount - 1,
       );
-      emit(DashboardUpdating(newData));
+
+      if (event.showLoading) {
+        emit(DashboardUpdating(newData));
+      }
 
       final result = await _updateDashboardDataUseCase(newData);
       result.when(

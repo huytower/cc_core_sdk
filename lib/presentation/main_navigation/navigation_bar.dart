@@ -3,9 +3,8 @@ import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../../../core/common/managers/splash_manager.dart';
+import 'logic/navigation_logic_mixin.dart';
 import 'tabs/dashboard_tab_content.dart';
 import 'tabs/notification_tab_content.dart';
 import 'tabs/profile_tab_content.dart';
@@ -21,7 +20,7 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar>
-    with CcCurvedNavigationMixin, DoubleBackToExitMixin {
+    with CcCurvedNavigationMixin, DoubleBackToExitMixin, NavigationLogicMixin {
   // Navigation indices
   static const int _indexDashboard = 0;
   static const int _indexNotification = 1;
@@ -31,81 +30,32 @@ class _NavigationBarState extends State<NavigationBar>
   static int? _persistentIndex;
 
   @override
+  void initState() {
+    super.initState();
+    initNavigationLogic();
+  }
+
+  @override
   bool handleCustomNavigation() {
-    debugPrint(
-      'NavigationBar: handleCustomNavigation() called. Current index: $currentIndex',
-    );
     if (currentIndex != _indexDashboard) {
-      debugPrint('NavigationBar: Custom navigation - moving to Dashboard');
       setIndex(_indexDashboard);
       return true;
     }
-    debugPrint(
-      'NavigationBar: Custom navigation - already on Dashboard, proceeding to exit check',
-    );
     return false;
   }
 
   @override
-  bool get shouldEnableDoubleBackToExit {
-    final isDashboard = currentIndex == _indexDashboard;
-    debugPrint(
-      'NavigationBar: shouldEnableDoubleBackToExit check. Current index: $currentIndex, Is Dashboard: $isDashboard',
-    );
-    return isDashboard;
-  }
+  bool get shouldEnableDoubleBackToExit => currentIndex == _indexDashboard;
 
   @override
-  String get backPressMessage {
-    return el.tr('common.press_back_again_to_exit');
-  }
-
-  // Example state management implementation
-  // This can be replaced with your preferred state management approach
-  late bool _showQuickTestAsSecondTab;
-  bool _showSplash = true;
+  String get backPressMessage => el.tr('common.press_back_again_to_exit');
 
   @override
-  void initState() {
-    super.initState();
-
-    // Read from dotenv to determine if second tab should be QuickTesting or Notification
-    final startRoute = dotenv.maybeGet(
-      'AUTO_ROUTE_START',
-      fallback: 'DASHBOARD',
-    );
-    _showQuickTestAsSecondTab = _isQuickTestRoute(startRoute);
-    _checkSplash();
-  }
-
-  Future<void> _checkSplash() async {
-    final shouldShow = await SplashManager.shouldShowSplash();
-    if (shouldShow) {
-      setState(() => _showSplash = true);
-      // Hide splash after 2 seconds
-      Future.delayed(const Duration(seconds: 2), () {
-        if (mounted) {
-          setState(() => _showSplash = false);
-        }
-      });
-    } else {
-      setState(() => _showSplash = false);
-    }
-  }
-
-  bool _isQuickTestRoute(String? route) {
-    return route?.toUpperCase() == QuickTestTabContent.routeName;
-  }
-
-  @override
-  int get currentIndex {
-    final index = _persistentIndex ?? 0;
-    return index;
-  }
+  int get currentIndex => _persistentIndex ?? 0;
 
   @override
   void setIndex(int index) {
-    _persistentIndex = index; // Persist for hot reload
+    _persistentIndex = index;
     setState(() {});
   }
 
@@ -116,7 +66,7 @@ class _NavigationBarState extends State<NavigationBar>
       activeIcon: Icons.dashboard_rounded,
       label: el.tr(CcLocaleKeys.nav_dashboard),
     ),
-    _showQuickTestAsSecondTab
+    showQuickTestAsSecondTab
         ? CcCurvedNavigationItem(
             inactiveIcon: Icons.bug_report_outlined,
             activeIcon: Icons.bug_report_rounded,
@@ -138,7 +88,7 @@ class _NavigationBarState extends State<NavigationBar>
   bool get isEnableAppBar => false;
 
   @override
-  bool get isEnableBottomNavigation => true;
+  bool get isEnableBottomNavigation => !showSplash;
 
   @override
   PreferredSizeWidget? appBar() => null;
@@ -148,14 +98,10 @@ class _NavigationBarState extends State<NavigationBar>
 
   @override
   Widget? buildContent() {
-    if (_showSplash) {
-      return _buildSplashOverlay();
+    if (showSplash) {
+      return const Center(child: CcLoadingIconWidget());
     }
     return _buildContentForIndex(currentIndex);
-  }
-
-  Widget _buildSplashOverlay() {
-    return const Center(child: CcLoadingIconWidget());
   }
 
   Widget _buildContentForIndex(int index) {
@@ -163,7 +109,7 @@ class _NavigationBarState extends State<NavigationBar>
       case _indexDashboard:
         return const DashboardTabContent();
       case _indexNotification:
-        return _showQuickTestAsSecondTab
+        return showQuickTestAsSecondTab
             ? const QuickTestTabContent()
             : const NotificationTabContent();
       case _indexProfile:
@@ -179,7 +125,7 @@ class _NavigationBarState extends State<NavigationBar>
       canPop: canPop,
       onPopInvoked: onPopInvoked,
       child: Scaffold(
-        body: SafeArea(child: body),
+        body: SafeArea(child: _body),
         appBar: isEnableAppBar ? appBar() : null,
         bottomNavigationBar: isEnableBottomNavigation
             ? bottomNavigationBar()
@@ -188,14 +134,8 @@ class _NavigationBarState extends State<NavigationBar>
     );
   }
 
-  Widget get body {
+  Widget get _body {
     final content = buildContent() ?? const SizedBox.shrink();
-    if (layoutStatus == CcLayoutStatus.success) {
-      return FadePageWrapper(child: content);
-    }
-    // For simplicity, just show content for now
     return FadePageWrapper(child: content);
   }
-
-  CcLayoutStatus get layoutStatus => CcLayoutStatus.success;
 }
