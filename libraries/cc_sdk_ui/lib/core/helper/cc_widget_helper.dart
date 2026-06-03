@@ -47,10 +47,13 @@ class CcWidgetHelper {
   static BorderRadius getCircleBorderRadius() =>
       BorderRadius.circular(CcCircularParams.CIRCLE);
 
-  static BorderRadius getBorderRoundedLarge() =>
+  static BorderRadius getBorderRoundedLG() =>
       BorderRadius.circular(CcCircularParams.CARD);
 
-  static BorderRadius getBorderRoundedSmall() =>
+  static BorderRadius getBorderRoundedMD() =>
+      BorderRadius.circular(CcCircularParams.BUTTON);
+
+  static BorderRadius getBorderRoundedSM() =>
       BorderRadius.circular(CcCircularParams.BUTTON);
 
   static BorderRadius getBorderRoundedSquareTopLeftRight() =>

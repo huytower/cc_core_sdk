@@ -17,7 +17,7 @@ class CcLoadingIconWidget extends StatelessWidget {
       width: context.respIconSize(baseSize: 60.0),
       decoration: BoxDecoration(
         color: CcBaseColors.neutral40,
-        borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
+        borderRadius: CcWidgetHelper.getBorderRoundedSM(),
       ),
       child: getLoadingWidget(context),
     ),

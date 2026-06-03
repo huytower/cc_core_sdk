@@ -49,8 +49,12 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
     - Test UI on both portrait and landscape orientations
     - Consider orientation-specific layouts when beneficial (e.g., landscape for data tables)
     - Use `CcResponsiveHelper.isPortrait()` and `CcResponsiveHelper.isLandscape()` to check orientation
-    - Apply responsive padding, font sizes, and dimensions using helper methods
-    - Ensure touch targets are appropriately sized for different screen densities
+    - Apply responsive padding, font sizes, and dimensions using helper methods:
+      - `context.respPadding(base)` for spacing.
+      - `context.respFontSize(base)` for text.
+      - `context.respIconSize(base)` for icons.
+      - `context.respDim(base)` for generic widths/heights (NEVER use hardcoded fixed values for structural UI elements).
+    - Ensure touch targets are appropriately sized for different screen densities.
 
 11. **Color Single Source of Truth (CRITICAL)**: NEVER hardcode hex colors or use `Colors.*` directly for UI components. All colors must flow from the Design Token system via Semantic Synchronization.
 
@@ -76,6 +80,7 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
     - Example: `el.tr(CcLocaleKeys.auth_biometric_error_not_available)`
     - All modules (`cc_sdk_ui`, `cc_mixin`, `features`) must follow this rule.
     - Do not use `String` literals for UI text, error messages, or button labels.
+    - **Self-Correction**: If you detect hardcoded strings in your proposed code, immediately replace them with the appropriate `CcLocaleKeys`. If the key doesn't exist, mention that it needs to be added or add it to the message module.
 
 13. **Typography Single Source of Truth (CRITICAL)**: NEVER hardcode font sizes, weights, or font families in widgets. Use Semantic Synchronization to inherit the project standard (**EB Garamond**).
 

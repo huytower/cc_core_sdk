@@ -37,7 +37,7 @@ class CcCard extends StatelessWidget {
           EdgeInsets.all(context.respPadding(CcPaddingParams.SPACE_LG)),
       decoration: BoxDecoration(
         color: cardBackgroundColor,
-        borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+        borderRadius: CcWidgetHelper.getBorderRoundedLG(),
         boxShadow: hasShadow
             ? CcWidgetHelper.getBoxShadows(
                 context,

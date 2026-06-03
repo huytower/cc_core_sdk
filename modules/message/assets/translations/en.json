@@ -97,5 +97,13 @@
       "minute": "{count} minute ago",
       "minutes": "{count} minutes ago"
     }
+  },
+  "comment": {
+    "detail": {
+      "title": "Comment Detail",
+      "content": "Comment Content",
+      "post_id": "Post ID",
+      "id": "Comment ID"
+    }
   }
 }

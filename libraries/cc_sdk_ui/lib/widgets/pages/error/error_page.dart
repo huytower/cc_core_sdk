@@ -3,15 +3,6 @@ import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 
-import '../../../core/extensions/cc_context_extension.dart';
-import '../../../core/extensions/common/cc_responsive_extension.dart';
-import '../../../core/helper/cc_widget_helper.dart';
-import '../../button/cc_back_btn.dart';
-import '../../button/cc_debounce_widget.dart';
-import '../../flex/cc_flex.dart';
-import '../../space/cc_space.dart';
-import '../../text/cc_text.dart';
-
 class ErrorPage extends StatelessWidget {
   const ErrorPage({Key? key, this.message, this.onRetry}) : super(key: key);
 
@@ -29,7 +20,11 @@ class ErrorPage extends StatelessWidget {
     ),
     body: CcColCenter(
       children: [
-        Icon(Icons.error_outline, size: context.respIconSize(baseSize: 80.0), color: context.ccColorScheme.error),
+        Icon(
+          Icons.error_outline,
+          size: context.respIconSize(baseSize: 80.0),
+          color: context.ccColorScheme.error,
+        ),
         const CcSpaceLG(),
         CcText(
           message ?? el.tr(CcLocaleKeys.app_error_general),
@@ -43,10 +38,13 @@ class ErrorPage extends StatelessWidget {
           CcDebounce(
             onTap: onRetry!,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: context.respPadding(24.0), vertical: context.respPadding(12.0)),
+              padding: EdgeInsets.symmetric(
+                horizontal: context.respPadding(24.0),
+                vertical: context.respPadding(12.0),
+              ),
               decoration: BoxDecoration(
                 color: context.ccColorScheme.primary,
-                borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
+                borderRadius: CcWidgetHelper.getBorderRoundedSM(),
               ),
               child: CcText(
                 el.tr(CcLocaleKeys.app_error_retry),

@@ -25,7 +25,12 @@ abstract class CcLocaleKeys {
   static const common_no_data = 'common.no_data';
   static const common_income = 'common.income';
   static const common_expense = 'common.expense';
-  static const common_press_back_again_to_exit = 'common.press_back_again_to_exit';
+  static const common_press_back_again_to_exit =
+      'common.press_back_again_to_exit';
+  static const comment_detail_title = 'comment.detail.title';
+  static const comment_detail_content = 'comment.detail.content';
+  static const comment_detail_post_id = 'comment.detail.post_id';
+  static const comment_detail_id = 'comment.detail.id';
 
   static const auth_login = 'auth.login';
   static const auth_logout = 'auth.logout';

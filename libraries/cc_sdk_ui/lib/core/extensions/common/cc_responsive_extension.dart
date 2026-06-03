@@ -52,4 +52,20 @@ extension ResponsiveExtension on BuildContext {
     return basePadding *
         (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
   }
+
+  /// Get responsive dimension (width/height) based on screen width
+  ///
+  /// Example usage:
+  /// ```dart
+  /// final width = context.respDim(4.0);
+  /// ```
+  double respDim(
+    double baseDimension, {
+    double baselineWidth = 360.0,
+    double maxMultiplier = 2,
+  }) {
+    final screenWidth = MediaQuery.of(this).size.width;
+    return baseDimension *
+        (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
+  }
 }

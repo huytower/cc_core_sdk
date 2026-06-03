@@ -7,6 +7,7 @@ class ShimmerCommentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: context.respDim(160),
       margin: EdgeInsets.symmetric(
         horizontal: context.respPadding(CcPaddingParams.PAGE_XS),
         vertical: context.respPadding(CcPaddingParams.SPACE_SM),
@@ -14,7 +15,7 @@ class ShimmerCommentCard extends StatelessWidget {
       padding: EdgeInsets.all(context.respPadding(CcPaddingParams.SPACE_LG)),
       decoration: BoxDecoration(
         color: context.ccColorScheme.surface,
-        borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+        borderRadius: CcWidgetHelper.getBorderRoundedLG(),
         boxShadow: CcWidgetHelper.getBoxShadows(context),
       ),
       child: Column(

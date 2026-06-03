@@ -1,11 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
-
-import '../../core/extensions/cc_context_extension.dart';
-import '../../core/extensions/common/cc_responsive_extension.dart';
-import '../../core/helper/cc_widget_helper.dart';
-import '../space/cc_space.dart';
+import 'package:flutter/material.dart';
 
 class ExpandedCollapseCardWidget extends StatefulWidget {
   const ExpandedCollapseCardWidget({
@@ -43,13 +37,11 @@ class _ExpandedCollapseCardWidgetState
     margin: EdgeInsets.only(bottom: context.respPadding(12.0)),
     decoration: BoxDecoration(
       color: widget.backgroundColor,
-      borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+      borderRadius: CcWidgetHelper.getBorderRoundedLG(),
       boxShadow: [
         BoxShadow(
-          color:
-              (widget.shadowColor ??
-                      context.ccColorScheme.outlineVariant)
-                  .withOpacity(0.5),
+          color: (widget.shadowColor ?? context.ccColorScheme.outlineVariant)
+              .withOpacity(0.5),
           blurRadius: 8,
           offset: const Offset(0, 2),
         ),
@@ -86,7 +78,10 @@ class _ExpandedCollapseCardWidgetState
         ),
         if (_isExpanded) ...[
           const CcSpaceXS(),
-          Padding(padding: EdgeInsets.all(context.respPadding(16.0)), child: widget.child),
+          Padding(
+            padding: EdgeInsets.all(context.respPadding(16.0)),
+            child: widget.child,
+          ),
         ],
       ],
     ),

@@ -24,8 +24,8 @@ class CcSpaceSM extends StatelessWidget {
 }
 
 /// Medium/Default Space (12pt)
-class CcSpace extends StatelessWidget {
-  const CcSpace({super.key});
+class CcSpaceMD extends StatelessWidget {
+  const CcSpaceMD({super.key});
   @override
   Widget build(BuildContext context) => SizedBox(
     height: context.respPadding(CcPaddingParams.SPACE_MD),

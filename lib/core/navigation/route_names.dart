@@ -13,6 +13,7 @@ enum AppRoute {
   updateVersion,
   web,
   comment,
+  commentDetail,
   featuresCounter,
   mainNavigation,
 }

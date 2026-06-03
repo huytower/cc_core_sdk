@@ -72,7 +72,7 @@ class _CcDebounceState extends State<CcDebounce> {
       child: Container(
         height: context.respIconSize(baseSize: 48.0),
         decoration: BoxDecoration(
-          borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
+          borderRadius: CcWidgetHelper.getBorderRoundedSM(),
           gradient: LinearGradient(
             colors:
                 widget.bgColor ??

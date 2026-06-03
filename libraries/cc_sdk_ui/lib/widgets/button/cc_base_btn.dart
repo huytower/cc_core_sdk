@@ -34,12 +34,12 @@ class CcBaseBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return CcInkWell(
       onTap: isEnable ? onTap : () {},
-      borderRadius: borderRadius ?? CcWidgetHelper.getBorderRoundedSmall(),
+      borderRadius: borderRadius ?? CcWidgetHelper.getBorderRoundedSM(),
       child: Container(
         height: height ?? 48,
         width: width ?? double.infinity,
         decoration: BoxDecoration(
-          borderRadius: borderRadius ?? CcWidgetHelper.getBorderRoundedSmall(),
+          borderRadius: borderRadius ?? CcWidgetHelper.getBorderRoundedSM(),
           gradient: LinearGradient(
             colors:
                 bgColor ??

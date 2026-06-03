@@ -17,7 +17,7 @@ class CcContainerRoundedCorner extends StatelessWidget {
     child: Container(
       decoration: BoxDecoration(
         color: color ?? context.ccColorScheme.surface.withOpacity(0.8),
-        borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
+        borderRadius: CcWidgetHelper.getBorderRoundedSM(),
       ),
       width: MediaQuery.sizeOf(context).width,
       height: context.respPadding(height ?? 40),

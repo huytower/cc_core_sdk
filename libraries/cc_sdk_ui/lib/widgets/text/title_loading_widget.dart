@@ -27,7 +27,7 @@ class TitleLoadingWidget extends StatelessWidget {
         height: context.respIconSize(baseSize: 12.0),
         decoration: BoxDecoration(
           color: CcBaseColors.neutral5,
-          borderRadius: CcWidgetHelper.getBorderRoundedLarge(),
+          borderRadius: CcWidgetHelper.getBorderRoundedLG(),
         ),
       ),
     ),

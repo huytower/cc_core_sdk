@@ -58,7 +58,7 @@ class CcContainerRect extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     decoration: BoxDecoration(
       color: bgColor,
-      borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
+      borderRadius: CcWidgetHelper.getBorderRoundedSM(),
     ),
     width: width,
     height: height,
@@ -83,7 +83,7 @@ class CcContainerSquare extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     decoration: BoxDecoration(
       color: bgColor,
-      borderRadius: CcWidgetHelper.getBorderRoundedSmall(),
+      borderRadius: CcWidgetHelper.getBorderRoundedSM(),
     ),
     width: width,
     height: width,
