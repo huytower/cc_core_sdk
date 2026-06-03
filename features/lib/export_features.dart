@@ -6,4 +6,5 @@ export 'auth/biometric/export_biometric.dart';
 export 'core/di/di.dart';
 export 'features/counter/export_counter.dart';
 export 'features/crash_log/export_crash_log.dart';
+export 'features/dashboard/export_dashboard.dart';
 export 'features/web/export_web.dart';

@@ -1,6 +1,4 @@
-import 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 import 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
-import 'package:cc_sdk_ui/core/extensions/cc_context_extension.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:curved_navigation_bar_pro/curved_navigation_bar_pro.dart';
 import 'package:flutter/material.dart';
@@ -151,8 +149,8 @@ class CcCurvedNavigationBar extends StatelessWidget {
       fabColor: themeFabColor,
       barHeight: barHeight ?? 110,
       fabRadius: fabRadius ?? CcCircularParams.FAB,
-      fabGap: fabGap ?? 10,
-      fabSink: fabSink ?? 22,
+      fabGap: fabGap ?? 5,
+      fabSink: fabSink ?? 50,
       notchShoulderRadius: notchShoulderRadius ?? CcCircularParams.NOTCH,
       cornerRadius: cornerRadius ?? CcCircularParams.DIALOG,
       contentPadding: contentPadding ?? 8,

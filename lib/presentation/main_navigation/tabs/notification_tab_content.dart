@@ -1,31 +1,31 @@
-import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
-import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
-class NotificationTabContent extends StatelessWidget {
+import '../../getx_state_management/comment/get_x/comment_controller.dart';
+import '../../getx_state_management/comment/ui/comment_page.dart';
+
+class NotificationTabContent extends StatefulWidget {
+  static const String routeName = 'QUICK_TEST';
+
   const NotificationTabContent({super.key});
 
   @override
+  State<NotificationTabContent> createState() => _NotificationTabContentState();
+}
+
+class _NotificationTabContentState extends State<NotificationTabContent> {
+  @override
+  void initState() {
+    super.initState();
+    if (!Get.isRegistered<CommentController>()) {
+      CommentBinding().dependencies();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.notifications_rounded,
-            size: context.respIconSize(baseSize: 64.0),
-            color: context.ccColorScheme.primary,
-          ),
-          const CcSpaceLG(),
-          CcText(
-            el.tr(CcLocaleKeys.nav_notification),
-            textStyle: context.ccTextTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-            align: Alignment.center,
-          ),
-        ],
-      ),
-    );
+    // return const DashboardPage();
+    return const CommentPage();
   }
 }

@@ -1,1 +1,1 @@
-// export 'package:data/config/interceptor/cc_interceptor.dart';
+export 'package:data/domain/repositories/home/home_repository.dart';

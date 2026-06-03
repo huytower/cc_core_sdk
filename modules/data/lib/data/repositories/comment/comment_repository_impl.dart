@@ -13,15 +13,15 @@ import '../../datasource/remote/comment/comment_remote.dart';
 @Singleton(as: CommentRepository)
 class CommentRepositoryImpl with CcBaseRepository implements CommentRepository {
   @factoryMethod
-  CommentRepositoryImpl({required this.commentRemote});
+  CommentRepositoryImpl({required CommentRemote remote}) : _remote = remote;
 
-  final CommentRemote commentRemote;
+  final CommentRemote _remote;
 
   @override
   Future<Result<List<CommentEntity>, Failure>> getListComments() async {
     return safeRequest(() async {
       // 1. Call the remote source (The interceptor already peeled the JSON)
-      final response = await commentRemote.getListComments();
+      final response = await _remote.getListComments();
 
       // 2. Map DTOs to Entities
       return response.map((model) => model.toEntity()).toList();
@@ -35,7 +35,7 @@ class CommentRepositoryImpl with CcBaseRepository implements CommentRepository {
     return safeRequest(() async {
       // 1. Call the remote source with pagination parameters
       // The interceptor already peeled the JSON and preserved pagination metadata
-      final response = await commentRemote.getComments(
+      final response = await _remote.getComments(
         request.page,
         request.itemsPerPage,
       );

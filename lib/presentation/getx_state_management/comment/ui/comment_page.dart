@@ -6,17 +6,11 @@ import 'package:flutter/material.dart';
 import '../../base/getx/cc_get_view.dart';
 import '../get_x/comment_controller.dart';
 import 'widgets/comment_card.dart';
-import 'widgets/finance_app_bar.dart';
 import 'widgets/shimmer_comment_card.dart';
 
 @RoutePage()
 class CommentPage extends CcGetView<CommentController> with CcPullRefreshMixin {
   const CommentPage({super.key});
-
-  @override
-  PreferredSizeWidget? appBar() {
-    return const FinanceAppBar();
-  }
 
   @override
   Widget? buildContent() {

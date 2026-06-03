@@ -1,4 +1,3 @@
-import 'package:catcher_2/catcher_2.dart';
 import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +61,7 @@ class AutoRouteStrategy extends RoutingStrategy {
         theme: createLightTheme(),
         darkTheme: createDarkTheme(),
         themeMode: themeProvider.themeMode,
-        routerConfig: AppRouter(navigatorKey: Catcher2.navigatorKey).config(),
+        routerConfig: AppRouter().config(),
         locale: CcLocalization.getCurrentLocale(context),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

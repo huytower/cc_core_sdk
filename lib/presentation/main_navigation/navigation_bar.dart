@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
 import 'logic/navigation_logic_mixin.dart';
-import 'tabs/dashboard_tab_content.dart';
+import 'tabs/home_tab_content.dart';
 import 'tabs/notification_tab_content.dart';
 import 'tabs/profile_tab_content.dart';
 import 'tabs/quick_test_tab_content.dart';
@@ -107,7 +107,7 @@ class _NavigationBarState extends State<NavigationBar>
   Widget _buildContentForIndex(int index) {
     switch (index) {
       case _indexDashboard:
-        return const DashboardTabContent();
+        return const HomeTabContent();
       case _indexNotification:
         return showQuickTestAsSecondTab
             ? const QuickTestTabContent()
@@ -115,7 +115,7 @@ class _NavigationBarState extends State<NavigationBar>
       case _indexProfile:
         return const ProfileTabContent();
       default:
-        return const DashboardTabContent();
+        return const HomeTabContent();
     }
   }
 

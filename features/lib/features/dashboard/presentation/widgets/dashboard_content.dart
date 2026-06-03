@@ -9,12 +9,6 @@ import 'cards/dashboard_info_card.dart';
 import 'cards/dashboard_update_card.dart';
 
 /// Dashboard Content Widget - Presentation Layer
-/// Refactored to follow project guidelines:
-/// - Reuses components from cc_sdk_ui
-/// - Uses semantic design tokens for colors and typography
-/// - Supports multi-screen and orientation via responsive helpers
-/// - Implements full localization
-/// - Decomposed into smaller component widgets (Rule #14)
 class DashboardContent extends StatelessWidget {
   final dynamic dashboardData;
   final bool isRefreshing;

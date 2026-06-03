@@ -12,6 +12,7 @@ dependencies:
   cc_sdk:
   cc_sdk_ui:
   data:
+  auto_route: ^11.1.0
   dio: ^5.9.2
   easy_localization: ^3.0.8
   equatable: ^2.0.8
@@ -31,6 +32,7 @@ dependencies:
   webview_flutter: ^4.13.1
 
 dev_dependencies:
+  auto_route_generator: ^10.5.0
   build_runner: ^2.15.0
   flutter_lints: ^6.0.0
   flutter_test:

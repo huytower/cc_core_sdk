@@ -15,9 +15,9 @@ class CommentBinding extends Bindings {
 }
 
 class CommentController extends CcGetController with PaginationMixin {
-  CommentController(this._commentRepository);
+  CommentController(this._repository);
 
-  final CommentRepository _commentRepository;
+  final CommentRepository _repository;
 
   // Reactive list to store comments
   final comments = <CommentEntity>[].obs;
@@ -46,7 +46,7 @@ class CommentController extends CcGetController with PaginationMixin {
         : CcLayoutStatus.loadMore;
 
     // 3. Fetch data using the current request from mixin
-    final result = await _commentRepository.getComments(
+    final result = await _repository.getComments(
       refresh
           ? const PaginationRequest(page: 1, itemsPerPage: 20)
           : currentPaginationRequest,

@@ -20,12 +20,14 @@ import 'package:data/data/datasource/remote/dashboard/dashboard_remote_datasourc
     as _i480;
 import 'package:data/data/datasource/remote/dashboard/dashboard_remote_datasource_impl.dart'
     as _i434;
+import 'package:data/data/datasource/remote/home/home_remote.dart' as _i516;
 import 'package:data/data/repositories/comment/comment_repository_impl.dart'
     as _i576;
 import 'package:data/data/repositories/crash_log/crash_log_repository_impl.dart'
     as _i701;
 import 'package:data/data/repositories/dashboard/dashboard_repository_impl.dart'
     as _i254;
+import 'package:data/data/repositories/home/home_repository_impl.dart' as _i114;
 import 'package:data/domain/repositories/comment/comment_repository.dart'
     as _i683;
 import 'package:data/domain/repositories/crash_log/crash_log_repository.dart'
@@ -40,6 +42,7 @@ import 'package:data/domain/usecases/dashboard/update_dashboard_data_usecase.dar
     as _i695;
 import 'package:data/domain/usecases/upload_pending_crash_logs_usecase.dart'
     as _i813;
+import 'package:data/export_data.dart' as _i859;
 import 'package:dio/dio.dart' as _i361;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -109,10 +112,14 @@ class DataPackageModule extends _i526.MicroPackageModule {
         () => _i701.CrashLogRepositoryImpl(gh<_i313.CrashLogRemote>()));
     gh.singleton<_i574.CommentRemote>(
         () => _i574.CommentRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
+    gh.singleton<_i516.HomeRemote>(
+        () => _i516.HomeRemote(gh<_i361.Dio>(instanceName: 'baseDio')));
     gh.lazySingleton<_i813.UploadPendingCrashLogsUseCase>(() =>
         _i813.UploadPendingCrashLogsUseCase(gh<_i63.CrashLogRepository>()));
-    gh.singleton<_i683.CommentRepository>(() =>
-        _i576.CommentRepositoryImpl(commentRemote: gh<_i574.CommentRemote>()));
+    gh.singleton<_i859.HomeRepository>(
+        () => _i114.HomeRepositoryImpl(remote: gh<_i516.HomeRemote>()));
+    gh.singleton<_i683.CommentRepository>(
+        () => _i576.CommentRepositoryImpl(remote: gh<_i574.CommentRemote>()));
   }
 }
 

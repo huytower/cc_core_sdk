@@ -59,9 +59,7 @@ class DashboardView extends StatelessWidget with CcViewConfigMixin {
   }
 
   @override
-  PreferredSizeWidget? appBar() => DashboardAppBar(
-    blocContext: blocContext,
-  );
+  PreferredSizeWidget? appBar() => DashboardAppBar(blocContext: blocContext);
 
   @override
   Widget? buildContent() => _buildContent();

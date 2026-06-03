@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:features/core/navigation/features_router.dart';
 
 import '../../route_names.dart';
 import 'app_router.gr.dart';
@@ -9,17 +10,15 @@ import 'app_router.gr.dart';
 /// Routes are organized into logical groups for better maintainability.
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
-  AppRouter({super.navigatorKey});
-
   @override
   List<AutoRoute> get routes => [
+    ...FeaturesRouter().routes,
     AutoRoute(
       page: NavigationBar.page,
       initial: true,
       path: AppRoute.mainNavigation.path,
     ),
     AutoRoute(page: SplashRoute.page, path: AppRoute.splash.path),
-    AutoRoute(page: DashboardRoute.page, path: AppRoute.dashboard.path),
     AutoRoute(page: CommentRoute.page, path: AppRoute.comment.path),
     AutoRoute(page: CommentDetailRoute.page, path: AppRoute.commentDetail.path),
     AutoRoute(page: SimpleCubitRoute.page, path: ExampleRoute.blocSimple.path),

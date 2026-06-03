@@ -5,6 +5,12 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i687;
 
+import 'package:data/domain/usecases/dashboard/get_dashboard_data_usecase.dart'
+    as _i208;
+import 'package:data/domain/usecases/dashboard/refresh_dashboard_data_usecase.dart'
+    as _i393;
+import 'package:data/domain/usecases/dashboard/update_dashboard_data_usecase.dart'
+    as _i695;
 import 'package:features/auth/biometric/data/datasources/local/cc_biometric_auth_datasource.dart'
     as _i820;
 import 'package:features/auth/biometric/data/repositories/cc_biometric_auth_repository_impl.dart'
@@ -29,6 +35,8 @@ import 'package:features/features/counter/domain/usecases/increment_counter_use_
     as _i827;
 import 'package:features/features/counter/presentation/bloc/counter_bloc.dart'
     as _i8;
+import 'package:features/features/dashboard/presentation/bloc/dashboard_bloc.dart'
+    as _i1059;
 import 'package:features/features/web/presentation/cubit/web_cubit.dart'
     as _i312;
 import 'package:injectable/injectable.dart' as _i526;
@@ -41,6 +49,11 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
     gh.lazySingleton<_i820.CcBiometricAuthDatasource>(
         () => _i820.CcBiometricAuthDatasource());
     gh.lazySingleton<_i312.WebCubit>(() => _i312.WebCubit());
+    gh.factory<_i1059.DashboardBloc>(() => _i1059.DashboardBloc(
+          getDashboardDataUseCase: gh<_i208.GetDashboardDataUseCase>(),
+          updateDashboardDataUseCase: gh<_i695.UpdateDashboardDataUseCase>(),
+          refreshDashboardDataUseCase: gh<_i393.RefreshDashboardDataUseCase>(),
+        ));
     gh.lazySingleton<_i85.CcBiometricAuthRepository>(() =>
         _i507.CcBiometricAuthRepositoryImpl(
             gh<_i820.CcBiometricAuthDatasource>()));
