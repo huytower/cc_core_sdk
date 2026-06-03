@@ -1,10 +1,10 @@
 import 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
-import 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
-import 'package:cc_sdk_ui/core/extensions/cc_context_extension.dart';
-import 'package:cc_sdk_ui/core/extensions/common/cc_responsive_extension.dart';
-import 'package:cc_sdk_ui/core/helper/cc_snackbar_helper.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 
+/// Shows a snackbar indicating that the user should press back again to exit.
+///
+/// Uses standard tokens from [cc_sdk_ui] for consistent styling.
 void showDoubleBackPressSnackBar(BuildContext context, String message) {
   CcSnackBarHelper.showSnackBar(
     context: context,

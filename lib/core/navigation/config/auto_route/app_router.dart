@@ -13,14 +13,14 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(
-      page: NavigationBar.page,
-      initial: true,
-      path: AppRoute.mainNavigation.path,
-    ),
+    AutoRoute(page: NavigationBar.page, path: AppRoute.mainNavigation.path),
     AutoRoute(page: SplashRoute.page, path: AppRoute.splash.path),
     AutoRoute(page: DashboardRoute.page, path: AppRoute.dashboard.path),
-    AutoRoute(page: CommentRoute.page, path: AppRoute.comment.path),
+    AutoRoute(
+      page: CommentRoute.page,
+      initial: true,
+      path: AppRoute.comment.path,
+    ),
     AutoRoute(page: SimpleCubitRoute.page, path: ExampleRoute.blocSimple.path),
     AutoRoute(page: AdvanceBlocRoute.page, path: ExampleRoute.blocAdvance.path),
   ];

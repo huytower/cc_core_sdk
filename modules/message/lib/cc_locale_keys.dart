@@ -25,6 +25,7 @@ abstract class CcLocaleKeys {
   static const common_no_data = 'common.no_data';
   static const common_income = 'common.income';
   static const common_expense = 'common.expense';
+  static const common_press_back_again_to_exit = 'common.press_back_again_to_exit';
 
   static const auth_login = 'auth.login';
   static const auth_logout = 'auth.logout';
