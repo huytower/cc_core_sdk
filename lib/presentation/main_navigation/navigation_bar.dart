@@ -123,7 +123,8 @@ class _NavigationBarState extends State<NavigationBar>
   Widget build(BuildContext context) {
     return PopScope(
       canPop: canPop,
-      onPopInvoked: onPopInvoked,
+      onPopInvokedWithResult: (didPop, result) =>
+          onPopInvokedWithResult(context, didPop, result),
       child: Scaffold(
         body: SafeArea(child: _body),
         appBar: isEnableAppBar ? appBar() : null,

@@ -12,13 +12,6 @@ import 'core/logging/init_logger.dart';
 import 'core/runner/app_runner.dart';
 
 /// The entry point of the application.
-///
-/// Sequence:
-/// 1. Initialize Flutter & Environment
-/// 2. Setup Dependency Injection
-/// 3. Initialize Local Storage (Hive)
-/// 4. Initialize Localization
-/// 5. Start App via Catcher2 (Global Error Handling)
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
@@ -34,9 +27,6 @@ void main() async {
 
     await CcLocalization.initialize();
 
-    // TODO(huy): NOTICE: TEMP DISABLE, enable when BE support api logging
-    // await uploadPendingCrashLogsOnStartup();
-
     _runApplication();
   } catch (error, stackTrace) {
     developer.log(
@@ -44,7 +34,6 @@ void main() async {
       error: error,
       stackTrace: stackTrace,
     );
-    // Minimal fallback: if the app fails to start, we must at least show something.
     runApp(ErrorPage(message: error.toString()));
   }
 }
