@@ -99,6 +99,11 @@ dev_dependencies:
 
 melos:
   scripts:
+    # Bootstrap the workspace
+    bootstrap:
+      description: Bootstrap the workspace, link packages and run pub get.
+      run: melos bootstrap
+
     # Run pub get in all modules
     get:
       description: Run `flutter pub get` in all packages.
@@ -108,6 +113,11 @@ melos:
     gen:
       description: Run `build_runner` in all packages that depend on it.
       run: melos exec --depends-on="build_runner" -- "flutter pub run build_runner build --delete-conflicting-outputs"
+
+    # Full rebuild: bootstrap and generate code
+    rebuild:
+      description: Run bootstrap followed by code generation.
+      run: melos run bootstrap && melos run gen
 
     # Quality Gates
     analyze:
