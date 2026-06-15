@@ -106,7 +106,20 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
       - Data transformation methods
       - Validation methods
       - Navigation methods
-    - **Constants**: Extract constants to dedicated files when needed
+    - **Constants & Performance**: 
+      - Use `const` constructors wherever possible to improve Flutter's rebuild performance.
+      - Extract constants to dedicated files when needed.
+
+15. **Mandatory Verification Protocol (CRITICAL)**: Before providing any code or applying any changes, the AI must verify the following:
+
+    **Pre-Deployment Checklist**:
+    - [ ] **No Hardcoded Strings**: All user-facing text uses `el.tr(CcLocaleKeys.key)`.
+    - [ ] **No Hardcoded Colors**: All colors use `context.ccColorScheme`.
+    - [ ] **No Hardcoded Typography**: All text styles use `context.ccTextTheme` and inherit **EB Garamond**.
+    - [ ] **Performance**: All possible constructors and widgets are marked as `const`.
+    - [ ] **Responsiveness**: All dimensions/padding use `context.resp*` helpers.
+    - [ ] **Linter Compliance**: Run `analyze_file` on modified files; zero errors/warnings allowed.
+    - [ ] **Import Hygiene**: No unused or redundant imports (use centralized exports).
 
 ## Project Structure
 

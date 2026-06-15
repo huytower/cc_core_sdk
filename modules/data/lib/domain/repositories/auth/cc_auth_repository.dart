@@ -1,0 +1,22 @@
+import 'package:cc_sdk/domain/failures/cc_failure.dart';
+import 'package:multiple_result/multiple_result.dart';
+
+import '../../entities/auth/cc_user_entity.dart';
+
+/// Repository interface for authentication operations.
+abstract class CcAuthRepository {
+  /// Signs in with email and password.
+  Future<Result<CcUserEntity, CcFailure>> signInWithEmail(
+    String email,
+    String password,
+  );
+
+  /// Signs out the current user.
+  Future<Result<Unit, CcFailure>> signOut();
+
+  /// Gets the currently authenticated user.
+  Future<Result<CcUserEntity?, CcFailure>> getCurrentUser();
+
+  /// Streams the authentication state changes.
+  Stream<CcUserEntity?> authStateChanges();
+}

@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i687;
 
+import 'package:data/domain/repositories/auth/cc_auth_repository.dart' as _i475;
 import 'package:data/domain/usecases/dashboard/get_dashboard_data_usecase.dart'
     as _i208;
 import 'package:data/domain/usecases/dashboard/refresh_dashboard_data_usecase.dart'
@@ -21,6 +22,14 @@ import 'package:features/auth/biometric/domain/usecases/cc_authenticate_with_bio
     as _i142;
 import 'package:features/auth/biometric/presentation/bloc/biometric_bloc.dart'
     as _i18;
+import 'package:features/features/auth/domain/usecases/get_current_user_usecase.dart'
+    as _i1003;
+import 'package:features/features/auth/domain/usecases/login_usecase.dart'
+    as _i595;
+import 'package:features/features/auth/domain/usecases/logout_usecase.dart'
+    as _i1043;
+import 'package:features/features/auth/presentation/bloc/login_cubit.dart'
+    as _i490;
 import 'package:features/features/counter/data/datasources/counter_local_data_source.dart'
     as _i19;
 import 'package:features/features/counter/data/repositories/counter_repository_impl.dart'
@@ -54,12 +63,20 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
           updateDashboardDataUseCase: gh<_i695.UpdateDashboardDataUseCase>(),
           refreshDashboardDataUseCase: gh<_i393.RefreshDashboardDataUseCase>(),
         ));
+    gh.lazySingleton<_i1003.GetCurrentUserUseCase>(
+        () => _i1003.GetCurrentUserUseCase(gh<_i475.CcAuthRepository>()));
+    gh.lazySingleton<_i595.LoginUseCase>(
+        () => _i595.LoginUseCase(gh<_i475.CcAuthRepository>()));
+    gh.lazySingleton<_i1043.LogoutUseCase>(
+        () => _i1043.LogoutUseCase(gh<_i475.CcAuthRepository>()));
     gh.lazySingleton<_i85.CcBiometricAuthRepository>(() =>
         _i507.CcBiometricAuthRepositoryImpl(
             gh<_i820.CcBiometricAuthDatasource>()));
     gh.lazySingleton<_i19.CounterLocalDataSource>(() =>
         _i19.CounterLocalDataSourceImpl(
             sharedPreferences: gh<_i460.SharedPreferences>()));
+    gh.factory<_i490.LoginCubit>(
+        () => _i490.LoginCubit(gh<_i595.LoginUseCase>()));
     gh.lazySingleton<_i112.CounterRepository>(() => _i345.CounterRepositoryImpl(
         localDataSource: gh<_i19.CounterLocalDataSource>()));
     gh.lazySingleton<_i678.DecrementCounterUseCase>(

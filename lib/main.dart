@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:app_config/data/datasource/local/box/register_hive_adapter.dart';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,6 +16,8 @@ import 'core/runner/app_runner.dart';
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
+
+    await Firebase.initializeApp();
 
     await logEnv();
     await logVersionInfo();

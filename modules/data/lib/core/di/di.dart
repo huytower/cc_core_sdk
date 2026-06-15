@@ -1,5 +1,6 @@
 import 'package:app_config/data/datasource/local/box/app_storage/cc_app_storage.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
@@ -15,6 +16,13 @@ final GetIt getIt = GetIt.instance;
     Dio,
     InternetConnection,
     SharedPreferences,
+    FirebaseAuth,
   ],
 )
 void initMicroPackage() {}
+
+@module
+abstract class FirebaseModule {
+  @lazySingleton
+  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
+}
