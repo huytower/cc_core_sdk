@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i687;
 
+import 'package:cc_sdk/domain/services/cc_messaging_service.dart' as _i408;
 import 'package:data/domain/repositories/auth/cc_auth_repository.dart' as _i475;
 import 'package:data/domain/usecases/dashboard/get_dashboard_data_usecase.dart'
     as _i208;
@@ -22,6 +23,7 @@ import 'package:features/auth/biometric/domain/usecases/cc_authenticate_with_bio
     as _i142;
 import 'package:features/auth/biometric/presentation/bloc/biometric_bloc.dart'
     as _i18;
+import 'package:features/core/di/di.dart' as _i674;
 import 'package:features/features/auth/domain/usecases/get_current_user_usecase.dart'
     as _i1003;
 import 'package:features/features/auth/domain/usecases/login_usecase.dart'
@@ -46,8 +48,11 @@ import 'package:features/features/counter/presentation/bloc/counter_bloc.dart'
     as _i8;
 import 'package:features/features/dashboard/presentation/bloc/dashboard_bloc.dart'
     as _i1059;
+import 'package:features/features/messaging/data/services/firebase_messaging_service_impl.dart'
+    as _i827;
 import 'package:features/features/web/presentation/cubit/web_cubit.dart'
     as _i312;
+import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
@@ -55,8 +60,11 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
 // initializes the registration of main-scope dependencies inside of GetIt
   @override
   _i687.FutureOr<void> init(_i526.GetItHelper gh) {
+    final messagingModule = _$MessagingModule();
     gh.lazySingleton<_i820.CcBiometricAuthDatasource>(
         () => _i820.CcBiometricAuthDatasource());
+    gh.lazySingleton<_i892.FirebaseMessaging>(
+        () => messagingModule.firebaseMessaging);
     gh.lazySingleton<_i312.WebCubit>(() => _i312.WebCubit());
     gh.factory<_i1059.DashboardBloc>(() => _i1059.DashboardBloc(
           getDashboardDataUseCase: gh<_i208.GetDashboardDataUseCase>(),
@@ -72,6 +80,8 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
     gh.lazySingleton<_i85.CcBiometricAuthRepository>(() =>
         _i507.CcBiometricAuthRepositoryImpl(
             gh<_i820.CcBiometricAuthDatasource>()));
+    gh.lazySingleton<_i408.CcMessagingService>(() =>
+        _i827.FirebaseMessagingServiceImpl(gh<_i892.FirebaseMessaging>()));
     gh.lazySingleton<_i19.CounterLocalDataSource>(() =>
         _i19.CounterLocalDataSourceImpl(
             sharedPreferences: gh<_i460.SharedPreferences>()));
@@ -99,3 +109,5 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
         ));
   }
 }
+
+class _$MessagingModule extends _i674.MessagingModule {}
