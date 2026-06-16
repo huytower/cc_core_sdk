@@ -5,6 +5,7 @@ plugins {
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 
@@ -106,4 +107,5 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.7.1")
     implementation(platform("com.google.firebase:firebase-bom:34.14.1"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
 }
