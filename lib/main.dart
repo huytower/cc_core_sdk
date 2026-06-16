@@ -6,6 +6,7 @@ import 'package:catcher_2/catcher_2.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:path_provider/path_provider.dart';
@@ -20,6 +21,7 @@ void main() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     await Firebase.initializeApp();
+    await FirebasePerformance.instance.setPerformanceCollectionEnabled(true);
 
     // Pass all uncaught "fatal" errors from the framework to Crashlytics
     FlutterError.onError = (errorDetails) {
