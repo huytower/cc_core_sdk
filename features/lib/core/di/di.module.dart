@@ -36,6 +36,10 @@ import 'package:features/features/auth/domain/usecases/login_with_google_usecase
     as _i600;
 import 'package:features/features/auth/domain/usecases/logout_usecase.dart'
     as _i1043;
+import 'package:features/features/auth/domain/usecases/sign_in_with_phone_number_usecase.dart'
+    as _i602;
+import 'package:features/features/auth/domain/usecases/verify_phone_number_usecase.dart'
+    as _i55;
 import 'package:features/features/auth/presentation/bloc/login_cubit.dart'
     as _i490;
 import 'package:features/features/counter/data/datasources/counter_local_data_source.dart'
@@ -89,6 +93,10 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
         () => _i600.LoginWithGoogleUseCase(gh<_i475.CcAuthRepository>()));
     gh.lazySingleton<_i1043.LogoutUseCase>(
         () => _i1043.LogoutUseCase(gh<_i475.CcAuthRepository>()));
+    gh.lazySingleton<_i602.SignInWithPhoneNumberUseCase>(
+        () => _i602.SignInWithPhoneNumberUseCase(gh<_i475.CcAuthRepository>()));
+    gh.lazySingleton<_i55.VerifyPhoneNumberUseCase>(
+        () => _i55.VerifyPhoneNumberUseCase(gh<_i475.CcAuthRepository>()));
     gh.lazySingleton<_i85.CcBiometricAuthRepository>(() =>
         _i507.CcBiometricAuthRepositoryImpl(
             gh<_i820.CcBiometricAuthDatasource>()));

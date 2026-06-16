@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
@@ -10,6 +11,7 @@ import 'package:message/cc_locale_keys.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../../../domain/entities/auth/cc_phone_auth_event.dart';
 import '../../../domain/entities/auth/cc_user_entity.dart';
 import '../../../domain/repositories/auth/cc_auth_repository.dart';
 
@@ -102,10 +104,9 @@ class FirebaseAuthRepositoryImpl implements CcAuthRepository {
         nonce: nonce,
       );
 
-      final credential = AppleAuthProvider.credential(
-        idToken: appleCredential.identityToken,
-        rawNonce: rawNonce,
-      );
+      final credential = OAuthProvider(
+        'apple.com',
+      ).credential(idToken: appleCredential.identityToken, rawNonce: rawNonce);
 
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
@@ -121,6 +122,55 @@ class FirebaseAuthRepositoryImpl implements CcAuthRepository {
     } catch (e) {
       return const Error(UnknownFailure(CcLocaleKeys.app_error_general));
     }
+  }
+
+  @override
+  Stream<CcPhoneAuthEvent> verifyPhoneNumber({required String phoneNumber}) {
+    final controller = StreamController<CcPhoneAuthEvent>();
+
+    void onEvent(CcPhoneAuthEvent event) {
+      if (!controller.isClosed) {
+        controller.add(event);
+        if (event is CcPhoneVerificationCompleted ||
+            event is CcPhoneVerificationFailed) {
+          controller.close();
+        }
+      }
+    }
+
+    _firebaseAuth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: (credential) async {
+        final result = await _signInWithCredential(credential);
+        result.when(
+          (u) => onEvent(CcPhoneVerificationCompleted(u)),
+          (f) => onEvent(CcPhoneVerificationFailed(f)),
+        );
+      },
+      verificationFailed: (e) => onEvent(
+        CcPhoneVerificationFailed(
+          ServerFailure(e.message ?? CcLocaleKeys.app_error_server),
+        ),
+      ),
+      codeSent: (id, token) => onEvent(CcPhoneCodeSent(id, token)),
+      codeAutoRetrievalTimeout: (id) =>
+          onEvent(CcPhoneCodeAutoRetrievalTimeout(id)),
+    );
+
+    return controller.stream;
+  }
+
+  @override
+  Future<Result<CcUserEntity, CcFailure>> signInWithPhoneNumber({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    return _signInWithCredential(
+      PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: smsCode,
+      ),
+    );
   }
 
   @override
@@ -148,6 +198,25 @@ class FirebaseAuthRepositoryImpl implements CcAuthRepository {
     return _firebaseAuth.authStateChanges().map((user) {
       return user != null ? _mapFirebaseUserToEntity(user) : null;
     });
+  }
+
+  Future<Result<CcUserEntity, CcFailure>> _signInWithCredential(
+    AuthCredential credential,
+  ) async {
+    try {
+      final userCredential = await _firebaseAuth.signInWithCredential(
+        credential,
+      );
+      final user = userCredential.user;
+      return switch (user) {
+        User u => Success(_mapFirebaseUserToEntity(u)),
+        _ => const Error(UnauthorizedFailure(CcLocaleKeys.auth_login_failed)),
+      };
+    } on FirebaseAuthException catch (e) {
+      return Error(ServerFailure(e.message ?? CcLocaleKeys.app_error_server));
+    } catch (e) {
+      return const Error(UnknownFailure(CcLocaleKeys.app_error_general));
+    }
   }
 
   CcUserEntity _mapFirebaseUserToEntity(User user) {
