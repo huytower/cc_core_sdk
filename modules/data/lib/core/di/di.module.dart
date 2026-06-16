@@ -49,6 +49,7 @@ import 'package:data/domain/usecases/upload_pending_crash_logs_usecase.dart'
 import 'package:data/export_data.dart' as _i859;
 import 'package:dio/dio.dart' as _i361;
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
+import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
 
 class DataPackageModule extends _i526.MicroPackageModule {
@@ -58,6 +59,7 @@ class DataPackageModule extends _i526.MicroPackageModule {
     final firebaseModule = _$FirebaseModule();
     final dataModule = _$DataModule();
     gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.firebaseAuth);
+    gh.lazySingleton<_i116.GoogleSignIn>(() => firebaseModule.googleSignIn);
     gh.singleton<_i361.Interceptor>(
       () => dataModule.ccResponseInterceptor,
       instanceName: 'ccResponseInterceptor',
@@ -94,7 +96,10 @@ class DataPackageModule extends _i526.MicroPackageModule {
           gh<_i361.Interceptor>(instanceName: 'cacheInterceptor'),
         ));
     gh.lazySingleton<_i475.CcAuthRepository>(
-        () => _i733.FirebaseAuthRepositoryImpl(gh<_i59.FirebaseAuth>()));
+        () => _i733.FirebaseAuthRepositoryImpl(
+              gh<_i59.FirebaseAuth>(),
+              gh<_i116.GoogleSignIn>(),
+            ));
     gh.lazySingleton<_i361.BaseOptions>(
         () => dataModule.baseOptions(gh<String>(instanceName: 'baseUrl')));
     gh.lazySingleton<_i866.DashboardRepository>(

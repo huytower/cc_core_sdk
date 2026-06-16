@@ -30,6 +30,10 @@ import 'package:features/features/auth/domain/usecases/login_anonymously_usecase
     as _i601;
 import 'package:features/features/auth/domain/usecases/login_usecase.dart'
     as _i595;
+import 'package:features/features/auth/domain/usecases/login_with_apple_usecase.dart'
+    as _i307;
+import 'package:features/features/auth/domain/usecases/login_with_google_usecase.dart'
+    as _i600;
 import 'package:features/features/auth/domain/usecases/logout_usecase.dart'
     as _i1043;
 import 'package:features/features/auth/presentation/bloc/login_cubit.dart'
@@ -79,6 +83,10 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
         () => _i601.LoginAnonymouslyUseCase(gh<_i475.CcAuthRepository>()));
     gh.lazySingleton<_i595.LoginUseCase>(
         () => _i595.LoginUseCase(gh<_i475.CcAuthRepository>()));
+    gh.lazySingleton<_i307.LoginWithAppleUseCase>(
+        () => _i307.LoginWithAppleUseCase(gh<_i475.CcAuthRepository>()));
+    gh.lazySingleton<_i600.LoginWithGoogleUseCase>(
+        () => _i600.LoginWithGoogleUseCase(gh<_i475.CcAuthRepository>()));
     gh.lazySingleton<_i1043.LogoutUseCase>(
         () => _i1043.LogoutUseCase(gh<_i475.CcAuthRepository>()));
     gh.lazySingleton<_i85.CcBiometricAuthRepository>(() =>

@@ -14,6 +14,12 @@ abstract class CcAuthRepository {
   /// Signs in anonymously.
   Future<Result<CcUserEntity, CcFailure>> signInAnonymously();
 
+  /// Signs in with Google.
+  Future<Result<CcUserEntity, CcFailure>> signInWithGoogle();
+
+  /// Signs in with Apple.
+  Future<Result<CcUserEntity, CcFailure>> signInWithApple();
+
   /// Signs out the current user.
   Future<Result<Unit, CcFailure>> signOut();
 
