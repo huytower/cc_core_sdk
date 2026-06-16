@@ -24,15 +24,30 @@ class FirebaseAuthRepositoryImpl implements CcAuthRepository {
         password: password,
       );
       final user = userCredential.user;
-      if (user != null) {
-        return Success(_mapFirebaseUserToEntity(user));
-      } else {
-        return const Error(UnauthorizedFailure(CcLocaleKeys.auth_login_failed));
-      }
+      return switch (user) {
+        User u => Success(_mapFirebaseUserToEntity(u)),
+        _ => const Error(UnauthorizedFailure(CcLocaleKeys.auth_login_failed)),
+      };
     } on FirebaseAuthException catch (e) {
       return Error(ServerFailure(e.message ?? CcLocaleKeys.app_error_server));
     } catch (e) {
-      return Error(UnknownFailure(CcLocaleKeys.app_error_general));
+      return const Error(UnknownFailure(CcLocaleKeys.app_error_general));
+    }
+  }
+
+  @override
+  Future<Result<CcUserEntity, CcFailure>> signInAnonymously() async {
+    try {
+      final userCredential = await _firebaseAuth.signInAnonymously();
+      final user = userCredential.user;
+      return switch (user) {
+        User u => Success(_mapFirebaseUserToEntity(u)),
+        _ => const Error(UnauthorizedFailure(CcLocaleKeys.auth_login_failed)),
+      };
+    } on FirebaseAuthException catch (e) {
+      return Error(ServerFailure(e.message ?? CcLocaleKeys.app_error_server));
+    } catch (e) {
+      return const Error(UnknownFailure(CcLocaleKeys.app_error_general));
     }
   }
 
@@ -42,7 +57,7 @@ class FirebaseAuthRepositoryImpl implements CcAuthRepository {
       await _firebaseAuth.signOut();
       return const Success(unit);
     } catch (e) {
-      return Error(UnknownFailure(CcLocaleKeys.app_error_general));
+      return const Error(UnknownFailure(CcLocaleKeys.app_error_general));
     }
   }
 
@@ -52,7 +67,7 @@ class FirebaseAuthRepositoryImpl implements CcAuthRepository {
       final user = _firebaseAuth.currentUser;
       return Success(user != null ? _mapFirebaseUserToEntity(user) : null);
     } catch (e) {
-      return Error(UnknownFailure(CcLocaleKeys.app_error_general));
+      return const Error(UnknownFailure(CcLocaleKeys.app_error_general));
     }
   }
 

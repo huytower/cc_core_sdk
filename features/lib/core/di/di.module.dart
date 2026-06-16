@@ -26,6 +26,8 @@ import 'package:features/auth/biometric/presentation/bloc/biometric_bloc.dart'
 import 'package:features/core/di/di.dart' as _i674;
 import 'package:features/features/auth/domain/usecases/get_current_user_usecase.dart'
     as _i1003;
+import 'package:features/features/auth/domain/usecases/login_anonymously_usecase.dart'
+    as _i601;
 import 'package:features/features/auth/domain/usecases/login_usecase.dart'
     as _i595;
 import 'package:features/features/auth/domain/usecases/logout_usecase.dart'
@@ -73,6 +75,8 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
         ));
     gh.lazySingleton<_i1003.GetCurrentUserUseCase>(
         () => _i1003.GetCurrentUserUseCase(gh<_i475.CcAuthRepository>()));
+    gh.lazySingleton<_i601.LoginAnonymouslyUseCase>(
+        () => _i601.LoginAnonymouslyUseCase(gh<_i475.CcAuthRepository>()));
     gh.lazySingleton<_i595.LoginUseCase>(
         () => _i595.LoginUseCase(gh<_i475.CcAuthRepository>()));
     gh.lazySingleton<_i1043.LogoutUseCase>(

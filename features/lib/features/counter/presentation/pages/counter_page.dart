@@ -46,20 +46,18 @@ class CounterDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CounterBloc, CounterState>(
       builder: (context, state) {
-        if (state is CounterLoading) {
-          return const CircularProgressIndicator();
-        } else if (state is CounterLoaded) {
-          return CcText(
-            '${state.counter.value}',
+        return switch (state) {
+          CounterLoading() => const CircularProgressIndicator(),
+          CounterLoaded(counter: var counter) => CcText(
+            '${counter.value}',
             fontSize: CcTypographyParams.headlineLarge,
             color: context.ccColorScheme.primary,
-          );
-        } else if (state is CounterError) {
-          return CcText(
-            '${el.tr(CcLocaleKeys.app_error_general)}: ${state.message}',
-          );
-        }
-        return CcText(el.tr(CcLocaleKeys.home_welcome));
+          ),
+          CounterError(message: var message) => CcText(
+            '${el.tr(CcLocaleKeys.app_error_general)}: $message',
+          ),
+          _ => CcText(el.tr(CcLocaleKeys.home_welcome)),
+        };
       },
     );
   }

@@ -11,6 +11,9 @@ abstract class CcAuthRepository {
     String password,
   );
 
+  /// Signs in anonymously.
+  Future<Result<CcUserEntity, CcFailure>> signInAnonymously();
+
   /// Signs out the current user.
   Future<Result<Unit, CcFailure>> signOut();
 
