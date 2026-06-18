@@ -6,7 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/di.dart';
 import '../../../../core/navigation/features_router.gr.dart';
-import '../bloc/login_cubit.dart';
+import '../bloc/login_bloc.dart';
+import '../bloc/login_event.dart';
 import '../bloc/login_state.dart';
 
 @RoutePage()
@@ -16,7 +17,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<LoginCubit>(),
+      create: (context) => getIt<LoginBloc>(),
       child: const LoginView(),
     );
   }
@@ -49,7 +50,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
           // Navigate to main navigation or dashboard
@@ -65,7 +66,7 @@ class _LoginViewState extends State<LoginView> {
               context.respPadding(CcPaddingParams.PAGE_MD),
             ),
             child: SingleChildScrollView(
-              child: BlocBuilder<LoginCubit, LoginState>(
+              child: BlocBuilder<LoginBloc, LoginState>(
                 builder: (context, state) {
                   final isLoading = state is LoginLoading;
                   final errorMessage = state is LoginError
@@ -146,9 +147,11 @@ class _LoginViewState extends State<LoginView> {
                         const Center(child: CircularProgressIndicator())
                       else
                         CcBaseBtn(
-                          onTap: () => context.read<LoginCubit>().login(
-                            _emailController.text,
-                            _passwordController.text,
+                          onTap: () => context.read<LoginBloc>().add(
+                            LoginStarted(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ),
                           ),
                           title: el.tr(CcLocaleKeys.auth_login),
                         ),
@@ -190,13 +193,15 @@ class _LoginViewState extends State<LoginView> {
                         children: [
                           _SocialButton(
                             icon: Icons.g_mobiledata,
-                            onTap: () =>
-                                context.read<LoginCubit>().loginWithGoogle(),
+                            onTap: () => context.read<LoginBloc>().add(
+                              const LoginWithGoogleStarted(),
+                            ),
                           ),
                           _SocialButton(
                             icon: Icons.apple,
-                            onTap: () =>
-                                context.read<LoginCubit>().loginWithApple(),
+                            onTap: () => context.read<LoginBloc>().add(
+                              const LoginWithAppleStarted(),
+                            ),
                           ),
                           _SocialButton(
                             icon: Icons.phone_android,

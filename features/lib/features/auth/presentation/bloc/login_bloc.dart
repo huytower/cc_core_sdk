@@ -5,29 +5,37 @@ import 'package:message/cc_locale_keys.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/login_with_google_usecase.dart';
 import '../../domain/usecases/login_with_apple_usecase.dart';
+import 'login_event.dart';
 import 'login_state.dart';
 
 @injectable
-class LoginCubit extends Cubit<LoginState> {
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase _loginUseCase;
   final LoginWithGoogleUseCase _loginWithGoogleUseCase;
   final LoginWithAppleUseCase _loginWithAppleUseCase;
 
-  LoginCubit(
+  LoginBloc(
     this._loginUseCase,
     this._loginWithGoogleUseCase,
     this._loginWithAppleUseCase,
-  ) : super(const LoginInitial());
+  ) : super(const LoginInitial()) {
+    on<LoginStarted>(_onLoginStarted);
+    on<LoginWithGoogleStarted>(_onLoginWithGoogleStarted);
+    on<LoginWithAppleStarted>(_onLoginWithAppleStarted);
+  }
 
-  Future<void> login(String email, String password) async {
-    if (email.isEmpty || password.isEmpty) {
+  Future<void> _onLoginStarted(
+    LoginStarted event,
+    Emitter<LoginState> emit,
+  ) async {
+    if (event.email.isEmpty || event.password.isEmpty) {
       emit(const LoginError(CcLocaleKeys.validation_required));
       return;
     }
 
     emit(const LoginLoading());
 
-    final result = await _loginUseCase(email, password);
+    final result = await _loginUseCase(event.email, event.password);
 
     result.when(
       (user) => emit(LoginSuccess(user)),
@@ -35,7 +43,10 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  Future<void> loginWithGoogle() async {
+  Future<void> _onLoginWithGoogleStarted(
+    LoginWithGoogleStarted event,
+    Emitter<LoginState> emit,
+  ) async {
     emit(const LoginLoading());
     final result = await _loginWithGoogleUseCase();
     result.when(
@@ -44,7 +55,10 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  Future<void> loginWithApple() async {
+  Future<void> _onLoginWithAppleStarted(
+    LoginWithAppleStarted event,
+    Emitter<LoginState> emit,
+  ) async {
     emit(const LoginLoading());
     final result = await _loginWithAppleUseCase();
     result.when(

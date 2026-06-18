@@ -40,10 +40,10 @@ import 'package:features/features/auth/domain/usecases/sign_in_with_phone_number
     as _i602;
 import 'package:features/features/auth/domain/usecases/verify_phone_number_usecase.dart'
     as _i55;
-import 'package:features/features/auth/presentation/bloc/login_cubit.dart'
-    as _i490;
-import 'package:features/features/auth/presentation/bloc/phone_auth_cubit.dart'
-    as _i1024;
+import 'package:features/features/auth/presentation/bloc/login_bloc.dart'
+    as _i758;
+import 'package:features/features/auth/presentation/bloc/phone_auth_bloc.dart'
+    as _i586;
 import 'package:features/features/counter/data/datasources/counter_local_data_source.dart'
     as _i19;
 import 'package:features/features/counter/data/repositories/counter_repository_impl.dart'
@@ -104,7 +104,7 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
             gh<_i820.CcBiometricAuthDatasource>()));
     gh.lazySingleton<_i408.CcMessagingService>(() =>
         _i827.FirebaseMessagingServiceImpl(gh<_i892.FirebaseMessaging>()));
-    gh.factory<_i490.LoginCubit>(() => _i490.LoginCubit(
+    gh.factory<_i758.LoginBloc>(() => _i758.LoginBloc(
           gh<_i595.LoginUseCase>(),
           gh<_i600.LoginWithGoogleUseCase>(),
           gh<_i307.LoginWithAppleUseCase>(),
@@ -112,7 +112,7 @@ class FeaturesPackageModule extends _i526.MicroPackageModule {
     gh.lazySingleton<_i19.CounterLocalDataSource>(() =>
         _i19.CounterLocalDataSourceImpl(
             sharedPreferences: gh<_i460.SharedPreferences>()));
-    gh.factory<_i1024.PhoneAuthCubit>(() => _i1024.PhoneAuthCubit(
+    gh.factory<_i586.PhoneAuthBloc>(() => _i586.PhoneAuthBloc(
           gh<_i55.VerifyPhoneNumberUseCase>(),
           gh<_i602.SignInWithPhoneNumberUseCase>(),
         ));

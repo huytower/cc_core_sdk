@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/di.dart';
-import '../bloc/phone_auth_cubit.dart';
+import '../bloc/phone_auth_bloc.dart';
+import '../bloc/phone_auth_event.dart';
 import '../bloc/phone_auth_state.dart';
 
 @RoutePage()
@@ -15,7 +16,7 @@ class PhoneAuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<PhoneAuthCubit>(),
+      create: (context) => getIt<PhoneAuthBloc>(),
       child: const PhoneAuthView(),
     );
   }
@@ -48,7 +49,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PhoneAuthCubit, PhoneAuthState>(
+    return BlocListener<PhoneAuthBloc, PhoneAuthState>(
       listener: (context, state) {
         if (state is PhoneAuthSuccess) {
           // Navigate to home or dashboard
@@ -72,7 +73,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
             padding: EdgeInsets.all(
               context.respPadding(CcPaddingParams.PAGE_MD),
             ),
-            child: BlocBuilder<PhoneAuthCubit, PhoneAuthState>(
+            child: BlocBuilder<PhoneAuthBloc, PhoneAuthState>(
               builder: (context, state) {
                 final isLoading = state is PhoneAuthLoading;
                 final isCodeSent = state is PhoneAuthCodeSent;
@@ -103,9 +104,9 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                         const Center(child: CircularProgressIndicator())
                       else
                         CcBaseBtn(
-                          onTap: () => context
-                              .read<PhoneAuthCubit>()
-                              .verifyPhoneNumber(_phoneController.text),
+                          onTap: () => context.read<PhoneAuthBloc>().add(
+                            VerifyPhoneNumberStarted(_phoneController.text),
+                          ),
                           title: el.tr(CcLocaleKeys.auth_send_code),
                         ),
                     ] else ...[
@@ -127,9 +128,9 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                         const Center(child: CircularProgressIndicator())
                       else
                         CcBaseBtn(
-                          onTap: () => context
-                              .read<PhoneAuthCubit>()
-                              .signInWithCode(_codeController.text),
+                          onTap: () => context.read<PhoneAuthBloc>().add(
+                            SignInWithCodeStarted(_codeController.text),
+                          ),
                           title: el.tr(CcLocaleKeys.auth_verify),
                         ),
                     ],
