@@ -52,15 +52,19 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
     return BlocListener<PhoneAuthBloc, PhoneAuthState>(
       listener: (context, state) {
         if (state is PhoneAuthSuccess) {
-          // Navigate to home or dashboard
-          // For now, just pop back to login or handle as per app flow
+          // Successful auth navigation
           Navigator.of(context).pop();
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          title: CcText(el.tr(CcLocaleKeys.auth_login_phone)),
-          backgroundColor: Colors.transparent,
+          title: CcText(
+            el.tr(CcLocaleKeys.auth_login_phone),
+            textStyle: context.ccTextTheme.titleLarge?.copyWith(
+              color: context.ccColorScheme.onSurface,
+            ),
+          ),
+          backgroundColor: context.ccColorScheme.surface,
           elevation: 0,
           leading: CcBackBtn(
             onPress: () => Navigator.of(context).pop(),
@@ -92,10 +96,28 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                       const CcSpaceLG(),
                       TextField(
                         controller: _phoneController,
+                        style: context.ccTextTheme.bodyLarge,
                         decoration: InputDecoration(
                           labelText: el.tr(CcLocaleKeys.auth_phone_number),
-                          prefixIcon: const Icon(Icons.phone),
+                          labelStyle: context.ccTextTheme.bodyMedium,
+                          prefixIcon: Icon(
+                            Icons.phone,
+                            color: context.ccColorScheme.primary,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: context.ccColorScheme.outlineVariant,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: context.ccColorScheme.primary,
+                            ),
+                          ),
                           hintText: el.tr(CcLocaleKeys.auth_phone_hint),
+                          hintStyle: context.ccTextTheme.bodyMedium?.copyWith(
+                            color: context.ccColorScheme.onSurfaceVariant,
+                          ),
                         ),
                         keyboardType: TextInputType.phone,
                       ),
@@ -117,9 +139,24 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                       const CcSpaceLG(),
                       TextField(
                         controller: _codeController,
+                        style: context.ccTextTheme.bodyLarge,
                         decoration: InputDecoration(
                           labelText: el.tr(CcLocaleKeys.auth_enter_code),
-                          prefixIcon: const Icon(Icons.lock_outline),
+                          labelStyle: context.ccTextTheme.bodyMedium,
+                          prefixIcon: Icon(
+                            Icons.lock_outline,
+                            color: context.ccColorScheme.primary,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: context.ccColorScheme.outlineVariant,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: context.ccColorScheme.primary,
+                            ),
+                          ),
                         ),
                         keyboardType: TextInputType.number,
                       ),

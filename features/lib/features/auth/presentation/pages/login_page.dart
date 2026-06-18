@@ -53,8 +53,9 @@ class _LoginViewState extends State<LoginView> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          // Navigate to main navigation or dashboard
-          // This usually involves a global navigation change
+          // Navigate to main navigation shell using shared route path
+          // Using hardcoded path string to avoid cross-module import dependency
+          context.router.replacePath('/main_navigation');
         }
       },
       child: Scaffold(
@@ -109,9 +110,24 @@ class _LoginViewState extends State<LoginView> {
                       // Email Field
                       TextField(
                         controller: _emailController,
+                        style: context.ccTextTheme.bodyLarge,
                         decoration: InputDecoration(
                           labelText: el.tr(CcLocaleKeys.auth_email),
-                          prefixIcon: const Icon(Icons.email_outlined),
+                          labelStyle: context.ccTextTheme.bodyMedium,
+                          prefixIcon: Icon(
+                            Icons.email_outlined,
+                            color: context.ccColorScheme.primary,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: context.ccColorScheme.outlineVariant,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: context.ccColorScheme.primary,
+                            ),
+                          ),
                         ),
                         keyboardType: TextInputType.emailAddress,
                       ),
@@ -120,9 +136,24 @@ class _LoginViewState extends State<LoginView> {
                       // Password Field
                       TextField(
                         controller: _passwordController,
+                        style: context.ccTextTheme.bodyLarge,
                         decoration: InputDecoration(
                           labelText: el.tr(CcLocaleKeys.auth_password),
-                          prefixIcon: const Icon(Icons.lock_open_outlined),
+                          labelStyle: context.ccTextTheme.bodyMedium,
+                          prefixIcon: Icon(
+                            Icons.lock_open_outlined,
+                            color: context.ccColorScheme.primary,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: context.ccColorScheme.outlineVariant,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: context.ccColorScheme.primary,
+                            ),
+                          ),
                         ),
                         obscureText: true,
                       ),
