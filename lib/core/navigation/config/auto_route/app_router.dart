@@ -17,6 +17,8 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.mainNavigation.path,
     ),
     AutoRoute(page: SplashRoute.page, path: AppRoute.splash.path),
+    AutoRoute(page: LoginRoute.page, path: AppRoute.login.path),
+    AutoRoute(page: PhoneAuthRoute.page, path: AppRoute.phoneAuth.path),
     AutoRoute(page: CommentRoute.page, path: AppRoute.comment.path),
     AutoRoute(page: CommentDetailRoute.page, path: AppRoute.commentDetail.path),
     AutoRoute(page: SimpleCubitRoute.page, path: ExampleRoute.blocSimple.path),

@@ -23,6 +23,7 @@
     "search": "Search",
     "no_results": "No results found",
     "no_data": "No data found",
+    "or": "OR",
     "income": "Income",
     "expense": "Expense",
     "press_back_again_to_exit": "Press back again to exit"
@@ -38,6 +39,14 @@
     "have_account": "Already have an account?",
     "login_success": "Login successful",
     "login_failed": "Login failed. Please check your credentials.",
+    "login_google": "Login with Google",
+    "login_apple": "Login with Apple",
+    "login_phone": "Login with Phone Number",
+    "phone_number": "Phone Number",
+    "phone_hint": "+1234567890",
+    "verify": "Verify",
+    "send_code": "Send Code",
+    "enter_code": "Enter SMS Code",
     "biometric": {
       "reason": "Authentication required",
       "fallback": "Please enable biometrics for this app in Settings.",

@@ -1,7 +1,6 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
-import 'package:message/cc_locale_keys.dart';
 
 /// A state-management agnostic Login Page.
 ///
@@ -10,6 +9,9 @@ import 'package:message/cc_locale_keys.dart';
 /// from any specific state management (GetX/Bloc).
 class CcLoginPage extends StatelessWidget {
   final VoidCallback? onLoginPressed;
+  final VoidCallback? onGoogleLoginPressed;
+  final VoidCallback? onAppleLoginPressed;
+  final VoidCallback? onPhoneLoginPressed;
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final bool isLoading;
@@ -20,6 +22,9 @@ class CcLoginPage extends StatelessWidget {
     required this.emailController,
     required this.passwordController,
     this.onLoginPressed,
+    this.onGoogleLoginPressed,
+    this.onAppleLoginPressed,
+    this.onPhoneLoginPressed,
     this.isLoading = false,
     this.errorMessage,
   });
@@ -31,7 +36,7 @@ class CcLoginPage extends StatelessWidget {
       body: SafeArea(
         child: CcResponsiveContainer(
           alignment: Alignment.center,
-          padding: EdgeInsets.all(context.respPadding(24)),
+          padding: EdgeInsets.all(context.respPadding(CcPaddingParams.PAGE_MD)),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -43,18 +48,18 @@ class CcLoginPage extends StatelessWidget {
                   size: context.respIconSize(baseSize: 80),
                   color: context.ccColorScheme.primary,
                 ),
-                SizedBox(height: context.respPadding(32)),
+                const CcSpaceHeader(),
 
                 // Title
                 CcText(
                   el.tr(CcLocaleKeys.auth_login),
                   textStyle: context.ccTextTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: CcTypographyParams.bold,
                     color: context.ccColorScheme.onSurface,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: context.respPadding(8)),
+                const CcSpaceSM(),
 
                 // Subtitle
                 CcText(
@@ -64,7 +69,7 @@ class CcLoginPage extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: context.respPadding(48)),
+                const CcSpaceHeader(),
 
                 // Email Field
                 TextField(
@@ -75,7 +80,7 @@ class CcLoginPage extends StatelessWidget {
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
-                SizedBox(height: context.respPadding(16)),
+                const CcSpaceLG(),
 
                 // Password Field
                 TextField(
@@ -89,7 +94,7 @@ class CcLoginPage extends StatelessWidget {
 
                 // Error Message
                 if (errorMessage != null) ...[
-                  SizedBox(height: context.respPadding(16)),
+                  const CcSpaceLG(),
                   CcText(
                     el.tr(errorMessage!),
                     textStyle: context.ccTextTheme.bodySmall?.copyWith(
@@ -98,7 +103,7 @@ class CcLoginPage extends StatelessWidget {
                   ),
                 ],
 
-                SizedBox(height: context.respPadding(32)),
+                SizedBox(height: context.respPadding(CcPaddingParams.PAGE_LG)),
 
                 // Login Button
                 if (isLoading)
@@ -109,7 +114,58 @@ class CcLoginPage extends StatelessWidget {
                     title: el.tr(CcLocaleKeys.auth_login),
                   ),
 
-                SizedBox(height: context.respPadding(16)),
+                const CcSpaceXL(),
+
+                // Divider
+                Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        color: context.ccColorScheme.outlineVariant,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.respPadding(
+                          CcPaddingParams.PAGE_SM,
+                        ),
+                      ),
+                      child: CcText(
+                        el.tr(CcLocaleKeys.common_or),
+                        textStyle: context.ccTextTheme.labelMedium,
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        color: context.ccColorScheme.outlineVariant,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const CcSpaceXL(),
+
+                // Social Login Buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _SocialButton(
+                      icon: Icons
+                          .g_mobiledata, // Replace with real asset if available
+                      onTap: onGoogleLoginPressed,
+                    ),
+                    _SocialButton(
+                      icon: Icons.apple,
+                      onTap: onAppleLoginPressed,
+                    ),
+                    _SocialButton(
+                      icon: Icons.phone_android,
+                      onTap: onPhoneLoginPressed,
+                    ),
+                  ],
+                ),
+
+                const CcSpaceLG(),
 
                 // Sign Up Link (Placeholder)
                 TextButton(
@@ -124,6 +180,37 @@ class CcLoginPage extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SocialButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  const _SocialButton({required this.icon, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return CcInkWell(
+      onTap: onTap ?? () {},
+      borderRadius: BorderRadius.circular(
+        context.respDim(CcPaddingParams.DESC_MD),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(context.respPadding(CcPaddingParams.DESC_MD)),
+        decoration: BoxDecoration(
+          border: Border.all(color: context.ccColorScheme.outlineVariant),
+          borderRadius: BorderRadius.circular(
+            context.respDim(CcPaddingParams.DESC_MD),
+          ),
+        ),
+        child: Icon(
+          icon,
+          size: context.respIconSize(baseSize: 32),
+          color: context.ccColorScheme.onSurface,
         ),
       ),
     );

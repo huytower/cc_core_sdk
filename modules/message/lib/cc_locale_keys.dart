@@ -23,6 +23,7 @@ abstract class CcLocaleKeys {
   static const common_search = 'common.search';
   static const common_no_results = 'common.no_results';
   static const common_no_data = 'common.no_data';
+  static const common_or = 'common.or';
   static const common_income = 'common.income';
   static const common_expense = 'common.expense';
   static const common_press_back_again_to_exit =
@@ -42,6 +43,14 @@ abstract class CcLocaleKeys {
   static const auth_have_account = 'auth.have_account';
   static const auth_login_success = 'auth.login_success';
   static const auth_login_failed = 'auth.login_failed';
+  static const auth_login_google = 'auth.login_google';
+  static const auth_login_apple = 'auth.login_apple';
+  static const auth_login_phone = 'auth.login_phone';
+  static const auth_phone_number = 'auth.phone_number';
+  static const auth_phone_hint = 'auth.phone_hint';
+  static const auth_verify = 'auth.verify';
+  static const auth_send_code = 'auth.send_code';
+  static const auth_enter_code = 'auth.enter_code';
   static const auth_biometric_reason = 'auth.biometric.reason';
   static const auth_biometric_fallback = 'auth.biometric.fallback';
   static const auth_biometric_error_not_available =

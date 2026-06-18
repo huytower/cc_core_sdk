@@ -8,6 +8,7 @@ enum AppRoute {
   dashboard,
   setting,
   login,
+  phoneAuth,
   logout,
   profile,
   updateVersion,

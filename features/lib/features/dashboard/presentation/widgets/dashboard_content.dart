@@ -26,7 +26,9 @@ class DashboardContent extends StatelessWidget {
     return Stack(
       children: [
         CcResponsiveContainer(
-          padding: const EdgeInsets.all(CcPaddingParams.SPACE_LG),
+          padding: EdgeInsets.all(
+            context.respPadding(CcPaddingParams.SPACE_LG),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

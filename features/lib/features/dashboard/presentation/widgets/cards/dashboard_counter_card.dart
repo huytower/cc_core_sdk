@@ -43,7 +43,7 @@ class DashboardCounterCard extends StatelessWidget {
                 '$itemCount',
                 textStyle: context.ccTextTheme.headlineLarge?.copyWith(
                   color: context.ccColorScheme.secondary,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: CcTypographyParams.bold,
                 ),
               ),
               const CcSpaceXL(),
