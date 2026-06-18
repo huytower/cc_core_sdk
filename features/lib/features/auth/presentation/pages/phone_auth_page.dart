@@ -1,8 +1,10 @@
+import 'package:auto_route/annotations.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
-class CcPhoneAuthPage extends StatelessWidget {
+@RoutePage()
+class PhoneAuthPage extends StatelessWidget {
   final TextEditingController phoneController;
   final TextEditingController codeController;
   final bool isLoading;
@@ -11,7 +13,7 @@ class CcPhoneAuthPage extends StatelessWidget {
   final VoidCallback onVerifyPressed;
   final VoidCallback onSignInPressed;
 
-  const CcPhoneAuthPage({
+  const PhoneAuthPage({
     super.key,
     required this.phoneController,
     required this.codeController,

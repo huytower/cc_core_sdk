@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:features/export_features.dart';
 
 import '../../route_names.dart';
 import 'app_router.gr.dart';
@@ -23,5 +24,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: CommentDetailRoute.page, path: AppRoute.commentDetail.path),
     AutoRoute(page: SimpleCubitRoute.page, path: ExampleRoute.blocSimple.path),
     AutoRoute(page: AdvanceBlocRoute.page, path: ExampleRoute.blocAdvance.path),
+    AutoRoute(page: DashboardRoute.page, path: AppRoute.dashboard.path),
+    AutoRoute(page: CounterRoute.page, path: AppRoute.featuresCounter.path),
+    AutoRoute(page: WebRoute.page, path: AppRoute.web.path),
   ];
 }

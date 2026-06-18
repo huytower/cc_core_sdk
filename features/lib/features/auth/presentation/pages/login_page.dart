@@ -1,13 +1,10 @@
+import 'package:auto_route/annotations.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
-/// A state-management agnostic Login Page.
-///
-/// This page demonstrates how to build a UI that respects the project's
-/// theme, typography, and responsiveness while remaining decoupled
-/// from any specific state management (GetX/Bloc).
-class CcLoginPage extends StatelessWidget {
+@RoutePage()
+class LoginPage extends StatelessWidget {
   final VoidCallback? onLoginPressed;
   final VoidCallback? onGoogleLoginPressed;
   final VoidCallback? onAppleLoginPressed;
@@ -17,7 +14,7 @@ class CcLoginPage extends StatelessWidget {
   final bool isLoading;
   final String? errorMessage;
 
-  const CcLoginPage({
+  const LoginPage({
     super.key,
     required this.emailController,
     required this.passwordController,

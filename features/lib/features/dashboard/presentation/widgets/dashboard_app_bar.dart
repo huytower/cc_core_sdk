@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/dashboard_bloc.dart';
+import '../bloc/dashboard_bloc.dart';
 
 /// Dashboard app bar widget with title and refresh action
 class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {

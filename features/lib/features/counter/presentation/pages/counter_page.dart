@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import '../../../../core/di/di.dart';
 import '../bloc/counter_bloc.dart';
 import '../widgets/counter_action_button.dart';
 
+@RoutePage()
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 
