@@ -63,7 +63,7 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
     - Use responsive widgets like `CcResponsiveContainer` and `CcResponsiveFlex` from `cc_sdk_ui`
     - Test UI on both portrait and landscape orientations
     - Consider orientation-specific layouts when beneficial (e.g., landscape for data tables)
-    - Use `CcResponsiveHelper.isPortrait()` and `CcResponsiveHelper.isLandscape()` to check orientation
+    - Use `context.isPortrait` and `context.isLandscape` to check orientation (provided by `CcContextExtension`)
     - Apply responsive padding, font sizes, and dimensions using helper methods:
       - `context.respPadding(base)` for spacing.
       - `context.respFontSize(base)` for text.
@@ -378,9 +378,9 @@ The app supports both portrait and landscape orientations. Before implementing U
 **Check Orientation Conditions:**
 ```dart
 // Check current orientation
-if (CcResponsiveHelper.isPortrait(context)) {
+if (context.isPortrait) {
   // Portrait-specific layout
-} else if (CcResponsiveHelper.isLandscape(context)) {
+} else if (context.isLandscape) {
   // Landscape-specific layout
 }
 ```

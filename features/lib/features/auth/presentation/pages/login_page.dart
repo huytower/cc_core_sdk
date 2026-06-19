@@ -35,7 +35,7 @@ class _LoginViewState extends State<LoginView> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          context.router.replacePath('/main_navigation');
+          context.router.replacePath(CcRouteConfig.mainNavigation);
         }
       },
       child: Scaffold(
@@ -57,11 +57,9 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 child: BlocBuilder<LoginBloc, LoginState>(
                   builder: (context, state) {
-                    final isPortrait = CcResponsiveHelper.isPortrait(context);
-
                     return Container(
                       constraints: BoxConstraints(
-                        maxWidth: isPortrait
+                        maxWidth: context.isPortrait
                             ? context.respDim(400)
                             : context.respDim(600),
                       ),

@@ -6,4 +6,6 @@ export 'presentation/bloc/login_state.dart';
 export 'presentation/bloc/phone_auth_bloc.dart';
 export 'presentation/bloc/phone_auth_state.dart';
 export 'presentation/pages/login_page.dart';
+export 'presentation/pages/otp_verification_page.dart';
 export 'presentation/pages/phone_auth_page.dart';
+export 'presentation/pages/phone_input_page.dart';

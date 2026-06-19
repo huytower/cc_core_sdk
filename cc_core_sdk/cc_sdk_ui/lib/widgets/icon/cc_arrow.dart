@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 
 class CcArrowRight extends StatelessWidget {
@@ -8,10 +9,10 @@ class CcArrowRight extends StatelessWidget {
   @override
   Center build(BuildContext context) => Center(
     child: SizedBox(
-      width: 25,
+      width: context.respDim(25.0),
       child: Icon(
         Icons.skip_next,
-        color: Colors.black,
+        color: context.ccColorScheme.onSurface,
         size: context.respIconSize(baseSize: 15.0),
       ),
     ),

@@ -17,6 +17,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
   final VerifyPhoneNumberUseCase _verifyPhoneNumberUseCase;
   final SignInWithPhoneNumberUseCase _signInWithPhoneNumberUseCase;
   String? _verificationId;
+  String? _phoneNumber;
   final Logger _logger = Logger(printer: SimplePrinter());
 
   PhoneAuthBloc(
@@ -28,12 +29,15 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     on<ResetPhoneAuthStarted>(_onResetPhoneAuthStarted);
   }
 
+  String? get phoneNumber => _phoneNumber;
+
   void _onResetPhoneAuthStarted(
     ResetPhoneAuthStarted event,
     Emitter<PhoneAuthState> emit,
   ) {
     _logger.i('PhoneAuthBloc: ResetPhoneAuthStarted event received');
     _verificationId = null;
+    _phoneNumber = null;
     emit(const PhoneAuthInitial());
   }
 
@@ -50,6 +54,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
       return;
     }
 
+    _phoneNumber = event.phoneNumber;
     _logger.i('PhoneAuthBloc: Emitting PhoneAuthLoading state');
     emit(const PhoneAuthLoading());
 

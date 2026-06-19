@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../inkwell/cc_inkwell.dart';
@@ -26,12 +27,12 @@ class CcIcon extends StatelessWidget {
       Icon(
         icon,
         size: size ?? context.respIconSize(baseSize: 20.0),
-        color: color ?? Colors.black,
+        color: color ?? context.ccColorScheme.onSurface,
       ),
-      8,
-      8,
-      8,
-      8,
+      context.respPadding(8),
+      context.respPadding(8),
+      context.respPadding(8),
+      context.respPadding(8),
     ),
   );
 }

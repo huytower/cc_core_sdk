@@ -1,49 +1,57 @@
-import 'package:cc_sdk/core/helper/cc_image_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../inkwell/cc_inkwell.dart';
 
-/// Use *.svg|icon|*.png assets
+/// Standardized Close Button.
+///
+/// If no [icon] is provided, it defaults to [Icons.close].
 class CcCloseBtn extends StatelessWidget {
-  final Color bgColor;
+  final Color? bgColor;
   final double? height, width;
   final Widget? icon;
-  final String src;
   final VoidCallback onTap;
+  final Color? iconColor;
 
   const CcCloseBtn({
     super.key,
-    this.bgColor = Colors.transparent,
+    this.bgColor,
     this.height,
     this.icon,
     required this.onTap,
-    this.src = '',
+    this.iconColor,
     this.width,
   });
 
   @override
-  Widget build(BuildContext context) =>
-      CcInkWell(onTap: onTap, child: buildSizedBox(context));
+  Widget build(BuildContext context) {
+    final double defaultSize = context.respIconSize(baseSize: 35.0);
+    final double defaultIconSize = context.respIconSize(baseSize: 20.0);
 
-  Widget buildContainer(BuildContext context) => Container(
-    alignment: Alignment.center,
-    height: context.respIconSize(baseSize: 20.0),
-    width: context.respIconSize(baseSize: 20.0),
-    color: bgColor,
-    child: buildIcon(),
-  );
-
-  Widget buildIcon() =>
-      icon ??
-      (CcImageHelper.isSvg(src) ? SvgPicture.asset(src) : Image.asset(src));
-
-  Widget buildSizedBox(BuildContext context) => Center(
-    child: SizedBox(
-      width: width ?? context.respIconSize(baseSize: 35.0),
-      height: height ?? context.respIconSize(baseSize: 35.0),
-      child: buildContainer(context),
-    ),
-  );
+    return Center(
+      child: SizedBox(
+        width: width ?? defaultSize,
+        height: height ?? defaultSize,
+        child: CcInkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(defaultSize / 2),
+          child: Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: bgColor ?? Colors.transparent,
+              shape: BoxShape.circle,
+            ),
+            child:
+                icon ??
+                Icon(
+                  Icons.close,
+                  size: defaultIconSize,
+                  color: iconColor ?? context.ccColorScheme.onSurface,
+                ),
+          ),
+        ),
+      ),
+    );
+  }
 }

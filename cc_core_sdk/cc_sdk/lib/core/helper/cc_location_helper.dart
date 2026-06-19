@@ -1,8 +1,28 @@
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class CcLocationHelper {
   static const String defaultCountryCode = '+84'; // Vietnam
+
+  /// Mapping of ISO country codes to phone calling codes
+  static const Map<String, String> countryPhoneCodes = {
+    'VN': '+84',
+    'US': '+1',
+    'BE': '+32',
+    'GB': '+44',
+    'FR': '+33',
+    'DE': '+49',
+    'JP': '+81',
+    'CN': '+86',
+    'KR': '+82',
+    'SG': '+65',
+    'TH': '+66',
+    'MY': '+60',
+    'ID': '+62',
+    'PH': '+63',
+    'AU': '+61',
+  };
 
   /// Request location permission
   static Future<bool> requestLocationPermission() async {
@@ -45,8 +65,18 @@ class CcLocationHelper {
       }
 
       // Use geocoding to get country from coordinates
-      // For now, return default country code
-      // TODO: Implement geocoding to get actual country code
+      final List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        final isoCode = placemarks.first.isoCountryCode;
+        if (isoCode != null && countryPhoneCodes.containsKey(isoCode)) {
+          return countryPhoneCodes[isoCode]!;
+        }
+      }
+
       return defaultCountryCode;
     } catch (e) {
       return defaultCountryCode;

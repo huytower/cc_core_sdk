@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../container/cc_containers.dart';
 
@@ -23,49 +25,52 @@ class AvatarUser extends StatelessWidget {
       return const SizedBox();
     }
 
+    final double respWidth = context.respDim(width);
+
     return CcContainerCircle(
       bgColor: Colors.transparent,
       strokeColor: Colors.transparent,
       strokeWidth: 2,
+      width: respWidth,
       child: ClipOval(
         child: Container(
-          height: width,
-          width: width,
+          height: respWidth,
+          width: respWidth,
           decoration: BoxDecoration(
-            color: Colors.grey.shade200,
+            color: context.ccColorScheme.surfaceVariant,
             borderRadius: CcWidgetHelper.getCircleBorderRadius(),
           ),
-          child: _buildImage(),
+          child: _buildImage(respWidth),
         ),
       ),
     );
   }
 
-  Widget _buildImage() {
+  Widget _buildImage(double respWidth) {
     if (imageUrl != null && imageUrl!.isNotEmpty) {
       return Image.network(
         imageUrl!,
-        width: width,
-        height: width,
+        width: respWidth,
+        height: respWidth,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
           onError?.call();
-          return _buildDefaultImage();
+          return _buildDefaultImage(respWidth);
         },
       );
     }
-    return _buildDefaultImage();
+    return _buildDefaultImage(respWidth);
   }
 
-  Widget _buildDefaultImage() {
+  Widget _buildDefaultImage(double respWidth) {
     if (pathDefault != null && pathDefault!.isNotEmpty) {
       return Image.asset(
         pathDefault!,
-        width: width,
-        height: width,
+        width: respWidth,
+        height: respWidth,
         fit: BoxFit.cover,
       );
     }
-    return Icon(Icons.person, size: width * 0.6);
+    return Icon(Icons.person, size: respWidth * 0.6);
   }
 }

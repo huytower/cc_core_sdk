@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 
 /// Floating action button component for common FAB usage.
 /// Provides customizable icon, color, and behavior.
@@ -26,7 +28,7 @@ class CcFloatingActionButton extends StatelessWidget {
   final Color foregroundColor;
   final String? heroTag;
   final bool mini;
-  final double elevation;
+  final double? elevation;
   final String? tooltip;
   final bool showing;
 
@@ -44,7 +46,7 @@ class CcFloatingActionButton extends StatelessWidget {
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
       mini: mini,
-      elevation: elevation,
+      elevation: elevation ?? context.respDim(6.0),
       tooltip: tooltip,
       child: effectiveIcon,
     );

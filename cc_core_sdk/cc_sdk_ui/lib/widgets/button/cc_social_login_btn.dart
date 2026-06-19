@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_padding_params.dart';
-import '../../core/extensions/cc_context_extension.dart';
 import '../../export_cc_sdk_ui.dart';
 
-enum SocialLoginType {
-  google,
-  facebook,
-  apple,
-}
+enum SocialLoginType { google, facebook, apple }
 
 class CcSocialLoginBtn extends StatelessWidget {
-  const CcSocialLoginBtn({
-    super.key,
-    required this.type,
-    required this.onTap,
-  });
+  const CcSocialLoginBtn({super.key, required this.type, required this.onTap});
 
   final SocialLoginType type;
   final VoidCallback onTap;
@@ -35,10 +25,7 @@ class CcSocialLoginBtn extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             context.respDim(CcPaddingParams.DESC_SM),
           ),
-          border: Border.all(
-            color: _getBorderColor(context),
-            width: 1,
-          ),
+          border: Border.all(color: _getBorderColor(context), width: 1),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -122,9 +109,7 @@ class _GoogleIcon extends StatelessWidget {
     return SizedBox(
       width: context.respDim(24),
       height: context.respDim(24),
-      child: CustomPaint(
-        painter: _GoogleIconPainter(),
-      ),
+      child: CustomPaint(painter: _GoogleIconPainter()),
     );
   }
 }
@@ -185,11 +170,7 @@ class _FacebookIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      Icons.facebook,
-      color: Colors.white,
-      size: context.respDim(24),
-    );
+    return Icon(Icons.facebook, color: Colors.white, size: context.respDim(24));
   }
 }
 
@@ -198,10 +179,6 @@ class _AppleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      Icons.apple,
-      color: Colors.white,
-      size: context.respDim(24),
-    );
+    return Icon(Icons.apple, color: Colors.white, size: context.respDim(24));
   }
 }

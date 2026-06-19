@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
+import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../core/helper/cc_widget_helper.dart';
 import '../icon/cc_icon.dart';
@@ -22,7 +23,7 @@ class CcBackBtn extends StatelessWidget {
           icon: icon,
           size: context.respIconSize(baseSize: 20.0),
           align: Alignment.center,
-          color: Colors.white,
+          color: context.ccColorScheme.onSurface,
         ),
         CcInkWell(
           onTap: onPress,
@@ -30,10 +31,10 @@ class CcBackBtn extends StatelessWidget {
         ),
       ],
     ),
-    4,
-    4,
-    4,
-    4,
+    context.respPadding(4),
+    context.respPadding(4),
+    context.respPadding(4),
+    context.respPadding(4),
   );
 }
 
@@ -52,49 +53,57 @@ class CcBackAssetBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CcInkWell(
-    onTap: onTap ?? () => Get.back(),
+    onTap: onTap ?? () => context.router.back(),
     borderRadius: CcWidgetHelper.getCircleBorderRadius(),
     child: SizedBox(
-      height: 45.0,
-      width: 45.0,
+      height: context.respDim(45.0),
+      width: context.respDim(45.0),
       child: Center(
-        child: SvgPicture.asset(assetRes, height: 22.0, width: 22.0),
+        child: SvgPicture.asset(
+          assetRes,
+          height: context.respIconSize(baseSize: 22.0),
+          width: context.respIconSize(baseSize: 22.0),
+        ),
       ),
     ),
   );
 }
 
 class CcBackDividerBtn extends StatelessWidget {
-  static const double heightBack = 5, widthBack = 36, paddingBack = 14;
-
   const CcBackDividerBtn({super.key, required this.onPress});
 
   final VoidCallback onPress;
 
   @override
-  Widget build(BuildContext context) => Positioned(
-    left: Get.width / 2 - widthBack / 2,
-    top: paddingBack,
-    child: Stack(
-      children: <Widget>[
-        const Padding(
-          padding: EdgeInsets.only(bottom: paddingBack),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(4),
-              ), // Assuming small rounded
+  Widget build(BuildContext context) {
+    final double heightBack = context.respDim(5);
+    final double widthBack = context.respDim(36);
+    final double paddingBack = context.respPadding(14);
+
+    return Positioned(
+      left: context.screenWidth / 2 - widthBack / 2,
+      top: paddingBack,
+      child: Stack(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(bottom: paddingBack),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: context.ccColorScheme.outlineVariant,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(context.respDim(4)),
+                ),
+              ),
+              child: SizedBox(width: widthBack, height: heightBack),
             ),
+          ),
+          CcInkWell(
+            onTap: onPress,
+            borderRadius: BorderRadius.all(Radius.circular(context.respDim(4))),
             child: SizedBox(width: widthBack, height: heightBack),
           ),
-        ),
-        CcInkWell(
-          onTap: onPress,
-          borderRadius: const BorderRadius.all(Radius.circular(4)),
-          child: const SizedBox(width: widthBack, height: heightBack),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }
