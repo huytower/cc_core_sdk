@@ -68,6 +68,19 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
     }
   }
 
+  void _handleEditPhoneNumber() {
+    _codeController.clear();
+    context.read<PhoneAuthBloc>().add(const ResetPhoneAuthStarted());
+  }
+
+  void _handleResendCode() {
+    _codeController.clear();
+    final fullPhoneNumber = '$_countryCode${_phoneController.text}';
+    context.read<PhoneAuthBloc>().add(
+      VerifyPhoneNumberStarted(fullPhoneNumber),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<PhoneAuthBloc, PhoneAuthState>(
@@ -126,6 +139,8 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                   onContinue: _handleContinue,
                   isLoading: isLoading,
                   errorMessage: errorMessage,
+                  onEditPhoneNumber: _handleEditPhoneNumber,
+                  onResendCode: _handleResendCode,
                 ),
               );
             },

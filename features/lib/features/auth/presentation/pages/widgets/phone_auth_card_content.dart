@@ -2,6 +2,8 @@ import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
+import 'phone_otp_input.dart';
+
 class PhoneAuthCardContent extends StatelessWidget {
   const PhoneAuthCardContent({
     super.key,
@@ -13,6 +15,8 @@ class PhoneAuthCardContent extends StatelessWidget {
     required this.onContinue,
     required this.isLoading,
     required this.errorMessage,
+    this.onEditPhoneNumber,
+    this.onResendCode,
   });
 
   final bool isCodeSent;
@@ -23,6 +27,8 @@ class PhoneAuthCardContent extends StatelessWidget {
   final VoidCallback onContinue;
   final bool isLoading;
   final String? errorMessage;
+  final VoidCallback? onEditPhoneNumber;
+  final VoidCallback? onResendCode;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,7 @@ class PhoneAuthCardContent extends StatelessWidget {
         // Title
         CcText(
           isCodeSent
-              ? el.tr(CcLocaleKeys.auth_enter_code)
+              ? el.tr(CcLocaleKeys.auth_we_just_sent_sms)
               : el.tr(CcLocaleKeys.auth_enter_phone_number),
           maxLines: 2,
           align: Alignment.center,
@@ -49,6 +55,48 @@ class PhoneAuthCardContent extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
+
+        if (isCodeSent) ...[
+          const CcSpaceSM(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CcText(
+                '${el.tr(CcLocaleKeys.auth_enter_security_code)}',
+                align: Alignment.center,
+                textStyle: context.ccTextTheme.bodyMedium?.copyWith(
+                  color: context.ccColorScheme.onSurfaceVariant,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CcText(
+                    '$countryCode${phoneController.text}',
+
+                    align: Alignment.center,
+                    marginLeft: 0,
+                    marginRight: 0,
+                    textStyle: context.ccTextTheme.bodyMedium?.copyWith(
+                      color: context.ccColorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  IconButton(
+                    onPressed: onEditPhoneNumber,
+                    icon: Icon(
+                      Icons.edit_outlined,
+                      size: context.respDim(16),
+                      color: context.ccColorScheme.primary,
+                    ),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
 
         const CcSpaceXL(),
 
@@ -61,51 +109,12 @@ class PhoneAuthCardContent extends StatelessWidget {
             hintText: el.tr(CcLocaleKeys.auth_phone_number_hint),
           ),
         ] else ...[
-          // Code input
-          TextField(
+          // OTP Input boxes
+          PhoneOtpInput(
             controller: codeController,
-            style: context.ccTextTheme.bodyMedium?.copyWith(
-              color: context.ccColorScheme.onSurface,
-            ),
-            decoration: InputDecoration(
-              hintText: el.tr(CcLocaleKeys.auth_enter_code),
-              hintStyle: context.ccTextTheme.bodyMedium?.copyWith(
-                color: context.ccColorScheme.onSurfaceVariant,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  context.respDim(CcPaddingParams.DESC_SM),
-                ),
-                borderSide: BorderSide(
-                  color: context.ccColorScheme.outline,
-                  width: 1,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  context.respDim(CcPaddingParams.DESC_SM),
-                ),
-                borderSide: BorderSide(
-                  color: context.ccColorScheme.outline,
-                  width: 1,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  context.respDim(CcPaddingParams.DESC_SM),
-                ),
-                borderSide: BorderSide(
-                  color: context.ccColorScheme.primary,
-                  width: 2,
-                ),
-              ),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: context.respPadding(CcPaddingParams.DESC_MD),
-                vertical: context.respPadding(CcPaddingParams.DESC_MD),
-              ),
-            ),
-            keyboardType: TextInputType.number,
+            onCompleted: (_) => onContinue(),
           ),
+          const CcSpaceXL(),
         ],
 
         if (errorMessage != null) ...[
@@ -137,6 +146,41 @@ class PhoneAuthCardContent extends StatelessWidget {
             ],
             textColor: context.ccColorScheme.onPrimary,
           ),
+
+        if (isCodeSent) ...[
+          const CcSpaceLG(),
+          CcText(
+            el.tr(CcLocaleKeys.auth_didnt_receive_code),
+            align: Alignment.center,
+            textStyle: context.ccTextTheme.bodyMedium?.copyWith(
+              color: context.ccColorScheme.onSurfaceVariant,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const CcSpaceXS(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CcText(
+                '${el.tr(CcLocaleKeys.auth_resend)} ',
+                textStyle: context.ccTextTheme.bodyMedium?.copyWith(
+                  color: context.ccColorScheme.primary,
+                  fontWeight: CcTypographyParams.bold,
+                ),
+              ),
+              CcCountDown(
+                seconds: 60,
+                onTimerFinish: () {
+                  // Handle timer finish if needed
+                },
+                style: context.ccTextTheme.bodyMedium?.copyWith(
+                  color: context.ccColorScheme.primary,
+                  fontWeight: CcTypographyParams.bold,
+                ),
+              ),
+            ],
+          ),
+        ],
         const CcSpaceLG(),
       ],
     );

@@ -56,6 +56,10 @@ abstract class CcLocaleKeys {
   static const auth_verify = 'auth.verify';
   static const auth_send_code = 'auth.send_code';
   static const auth_enter_code = 'auth.enter_code';
+  static const auth_we_just_sent_sms = 'auth.we_just_sent_sms';
+  static const auth_enter_security_code = 'auth.enter_security_code';
+  static const auth_didnt_receive_code = 'auth.didnt_receive_code';
+  static const auth_resend = 'auth.resend';
   static const auth_biometric_reason = 'auth.biometric.reason';
   static const auth_biometric_fallback = 'auth.biometric.fallback';
   static const auth_biometric_error_not_available =

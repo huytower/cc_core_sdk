@@ -45,6 +45,10 @@
     "verify": "Xác minh",
     "send_code": "Gửi mã",
     "enter_code": "Nhập mã SMS",
+    "we_just_sent_sms": "Chúng tôi vừa gửi một tin nhắn SMS",
+    "enter_security_code": "Nhập mã bảo mật chúng tôi đã gửi tới",
+    "didnt_receive_code": "Không nhận được mã?",
+    "resend": "Gửi lại sau",
     "terms_and_privacy": "Bằng cách tiếp tục, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi",
     "biometric": {
       "reason": "Yêu cầu xác thực",

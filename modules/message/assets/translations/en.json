@@ -50,6 +50,10 @@
     "verify": "Verify",
     "send_code": "Send Code",
     "enter_code": "Enter SMS Code",
+    "we_just_sent_sms": "We just sent an SMS",
+    "enter_security_code": "Enter the security code we sent to",
+    "didnt_receive_code": "Didn't receive code?",
+    "resend": "Resend after",
     "terms_and_privacy": "By continuing, you agree to our Terms of Service and Privacy Policy",
     "biometric": {
       "reason": "Authentication required",

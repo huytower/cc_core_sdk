@@ -22,3 +22,7 @@ class SignInWithCodeStarted extends PhoneAuthEvent {
   @override
   List<Object?> get props => [smsCode];
 }
+
+class ResetPhoneAuthStarted extends PhoneAuthEvent {
+  const ResetPhoneAuthStarted();
+}

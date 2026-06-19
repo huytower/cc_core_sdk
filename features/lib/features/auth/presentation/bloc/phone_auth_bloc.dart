@@ -25,6 +25,16 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
   ) : super(const PhoneAuthInitial()) {
     on<VerifyPhoneNumberStarted>(_onVerifyPhoneNumberStarted);
     on<SignInWithCodeStarted>(_onSignInWithCodeStarted);
+    on<ResetPhoneAuthStarted>(_onResetPhoneAuthStarted);
+  }
+
+  void _onResetPhoneAuthStarted(
+    ResetPhoneAuthStarted event,
+    Emitter<PhoneAuthState> emit,
+  ) {
+    _logger.i('PhoneAuthBloc: ResetPhoneAuthStarted event received');
+    _verificationId = null;
+    emit(const PhoneAuthInitial());
   }
 
   Future<void> _onVerifyPhoneNumberStarted(
