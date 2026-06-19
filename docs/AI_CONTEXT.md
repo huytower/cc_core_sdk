@@ -36,6 +36,21 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
    - Remove unused imports after code changes
    - Example: If importing from `cc_sdk_ui/export_cc_sdk_ui.dart`, do not also import from individual widget files or from modules that are already exported through cc_sdk_ui
 
+   **Common Mistakes to Avoid:**
+   - **Duplicate Imports**: Do not import both the centralized export file AND individual files from the same module
+     - ❌ `import '../../export_cc_sdk_ui.dart';` AND `import '../inkwell/cc_inkwell.dart';`
+     - ✅ `import '../../export_cc_sdk_ui.dart';` (only)
+   - **Redundant Imports**: If a widget is already exported through the centralized export, don't import it separately
+   - **Missing Token Imports**: For cc_sdk_ui files, always import required tokens directly if not in export:
+     - `import '../../core/config/tokens/cc_padding_params.dart';`
+     - `import '../../core/extensions/cc_context_extension.dart';`
+
+   **Import Order Convention:**
+   1. Flutter/Dart SDK imports
+   2. External package imports
+   3. Project module imports (cc_sdk, cc_sdk_ui, etc.)
+   4. Local relative imports (only if not available through exports)
+
 10. **Multi-Screen Support (CRITICAL)**: All UI components and pages must support multiple screen sizes and orientations.
 
     **Requirements:**
@@ -110,7 +125,25 @@ A modular Flutter starter built around **Clean Architecture** and **SOLID princi
       - Use `const` constructors wherever possible to improve Flutter's rebuild performance.
       - Extract constants to dedicated files when needed.
 
-15. **Mandatory Verification Protocol (CRITICAL)**: Before providing any code or applying any changes, the AI must verify the following:
+15. **Code Review Self-Check (CRITICAL)**: Before providing any code, the AI must perform a self-check to avoid common mistakes:
+
+    **Import Verification:**
+    - [ ] Check if centralized export file is available (e.g., `export_cc_sdk_ui.dart`)
+    - [ ] If using centralized export, remove all individual file imports from the same module
+    - [ ] Verify no duplicate imports exist
+    - [ ] Ensure import order follows convention: SDK → External → Project → Local
+    - [ ] For cc_sdk_ui files: Import tokens/extensions directly if not in export
+
+    **Code Quality Verification:**
+    - [ ] No hardcoded strings (use `el.tr(CcLocaleKeys.key)`)
+    - [ ] No hardcoded colors (use `context.ccColorScheme`)
+    - [ ] No hardcoded typography (use `context.ccTextTheme`)
+    - [ ] No hardcoded dimensions (use `context.resp*` helpers)
+    - [ ] All possible constructors marked as `const`
+    - [ ] Follow single responsibility principle (max 200-300 lines per file)
+    - [ ] Use widget composition for large widgets
+
+16. **Mandatory Verification Protocol (CRITICAL)**: Before applying any changes, the AI must verify the following:
 
     **Pre-Deployment Checklist**:
     - [ ] **No Hardcoded Strings**: All user-facing text uses `el.tr(CcLocaleKeys.key)`.

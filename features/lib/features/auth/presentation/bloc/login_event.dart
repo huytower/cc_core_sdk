@@ -24,3 +24,7 @@ class LoginWithGoogleStarted extends LoginEvent {
 class LoginWithAppleStarted extends LoginEvent {
   const LoginWithAppleStarted();
 }
+
+class LoginWithFacebookStarted extends LoginEvent {
+  const LoginWithFacebookStarted();
+}

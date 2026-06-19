@@ -6,8 +6,6 @@ import '../../getx_state_management/comment/get_x/comment_controller.dart';
 import '../../getx_state_management/comment/ui/comment_page.dart';
 
 class NotificationTabContent extends StatefulWidget {
-  static const String routeName = 'QUICK_TEST';
-
   const NotificationTabContent({super.key});
 
   @override
@@ -25,7 +23,6 @@ class _NotificationTabContentState extends State<NotificationTabContent> {
 
   @override
   Widget build(BuildContext context) {
-    // return const DashboardPage();
     return const CommentPage();
   }
 }

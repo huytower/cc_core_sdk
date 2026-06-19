@@ -41,6 +41,7 @@ export 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_floating_action_button.dart';
+export 'package:cc_sdk_ui/widgets/button/cc_social_login_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/skip_btn.dart';
 // Card Widgets
 export 'package:cc_sdk_ui/widgets/card/cc_card.dart';
@@ -71,6 +72,7 @@ export 'package:cc_sdk_ui/widgets/expansion_pane/cc_expansion_pane.dart';
 export 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 export 'package:cc_sdk_ui/widgets/flex/cc_responsive_flex.dart';
 // Icon Widgets
+export 'package:cc_sdk_ui/widgets/icon/cc_speech_bubble_icon.dart';
 export 'package:cc_sdk_ui/widgets/icon/ic_copy.dart';
 // InkWell Widgets (Consolidated)
 export 'package:cc_sdk_ui/widgets/inkwell/cc_inkwell.dart';
