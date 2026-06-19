@@ -16,4 +16,13 @@ class CcUserEntity extends Equatable {
 
   @override
   List<Object?> get props => [id, email, displayName, photoUrl];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'email': email,
+      'displayName': displayName,
+      'photoUrl': photoUrl,
+    };
+  }
 }

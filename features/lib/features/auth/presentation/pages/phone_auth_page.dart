@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 import '../../../../core/di/di.dart';
 import '../bloc/phone_auth_bloc.dart';
@@ -34,6 +35,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
   late final TextEditingController _phoneController;
   late final TextEditingController _codeController;
   static const String _countryCode = '+84'; // Vietnam default
+  final Logger _logger = Logger(printer: SimplePrinter());
 
   @override
   void initState() {
@@ -54,8 +56,10 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
     final isCodeSent = state is PhoneAuthCodeSent;
 
     if (!isCodeSent) {
+      // Combine country code with phone number for E.164 format
+      final fullPhoneNumber = '$_countryCode${_phoneController.text}';
       context.read<PhoneAuthBloc>().add(
-        VerifyPhoneNumberStarted(_phoneController.text),
+        VerifyPhoneNumberStarted(fullPhoneNumber),
       );
     } else {
       context.read<PhoneAuthBloc>().add(
@@ -69,7 +73,14 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
     return BlocListener<PhoneAuthBloc, PhoneAuthState>(
       listener: (context, state) {
         if (state is PhoneAuthSuccess) {
-          context.router.replacePath('/main_navigation');
+          _logger.i(
+            'PhoneAuthView: PhoneAuthSuccess received, navigating to /main_navigation',
+          );
+          try {
+            context.router.replacePath('/main_navigation');
+          } catch (e) {
+            _logger.e('PhoneAuthView: Navigation failed: $e');
+          }
         }
       },
       child: PhoneAuthGradientContainer(
