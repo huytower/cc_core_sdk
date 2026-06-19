@@ -17,6 +17,7 @@ abstract class CcLocaleKeys {
   static const common_delete = 'common.delete';
   static const common_edit = 'common.edit';
   static const common_back = 'common.back';
+  static const common_continue = 'common.continue';
   static const common_next = 'common.next';
   static const common_skip = 'common.skip';
   static const common_done = 'common.done';
@@ -46,8 +47,12 @@ abstract class CcLocaleKeys {
   static const auth_login_google = 'auth.login_google';
   static const auth_login_apple = 'auth.login_apple';
   static const auth_login_phone = 'auth.login_phone';
+  static const auth_enter_phone_number = 'auth.enter_phone_number';
   static const auth_phone_number = 'auth.phone_number';
+  static const auth_phone_number_hint = 'auth.phone_number_hint';
   static const auth_phone_hint = 'auth.phone_hint';
+  static const auth_default_country_code = 'auth.default_country_code';
+  static const auth_terms_and_privacy = 'auth.terms_and_privacy';
   static const auth_verify = 'auth.verify';
   static const auth_send_code = 'auth.send_code';
   static const auth_enter_code = 'auth.enter_code';

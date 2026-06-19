@@ -11,6 +11,7 @@ export 'package:cc_sdk/core/di/export_cc_di.dart';
 export 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 // Helpers
 export 'package:cc_sdk/core/helper/export_cc_helper.dart';
+export 'package:cc_sdk/utils/location/cc_location_helper.dart';
 // Domain Entities, Models & Failures
 export 'package:cc_sdk/domain/entities/cc_device_entity.dart';
 export 'package:cc_sdk/domain/entities/cc_message_entity.dart';

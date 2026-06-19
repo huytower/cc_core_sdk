@@ -1,6 +1,5 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
-import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,6 +7,8 @@ import '../../../../core/di/di.dart';
 import '../bloc/phone_auth_bloc.dart';
 import '../bloc/phone_auth_event.dart';
 import '../bloc/phone_auth_state.dart';
+import 'widgets/phone_auth_card_content.dart';
+import 'widgets/phone_auth_gradient_container.dart';
 
 @RoutePage()
 class PhoneAuthPage extends StatelessWidget {
@@ -32,6 +33,7 @@ class PhoneAuthView extends StatefulWidget {
 class _PhoneAuthViewState extends State<PhoneAuthView> {
   late final TextEditingController _phoneController;
   late final TextEditingController _codeController;
+  static const String _countryCode = '+84'; // Vietnam default
 
   @override
   void initState() {
@@ -47,143 +49,75 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
     super.dispose();
   }
 
+  void _handleContinue() {
+    final state = context.read<PhoneAuthBloc>().state;
+    final isCodeSent = state is PhoneAuthCodeSent;
+
+    if (!isCodeSent) {
+      context.read<PhoneAuthBloc>().add(
+        VerifyPhoneNumberStarted(_phoneController.text),
+      );
+    } else {
+      context.read<PhoneAuthBloc>().add(
+        SignInWithCodeStarted(_codeController.text),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<PhoneAuthBloc, PhoneAuthState>(
       listener: (context, state) {
         if (state is PhoneAuthSuccess) {
-          // Successful auth navigation
-          Navigator.of(context).pop();
+          context.router.replacePath('/main_navigation');
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: CcText(
-            el.tr(CcLocaleKeys.auth_login_phone),
-            textStyle: context.ccTextTheme.titleLarge?.copyWith(
-              color: context.ccColorScheme.onSurface,
-            ),
-          ),
-          backgroundColor: context.ccColorScheme.surface,
-          elevation: 0,
-          leading: CcBackBtn(
-            onPress: () => Navigator.of(context).pop(),
-            icon: Icons.arrow_back,
-          ),
-        ),
-        backgroundColor: context.ccColorScheme.surface,
-        body: SafeArea(
-          child: CcResponsiveContainer(
-            padding: EdgeInsets.all(
-              context.respPadding(CcPaddingParams.PAGE_MD),
-            ),
-            child: BlocBuilder<PhoneAuthBloc, PhoneAuthState>(
-              builder: (context, state) {
-                final isLoading = state is PhoneAuthLoading;
-                final isCodeSent = state is PhoneAuthCodeSent;
-                final errorMessage = state is PhoneAuthError
-                    ? state.message
-                    : null;
+      child: PhoneAuthGradientContainer(
+        child: CcKeyboardHelper.dismissOnTap(
+          context: context,
+          child: BlocBuilder<PhoneAuthBloc, PhoneAuthState>(
+            builder: (context, state) {
+              final isPortrait = CcResponsiveHelper.isPortrait(context);
+              final isLoading = state is PhoneAuthLoading;
+              final isCodeSent = state is PhoneAuthCodeSent;
+              final errorMessage = state is PhoneAuthError
+                  ? state.message
+                  : null;
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (!isCodeSent) ...[
-                      CcText(
-                        el.tr(CcLocaleKeys.auth_phone_number),
-                        textStyle: context.ccTextTheme.titleLarge,
-                      ),
-                      const CcSpaceLG(),
-                      TextField(
-                        controller: _phoneController,
-                        style: context.ccTextTheme.bodyLarge,
-                        decoration: InputDecoration(
-                          labelText: el.tr(CcLocaleKeys.auth_phone_number),
-                          labelStyle: context.ccTextTheme.bodyMedium,
-                          prefixIcon: Icon(
-                            Icons.phone,
-                            color: context.ccColorScheme.primary,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: context.ccColorScheme.outlineVariant,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: context.ccColorScheme.primary,
-                            ),
-                          ),
-                          hintText: el.tr(CcLocaleKeys.auth_phone_hint),
-                          hintStyle: context.ccTextTheme.bodyMedium?.copyWith(
-                            color: context.ccColorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                        keyboardType: TextInputType.phone,
-                      ),
-                      const CcSpaceXL(),
-                      if (isLoading)
-                        const Center(child: CircularProgressIndicator())
-                      else
-                        CcBaseBtn(
-                          onTap: () => context.read<PhoneAuthBloc>().add(
-                            VerifyPhoneNumberStarted(_phoneController.text),
-                          ),
-                          title: el.tr(CcLocaleKeys.auth_send_code),
-                        ),
-                    ] else ...[
-                      CcText(
-                        el.tr(CcLocaleKeys.auth_enter_code),
-                        textStyle: context.ccTextTheme.titleLarge,
-                      ),
-                      const CcSpaceLG(),
-                      TextField(
-                        controller: _codeController,
-                        style: context.ccTextTheme.bodyLarge,
-                        decoration: InputDecoration(
-                          labelText: el.tr(CcLocaleKeys.auth_enter_code),
-                          labelStyle: context.ccTextTheme.bodyMedium,
-                          prefixIcon: Icon(
-                            Icons.lock_outline,
-                            color: context.ccColorScheme.primary,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: context.ccColorScheme.outlineVariant,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: context.ccColorScheme.primary,
-                            ),
-                          ),
-                        ),
-                        keyboardType: TextInputType.number,
-                      ),
-                      const CcSpaceXL(),
-                      if (isLoading)
-                        const Center(child: CircularProgressIndicator())
-                      else
-                        CcBaseBtn(
-                          onTap: () => context.read<PhoneAuthBloc>().add(
-                            SignInWithCodeStarted(_codeController.text),
-                          ),
-                          title: el.tr(CcLocaleKeys.auth_verify),
-                        ),
-                    ],
-                    if (errorMessage != null) ...[
-                      const CcSpaceLG(),
-                      CcText(
-                        el.tr(errorMessage),
-                        textStyle: context.ccTextTheme.bodySmall?.copyWith(
-                          color: context.ccColorScheme.error,
-                        ),
-                      ),
-                    ],
+              return Container(
+                constraints: BoxConstraints(
+                  maxWidth: isPortrait
+                      ? context.respDim(500)
+                      : context.respDim(600),
+                ),
+                decoration: BoxDecoration(
+                  color: context.ccColorScheme.surface,
+                  borderRadius: BorderRadius.circular(
+                    context.respDim(CcPaddingParams.DESC_LG),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: context.ccColorScheme.shadow.withOpacity(0.1),
+                      blurRadius: context.respDim(20),
+                      offset: Offset(0, context.respDim(10)),
+                    ),
                   ],
-                );
-              },
-            ),
+                ),
+                padding: EdgeInsets.all(
+                  context.respPadding(CcPaddingParams.PAGE_MD),
+                ),
+                child: PhoneAuthCardContent(
+                  isCodeSent: isCodeSent,
+                  countryCode: _countryCode,
+                  phoneController: _phoneController,
+                  codeController: _codeController,
+                  onCountryCodeTap: () {},
+                  onContinue: _handleContinue,
+                  isLoading: isLoading,
+                  errorMessage: errorMessage,
+                ),
+              );
+            },
           ),
         ),
       ),

@@ -14,7 +14,6 @@ import 'phone_auth_state.dart';
 class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
   final VerifyPhoneNumberUseCase _verifyPhoneNumberUseCase;
   final SignInWithPhoneNumberUseCase _signInWithPhoneNumberUseCase;
-  StreamSubscription? _subscription;
   String? _verificationId;
 
   PhoneAuthBloc(
@@ -36,36 +35,27 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
 
     emit(const PhoneAuthLoading());
 
-    await _subscription?.cancel();
-
-    final completer = Completer<void>();
-
-    _subscription = _verifyPhoneNumberUseCase(phoneNumber: event.phoneNumber)
-        .listen(
-          (phoneEvent) {
-            if (phoneEvent is CcPhoneCodeSent) {
-              _verificationId = phoneEvent.verificationId;
-              if (!completer.isCompleted) emit(const PhoneAuthCodeSent());
-            } else if (phoneEvent is CcPhoneVerificationCompleted) {
-              if (!completer.isCompleted)
-                emit(PhoneAuthSuccess(phoneEvent.user));
-            } else if (phoneEvent is CcPhoneVerificationFailed) {
-              if (!completer.isCompleted)
-                emit(PhoneAuthError(phoneEvent.failure.message));
-            }
-          },
-          onError: (error) {
-            if (!completer.isCompleted)
-              emit(const PhoneAuthError(CcLocaleKeys.app_error_general));
-          },
-        );
-
-    // For Bloc, since we're listening to a stream from a usecase,
-    // we need to be careful with emitters in async handlers.
-    // However, the UseCase returns a Stream.
-    // A better pattern for Bloc handling a stream is to emit a new state
-    // based on stream events using emit.forEach or similar if possible,
-    // or just manage the subscription as we were doing.
+    try {
+      await emit.forEach(
+        _verifyPhoneNumberUseCase(phoneNumber: event.phoneNumber),
+        onData: (phoneEvent) {
+          if (phoneEvent is CcPhoneCodeSent) {
+            _verificationId = phoneEvent.verificationId;
+            return const PhoneAuthCodeSent();
+          } else if (phoneEvent is CcPhoneVerificationCompleted) {
+            return PhoneAuthSuccess(phoneEvent.user);
+          } else if (phoneEvent is CcPhoneVerificationFailed) {
+            return PhoneAuthError(phoneEvent.failure.message);
+          }
+          return const PhoneAuthLoading();
+        },
+        onError: (error, stackTrace) {
+          return const PhoneAuthError(CcLocaleKeys.app_error_general);
+        },
+      );
+    } catch (e) {
+      emit(const PhoneAuthError(CcLocaleKeys.app_error_general));
+    }
   }
 
   Future<void> _onSignInWithCodeStarted(
@@ -97,7 +87,6 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
 
   @override
   Future<void> close() {
-    _subscription?.cancel();
     return super.close();
   }
 }
