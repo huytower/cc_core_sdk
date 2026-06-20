@@ -116,7 +116,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                   final bool isNotEmpty = value.text.trim().isNotEmpty;
                   final bool isEnabled = !isLoading && isNotEmpty;
 
-                  return NextBtn(
+                  return CcNextBtn(
                     onTap: _handleContinue,
                     isEnable: isEnabled,
                     title: el.tr(CcLocaleKeys.common_continue),

@@ -40,9 +40,9 @@ export 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_debounce_widget.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_floating_action_button.dart';
+export 'package:cc_sdk_ui/widgets/button/cc_next_btn.dart';
+export 'package:cc_sdk_ui/widgets/button/cc_skip_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_social_login_btn.dart';
-export 'package:cc_sdk_ui/widgets/button/next_btn.dart';
-export 'package:cc_sdk_ui/widgets/button/skip_btn.dart';
 // Card Widgets
 export 'package:cc_sdk_ui/widgets/card/cc_card.dart';
 export 'package:cc_sdk_ui/widgets/card/expanded_collapse_card_widget.dart';

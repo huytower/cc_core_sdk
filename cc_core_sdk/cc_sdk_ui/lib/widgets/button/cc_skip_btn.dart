@@ -10,52 +10,41 @@ import '../text/cc_text.dart';
 import 'cc_bounce_animation.dart';
 import 'cc_interaction_type.dart';
 
-class SkipBtn extends StatelessWidget {
+class CcSkipBtn extends StatelessWidget {
   final VoidCallback onTap;
   final CcInteractionType interactionType;
 
   // Backward compatibility constructor (defaults to bounce)
-  const SkipBtn({
-    super.key,
-    required this.onTap,
-  }) : interactionType = CcInteractionType.bounce;
+  const CcSkipBtn({super.key, required this.onTap})
+    : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
-  const SkipBtn._({
+  const CcSkipBtn._({
     required this.interactionType,
     required this.onTap,
     super.key,
   });
 
   // Named constructors
-  factory SkipBtn.bouncing({
-    required VoidCallback onTap,
-    Key? key,
-  }) =>
-      SkipBtn._(
+  factory CcSkipBtn.bouncing({required VoidCallback onTap, Key? key}) =>
+      CcSkipBtn._(
         interactionType: CcInteractionType.bounce,
         onTap: onTap,
         key: key,
       );
 
-  factory SkipBtn.simple({
-    required VoidCallback onTap,
-    Key? key,
-  }) =>
-      SkipBtn._(
+  factory CcSkipBtn.simple({required VoidCallback onTap, Key? key}) =>
+      CcSkipBtn._(
         interactionType: CcInteractionType.tap,
         onTap: onTap,
         key: key,
       );
 
-  factory SkipBtn.static({
-    Key? key,
-  }) =>
-      SkipBtn._(
-        interactionType: CcInteractionType.none,
-        onTap: () {},
-        key: key,
-      );
+  factory CcSkipBtn.static({Key? key}) => CcSkipBtn._(
+    interactionType: CcInteractionType.none,
+    onTap: () {},
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +84,7 @@ class SkipBtn extends StatelessWidget {
           child: child,
         );
       case CcInteractionType.bounce:
-        return CcBounceAnimation(
-          onTap: onTap,
-          child: child,
-        );
+        return CcBounceAnimation(onTap: onTap, child: child);
     }
   }
 }

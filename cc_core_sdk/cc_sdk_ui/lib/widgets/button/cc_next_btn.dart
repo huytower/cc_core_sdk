@@ -4,17 +4,16 @@ import 'package:flutter/material.dart';
 
 import '../../core/extensions/cc_context_extension.dart';
 import 'cc_base_btn.dart';
-import 'cc_bounce_animation.dart';
 import 'cc_interaction_type.dart';
 
-class NextBtn extends StatelessWidget {
+class CcNextBtn extends StatelessWidget {
   final VoidCallback onTap;
   final String? title;
   final bool isEnable;
   final CcInteractionType interactionType;
 
   // Backward compatibility constructor (defaults to bounce)
-  const NextBtn({
+  const CcNextBtn({
     super.key,
     required this.onTap,
     this.title,
@@ -22,7 +21,7 @@ class NextBtn extends StatelessWidget {
   }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
-  const NextBtn._({
+  const CcNextBtn._({
     required this.interactionType,
     required this.onTap,
     this.title,
@@ -31,40 +30,34 @@ class NextBtn extends StatelessWidget {
   });
 
   // Named constructors
-  factory NextBtn.bouncing({
+  factory CcNextBtn.bouncing({
     required VoidCallback onTap,
     String? title,
     bool isEnable = true,
     Key? key,
-  }) =>
-      NextBtn._(
-        interactionType: CcInteractionType.bounce,
-        onTap: onTap,
-        title: title,
-        isEnable: isEnable,
-        key: key,
-      );
+  }) => CcNextBtn._(
+    interactionType: CcInteractionType.bounce,
+    onTap: onTap,
+    title: title,
+    isEnable: isEnable,
+    key: key,
+  );
 
-  factory NextBtn.simple({
+  factory CcNextBtn.simple({
     required VoidCallback onTap,
     String? title,
     bool isEnable = true,
     Key? key,
-  }) =>
-      NextBtn._(
-        interactionType: CcInteractionType.tap,
-        onTap: onTap,
-        title: title,
-        isEnable: isEnable,
-        key: key,
-      );
+  }) => CcNextBtn._(
+    interactionType: CcInteractionType.tap,
+    onTap: onTap,
+    title: title,
+    isEnable: isEnable,
+    key: key,
+  );
 
-  factory NextBtn.static({
-    String? title,
-    bool isEnable = true,
-    Key? key,
-  }) =>
-      NextBtn._(
+  factory CcNextBtn.static({String? title, bool isEnable = true, Key? key}) =>
+      CcNextBtn._(
         interactionType: CcInteractionType.none,
         onTap: () {},
         title: title,
@@ -74,7 +67,8 @@ class NextBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = CcBaseBtn(
+    return CcBaseBtn(
+      onTap: onTap,
       isEnable: isEnable,
       title: title ?? el.tr(CcLocaleKeys.common_next),
       bgColor: isEnable
@@ -84,21 +78,5 @@ class NextBtn extends StatelessWidget {
           ? context.ccColorScheme.onPrimary
           : null, // Fallback to onSurfaceVariant in CcBaseBtn
     );
-
-    switch (interactionType) {
-      case CcInteractionType.none:
-        return child;
-      case CcInteractionType.tap:
-        return GestureDetector(
-          onTap: isEnable ? onTap : null,
-          behavior: HitTestBehavior.opaque,
-          child: child,
-        );
-      case CcInteractionType.bounce:
-        return CcBounceAnimation(
-          onTap: isEnable ? onTap : () {},
-          child: child,
-        );
-    }
   }
 }
