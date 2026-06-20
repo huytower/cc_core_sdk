@@ -19,6 +19,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
   String? _verificationId;
   String? _phoneNumber;
   final Logger _logger = Logger(printer: SimplePrinter());
+  StreamSubscription<CcPhoneAuthEvent>? _verificationSubscription;
 
   PhoneAuthBloc(
     this._verifyPhoneNumberUseCase,
@@ -38,6 +39,9 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     _logger.i('PhoneAuthBloc: ResetPhoneAuthStarted event received');
     _verificationId = null;
     _phoneNumber = null;
+    // Cancel ongoing verification if any
+    _verificationSubscription?.cancel();
+    _verificationSubscription = null;
     emit(const PhoneAuthInitial());
   }
 
@@ -60,10 +64,22 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
 
     try {
       _logger.i('PhoneAuthBloc: Calling verifyPhoneNumberUseCase');
-      await emit.forEach(
-        _verifyPhoneNumberUseCase(phoneNumber: event.phoneNumber),
-        onData: (phoneEvent) {
+      // Cancel any existing subscription before starting a new one
+      _verificationSubscription?.cancel();
+
+      _verificationSubscription = _verifyPhoneNumberUseCase(
+        phoneNumber: event.phoneNumber,
+      ).listen(
+        (phoneEvent) {
           _logger.i('PhoneAuthBloc: Received phone event: $phoneEvent');
+
+          // If verification was cancelled/reset, ignore the event
+          if (_verificationSubscription == null) {
+            _logger.i(
+              'PhoneAuthBloc: Verification was cancelled, ignoring event: $phoneEvent',
+            );
+            return;
+          }
 
           // If we already reached success (manually or automatically),
           // don't let background events (like timeouts) overwrite it.
@@ -71,7 +87,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
             _logger.i(
               'PhoneAuthBloc: Already in Success state, ignoring event: $phoneEvent',
             );
-            return state;
+            return;
           }
 
           if (phoneEvent is CcPhoneCodeSent) {
@@ -79,29 +95,27 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
             _logger.i(
               'PhoneAuthBloc: Code sent, verificationId: $_verificationId',
             );
-            return const PhoneAuthCodeSent();
+            emit(const PhoneAuthCodeSent());
           } else if (phoneEvent is CcPhoneVerificationCompleted) {
             _logger.i('PhoneAuthBloc: Verification completed successfully');
-            return PhoneAuthSuccess(phoneEvent.user);
+            emit(PhoneAuthSuccess(phoneEvent.user));
           } else if (phoneEvent is CcPhoneVerificationFailed) {
             _logger.e(
               'PhoneAuthBloc: Verification failed: ${phoneEvent.failure.message}',
             );
-            return PhoneAuthError(phoneEvent.failure.message);
+            emit(PhoneAuthError(phoneEvent.failure.message));
           } else if (phoneEvent is CcPhoneCodeAutoRetrievalTimeout) {
             _logger.i('PhoneAuthBloc: Auto-retrieval timed out');
             // Keep the CodeSent state so the user can still enter the code manually
-            return const PhoneAuthCodeSent();
+            emit(const PhoneAuthCodeSent());
           }
-
-          // For any other background events, maintain the current state
-          // instead of defaulting to Loading.
-          return state;
         },
         onError: (error, stackTrace) {
           _logger.e('PhoneAuthBloc: Error in stream: $error');
           _logger.e('PhoneAuthBloc: Stack trace: $stackTrace');
-          return const PhoneAuthError(CcLocaleKeys.app_error_general);
+          if (_verificationSubscription != null) {
+            emit(const PhoneAuthError(CcLocaleKeys.app_error_general));
+          }
         },
       );
     } catch (e) {
@@ -159,6 +173,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
 
   @override
   Future<void> close() {
+    _verificationSubscription?.cancel();
     return super.close();
   }
 }
