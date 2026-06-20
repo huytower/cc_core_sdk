@@ -2,26 +2,29 @@ import 'package:flutter/material.dart';
 
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
-import '../button/cc_bounce_animation.dart';
-import '../button/cc_interaction_type.dart';
+import '../icon/cc_icon.dart';
+import '../padding/cc_padding.dart';
+import 'cc_bounce_animation.dart';
+import 'cc_interaction_type.dart';
 
-class CcArrowRight extends StatelessWidget {
+/// More button with more_vert icon
+class CcMoreBtn extends StatelessWidget {
   final Color? iconColor;
   final double? height, width;
   final VoidCallback? onTap;
   final CcInteractionType interactionType;
 
   // Backward compatibility constructor (defaults to bounce)
-  const CcArrowRight({
+  const CcMoreBtn({
     super.key,
-    this.onTap,
+    required this.onTap,
     this.iconColor,
     this.height,
     this.width,
   }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
-  const CcArrowRight._({
+  const CcMoreBtn._({
     required this.interactionType,
     this.onTap,
     this.iconColor,
@@ -31,14 +34,14 @@ class CcArrowRight extends StatelessWidget {
   });
 
   // Named constructors
-  factory CcArrowRight.bouncing({
-    VoidCallback? onTap,
+  factory CcMoreBtn.bouncing({
+    required VoidCallback onTap,
     Color? iconColor,
     double? height,
     double? width,
     Key? key,
   }) =>
-      CcArrowRight._(
+      CcMoreBtn._(
         interactionType: CcInteractionType.bounce,
         onTap: onTap,
         iconColor: iconColor,
@@ -47,14 +50,14 @@ class CcArrowRight extends StatelessWidget {
         key: key,
       );
 
-  factory CcArrowRight.simple({
-    VoidCallback? onTap,
+  factory CcMoreBtn.simple({
+    required VoidCallback onTap,
     Color? iconColor,
     double? height,
     double? width,
     Key? key,
   }) =>
-      CcArrowRight._(
+      CcMoreBtn._(
         interactionType: CcInteractionType.tap,
         onTap: onTap,
         iconColor: iconColor,
@@ -63,13 +66,13 @@ class CcArrowRight extends StatelessWidget {
         key: key,
       );
 
-  factory CcArrowRight.static({
+  factory CcMoreBtn.static({
     Color? iconColor,
     double? height,
     double? width,
     Key? key,
   }) =>
-      CcArrowRight._(
+      CcMoreBtn._(
         interactionType: CcInteractionType.none,
         iconColor: iconColor,
         height: height,
@@ -79,16 +82,17 @@ class CcArrowRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = Center(
-      child: SizedBox(
-        width: width ?? context.respDim(25.0),
-        height: height,
-        child: Icon(
-          Icons.skip_next,
-          color: iconColor ?? context.ccColorScheme.onSurface,
-          size: context.respIconSize(baseSize: 15.0),
-        ),
+    final child = CcPadding(
+      CcIcon(
+        icon: Icons.more_vert,
+        size: context.respIconSize(baseSize: 20.0),
+        align: Alignment.center,
+        color: iconColor ?? context.ccColorScheme.onSurface,
       ),
+      context.respPadding(4),
+      context.respPadding(4),
+      context.respPadding(4),
+      context.respPadding(4),
     );
 
     switch (interactionType) {

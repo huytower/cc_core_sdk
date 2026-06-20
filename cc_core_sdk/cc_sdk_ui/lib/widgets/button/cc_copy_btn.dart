@@ -2,26 +2,29 @@ import 'package:flutter/material.dart';
 
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
-import '../button/cc_bounce_animation.dart';
-import '../button/cc_interaction_type.dart';
+import '../icon/cc_icon.dart';
+import '../padding/cc_padding.dart';
+import 'cc_bounce_animation.dart';
+import 'cc_interaction_type.dart';
 
-class CcArrowRight extends StatelessWidget {
+/// Copy icon button with copy icon (different from CcCopyBtn which is for text copying)
+class CcCopyBtn extends StatelessWidget {
   final Color? iconColor;
   final double? height, width;
   final VoidCallback? onTap;
   final CcInteractionType interactionType;
 
   // Backward compatibility constructor (defaults to bounce)
-  const CcArrowRight({
+  const CcCopyBtn({
     super.key,
-    this.onTap,
+    required this.onTap,
     this.iconColor,
     this.height,
     this.width,
   }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
-  const CcArrowRight._({
+  const CcCopyBtn._({
     required this.interactionType,
     this.onTap,
     this.iconColor,
@@ -31,64 +34,62 @@ class CcArrowRight extends StatelessWidget {
   });
 
   // Named constructors
-  factory CcArrowRight.bouncing({
-    VoidCallback? onTap,
+  factory CcCopyBtn.bouncing({
+    required VoidCallback onTap,
     Color? iconColor,
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcArrowRight._(
-        interactionType: CcInteractionType.bounce,
-        onTap: onTap,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcCopyBtn._(
+    interactionType: CcInteractionType.bounce,
+    onTap: onTap,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    key: key,
+  );
 
-  factory CcArrowRight.simple({
-    VoidCallback? onTap,
+  factory CcCopyBtn.simple({
+    required VoidCallback onTap,
     Color? iconColor,
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcArrowRight._(
-        interactionType: CcInteractionType.tap,
-        onTap: onTap,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcCopyBtn._(
+    interactionType: CcInteractionType.tap,
+    onTap: onTap,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    key: key,
+  );
 
-  factory CcArrowRight.static({
+  factory CcCopyBtn.static({
     Color? iconColor,
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcArrowRight._(
-        interactionType: CcInteractionType.none,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcCopyBtn._(
+    interactionType: CcInteractionType.none,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
-    final child = Center(
-      child: SizedBox(
-        width: width ?? context.respDim(25.0),
-        height: height,
-        child: Icon(
-          Icons.skip_next,
-          color: iconColor ?? context.ccColorScheme.onSurface,
-          size: context.respIconSize(baseSize: 15.0),
-        ),
+    final child = CcPadding(
+      CcIcon(
+        icon: Icons.copy,
+        size: context.respIconSize(baseSize: 20.0),
+        align: Alignment.center,
+        color: iconColor ?? context.ccColorScheme.onSurface,
       ),
+      context.respPadding(4),
+      context.respPadding(4),
+      context.respPadding(4),
+      context.respPadding(4),
     );
 
     switch (interactionType) {
