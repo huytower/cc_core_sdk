@@ -40,15 +40,14 @@ class CcEditBtn extends StatelessWidget {
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcEditBtn._(
-        interactionType: CcInteractionType.bounce,
-        onTap: onTap,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcEditBtn._(
+    interactionType: CcInteractionType.bounce,
+    onTap: onTap,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    key: key,
+  );
 
   factory CcEditBtn.simple({
     required VoidCallback onTap,
@@ -56,29 +55,27 @@ class CcEditBtn extends StatelessWidget {
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcEditBtn._(
-        interactionType: CcInteractionType.tap,
-        onTap: onTap,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcEditBtn._(
+    interactionType: CcInteractionType.tap,
+    onTap: onTap,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    key: key,
+  );
 
   factory CcEditBtn.static({
     Color? iconColor,
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcEditBtn._(
-        interactionType: CcInteractionType.none,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcEditBtn._(
+    interactionType: CcInteractionType.none,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {

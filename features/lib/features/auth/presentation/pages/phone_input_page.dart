@@ -46,7 +46,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
       _countryCode,
       _phoneController.text,
     );
-    
+
     // Validate the parsed phone number
     if (!CcPhoneNumberHelper.isValidPhoneNumber(parsedPhoneNumber)) {
       setState(() {
@@ -54,7 +54,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
       });
       return;
     }
-    
+
     context.read<PhoneAuthBloc>().add(
       VerifyPhoneNumberStarted(parsedPhoneNumber),
     );
@@ -153,7 +153,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                   final bool isNotEmpty = value.text.trim().isNotEmpty;
                   final bool isEnabled = !isLoading && isNotEmpty;
 
-                  return CcNextBtn(
+                  return CcNextBtn.bouncing(
                     onTap: _handleContinue,
                     isEnable: isEnabled,
                     title: el.tr(CcLocaleKeys.common_continue),

@@ -1,16 +1,14 @@
-import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/cc_context_extension.dart';
-import 'cc_base_btn.dart';
-import 'cc_interaction_type.dart';
+import '../../export_cc_sdk_ui.dart';
 
 class CcNextBtn extends StatelessWidget {
   final VoidCallback onTap;
   final String? title;
   final bool isEnable;
   final CcInteractionType interactionType;
+  final bool useDebounce;
 
   // Backward compatibility constructor (defaults to bounce)
   const CcNextBtn({
@@ -18,6 +16,7 @@ class CcNextBtn extends StatelessWidget {
     required this.onTap,
     this.title,
     this.isEnable = true,
+    this.useDebounce = true,
   }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
@@ -26,6 +25,7 @@ class CcNextBtn extends StatelessWidget {
     required this.onTap,
     this.title,
     this.isEnable = true,
+    this.useDebounce = true,
     super.key,
   });
 
@@ -34,41 +34,51 @@ class CcNextBtn extends StatelessWidget {
     required VoidCallback onTap,
     String? title,
     bool isEnable = true,
+    bool useDebounce = true,
     Key? key,
-  }) => CcNextBtn._(
-    interactionType: CcInteractionType.bounce,
-    onTap: onTap,
-    title: title,
-    isEnable: isEnable,
-    key: key,
-  );
+  }) =>
+      CcNextBtn._(
+        interactionType: CcInteractionType.bounce,
+        onTap: onTap,
+        title: title,
+        isEnable: isEnable,
+        useDebounce: useDebounce,
+        key: key,
+      );
 
   factory CcNextBtn.simple({
     required VoidCallback onTap,
     String? title,
     bool isEnable = true,
+    bool useDebounce = true,
     Key? key,
-  }) => CcNextBtn._(
-    interactionType: CcInteractionType.tap,
-    onTap: onTap,
-    title: title,
-    isEnable: isEnable,
-    key: key,
-  );
+  }) =>
+      CcNextBtn._(
+        interactionType: CcInteractionType.tap,
+        onTap: onTap,
+        title: title,
+        isEnable: isEnable,
+        useDebounce: useDebounce,
+        key: key,
+      );
 
-  factory CcNextBtn.static({String? title, bool isEnable = true, Key? key}) =>
+  factory CcNextBtn.static({
+    String? title,
+    bool isEnable = true,
+    Key? key,
+  }) =>
       CcNextBtn._(
         interactionType: CcInteractionType.none,
         onTap: () {},
         title: title,
         isEnable: isEnable,
+        useDebounce: false,
         key: key,
       );
 
   @override
   Widget build(BuildContext context) {
-    return CcBaseBtn(
-      onTap: onTap,
+    final baseBtn = CcBaseBtn.static(
       isEnable: isEnable,
       title: title ?? el.tr(CcLocaleKeys.common_next),
       bgColor: isEnable
@@ -77,6 +87,19 @@ class CcNextBtn extends StatelessWidget {
       textColor: isEnable
           ? context.ccColorScheme.onPrimary
           : null, // Fallback to onSurfaceVariant in CcBaseBtn
+    );
+
+    // If type is none or not enabled, return the base button directly
+    if (interactionType == CcInteractionType.none || !isEnable) {
+      return baseBtn;
+    }
+
+    // Otherwise, wrap it in the interaction logic
+    return CcInteractionWrapper(
+      onTap: onTap,
+      useDebounce: useDebounce,
+      isBouncing: interactionType == CcInteractionType.bounce,
+      child: baseBtn,
     );
   }
 }

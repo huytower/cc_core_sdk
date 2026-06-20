@@ -38,6 +38,7 @@ export 'package:cc_sdk_ui/widgets/base/cc_scroll_view.dart';
 // Button Widgets
 export 'package:cc_sdk_ui/widgets/button/cc_back_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
+export 'package:cc_sdk_ui/widgets/button/cc_bounce_animation.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_cancel_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_copy_btn.dart';
@@ -48,6 +49,8 @@ export 'package:cc_sdk_ui/widgets/button/cc_download_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_edit_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_favorite_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_floating_action_button.dart';
+export 'package:cc_sdk_ui/widgets/button/cc_interaction_type.dart';
+export 'package:cc_sdk_ui/widgets/button/cc_interaction_wrapper.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_more_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_next_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_refresh_btn.dart';

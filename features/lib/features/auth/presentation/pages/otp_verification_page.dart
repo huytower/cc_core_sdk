@@ -26,6 +26,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   final Logger _logger = Logger(printer: SimplePrinter());
   bool _showEditIcon = false;
   Timer? _editIconTimer;
+  bool _canResend = false;
+  int _resendKey = 0;
 
   @override
   void initState() {
@@ -59,6 +61,17 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
 
   void _handleEditPhoneNumber() {
     context.read<PhoneAuthBloc>().add(const ResetPhoneAuthStarted());
+  }
+
+  void _handleResend() {
+    final phoneNumber = context.read<PhoneAuthBloc>().phoneNumber;
+    if (phoneNumber != null && _canResend) {
+      context.read<PhoneAuthBloc>().add(VerifyPhoneNumberStarted(phoneNumber));
+      setState(() {
+        _canResend = false;
+        _resendKey++;
+      });
+    }
   }
 
   @override
@@ -246,26 +259,42 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
           ),
         ),
         const CcSpaceXS(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CcText(
-              '${el.tr(CcLocaleKeys.auth_resend)} - ',
-              textStyle: context.ccTextTheme.bodyMedium?.copyWith(
-                color: context.ccColorScheme.primary,
-                fontWeight: CcTypographyParams.bold,
+        CcDebounce(
+          onTap: _handleResend,
+          isEnable: _canResend,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CcText(
+                el.tr(CcLocaleKeys.auth_resend),
+                textStyle: context.ccTextTheme.bodyMedium?.copyWith(
+                  color: _canResend
+                      ? context.ccColorScheme.primary
+                      : context.ccColorScheme.onSurfaceVariant,
+                  fontWeight: CcTypographyParams.bold,
+                ),
               ),
-            ),
-            const CcSpaceXS(),
-            CcCountDown(
-              seconds: 60,
-              onTimerFinish: () {},
-              style: context.ccTextTheme.bodyMedium?.copyWith(
-                color: context.ccColorScheme.primary,
-                fontWeight: CcTypographyParams.bold,
+              const CcSpaceXS(),
+              CcCountDown(
+                key: ValueKey('resend_timer_$_resendKey'),
+                seconds: 60,
+                onTimerFinish: () {
+                  if (mounted) {
+                    setState(() {
+                      _canResend = true;
+                    });
+                  }
+                },
+                style: context.ccTextTheme.bodyMedium?.copyWith(
+                  color: _canResend
+                      ? context.ccColorScheme.primary.withOpacity(0.5)
+                      : context.ccColorScheme.primary,
+                  fontWeight: CcTypographyParams.bold,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
