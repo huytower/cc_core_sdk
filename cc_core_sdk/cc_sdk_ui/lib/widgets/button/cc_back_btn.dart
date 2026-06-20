@@ -5,13 +5,16 @@ import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../icon/cc_icon.dart';
 import '../padding/cc_padding.dart';
 import 'cc_bounce_animation.dart';
-
-enum CcInteractionType { none, tap, bounce }
+import 'cc_interaction_type.dart';
 
 class CcBackBtn extends StatelessWidget {
   final IconData? icon;
   final VoidCallback? onTap;
   final CcInteractionType interactionType;
+
+  // Backward compatibility constructor (defaults to bounce)
+  const CcBackBtn({required this.onTap, this.icon, super.key})
+    : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
   const CcBackBtn._({

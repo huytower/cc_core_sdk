@@ -8,16 +8,17 @@ import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../padding/cc_padding.dart';
 import '../text/cc_text.dart';
 import 'cc_bounce_animation.dart';
-
-enum CcInteractionType {
-  none,
-  tap,
-  bounce,
-}
+import 'cc_interaction_type.dart';
 
 class SkipBtn extends StatelessWidget {
   final VoidCallback onTap;
   final CcInteractionType interactionType;
+
+  // Backward compatibility constructor (defaults to bounce)
+  const SkipBtn({
+    super.key,
+    required this.onTap,
+  }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
   const SkipBtn._({

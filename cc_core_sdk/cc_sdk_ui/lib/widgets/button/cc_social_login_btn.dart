@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../../export_cc_sdk_ui.dart';
 import 'cc_bounce_animation.dart';
+import 'cc_interaction_type.dart';
 
 enum SocialLoginType { google, facebook, apple }
-
-enum CcInteractionType {
-  none,
-  tap,
-  bounce,
-}
 
 class CcSocialLoginBtn extends StatelessWidget {
   final SocialLoginType type;
   final VoidCallback? onTap;
   final CcInteractionType interactionType;
+
+  // Backward compatibility constructor (defaults to bounce)
+  const CcSocialLoginBtn({
+    super.key,
+    required this.type,
+    required this.onTap,
+  }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
   const CcSocialLoginBtn._({

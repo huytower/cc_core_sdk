@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import 'cc_bounce_animation.dart';
-
-enum CcInteractionType {
-  none,
-  tap,
-  bounce,
-}
+import 'cc_interaction_type.dart';
 
 /// Standardized Close Button.
 ///
@@ -20,6 +15,17 @@ class CcCloseBtn extends StatelessWidget {
   final VoidCallback? onTap;
   final Color? iconColor;
   final CcInteractionType interactionType;
+
+  // Backward compatibility constructor (defaults to bounce)
+  const CcCloseBtn({
+    required this.onTap,
+    this.bgColor,
+    this.height,
+    this.width,
+    this.icon,
+    this.iconColor,
+    super.key,
+  }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
   const CcCloseBtn._({

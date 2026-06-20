@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import 'cc_bounce_animation.dart';
-
-enum CcInteractionType {
-  none,
-  tap,
-  bounce,
-}
+import 'cc_interaction_type.dart';
 
 /// Floating action button component for common FAB usage.
 /// Provides customizable icon, color, and behavior.
@@ -24,6 +19,22 @@ class CcFloatingActionButton extends StatelessWidget {
   final bool showing;
   final VoidCallback? onTap;
   final CcInteractionType interactionType;
+
+  // Backward compatibility constructor (defaults to bounce)
+  const CcFloatingActionButton({
+    Key? key,
+    this.icon,
+    this.iconData,
+    this.backgroundColor = CcBaseColors.neutral70,
+    this.foregroundColor = Colors.white,
+    this.heroTag,
+    this.mini = false,
+    this.elevation = 6.0,
+    this.tooltip,
+    this.showing = true,
+    this.onTap,
+  })  : interactionType = CcInteractionType.bounce,
+        super(key: key);
 
   // Private internal constructor
   const CcFloatingActionButton._({

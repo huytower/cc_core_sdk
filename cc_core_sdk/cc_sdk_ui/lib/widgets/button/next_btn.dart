@@ -5,18 +5,21 @@ import 'package:flutter/material.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import 'cc_base_btn.dart';
 import 'cc_bounce_animation.dart';
-
-enum CcInteractionType {
-  none,
-  tap,
-  bounce,
-}
+import 'cc_interaction_type.dart';
 
 class NextBtn extends StatelessWidget {
   final VoidCallback onTap;
   final String? title;
   final bool isEnable;
   final CcInteractionType interactionType;
+
+  // Backward compatibility constructor (defaults to bounce)
+  const NextBtn({
+    super.key,
+    required this.onTap,
+    this.title,
+    this.isEnable = true,
+  }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
   const NextBtn._({

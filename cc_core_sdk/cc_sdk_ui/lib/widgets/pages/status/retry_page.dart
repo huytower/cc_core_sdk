@@ -33,7 +33,7 @@ class RetryPage extends StatelessWidget {
             if (onRetry != null) ...[
               const CcSpaceXL(),
               CcBaseBtn(
-                onTap: onRetry ?? () {},
+                onTap: onRetry,
                 title: el.tr(CcLocaleKeys.app_error_retry),
               ),
             ],

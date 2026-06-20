@@ -13,7 +13,7 @@ class ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       leading: CcBackBtn(
-        onPress: () => Navigator.of(context).pop(),
+        onTap: () => Navigator.of(context).pop(),
         icon: Icons.arrow_back,
       ),
       title: CcText(el.tr(CcLocaleKeys.app_error_general)),

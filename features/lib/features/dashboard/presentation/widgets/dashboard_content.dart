@@ -66,12 +66,12 @@ class DashboardContent extends StatelessWidget {
 
   Widget _buildRefreshButton(BuildContext context) {
     return CcBaseBtn(
-      allowShowLoading: true,
       onTap: () {
         context.read<DashboardBloc>().add(
           const RefreshDashboardDataEvent(showLoading: true),
         );
       },
+      allowShowLoading: true,
       title: el.tr(CcLocaleKeys.dashboard_refresh_data),
       bgColor: [
         context.ccColorScheme.primary,

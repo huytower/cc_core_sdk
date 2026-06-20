@@ -34,7 +34,6 @@ export 'package:cc_sdk_ui/widgets/background/overlay_widget.dart';
 export 'package:cc_sdk_ui/widgets/base/cc_keyboard_dismisser.dart';
 export 'package:cc_sdk_ui/widgets/base/cc_position.dart';
 export 'package:cc_sdk_ui/widgets/base/cc_scroll_view.dart';
-export 'package:cc_sdk_ui/widgets/base/header_widget.dart';
 // Button Widgets
 export 'package:cc_sdk_ui/widgets/button/cc_back_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
