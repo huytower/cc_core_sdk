@@ -30,6 +30,7 @@ target 'Runner' do
   use_frameworks!
   pod 'lottie-ios'
   pod 'Firebase/Performance'
+  pod 'Firebase/AppCheck'
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))

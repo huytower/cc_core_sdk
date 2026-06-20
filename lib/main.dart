@@ -23,6 +23,9 @@ void main() async {
     await Firebase.initializeApp();
     await FirebasePerformance.instance.setPerformanceCollectionEnabled(true);
 
+    // Initialize Firebase App Check for device attestation
+    await CcAppCheckHelper.initialize();
+
     // Pass all uncaught "fatal" errors from the framework to Crashlytics
     FlutterError.onError = (errorDetails) {
       FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);

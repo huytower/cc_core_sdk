@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/cc_context_extension.dart';
-import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../export_cc_sdk_ui.dart';
 
 class BaseTextField extends StatelessWidget {
@@ -48,7 +46,10 @@ class BaseTextField extends StatelessWidget {
             focusedErrorBorder: InputBorder.none,
           ),
         ),
-        CcDividerLine(color: context.ccColorScheme.outlineVariant, height: context.respDim(1.0)),
+        CcDividerLine(
+          color: context.ccColorScheme.outlineVariant,
+          height: context.respDim(1.0),
+        ),
       ],
     );
   }

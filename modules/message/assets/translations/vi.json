@@ -8,6 +8,11 @@
       "retry": "Nhấn vào đây để tải lại",
       "network": "Lỗi kết nối mạng. Vui lòng kiểm tra kết nối của bạn.",
       "server": "Lỗi máy chủ. Vui lòng thử lại sau."
+    },
+    "app_check": {
+      "initialization_failed": "Khởi tạo App Check thất bại. Vui lòng khởi động lại ứng dụng.",
+      "token_refresh_failed": "Không thể làm mới mã bảo mật. Vui lòng kiểm tra kết nối của bạn.",
+      "device_not_verified": "Xác minh thiết bị thất bại. Thiết bị này có thể không được hỗ trợ."
     }
   },
   "common": {

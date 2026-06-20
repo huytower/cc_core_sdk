@@ -8,6 +8,11 @@
       "retry": "Tap here to reload",
       "network": "Network error. Please check your connection.",
       "server": "Server error. Please try again later."
+    },
+    "app_check": {
+      "initialization_failed": "App Check initialization failed. Please restart the app.",
+      "token_refresh_failed": "Failed to refresh security token. Please check your connection.",
+      "device_not_verified": "Device verification failed. This device may not be supported."
     }
   },
   "common": {
