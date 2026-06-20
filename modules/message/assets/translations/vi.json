@@ -66,13 +66,19 @@
         "system_canceled": "Hệ thống đã hủy xác thực.",
         "generic": "Lỗi xác thực: {error}"
       }
+    },
+    "otp": {
+      "invalid": "Mã OTP không hợp lệ",
+      "expired": "Mã OTP đã hết hạn",
+      "too_many_attempts": "Quá nhiều lần thử. Vui lòng thử lại sau"
     }
   },
   "validation": {
     "required": "Trường này là bắt buộc",
     "email": "Vui lòng nhập địa chỉ email hợp lệ",
     "password_length": "Mật khẩu phải có ít nhất {length} ký tự",
-    "password_match": "Mật khẩu không khớp"
+    "password_match": "Mật khẩu không khớp",
+    "phone": "Số điện thoại không hợp lệ"
   },
   "home": {
     "title": "Trang chủ",

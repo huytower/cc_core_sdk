@@ -71,13 +71,19 @@
         "system_canceled": "Authentication was canceled by the system.",
         "generic": "Authentication error: {error}"
       }
+    },
+    "otp": {
+      "invalid": "Invalid OTP code",
+      "expired": "OTP code has expired",
+      "too_many_attempts": "Too many attempts. Please try again later"
     }
   },
   "validation": {
     "required": "This field is required",
     "email": "Please enter a valid email",
     "password_length": "Password must be at least {length} characters",
-    "password_match": "Passwords do not match"
+    "password_match": "Passwords do not match",
+    "phone": "Invalid phone number format"
   },
   "home": {
     "title": "Home",

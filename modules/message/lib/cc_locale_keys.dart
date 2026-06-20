@@ -80,10 +80,15 @@ abstract class CcLocaleKeys {
       'auth.biometric.error.system_canceled';
   static const auth_biometric_error_generic = 'auth.biometric.error.generic';
 
+  static const auth_otp_invalid = 'auth.otp.invalid';
+  static const auth_otp_expired = 'auth.otp.expired';
+  static const auth_otp_too_many_attempts = 'auth.otp.too_many_attempts';
+
   static const validation_required = 'validation.required';
   static const validation_email = 'validation.email';
   static const validation_password_length = 'validation.password_length';
   static const validation_password_match = 'validation.password_match';
+  static const validation_phone = 'validation.phone';
 
   static const home_title = 'home.title';
   static const home_welcome = 'home.welcome';

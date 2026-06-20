@@ -2,6 +2,7 @@
 export 'package:cc_sdk/export_cc_sdk.dart';
 // Core Config, Enums & Tokens
 export 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
+export 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 // Core Constants
@@ -85,6 +86,7 @@ export 'package:cc_sdk_ui/widgets/expansion_pane/cc_expansion_pane.dart';
 export 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 export 'package:cc_sdk_ui/widgets/flex/cc_responsive_flex.dart';
 // Icon Widgets
+export 'package:cc_sdk_ui/widgets/icon/cc_icon.dart';
 export 'package:cc_sdk_ui/widgets/icon/cc_speech_bubble_icon.dart';
 // InkWell Widgets (Consolidated)
 export 'package:cc_sdk_ui/widgets/inkwell/cc_inkwell.dart';

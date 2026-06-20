@@ -18,11 +18,20 @@ class PhoneInputPage extends StatefulWidget {
 class _PhoneInputPageState extends State<PhoneInputPage> {
   late final TextEditingController _phoneController;
   static const String _countryCode = '+84';
+  String? _validationError;
 
   @override
   void initState() {
     super.initState();
     _phoneController = TextEditingController();
+    _phoneController.addListener(() {
+      // Clear validation error when user types
+      if (_validationError != null) {
+        setState(() {
+          _validationError = null;
+        });
+      }
+    });
   }
 
   @override
@@ -32,9 +41,22 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
   }
 
   void _handleContinue() {
-    final fullPhoneNumber = '$_countryCode${_phoneController.text}';
+    // Auto-parse phone number by removing leading zeros
+    final parsedPhoneNumber = CcPhoneNumberHelper.autoParsePhoneNumber(
+      _countryCode,
+      _phoneController.text,
+    );
+    
+    // Validate the parsed phone number
+    if (!CcPhoneNumberHelper.isValidPhoneNumber(parsedPhoneNumber)) {
+      setState(() {
+        _validationError = CcLocaleKeys.validation_phone;
+      });
+      return;
+    }
+    
     context.read<PhoneAuthBloc>().add(
-      VerifyPhoneNumberStarted(fullPhoneNumber),
+      VerifyPhoneNumberStarted(parsedPhoneNumber),
     );
   }
 
@@ -87,6 +109,21 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
             controller: _phoneController,
             hintText: el.tr(CcLocaleKeys.auth_phone_number_hint),
           ),
+          // Validation error display
+          if (_validationError != null)
+            Padding(
+              padding: EdgeInsets.only(
+                top: context.respPadding(CcPaddingParams.DESC_MD),
+              ),
+              child: CcText(
+                el.tr(_validationError!),
+                maxLines: 8,
+                textStyle: context.ccTextTheme.bodySmall?.copyWith(
+                  color: context.ccColorScheme.error,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
           BlocSelector<PhoneAuthBloc, PhoneAuthState, String?>(
             selector: (state) => state is PhoneAuthError ? state.message : null,
             builder: (context, errorMessage) {

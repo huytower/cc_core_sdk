@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart' hide getIt;
 import 'package:easy_localization/easy_localization.dart' as el;
@@ -22,16 +24,30 @@ class OtpVerificationPage extends StatefulWidget {
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
   late final TextEditingController _codeController;
   final Logger _logger = Logger(printer: SimplePrinter());
+  bool _showEditIcon = false;
+  Timer? _editIconTimer;
 
   @override
   void initState() {
     super.initState();
     _codeController = TextEditingController();
+    _startEditIconTimer();
+  }
+
+  void _startEditIconTimer() {
+    _editIconTimer = Timer(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _showEditIcon = true;
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     _codeController.dispose();
+    _editIconTimer?.cancel();
     super.dispose();
   }
 
@@ -77,7 +93,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
       decoration: BoxDecoration(
         color: context.ccColorScheme.surface,
         borderRadius: BorderRadius.circular(
-          context.respDim(CcPaddingParams.DESC_LG),
+          context.respDim(CcCircularParams.RADIUS_LG),
         ),
         boxShadow: [
           BoxShadow(
@@ -146,16 +162,21 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 color: context.ccColorScheme.onSurfaceVariant,
               ),
             ),
-            const CcSpaceXS(),
-            IconButton(
-              onPressed: _handleEditPhoneNumber,
-              icon: Icon(
-                Icons.edit_outlined,
-                size: context.respDim(16),
-                color: context.ccColorScheme.primary,
+            Visibility(
+              visible: _showEditIcon,
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              child: IconButton(
+                onPressed: _handleEditPhoneNumber,
+                icon: Icon(
+                  Icons.edit_outlined,
+                  size: context.respDim(16),
+                  color: context.ccColorScheme.primary,
+                ),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
               ),
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
             ),
           ],
         ),
@@ -235,6 +256,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 fontWeight: CcTypographyParams.bold,
               ),
             ),
+            const CcSpaceXS(),
             CcCountDown(
               seconds: 60,
               onTimerFinish: () {},

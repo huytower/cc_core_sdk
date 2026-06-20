@@ -19,7 +19,6 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
   String? _verificationId;
   String? _phoneNumber;
   final Logger _logger = Logger(printer: SimplePrinter());
-  StreamSubscription<CcPhoneAuthEvent>? _verificationSubscription;
 
   PhoneAuthBloc(
     this._verifyPhoneNumberUseCase,
@@ -39,9 +38,6 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     _logger.i('PhoneAuthBloc: ResetPhoneAuthStarted event received');
     _verificationId = null;
     _phoneNumber = null;
-    // Cancel ongoing verification if any
-    _verificationSubscription?.cancel();
-    _verificationSubscription = null;
     emit(const PhoneAuthInitial());
   }
 
@@ -64,22 +60,15 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
 
     try {
       _logger.i('PhoneAuthBloc: Calling verifyPhoneNumberUseCase');
-      // Cancel any existing subscription before starting a new one
-      _verificationSubscription?.cancel();
-
-      _verificationSubscription = _verifyPhoneNumberUseCase(
+      
+      final verificationStream = _verifyPhoneNumberUseCase(
         phoneNumber: event.phoneNumber,
-      ).listen(
-        (phoneEvent) {
-          _logger.i('PhoneAuthBloc: Received phone event: $phoneEvent');
+      );
 
-          // If verification was cancelled/reset, ignore the event
-          if (_verificationSubscription == null) {
-            _logger.i(
-              'PhoneAuthBloc: Verification was cancelled, ignoring event: $phoneEvent',
-            );
-            return;
-          }
+      await emit.forEach<CcPhoneAuthEvent>(
+        verificationStream,
+        onData: (phoneEvent) {
+          _logger.i('PhoneAuthBloc: Received phone event: $phoneEvent');
 
           // If we already reached success (manually or automatically),
           // don't let background events (like timeouts) overwrite it.
@@ -87,7 +76,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
             _logger.i(
               'PhoneAuthBloc: Already in Success state, ignoring event: $phoneEvent',
             );
-            return;
+            return state;
           }
 
           if (phoneEvent is CcPhoneCodeSent) {
@@ -95,27 +84,26 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
             _logger.i(
               'PhoneAuthBloc: Code sent, verificationId: $_verificationId',
             );
-            emit(const PhoneAuthCodeSent());
+            return const PhoneAuthCodeSent();
           } else if (phoneEvent is CcPhoneVerificationCompleted) {
             _logger.i('PhoneAuthBloc: Verification completed successfully');
-            emit(PhoneAuthSuccess(phoneEvent.user));
+            return PhoneAuthSuccess(phoneEvent.user);
           } else if (phoneEvent is CcPhoneVerificationFailed) {
             _logger.e(
               'PhoneAuthBloc: Verification failed: ${phoneEvent.failure.message}',
             );
-            emit(PhoneAuthError(phoneEvent.failure.message));
+            return PhoneAuthError(phoneEvent.failure.message);
           } else if (phoneEvent is CcPhoneCodeAutoRetrievalTimeout) {
             _logger.i('PhoneAuthBloc: Auto-retrieval timed out');
             // Keep the CodeSent state so the user can still enter the code manually
-            emit(const PhoneAuthCodeSent());
+            return const PhoneAuthCodeSent();
           }
+          return state;
         },
         onError: (error, stackTrace) {
           _logger.e('PhoneAuthBloc: Error in stream: $error');
           _logger.e('PhoneAuthBloc: Stack trace: $stackTrace');
-          if (_verificationSubscription != null) {
-            emit(const PhoneAuthError(CcLocaleKeys.app_error_general));
-          }
+          return const PhoneAuthError(CcLocaleKeys.app_error_general);
         },
       );
     } catch (e) {
@@ -166,14 +154,41 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
       },
       (failure) {
         _logger.e('PhoneAuthBloc: Sign in failed: ${failure.message}');
-        emit(PhoneAuthError(failure.message));
+        
+        // Map failure message to specific OTP error locale keys
+        final errorMessage = _mapOtpErrorToLocaleKey(failure.message);
+        emit(PhoneAuthError(errorMessage));
       },
     );
   }
 
+  String _mapOtpErrorToLocaleKey(String failureMessage) {
+    // Firebase Auth error codes for OTP verification
+    final lowerMessage = failureMessage.toLowerCase();
+    
+    if (lowerMessage.contains('invalid') || 
+        lowerMessage.contains('wrong') ||
+        lowerMessage.contains('incorrect')) {
+      return CcLocaleKeys.auth_otp_invalid;
+    }
+    
+    if (lowerMessage.contains('expired') || 
+        lowerMessage.contains('timeout')) {
+      return CcLocaleKeys.auth_otp_expired;
+    }
+    
+    if (lowerMessage.contains('too many') || 
+        lowerMessage.contains('quota') ||
+        lowerMessage.contains('attempts')) {
+      return CcLocaleKeys.auth_otp_too_many_attempts;
+    }
+    
+    // Default to general error if no specific match
+    return failureMessage;
+  }
+
   @override
   Future<void> close() {
-    _verificationSubscription?.cancel();
     return super.close();
   }
 }
