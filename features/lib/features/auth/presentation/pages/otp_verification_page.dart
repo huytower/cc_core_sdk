@@ -259,9 +259,11 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
           ),
         ),
         const CcSpaceXS(),
-        CcDebounce(
+        CcInteractBtnWrapper(
           onTap: _handleResend,
           isEnable: _canResend,
+          useDebounce: true,
+          isBouncing: false, // Maintain simple look
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,

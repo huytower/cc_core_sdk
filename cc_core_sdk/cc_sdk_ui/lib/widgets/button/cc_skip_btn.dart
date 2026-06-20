@@ -1,55 +1,62 @@
-import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_padding_params.dart';
-import '../../core/extensions/cc_context_extension.dart';
-import '../../core/extensions/common/cc_responsive_extension.dart';
-import '../padding/cc_padding.dart';
-import '../text/cc_text.dart';
-import 'cc_bounce_animation.dart';
-import 'cc_interaction_type.dart';
+import '../../export_cc_sdk_ui.dart';
 
 class CcSkipBtn extends StatelessWidget {
   final VoidCallback onTap;
   final CcInteractionType interactionType;
+  final bool useDebounce;
 
   // Backward compatibility constructor (defaults to bounce)
-  const CcSkipBtn({super.key, required this.onTap})
+  const CcSkipBtn({super.key, required this.onTap, this.useDebounce = true})
     : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
   const CcSkipBtn._({
     required this.interactionType,
     required this.onTap,
+    this.useDebounce = true,
     super.key,
   });
 
   // Named constructors
-  factory CcSkipBtn.bouncing({required VoidCallback onTap, Key? key}) =>
-      CcSkipBtn._(
-        interactionType: CcInteractionType.bounce,
-        onTap: onTap,
-        key: key,
-      );
+  factory CcSkipBtn.bouncing({
+    required VoidCallback onTap,
+    bool useDebounce = true,
+    Key? key,
+  }) => CcSkipBtn._(
+    interactionType: CcInteractionType.bounce,
+    onTap: onTap,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
-  factory CcSkipBtn.simple({required VoidCallback onTap, Key? key}) =>
-      CcSkipBtn._(
-        interactionType: CcInteractionType.tap,
-        onTap: onTap,
-        key: key,
-      );
+  factory CcSkipBtn.simple({
+    required VoidCallback onTap,
+    bool useDebounce = true,
+    Key? key,
+  }) => CcSkipBtn._(
+    interactionType: CcInteractionType.tap,
+    onTap: onTap,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
   factory CcSkipBtn.static({Key? key}) => CcSkipBtn._(
     interactionType: CcInteractionType.none,
     onTap: () {},
+    useDebounce: false,
     key: key,
   );
 
   @override
   Widget build(BuildContext context) {
-    final child = CcPadding(
-      Container(
+    final baseContent = Padding(
+      padding: EdgeInsets.only(
+        right: context.respPadding(CcPaddingParams.PAGE_LG),
+      ),
+      child: Container(
         width: context.respIconSize(baseSize: 103.0),
         height: context.respIconSize(baseSize: 76.0),
         decoration: BoxDecoration(
@@ -68,23 +75,19 @@ class CcSkipBtn extends StatelessWidget {
           ),
         ),
       ),
-      0,
-      context.respPadding(CcPaddingParams.PAGE_LG),
-      0,
-      0,
     );
 
-    switch (interactionType) {
-      case CcInteractionType.none:
-        return child;
-      case CcInteractionType.tap:
-        return GestureDetector(
-          onTap: onTap,
-          behavior: HitTestBehavior.opaque,
-          child: child,
-        );
-      case CcInteractionType.bounce:
-        return CcBounceAnimation(onTap: onTap, child: child);
+    // If type is none, return the base content directly
+    if (interactionType == CcInteractionType.none) {
+      return baseContent;
     }
+
+    // Otherwise, wrap it in the interaction logic
+    return CcInteractBtnWrapper(
+      onTap: onTap,
+      useDebounce: useDebounce,
+      isBouncing: interactionType == CcInteractionType.bounce,
+      child: baseContent,
+    );
   }
 }

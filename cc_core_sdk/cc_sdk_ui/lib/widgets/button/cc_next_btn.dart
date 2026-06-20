@@ -36,15 +36,14 @@ class CcNextBtn extends StatelessWidget {
     bool isEnable = true,
     bool useDebounce = true,
     Key? key,
-  }) =>
-      CcNextBtn._(
-        interactionType: CcInteractionType.bounce,
-        onTap: onTap,
-        title: title,
-        isEnable: isEnable,
-        useDebounce: useDebounce,
-        key: key,
-      );
+  }) => CcNextBtn._(
+    interactionType: CcInteractionType.bounce,
+    onTap: onTap,
+    title: title,
+    isEnable: isEnable,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
   factory CcNextBtn.simple({
     required VoidCallback onTap,
@@ -52,21 +51,16 @@ class CcNextBtn extends StatelessWidget {
     bool isEnable = true,
     bool useDebounce = true,
     Key? key,
-  }) =>
-      CcNextBtn._(
-        interactionType: CcInteractionType.tap,
-        onTap: onTap,
-        title: title,
-        isEnable: isEnable,
-        useDebounce: useDebounce,
-        key: key,
-      );
+  }) => CcNextBtn._(
+    interactionType: CcInteractionType.tap,
+    onTap: onTap,
+    title: title,
+    isEnable: isEnable,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
-  factory CcNextBtn.static({
-    String? title,
-    bool isEnable = true,
-    Key? key,
-  }) =>
+  factory CcNextBtn.static({String? title, bool isEnable = true, Key? key}) =>
       CcNextBtn._(
         interactionType: CcInteractionType.none,
         onTap: () {},
@@ -95,7 +89,7 @@ class CcNextBtn extends StatelessWidget {
     }
 
     // Otherwise, wrap it in the interaction logic
-    return CcInteractionWrapper(
+    return CcInteractBtnWrapper(
       onTap: onTap,
       useDebounce: useDebounce,
       isBouncing: interactionType == CcInteractionType.bounce,

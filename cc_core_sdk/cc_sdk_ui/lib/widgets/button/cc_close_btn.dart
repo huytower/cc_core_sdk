@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/cc_context_extension.dart';
-import '../../core/extensions/common/cc_responsive_extension.dart';
-import 'cc_bounce_animation.dart';
-import 'cc_interaction_type.dart';
+import '../../export_cc_sdk_ui.dart';
 
 /// Standardized Close Button.
 ///
@@ -15,6 +12,7 @@ class CcCloseBtn extends StatelessWidget {
   final VoidCallback? onTap;
   final Color? iconColor;
   final CcInteractionType interactionType;
+  final bool useDebounce;
 
   // Backward compatibility constructor (defaults to bounce)
   const CcCloseBtn({
@@ -24,6 +22,7 @@ class CcCloseBtn extends StatelessWidget {
     this.width,
     this.icon,
     this.iconColor,
+    this.useDebounce = true,
     super.key,
   }) : interactionType = CcInteractionType.bounce;
 
@@ -36,6 +35,7 @@ class CcCloseBtn extends StatelessWidget {
     this.width,
     this.icon,
     this.iconColor,
+    this.useDebounce = true,
     super.key,
   });
 
@@ -47,18 +47,19 @@ class CcCloseBtn extends StatelessWidget {
     double? width,
     Widget? icon,
     Color? iconColor,
+    bool useDebounce = true,
     Key? key,
-  }) =>
-      CcCloseBtn._(
-        interactionType: CcInteractionType.bounce,
-        onTap: onTap,
-        bgColor: bgColor,
-        height: height,
-        width: width,
-        icon: icon,
-        iconColor: iconColor,
-        key: key,
-      );
+  }) => CcCloseBtn._(
+    interactionType: CcInteractionType.bounce,
+    onTap: onTap,
+    bgColor: bgColor,
+    height: height,
+    width: width,
+    icon: icon,
+    iconColor: iconColor,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
   factory CcCloseBtn.simple({
     required VoidCallback onTap,
@@ -67,18 +68,19 @@ class CcCloseBtn extends StatelessWidget {
     double? width,
     Widget? icon,
     Color? iconColor,
+    bool useDebounce = true,
     Key? key,
-  }) =>
-      CcCloseBtn._(
-        interactionType: CcInteractionType.tap,
-        onTap: onTap,
-        bgColor: bgColor,
-        height: height,
-        width: width,
-        icon: icon,
-        iconColor: iconColor,
-        key: key,
-      );
+  }) => CcCloseBtn._(
+    interactionType: CcInteractionType.tap,
+    onTap: onTap,
+    bgColor: bgColor,
+    height: height,
+    width: width,
+    icon: icon,
+    iconColor: iconColor,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
   factory CcCloseBtn.static({
     Color? bgColor,
@@ -87,23 +89,23 @@ class CcCloseBtn extends StatelessWidget {
     Widget? icon,
     Color? iconColor,
     Key? key,
-  }) =>
-      CcCloseBtn._(
-        interactionType: CcInteractionType.none,
-        bgColor: bgColor,
-        height: height,
-        width: width,
-        icon: icon,
-        iconColor: iconColor,
-        key: key,
-      );
+  }) => CcCloseBtn._(
+    interactionType: CcInteractionType.none,
+    bgColor: bgColor,
+    height: height,
+    width: width,
+    icon: icon,
+    iconColor: iconColor,
+    useDebounce: false,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
     final double defaultSize = context.respIconSize(baseSize: 35.0);
     final double defaultIconSize = context.respIconSize(baseSize: 20.0);
 
-    final child = SizedBox(
+    final baseBtn = SizedBox(
       width: width ?? defaultSize,
       height: height ?? defaultSize,
       child: Container(
@@ -122,24 +124,19 @@ class CcCloseBtn extends StatelessWidget {
       ),
     );
 
-    switch (interactionType) {
-      case CcInteractionType.none:
-        return Center(child: child);
-      case CcInteractionType.tap:
-        return Center(
-          child: GestureDetector(
-            onTap: onTap,
-            behavior: HitTestBehavior.opaque,
-            child: child,
-          ),
-        );
-      case CcInteractionType.bounce:
-        return Center(
-          child: CcBounceAnimation(
-            onTap: onTap ?? () {},
-            child: child,
-          ),
-        );
+    // If type is none, return the base button directly
+    if (interactionType == CcInteractionType.none) {
+      return Center(child: baseBtn);
     }
+
+    // Otherwise, wrap it in the interaction logic
+    return Center(
+      child: CcInteractBtnWrapper(
+        onTap: onTap ?? () {},
+        useDebounce: useDebounce,
+        isBouncing: interactionType == CcInteractionType.bounce,
+        child: baseBtn,
+      ),
+    );
   }
 }

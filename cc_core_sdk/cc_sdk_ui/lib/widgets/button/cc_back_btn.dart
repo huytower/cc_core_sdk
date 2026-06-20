@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/cc_context_extension.dart';
-import '../../core/extensions/common/cc_responsive_extension.dart';
-import '../icon/cc_icon.dart';
-import '../padding/cc_padding.dart';
-import 'cc_bounce_animation.dart';
-import 'cc_debounce_widget.dart';
-import 'cc_interaction_type.dart';
+import '../../export_cc_sdk_ui.dart';
 
 class CcBackBtn extends StatelessWidget {
   final IconData? icon;
@@ -67,40 +61,27 @@ class CcBackBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rawChild = CcPadding(
-      CcIcon(
+    final baseIcon = Padding(
+      padding: EdgeInsets.all(context.respPadding(4)),
+      child: CcIcon(
         icon: icon ?? Icons.arrow_back,
         size: context.respIconSize(baseSize: 20.0),
         align: Alignment.center,
         color: context.ccColorScheme.onSurface,
       ),
-      context.respPadding(4),
-      context.respPadding(4),
-      context.respPadding(4),
-      context.respPadding(4),
     );
 
-    Widget buildInteractive(Widget child) {
-      switch (interactionType) {
-        case CcInteractionType.none:
-          return child;
-        case CcInteractionType.tap:
-          return GestureDetector(
-            onTap: onTap,
-            behavior: HitTestBehavior.opaque,
-            child: child,
-          );
-        case CcInteractionType.bounce:
-          return CcBounceAnimation(onTap: onTap ?? () {}, child: child);
-      }
+    // If type is none, return the base icon directly
+    if (interactionType == CcInteractionType.none) {
+      return baseIcon;
     }
 
-    final interactiveWidget = buildInteractive(rawChild);
-
-    if (useDebounce && interactionType != CcInteractionType.none) {
-      return CcDebounce(onTap: onTap, child: interactiveWidget);
-    }
-
-    return interactiveWidget;
+    // Otherwise, wrap it in the interaction logic
+    return CcInteractBtnWrapper(
+      onTap: onTap ?? () {},
+      useDebounce: useDebounce,
+      isBouncing: interactionType == CcInteractionType.bounce,
+      child: baseIcon,
+    );
   }
 }

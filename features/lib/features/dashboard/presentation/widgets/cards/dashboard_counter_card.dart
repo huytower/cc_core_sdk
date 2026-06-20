@@ -25,8 +25,9 @@ class DashboardCounterCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CcDebounce(
-                allowShowLoading: false,
+              CcInteractBtnWrapper(
+                useDebounce: true,
+                isBouncing: true,
                 onTap: () {
                   context.read<DashboardBloc>().add(
                     const DecrementItemCountEvent(showLoading: false),
@@ -47,8 +48,9 @@ class DashboardCounterCard extends StatelessWidget {
                 ),
               ),
               const CcSpaceXL(),
-              CcDebounce(
-                allowShowLoading: false,
+              CcInteractBtnWrapper(
+                useDebounce: true,
+                isBouncing: true,
                 onTap: () {
                   context.read<DashboardBloc>().add(
                     const IncrementItemCountEvent(showLoading: false),

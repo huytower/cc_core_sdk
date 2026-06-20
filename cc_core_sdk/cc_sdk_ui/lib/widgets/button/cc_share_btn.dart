@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/cc_context_extension.dart';
-import '../../core/extensions/common/cc_responsive_extension.dart';
-import '../icon/cc_icon.dart';
-import '../padding/cc_padding.dart';
-import 'cc_bounce_animation.dart';
-import 'cc_interaction_type.dart';
+import '../../export_cc_sdk_ui.dart';
 
 /// Share button with share icon
 class CcShareBtn extends StatelessWidget {
@@ -13,6 +8,7 @@ class CcShareBtn extends StatelessWidget {
   final double? height, width;
   final VoidCallback? onTap;
   final CcInteractionType interactionType;
+  final bool useDebounce;
 
   // Backward compatibility constructor (defaults to bounce)
   const CcShareBtn({
@@ -21,6 +17,7 @@ class CcShareBtn extends StatelessWidget {
     this.iconColor,
     this.height,
     this.width,
+    this.useDebounce = true,
   }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
@@ -30,6 +27,7 @@ class CcShareBtn extends StatelessWidget {
     this.iconColor,
     this.height,
     this.width,
+    this.useDebounce = true,
     super.key,
   });
 
@@ -39,73 +37,72 @@ class CcShareBtn extends StatelessWidget {
     Color? iconColor,
     double? height,
     double? width,
+    bool useDebounce = true,
     Key? key,
-  }) =>
-      CcShareBtn._(
-        interactionType: CcInteractionType.bounce,
-        onTap: onTap,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcShareBtn._(
+    interactionType: CcInteractionType.bounce,
+    onTap: onTap,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
   factory CcShareBtn.simple({
     required VoidCallback onTap,
     Color? iconColor,
     double? height,
     double? width,
+    bool useDebounce = true,
     Key? key,
-  }) =>
-      CcShareBtn._(
-        interactionType: CcInteractionType.tap,
-        onTap: onTap,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcShareBtn._(
+    interactionType: CcInteractionType.tap,
+    onTap: onTap,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
   factory CcShareBtn.static({
     Color? iconColor,
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcShareBtn._(
-        interactionType: CcInteractionType.none,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcShareBtn._(
+    interactionType: CcInteractionType.none,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    useDebounce: false,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
-    final child = CcPadding(
-      CcIcon(
+    final baseIcon = Padding(
+      padding: EdgeInsets.all(context.respPadding(4)),
+      child: CcIcon(
         icon: Icons.share,
         size: context.respIconSize(baseSize: 20.0),
         align: Alignment.center,
         color: iconColor ?? context.ccColorScheme.onSurface,
       ),
-      context.respPadding(4),
-      context.respPadding(4),
-      context.respPadding(4),
-      context.respPadding(4),
     );
 
-    switch (interactionType) {
-      case CcInteractionType.none:
-        return child;
-      case CcInteractionType.tap:
-        return GestureDetector(
-          onTap: onTap,
-          behavior: HitTestBehavior.opaque,
-          child: child,
-        );
-      case CcInteractionType.bounce:
-        return CcBounceAnimation(onTap: onTap ?? () {}, child: child);
+    // If type is none, return the base icon directly
+    if (interactionType == CcInteractionType.none) {
+      return baseIcon;
     }
+
+    // Otherwise, wrap it in the interaction logic
+    return CcInteractBtnWrapper(
+      onTap: onTap ?? () {},
+      useDebounce: useDebounce,
+      isBouncing: interactionType == CcInteractionType.bounce,
+      child: baseIcon,
+    );
   }
 }

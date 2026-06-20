@@ -35,10 +35,12 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   /// Build the refresh action button
   Widget _buildRefreshButton(BuildContext context) {
-    return CcDebounce(
+    return CcInteractBtnWrapper(
       onTap: () => blocContext.read<DashboardBloc>().add(
         const RefreshDashboardDataEvent(),
       ),
+      useDebounce: true,
+      isBouncing: true,
       child: Padding(
         padding: EdgeInsets.only(
           right: context.respPadding(CcPaddingParams.SPACE_MD),

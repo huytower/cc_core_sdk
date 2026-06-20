@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../export_cc_sdk_ui.dart';
-import 'cc_bounce_animation.dart';
-import 'cc_interaction_type.dart';
 
 enum SocialLoginType { google, facebook, apple }
 
@@ -10,12 +8,14 @@ class CcSocialLoginBtn extends StatelessWidget {
   final SocialLoginType type;
   final VoidCallback? onTap;
   final CcInteractionType interactionType;
+  final bool useDebounce;
 
   // Backward compatibility constructor (defaults to bounce)
   const CcSocialLoginBtn({
     super.key,
     required this.type,
     required this.onTap,
+    this.useDebounce = true,
   }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
@@ -23,6 +23,7 @@ class CcSocialLoginBtn extends StatelessWidget {
     required this.type,
     required this.interactionType,
     this.onTap,
+    this.useDebounce = true,
     super.key,
   });
 
@@ -30,40 +31,40 @@ class CcSocialLoginBtn extends StatelessWidget {
   factory CcSocialLoginBtn.bouncing({
     required SocialLoginType type,
     required VoidCallback onTap,
+    bool useDebounce = true,
     Key? key,
-  }) =>
-      CcSocialLoginBtn._(
-        type: type,
-        interactionType: CcInteractionType.bounce,
-        onTap: onTap,
-        key: key,
-      );
+  }) => CcSocialLoginBtn._(
+    type: type,
+    interactionType: CcInteractionType.bounce,
+    onTap: onTap,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
   factory CcSocialLoginBtn.simple({
     required SocialLoginType type,
     required VoidCallback onTap,
+    bool useDebounce = true,
     Key? key,
-  }) =>
-      CcSocialLoginBtn._(
-        type: type,
-        interactionType: CcInteractionType.tap,
-        onTap: onTap,
-        key: key,
-      );
+  }) => CcSocialLoginBtn._(
+    type: type,
+    interactionType: CcInteractionType.tap,
+    onTap: onTap,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
-  factory CcSocialLoginBtn.static({
-    required SocialLoginType type,
-    Key? key,
-  }) =>
+  factory CcSocialLoginBtn.static({required SocialLoginType type, Key? key}) =>
       CcSocialLoginBtn._(
         type: type,
         interactionType: CcInteractionType.none,
+        useDebounce: false,
         key: key,
       );
 
   @override
   Widget build(BuildContext context) {
-    final child = Container(
+    final baseBtn = Container(
       height: context.respDim(48),
       width: double.infinity,
       decoration: BoxDecoration(
@@ -89,21 +90,18 @@ class CcSocialLoginBtn extends StatelessWidget {
       ),
     );
 
-    switch (interactionType) {
-      case CcInteractionType.none:
-        return child;
-      case CcInteractionType.tap:
-        return GestureDetector(
-          onTap: onTap,
-          behavior: HitTestBehavior.opaque,
-          child: child,
-        );
-      case CcInteractionType.bounce:
-        return CcBounceAnimation(
-          onTap: onTap ?? () {},
-          child: child,
-        );
+    // If type is none, return the base button directly
+    if (interactionType == CcInteractionType.none) {
+      return baseBtn;
     }
+
+    // Otherwise, wrap it in the interaction logic
+    return CcInteractBtnWrapper(
+      onTap: onTap ?? () {},
+      useDebounce: useDebounce,
+      isBouncing: interactionType == CcInteractionType.bounce,
+      child: baseBtn,
+    );
   }
 
   Color _getBackgroundColor(BuildContext context) {

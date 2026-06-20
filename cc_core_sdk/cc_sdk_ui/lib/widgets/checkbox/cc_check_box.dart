@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 
-import '../../core/config/tokens/cc_circular_params.dart';
-import '../../core/extensions/cc_context_extension.dart';
-import '../../core/extensions/common/cc_responsive_extension.dart';
+import '../../export_cc_sdk_ui.dart';
 
 class CcCheckBox extends StatelessWidget {
-  const CcCheckBox({Key? key, required this.isChecked, required this.onChanged})
-    : super(key: key);
+  const CcCheckBox({
+    super.key,
+    required this.isChecked,
+    required this.onChanged,
+    this.interactionType = CcInteractionType.bounce,
+    this.useDebounce = true,
+  });
 
   final bool isChecked;
   final ValueChanged<bool> onChanged;
+  final CcInteractionType interactionType;
+  final bool useDebounce;
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-    onTap: () => onChanged(!isChecked),
-    child: Container(
+  Widget build(BuildContext context) {
+    final baseContent = Container(
       width: context.respIconSize(baseSize: 24.0),
       height: context.respIconSize(baseSize: 24.0),
       decoration: BoxDecoration(
@@ -34,6 +38,17 @@ class CcCheckBox extends StatelessWidget {
               color: context.ccColorScheme.onPrimary,
             )
           : null,
-    ),
-  );
+    );
+
+    if (interactionType == CcInteractionType.none) {
+      return baseContent;
+    }
+
+    return CcInteractBtnWrapper(
+      onTap: () => onChanged(!isChecked),
+      useDebounce: useDebounce,
+      isBouncing: interactionType == CcInteractionType.bounce,
+      child: baseContent,
+    );
+  }
 }

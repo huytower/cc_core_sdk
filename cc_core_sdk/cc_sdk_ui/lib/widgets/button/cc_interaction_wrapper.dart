@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 
 // This widget handles the animation and the debounce logic
-class CcInteractionWrapper extends StatefulWidget {
+class CcInteractBtnWrapper extends StatefulWidget {
   final Widget child;
   final VoidCallback onTap;
   final bool useDebounce;
   final bool isBouncing;
+  final bool isEnable;
+  final Duration debounceDuration;
 
-  const CcInteractionWrapper({
+  const CcInteractBtnWrapper({
     super.key,
     required this.child,
     required this.onTap,
     required this.useDebounce,
     required this.isBouncing,
+    this.isEnable = true,
+    this.debounceDuration = const Duration(milliseconds: 600),
   });
 
   @override
-  State<CcInteractionWrapper> createState() => _CcInteractionWrapperState();
+  State<CcInteractBtnWrapper> createState() => _CcInteractBtnWrapperState();
 }
 
-class _CcInteractionWrapperState extends State<CcInteractionWrapper>
+class _CcInteractBtnWrapperState extends State<CcInteractBtnWrapper>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool _isDebouncing = false;
@@ -42,6 +46,7 @@ class _CcInteractionWrapperState extends State<CcInteractionWrapper>
   }
 
   void _handleTap() async {
+    if (!widget.isEnable) return;
     if (widget.useDebounce && _isDebouncing) return;
 
     if (widget.isBouncing) {
@@ -50,7 +55,7 @@ class _CcInteractionWrapperState extends State<CcInteractionWrapper>
 
     if (widget.useDebounce) {
       setState(() => _isDebouncing = true);
-      Future.delayed(const Duration(milliseconds: 600), () {
+      Future.delayed(widget.debounceDuration, () {
         if (mounted) setState(() => _isDebouncing = false);
       });
     }
@@ -61,7 +66,7 @@ class _CcInteractionWrapperState extends State<CcInteractionWrapper>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _handleTap,
+      onTap: widget.isEnable ? _handleTap : null,
       behavior: HitTestBehavior.opaque,
       child: AnimatedBuilder(
         animation: _controller,

@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/cc_context_extension.dart';
-import '../../core/extensions/common/cc_responsive_extension.dart';
-import '../../core/helper/cc_widget_helper.dart';
-import '../text/cc_text.dart';
-import 'cc_bounce_animation.dart';
-import 'cc_interaction_type.dart';
+import '../../export_cc_sdk_ui.dart';
 
 class CcBaseBtn extends StatelessWidget {
   final String? title;
@@ -18,6 +13,7 @@ class CcBaseBtn extends StatelessWidget {
   final bool allowShowLoading;
   final VoidCallback? onTap;
   final CcInteractionType interactionType;
+  final bool useDebounce;
 
   // Backward compatibility constructor (defaults to bounce)
   const CcBaseBtn({
@@ -32,6 +28,7 @@ class CcBaseBtn extends StatelessWidget {
     this.colorsGradient,
     this.allowShowLoading = true,
     this.onTap,
+    this.useDebounce = true,
   }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
@@ -47,6 +44,7 @@ class CcBaseBtn extends StatelessWidget {
     this.colorsGradient,
     this.allowShowLoading = true,
     this.onTap,
+    this.useDebounce = true,
     super.key,
   });
 
@@ -63,21 +61,22 @@ class CcBaseBtn extends StatelessWidget {
     List<Color>? colorsGradient,
     bool allowShowLoading = true,
     VoidCallback? onTap,
-  }) =>
-      CcBaseBtn._(
-        interactionType: CcInteractionType.bounce,
-        title: title,
-        bgColor: bgColor,
-        textColor: textColor,
-        isEnable: isEnable,
-        height: height,
-        width: width,
-        borderRadius: borderRadius,
-        colorsGradient: colorsGradient,
-        allowShowLoading: allowShowLoading,
-        onTap: onTap,
-        key: key,
-      );
+    bool useDebounce = true,
+  }) => CcBaseBtn._(
+    interactionType: CcInteractionType.bounce,
+    title: title,
+    bgColor: bgColor,
+    textColor: textColor,
+    isEnable: isEnable,
+    height: height,
+    width: width,
+    borderRadius: borderRadius,
+    colorsGradient: colorsGradient,
+    allowShowLoading: allowShowLoading,
+    onTap: onTap,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
   factory CcBaseBtn.simple({
     Key? key,
@@ -91,21 +90,22 @@ class CcBaseBtn extends StatelessWidget {
     List<Color>? colorsGradient,
     bool allowShowLoading = true,
     VoidCallback? onTap,
-  }) =>
-      CcBaseBtn._(
-        interactionType: CcInteractionType.tap,
-        title: title,
-        bgColor: bgColor,
-        textColor: textColor,
-        isEnable: isEnable,
-        height: height,
-        width: width,
-        borderRadius: borderRadius,
-        colorsGradient: colorsGradient,
-        allowShowLoading: allowShowLoading,
-        onTap: onTap,
-        key: key,
-      );
+    bool useDebounce = true,
+  }) => CcBaseBtn._(
+    interactionType: CcInteractionType.tap,
+    title: title,
+    bgColor: bgColor,
+    textColor: textColor,
+    isEnable: isEnable,
+    height: height,
+    width: width,
+    borderRadius: borderRadius,
+    colorsGradient: colorsGradient,
+    allowShowLoading: allowShowLoading,
+    onTap: onTap,
+    useDebounce: useDebounce,
+    key: key,
+  );
 
   factory CcBaseBtn.static({
     Key? key,
@@ -118,24 +118,24 @@ class CcBaseBtn extends StatelessWidget {
     BorderRadius? borderRadius,
     List<Color>? colorsGradient,
     bool allowShowLoading = true,
-  }) =>
-      CcBaseBtn._(
-        interactionType: CcInteractionType.none,
-        title: title,
-        bgColor: bgColor,
-        textColor: textColor,
-        isEnable: isEnable,
-        height: height,
-        width: width,
-        borderRadius: borderRadius,
-        colorsGradient: colorsGradient,
-        allowShowLoading: allowShowLoading,
-        key: key,
-      );
+  }) => CcBaseBtn._(
+    interactionType: CcInteractionType.none,
+    title: title,
+    bgColor: bgColor,
+    textColor: textColor,
+    isEnable: isEnable,
+    height: height,
+    width: width,
+    borderRadius: borderRadius,
+    colorsGradient: colorsGradient,
+    allowShowLoading: allowShowLoading,
+    useDebounce: false,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
-    final child = Container(
+    final baseContent = Container(
       height: height ?? context.respDim(48.0),
       width: width ?? double.infinity,
       decoration: BoxDecoration(
@@ -165,20 +165,17 @@ class CcBaseBtn extends StatelessWidget {
       ),
     );
 
-    switch (interactionType) {
-      case CcInteractionType.none:
-        return child;
-      case CcInteractionType.tap:
-        return GestureDetector(
-          onTap: isEnable ? onTap : null,
-          behavior: HitTestBehavior.opaque,
-          child: child,
-        );
-      case CcInteractionType.bounce:
-        return CcBounceAnimation(
-          onTap: isEnable ? (onTap ?? () {}) : () {},
-          child: child,
-        );
+    // If type is none or not enabled, return the base content directly
+    if (interactionType == CcInteractionType.none || !isEnable) {
+      return baseContent;
     }
+
+    // Otherwise, wrap it in the interaction logic
+    return CcInteractBtnWrapper(
+      onTap: onTap ?? () {},
+      useDebounce: useDebounce,
+      isBouncing: interactionType == CcInteractionType.bounce,
+      child: baseContent,
+    );
   }
 }

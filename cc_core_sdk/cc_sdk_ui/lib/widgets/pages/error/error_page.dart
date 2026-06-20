@@ -35,8 +35,10 @@ class ErrorPage extends StatelessWidget {
         ),
         const CcSpaceLG(),
         if (onRetry != null)
-          CcDebounce(
+          CcInteractBtnWrapper(
             onTap: onRetry!,
+            useDebounce: true,
+            isBouncing: true,
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: context.respPadding(24.0),
