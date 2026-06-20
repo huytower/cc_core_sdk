@@ -4,23 +4,74 @@ import 'package:flutter/material.dart';
 
 import '../../core/extensions/cc_context_extension.dart';
 import 'cc_base_btn.dart';
+import 'cc_bounce_animation.dart';
+
+enum CcInteractionType {
+  none,
+  tap,
+  bounce,
+}
 
 class NextBtn extends StatelessWidget {
-  const NextBtn({
-    super.key,
-    required this.onTap,
-    this.title,
-    this.isEnable = true,
-  });
-
   final VoidCallback onTap;
   final String? title;
   final bool isEnable;
+  final CcInteractionType interactionType;
+
+  // Private internal constructor
+  const NextBtn._({
+    required this.interactionType,
+    required this.onTap,
+    this.title,
+    this.isEnable = true,
+    super.key,
+  });
+
+  // Named constructors
+  factory NextBtn.bouncing({
+    required VoidCallback onTap,
+    String? title,
+    bool isEnable = true,
+    Key? key,
+  }) =>
+      NextBtn._(
+        interactionType: CcInteractionType.bounce,
+        onTap: onTap,
+        title: title,
+        isEnable: isEnable,
+        key: key,
+      );
+
+  factory NextBtn.simple({
+    required VoidCallback onTap,
+    String? title,
+    bool isEnable = true,
+    Key? key,
+  }) =>
+      NextBtn._(
+        interactionType: CcInteractionType.tap,
+        onTap: onTap,
+        title: title,
+        isEnable: isEnable,
+        key: key,
+      );
+
+  factory NextBtn.static({
+    String? title,
+    bool isEnable = true,
+    Key? key,
+  }) =>
+      NextBtn._(
+        interactionType: CcInteractionType.none,
+        onTap: () {},
+        title: title,
+        isEnable: isEnable,
+        key: key,
+      );
 
   @override
   Widget build(BuildContext context) {
-    return CcBaseBtn(
-      onTap: onTap,
+    final child = CcBaseBtn(
       isEnable: isEnable,
       title: title ?? el.tr(CcLocaleKeys.common_next),
       bgColor: isEnable
@@ -30,5 +81,21 @@ class NextBtn extends StatelessWidget {
           ? context.ccColorScheme.onPrimary
           : null, // Fallback to onSurfaceVariant in CcBaseBtn
     );
+
+    switch (interactionType) {
+      case CcInteractionType.none:
+        return child;
+      case CcInteractionType.tap:
+        return GestureDetector(
+          onTap: isEnable ? onTap : null,
+          behavior: HitTestBehavior.opaque,
+          child: child,
+        );
+      case CcInteractionType.bounce:
+        return CcBounceAnimation(
+          onTap: isEnable ? onTap : () {},
+          child: child,
+        );
+    }
   }
 }

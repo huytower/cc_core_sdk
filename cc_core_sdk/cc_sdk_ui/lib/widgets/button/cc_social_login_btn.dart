@@ -1,48 +1,107 @@
 import 'package:flutter/material.dart';
 
 import '../../export_cc_sdk_ui.dart';
+import 'cc_bounce_animation.dart';
 
 enum SocialLoginType { google, facebook, apple }
 
-class CcSocialLoginBtn extends StatelessWidget {
-  const CcSocialLoginBtn({super.key, required this.type, required this.onTap});
+enum CcInteractionType {
+  none,
+  tap,
+  bounce,
+}
 
+class CcSocialLoginBtn extends StatelessWidget {
   final SocialLoginType type;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final CcInteractionType interactionType;
+
+  // Private internal constructor
+  const CcSocialLoginBtn._({
+    required this.type,
+    required this.interactionType,
+    this.onTap,
+    super.key,
+  });
+
+  // Named constructors
+  factory CcSocialLoginBtn.bouncing({
+    required SocialLoginType type,
+    required VoidCallback onTap,
+    Key? key,
+  }) =>
+      CcSocialLoginBtn._(
+        type: type,
+        interactionType: CcInteractionType.bounce,
+        onTap: onTap,
+        key: key,
+      );
+
+  factory CcSocialLoginBtn.simple({
+    required SocialLoginType type,
+    required VoidCallback onTap,
+    Key? key,
+  }) =>
+      CcSocialLoginBtn._(
+        type: type,
+        interactionType: CcInteractionType.tap,
+        onTap: onTap,
+        key: key,
+      );
+
+  factory CcSocialLoginBtn.static({
+    required SocialLoginType type,
+    Key? key,
+  }) =>
+      CcSocialLoginBtn._(
+        type: type,
+        interactionType: CcInteractionType.none,
+        key: key,
+      );
 
   @override
   Widget build(BuildContext context) {
-    return CcInkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(
-        context.respDim(CcPaddingParams.DESC_SM),
+    final child = Container(
+      height: context.respDim(48),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: _getBackgroundColor(context),
+        borderRadius: BorderRadius.circular(
+          context.respDim(CcPaddingParams.DESC_SM),
+        ),
+        border: Border.all(color: _getBorderColor(context), width: 1),
       ),
-      child: Container(
-        height: context.respDim(48),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: _getBackgroundColor(context),
-          borderRadius: BorderRadius.circular(
-            context.respDim(CcPaddingParams.DESC_SM),
-          ),
-          border: Border.all(color: _getBorderColor(context), width: 1),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _getIcon(),
-            SizedBox(width: context.respPadding(CcPaddingParams.DESC_MD)),
-            CcText(
-              _getButtonText(),
-              textStyle: context.ccTextTheme.bodyMedium?.copyWith(
-                color: _getTextColor(context),
-                fontWeight: FontWeight.w600,
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _getIcon(),
+          SizedBox(width: context.respPadding(CcPaddingParams.DESC_MD)),
+          CcText(
+            _getButtonText(),
+            textStyle: context.ccTextTheme.bodyMedium?.copyWith(
+              color: _getTextColor(context),
+              fontWeight: FontWeight.w600,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+
+    switch (interactionType) {
+      case CcInteractionType.none:
+        return child;
+      case CcInteractionType.tap:
+        return GestureDetector(
+          onTap: onTap,
+          behavior: HitTestBehavior.opaque,
+          child: child,
+        );
+      case CcInteractionType.bounce:
+        return CcBounceAnimation(
+          onTap: onTap ?? () {},
+          child: child,
+        );
+    }
   }
 
   Color _getBackgroundColor(BuildContext context) {
