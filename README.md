@@ -58,4 +58,25 @@ dependencies:
 ## Development
  
 This repository is designed to be used as a git submodule in Flutter projects. The packages follow a modular architecture to promote code reusability and maintainability.
- 
+
+To push changes to the cc_core_sdk submodule:
+
+bash
+# Navigate to submodule and make changes
+cd cc_core_sdk
+# Make your changes...
+
+# Commit changes
+git add .
+git commit -m "Your commit message"
+
+# Push to remote
+git push origin main
+
+# Go back to main project
+cd ..
+
+# Update submodule reference in main project
+git add cc_core_sdk
+git commit -m "Update cc_core_sdk submodule"
+git push origin main
