@@ -59,6 +59,11 @@ dependencies:
  
 This repository is designed to be used as a git submodule in Flutter projects. The packages follow a modular architecture to promote code reusability and maintainability.
 
+To synchronize with remote:
+
+bash
+git submodule update --remote cc_core_sdk
+
 To push changes to the cc_core_sdk submodule:
 
 bash
