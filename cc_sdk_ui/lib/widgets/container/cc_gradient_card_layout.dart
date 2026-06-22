@@ -38,6 +38,7 @@ class CcGradientCardLayout extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
+            context.ccColorScheme.surface,
             context.ccColorScheme.primaryContainer,
             context.ccColorScheme.surface,
           ],
