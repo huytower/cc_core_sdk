@@ -17,7 +17,8 @@ import 'package:flutter/material.dart';
 /// 2. Customize behavior by overriding optional getters/methods:
 ///    - [layoutStatus]: Control which layout page is shown
 ///    - [onRetry]: Hook for retry action on error state
-///    - [isEnableAppBar], [appBar], [floatingActionButton]: Navigation config
+///    - [enableAppBar], [buildAppBar], [floatingActionButton]: Navigation config
+///    - [onPageBodyWrapper]: Hook to wrap the body content
 ///
 /// Example:
 /// ```dart
@@ -32,10 +33,10 @@ mixin CcViewConfigMixin {
   // ============================================
 
   /// Controls whether the app bar is enabled for this view
-  bool get isEnableAppBar => true;
+  bool get enableAppBar => true;
 
   /// Controls whether the bottom navigation bar is enabled for this view
-  bool get isEnableBottomNavigation => true;
+  bool get enableBottomNavigationBar => true;
 
   /// Optional floating action button for the view
   Widget? get floatingActionButton =>
@@ -45,7 +46,7 @@ mixin CcViewConfigMixin {
   CcLayoutStatus get layoutStatus => CcLayoutStatus.success;
 
   /// Controls whether the loading page is enabled for this view
-  bool get isEnableLoading => true;
+  bool get enableLoading => true;
 
   /// Error message to display in error layout
   String get errorMessage => el.tr(CcLocaleKeys.app_error_general);
@@ -63,16 +64,20 @@ mixin CcViewConfigMixin {
   // ============================================
 
   /// App bar for the view
-  PreferredSizeWidget? appBar() => AppBar();
+  PreferredSizeWidget? buildAppBar() => AppBar();
 
   /// Bottom navigation bar for the view
-  Widget? bottomNavigationBar() => null;
+  Widget? buildBottomNavigationBar() => null;
 
   /// Action handler for the retry button in error state
   void onRetry() {}
 
   /// Floating action button tap handler
   void onTapFloatingActionButton() {}
+
+  /// Optional wrapper for the body content.
+  /// Useful for adding gradients, background decorations, or padding.
+  Widget onPageBodyWrapper(BuildContext context, Widget body) => body;
 
   // ============================================
   // Build Methods
@@ -95,10 +100,10 @@ mixin CcViewConfigMixin {
   @mustCallSuper
   Widget buildView(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: body),
-      appBar: isEnableAppBar ? appBar() : null,
-      bottomNavigationBar: isEnableBottomNavigation
-          ? bottomNavigationBar()
+      body: onPageBodyWrapper(context, SafeArea(child: body)),
+      appBar: enableAppBar ? buildAppBar() : null,
+      bottomNavigationBar: enableBottomNavigationBar
+          ? buildBottomNavigationBar()
           : null,
       floatingActionButton: floatingActionButton,
     );
@@ -116,7 +121,7 @@ mixin CcViewConfigMixin {
   Widget get body {
     switch (layoutStatus) {
       case CcLayoutStatus.loading:
-        return isEnableLoading
+        return enableLoading
             ? const LoadingPage()
             : (buildContent() ?? const SizedBox.shrink());
       case CcLayoutStatus.loadMore:
@@ -128,7 +133,7 @@ mixin CcViewConfigMixin {
       case CcLayoutStatus.error:
         return ErrorPage(message: errorMessage, onRetry: onRetry);
       case CcLayoutStatus.refresh:
-        return isEnableLoading
+        return enableLoading
             ? const LoadingPage()
             : (buildContent() ?? const SizedBox.shrink());
     }

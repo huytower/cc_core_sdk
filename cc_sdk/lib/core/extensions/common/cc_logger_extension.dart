@@ -1,13 +1,13 @@
 import 'dart:developer' as developer;
 
+import 'package:cc_sdk/core/config/cc_feature_flags.dart';
+import 'package:cc_sdk/core/config/cc_library_config.dart';
+import 'package:cc_sdk/core/enum/cc_symbol_logger.dart';
+import 'package:cc_sdk/core/extensions/common/cc_when_expression.dart';
+import 'package:cc_sdk/core/serialization/gson/cc_gson.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 import 'package:stack_trace/stack_trace.dart';
-
-import '../../config/cc_library_config.dart';
-import '../../enum/cc_symbol_logger.dart';
-import '../../serialization/gson/cc_gson.dart';
-import 'cc_when_expression.dart';
 
 /// Debug logging extension for any value.
 ///
@@ -23,6 +23,8 @@ extension CcLoggerExtension<T> on T {
     String tagName = 'logger:~~~/',
     bool showTimestamp = true,
   ]) {
+    if (!CcFeatureFlags.isEnableLogger) return this;
+
     final trace = Trace.current(1).terse.frames[0];
     final now = DateTime.now().toIso8601String();
     const reset = '\x1B[0m';
