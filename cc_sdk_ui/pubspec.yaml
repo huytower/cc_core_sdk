@@ -6,7 +6,7 @@ repository: https://github.com/huytower/cc_core_sdk
 homepage: https://github.com/huytower/cc_core_sdk
 
 environment:
-  sdk: '^3.11.5'
+  sdk: '^3.12.0'
 
 resolution: workspace
 
