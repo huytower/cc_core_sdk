@@ -5,9 +5,6 @@ import 'package:flutter/widgets.dart';
 /// This allows the Home/Dashboard features to navigate to other services
 /// like Counter, Web, or Details without being coupled to their routes.
 abstract class HomeCoordinator {
-  /// Navigates to the Counter feature.
-  void navigateToCounter(BuildContext context);
-
   /// Navigates to a specific Web URL.
   void navigateToWeb(
     BuildContext context, {
