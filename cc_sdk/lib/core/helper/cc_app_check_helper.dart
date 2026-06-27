@@ -3,7 +3,7 @@ import 'dart:developer' as developer;
 import 'package:firebase_app_check/firebase_app_check.dart';
 
 /// Helper class for Firebase App Check initialization and configuration.
-/// 
+///
 /// This class is state-management agnostic and provides a clean interface
 /// for initializing Firebase App Check with the appropriate providers
 /// based on the platform (Android/iOS/Web).
@@ -37,10 +37,10 @@ class CcAppCheckHelper {
   }
 
   /// Gets the current App Check token.
-  /// 
+  ///
   /// This can be used to manually retrieve the App Check token
   /// for debugging or testing purposes.
-  /// 
+  ///
   /// Returns [Future<String>] the current App Check token.
   static Future<String> getToken() async {
     try {
@@ -77,10 +77,10 @@ class CcAppCheckHelper {
   }
 
   /// Manually refreshes the App Check token.
-  /// 
+  ///
   /// This can be called when automatic refresh is disabled or when
   /// you need to force a token refresh.
-  /// 
+  ///
   /// Returns [Future<String>] the new App Check token.
   static Future<String> refreshToken() async {
     try {
@@ -98,10 +98,10 @@ class CcAppCheckHelper {
   }
 
   /// Enables or disables App Check for the current app instance.
-  /// 
+  ///
   /// [enabled] When true, App Check will be enforced. When false,
   /// App Check will be disabled (useful for testing).
-  /// 
+  ///
   /// Note: This should only be used in development/testing environments.
   static Future<void> setAppCheckEnabled(bool enabled) async {
     try {

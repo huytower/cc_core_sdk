@@ -1,6 +1,6 @@
-import '../../core/config/tokens/cc_base_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import 'cc_text.dart';
 

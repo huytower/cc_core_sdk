@@ -59,9 +59,4 @@ class CcUserEntity with EquatableMixin {
 }
 
 /// User status enum
-enum CcUserStatus {
-  active,
-  inactive,
-  suspended,
-  pendingVerification,
-}
+enum CcUserStatus { active, inactive, suspended, pendingVerification }

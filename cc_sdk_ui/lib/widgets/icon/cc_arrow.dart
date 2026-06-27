@@ -37,15 +37,14 @@ class CcArrowRight extends StatelessWidget {
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcArrowRight._(
-        interactionType: CcInteractionType.bounce,
-        onTap: onTap,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcArrowRight._(
+    interactionType: CcInteractionType.bounce,
+    onTap: onTap,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    key: key,
+  );
 
   factory CcArrowRight.simple({
     VoidCallback? onTap,
@@ -53,29 +52,27 @@ class CcArrowRight extends StatelessWidget {
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcArrowRight._(
-        interactionType: CcInteractionType.tap,
-        onTap: onTap,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcArrowRight._(
+    interactionType: CcInteractionType.tap,
+    onTap: onTap,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    key: key,
+  );
 
   factory CcArrowRight.static({
     Color? iconColor,
     double? height,
     double? width,
     Key? key,
-  }) =>
-      CcArrowRight._(
-        interactionType: CcInteractionType.none,
-        iconColor: iconColor,
-        height: height,
-        width: width,
-        key: key,
-      );
+  }) => CcArrowRight._(
+    interactionType: CcInteractionType.none,
+    iconColor: iconColor,
+    height: height,
+    width: width,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {

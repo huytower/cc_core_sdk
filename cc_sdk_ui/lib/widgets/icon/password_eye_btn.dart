@@ -35,40 +35,37 @@ class PasswordEyeButtonWidget extends StatelessWidget {
     VoidCallback? onTap,
     Color? iconColor,
     Key? key,
-  }) =>
-      PasswordEyeButtonWidget._(
-        interactionType: CcInteractionType.bounce,
-        icon: icon,
-        onTap: onTap,
-        iconColor: iconColor,
-        key: key,
-      );
+  }) => PasswordEyeButtonWidget._(
+    interactionType: CcInteractionType.bounce,
+    icon: icon,
+    onTap: onTap,
+    iconColor: iconColor,
+    key: key,
+  );
 
   factory PasswordEyeButtonWidget.simple({
     IconData icon = Icons.visibility,
     VoidCallback? onTap,
     Color? iconColor,
     Key? key,
-  }) =>
-      PasswordEyeButtonWidget._(
-        interactionType: CcInteractionType.tap,
-        icon: icon,
-        onTap: onTap,
-        iconColor: iconColor,
-        key: key,
-      );
+  }) => PasswordEyeButtonWidget._(
+    interactionType: CcInteractionType.tap,
+    icon: icon,
+    onTap: onTap,
+    iconColor: iconColor,
+    key: key,
+  );
 
   factory PasswordEyeButtonWidget.static({
     IconData icon = Icons.visibility,
     Color? iconColor,
     Key? key,
-  }) =>
-      PasswordEyeButtonWidget._(
-        interactionType: CcInteractionType.none,
-        icon: icon,
-        iconColor: iconColor,
-        key: key,
-      );
+  }) => PasswordEyeButtonWidget._(
+    interactionType: CcInteractionType.none,
+    icon: icon,
+    iconColor: iconColor,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {

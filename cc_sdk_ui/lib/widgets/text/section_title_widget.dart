@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
-
-import '../../core/config/tokens/cc_typography_params.dart';
 import '../space/cc_space.dart';
 
 class SectionTitleWidget extends StatelessWidget {

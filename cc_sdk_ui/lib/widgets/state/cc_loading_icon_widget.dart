@@ -12,19 +12,19 @@ class CcLoadingIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-        child: Container(
-          height: context.respIconSize(baseSize: 60.0),
-          width: context.respIconSize(baseSize: 60.0),
-          decoration: BoxDecoration(
-            color: context.ccColorScheme.surfaceVariant.withOpacity(0.8),
-            borderRadius: CcWidgetHelper.getBorderRoundedSM(),
-          ),
-          child: getLoadingWidget(context),
-        ),
-      );
+    child: Container(
+      height: context.respIconSize(baseSize: 60.0),
+      width: context.respIconSize(baseSize: 60.0),
+      decoration: BoxDecoration(
+        color: context.ccColorScheme.surfaceVariant.withOpacity(0.8),
+        borderRadius: CcWidgetHelper.getBorderRoundedSM(),
+      ),
+      child: getLoadingWidget(context),
+    ),
+  );
 
   Widget getLoadingWidget(BuildContext context) => CupertinoActivityIndicator(
-        color: context.ccColorScheme.primary,
-        radius: context.respIconSize(baseSize: 15.0) / 2,
-      );
+    color: context.ccColorScheme.primary,
+    radius: context.respIconSize(baseSize: 15.0) / 2,
+  );
 }

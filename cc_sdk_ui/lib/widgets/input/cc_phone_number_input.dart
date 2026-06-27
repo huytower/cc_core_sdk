@@ -21,9 +21,7 @@ class CcPhoneNumberInput extends StatelessWidget {
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
 
-  static final _defaultFormatters = [
-    FilteringTextInputFormatter.digitsOnly,
-  ];
+  static final _defaultFormatters = [FilteringTextInputFormatter.digitsOnly];
 
   @override
   Widget build(BuildContext context) {
