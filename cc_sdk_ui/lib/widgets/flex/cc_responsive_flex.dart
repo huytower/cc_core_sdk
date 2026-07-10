@@ -35,9 +35,6 @@ class CcResponsiveFlex extends StatelessWidget {
   /// Alignment for the cross axis.
   final CrossAxisAlignment crossAxisAlignment;
 
-  /// Main axis size for the Column/Row.
-  final MainAxisSize mainAxisSize;
-
   /// Whether to use Wrap instead of Row/Column.
   final bool useWrap;
 
@@ -54,7 +51,6 @@ class CcResponsiveFlex extends StatelessWidget {
     this.runSpacing = 16.0,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
-    this.mainAxisSize = MainAxisSize.min,
     this.useWrap = false,
     this.tabletColumns,
     this.desktopColumns,
@@ -70,7 +66,6 @@ class CcResponsiveFlex extends StatelessWidget {
       return Column(
         crossAxisAlignment: crossAxisAlignment,
         mainAxisAlignment: mainAxisAlignment,
-        mainAxisSize: mainAxisSize,
         children: _buildSpacedChildren(spacing, isVertical: true),
       );
     }
@@ -115,7 +110,6 @@ class CcResponsiveFlex extends StatelessWidget {
           child: Row(
             crossAxisAlignment: crossAxisAlignment,
             mainAxisAlignment: mainAxisAlignment,
-            mainAxisSize: mainAxisSize,
             children: _buildSpacedChildren(spacing, widgets: rowChildren),
           ),
         ),
@@ -124,7 +118,6 @@ class CcResponsiveFlex extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: mainAxisSize,
       children: rows,
     );
   }

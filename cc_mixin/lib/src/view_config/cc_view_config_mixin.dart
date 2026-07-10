@@ -17,14 +17,14 @@ import 'package:flutter/material.dart';
 /// 2. Customize behavior by overriding optional getters/methods:
 ///    - [layoutStatus]: Control which layout page is shown
 ///    - [onRetry]: Hook for retry action on error state
-///    - [enableAppBar], [buildAppBar], [buildFloatingActionButton]: Navigation config
+///    - [enableAppBar], [buildAppBar], [floatingActionButton]: Navigation config
 ///    - [onPageBodyWrapper]: Hook to wrap the body content
 ///
 /// Example:
 /// ```dart
 /// class MyView extends StatelessWidget with CcViewConfigMixin {
 ///   @override
-///   Widget? buildContent(BuildContext context) => Text('Success Content');
+///   Widget? buildContent() => Text('Success Content');
 /// }
 /// ```
 mixin CcViewConfigMixin {
@@ -37,6 +37,10 @@ mixin CcViewConfigMixin {
 
   /// Controls whether the bottom navigation bar is enabled for this view
   bool get enableBottomNavigationBar => true;
+
+  /// Optional floating action button for the view
+  Widget? get floatingActionButton =>
+      CcFloatingActionButton(onTap: onTapFloatingActionButton, showing: false);
 
   /// Current layout status that determines which page is shown
   CcLayoutStatus get layoutStatus => CcLayoutStatus.success;
@@ -53,30 +57,23 @@ mixin CcViewConfigMixin {
 
   /// Main content widget for the view.
   /// This is the only method that MUST be overridden.
-  Widget? buildContent(BuildContext context);
+  Widget? buildContent();
 
   // ============================================
   // Hooks (Optional Overrides)
   // ============================================
 
   /// App bar for the view
-  PreferredSizeWidget? buildAppBar(BuildContext context) => AppBar();
+  PreferredSizeWidget? buildAppBar() => AppBar();
 
   /// Bottom navigation bar for the view
-  Widget? buildBottomNavigationBar(BuildContext context) => null;
-
-  /// Optional floating action button for the view
-  Widget? buildFloatingActionButton(BuildContext context) =>
-      CcFloatingActionButton(
-        onTap: () => onTapFloatingActionButton(context),
-        showing: false,
-      );
+  Widget? buildBottomNavigationBar() => null;
 
   /// Action handler for the retry button in error state
-  void onRetry(BuildContext context) {}
+  void onRetry() {}
 
   /// Floating action button tap handler
-  void onTapFloatingActionButton(BuildContext context) {}
+  void onTapFloatingActionButton() {}
 
   /// Optional wrapper for the body content.
   /// Useful for adding gradients, background decorations, or padding.
@@ -94,21 +91,21 @@ mixin CcViewConfigMixin {
 
   /// Main build method - builds the complete view with scaffold
   ///
+  /// ⚠️ DO NOT OVERRIDE THIS METHOD in your view classes.
   /// This method is called by the base class (e.g., CcGetView) and
   /// handles the complete scaffold structure including app bar, bottom
   /// navigation, floating action button, and body based on layout status.
   ///
   /// To customize your view content, override [buildContent()] instead.
-  /// If you need to suppress the Scaffold (e.g., for embedding), override
-  /// this method to return just [buildBody(context)].
+  @mustCallSuper
   Widget buildView(BuildContext context) {
     return Scaffold(
-      body: onPageBodyWrapper(context, SafeArea(child: buildBody(context))),
-      appBar: enableAppBar ? buildAppBar(context) : null,
+      body: onPageBodyWrapper(context, SafeArea(child: body)),
+      appBar: enableAppBar ? buildAppBar() : null,
       bottomNavigationBar: enableBottomNavigationBar
-          ? buildBottomNavigationBar(context)
+          ? buildBottomNavigationBar()
           : null,
-      floatingActionButton: buildFloatingActionButton(context),
+      floatingActionButton: floatingActionButton,
     );
   }
 
@@ -121,27 +118,24 @@ mixin CcViewConfigMixin {
   /// - [CcLayoutStatus.error] → Shows error page with retry
   /// - [CcLayoutStatus.loadMore] → Shows main content (for pagination)
   /// - [CcLayoutStatus.refresh] → Shows loading page
-  Widget buildBody(BuildContext context) {
+  Widget get body {
     switch (layoutStatus) {
       case CcLayoutStatus.loading:
         return enableLoading
             ? const LoadingPage()
-            : (buildContent(context) ?? const SizedBox.shrink());
+            : (buildContent() ?? const SizedBox.shrink());
       case CcLayoutStatus.loadMore:
-        return buildContent(context) ?? const SizedBox.shrink();
+        return buildContent() ?? const SizedBox.shrink();
       case CcLayoutStatus.success:
-        return buildContent(context) ?? const SizedBox.shrink();
+        return buildContent() ?? const SizedBox.shrink();
       case CcLayoutStatus.empty:
         return const EmptyPage();
       case CcLayoutStatus.error:
-        return ErrorPage(
-          message: errorMessage,
-          onRetry: () => onRetry(context),
-        );
+        return ErrorPage(message: errorMessage, onRetry: onRetry);
       case CcLayoutStatus.refresh:
         return enableLoading
             ? const LoadingPage()
-            : (buildContent(context) ?? const SizedBox.shrink());
+            : (buildContent() ?? const SizedBox.shrink());
     }
   }
 }

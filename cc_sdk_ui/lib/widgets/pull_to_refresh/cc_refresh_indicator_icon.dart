@@ -147,7 +147,6 @@ class _CcRefreshIndicatorIconState extends State<CcRefreshIndicatorIcon> {
       animation: widget.controller,
       builder: (BuildContext context, Widget? _) {
         return Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
               height: widget.controller.value * widget.indicatorSize,
@@ -164,7 +163,6 @@ class _CcRefreshIndicatorIconState extends State<CcRefreshIndicatorIcon> {
       animation: widget.controller,
       builder: (BuildContext context, Widget? _) {
         return Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
               height: widget.controller.value * widget.indicatorSize,
