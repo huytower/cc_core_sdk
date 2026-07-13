@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../widgets/button/cc_base_btn.dart';
@@ -57,7 +58,7 @@ class CcBodyShowMessage extends StatelessWidget {
                   ? Expanded(
                       child: CcBaseBtn.bouncing(
                         onTap: () => Get.back(),
-                        textColor: Colors.white,
+                        textColor: CcBaseColors.white100,
                         title: cancelText ?? 'Cancel',
                         bgColor: [
                           context.ccColorScheme.primary,
@@ -69,7 +70,7 @@ class CcBodyShowMessage extends StatelessWidget {
               Expanded(
                 child: CcBaseBtn.bouncing(
                   onTap: onTabOK,
-                  textColor: Colors.white,
+                  textColor: CcBaseColors.white100,
                   title: okText ?? 'OK',
                   bgColor: [
                     context.ccColorScheme.primary,

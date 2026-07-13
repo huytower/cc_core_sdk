@@ -24,12 +24,12 @@ class NoDataResponseWidget extends StatelessWidget {
         Icon(
           Icons.folder_open,
           size: context.respIconSize(baseSize: 48.0),
-          color: Colors.grey,
+          color: context.ccColorScheme.onSurfaceVariant,
         ),
         const CcSpaceSM(),
         CcText(
           message ?? 'No data found',
-          color: Colors.grey,
+          color: context.ccColorScheme.onSurfaceVariant,
           textAlign: TextAlign.center,
           align: Alignment.center,
         ),
@@ -42,7 +42,7 @@ class NoDataResponseWidget extends StatelessWidget {
             ),
             child: CcText(
               refreshText ?? 'Retry',
-              color: Colors.white,
+              color: context.ccColorScheme.onPrimary,
               fontWeight: FontWeight.bold,
             ),
           ),
