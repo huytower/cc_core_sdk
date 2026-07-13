@@ -1,7 +1,5 @@
-import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:message/cc_locale_keys.dart';
 
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
@@ -14,6 +12,8 @@ class CcBodyShowMessage extends StatelessWidget {
   final String content;
   final VoidCallback? onTabOK;
   final bool isExistOK;
+  final String? cancelText;
+  final String? okText;
 
   const CcBodyShowMessage({
     Key? key,
@@ -22,6 +22,8 @@ class CcBodyShowMessage extends StatelessWidget {
     this.title = '',
     this.onTabOK,
     this.isExistOK = false,
+    this.cancelText,
+    this.okText,
   }) : super(key: key);
 
   @override
@@ -56,7 +58,7 @@ class CcBodyShowMessage extends StatelessWidget {
                       child: CcBaseBtn.bouncing(
                         onTap: () => Get.back(),
                         textColor: Colors.white,
-                        title: el.tr(CcLocaleKeys.common_cancel),
+                        title: cancelText ?? 'Cancel',
                         bgColor: [
                           context.ccColorScheme.primary,
                           context.ccColorScheme.primary,
@@ -68,7 +70,7 @@ class CcBodyShowMessage extends StatelessWidget {
                 child: CcBaseBtn.bouncing(
                   onTap: onTabOK,
                   textColor: Colors.white,
-                  title: el.tr(CcLocaleKeys.common_ok),
+                  title: okText ?? 'OK',
                   bgColor: [
                     context.ccColorScheme.primary,
                     context.ccColorScheme.primary,
