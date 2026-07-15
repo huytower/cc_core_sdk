@@ -18,8 +18,7 @@ import 'package:flutter/material.dart';
 class CcRewardCompletionBanner extends StatefulWidget {
   const CcRewardCompletionBanner({
     super.key,
-    this.message =
-        'Congratulations ! You have successfully\nCompleted the 100 Days UI Challenge',
+    required this.message,
     this.backgroundColor,
     this.onClose,
   });
@@ -62,7 +61,7 @@ class _CcRewardCompletionBannerState extends State<CcRewardCompletionBanner>
     final scheme = context.ccColorScheme;
 
     return Material(
-      color: Colors.transparent,
+      color: CcBaseColors.transparent,
       child: Container(
         color: widget.backgroundColor ?? CcBaseColors.brand500,
         alignment: Alignment.center,
@@ -81,7 +80,7 @@ class _CcRewardCompletionBannerState extends State<CcRewardCompletionBanner>
             borderRadius: BorderRadius.circular(context.respDim(20)),
             boxShadow: [
               BoxShadow(
-                color: scheme.shadow.withOpacity(0.15),
+                color: scheme.shadow.withValues(alpha: 0.15),
                 blurRadius: context.respDim(18),
                 offset: Offset(0, context.respDim(8)),
               ),
