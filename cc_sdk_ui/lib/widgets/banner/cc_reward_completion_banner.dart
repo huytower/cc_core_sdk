@@ -69,12 +69,6 @@ class _CcRewardCompletionBannerState extends State<CcRewardCompletionBanner>
           horizontal: context.respPadding(CcPaddingParams.PAGE_SM),
         ),
         child: Container(
-          padding: EdgeInsets.fromLTRB(
-            context.respPadding(CcPaddingParams.PAGE_SM),
-            context.respPadding(CcPaddingParams.PAGE_SM),
-            context.respPadding(CcPaddingParams.PAGE_XL),
-            context.respPadding(CcPaddingParams.PAGE_SM),
-          ),
           decoration: BoxDecoration(
             color: scheme.surface,
             borderRadius: BorderRadius.circular(context.respDim(20)),
@@ -107,12 +101,17 @@ class _CcRewardCompletionBannerState extends State<CcRewardCompletionBanner>
                   ),
                   SizedBox(width: context.respDim(12)),
                   Expanded(
-                    child: Text(
-                      widget.message,
-                      style: context.ccTextTheme.titleLarge?.copyWith(
-                        fontWeight: CcTypographyParams.bold,
-                        color: scheme.onSurface,
-                        height: 1.2,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        right: context.respPadding(CcPaddingParams.PAGE_XL),
+                      ),
+                      child: Text(
+                        widget.message,
+                        style: context.ccTextTheme.titleLarge?.copyWith(
+                          fontWeight: CcTypographyParams.bold,
+                          color: scheme.onSurface,
+                          height: 1.2,
+                        ),
                       ),
                     ),
                   ),
