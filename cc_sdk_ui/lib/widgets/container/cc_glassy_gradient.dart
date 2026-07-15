@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 
@@ -38,12 +39,12 @@ class CcGlassyGradient extends StatelessWidget {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          const Color(0x24FFFFFF), // 14% white
-          const Color(0x00FFFFFF), // transparent
+          CcBaseColors.white15, // 15% white highlight
+          CcBaseColors.transparent, // transparent
           endColor ??
               (baseColors == null
                   ? context.ccColorScheme.primary.withAlpha(60)
-                  : Colors.transparent),
+                  : CcBaseColors.transparent),
         ],
         stops: stops ?? const [0.0, 0.4, 1.0],
       ),
