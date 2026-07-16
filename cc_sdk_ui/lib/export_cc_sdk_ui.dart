@@ -115,6 +115,8 @@ export 'package:cc_sdk_ui/widgets/pages/status/retry_page.dart';
 export 'package:cc_sdk_ui/widgets/shimmer/cc_shimmer.dart';
 // Space Widgets
 export 'package:cc_sdk_ui/widgets/space/cc_space.dart';
+// Scroll Widgets
+export 'package:cc_sdk_ui/widgets/scroll/horizontal_fade_scroll_view.dart';
 // Special Status Widgets
 export 'package:cc_sdk_ui/widgets/spinners/spinkit_screen.dart';
 // Splash Widgets
