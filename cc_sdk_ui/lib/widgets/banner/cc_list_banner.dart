@@ -110,6 +110,7 @@ class CcListBanner extends StatelessWidget {
   }
 
   Widget _buildInkWell(BuildContext context) {
+    final isDarkMode = context.isDarkMode;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(context.respDim(16)),
@@ -122,7 +123,9 @@ class CcListBanner extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CcLeadingIcon(
-              bgColor: color,
+              bgColor: isDarkMode
+                  ? context.ccColorScheme.onSurface
+                  : context.ccColorScheme.surface,
               icon: Icon(
                 leadingIcon,
                 size: context.respIconSize(baseSize: 22),
@@ -161,44 +164,22 @@ class CcListBanner extends StatelessWidget {
   }
 
   Widget _buildTitle(BuildContext context) {
-    final isDark = context.isDarkMode;
     return CcText(
       title,
       maxLines: 1,
       textStyle: context.ccTextTheme.bodyMedium?.copyWith(
         fontWeight: CcTypographyParams.bold,
         color: context.ccColorScheme.onSurface.withValues(alpha: 0.8),
-        shadows: isDark
-            ? [
-                Shadow(
-                  color: context.ccColorScheme.onSurface.withValues(
-                    alpha: 0.25,
-                  ),
-                  offset: const Offset(0, 1),
-                  blurRadius: 4,
-                ),
-              ]
-            : null,
       ),
     );
   }
 
   Widget _buildDesc(BuildContext context) {
-    final isDark = context.isDarkMode;
     final text = CcText(
       description!,
       maxLines: 2,
       textStyle: context.ccTextTheme.labelSmall?.copyWith(
         color: context.ccColorScheme.onSurface.withValues(alpha: 0.6),
-        shadows: isDark
-            ? [
-                Shadow(
-                  color: context.ccColorScheme.onSurface.withValues(alpha: 0.2),
-                  offset: const Offset(0, 1),
-                  blurRadius: 4,
-                ),
-              ]
-            : null,
       ),
     );
 
