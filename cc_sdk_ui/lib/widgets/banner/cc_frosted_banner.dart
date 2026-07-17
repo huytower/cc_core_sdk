@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
+import '../icon/cc_leading_icon.dart';
 import '../space/cc_space.dart';
 import '../text/cc_text.dart';
 
@@ -66,11 +67,7 @@ class CcFrostedBanner extends StatelessWidget {
             top: context.respDim(4),
             bottom: context.respDim(4),
             child: Center(
-              child: _CcBadge(
-                count: badgeCount,
-                accentColor: accentColor,
-                icon: icon,
-              ),
+              child: CcLeadingIcon(accentColor: accentColor, icon: icon),
             ),
           ),
         ],
@@ -169,101 +166,4 @@ class CcFrostedBanner extends StatelessWidget {
       color: color.withValues(alpha: 0.3),
     );
   }
-}
-
-class _CcBadge extends StatelessWidget {
-  const _CcBadge({required this.count, this.accentColor, this.icon});
-
-  final int count;
-  final Color? accentColor;
-  final Widget? icon;
-
-  @override
-  Widget build(BuildContext context) {
-    final size = context.respDim(44);
-    final scheme = context.ccColorScheme;
-    final color = accentColor ?? scheme.primary;
-
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [color.withValues(alpha: 0.8), color],
-        ),
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          icon ??
-              CustomPaint(
-                size: Size(size, size),
-                painter: _CcReceiptShapePainter(color: scheme.onPrimary),
-              ),
-          if (icon == null)
-            Padding(
-              padding: EdgeInsets.only(top: size * 0.1),
-              child: CcText(
-                '$count',
-                align: Alignment.center,
-                textStyle: context.ccTextTheme.titleMedium?.copyWith(
-                  fontSize: context.respFontSize(14),
-                  fontWeight: CcTypographyParams.bold,
-                  color: color,
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CcReceiptShapePainter extends CustomPainter {
-  final Color color;
-
-  _CcReceiptShapePainter({required this.color});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint linePaint = Paint()
-      ..color = color.withValues(alpha: 0.55)
-      ..strokeWidth = 1.6
-      ..strokeCap = StrokeCap.round;
-
-    canvas.drawLine(
-      Offset(size.width * 0.28, size.height * 0.24),
-      Offset(size.width * 0.62, size.height * 0.24),
-      linePaint,
-    );
-    canvas.drawLine(
-      Offset(size.width * 0.28, size.height * 0.32),
-      Offset(size.width * 0.5, size.height * 0.32),
-      linePaint,
-    );
-
-    final Paint zigzagPaint = Paint()
-      ..color = color.withValues(alpha: 0.35)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.4
-      ..strokeCap = StrokeCap.round;
-
-    final double baseY = size.height * 0.78;
-    final Path zigzag = Path()..moveTo(size.width * 0.22, baseY);
-    const int teeth = 5;
-    final double step = (size.width * 0.56) / teeth;
-    for (int i = 0; i < teeth; i++) {
-      final double x1 = size.width * 0.22 + step * i + step / 2;
-      final double x2 = size.width * 0.22 + step * (i + 1);
-      zigzag.lineTo(x1, baseY + 5);
-      zigzag.lineTo(x2, baseY);
-    }
-    canvas.drawPath(zigzag, zigzagPaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
