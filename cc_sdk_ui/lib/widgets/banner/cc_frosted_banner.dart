@@ -40,23 +40,44 @@ class CcFrostedBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: context.respDim(50),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(context.respDim(32)),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-          child: Container(
-            padding: EdgeInsets.all(context.respDim(6)),
-            decoration: _buildDecoration(context),
-            child: _buildInkWell(context),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          // Frosted background and interactive area
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(context.respDim(32)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                child: Container(
+                  decoration: _buildDecoration(context),
+                  child: _buildInkWell(context),
+                ),
+              ),
+            ),
           ),
-        ),
+          // Badge moved outside to ignore parent padding
+          Positioned(
+            left: context.respDim(6),
+            top: 0,
+            bottom: 0,
+            child: Center(
+              child: _CcBadge(count: badgeCount, accentColor: accentColor),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   BoxDecoration _buildDecoration(BuildContext context) {
+    final isDark = context.isDarkMode;
     final scheme = context.ccColorScheme;
     final color = accentColor ?? scheme.primary;
+
+    // Increase alpha in Dark Mode to reduce transparency as requested
+    final gradientAlpha = isDark ? 0.8 : 0.2;
+    final borderAlpha = 0.1;
 
     return BoxDecoration(
       borderRadius: BorderRadius.circular(context.respDim(32)),
@@ -64,12 +85,12 @@ class CcFrostedBanner extends StatelessWidget {
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
         colors: [
-          color.withValues(alpha: 0.2),
-          scheme.onPrimary.withValues(alpha: 0.2),
+          color.withValues(alpha: gradientAlpha),
+          scheme.onPrimary.withValues(alpha: gradientAlpha),
         ],
       ),
       border: Border.all(
-        color: scheme.surface.withValues(alpha: 0.1),
+        color: scheme.onSurface.withValues(alpha: borderAlpha),
         width: 1,
       ),
       boxShadow: [
@@ -87,14 +108,14 @@ class CcFrostedBanner extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(context.respDim(28)),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: context.respDim(6),
-          vertical: context.respDim(6),
+        padding: EdgeInsets.only(
+          left: context.respDim(58), // Space for badge (44) + padding
+          right: context.respDim(10),
+          top: context.respDim(6),
+          bottom: context.respDim(6),
         ),
         child: Row(
           children: [
-            _CcBadge(count: badgeCount, accentColor: accentColor),
-            const CcSpaceMD(),
             _buildMessage(context),
             _buildChevron(context),
             const CcSpaceXS(),
@@ -105,6 +126,7 @@ class CcFrostedBanner extends StatelessWidget {
   }
 
   Widget _buildMessage(BuildContext context) {
+    final isDark = context.isDarkMode;
     return Expanded(
       child: CcText(
         message,
@@ -112,16 +134,31 @@ class CcFrostedBanner extends StatelessWidget {
         textStyle: context.ccTextTheme.bodyMedium?.copyWith(
           fontWeight: CcTypographyParams.bold,
           color: context.ccColorScheme.onSurface.withValues(alpha: 0.8),
+          shadows: isDark
+              ? [
+                  Shadow(
+                    color: context.ccColorScheme.onSurface.withValues(
+                      alpha: 0.25,
+                    ),
+                    offset: const Offset(0, 1),
+                    blurRadius: 4,
+                  ),
+                ]
+              : null,
         ),
       ),
     );
   }
 
   Widget _buildChevron(BuildContext context) {
+    final color = context.isDarkMode
+        ? context.ccColorScheme.surface
+        : context.ccColorScheme.onSurface;
+
     return Icon(
       Icons.chevron_right,
       size: context.respIconSize(baseSize: 20),
-      color: context.ccColorScheme.onSurface.withValues(alpha: 1.0),
+      color: color.withValues(alpha: 0.3),
     );
   }
 }
