@@ -30,6 +30,7 @@ class CcFrostedBanner extends StatelessWidget {
     this.accentColor,
     this.onTap,
     this.icon,
+    this.showChevron = true,
   });
 
   final int badgeCount;
@@ -37,6 +38,7 @@ class CcFrostedBanner extends StatelessWidget {
   final Color? accentColor;
   final VoidCallback? onTap;
   final Widget? icon;
+  final bool showChevron;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +62,9 @@ class CcFrostedBanner extends StatelessWidget {
           ),
           // Badge moved outside to ignore parent padding
           Positioned(
-            left: context.respDim(6),
-            top: 0,
-            bottom: 0,
+            left: context.respDim(4),
+            top: context.respDim(4),
+            bottom: context.respDim(4),
             child: Center(
               child: _CcBadge(
                 count: badgeCount,
@@ -123,7 +125,7 @@ class CcFrostedBanner extends StatelessWidget {
         child: Row(
           children: [
             _buildMessage(context),
-            _buildChevron(context),
+            if (showChevron) _buildChevron(context),
             const CcSpaceXS(),
           ],
         ),
