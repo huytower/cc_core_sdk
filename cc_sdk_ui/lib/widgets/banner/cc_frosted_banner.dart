@@ -67,7 +67,7 @@ class CcFrostedBanner extends StatelessWidget {
             top: context.respDim(4),
             bottom: context.respDim(4),
             child: Center(
-              child: CcLeadingIcon(accentColor: accentColor, icon: icon),
+              child: CcLeadingIcon(bgColor: accentColor, icon: icon),
             ),
           ),
         ],

@@ -122,10 +122,11 @@ class CcListBanner extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CcLeadingIcon(
+              bgColor: color,
               icon: Icon(
                 leadingIcon,
                 size: context.respIconSize(baseSize: 22),
-                color: color ?? context.ccColorScheme.primary,
+                color: color,
               ),
             ),
             const CcSpaceXS(),
