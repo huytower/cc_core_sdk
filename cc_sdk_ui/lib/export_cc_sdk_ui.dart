@@ -3,6 +3,7 @@ export 'package:cc_sdk/export_cc_sdk.dart';
 // Core Config, Enums & Tokens
 export 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
+export 'package:cc_sdk_ui/core/config/tokens/cc_gradient_colors.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 // Core Constants
@@ -27,10 +28,12 @@ export 'package:cc_sdk_ui/widgets/anim/fade_widget.dart';
 export 'package:cc_sdk_ui/widgets/avatars/avatar_user.dart';
 // Background Widgets
 export 'package:cc_sdk_ui/widgets/background/bg_blur_widget.dart';
+export 'package:cc_sdk_ui/widgets/background/bg_gradient_widget.dart';
 export 'package:cc_sdk_ui/widgets/background/bg_image_widget.dart';
 export 'package:cc_sdk_ui/widgets/background/bg_scale_widget.dart'
     hide BackgroundBlurWidget;
 export 'package:cc_sdk_ui/widgets/background/overlay_widget.dart';
+export 'package:cc_sdk_ui/widgets/banner/cc_frosted_banner.dart';
 // Banner Widgets
 export 'package:cc_sdk_ui/widgets/banner/cc_reward_completion_banner.dart';
 // Base Widgets
@@ -95,6 +98,7 @@ export 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 export 'package:cc_sdk_ui/widgets/flex/cc_responsive_flex.dart';
 // Icon Widgets
 export 'package:cc_sdk_ui/widgets/icon/cc_icon.dart';
+export 'package:cc_sdk_ui/widgets/icon/cc_icon_token.dart';
 export 'package:cc_sdk_ui/widgets/icon/cc_speech_bubble_icon.dart';
 // InkWell Widgets (Consolidated)
 export 'package:cc_sdk_ui/widgets/inkwell/cc_inkwell.dart';
@@ -103,6 +107,8 @@ export 'package:cc_sdk_ui/widgets/input/cc_country_code_selector.dart';
 export 'package:cc_sdk_ui/widgets/input/cc_phone_number_input.dart';
 // Navigation Widgets
 export 'package:cc_sdk_ui/widgets/navigation/cc_curved_navigation_bar.dart';
+export 'package:cc_sdk_ui/widgets/padding/cc_padding.dart';
+export 'package:cc_sdk_ui/widgets/padding/cc_symmetric_padding.dart';
 // Pages
 export 'package:cc_sdk_ui/widgets/pages/error/error_page.dart';
 export 'package:cc_sdk_ui/widgets/pages/loading/loading_page.dart';
@@ -111,12 +117,12 @@ export 'package:cc_sdk_ui/widgets/pages/status/error_network_page.dart';
 export 'package:cc_sdk_ui/widgets/pages/status/error_page_v2.dart';
 export 'package:cc_sdk_ui/widgets/pages/status/not_found_page.dart';
 export 'package:cc_sdk_ui/widgets/pages/status/retry_page.dart';
+// Scroll Widgets
+export 'package:cc_sdk_ui/widgets/scroll/horizontal_fade_scroll_view.dart';
 // Shimmer Widgets
 export 'package:cc_sdk_ui/widgets/shimmer/cc_shimmer.dart';
 // Space Widgets
 export 'package:cc_sdk_ui/widgets/space/cc_space.dart';
-// Scroll Widgets
-export 'package:cc_sdk_ui/widgets/scroll/horizontal_fade_scroll_view.dart';
 // Special Status Widgets
 export 'package:cc_sdk_ui/widgets/spinners/spinkit_screen.dart';
 // Splash Widgets
