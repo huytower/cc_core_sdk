@@ -12,13 +12,17 @@ import '../text/cc_text.dart';
 /// Frosted, semi-transparent pill banner with a leading badge,
 /// a message, and a trailing chevron.
 ///
+/// Supports an optional [description] displayed below the message,
+/// following the same visual pattern as [CcListBanner].
+///
 /// This component is project-blind and state-agnostic.
 ///
 /// Usage:
 /// ```dart
 /// CcFrostedBanner(
 ///   badgeCount: 2,
-///   message: 'You have 2 items in progress',
+///   title: 'You have 2 items in progress',
+///   description: 'Tap to view details',
 ///   accentColor: Colors.orange,
 ///   onTap: () {},
 /// )
@@ -26,16 +30,16 @@ import '../text/cc_text.dart';
 class CcFrostedBanner extends StatelessWidget {
   const CcFrostedBanner({
     super.key,
-    required this.badgeCount,
-    required this.message,
+    required this.title,
+    this.description,
     this.accentColor,
     this.onTap,
     this.icon,
     this.showChevron = true,
   });
 
-  final int badgeCount;
-  final String message;
+  final String title;
+  final String? description;
   final Color? accentColor;
   final VoidCallback? onTap;
   final Widget? icon;
@@ -44,7 +48,9 @@ class CcFrostedBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.respDim(50),
+      height: description != null && description!.isNotEmpty
+          ? context.respDim(66)
+          : context.respDim(50),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -132,25 +138,46 @@ class CcFrostedBanner extends StatelessWidget {
 
   Widget _buildMessage(BuildContext context) {
     final isDark = context.isDarkMode;
+    final titleStyle = context.ccTextTheme.bodyMedium?.copyWith(
+      fontWeight: CcTypographyParams.bold,
+      color: context.ccColorScheme.onSurface.withValues(alpha: 0.8),
+      shadows: isDark
+          ? [
+              Shadow(
+                color: context.ccColorScheme.onSurface.withValues(alpha: 0.25),
+                offset: const Offset(0, 1),
+                blurRadius: 4,
+              ),
+            ]
+          : null,
+    );
+
+    final title = CcText(this.title, maxLines: 1, textStyle: titleStyle);
+
+    if (description == null || description!.isEmpty) {
+      return Expanded(child: title);
+    }
+
+    final descStyle = context.ccTextTheme.labelSmall?.copyWith(
+      color: context.ccColorScheme.onSurface.withValues(alpha: 0.6),
+      shadows: isDark
+          ? [
+              Shadow(
+                color: context.ccColorScheme.onSurface.withValues(alpha: 0.2),
+                offset: const Offset(0, 1),
+                blurRadius: 4,
+              ),
+            ]
+          : null,
+    );
+
+    final desc = CcText(description!, maxLines: 2, textStyle: descStyle);
+
     return Expanded(
-      child: CcText(
-        message,
-        maxLines: 2,
-        textStyle: context.ccTextTheme.bodyMedium?.copyWith(
-          fontWeight: CcTypographyParams.bold,
-          color: context.ccColorScheme.onSurface.withValues(alpha: 0.8),
-          shadows: isDark
-              ? [
-                  Shadow(
-                    color: context.ccColorScheme.onSurface.withValues(
-                      alpha: 0.25,
-                    ),
-                    offset: const Offset(0, 1),
-                    blurRadius: 4,
-                  ),
-                ]
-              : null,
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [title, const CcSpaceXS(), desc],
       ),
     );
   }
