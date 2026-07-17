@@ -112,9 +112,11 @@ class CcCurvedNavigationBar extends StatelessWidget {
     final isDark = context.isDarkMode;
 
     // Theme-aware default colors
+    // Use transparent in Dark Mode to avoid "black spots" on curved corners
+    // when placed over gradients. Keep white in Light Mode as it works correctly.
     final themeBackgroundColor =
         backgroundColor ??
-        (isDark ? CcBaseColors.gray900 : CcBaseColors.white100);
+        (isDark ? CcBaseColors.transparent : CcBaseColors.white100);
     final themeActiveColor = activeColor ?? CcBaseColors.brand500;
     final themeActiveIconColor = activeIconColor ?? CcBaseColors.white100;
     final themeInactiveColor =
@@ -170,8 +172,8 @@ class CcCurvedNavigationBar extends StatelessWidget {
             fontWeight: CcTypographyParams.regular,
             fontSize: context.respFontSize(CcTypographyParams.labelMedium),
           ),
-      inactiveIconSize: inactiveIconSize ?? context.respIconSize(baseSize: 26),
-      activeIconSize: activeIconSize ?? context.respIconSize(baseSize: 23),
+      inactiveIconSize: inactiveIconSize ?? context.respIconSize(baseSize: 29),
+      activeIconSize: activeIconSize ?? context.respIconSize(baseSize: 26),
       navbarStyle: navbarStyle,
     );
   }

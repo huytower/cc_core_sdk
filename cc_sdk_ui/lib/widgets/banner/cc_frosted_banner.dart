@@ -38,14 +38,17 @@ class CcFrostedBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(context.respDim(32)),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-        child: Container(
-          padding: EdgeInsets.all(context.respDim(6)),
-          decoration: _buildDecoration(context),
-          child: _buildInkWell(context),
+    return SizedBox(
+      height: context.respDim(50),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(context.respDim(32)),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+          child: Container(
+            padding: EdgeInsets.all(context.respDim(6)),
+            decoration: _buildDecoration(context),
+            child: _buildInkWell(context),
+          ),
         ),
       ),
     );
@@ -106,7 +109,7 @@ class CcFrostedBanner extends StatelessWidget {
       child: CcText(
         message,
         maxLines: 2,
-        textStyle: context.ccTextTheme.titleMedium?.copyWith(
+        textStyle: context.ccTextTheme.bodyMedium?.copyWith(
           fontWeight: CcTypographyParams.bold,
           color: context.ccColorScheme.onSurface.withValues(alpha: 0.8),
         ),
