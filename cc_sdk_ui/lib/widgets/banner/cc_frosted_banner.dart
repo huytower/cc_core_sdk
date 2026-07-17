@@ -29,12 +29,14 @@ class CcFrostedBanner extends StatelessWidget {
     required this.message,
     this.accentColor,
     this.onTap,
+    this.icon,
   });
 
   final int badgeCount;
   final String message;
   final Color? accentColor;
   final VoidCallback? onTap;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,11 @@ class CcFrostedBanner extends StatelessWidget {
             top: 0,
             bottom: 0,
             child: Center(
-              child: _CcBadge(count: badgeCount, accentColor: accentColor),
+              child: _CcBadge(
+                count: badgeCount,
+                accentColor: accentColor,
+                icon: icon,
+              ),
             ),
           ),
         ],
@@ -164,10 +170,11 @@ class CcFrostedBanner extends StatelessWidget {
 }
 
 class _CcBadge extends StatelessWidget {
-  const _CcBadge({required this.count, this.accentColor});
+  const _CcBadge({required this.count, this.accentColor, this.icon});
 
   final int count;
   final Color? accentColor;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -189,19 +196,24 @@ class _CcBadge extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          CustomPaint(
-            size: Size(size, size),
-            painter: _CcReceiptShapePainter(color: scheme.onPrimary),
-          ),
-          CcText(
-            '$count',
-            align: Alignment.center,
-            textStyle: context.ccTextTheme.titleMedium?.copyWith(
-              fontSize: context.respFontSize(17),
-              fontWeight: CcTypographyParams.bold,
-              color: scheme.onPrimary,
+          icon ??
+              CustomPaint(
+                size: Size(size, size),
+                painter: _CcReceiptShapePainter(color: scheme.onPrimary),
+              ),
+          if (icon == null)
+            Padding(
+              padding: EdgeInsets.only(top: size * 0.1),
+              child: CcText(
+                '$count',
+                align: Alignment.center,
+                textStyle: context.ccTextTheme.titleMedium?.copyWith(
+                  fontSize: context.respFontSize(14),
+                  fontWeight: CcTypographyParams.bold,
+                  color: color,
+                ),
+              ),
             ),
-          ),
         ],
       ),
     );
