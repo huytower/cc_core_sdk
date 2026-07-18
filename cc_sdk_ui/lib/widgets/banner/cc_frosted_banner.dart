@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
@@ -49,7 +50,7 @@ class CcFrostedBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: description != null && description!.isNotEmpty
-          ? context.respDim(66)
+          ? context.respDim(75)
           : context.respDim(50),
       child: Stack(
         clipBehavior: Clip.none,
@@ -57,7 +58,7 @@ class CcFrostedBanner extends StatelessWidget {
           // Frosted background and interactive area
           Positioned.fill(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(context.respDim(32)),
+              borderRadius: CcBorderRadius.xxl(context),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
                 child: Container(
@@ -91,7 +92,7 @@ class CcFrostedBanner extends StatelessWidget {
     final borderAlpha = 0.1;
 
     return BoxDecoration(
-      borderRadius: BorderRadius.circular(context.respDim(32)),
+      borderRadius: CcBorderRadius.xxl(context),
       gradient: LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cc_sdk_ui/widgets/icon/cc_leading_icon.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
@@ -66,7 +67,7 @@ class CcListBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(context.respDim(16)),
+      borderRadius: CcBorderRadius.lg(context),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
         child: Container(
@@ -86,7 +87,7 @@ class CcListBanner extends StatelessWidget {
     final borderAlpha = 0.1;
 
     return BoxDecoration(
-      borderRadius: BorderRadius.circular(context.respDim(16)),
+      borderRadius: CcBorderRadius.lg(context),
       gradient: LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
@@ -113,7 +114,7 @@ class CcListBanner extends StatelessWidget {
     final isDarkMode = context.isDarkMode;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(context.respDim(16)),
+      borderRadius: CcBorderRadius.lg(context),
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: context.respDim(6),

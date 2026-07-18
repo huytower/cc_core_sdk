@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../text/cc_text.dart';
@@ -17,7 +18,7 @@ class DurationWidget extends StatelessWidget {
     ),
     decoration: BoxDecoration(
       color: context.ccColorScheme.scrim.withOpacity(0.6),
-      borderRadius: BorderRadius.circular(context.respDim(4)),
+      borderRadius: CcBorderRadius.xs(context),
     ),
     child: CcText(
       duration,

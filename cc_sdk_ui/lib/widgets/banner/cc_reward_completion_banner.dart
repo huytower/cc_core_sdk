@@ -70,7 +70,7 @@ class _CcRewardCompletionBannerState extends State<CcRewardCompletionBanner>
         ),
         decoration: BoxDecoration(
           color: scheme.surface,
-          borderRadius: BorderRadius.circular(context.respDim(20)),
+          borderRadius: CcBorderRadius.lg(context),
           boxShadow: [
             BoxShadow(
               color: scheme.shadow.withValues(alpha: 0.15),

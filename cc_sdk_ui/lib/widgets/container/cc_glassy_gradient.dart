@@ -34,16 +34,16 @@ class CcGlassyGradientBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final decoration = BoxDecoration(
-      borderRadius: BorderRadius.circular(borderRadius ?? context.respDim(20)),
+      borderRadius: BorderRadius.circular(borderRadius ?? context.respDim(16)),
       gradient: LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          CcBaseColors.white15, // 15% white highlight
-          CcBaseColors.transparent, // transparent
+          context.ccColorScheme.onPrimary.withAlpha(15), // 15% white highlight
+          context.ccColorScheme.primary.withAlpha(30), // transparent
           endColor ??
               (baseColors == null
-                  ? context.ccColorScheme.primary.withAlpha(60)
+                  ? context.ccColorScheme.primary.withAlpha(50)
                   : CcBaseColors.transparent),
         ],
         stops: stops ?? const [0.0, 0.4, 1.0],

@@ -3,6 +3,7 @@ export 'package:cc_sdk/export_cc_sdk.dart';
 // Core Config, Enums & Tokens
 export 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_circular_params.dart';
+export 'package:cc_sdk_ui/core/config/tokens/cc_border_radius.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_gradient_colors.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_padding_params.dart';
 export 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
