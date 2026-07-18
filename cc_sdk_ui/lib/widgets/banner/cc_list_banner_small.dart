@@ -28,8 +28,8 @@ import '../text/cc_text.dart';
 ///   onTap: () {},
 /// )
 /// ```
-class CcFrostedBanner extends StatelessWidget {
-  const CcFrostedBanner({
+class CcListBannerSmall extends StatelessWidget {
+  const CcListBannerSmall({
     super.key,
     required this.title,
     this.description,

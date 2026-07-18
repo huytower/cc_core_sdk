@@ -30,8 +30,8 @@ import '../text/cc_text.dart';
 ///   showChevron: true,
 /// )
 /// ```
-class CcListBanner extends StatelessWidget {
-  const CcListBanner({
+class CcListBannerMedium extends StatelessWidget {
+  const CcListBannerMedium({
     super.key,
     this.leadingIcon,
     this.onLeadingTap,
