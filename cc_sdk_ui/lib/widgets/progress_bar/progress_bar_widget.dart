@@ -14,6 +14,7 @@ class ProgressBarWidget extends StatelessWidget {
   }) : super(key: key);
 
   final double progress;
+
   /// Responsive track height. Defaults to a width-scaled 8pt so the bar stays
   /// proportional across screen sizes instead of a fixed pixel value.
   final double? height;
@@ -28,7 +29,7 @@ class ProgressBarWidget extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: backgroundColor ?? context.ccColorScheme.surfaceVariant,
-        borderRadius: CcBorderRadius.circle(context),
+        borderRadius: context.brCircle,
       ),
       child: FractionallySizedBox(
         alignment: Alignment.centerLeft,
@@ -36,7 +37,7 @@ class ProgressBarWidget extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: progressColor ?? context.ccColorScheme.primary,
-            borderRadius: CcBorderRadius.circle(context),
+            borderRadius: context.brCircle,
           ),
         ),
       ),

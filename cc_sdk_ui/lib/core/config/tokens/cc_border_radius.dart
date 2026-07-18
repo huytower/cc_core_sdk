@@ -13,7 +13,7 @@ import '../../../core/extensions/common/cc_responsive_extension.dart';
 /// Usage:
 /// ```dart
 /// decoration: BoxDecoration(
-///   borderRadius: CcBorderRadius.card(context),
+///   borderRadius: context.brCard,
 /// ),
 /// ```
 abstract class CcBorderRadius {
@@ -67,4 +67,53 @@ abstract class CcBorderRadius {
   /// Fully rounded (circle) radius. Use with [CcCircularParams.CIRCLE] sizing.
   static BorderRadius circle(BuildContext context) =>
       BorderRadius.circular(context.respDim(45));
+}
+
+/// Extension on [BuildContext] to access project-standard [BorderRadius] tokens.
+///
+/// This provides a clean, responsive way to apply semantic rounding to widgets.
+extension CcBorderRadiusContextExtension on BuildContext {
+  // ==========================================================================
+  // PRIMITIVE RADII
+  // ==========================================================================
+
+  /// Extra-small radius (4pt responsive).
+  BorderRadius get brXs => CcBorderRadius.xs(this);
+
+  /// Small radius (8pt responsive).
+  BorderRadius get brSm => CcBorderRadius.sm(this);
+
+  /// Medium radius (12pt responsive).
+  BorderRadius get brMd => CcBorderRadius.md(this);
+
+  /// Large radius (16pt responsive).
+  BorderRadius get brLg => CcBorderRadius.lg(this);
+
+  /// Extra-large radius (24pt responsive).
+  BorderRadius get brXl => CcBorderRadius.xl(this);
+
+  /// Extra-extra-large radius (32pt responsive).
+  BorderRadius get brXxl => CcBorderRadius.xxl(this);
+
+  // ==========================================================================
+  // SEMANTIC RADII
+  // ==========================================================================
+
+  /// Standard radius for cards and rounded containers.
+  BorderRadius get brCard => CcBorderRadius.card(this);
+
+  /// Radius for dialogs and bottom sheets.
+  BorderRadius get brDialog => CcBorderRadius.dialog(this);
+
+  /// Radius for buttons.
+  BorderRadius get brButton => CcBorderRadius.button(this);
+
+  /// Radius for text input fields.
+  BorderRadius get brInput => CcBorderRadius.input(this);
+
+  /// Radius for pills / chips / rounded tags.
+  BorderRadius get brPill => CcBorderRadius.pill(this);
+
+  /// Fully rounded (circle) radius.
+  BorderRadius get brCircle => CcBorderRadius.circle(this);
 }
