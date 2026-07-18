@@ -7,7 +7,11 @@ import 'package:flutter/material.dart';
 /// UI library to synchronize with the application's theme.
 extension CcContextExtension on BuildContext {
   /// Access the Material TextTheme.
-  TextTheme get ccTextTheme => Theme.of(this).textTheme;
+  ///
+  /// The returned theme scales its font sizes up on tablet/desktop so that
+  /// text keeps a consistent visual size across screen densities (a 9" tablet
+  /// would otherwise render the same logical-pixel sizes far too small).
+  TextTheme get ccTextTheme => ccResponsiveTextTheme;
 
   /// Access the Material ColorScheme.
   ColorScheme get ccColorScheme => Theme.of(this).colorScheme;
@@ -51,4 +55,44 @@ extension CcContextExtension on BuildContext {
 
   /// Gets the screen type as an enum.
   ScreenType get screenType => CcResponsiveHelper.getScreenType(this);
+
+  /// A [TextTheme] copy whose font sizes are scaled to the current screen size.
+  ///
+  /// The base [CcTextStyle] tokens are fixed logical pixels (e.g.
+  /// [CcTypographyParams.labelMedium] = 12). On large screens those sizes look
+  /// disproportionately small, so we multiply each size by the same responsive
+  /// factor used elsewhere ([CcResponsiveHelper.getResponsiveFontSize]):
+  /// mobile = 1.0x, tablet = 1.2x, desktop = 1.4x. Non-size attributes
+  /// (weight, color, height, letter-spacing) are preserved.
+  TextTheme get ccResponsiveTextTheme {
+    final base = Theme.of(this).textTheme;
+    TextStyle scale(TextStyle? style) => style == null
+        ? const TextStyle()
+        : style.copyWith(
+            fontSize: style.fontSize == null
+                ? null
+                : CcResponsiveHelper.getResponsiveFontSize(
+                    context: this,
+                    mobileFontSize: style.fontSize!,
+                  ),
+          );
+
+    return base.copyWith(
+      displayLarge: scale(base.displayLarge),
+      displayMedium: scale(base.displayMedium),
+      displaySmall: scale(base.displaySmall),
+      headlineLarge: scale(base.headlineLarge),
+      headlineMedium: scale(base.headlineMedium),
+      headlineSmall: scale(base.headlineSmall),
+      titleLarge: scale(base.titleLarge),
+      titleMedium: scale(base.titleMedium),
+      titleSmall: scale(base.titleSmall),
+      bodyLarge: scale(base.bodyLarge),
+      bodyMedium: scale(base.bodyMedium),
+      bodySmall: scale(base.bodySmall),
+      labelLarge: scale(base.labelLarge),
+      labelMedium: scale(base.labelMedium),
+      labelSmall: scale(base.labelSmall),
+    );
+  }
 }

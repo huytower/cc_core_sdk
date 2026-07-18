@@ -163,14 +163,12 @@ class CcCurvedNavigationBar extends StatelessWidget {
       activeTextStyle:
           activeTextStyle ??
           context.ccTextTheme.labelMedium?.copyWith(
-            fontWeight: CcTypographyParams.bold,
-            fontSize: context.respFontSize(CcTypographyParams.labelMedium),
+            fontWeight: CcTypographyParams.bold
           ),
       inactiveTextStyle:
           inactiveTextStyle ??
           context.ccTextTheme.labelMedium?.copyWith(
-            fontWeight: CcTypographyParams.regular,
-            fontSize: context.respFontSize(CcTypographyParams.labelMedium),
+            fontWeight: CcTypographyParams.regular
           ),
       inactiveIconSize: inactiveIconSize ?? context.respIconSize(baseSize: 29),
       activeIconSize: activeIconSize ?? context.respIconSize(baseSize: 26),
