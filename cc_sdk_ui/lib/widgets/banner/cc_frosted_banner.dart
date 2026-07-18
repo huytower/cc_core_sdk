@@ -50,34 +50,35 @@ class CcFrostedBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: description != null && description!.isNotEmpty
-          ? context.respDim(65)
-          : context.respDim(50),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // Frosted background and interactive area
-          Positioned.fill(
-            child: ClipRRect(
+          ? context.respDim(60)
+          : context.respDim(45),
+      child: ClipRRect(
+        borderRadius: CcBorderRadius.xxl(context),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+          child: Container(
+            decoration: _buildDecoration(context),
+            child: InkWell(
+              onTap: onTap,
               borderRadius: CcBorderRadius.xxl(context),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-                child: Container(
-                  decoration: _buildDecoration(context),
-                  child: _buildInkWell(context),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.respDim(4),
+                  vertical: context.respDim(4),
+                ),
+                child: Row(
+                  children: [
+                    CcLeadingIcon(bgColor: accentColor, icon: icon),
+                    const CcSpaceSM(),
+                    _buildMessage(context),
+                    if (showChevron) _buildChevron(context),
+                    const CcSpaceXS(),
+                  ],
                 ),
               ),
             ),
           ),
-          // Badge moved outside to ignore parent padding
-          Positioned(
-            left: context.respDim(4),
-            top: context.respDim(4),
-            bottom: context.respDim(4),
-            child: Center(
-              child: CcLeadingIcon(bgColor: accentColor, icon: icon),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -112,28 +113,6 @@ class CcFrostedBanner extends StatelessWidget {
           offset: const Offset(0, 6),
         ),
       ],
-    );
-  }
-
-  Widget _buildInkWell(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(context.respDim(28)),
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: context.respDim(50), // Space for badge (44) + padding
-          right: context.respDim(8),
-          top: context.respDim(6),
-          bottom: context.respDim(6),
-        ),
-        child: Row(
-          children: [
-            _buildMessage(context),
-            if (showChevron) _buildChevron(context),
-            const CcSpaceXS(),
-          ],
-        ),
-      ),
     );
   }
 
