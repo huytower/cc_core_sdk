@@ -67,7 +67,7 @@ class CcListBannerMedium extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: CcBorderRadius.lg(context),
+      borderRadius: context.brLg,
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
         child: Container(
@@ -87,7 +87,7 @@ class CcListBannerMedium extends StatelessWidget {
     final borderAlpha = 0.1;
 
     return BoxDecoration(
-      borderRadius: CcBorderRadius.lg(context),
+      borderRadius: context.brLg,
       gradient: LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
@@ -114,7 +114,7 @@ class CcListBannerMedium extends StatelessWidget {
     final isDarkMode = context.isDarkMode;
     return InkWell(
       onTap: onTap,
-      borderRadius: CcBorderRadius.lg(context),
+      borderRadius: context.brLg,
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: context.respDim(6),

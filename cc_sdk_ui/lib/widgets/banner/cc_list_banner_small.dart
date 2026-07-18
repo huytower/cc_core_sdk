@@ -53,14 +53,14 @@ class CcListBannerSmall extends StatelessWidget {
           ? context.respDim(60)
           : context.respDim(45),
       child: ClipRRect(
-        borderRadius: CcBorderRadius.xxl(context),
+        borderRadius: context.brXxl,
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
           child: Container(
             decoration: _buildDecoration(context),
             child: InkWell(
               onTap: onTap,
-              borderRadius: CcBorderRadius.xxl(context),
+              borderRadius: context.brXxl,
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: context.respDim(4),
@@ -93,7 +93,7 @@ class CcListBannerSmall extends StatelessWidget {
     final borderAlpha = 0.1;
 
     return BoxDecoration(
-      borderRadius: CcBorderRadius.xxl(context),
+      borderRadius: context.brXxl,
       gradient: LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
