@@ -12,7 +12,7 @@ class CcLeadingIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = context.respDim(44);
+    final size = context.respDim(40);
     final scheme = context.ccColorScheme;
     final bg = bgColor ?? scheme.primary;
 

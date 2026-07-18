@@ -50,7 +50,7 @@ class CcFrostedBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: description != null && description!.isNotEmpty
-          ? context.respDim(75)
+          ? context.respDim(65)
           : context.respDim(50),
       child: Stack(
         clipBehavior: Clip.none,
@@ -121,8 +121,8 @@ class CcFrostedBanner extends StatelessWidget {
       borderRadius: BorderRadius.circular(context.respDim(28)),
       child: Padding(
         padding: EdgeInsets.only(
-          left: context.respDim(58), // Space for badge (44) + padding
-          right: context.respDim(10),
+          left: context.respDim(50), // Space for badge (44) + padding
+          right: context.respDim(8),
           top: context.respDim(6),
           bottom: context.respDim(6),
         ),
@@ -139,7 +139,7 @@ class CcFrostedBanner extends StatelessWidget {
 
   Widget _buildMessage(BuildContext context) {
     final isDark = context.isDarkMode;
-    final titleStyle = context.ccTextTheme.bodyMedium?.copyWith(
+    final titleStyle = context.ccTextTheme.bodySmall?.copyWith(
       fontWeight: CcTypographyParams.bold,
       color: context.ccColorScheme.onSurface.withValues(alpha: 0.8),
       shadows: isDark
