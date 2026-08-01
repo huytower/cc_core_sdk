@@ -1,108 +1,189 @@
 # cc_core_sdk
 
-A collection of reusable Flutter packages for mobile application development.
+Universal Logic Layer for Flutter Hybrid-Modular Super Apps - KMP-ready, state-management agnostic core SDK.
+
+## Strategic Guardrails
+
+- **State-Management Agnostic**: Core components MUST NOT depend on Bloc/GetX/Provider for app state
+- **Clean Architecture**: Strict Domain/Data/Core layer separation
+- **Project-Blind**: Reusable across different enterprise applications
+- **Interface-Driven**: All communication via abstractions
 
 ## Packages
 
-This repository contains the following Flutter packages:
-
-### cc_mixin
-
-Provides reusable Dart mixins for common functionality across Flutter applications.
-
 ### cc_sdk
-
-Core Flutter utility package that provides various extensions, helpers, and utilities.
+Core utilities, extensions, network, failures, ccGson serialization, logging.
 
 **Main Components:**
-
-- **Core Extensions**: Common extensions (list, string), Kotlin-style extensions (list, scope, when expression), UI
-  extensions (widget extensions), Utility extensions (logger)
-- **Core Utils**: Error handling, Logging, Common utilities (date/time, device, formatting, images, strings, throttling)
-- **Helpers**: Alert dialogs, Bottom sheets, Device utilities, Dialog helpers, Widget helpers
-- **Constants**: Multimedia constants, Number format parameters, Padding parameters, Log tags
+- **Extensions**: Kotlin-style scope/when expressions, UI extensions, logger extension
+- **Helpers**: Date/time, device, formatting, images, strings, throttling
+- **Network**: CcNetworkInfo, curl utilities
+- **Serialization**: ccGson (GSON-style JSON handling)
+- **Logging**: .Log() extension with environment-based silencing
+- **Failures**: CcFailure type hierarchy
 
 ### cc_sdk_ui
-
-UI component library providing reusable widgets and UI elements.
+Design system, responsive widgets, spacing tokens, Plus Jakarta Sans typography.
 
 **Widget Categories:**
-
-- **Buttons**: Base buttons, social login buttons, action buttons (back, close, delete, done, edit, etc.)
-- **Cards**: Base card components, expanded/collapse cards
-- **Inputs**: Text fields, phone number inputs, OTP inputs, country code selectors
-- **Avatars**: User avatar components
-- **Spinners**: Loading indicators and spinners
-- **Switches**: Toggle switches
-- **Toasts**: Toast notification components
-- **Pages**: Error pages, loading pages, status pages (empty, not found, retry, etc.)
-- **Dialogs**: Base dialogs, modal bottom sheets, message dialogs
+- **Buttons**: Base buttons, social login, action buttons
+- **Cards**: Base cards, expand/collapse cards
+- **Inputs**: Text fields, phone inputs, OTP inputs, country selectors
+- **Pages**: Error/loading/empty/retry pages
+- **Dialogs**: Base dialogs, modal sheets, message dialogs
 - **Navigation**: Curved navigation bars
-- **Extensions**: Context extensions, responsive extensions, widget extensions
-- **Helpers**: Dialog helpers, keyboard helpers, snackbar helpers, widget helpers
+- **Extensions**: Context extensions, responsive helpers
+
+**Design System:**
+- **Colors**: CcBaseColors → PrjColors → context.ccColorScheme
+- **Typography**: CcTypographyParams → CcTextStyle → context.ccTextTheme
+- **Spacing**: CcSpace* tokens (XS=4, SM=8, MD=12, LG=16, XL=24)
+- **Responsive**: context.respPadding(), context.respFontSize(), context.respDim()
+
+### cc_mixin
+Reusable behaviors for common functionality.
+
+**Mixins:**
+- **Navigation**: CcCurvedNavigationMixin
+- **Pagination**: CcLoadMoreMixin, CcPullToRefreshMixin
+- **Back Handling**: DoubleBackToExitMixin
+- **View Config**: CcViewConfigMixin
 
 ### cc_sdk_data
-
 Core data entities and models for shared data structures.
 
-## Usage
+**Components:**
+- **Entities**: CcUserEntity, CcDeviceEntity, CcMessageEntity
+- **Failures**: CcFailure hierarchy (app config, network, etc.)
+- **Services**: CcMessagingService interface
 
-Add the desired package to your `pubspec.yaml`. 
+## Usage (Melos Workspace)
 
-**Note**: This SDK is designed for high-performance apps. When registering core services (e.g., `CcNetworkInfo`), always use `@lazySingleton` or `@LazySingleton` to ensure the App Shell's **Turbo Boot** remains under 2 seconds.
+Add to your `pubspec.yaml` workspace dependencies:
 
 ```yaml
+workspace:
+  - shared/cc_core_sdk/cc_sdk
+  - shared/cc_core_sdk/cc_sdk_ui
+  - shared/cc_core_sdk/cc_mixin
+  - shared/cc_core_sdk/cc_sdk_data
+
 dependencies:
-  cc_mixin:
-    git:
-      url: https://github.com/huytower/cc_core_sdk
-      path: cc_mixin
   cc_sdk:
-    git:
-      url: https://github.com/huytower/cc_core_sdk
-      path: cc_sdk
+    path: shared/cc_core_sdk/cc_sdk
   cc_sdk_ui:
-    git:
-      url: https://github.com/huytower/cc_core_sdk
-      path: cc_sdk_ui
+    path: shared/cc_core_sdk/cc_sdk_ui
+  cc_mixin:
+    path: shared/cc_core_sdk/cc_mixin
   cc_sdk_data:
-    git:
-      url: https://github.com/huytower/cc_core_sdk
-      path: cc_sdk_data
+    path: shared/cc_core_sdk/cc_sdk_data
 ```
+
+## Key Features
+
+### Design System
+```dart
+// Colors
+final color = context.ccColorScheme.primary;
+
+// Typography
+final textStyle = context.ccTextTheme.headlineLarge;
+
+// Spacing (use semantic tokens, not raw SizedBox)
+CcSpaceSM, CcSpaceMD, CcSpaceLG
+```
+
+### Responsive Design
+```dart
+// Responsive dimensions
+final padding = context.respPadding(16);
+final fontSize = context.respFontSize(14);
+final dimension = context.respDim(100);
+
+// Orientation checks
+if (context.isPortrait) { /* portrait layout */ }
+if (context.isLandscape) { /* landscape layout */ }
+```
+
+### Logging
+```dart
+// Use .Log() extension (never print() or developer.log())
+"Debug message".Log();
+"Error occurred".Log(error: exception);
+```
+
+### Serialization
+```dart
+// Use ccGson for JSON handling
+final json = ccGson.encode(entity);
+final entity = ccGson.decode<MyEntity>(json);
+```
+
+## DI Convention
+
+Each package uses the micro-package DI pattern:
+
+```dart
+// cc_sdk/lib/core/di/di.dart
+@InjectableInit.microPackage()
+void initMicroPackage() {
+  getIt.init();
+}
+```
+
+**Important**: When registering core services (e.g., `CcNetworkInfo`), always use `@lazySingleton` to ensure the App Shell's **Turbo Boot** remains under 2 seconds.
 
 ## Development
 
-This repository is designed to be used as a git submodule in Flutter projects. The packages follow a modular
-architecture to promote code reusability and maintainability.
+This repository is designed as a git submodule in Flutter projects.
 
-To synchronize with remote:
-
+### Workspace Commands
+```bash
+melos bootstrap              # Link all packages and run pub get
+melos run gen                # Generate code for all modules
+melos run analyze            # Run analysis for all modules
 ```
-bash
-git submodule update --remote cc_core_sdk
+
+### Submodule Management
+```bash
+# Pull latest changes from remote
+git submodule update --remote --merge
+
+# Fix missing/deleted files
+git submodule update --init --recursive --force
+
+# Fix broken boundaries
+git rm -r --cached shared/cc_core_sdk
+git add shared/cc_core_sdk
 ```
 
-To push changes to the cc_core_sdk submodule:
+### Pushing Changes
+```bash
+# Navigate to submodule
+cd shared/cc_core_sdk
 
-```
-bash
-# Navigate to submodule and make changes
-cd cc_core_sdk
-# Make your changes...
-
-# Commit changes
+# Make changes, commit, push
 git add .
 git commit -m "Your commit message"
-
-# Push to remote
 git push origin main
 
-# Go back to main project
-cd ..
-
 # Update submodule reference in main project
-git add cc_core_sdk
+cd ..
+git add shared/cc_core_sdk
 git commit -m "Update cc_core_sdk submodule"
 git push origin main
 ```
+
+## Quality Standards
+
+- **Suffix-First Naming**: `*_entity.dart`, `*_usecase.dart`, `*_repository.dart`, `*_model.dart`
+- **Import Hygiene**: Prefer centralized exports, maintain import order
+- **Functional Results**: Use `Result<T, CcFailure>` for error handling
+- **No Hardcoded Values**: Use design tokens and localization keys
+
+## Architecture Principles
+
+- **Single Responsibility**: Each package has one clear purpose
+- **Open/Closed**: Open for extension, closed for modification
+- **Dependency Inversion**: Depend on abstractions, not concretions
+- **Performance-Oriented**: Lazy initialization for fast startup
