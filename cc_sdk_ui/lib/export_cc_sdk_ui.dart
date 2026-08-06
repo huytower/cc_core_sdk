@@ -25,6 +25,8 @@ export 'package:cc_sdk_ui/widgets/anim/fade_page_wrapper.dart';
 
 // Animation Widgets
 export 'package:cc_sdk_ui/widgets/anim/fade_widget.dart';
+// Navigation Widgets
+export 'package:cc_sdk_ui/widgets/app_bar/gradient_app_bar.dart';
 // Avatar Widgets
 export 'package:cc_sdk_ui/widgets/avatars/avatar_user.dart';
 // Background Widgets
@@ -34,6 +36,8 @@ export 'package:cc_sdk_ui/widgets/background/bg_image_widget.dart';
 export 'package:cc_sdk_ui/widgets/background/bg_scale_widget.dart'
     hide BackgroundBlurWidget;
 export 'package:cc_sdk_ui/widgets/background/overlay_widget.dart';
+// Badge Widgets
+export 'package:cc_sdk_ui/widgets/badge/cc_guideline_badge.dart';
 export 'package:cc_sdk_ui/widgets/banner/cc_list_banner_medium.dart';
 export 'package:cc_sdk_ui/widgets/banner/cc_list_banner_small.dart';
 // Banner Widgets
@@ -109,8 +113,6 @@ export 'package:cc_sdk_ui/widgets/inkwell/cc_inkwell.dart';
 // Text Field Widgets
 export 'package:cc_sdk_ui/widgets/input/cc_country_code_selector.dart';
 export 'package:cc_sdk_ui/widgets/input/cc_phone_number_input.dart';
-// Navigation Widgets
-export 'package:cc_sdk_ui/widgets/app_bar/gradient_app_bar.dart';
 export 'package:cc_sdk_ui/widgets/navigation/cc_curved_navigation_bar.dart';
 export 'package:cc_sdk_ui/widgets/padding/cc_padding.dart';
 export 'package:cc_sdk_ui/widgets/padding/cc_symmetric_padding.dart';

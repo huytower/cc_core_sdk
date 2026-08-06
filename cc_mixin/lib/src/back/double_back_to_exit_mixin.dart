@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
