@@ -35,6 +35,13 @@ abstract final class CcFeatureFlags {
   static bool get isCertificatePinningEnabled =>
       _getBool('ENABLE_CERT_PINNING', true);
 
+  /// Whether QA-only debug escape hatches (e.g. manual VIP/user-level
+  /// overrides) are shown. Env-driven rather than [kReleaseMode]-driven so
+  /// QA can flip it on in a UAT build without needing a debug binary — but
+  /// it must always resolve to `false` in `.env.prod`.
+  static bool get isQaDebugToolsEnabled =>
+      _getBool('ENABLE_QA_DEBUG_TOOLS', !kReleaseMode);
+
   /// Retrieves a boolean configuration value with a default fallback.
   ///
   /// [key]: The environment variable key to look up
