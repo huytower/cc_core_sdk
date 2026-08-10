@@ -17,6 +17,12 @@ class CcUserEntity with EquatableMixin {
   final DateTime updatedAt;
   final DateTime? lastActiveAt;
 
+  /// Firebase provider ids linked to this account (e.g. `'google.com'`,
+  /// `'phone'`, `'password'`) — from `User.providerData`. The only reliable
+  /// way to tell "is Google linked" apart from "is email/password linked",
+  /// since [email]/[phoneNumber] alone don't reveal which provider set them.
+  final List<String> linkedProviderIds;
+
   const CcUserEntity({
     required this.id,
     required this.email,
@@ -31,6 +37,7 @@ class CcUserEntity with EquatableMixin {
     required this.createdAt,
     required this.updatedAt,
     this.lastActiveAt,
+    this.linkedProviderIds = const [],
   });
 
   /// Display identifier for UI (email or phone)
@@ -55,6 +62,7 @@ class CcUserEntity with EquatableMixin {
     createdAt,
     updatedAt,
     lastActiveAt,
+    linkedProviderIds,
   ];
 }
 

@@ -18,6 +18,7 @@ class CcTextField extends StatelessWidget {
     this.validator,
     this.maxLines = 1,
     this.onTap,
+    this.margin,
   });
 
   final TextEditingController controller;
@@ -30,13 +31,15 @@ class CcTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final int? maxLines;
   final VoidCallback? onTap;
+  final EdgeInsetsGeometry? margin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        bottom: context.respPadding(CcPaddingParams.PAGE_MD),
-      ),
+      margin: margin ??
+          EdgeInsets.only(
+            bottom: context.respPadding(CcPaddingParams.PAGE_MD),
+          ),
       decoration: BoxDecoration(
         color: CcBaseColors.white100,
         borderRadius: BorderRadius.circular(8),
