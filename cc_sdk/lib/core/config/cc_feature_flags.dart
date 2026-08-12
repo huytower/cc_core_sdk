@@ -35,6 +35,14 @@ abstract final class CcFeatureFlags {
   static bool get isCertificatePinningEnabled =>
       _getBool('ENABLE_CERT_PINNING', true);
 
+  /// Whether QA debug tools are enabled
+  static bool get isQaDebugToolsEnabled =>
+      _getBool('ENABLE_QA_DEBUG_TOOLS', false);
+
+  /// Whether force full access toggle is enabled
+  static bool get isForceFullAccessEnabled =>
+      _getBool('ENABLE_FORCE_FULL_ACCESS', false);
+
   /// Retrieves a boolean configuration value with a default fallback.
   ///
   /// [key]: The environment variable key to look up
