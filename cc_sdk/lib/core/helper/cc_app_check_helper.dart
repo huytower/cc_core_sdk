@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:flutter/foundation.dart';
 
 /// Helper class for Firebase App Check initialization and configuration.
 ///
@@ -23,9 +24,23 @@ class CcAppCheckHelper {
   /// Returns [Future<void>] that completes when App Check is initialized.
   static Future<void> initialize({String? debugToken}) async {
     try {
-      await FirebaseAppCheck.instance.activate();
+      await FirebaseAppCheck.instance.activate(
+        androidProvider: kDebugMode
+            ? AndroidProvider.debug
+            : AndroidProvider.playIntegrity,
+        appleProvider: kDebugMode
+            ? AppleProvider.debug
+            : AppleProvider.deviceCheck,
+      );
 
-      developer.log('Firebase App Check initialized successfully');
+      if (kDebugMode) {
+        developer.log(
+          'Firebase App Check initialized in DEBUG mode. '
+          'Please ensure the debug token from the console is added to Firebase Console.',
+        );
+      } else {
+        developer.log('Firebase App Check initialized successfully');
+      }
     } catch (error, stackTrace) {
       developer.log(
         'Firebase App Check initialization failed',
