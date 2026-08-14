@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:firebase_ai/firebase_ai.dart';
 
 /// Thin wrapper around Firebase AI Logic's Gemini access, encapsulated so
@@ -27,6 +29,25 @@ class CcGeminiHelper {
     try {
       final response = await _getModel().generateContent([
         Content.text(prompt),
+      ]);
+      return response.text;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Same contract as [generateText], but sends [imageBytes] alongside
+  /// [prompt] (multimodal) — backs the Phase 3.7 receipt-photo cloud
+  /// fallback, where the image itself is more reliable than pre-extracted
+  /// OCR text for small/faded receipt print.
+  static Future<String?> generateFromImage({
+    required Uint8List imageBytes,
+    required String mimeType,
+    required String prompt,
+  }) async {
+    try {
+      final response = await _getModel().generateContent([
+        Content.multi([TextPart(prompt), InlineDataPart(mimeType, imageBytes)]),
       ]);
       return response.text;
     } catch (_) {
