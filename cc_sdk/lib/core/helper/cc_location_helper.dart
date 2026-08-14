@@ -56,6 +56,22 @@ class CcLocationHelper {
     }
   }
 
+  /// The OS's cached last-known fix, if any — resolves near-instantly since
+  /// it doesn't wait for a new GPS lock, at the cost of possibly being stale
+  /// or from a different spot than right now. Never prompts for permission
+  /// (returns null if not already granted) since this is meant as an
+  /// opportunistic fast path alongside a real [getCurrentPosition] call, not
+  /// a substitute for it.
+  static Future<Position?> getLastKnownPosition() async {
+    try {
+      final hasPermission = await isLocationPermissionGranted();
+      if (!hasPermission) return null;
+      return await Geolocator.getLastKnownPosition();
+    } catch (e) {
+      return null;
+    }
+  }
+
   /// Get country code from location
   static Future<String> getCountryCodeFromLocation() async {
     try {
@@ -91,5 +107,16 @@ class CcLocationHelper {
     } catch (e) {
       return defaultCountryCode;
     }
+  }
+
+  /// Great-circle distance in meters between two coordinates. Thin wrapper
+  /// so callers never need a direct `geolocator` dependency of their own.
+  static double distanceBetweenMeters(
+    double startLat,
+    double startLng,
+    double endLat,
+    double endLng,
+  ) {
+    return Geolocator.distanceBetween(startLat, startLng, endLat, endLng);
   }
 }

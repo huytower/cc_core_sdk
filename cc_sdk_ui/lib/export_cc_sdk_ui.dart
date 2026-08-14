@@ -77,6 +77,8 @@ export 'package:cc_sdk_ui/widgets/card/cc_card.dart';
 export 'package:cc_sdk_ui/widgets/card/expanded_collapse_card_widget.dart';
 // Checkbox Widgets
 export 'package:cc_sdk_ui/widgets/checkbox/cc_check_box.dart';
+// Chip Widgets
+export 'package:cc_sdk_ui/widgets/chip/cc_suggestion_chip.dart';
 export 'package:cc_sdk_ui/widgets/container/cc_container_rounded_corner_widget.dart'
     hide ContainerRoundedCornerTopLeftRight;
 // Container Widgets
