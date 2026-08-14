@@ -52,6 +52,7 @@ export 'package:cc_sdk_ui/widgets/button/cc_back_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_bounce_animation.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_cancel_btn.dart';
+export 'package:cc_sdk_ui/widgets/button/cc_clear_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_copy_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_delete_btn.dart';
