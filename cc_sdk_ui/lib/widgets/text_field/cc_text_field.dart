@@ -19,6 +19,9 @@ class CcTextField extends StatelessWidget {
     this.maxLines = 1,
     this.onTap,
     this.margin,
+    this.onSubmitted,
+    this.textInputAction,
+    this.enabled = true,
   });
 
   final TextEditingController controller;
@@ -32,6 +35,9 @@ class CcTextField extends StatelessWidget {
   final int? maxLines;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry? margin;
+  final Function(String)? onSubmitted;
+  final TextInputAction? textInputAction;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +59,9 @@ class CcTextField extends StatelessWidget {
         validator: validator,
         maxLines: maxLines,
         onTap: onTap,
+        onFieldSubmitted: onSubmitted,
+        textInputAction: textInputAction,
+        enabled: enabled,
         decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: prefixIcon,

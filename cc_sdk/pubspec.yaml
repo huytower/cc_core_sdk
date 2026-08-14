@@ -18,6 +18,7 @@ dependencies:
     path: ../cc_sdk_data
   firebase_app_check: ^0.4.5
   firebase_crashlytics: ^5.2.4
+  firebase_ai: ^3.15.0
   connectivity_plus: ^7.1.1
   crypto: ^3.0.7
   custom_refresh_indicator: ^4.0.1
@@ -49,6 +50,7 @@ dependencies:
   intl: ^0.20.2
   geolocator: ^14.0.3
   permission_handler: ^12.0.3
+  speech_to_text: ^7.4.0
 
   keyboard_dismisser: ^3.0.0
 
