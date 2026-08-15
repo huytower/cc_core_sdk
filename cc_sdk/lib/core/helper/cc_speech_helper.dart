@@ -46,6 +46,7 @@ class CcSpeechHelper {
     try {
       if (_initialized) return true;
       final ready = await _speech.initialize(
+        debugLogging: true,
         onStatus: (status) {
           if (status == SpeechToText.notListeningStatus ||
               status == SpeechToText.doneStatus) {
