@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart' show PlatformException;
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -22,6 +23,17 @@ class PickedReceiptImage {
   final String mimeType;
 }
 
+/// Outcome of [CcReceiptScanHelper.pickReceiptImage] — always returned (the
+/// method itself never throws), but distinguishes *why* [image] is null so
+/// callers can surface a "permission denied, check Settings" message instead
+/// of silently no-op'ing the same way a plain user-cancelled pick does.
+class ReceiptPickResult {
+  const ReceiptPickResult({this.image, this.permissionDenied = false});
+
+  final PickedReceiptImage? image;
+  final bool permissionDenied;
+}
+
 /// Phase 3.7 receipt-photo quick entry: picks an image (camera or gallery)
 /// and runs on-device OCR on it. Fails silently on any error (cancelled
 /// picker, denied permission, unreadable file) — same convention as
@@ -31,7 +43,7 @@ class PickedReceiptImage {
 abstract final class CcReceiptScanHelper {
   static final ImagePicker _picker = ImagePicker();
 
-  static Future<PickedReceiptImage?> pickReceiptImage({
+  static Future<ReceiptPickResult> pickReceiptImage({
     required bool fromCamera,
   }) async {
     try {
@@ -44,24 +56,35 @@ abstract final class CcReceiptScanHelper {
         source: fromCamera ? ImageSource.camera : ImageSource.gallery,
         imageQuality: 85,
       );
-      if (file == null) return null;
+      if (file == null) return const ReceiptPickResult();
       final bytes = await file.readAsBytes();
-      return PickedReceiptImage(
-        path: file.path,
-        bytes: bytes,
-        mimeType: _detectImageMimeType(bytes),
+      final mimeType = _detectImageMimeType(bytes);
+      if (mimeType == null) return const ReceiptPickResult();
+      return ReceiptPickResult(
+        image: PickedReceiptImage(
+          path: file.path,
+          bytes: bytes,
+          mimeType: mimeType,
+        ),
       );
+    } on PlatformException catch (e) {
+      // image_picker_android/image_picker_ios both use these exact codes
+      // for a denied camera or photo-library permission.
+      final denied =
+          e.code == 'camera_access_denied' || e.code == 'photo_access_denied';
+      return ReceiptPickResult(permissionDenied: denied);
     } catch (_) {
-      return null;
+      return const ReceiptPickResult();
     }
   }
 
   /// Sniffs the image format from its magic-number header rather than
   /// trusting the picker request/file extension — see [pickReceiptImage]'s
-  /// comment for why. Falls back to JPEG (camera captures — the only other
-  /// realistic source here — are always JPEG) when the header doesn't match
-  /// a known signature.
-  static String _detectImageMimeType(Uint8List bytes) {
+  /// comment for why. Returns null (rather than guessing JPEG) when the
+  /// header doesn't match a known signature, so a corrupt/unrecognized file
+  /// fails the pick outright instead of being sent to the cloud fallback
+  /// under a wrong MIME type.
+  static String? _detectImageMimeType(Uint8List bytes) {
     if (bytes.length >= 4 &&
         bytes[0] == 0x89 &&
         bytes[1] == 0x50 &&
@@ -69,7 +92,24 @@ abstract final class CcReceiptScanHelper {
         bytes[3] == 0x47) {
       return 'image/png';
     }
-    return 'image/jpeg';
+    if (bytes.length >= 3 &&
+        bytes[0] == 0xFF &&
+        bytes[1] == 0xD8 &&
+        bytes[2] == 0xFF) {
+      return 'image/jpeg';
+    }
+    if (bytes.length >= 12 &&
+        bytes[0] == 0x52 &&
+        bytes[1] == 0x49 &&
+        bytes[2] == 0x46 &&
+        bytes[3] == 0x46 &&
+        bytes[8] == 0x57 &&
+        bytes[9] == 0x45 &&
+        bytes[10] == 0x42 &&
+        bytes[11] == 0x50) {
+      return 'image/webp';
+    }
+    return null;
   }
 
   /// Runs on-device Latin-script text recognition on the image at [imagePath]
