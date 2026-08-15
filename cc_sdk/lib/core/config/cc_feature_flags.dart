@@ -42,6 +42,13 @@ abstract final class CcFeatureFlags {
   static bool get isQaDebugToolsEnabled =>
       _getBool('ENABLE_QA_DEBUG_TOOLS', !kReleaseMode);
 
+  /// Whether the QA/dev "force full access" override (bypassing LV2/LV3
+  /// user-level and VIP gating) is available in this build. Env-driven for
+  /// the same reason as [isQaDebugToolsEnabled] — must always resolve to
+  /// `false` in `.env.prod`.
+  static bool get isForceFullAccessEnabled =>
+      _getBool('ENABLE_FORCE_FULL_ACCESS', !kReleaseMode);
+
   /// Retrieves a boolean configuration value with a default fallback.
   ///
   /// [key]: The environment variable key to look up
