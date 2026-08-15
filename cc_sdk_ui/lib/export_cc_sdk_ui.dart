@@ -38,7 +38,9 @@ export 'package:cc_sdk_ui/widgets/background/bg_scale_widget.dart'
 export 'package:cc_sdk_ui/widgets/background/overlay_widget.dart';
 // Badge Widgets
 export 'package:cc_sdk_ui/widgets/badge/cc_guideline_badge.dart';
-export 'package:cc_sdk_ui/widgets/banner/cc_list_banner_medium.dart';
+// Category Widgets
+export 'package:cc_sdk_ui/widgets/category/cc_category.dart';
+// Banner Widgets
 export 'package:cc_sdk_ui/widgets/banner/cc_list_banner_small.dart';
 // Banner Widgets
 export 'package:cc_sdk_ui/widgets/banner/cc_reward_completion_banner.dart';
@@ -52,6 +54,7 @@ export 'package:cc_sdk_ui/widgets/button/cc_back_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_bounce_animation.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_cancel_btn.dart';
+export 'package:cc_sdk_ui/widgets/button/cc_clear_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_copy_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_delete_btn.dart';

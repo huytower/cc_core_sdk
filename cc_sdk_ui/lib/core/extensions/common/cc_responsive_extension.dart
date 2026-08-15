@@ -16,7 +16,7 @@ extension ResponsiveExtension on BuildContext {
   double respIconSize({
     double baseSize = 24.0,
     double baselineWidth = 360.0,
-    double maxMultiplier = 2,
+    double maxMultiplier = 1.5,
   }) {
     return baseSize * (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
   }
