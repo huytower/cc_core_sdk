@@ -16,8 +16,8 @@ dependencies:
   catcher_2: ^2.1.9
   cc_sdk_data:
     path: ../cc_sdk_data
-  firebase_app_check: ^0.4.5
-  firebase_crashlytics: ^5.2.4
+  firebase_app_check: ^0.4.6
+  firebase_crashlytics: ^5.2.7
   firebase_ai: ^3.15.0
   connectivity_plus: ^7.1.1
   crypto: ^3.0.7
