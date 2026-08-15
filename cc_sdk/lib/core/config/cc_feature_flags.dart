@@ -35,13 +35,19 @@ abstract final class CcFeatureFlags {
   static bool get isCertificatePinningEnabled =>
       _getBool('ENABLE_CERT_PINNING', true);
 
-  /// Whether QA debug tools are enabled
+  /// Whether QA-only debug escape hatches (e.g. manual VIP/user-level
+  /// overrides) are shown. Env-driven rather than [kReleaseMode]-driven so
+  /// QA can flip it on in a UAT build without needing a debug binary — but
+  /// it must always resolve to `false` in `.env.prod`.
   static bool get isQaDebugToolsEnabled =>
-      _getBool('ENABLE_QA_DEBUG_TOOLS', false);
+      _getBool('ENABLE_QA_DEBUG_TOOLS', !kReleaseMode);
 
-  /// Whether force full access toggle is enabled
+  /// Whether the QA/dev "force full access" override (bypassing LV2/LV3
+  /// user-level and VIP gating) is available in this build. Env-driven for
+  /// the same reason as [isQaDebugToolsEnabled] — must always resolve to
+  /// `false` in `.env.prod`.
   static bool get isForceFullAccessEnabled =>
-      _getBool('ENABLE_FORCE_FULL_ACCESS', false);
+      _getBool('ENABLE_FORCE_FULL_ACCESS', !kReleaseMode);
 
   /// Retrieves a boolean configuration value with a default fallback.
   ///
