@@ -58,10 +58,18 @@ class CcDialogHelper {
     bool isDrag = true,
     String content = '',
     String title = '',
+    String? okText,
+    String? cancelText,
     VoidCallback? onClose,
     VoidCallback? onTapOK,
   }) async {
-    final targetContext = context ?? Get.context!;
+    final targetContext = context ?? Get.context;
+    if (targetContext == null) {
+      debugPrint(
+        'CcDialogHelper: Cannot show message bottom sheet - no context available.',
+      );
+      return false;
+    }
     bool result = false;
 
     await m.showModalBottomSheet(
@@ -78,6 +86,8 @@ class CcDialogHelper {
           child: CcBodyShowMessage(
             title: title,
             content: content,
+            okText: okText,
+            cancelText: cancelText,
             onTabOK: () {
               result = true;
               if (onTapOK != null) {
@@ -127,7 +137,13 @@ class CcDialogHelper {
     bool isCancelBtnShown = false,
     CcDialogStatus status = CcDialogStatus.ERROR,
   }) async {
-    final targetContext = context ?? Get.context!;
+    final targetContext = context ?? Get.context;
+    if (targetContext == null) {
+      debugPrint(
+        'CcDialogHelper: Cannot show confirmation dialog - no context available.',
+      );
+      return;
+    }
     try {
       await Get.dialog(
         CcBaseDialog(
@@ -144,7 +160,9 @@ class CcDialogHelper {
           status: status,
         ),
         barrierDismissible: isAllowDismiss,
-        barrierColor: bgColorBarrier ?? targetContext.ccColorScheme.onSurface.withOpacity(0.5),
+        barrierColor:
+            bgColorBarrier ??
+            targetContext.ccColorScheme.onSurface.withOpacity(0.5),
       );
 
       if (isAutoDismiss) {
@@ -161,7 +179,13 @@ class CcDialogHelper {
 
   /// Shows a persistent loading dialog.
   static Future<void> showLoadingDialog({BuildContext? context}) async {
-    final targetContext = context ?? Get.context!;
+    final targetContext = context ?? Get.context;
+    if (targetContext == null) {
+      debugPrint(
+        'CcDialogHelper: Cannot show loading dialog - no context available.',
+      );
+      return;
+    }
     await showDialog<void>(
       context: targetContext,
       barrierDismissible: false,
