@@ -29,26 +29,26 @@ class CcBodyShowMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    height: context.respIconSize(baseSize: 235.0),
     padding: EdgeInsets.symmetric(
-      vertical: context.respPadding(25.0),
+      vertical: context.respPadding(20.0),
       horizontal: context.respPadding(25.0),
     ),
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        const CcSpaceLG(),
-        const CcSpaceLG(),
         title.isNotEmpty
             ? Container(
-                margin: EdgeInsets.only(
-                  bottom: context.respPadding(20.0),
-                  top: context.respPadding(10.0),
+                margin: EdgeInsets.only(bottom: context.respPadding(15.0)),
+                child: Text(
+                  title,
+                  style: context.ccTextTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                child: Text(title, style: context.ccTextTheme.headlineSmall),
               )
             : const SizedBox(),
         child,
-        const CcSpaceLG(),
         const CcSpaceLG(),
         SizedBox(
           height: context.respIconSize(baseSize: 40.0),
@@ -61,12 +61,13 @@ class CcBodyShowMessage extends StatelessWidget {
                         textColor: CcBaseColors.white100,
                         title: cancelText ?? 'Cancel',
                         bgColor: [
-                          context.ccColorScheme.primary,
-                          context.ccColorScheme.primary,
+                          context.ccColorScheme.outline,
+                          context.ccColorScheme.outline,
                         ],
                       ),
                     )
                   : const SizedBox(),
+              if (!isExistOK) const CcSpaceSM(),
               Expanded(
                 child: CcBaseBtn.bouncing(
                   onTap: onTabOK,
@@ -81,7 +82,6 @@ class CcBodyShowMessage extends StatelessWidget {
             ],
           ),
         ),
-        const CcSpaceSM(),
       ],
     ),
   );

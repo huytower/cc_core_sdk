@@ -80,31 +80,29 @@ class CcDialogHelper {
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
       backgroundColor: targetContext.ccColorScheme.surface,
-      isScrollControlled: true,
+      isScrollControlled: false,
       builder: (context) {
-        return SafeArea(
-          child: CcBodyShowMessage(
-            title: title,
-            content: content,
-            okText: okText,
-            cancelText: cancelText,
-            onTabOK: () {
-              result = true;
-              if (onTapOK != null) {
-                onTapOK();
-                return;
-              }
-              exit(0);
-            },
-            isExistOK: isExistOK,
-            child:
-                customWidget ??
-                Text(
-                  content,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: context.respFontSize(17.0)),
-                ),
-          ),
+        return CcBodyShowMessage(
+          title: title,
+          content: content,
+          okText: okText,
+          cancelText: cancelText,
+          onTabOK: () {
+            result = true;
+            if (onTapOK != null) {
+              onTapOK();
+              return;
+            }
+            exit(0);
+          },
+          isExistOK: isExistOK,
+          child:
+              customWidget ??
+              Text(
+                content,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: context.respFontSize(17.0)),
+              ),
         );
       },
     );
