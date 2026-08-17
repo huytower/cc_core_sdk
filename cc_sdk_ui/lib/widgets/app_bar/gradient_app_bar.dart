@@ -15,7 +15,7 @@ PreferredSizeWidget buildDomainGradientAppBar(
 
   return PreferredSize(
     preferredSize: Size.fromHeight(
-      context.respDim(90) +
+      context.respDim(64) +
           topPadding +
           (bottom != null ? context.respDim(56) : 0),
     ),
