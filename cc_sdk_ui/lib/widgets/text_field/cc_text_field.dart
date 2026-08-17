@@ -88,7 +88,7 @@ class CcTextField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: context.ccTextTheme.bodyMedium?.copyWith(
-            color: context.ccColorScheme.onSurfaceVariant.withOpacity(0.6),
+            color: context.ccColorScheme.onSurfaceVariant.withAlpha(50),
           ),
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
