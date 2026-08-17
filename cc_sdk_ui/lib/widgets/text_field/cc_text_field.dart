@@ -25,6 +25,7 @@ class CcTextField extends StatelessWidget {
     this.height,
     this.borderRadius = 12.0,
     this.borderWidth = 1.0,
+    this.textAlign = TextAlign.center,
   });
 
   final TextEditingController controller;
@@ -44,6 +45,7 @@ class CcTextField extends StatelessWidget {
   final double? height;
   final double borderRadius;
   final double borderWidth;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +82,7 @@ class CcTextField extends StatelessWidget {
         onFieldSubmitted: onSubmitted,
         textInputAction: textInputAction,
         enabled: enabled,
+        textAlign: textAlign,
         textAlignVertical: TextAlignVertical.center,
         style: context.ccTextTheme.bodyMedium?.copyWith(
           height: 1.0,
