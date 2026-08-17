@@ -22,6 +22,9 @@ class CcTextField extends StatelessWidget {
     this.onSubmitted,
     this.textInputAction,
     this.enabled = true,
+    this.height,
+    this.borderRadius = 12.0,
+    this.borderWidth = 1.0,
   });
 
   final TextEditingController controller;
@@ -38,19 +41,34 @@ class CcTextField extends StatelessWidget {
   final Function(String)? onSubmitted;
   final TextInputAction? textInputAction;
   final bool enabled;
+  final double? height;
+  final double borderRadius;
+  final double borderWidth;
 
   @override
   Widget build(BuildContext context) {
+    final effectiveHeight = height ?? context.respDim(46);
     return Container(
-      margin: margin ??
-          EdgeInsets.only(
-            bottom: context.respPadding(CcPaddingParams.PAGE_MD),
-          ),
+      margin:
+          margin ??
+          EdgeInsets.only(bottom: context.respPadding(CcPaddingParams.PAGE_MD)),
+      height: effectiveHeight,
       decoration: BoxDecoration(
         color: CcBaseColors.white100,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: CcBaseColors.neutral10),
+        borderRadius: BorderRadius.circular(borderRadius),
+        border: Border.all(
+          color: CcBaseColors.neutral10.withOpacity(0.5),
+          width: borderWidth,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
+      alignment: Alignment.center,
       child: TextFormField(
         controller: controller,
         obscureText: obscureText,
@@ -62,19 +80,29 @@ class CcTextField extends StatelessWidget {
         onFieldSubmitted: onSubmitted,
         textInputAction: textInputAction,
         enabled: enabled,
+        textAlignVertical: TextAlignVertical.center,
+        style: context.ccTextTheme.bodyMedium?.copyWith(
+          height: 1.0,
+          color: context.ccColorScheme.onSurface,
+        ),
         decoration: InputDecoration(
           hintText: hintText,
+          hintStyle: context.ccTextTheme.bodyMedium?.copyWith(
+            color: context.ccColorScheme.onSurfaceVariant.withOpacity(0.6),
+          ),
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
+          isDense: true,
           contentPadding: EdgeInsets.symmetric(
-            horizontal: context.respPadding(CcPaddingParams.PAGE_MD),
-            vertical: context.respPadding(12.0),
+            horizontal: context.respPadding(CcPaddingParams.PAGE_SM),
+            vertical:
+                (effectiveHeight -
+                        (context.ccTextTheme.bodyMedium?.fontSize ?? 14)) /
+                    2 -
+                borderWidth,
           ),
           border: InputBorder.none,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: context.ccColorScheme.primary),
-          ),
+          errorStyle: const TextStyle(height: 0, fontSize: 0),
         ),
       ),
     );
