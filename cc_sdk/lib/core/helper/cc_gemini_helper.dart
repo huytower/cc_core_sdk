@@ -2,6 +2,12 @@ import 'dart:typed_data';
 
 import 'package:firebase_ai/firebase_ai.dart';
 
+// Re-exported so callers can build a [Schema] for [CcGeminiHelper]'s
+// `responseSchema` param without adding a direct `firebase_ai` dependency of
+// their own — same "no direct dependency" convention as the rest of this
+// class.
+export 'package:firebase_ai/firebase_ai.dart' show Schema, SchemaType;
+
 /// Thin wrapper around Firebase AI Logic's Gemini access, encapsulated so
 /// callers never need a direct `firebase_ai` dependency of their own (same
 /// convention as [CcLocationHelper] wrapping `geolocator`). Fails silently
@@ -22,14 +28,32 @@ class CcGeminiHelper {
     );
   }
 
+  /// Forces strict JSON mode constrained to [responseSchema] when given —
+  /// null leaves the model on its default free-text output, so callers that
+  /// just want prose (e.g. financial-advice generation) are unaffected.
+  static GenerationConfig? _jsonConfig(Schema? responseSchema) {
+    if (responseSchema == null) return null;
+    return GenerationConfig(
+      responseMimeType: 'application/json',
+      responseSchema: responseSchema,
+    );
+  }
+
   /// Sends [prompt] to Gemini and returns the raw text response, or null on
   /// any failure (API not enabled, network error, safety-filtered response,
-  /// etc.).
-  static Future<String?> generateText({required String prompt}) async {
+  /// etc.). Pass [responseSchema] to constrain the reply to strict JSON
+  /// matching that schema — Gemini then returns explicit `null`s for
+  /// fields it can't determine instead of omitting them or wrapping the
+  /// reply in prose/markdown fences.
+  static Future<String?> generateText({
+    required String prompt,
+    Schema? responseSchema,
+  }) async {
     try {
-      final response = await _getModel().generateContent([
-        Content.text(prompt),
-      ]);
+      final response = await _getModel().generateContent(
+        [Content.text(prompt)],
+        generationConfig: _jsonConfig(responseSchema),
+      );
       return response.text;
     } catch (_) {
       return null;
@@ -44,11 +68,18 @@ class CcGeminiHelper {
     required Uint8List imageBytes,
     required String mimeType,
     required String prompt,
+    Schema? responseSchema,
   }) async {
     try {
-      final response = await _getModel().generateContent([
-        Content.multi([TextPart(prompt), InlineDataPart(mimeType, imageBytes)]),
-      ]);
+      final response = await _getModel().generateContent(
+        [
+          Content.multi([
+            TextPart(prompt),
+            InlineDataPart(mimeType, imageBytes),
+          ]),
+        ],
+        generationConfig: _jsonConfig(responseSchema),
+      );
       return response.text;
     } catch (_) {
       return null;
