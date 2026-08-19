@@ -12,6 +12,7 @@ export 'package:cc_sdk_ui/core/constants/cc_constants_multimedia.dart';
 export 'package:cc_sdk_ui/core/enum/cc_layout_status.dart';
 // Core Extensions
 export 'package:cc_sdk_ui/core/extensions/cc_context_extension.dart';
+export 'package:cc_sdk_ui/core/extensions/cc_semantic_color_scheme.dart';
 export 'package:cc_sdk_ui/core/extensions/common/cc_responsive_extension.dart';
 export 'package:cc_sdk_ui/core/helper/cc_dialog_helper.dart';
 // Helper
