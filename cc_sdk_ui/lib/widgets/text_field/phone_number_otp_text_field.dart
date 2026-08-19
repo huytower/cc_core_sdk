@@ -30,7 +30,7 @@ class PhoneNumberOtpTextField extends StatelessWidget {
             LengthLimitingTextInputFormatter(6),
           ],
           textAlign: TextAlign.center,
-          style: context.ccTextTheme.headlineSmall?.copyWith(
+          style: context.ccTextTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             letterSpacing: 8,
           ),
