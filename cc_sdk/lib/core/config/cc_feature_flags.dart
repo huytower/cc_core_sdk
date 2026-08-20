@@ -35,13 +35,8 @@ abstract final class CcFeatureFlags {
   static bool get isCertificatePinningEnabled =>
       _getBool('ENABLE_CERT_PINNING', true);
 
-  /// Whether QA debug tools are enabled
-  static bool get isQaDebugToolsEnabled =>
-      _getBool('ENABLE_QA_DEBUG_TOOLS', false);
-
   /// Whether VIP mode is enabled (bypasses level restrictions for testing)
-  static bool get isVipModeEnabled =>
-      _getBool('ENABLE_VIP_MODE', false);
+  static bool get isVipModeEnabled => _getBool('ENABLE_VIP_MODE', false);
 
   /// Retrieves a boolean configuration value with a default fallback.
   ///
