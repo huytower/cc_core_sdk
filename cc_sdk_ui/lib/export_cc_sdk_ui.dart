@@ -40,15 +40,12 @@ export 'package:cc_sdk_ui/widgets/background/bg_scale_widget.dart'
 export 'package:cc_sdk_ui/widgets/background/overlay_widget.dart';
 // Badge Widgets
 export 'package:cc_sdk_ui/widgets/badge/cc_guideline_badge.dart';
-// Category Widgets
-export 'package:cc_sdk_ui/widgets/category/cc_category.dart';
-export 'package:cc_sdk_ui/widgets/category/cc_category_item.dart';
 // Banner Widgets
 export 'package:cc_sdk_ui/widgets/banner/cc_list_banner_small.dart';
 // Banner Widgets
 export 'package:cc_sdk_ui/widgets/banner/cc_reward_completion_banner.dart';
-export 'package:cc_sdk_ui/widgets/banner/cc_vip_lock_banner.dart';
 export 'package:cc_sdk_ui/widgets/banner/cc_shape_painter.dart';
+export 'package:cc_sdk_ui/widgets/banner/cc_vip_lock_banner.dart';
 // Base Widgets
 export 'package:cc_sdk_ui/widgets/base/cc_keyboard_dismisser.dart';
 export 'package:cc_sdk_ui/widgets/base/cc_position.dart';
@@ -83,6 +80,9 @@ export 'package:cc_sdk_ui/widgets/button/cc_upload_btn.dart';
 // Card Widgets
 export 'package:cc_sdk_ui/widgets/card/cc_card.dart';
 export 'package:cc_sdk_ui/widgets/card/expanded_collapse_card_widget.dart';
+// Category Widgets
+export 'package:cc_sdk_ui/widgets/category/cc_category.dart';
+export 'package:cc_sdk_ui/widgets/category/cc_category_item.dart';
 // Checkbox Widgets
 export 'package:cc_sdk_ui/widgets/checkbox/cc_check_box.dart';
 // Chip Widgets
@@ -122,6 +122,7 @@ export 'package:cc_sdk_ui/widgets/icon/cc_speech_bubble_icon.dart';
 export 'package:cc_sdk_ui/widgets/inkwell/cc_inkwell.dart';
 // Text Field Widgets
 export 'package:cc_sdk_ui/widgets/input/cc_country_code_selector.dart';
+export 'package:cc_sdk_ui/widgets/input/cc_glassy_input_bar.dart';
 export 'package:cc_sdk_ui/widgets/input/cc_phone_number_input.dart';
 export 'package:cc_sdk_ui/widgets/navigation/cc_curved_navigation_bar.dart';
 export 'package:cc_sdk_ui/widgets/padding/cc_padding.dart';
