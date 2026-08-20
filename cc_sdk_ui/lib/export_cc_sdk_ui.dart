@@ -160,7 +160,9 @@ export 'package:cc_sdk_ui/widgets/state/no_data_response_widget.dart';
 export 'package:cc_sdk_ui/widgets/switches/trigger_switch.dart';
 // Text Widgets
 export 'package:cc_sdk_ui/widgets/text/app_name_widget.dart';
+export 'package:cc_sdk_ui/widgets/text/cc_form_label.dart';
 export 'package:cc_sdk_ui/widgets/text/cc_text.dart';
+export 'package:cc_sdk_ui/widgets/text/cc_text_button.dart';
 export 'package:cc_sdk_ui/widgets/text/cc_text_spans.dart';
 export 'package:cc_sdk_ui/widgets/text/section_des_widget.dart';
 export 'package:cc_sdk_ui/widgets/text/section_title_widget.dart';
