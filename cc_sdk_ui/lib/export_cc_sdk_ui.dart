@@ -82,6 +82,8 @@ export 'package:cc_sdk_ui/widgets/card/cc_card.dart';
 export 'package:cc_sdk_ui/widgets/card/expanded_collapse_card_widget.dart';
 // Category Widgets
 export 'package:cc_sdk_ui/widgets/category/cc_category.dart';
+export 'package:cc_sdk_ui/widgets/category/cc_category_chip.dart';
+export 'package:cc_sdk_ui/widgets/category/cc_category_group_section.dart';
 export 'package:cc_sdk_ui/widgets/category/cc_category_item.dart';
 // Checkbox Widgets
 export 'package:cc_sdk_ui/widgets/checkbox/cc_check_box.dart';
