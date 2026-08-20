@@ -85,6 +85,7 @@ export 'package:cc_sdk_ui/widgets/category/cc_category.dart';
 export 'package:cc_sdk_ui/widgets/category/cc_category_chip.dart';
 export 'package:cc_sdk_ui/widgets/category/cc_category_group_section.dart';
 export 'package:cc_sdk_ui/widgets/category/cc_category_item.dart';
+export 'package:cc_sdk_ui/widgets/category/cc_category_shimmer_list.dart';
 // Checkbox Widgets
 export 'package:cc_sdk_ui/widgets/checkbox/cc_check_box.dart';
 // Chip Widgets
