@@ -26,6 +26,7 @@ class CcTextField extends StatelessWidget {
     this.borderRadius = 12.0,
     this.borderWidth = 1.0,
     this.textAlign = TextAlign.center,
+    this.color,
   });
 
   final TextEditingController controller;
@@ -46,6 +47,7 @@ class CcTextField extends StatelessWidget {
   final double borderRadius;
   final double borderWidth;
   final TextAlign textAlign;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class CcTextField extends StatelessWidget {
           EdgeInsets.only(bottom: context.respPadding(CcPaddingParams.PAGE_MD)),
       height: effectiveHeight,
       decoration: BoxDecoration(
-        color: CcBaseColors.white100,
+        color: color ?? CcBaseColors.white100,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
           color: CcBaseColors.neutral10.withOpacity(0.5),
