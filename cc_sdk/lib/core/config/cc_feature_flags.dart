@@ -39,9 +39,9 @@ abstract final class CcFeatureFlags {
   static bool get isQaDebugToolsEnabled =>
       _getBool('ENABLE_QA_DEBUG_TOOLS', false);
 
-  /// Whether force full access toggle is enabled
-  static bool get isForceFullAccessEnabled =>
-      _getBool('ENABLE_FORCE_FULL_ACCESS', false);
+  /// Whether VIP mode is enabled (bypasses level restrictions for testing)
+  static bool get isVipModeEnabled =>
+      _getBool('ENABLE_VIP_MODE', false);
 
   /// Retrieves a boolean configuration value with a default fallback.
   ///
