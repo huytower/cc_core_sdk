@@ -36,8 +36,8 @@ class CcGlassyInputBar extends StatelessWidget {
     final scheme = context.ccColorScheme;
     final isDark = context.isDarkMode;
 
-    final outerHeight = height ?? context.respDim(65);
-    final innerBarHeight = innerHeight ?? context.respDim(45);
+    final outerHeight = height ?? context.respDim(55);
+    final innerBarHeight = innerHeight ?? context.respDim(35);
     final ir = innerRadius ?? context.brMd;
     final or = outerRadius ?? context.brLg;
 
@@ -45,7 +45,7 @@ class CcGlassyInputBar extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: scheme.shadow.withOpacity(0.06),
+            color: scheme.shadow.withValues(alpha: 0.06),
             blurRadius: context.respDim(24),
             offset: Offset(0, context.respDim(10)),
             spreadRadius: context.respDim(-4),
@@ -83,18 +83,18 @@ class CcGlassyInputBar extends StatelessWidget {
             end: Alignment.bottomRight,
             colors: isDark
                 ? [
-                    scheme.onPrimary.withOpacity(0.15),
-                    scheme.onPrimary.withOpacity(0.08),
+                    scheme.onPrimary.withValues(alpha: 0.15),
+                    scheme.onPrimary.withValues(alpha: 0.08),
                   ]
                 : [
-                    scheme.onPrimary.withOpacity(0.55),
-                    scheme.onPrimary.withOpacity(0.35),
+                    scheme.onPrimary.withValues(alpha: 0.55),
+                    scheme.onPrimary.withValues(alpha: 0.35),
                   ],
           ),
           borderRadius: radius,
           boxShadow: [
             BoxShadow(
-              color: scheme.primary.withOpacity(0.1),
+              color: scheme.primary.withValues(alpha: 0.1),
               blurRadius: context.respDim(12),
               offset: Offset(context.respDim(4), context.respDim(4)),
             ),
@@ -123,7 +123,7 @@ class CcGlassyInputBar extends StatelessWidget {
         color: Colors.transparent,
         borderRadius: radius,
         border: Border.all(
-          color: scheme.onPrimary.withOpacity(0.3),
+          color: scheme.onPrimary.withValues(alpha: 0.3),
           width: context.respDim(1),
         ),
       ),

@@ -123,6 +123,7 @@ export 'package:cc_sdk_ui/widgets/inkwell/cc_inkwell.dart';
 // Text Field Widgets
 export 'package:cc_sdk_ui/widgets/input/cc_country_code_selector.dart';
 export 'package:cc_sdk_ui/widgets/input/cc_glassy_input_bar.dart';
+export 'package:cc_sdk_ui/widgets/input/cc_input_bar_layout.dart';
 export 'package:cc_sdk_ui/widgets/input/cc_phone_number_input.dart';
 export 'package:cc_sdk_ui/widgets/navigation/cc_curved_navigation_bar.dart';
 export 'package:cc_sdk_ui/widgets/padding/cc_padding.dart';
