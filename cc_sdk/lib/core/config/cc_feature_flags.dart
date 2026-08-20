@@ -35,9 +35,6 @@ abstract final class CcFeatureFlags {
   static bool get isCertificatePinningEnabled =>
       _getBool('ENABLE_CERT_PINNING', true);
 
-  /// Whether VIP mode is enabled (bypasses level restrictions for testing)
-  static bool get isVipModeEnabled => _getBool('ENABLE_VIP_MODE', false);
-
   /// Retrieves a boolean configuration value with a default fallback.
   ///
   /// [key]: The environment variable key to look up

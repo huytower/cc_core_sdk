@@ -49,11 +49,9 @@ class CcCategoryGroupSection extends StatelessWidget {
               )
             : Icons.category_rounded);
 
-    return CcSymmetricPadding(
-      horizontal: CcPaddingParams.PAGE_SM,
-      vertical: CcPaddingParams.SPACE_XS,
-      child: ClipRRect(
-        borderRadius: context.brXl,
+    return CcPadding(
+      ClipRRect(
+        borderRadius: BorderRadius.horizontal(left: context.brMd.topLeft),
         child: Stack(
           children: [
             // Tinted Background
@@ -79,7 +77,7 @@ class CcCategoryGroupSection extends StatelessWidget {
                   controller: controller,
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.symmetric(
-                    horizontal: context.respPadding(CcPaddingParams.PAGE_SM),
+                    horizontal: context.respPadding(CcPaddingParams.SPACE_SM),
                   ),
                   itemCount: items.length,
                   separatorBuilder: (_, _) => const CcSpaceSM(),
@@ -101,6 +99,10 @@ class CcCategoryGroupSection extends StatelessWidget {
           ],
         ),
       ),
+      CcPaddingParams.SPACE_XS,
+      CcPaddingParams.PAGE_SM,
+      0,
+      CcPaddingParams.SPACE_XS,
     );
   }
 }
