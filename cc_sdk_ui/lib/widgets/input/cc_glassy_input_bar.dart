@@ -36,8 +36,8 @@ class CcGlassyInputBar extends StatelessWidget {
     final scheme = context.ccColorScheme;
     final isDark = context.isDarkMode;
 
-    final outerHeight = height ?? context.respDim(55);
-    final innerBarHeight = innerHeight ?? context.respDim(35);
+    final outerHeight = height ?? context.respDim(50);
+    final innerBarHeight = innerHeight ?? context.respDim(30);
     final ir = innerRadius ?? context.brMd;
     final or = outerRadius ?? context.brLg;
 

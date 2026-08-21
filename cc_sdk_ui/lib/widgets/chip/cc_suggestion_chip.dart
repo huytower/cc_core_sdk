@@ -44,15 +44,15 @@ class CcSuggestionChip extends StatelessWidget {
 
     return CcInkWell(
       onTap: onTap,
-      borderRadius: context.brMd,
+      borderRadius: context.brXs,
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: context.respDim(10),
-          vertical: context.respDim(8),
+          horizontal: context.respDim(4),
+          vertical: context.respDim(2),
         ),
         decoration: BoxDecoration(
           color: accentColor.withAlpha(15),
-          borderRadius: context.brMd,
+          borderRadius: context.brXs,
         ),
         child: Row(
           children: [
@@ -69,14 +69,13 @@ class CcSuggestionChip extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 textStyle: context.ccTextTheme.labelMedium?.copyWith(
                   color: accentColor,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             if (onDismiss != null)
               CcInkWell(
                 onTap: onDismiss,
-                borderRadius: context.brSm,
+                borderRadius: context.brXs,
                 child: Icon(
                   Icons.close,
                   size: context.respIconSize(baseSize: 16),
