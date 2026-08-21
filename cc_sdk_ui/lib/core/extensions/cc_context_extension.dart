@@ -56,6 +56,18 @@ extension CcContextExtension on BuildContext {
   /// Gets the screen type as an enum.
   ScreenType get screenType => CcResponsiveHelper.getScreenType(this);
 
+  /// A reusable vertical linear gradient using the theme's primary color.
+  LinearGradient get primaryVerticalGradient =>
+      verticalGradient(ccColorScheme.primary);
+
+  /// A reusable vertical linear gradient using the provided [color].
+  LinearGradient verticalGradient(Color color) => LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [color.withAlpha(10), color.withAlpha(70)],
+    stops: const [0.0, 1.0],
+  );
+
   /// A [TextTheme] copy whose font sizes are scaled to the current screen size.
   ///
   /// The base [CcTextStyle] tokens are fixed logical pixels (e.g.

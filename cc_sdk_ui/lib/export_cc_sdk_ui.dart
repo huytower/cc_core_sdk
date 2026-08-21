@@ -177,3 +177,5 @@ export 'package:cc_sdk_ui/widgets/text_field/password_text_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/phone_number_otp_text_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/phone_number_text_field.dart';
 export 'package:cc_sdk_ui/widgets/toasts/toast.dart';
+// Wallet Widgets
+export 'package:cc_sdk_ui/widgets/wallet/cc_wallet_item.dart';

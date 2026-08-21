@@ -28,14 +28,42 @@ class CcNameInputField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        hintStyle: context.ccTextTheme.labelSmall?.copyWith(
+          color: context.ccColorScheme.onSurfaceVariant.withAlpha(70),
+        ),
+        labelStyle: context.ccTextTheme.labelSmall?.copyWith(
+          color: context.ccColorScheme.onSurfaceVariant.withAlpha(70),
+        ),
+        filled: true,
+        fillColor: context.ccColorScheme.surfaceVariant.withAlpha(80),
+        border: OutlineInputBorder(
+          borderRadius: context.brMd,
+          borderSide: BorderSide(
+            color: context.ccColorScheme.outlineVariant.withAlpha(10),
+            width: 0.4,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: context.brMd,
+          borderSide: BorderSide(
+            color: context.ccColorScheme.outlineVariant.withAlpha(10),
+            width: 0.4,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: context.brMd,
+          borderSide: BorderSide(
+            color: context.ccColorScheme.outlineVariant.withAlpha(10),
+            width: 0.4,
+          ),
+        ),
         suffixIcon: hasValue
             ? CcIconButton.bouncing(
                 width: context.respDim(20),
                 height: context.respDim(20),
                 icon: Icon(
                   Icons.close_rounded,
-                  color: context.ccColorScheme.onSurfaceVariant.withAlpha(120),
+                  color: context.ccColorScheme.onSurfaceVariant.withAlpha(80),
                   size: context.respIconSize(baseSize: 14),
                 ),
                 onTap: () {
