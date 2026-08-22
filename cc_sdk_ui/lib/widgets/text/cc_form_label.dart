@@ -6,17 +6,23 @@ import 'package:flutter/material.dart';
 class CcFormLabel extends StatelessWidget {
   final String text;
   final Color? color;
+  final Alignment? align;
+  final TextAlign? textAlign;
 
   const CcFormLabel({
     super.key,
     required this.text,
     this.color,
+    this.align,
+    this.textAlign,
   });
 
   @override
   Widget build(BuildContext context) {
     return CcText(
       text,
+      align: align,
+      textAlign: textAlign,
       textStyle: context.ccTextTheme.labelMedium?.copyWith(
         color: color ?? context.ccColorScheme.onSurfaceVariant,
         fontWeight: FontWeight.bold,
