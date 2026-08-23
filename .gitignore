@@ -2,6 +2,8 @@
 .dart_tool/
 .packages
 .pub/
+.refact/
+**/.refact/
 .flutter-plugins
 .flutter-plugins-dependencies
 .metadata
