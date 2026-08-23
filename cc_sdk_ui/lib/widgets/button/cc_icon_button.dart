@@ -86,7 +86,7 @@ class CcIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double defaultSize = context.respDim(40.0);
+    final double defaultSize = context.respDim(30.0);
 
     final Widget button = Opacity(
       opacity: isEnable ? 1.0 : 0.5,
