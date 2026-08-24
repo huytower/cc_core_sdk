@@ -16,13 +16,13 @@ abstract class CcSdkDependencies {
   Future<SharedPreferences> get sharedPreferences =>
       SharedPreferences.getInstance();
 
-  @singleton
+  @lazySingleton
   InternetConnection get internetConnection => InternetConnection();
 
-  @singleton
+  @lazySingleton
   Connectivity get connectivity => Connectivity();
 
-  @singleton
+  @lazySingleton
   DeviceInfoPlugin get deviceInfoPlugin => DeviceInfoPlugin();
 
   /// Centralized provider for device model, moved from infrastructure_module.dart
