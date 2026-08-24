@@ -54,6 +54,7 @@ export 'package:cc_sdk_ui/widgets/base/cc_scroll_view.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_back_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_base_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_bounce_animation.dart';
+export 'package:cc_sdk_ui/widgets/button/cc_bouncing.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_cancel_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_clear_btn.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
@@ -172,6 +173,7 @@ export 'package:cc_sdk_ui/widgets/text/title_widget.dart';
 // Text Field Widgets
 export 'package:cc_sdk_ui/widgets/text_field/base_text_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/cc_name_input_field.dart';
+export 'package:cc_sdk_ui/widgets/text_field/cc_note_input_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/cc_text_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/password_text_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/phone_number_otp_text_field.dart';

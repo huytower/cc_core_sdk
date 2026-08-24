@@ -15,7 +15,7 @@ dependencies:
   cc_sdk:
     path: ../cc_sdk
   curved_navigation_bar_pro: ^2.0.6
-  custom_refresh_indicator: ^4.0.1
+  custom_refresh_indicator: ^4.0.2
   easy_localization: ^3.0.8
   flutter:
     sdk: flutter
@@ -36,4 +36,4 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-  build_runner: ^2.15.0
+  build_runner: ^2.15.1

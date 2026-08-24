@@ -76,7 +76,7 @@ class CcCountryCodeSelector extends StatelessWidget {
     final dialCode = countryCode.replaceAll('+', '');
     final flagEmoji = _getFlagEmoji(dialCode);
 
-    return CcInkWell(
+    return CcBouncing(
       onTap: onTap,
       borderRadius: BorderRadius.circular(
         context.respDim(CcPaddingParams.DESC_SM),

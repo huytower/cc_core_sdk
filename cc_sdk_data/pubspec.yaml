@@ -5,12 +5,12 @@ version: 1.0.0+1
 
 environment:
   sdk: '^3.12.0'
-  flutter: '>=3.41.9'
+  flutter: '^3.44.3'
 
 resolution: workspace
 
 dependencies:
-  equatable: ^2.0.8
+  equatable: ^2.1.0
   flutter:
     sdk: flutter
 

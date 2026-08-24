@@ -23,7 +23,7 @@ class CcCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = context.ccColorScheme;
-    return CcInkWell(
+    return CcBouncing(
       onTap: onTap,
       borderRadius: context.brLg,
       child: Stack(

@@ -48,7 +48,9 @@ class CcLocationHelper {
       }
 
       final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+        ),
       );
       return position;
     } catch (e) {
@@ -81,10 +83,8 @@ class CcLocationHelper {
       }
 
       // Use geocoding to get country from coordinates
-      final List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.latitude,
-        position.longitude,
-      );
+      final List<Placemark> placemarks = await Geocoding()
+          .placemarkFromCoordinates(position.latitude, position.longitude);
 
       if (placemarks.isNotEmpty) {
         final isoCode = placemarks.first.isoCountryCode;

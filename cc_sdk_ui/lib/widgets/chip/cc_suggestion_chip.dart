@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
-import '../inkwell/cc_inkwell.dart';
+import '../button/cc_bouncing.dart';
 import '../space/cc_space.dart';
 import '../text/cc_text.dart';
 
@@ -42,7 +42,7 @@ class CcSuggestionChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = context.ccColorScheme;
 
-    return CcInkWell(
+    return CcBouncing(
       onTap: onTap,
       borderRadius: context.brXs,
       child: Container(
@@ -73,9 +73,10 @@ class CcSuggestionChip extends StatelessWidget {
               ),
             ),
             if (onDismiss != null)
-              CcInkWell(
+              CcBouncing(
                 onTap: onDismiss,
                 borderRadius: context.brXs,
+                useDebounce: true,
                 child: Icon(
                   Icons.close,
                   size: context.respIconSize(baseSize: 16),

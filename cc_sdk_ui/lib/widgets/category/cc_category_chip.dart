@@ -36,7 +36,7 @@ class CcCategoryChip extends StatelessWidget {
         ? primary
         : context.ccColorScheme.onSurfaceVariant;
 
-    return CcInkWell(
+    return CcBouncing(
       onTap: onTap,
       borderRadius: context.brXl,
       child: AnimatedContainer(

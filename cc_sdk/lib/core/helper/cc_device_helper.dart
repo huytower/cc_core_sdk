@@ -72,9 +72,10 @@ class CcDeviceHelper {
     double heightKeyboard = MediaQuery.of(context).viewInsets.bottom;
 
     if (heightKeyboard <= 0) {
-      heightKeyboard = EdgeInsets.fromWindowPadding(
-        WidgetsBinding.instance.window.viewInsets,
-        WidgetsBinding.instance.window.devicePixelRatio,
+      final view = View.of(context);
+      heightKeyboard = EdgeInsets.fromViewPadding(
+        view.viewInsets,
+        view.devicePixelRatio,
       ).bottom;
     }
 
