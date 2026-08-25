@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
 import 'package:cc_sdk/core/crash_reporting/cc_crashlytics_handler.dart';
+import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -16,9 +17,11 @@ class _JsonConsoleHandler extends ConsoleHandler {
       // This is likely a device info report, log as JSON
       final deviceInfo = _extractDeviceInfo(report);
       if (deviceInfo.isNotEmpty) {
-        print('------- DEVICE INFO (JSON) -------');
-        print(const JsonEncoder.withIndent('  ').convert(deviceInfo));
-        print('----------------------------------');
+        '------- DEVICE INFO (JSON) -------'.Log('device-info');
+        const JsonEncoder.withIndent(
+          '  ',
+        ).convert(deviceInfo).Log('device-info');
+        '----------------------------------'.Log('device-info');
         return true;
       }
     }

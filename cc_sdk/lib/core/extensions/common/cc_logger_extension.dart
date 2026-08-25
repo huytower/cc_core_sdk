@@ -65,9 +65,9 @@ extension CcLoggerExtension<T> on T {
             : '\n$tagName $url';
         if (!kDebugMode) return;
         if (tag.isNotEmpty) {
-          print('$prefix\n💬 $tagDisplay$content');
+          '$prefix\n💬 $tagDisplay$content'.Log();
         } else {
-          print('$prefix\n💬 $content');
+          '$prefix\n💬 $content'.Log();
         }
       },
     );
