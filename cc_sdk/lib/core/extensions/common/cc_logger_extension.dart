@@ -64,11 +64,13 @@ extension CcLoggerExtension<T> on T {
             ? '\n$now $tagName $url'
             : '\n$tagName $url';
         if (!kDebugMode) return;
-        if (tag.isNotEmpty) {
-          '$prefix\n💬 $tagDisplay$content'.Log();
-        } else {
-          '$prefix\n💬 $content'.Log();
-        }
+        final message = tag.isNotEmpty
+            ? '$prefix\n💬 $tagDisplay$content'
+            : '$prefix\n💬 $content';
+        developer.log(
+          message,
+          name: tag.isEmpty ? tagName.trim() : '$tagName $url',
+        );
       },
     );
 
