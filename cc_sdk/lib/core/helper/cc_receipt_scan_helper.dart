@@ -5,12 +5,9 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 import 'package:image_picker/image_picker.dart';
 
 /// A receipt/screenshot image picked via [CcReceiptScanHelper.pickReceiptImage]
-/// — carries the file path (for on-device OCR, which needs a path), the raw
-/// bytes and their real [mimeType] (for the cloud Gemini-vision fallback,
-/// which needs both). Deliberately not [XFile] itself — callers
-/// (`domain_features`) never take `image_picker` as a direct dependency,
-/// same convention as every other `Cc*Helper` encapsulating a platform
-/// package.
+/// — carries the file path (on-device OCR needs a path) plus the raw bytes
+/// and real [mimeType] (the cloud Gemini-vision fallback needs both). Not
+/// [XFile] itself, so callers never need a direct `image_picker` dependency.
 class PickedReceiptImage {
   const PickedReceiptImage({
     required this.path,
@@ -23,10 +20,9 @@ class PickedReceiptImage {
   final String mimeType;
 }
 
-/// Outcome of [CcReceiptScanHelper.pickReceiptImage] — always returned (the
-/// method itself never throws), but distinguishes *why* [image] is null so
-/// callers can surface a "permission denied, check Settings" message instead
-/// of silently no-op'ing the same way a plain user-cancelled pick does.
+/// Outcome of [CcReceiptScanHelper.pickReceiptImage] — distinguishes *why*
+/// [image] is null so callers can show "permission denied" vs. silently
+/// no-op on a plain cancel.
 class ReceiptPickResult {
   const ReceiptPickResult({this.image, this.permissionDenied = false});
 
@@ -34,12 +30,9 @@ class ReceiptPickResult {
   final bool permissionDenied;
 }
 
-/// Phase 3.7 receipt-photo quick entry: picks an image (camera or gallery)
-/// and runs on-device OCR on it. Fails silently on any error (cancelled
-/// picker, denied permission, unreadable file) — same convention as
-/// [CcLocationHelper]/[CcSpeechHelper] — since this backs a best-effort local
-/// extraction that must degrade to "couldn't understand, please fill
-/// manually" rather than crash.
+/// Picks a receipt image (camera or gallery) and runs on-device OCR on it.
+/// Fails silently on any error — backs a best-effort local extraction that
+/// must degrade gracefully rather than crash.
 abstract final class CcReceiptScanHelper {
   static final ImagePicker _picker = ImagePicker();
 
@@ -47,11 +40,9 @@ abstract final class CcReceiptScanHelper {
     required bool fromCamera,
   }) async {
     try {
-      // imageQuality is NOT a reliable JPEG guarantee — both platforms'
-      // pickers skip re-encoding (and ignore imageQuality) for images with
-      // an alpha channel, which covers most PNG screenshots (the common
-      // gallery source for this feature). Sniff the real format from the
-      // bytes instead of trusting the request param.
+      // imageQuality isn't a reliable JPEG guarantee — both platforms skip
+      // re-encoding for images with an alpha channel (most PNG screenshots).
+      // Sniff the real format from the bytes instead.
       final file = await _picker.pickImage(
         source: fromCamera ? ImageSource.camera : ImageSource.gallery,
         imageQuality: 85,
@@ -78,12 +69,9 @@ abstract final class CcReceiptScanHelper {
     }
   }
 
-  /// Sniffs the image format from its magic-number header rather than
-  /// trusting the picker request/file extension — see [pickReceiptImage]'s
-  /// comment for why. Returns null (rather than guessing JPEG) when the
-  /// header doesn't match a known signature, so a corrupt/unrecognized file
-  /// fails the pick outright instead of being sent to the cloud fallback
-  /// under a wrong MIME type.
+  /// Sniffs the format from the magic-number header; null (not a guessed
+  /// JPEG) on an unrecognized signature, so a corrupt file fails the pick
+  /// rather than reaching the cloud fallback under a wrong MIME type.
   static String? _detectImageMimeType(Uint8List bytes) {
     if (bytes.length >= 4 &&
         bytes[0] == 0x89 &&
