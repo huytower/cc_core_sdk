@@ -8,13 +8,10 @@ import 'package:firebase_ai/firebase_ai.dart';
 // class.
 export 'package:firebase_ai/firebase_ai.dart' show Schema, SchemaType;
 
-/// Thin wrapper around Firebase AI Logic's Gemini access, encapsulated so
-/// callers never need a direct `firebase_ai` dependency of their own (same
-/// convention as [CcLocationHelper] wrapping `geolocator`). Fails silently
-/// on any error — including "Gemini API not enabled for this Firebase
-/// project yet" — since this backs a best-effort cloud fallback that must
-/// degrade gracefully to "couldn't understand, please fill manually" rather
-/// than crash.
+/// Thin wrapper around Firebase AI Logic's Gemini access, so callers never
+/// need a direct `firebase_ai` dependency. Fails silently on any error —
+/// this backs a best-effort cloud fallback that must degrade gracefully
+/// rather than crash.
 class CcGeminiHelper {
   CcGeminiHelper._();
 
@@ -28,9 +25,7 @@ class CcGeminiHelper {
     );
   }
 
-  /// Forces strict JSON mode constrained to [responseSchema] when given —
-  /// null leaves the model on its default free-text output, so callers that
-  /// just want prose (e.g. financial-advice generation) are unaffected.
+  /// Null [responseSchema] leaves the model on default free-text output.
   static GenerationConfig? _jsonConfig(Schema? responseSchema) {
     if (responseSchema == null) return null;
     return GenerationConfig(
@@ -39,12 +34,9 @@ class CcGeminiHelper {
     );
   }
 
-  /// Sends [prompt] to Gemini and returns the raw text response, or null on
-  /// any failure (API not enabled, network error, safety-filtered response,
-  /// etc.). Pass [responseSchema] to constrain the reply to strict JSON
-  /// matching that schema — Gemini then returns explicit `null`s for
-  /// fields it can't determine instead of omitting them or wrapping the
-  /// reply in prose/markdown fences.
+  /// Returns the raw text response, or null on any failure. [responseSchema]
+  /// constrains the reply to strict JSON, so unresolved fields come back as
+  /// explicit `null` instead of being omitted or wrapped in prose/markdown.
   static Future<String?> generateText({
     required String prompt,
     Schema? responseSchema,
@@ -61,9 +53,7 @@ class CcGeminiHelper {
   }
 
   /// Same contract as [generateText], but sends [imageBytes] alongside
-  /// [prompt] (multimodal) — backs the Phase 3.7 receipt-photo cloud
-  /// fallback, where the image itself is more reliable than pre-extracted
-  /// OCR text for small/faded receipt print.
+  /// [prompt] (multimodal).
   static Future<String?> generateFromImage({
     required Uint8List imageBytes,
     required String mimeType,
