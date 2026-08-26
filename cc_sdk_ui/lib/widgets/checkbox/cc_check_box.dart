@@ -9,24 +9,31 @@ class CcCheckBox extends StatelessWidget {
     required this.onChanged,
     this.interactionType = CcInteractionType.bounce,
     this.useDebounce = true,
+    this.checkedColor,
+    this.uncheckedBorderColor,
   });
 
   final bool isChecked;
   final ValueChanged<bool> onChanged;
   final CcInteractionType interactionType;
   final bool useDebounce;
+  final Color? checkedColor;
+  final Color? uncheckedBorderColor;
 
   @override
   Widget build(BuildContext context) {
+    final effectiveCheckedColor = checkedColor ?? context.ccColorScheme.primary;
+    final effectiveUncheckedBorderColor =
+        uncheckedBorderColor ?? context.ccColorScheme.outline;
     final baseContent = Container(
-      width: context.respIconSize(baseSize: 24.0),
-      height: context.respIconSize(baseSize: 24.0),
+      width: context.respIconSize(baseSize: 18.0),
+      height: context.respIconSize(baseSize: 18.0),
       decoration: BoxDecoration(
-        color: isChecked ? context.ccColorScheme.primary : Colors.transparent,
+        color: isChecked ? effectiveCheckedColor : Colors.transparent,
         border: Border.all(
           color: isChecked
-              ? context.ccColorScheme.primary
-              : context.ccColorScheme.outline,
+              ? effectiveCheckedColor
+              : effectiveUncheckedBorderColor,
           width: 2,
         ),
         borderRadius: BorderRadius.circular(CcCircularParams.RADIUS_XS),
