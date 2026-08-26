@@ -9,7 +9,7 @@ class BaseTextField extends StatelessWidget {
     this.hintText,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
-    this.prefixIcon,
+    this.prefix,
     this.suffixIcon,
     this.onChanged,
     this.validator,
@@ -19,7 +19,7 @@ class BaseTextField extends StatelessWidget {
   final String? hintText;
   final bool obscureText;
   final TextInputType keyboardType;
-  final Widget? prefixIcon;
+  final Widget? prefix;
   final Widget? suffixIcon;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
@@ -37,7 +37,7 @@ class BaseTextField extends StatelessWidget {
           validator: validator,
           decoration: InputDecoration(
             hintText: hintText,
-            prefixIcon: prefixIcon,
+            prefix: prefix,
             suffixIcon: suffixIcon,
             border: InputBorder.none,
             enabledBorder: InputBorder.none,

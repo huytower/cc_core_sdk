@@ -8,7 +8,6 @@ class CcNoteInputField extends StatelessWidget {
     super.key,
     required this.controller,
     this.hintText,
-    this.prefixIcon,
     this.onCopy,
     this.onClear,
     this.onTap,
@@ -23,7 +22,6 @@ class CcNoteInputField extends StatelessWidget {
 
   final TextEditingController controller;
   final String? hintText;
-  final Widget? prefixIcon;
   final VoidCallback? onCopy;
   final VoidCallback? onClear;
   final VoidCallback? onTap;
@@ -49,7 +47,6 @@ class CcNoteInputField extends StatelessWidget {
       height: height,
       color: color,
       borderColor: borderColor,
-      prefixIcon: prefixIcon,
       suffixIcon: hasText
           ? Row(
               mainAxisSize: MainAxisSize.min,

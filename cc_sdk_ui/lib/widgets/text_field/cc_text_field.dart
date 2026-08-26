@@ -12,7 +12,7 @@ class CcTextField extends StatelessWidget {
     this.hintText,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
-    this.prefixIcon,
+    this.prefix,
     this.suffixIcon,
     this.onChanged,
     this.validator,
@@ -34,7 +34,7 @@ class CcTextField extends StatelessWidget {
   final String? hintText;
   final bool obscureText;
   final TextInputType keyboardType;
-  final Widget? prefixIcon;
+  final Widget? prefix;
   final Widget? suffixIcon;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
@@ -97,7 +97,7 @@ class CcTextField extends StatelessWidget {
           hintStyle: context.ccTextTheme.bodyMedium?.copyWith(
             color: context.ccColorScheme.onSurfaceVariant.withAlpha(50),
           ),
-          prefixIcon: prefixIcon,
+          prefix: prefix,
           suffixIcon: suffixIcon,
           isDense: true,
           contentPadding: EdgeInsets.symmetric(
