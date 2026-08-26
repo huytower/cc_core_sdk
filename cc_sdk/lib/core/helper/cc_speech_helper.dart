@@ -31,7 +31,7 @@ class CcSpeechHelper {
     _initLock = completer.future;
     await previous;
     try {
-      if (_initialized && await _speech.hasPermission) return true;
+      if (_initialized) return true;
 
       final ready = await _speech.initialize(
         debugLogging: true,
@@ -43,7 +43,6 @@ class CcSpeechHelper {
         },
         onError: (error) {
           'Speech recognition error: ${error.errorMsg}'.Log('CcSpeechHelper');
-          _initialized = false;
           _onListeningStopped?.call();
         },
       );
@@ -51,7 +50,6 @@ class CcSpeechHelper {
       return ready;
     } catch (e) {
       'Speech recognition initialization failed: $e'.Log('CcSpeechHelper');
-      _initialized = false;
       return false;
     } finally {
       completer.complete();
@@ -70,7 +68,6 @@ class CcSpeechHelper {
     void Function()? onListeningStopped,
     String localeId = 'vi_VN',
   }) async {
-    // If already listening, treat as success (nothing more to start)
     if (_speech.isListening) return true;
 
     try {
@@ -81,13 +78,11 @@ class CcSpeechHelper {
 
       _onListeningStopped = onListeningStopped;
       await _speech.listen(
-        listenOptions: SpeechListenOptions(
-          localeId: localeId,
-          cancelOnError: true,
-          partialResults: true,
-        ),
         onResult: (result) =>
             onResult(result.recognizedWords, result.finalResult),
+        localeId: localeId,
+        cancelOnError: false,
+        partialResults: true,
       );
       return true;
     } catch (_) {
