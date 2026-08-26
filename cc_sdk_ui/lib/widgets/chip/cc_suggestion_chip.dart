@@ -4,6 +4,7 @@ import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../button/cc_bouncing.dart';
+import '../button/cc_clear_btn.dart';
 import '../space/cc_space.dart';
 import '../text/cc_text.dart';
 
@@ -51,7 +52,7 @@ class CcSuggestionChip extends StatelessWidget {
           vertical: context.respDim(2),
         ),
         decoration: BoxDecoration(
-          color: accentColor.withAlpha(15),
+          color: accentColor.withAlpha(80),
           borderRadius: context.brXs,
         ),
         child: Row(
@@ -59,7 +60,7 @@ class CcSuggestionChip extends StatelessWidget {
             Icon(
               icon,
               size: context.respIconSize(baseSize: 16),
-              color: accentColor,
+              color: context.ccColorScheme.surface,
             ),
             const CcSpaceXS(),
             Expanded(
@@ -68,20 +69,15 @@ class CcSuggestionChip extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textStyle: context.ccTextTheme.labelMedium?.copyWith(
-                  color: accentColor,
+                  color: context.ccColorScheme.surface,
                 ),
               ),
             ),
             if (onDismiss != null)
-              CcBouncing(
-                onTap: onDismiss,
-                borderRadius: context.brXs,
-                useDebounce: true,
-                child: Icon(
-                  Icons.close,
-                  size: context.respIconSize(baseSize: 16),
-                  color: scheme.onSurfaceVariant,
-                ),
+              CcClearBtn(
+                onTap: onDismiss!,
+                color: context.ccColorScheme.surface,
+                baseIconSize: 16,
               ),
           ],
         ),
