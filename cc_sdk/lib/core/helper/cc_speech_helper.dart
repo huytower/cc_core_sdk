@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:speech_to_text/speech_to_text.dart';
 
+import '../extensions/common/cc_logger_extension.dart';
+
 /// On-device speech-to-text, encapsulated so callers never need a direct
 /// `speech_to_text` dependency. Fails silently on any error.
 ///
@@ -29,7 +31,8 @@ class CcSpeechHelper {
     _initLock = completer.future;
     await previous;
     try {
-      if (_initialized) return true;
+      if (_initialized && await _speech.hasPermission) return true;
+
       final ready = await _speech.initialize(
         debugLogging: true,
         onStatus: (status) {
@@ -38,9 +41,18 @@ class CcSpeechHelper {
             _onListeningStopped?.call();
           }
         },
+        onError: (error) {
+          'Speech recognition error: ${error.errorMsg}'.Log('CcSpeechHelper');
+          _initialized = false;
+          _onListeningStopped?.call();
+        },
       );
       _initialized = ready;
       return ready;
+    } catch (e) {
+      'Speech recognition initialization failed: $e'.Log('CcSpeechHelper');
+      _initialized = false;
+      return false;
     } finally {
       completer.complete();
     }
@@ -58,17 +70,22 @@ class CcSpeechHelper {
     void Function()? onListeningStopped,
     String localeId = 'vi_VN',
   }) async {
-    if (_speech.isListening) return false;
+    // If already listening, treat as success (nothing more to start)
+    if (_speech.isListening) return true;
+
     try {
       final ready = await _ensureInitialized();
       if (!ready) return false;
-      // Re-check after the awaited initialize() — another caller could
-      // have started (and even finished) a session while this one was
-      // waiting its turn to initialize.
-      if (_speech.isListening) return false;
+
+      if (_speech.isListening) return true;
+
       _onListeningStopped = onListeningStopped;
       await _speech.listen(
-        listenOptions: SpeechListenOptions(localeId: localeId),
+        listenOptions: SpeechListenOptions(
+          localeId: localeId,
+          cancelOnError: true,
+          partialResults: true,
+        ),
         onResult: (result) =>
             onResult(result.recognizedWords, result.finalResult),
       );
@@ -79,8 +96,11 @@ class CcSpeechHelper {
   }
 
   static Future<void> stopListening() async {
+    _onListeningStopped = null;
     try {
-      await _speech.stop();
+      if (_speech.isListening) {
+        await _speech.stop();
+      }
     } catch (_) {
       // Best-effort — nothing more to do if the platform call fails.
     }
