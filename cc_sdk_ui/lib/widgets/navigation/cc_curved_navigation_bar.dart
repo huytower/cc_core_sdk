@@ -148,7 +148,7 @@ class CcCurvedNavigationBar extends StatelessWidget {
       activeIconColor: themeActiveIconColor,
       inactiveColor: themeInactiveColor,
       fabColor: themeFabColor,
-      barHeight: barHeight ?? context.respDim(110),
+      barHeight: barHeight ?? context.respDim(77),
       fabRadius: fabRadius ?? context.respDim(CcCircularParams.FAB),
       fabGap: fabGap ?? context.respDim(3),
       fabSink: fabSink ?? context.respDim(50),
