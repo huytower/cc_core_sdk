@@ -115,8 +115,8 @@ extension CcContextExtension on BuildContext {
   // GRADIENT TOKENS
   // ==========================================================================
 
-  /// A reusable glassy vertical gradient for card/container backgrounds.
-  LinearGradient get gradientSubtle => LinearGradient(
+  /// A reusable glassy vertical gradient for card/container surfaces.
+  LinearGradient get surfaceGradient => LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [
