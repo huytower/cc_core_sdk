@@ -26,18 +26,20 @@ class CcGlassyGradientBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        context.ccColorScheme.onPrimary.withAlpha(15),
+        centerColor ?? context.ccColorScheme.primary.withAlpha(30),
+        endColor ?? context.ccColorScheme.primary.withAlpha(50),
+      ],
+      stops: stops ?? const [0.0, 0.4, 1.0],
+    );
+
     final decoration = BoxDecoration(
       borderRadius: context.brLg,
-      gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          context.ccColorScheme.onPrimary.withAlpha(15), // 15% white highlight
-          centerColor ?? context.ccColorScheme.primary.withAlpha(30),
-          endColor ?? context.ccColorScheme.primary.withAlpha(50),
-        ],
-        stops: stops ?? const [0.0, 0.4, 1.0],
-      ),
+      gradient: gradient,
     );
 
     return DecoratedBox(decoration: decoration);
@@ -63,18 +65,20 @@ class CcGlassyGradientIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        context.ccColorScheme.onPrimary.withAlpha(15),
+        centerColor ?? context.ccColorScheme.primary.withAlpha(30),
+        endColor ?? context.ccColorScheme.primary.withAlpha(50),
+      ],
+      stops: stops ?? const [0.0, 0.4, 1.0],
+    );
+
     final decoration = BoxDecoration(
       borderRadius: context.brLg,
-      gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          context.ccColorScheme.onPrimary.withAlpha(15), // 15% white highlight
-          centerColor ?? context.ccColorScheme.primary.withAlpha(30),
-          endColor ?? context.ccColorScheme.primary.withAlpha(50),
-        ],
-        stops: stops ?? const [0.0, 0.4, 1.0],
-      ),
+      gradient: gradient,
     );
 
     return DecoratedBox(decoration: decoration);

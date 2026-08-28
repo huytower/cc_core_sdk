@@ -1,6 +1,9 @@
 import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/material.dart';
 
+import '../config/tokens/cc_border_params.dart';
+import 'common/cc_responsive_extension.dart';
+
 /// Extension on BuildContext to easily access project-standard theme properties.
 ///
 /// This provides a state-management and font-agnostic way for widgets in the
@@ -107,4 +110,42 @@ extension CcContextExtension on BuildContext {
       labelSmall: scale(base.labelSmall),
     );
   }
+
+  // ==========================================================================
+  // GRADIENT TOKENS
+  // ==========================================================================
+
+  /// A reusable glassy vertical gradient for card/container backgrounds.
+  LinearGradient get gradientSubtle => LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      ccColorScheme.onPrimary.withAlpha(15),
+      ccColorScheme.primaryContainer.withAlpha(30),
+      ccColorScheme.primaryContainer.withAlpha(50),
+    ],
+    stops: const [0.0, 0.4, 1.0],
+  );
+
+  // ==========================================================================
+  // BORDER TOKENS
+  // ==========================================================================
+
+  /// A subtle border for cards and containers.
+  Border get borderSubtle => Border.all(
+    color: ccColorScheme.onSurface.withOpacity(0.08),
+    width: respDim(CcBorderParams.subtleWidth),
+  );
+
+  /// A medium-weight border for elevated components.
+  Border get borderMedium => Border.all(
+    color: ccColorScheme.onSurface.withOpacity(0.12),
+    width: respDim(CcBorderParams.mediumWidth),
+  );
+
+  /// A strong border for focused or active states.
+  Border get borderStrong => Border.all(
+    color: ccColorScheme.primary,
+    width: respDim(CcBorderParams.strongWidth),
+  );
 }
