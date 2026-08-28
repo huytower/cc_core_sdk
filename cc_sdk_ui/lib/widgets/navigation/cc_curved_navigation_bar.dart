@@ -149,7 +149,7 @@ class CcCurvedNavigationBar extends StatelessWidget {
       inactiveColor: themeInactiveColor,
       fabColor: themeFabColor,
       barHeight: barHeight ?? context.respDim(77),
-      fabRadius: fabRadius ?? context.respDim(CcCircularParams.FAB),
+      fabRadius: fabRadius ?? context.respDim(CcCircularParams.FAB * 2 / 3),
       fabGap: fabGap ?? context.respDim(3),
       fabSink: fabSink ?? context.respDim(50),
       notchShoulderRadius:
@@ -163,12 +163,12 @@ class CcCurvedNavigationBar extends StatelessWidget {
       activeTextStyle:
           activeTextStyle ??
           context.ccTextTheme.labelMedium?.copyWith(
-            fontWeight: CcTypographyParams.bold
+            fontWeight: CcTypographyParams.bold,
           ),
       inactiveTextStyle:
           inactiveTextStyle ??
           context.ccTextTheme.labelMedium?.copyWith(
-            fontWeight: CcTypographyParams.regular
+            fontWeight: CcTypographyParams.regular,
           ),
       inactiveIconSize: inactiveIconSize ?? context.respIconSize(baseSize: 29),
       activeIconSize: activeIconSize ?? context.respIconSize(baseSize: 26),
