@@ -7,6 +7,7 @@ class CcIcon extends StatelessWidget {
   final double? size;
   final Color? color;
   final Alignment? align;
+  final EdgeInsets? padding;
 
   const CcIcon({
     super.key,
@@ -14,18 +15,16 @@ class CcIcon extends StatelessWidget {
     this.size,
     this.color,
     this.align,
+    this.padding,
   });
 
   @override
   Widget build(BuildContext context) => Align(
     alignment: align ?? Alignment.center,
-    child: Padding(
-      padding: EdgeInsets.all(context.respPadding(8)),
-      child: Icon(
-        icon,
-        size: size ?? context.respIconSize(baseSize: 20.0),
-        color: color ?? context.ccColorScheme.onSurface,
-      ),
+    child: Icon(
+      icon,
+      size: size,
+      color: color,
     ),
   );
 }
