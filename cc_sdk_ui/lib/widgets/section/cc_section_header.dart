@@ -19,24 +19,28 @@ class CcSectionHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        CcText(
-          title,
-          textStyle: context.ccTextTheme.titleSmall?.copyWith(
-            fontWeight: CcTypographyParams.bold,
-            color: scheme.onSurface,
+        Flexible(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: CcText(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textStyle: context.ccTextTheme.titleSmall?.copyWith(
+                    fontWeight: CcTypographyParams.bold,
+                    color: scheme.onSurface,
+                  ),
+                ),
+              ),
+              const CcSpaceXS(),
+              CcIconToken(icon, size: 20, color: scheme.primary),
+            ],
           ),
         ),
-        const CcSpaceXS(),
-        CcIconToken(
-          icon,
-          size: 20,
-          color: scheme.primary,
-        ),
-        const Spacer(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: actions,
-        ),
+        const CcSpaceSM(),
+        Row(mainAxisAlignment: MainAxisAlignment.end, children: actions),
       ],
     );
   }
