@@ -47,6 +47,9 @@ mixin CcViewConfigMixin {
   /// Controls whether the loading page is enabled for this view
   bool get enableLoading => true;
 
+  /// Controls whether the body is wrapped in a SafeArea
+  bool get useSafeArea => true;
+
   /// Error message to display in error layout
   /// Override this to provide a localized error message.
   String get errorMessage => 'An error occurred';
@@ -99,8 +102,11 @@ mixin CcViewConfigMixin {
   /// To customize your view content, override [buildContent()] instead.
   @mustCallSuper
   Widget buildView(BuildContext context) {
+    final bodyWidget = body(context);
+    final content = useSafeArea ? SafeArea(child: bodyWidget) : bodyWidget;
+
     return Scaffold(
-      body: onPageBodyWrapper(context, SafeArea(child: body(context))),
+      body: onPageBodyWrapper(context, content),
       appBar: enableAppBar ? buildAppBar(context) : null,
       bottomNavigationBar: enableBottomNavigationBar
           ? buildBottomNavigationBar()

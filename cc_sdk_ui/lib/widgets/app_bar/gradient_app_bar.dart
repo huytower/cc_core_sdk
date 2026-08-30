@@ -20,7 +20,13 @@ PreferredSizeWidget buildDomainGradientAppBar(
           (bottom != null ? context.respDim(56) : 0),
     ),
     child: AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
+      value: SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: context.ccColorScheme.background,
+        systemNavigationBarIconBrightness: context.isDarkMode
+            ? Brightness.light
+            : Brightness.dark,
+      ),
       child: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
