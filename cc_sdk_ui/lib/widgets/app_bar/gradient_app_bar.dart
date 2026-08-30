@@ -22,7 +22,7 @@ PreferredSizeWidget buildDomainGradientAppBar(
     child: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light.copyWith(
         statusBarColor: Colors.transparent,
-        systemNavigationBarColor: context.ccColorScheme.background,
+        systemNavigationBarColor: Colors.transparent,
         systemNavigationBarIconBrightness: context.isDarkMode
             ? Brightness.light
             : Brightness.dark,
