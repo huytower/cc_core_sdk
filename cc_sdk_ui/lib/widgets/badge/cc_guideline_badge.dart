@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/extensions/cc_context_extension.dart';
@@ -17,6 +16,7 @@ class CcGuidelineBadge extends StatefulWidget {
     this.growRight = false,
     this.isDescriptionHidden = false,
     this.forceHideLabel = false,
+    this.labelAbove = true,
   });
 
   final double size;
@@ -36,8 +36,11 @@ class CcGuidelineBadge extends StatefulWidget {
   /// Overrides everything to never show the label text bubble.
   final bool forceHideLabel;
 
-  /// Optional trigger to perform a bounce animation.
-  final RxInt? bounceTrigger;
+  /// Whether to position the label above (true) or below (false) the dot.
+  final bool labelAbove;
+
+  /// Optional trigger to perform a bounce animation. Incremented by parent to trigger.
+  final int? bounceTrigger;
 
   @override
   State<CcGuidelineBadge> createState() => _CcGuidelineBadgeState();
@@ -50,7 +53,6 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
 
   late AnimationController _bounceController;
   late Animation<double> _bounceAnimation;
-  Worker? _worker;
 
   @override
   void initState() {
@@ -81,26 +83,14 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
         ]).animate(
           CurvedAnimation(parent: _bounceController, curve: Curves.easeInOut),
         );
-
-    _setupWorker();
-  }
-
-  void _setupWorker() {
-    _worker?.dispose();
-    if (widget.bounceTrigger != null) {
-      _worker = ever(widget.bounceTrigger!, (_) {
-        if (mounted) {
-          _bounceController.forward(from: 0.0);
-        }
-      });
-    }
   }
 
   @override
   void didUpdateWidget(CcGuidelineBadge oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.bounceTrigger != oldWidget.bounceTrigger) {
-      _setupWorker();
+    if (widget.bounceTrigger != null &&
+        widget.bounceTrigger != oldWidget.bounceTrigger) {
+      _bounceController.forward(from: 0.0);
     }
   }
 
@@ -108,7 +98,6 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
   void dispose() {
     _pulseController.dispose();
     _bounceController.dispose();
-    _worker?.dispose();
     super.dispose();
   }
 
@@ -127,7 +116,7 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
             ? Alignment.bottomLeft
             : Alignment.bottomRight,
         children: [
-          // 1. The pulsing dot (anchor)
+          // 1. The pulsing dot (anchor) - Bottom Layer
           ScaleTransition(
             scale: _bounceAnimation,
             child: SizedBox(
@@ -178,38 +167,25 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
               ),
             ),
           ),
-          // 2. The label bubble (positioned explicitly relative to the dot)
+          // 2. The label bubble (positioned explicitly ABOVE the dot)
           if (widget.label != null &&
               !widget.isDescriptionHidden &&
               !widget.forceHideLabel)
             Positioned(
-              bottom: dotSize - 4,
+              bottom: widget.labelAbove ? dotSize - 4 : null,
+              top: !widget.labelAbove ? dotSize - 4 : null,
               left: widget.growRight ? 0 : null,
               right: !widget.growRight ? 0 : null,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.5,
+                  maxWidth: MediaQuery.of(context).size.width * 0.35,
                 ),
                 child: GestureDetector(
-                  onTap: () {
-                    if (widget.onLabelTap != null) {
-                      widget.onLabelTap!();
-                    } else {
-                      // Fallback to controller if available
-                      try {
-                        final guideline = Get.find<dynamic>();
-                        if (guideline.isDescriptionHidden != null) {
-                          guideline.isDescriptionHidden.value = true;
-                        }
-                      } catch (_) {
-                        // Controller not found or state not available
-                      }
-                    }
-                  },
+                  onTap: widget.onLabelTap,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
+                      horizontal: 8,
+                      vertical: 5,
                     ),
                     decoration: BoxDecoration(
                       color: badgeColor.withOpacity(0.8),
@@ -231,7 +207,7 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
                       style: context.ccTextTheme.labelSmall?.copyWith(
                         color: context.ccColorScheme.onPrimary,
                         fontWeight: FontWeight.bold,
-                        fontSize: 8,
+                        fontSize: 7.5,
                       ),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
