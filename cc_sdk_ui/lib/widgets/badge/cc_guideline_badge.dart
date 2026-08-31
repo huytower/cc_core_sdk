@@ -12,12 +12,29 @@ class CcGuidelineBadge extends StatefulWidget {
     this.showing = true,
     this.bounceTrigger,
     this.label,
+    this.onTap,
+    this.onLabelTap,
+    this.growRight = false,
+    this.isDescriptionHidden = false,
+    this.forceHideLabel = false,
   });
 
   final double size;
   final Color? color;
   final bool showing;
   final String? label;
+  final VoidCallback? onTap;
+  final VoidCallback? onLabelTap;
+
+  /// Whether the label bubble should align its left edge with the dot and grow
+  /// to the right. Useful for badges on the left side of the screen.
+  final bool growRight;
+
+  /// Whether the descriptive text labels on guideline badges are hidden.
+  final bool isDescriptionHidden;
+
+  /// Overrides everything to never show the label text bubble.
+  final bool forceHideLabel;
 
   /// Optional trigger to perform a bounce animation.
   final RxInt? bounceTrigger;
@@ -100,89 +117,134 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
     if (!widget.showing) return const SizedBox.shrink();
 
     final badgeColor = widget.color ?? context.ccColorScheme.primary;
+    final dotSize = widget.size * 2.5;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (widget.label != null) ...[
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: badgeColor,
-              borderRadius: context.brLg,
-              border: Border.all(
-                color: context.ccColorScheme.onPrimary.withOpacity(0.5),
-                width: 0.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Text(
-              widget.label!,
-              style: context.ccTextTheme.labelSmall?.copyWith(
-                color: context.ccColorScheme.onPrimary,
-                fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: widget.growRight
+            ? Alignment.bottomLeft
+            : Alignment.bottomRight,
+        children: [
+          // 1. The pulsing dot (anchor)
+          ScaleTransition(
+            scale: _bounceAnimation,
+            child: SizedBox(
+              width: dotSize,
+              height: dotSize,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Pulse rings
+                  AnimatedBuilder(
+                    animation: _pulseAnimation,
+                    builder: (context, child) {
+                      return Container(
+                        width: widget.size * _pulseAnimation.value,
+                        height: widget.size * _pulseAnimation.value,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: badgeColor.withAlpha(
+                            (255 * (1.0 - _pulseController.value)).toInt(),
+                          ),
+                          border: Border.all(
+                            color: badgeColor.withAlpha(
+                              (127 * (1.0 - _pulseController.value)).toInt(),
+                            ),
+                            width: 1,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  // Core dot
+                  Container(
+                    width: widget.size,
+                    height: widget.size,
+                    decoration: BoxDecoration(
+                      color: badgeColor,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: badgeColor.withAlpha(100),
+                          blurRadius: 4,
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          const SizedBox(height: 4),
-        ],
-        ScaleTransition(
-          scale: _bounceAnimation,
-          child: SizedBox(
-            width: widget.size * 2.5,
-            height: widget.size * 2.5,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // Pulse rings
-                AnimatedBuilder(
-                  animation: _pulseAnimation,
-                  builder: (context, child) {
-                    return Container(
-                      width: widget.size * _pulseAnimation.value,
-                      height: widget.size * _pulseAnimation.value,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: badgeColor.withAlpha(
-                          (255 * (1.0 - _pulseController.value)).toInt(),
-                        ),
-                        border: Border.all(
-                          color: badgeColor.withAlpha(
-                            (127 * (1.0 - _pulseController.value)).toInt(),
-                          ),
-                          width: 1,
-                        ),
-                      ),
-                    );
-                  },
+          // 2. The label bubble (positioned explicitly relative to the dot)
+          if (widget.label != null &&
+              !widget.isDescriptionHidden &&
+              !widget.forceHideLabel)
+            Positioned(
+              bottom: dotSize - 4,
+              left: widget.growRight ? 0 : null,
+              right: !widget.growRight ? 0 : null,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.5,
                 ),
-                // Core dot
-                Container(
-                  width: widget.size,
-                  height: widget.size,
-                  decoration: BoxDecoration(
-                    color: badgeColor,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: badgeColor.withAlpha(100),
-                        blurRadius: 4,
-                        spreadRadius: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    if (widget.onLabelTap != null) {
+                      widget.onLabelTap!();
+                    } else {
+                      // Fallback to controller if available
+                      try {
+                        final guideline = Get.find<dynamic>();
+                        if (guideline.isDescriptionHidden != null) {
+                          guideline.isDescriptionHidden.value = true;
+                        }
+                      } catch (_) {
+                        // Controller not found or state not available
+                      }
+                    }
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: badgeColor.withOpacity(0.8),
+                      borderRadius: context.brLg,
+                      border: Border.all(
+                        color: context.ccColorScheme.onPrimary.withOpacity(0.5),
+                        width: 0.5,
                       ),
-                    ],
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.12),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      widget.label!,
+                      style: context.ccTextTheme.labelSmall?.copyWith(
+                        color: context.ccColorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 8,
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: widget.growRight
+                          ? TextAlign.left
+                          : TextAlign.right,
+                    ),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
