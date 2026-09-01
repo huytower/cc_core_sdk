@@ -17,6 +17,7 @@ class CcGuidelineBadge extends StatefulWidget {
     this.isDescriptionHidden = false,
     this.forceHideLabel = false,
     this.labelAbove = true,
+    this.icon,
   });
 
   final double size;
@@ -25,6 +26,7 @@ class CcGuidelineBadge extends StatefulWidget {
   final String? label;
   final VoidCallback? onTap;
   final VoidCallback? onLabelTap;
+  final IconData? icon;
 
   /// Whether the label bubble should align its left edge with the dot and grow
   /// to the right. Useful for badges on the left side of the screen.
@@ -108,119 +110,133 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
     final badgeColor = widget.color ?? context.ccColorScheme.primary;
     final dotSize = widget.size * 2.5;
 
-    return GestureDetector(
+    final dot = GestureDetector(
       onTap: widget.onTap,
-      child: Stack(
-        clipBehavior: Clip.none,
-        alignment: widget.growRight
-            ? Alignment.bottomLeft
-            : Alignment.bottomRight,
-        children: [
-          // 1. The pulsing dot (anchor) - Bottom Layer
-          ScaleTransition(
-            scale: _bounceAnimation,
-            child: SizedBox(
-              width: dotSize,
-              height: dotSize,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  // Pulse rings
-                  AnimatedBuilder(
-                    animation: _pulseAnimation,
-                    builder: (context, child) {
-                      return Container(
-                        width: widget.size * _pulseAnimation.value,
-                        height: widget.size * _pulseAnimation.value,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: badgeColor.withAlpha(
-                            (255 * (1.0 - _pulseController.value)).toInt(),
-                          ),
-                          border: Border.all(
-                            color: badgeColor.withAlpha(
-                              (127 * (1.0 - _pulseController.value)).toInt(),
-                            ),
-                            width: 1,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  // Core dot
-                  Container(
-                    width: widget.size,
-                    height: widget.size,
+      behavior: HitTestBehavior.opaque,
+      child: ScaleTransition(
+        scale: _bounceAnimation,
+        child: SizedBox(
+          width: dotSize,
+          height: dotSize,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Pulse rings
+              AnimatedBuilder(
+                animation: _pulseAnimation,
+                builder: (context, child) {
+                  return Container(
+                    width: widget.size * _pulseAnimation.value,
+                    height: widget.size * _pulseAnimation.value,
                     decoration: BoxDecoration(
-                      color: badgeColor,
                       shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: badgeColor.withAlpha(100),
-                          blurRadius: 4,
-                          spreadRadius: 1,
+                      color: badgeColor.withAlpha(
+                        (255 * (1.0 - _pulseController.value)).toInt(),
+                      ),
+                      border: Border.all(
+                        color: badgeColor.withAlpha(
+                          (127 * (1.0 - _pulseController.value)).toInt(),
                         ),
-                      ],
+                        width: 1,
+                      ),
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
+              // Core dot
+              Container(
+                width: widget.size,
+                height: widget.size,
+                decoration: BoxDecoration(
+                  color: badgeColor,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: badgeColor.withAlpha(100),
+                      blurRadius: 4,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child: widget.icon != null
+                    ? Icon(
+                        widget.icon,
+                        size: widget.size * 0.6,
+                        color: context.ccColorScheme.onPrimary,
+                      )
+                    : null,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    Widget? labelWidget;
+    if (widget.label != null &&
+        !widget.isDescriptionHidden &&
+        !widget.forceHideLabel) {
+      labelWidget = ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.3,
+        ),
+        child: GestureDetector(
+          onTap: widget.onLabelTap,
+          behavior: HitTestBehavior.opaque,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            decoration: BoxDecoration(
+              color: badgeColor.withOpacity(0.8),
+              borderRadius: context.brLg,
+              border: Border.all(
+                color: context.ccColorScheme.onPrimary.withOpacity(0.5),
+                width: 0.5,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.15),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+                BoxShadow(
+                  color: badgeColor.withOpacity(0.2),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Text(
+              widget.label!,
+              style: context.ccTextTheme.labelSmall?.copyWith(
+                color: context.ccColorScheme.onPrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: 7.5,
+              ),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              textAlign: widget.growRight ? TextAlign.left : TextAlign.right,
             ),
           ),
-          // 2. The label bubble (positioned explicitly ABOVE the dot)
-          if (widget.label != null &&
-              !widget.isDescriptionHidden &&
-              !widget.forceHideLabel)
-            Positioned(
-              bottom: widget.labelAbove ? dotSize - 4 : null,
-              top: !widget.labelAbove ? dotSize - 4 : null,
-              left: widget.growRight ? 0 : null,
-              right: !widget.growRight ? 0 : null,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.35,
-                ),
-                child: GestureDetector(
-                  onTap: widget.onLabelTap,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 5,
-                    ),
-                    decoration: BoxDecoration(
-                      color: badgeColor.withOpacity(0.8),
-                      borderRadius: context.brLg,
-                      border: Border.all(
-                        color: context.ccColorScheme.onPrimary.withOpacity(0.5),
-                        width: 0.5,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.12),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      widget.label!,
-                      style: context.ccTextTheme.labelSmall?.copyWith(
-                        color: context.ccColorScheme.onPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 7.5,
-                      ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: widget.growRight
-                          ? TextAlign.left
-                          : TextAlign.right,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+        ),
+      );
+    }
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: widget.growRight
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.end,
+      children: [
+        if (widget.labelAbove && labelWidget != null) ...[
+          labelWidget,
+          const SizedBox(height: 4),
         ],
-      ),
+        dot,
+        if (!widget.labelAbove && labelWidget != null) ...[
+          const SizedBox(height: 4),
+          labelWidget,
+        ],
+      ],
     );
   }
 }
