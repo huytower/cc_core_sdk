@@ -221,7 +221,7 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
       );
     }
 
-    return Column(
+    final body = Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: widget.growRight
           ? CrossAxisAlignment.start
@@ -238,5 +238,14 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
         ],
       ],
     );
+
+    if (widget.onTap != null) {
+      return GestureDetector(
+        onTap: widget.onTap,
+        behavior: HitTestBehavior.opaque,
+        child: body,
+      );
+    }
+    return body;
   }
 }
