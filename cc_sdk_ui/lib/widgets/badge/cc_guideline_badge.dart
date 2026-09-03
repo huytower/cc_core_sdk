@@ -178,7 +178,7 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
         !widget.forceHideLabel) {
       labelWidget = ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.5,
+          maxWidth: MediaQuery.of(context).size.width * 0.3,
         ),
         child: GestureDetector(
           onTap: widget.onLabelTap,
