@@ -13,11 +13,13 @@ import 'package:flutter/material.dart';
 class HorizontalFadeScrollView extends StatefulWidget {
   final double height;
   final Widget Function(ScrollController controller) builder;
+  final ScrollController? scrollController;
 
   const HorizontalFadeScrollView({
     super.key,
     required this.height,
     required this.builder,
+    this.scrollController,
   });
 
   @override
@@ -26,13 +28,14 @@ class HorizontalFadeScrollView extends StatefulWidget {
 }
 
 class _HorizontalFadeScrollViewState extends State<HorizontalFadeScrollView> {
-  final _controller = ScrollController();
+  late final ScrollController _controller;
   bool _fadeLeft = false;
   bool _fadeRight = false;
 
   @override
   void initState() {
     super.initState();
+    _controller = widget.scrollController ?? ScrollController();
     _controller.addListener(_onScroll);
     WidgetsBinding.instance.addPostFrameCallback((_) => _onScroll());
   }
@@ -52,7 +55,11 @@ class _HorizontalFadeScrollViewState extends State<HorizontalFadeScrollView> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    if (widget.scrollController == null) {
+      _controller.dispose();
+    } else {
+      _controller.removeListener(_onScroll);
+    }
     super.dispose();
   }
 
