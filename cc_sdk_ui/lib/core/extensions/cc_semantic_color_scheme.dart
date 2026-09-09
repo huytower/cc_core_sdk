@@ -7,8 +7,7 @@ extension CcSemanticColorScheme on ColorScheme {
   Color get investmentSecondary =>
       CcBaseColors.yellow600.withValues(alpha: 0.8);
 
-  Color get debtLoan => CcBaseColors.violet600;
+  Color get liability => CcBaseColors.violet600;
 
-  Color get debtLoanSecondary =>
-      CcBaseColors.violet600.withValues(alpha: 0.8);
+  Color get liabilitySecondary => CcBaseColors.violet600.withValues(alpha: 0.8);
 }
