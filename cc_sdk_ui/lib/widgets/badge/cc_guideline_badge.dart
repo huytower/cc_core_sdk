@@ -221,36 +221,32 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width * 0.5,
       ),
-      child: GestureDetector(
-        onTap: widget.onLabelTap,
-        behavior: HitTestBehavior.opaque,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(
-            color: context.ccColorScheme.surface,
-            borderRadius: context.brLg,
-            border: Border.all(
-              color: context.ccColorScheme.onSurface.withOpacity(0.08),
-              width: 0.5,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: context.ccColorScheme.surface,
+          borderRadius: context.brLg,
+          border: Border.all(
+            color: context.ccColorScheme.onSurface.withOpacity(0.08),
+            width: 0.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.4),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildLabelLeadingIcon(context, badgeColor),
-              const CcSpaceXS(),
-              _buildLabelText(context),
-              const CcSpaceXS(),
-              _buildLabelTrailingIcon(context),
-            ],
-          ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildLabelLeadingIcon(context, badgeColor),
+            const CcSpaceXS(),
+            _buildLabelText(context),
+            const CcSpaceXS(),
+            _buildLabelTrailingIcon(context),
+          ],
         ),
       ),
     );
@@ -285,10 +281,14 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
   }
 
   Widget _buildLabelTrailingIcon(BuildContext context) {
-    return Icon(
-      Icons.close_outlined,
-      size: context.respDim(15),
-      color: context.ccColorScheme.onSurface.withOpacity(0.3),
+    return GestureDetector(
+      onTap: widget.onLabelTap,
+      behavior: HitTestBehavior.opaque,
+      child: Icon(
+        Icons.close_outlined,
+        size: context.respDim(15),
+        color: context.ccColorScheme.onSurface.withOpacity(0.3),
+      ),
     );
   }
 }
