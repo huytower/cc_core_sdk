@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
+import '../space/cc_space.dart';
+import '../text/cc_text.dart';
 
 class CcGuidelineBadge extends StatefulWidget {
   const CcGuidelineBadge({
@@ -108,143 +110,8 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
   Widget build(BuildContext context) {
     if (!widget.showing) return const SizedBox.shrink();
 
-    final badgeColor = widget.color ?? context.ccColorScheme.primary;
-    final dotSize = widget.size * 2.5;
-
-    final dot = GestureDetector(
-      onTap: widget.onTap,
-      behavior: HitTestBehavior.opaque,
-      child: ScaleTransition(
-        scale: _bounceAnimation,
-        child: SizedBox(
-          width: dotSize,
-          height: dotSize,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // Pulse rings
-              AnimatedBuilder(
-                animation: _pulseAnimation,
-                builder: (context, child) {
-                  return Container(
-                    width: widget.size * _pulseAnimation.value,
-                    height: widget.size * _pulseAnimation.value,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: badgeColor.withAlpha(
-                        (255 * (1.0 - _pulseController.value)).toInt(),
-                      ),
-                      border: Border.all(
-                        color: badgeColor.withAlpha(
-                          (127 * (1.0 - _pulseController.value)).toInt(),
-                        ),
-                        width: 1,
-                      ),
-                    ),
-                  );
-                },
-              ),
-              // Core dot
-              Container(
-                width: widget.size,
-                height: widget.size,
-                decoration: BoxDecoration(
-                  color: badgeColor,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: badgeColor.withAlpha(100),
-                      blurRadius: 4,
-                      spreadRadius: 1,
-                    ),
-                  ],
-                ),
-                child: widget.icon != null
-                    ? Icon(
-                        widget.icon,
-                        size: widget.size * 0.6,
-                        color: context.ccColorScheme.onPrimary,
-                      )
-                    : null,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    Widget? labelWidget;
-    if (widget.label != null &&
-        !widget.isDescriptionHidden &&
-        !widget.forceHideLabel) {
-      labelWidget = ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.5,
-        ),
-        child: GestureDetector(
-          onTap: widget.onLabelTap,
-          behavior: HitTestBehavior.opaque,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration: BoxDecoration(
-              color: context.ccColorScheme.surface,
-              borderRadius: context.brLg,
-              border: Border.all(
-                color: context.ccColorScheme.onSurface.withOpacity(0.08),
-                width: 0.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.06),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Pattern from image: leading status icon
-                Container(
-                  width: context.respDim(12),
-                  height: context.respDim(12),
-                  decoration: BoxDecoration(
-                    color: badgeColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.check,
-                    size: context.respDim(8),
-                    color: context.ccColorScheme.onPrimary,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                // Pattern from image: descriptive text
-                Flexible(
-                  child: Text(
-                    widget.label!,
-                    style: context.ccTextTheme.labelSmall?.copyWith(
-                      color: context.ccColorScheme.onSurface,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 8.5,
-                    ),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                // Pattern from image: trailing dismiss icon
-                Icon(
-                  Icons.close,
-                  size: context.respDim(10),
-                  color: context.ccColorScheme.onSurface.withOpacity(0.3),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
+    final label = _buildLabel(context);
+    final dot = _buildDot(context);
 
     final body = Column(
       mainAxisSize: MainAxisSize.min,
@@ -252,15 +119,9 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
           ? CrossAxisAlignment.start
           : CrossAxisAlignment.end,
       children: [
-        if (widget.labelAbove && labelWidget != null) ...[
-          labelWidget,
-          const SizedBox(height: 4),
-        ],
+        if (widget.labelAbove && label != null) ...[label, const CcSpaceXS()],
         dot,
-        if (!widget.labelAbove && labelWidget != null) ...[
-          const SizedBox(height: 4),
-          labelWidget,
-        ],
+        if (!widget.labelAbove && label != null) ...[const CcSpaceXS(), label],
       ],
     );
 
@@ -272,5 +133,162 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
       );
     }
     return body;
+  }
+
+  Widget _buildDot(BuildContext context) {
+    final badgeColor = widget.color ?? context.ccColorScheme.primary;
+    final dotSize = widget.size * 2.5;
+
+    return GestureDetector(
+      onTap: widget.onTap,
+      behavior: HitTestBehavior.opaque,
+      child: ScaleTransition(
+        scale: _bounceAnimation,
+        child: SizedBox(
+          width: dotSize,
+          height: dotSize,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              _buildPulseRings(context, badgeColor),
+              _buildCoreDot(context, badgeColor),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPulseRings(BuildContext context, Color badgeColor) {
+    return AnimatedBuilder(
+      animation: _pulseAnimation,
+      builder: (context, child) {
+        return Container(
+          width: widget.size * _pulseAnimation.value,
+          height: widget.size * _pulseAnimation.value,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: badgeColor.withAlpha(
+              (255 * (1.0 - _pulseController.value)).toInt(),
+            ),
+            border: Border.all(
+              color: badgeColor.withAlpha(
+                (127 * (1.0 - _pulseController.value)).toInt(),
+              ),
+              width: 1,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildCoreDot(BuildContext context, Color badgeColor) {
+    return Container(
+      width: widget.size,
+      height: widget.size,
+      decoration: BoxDecoration(
+        color: badgeColor,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: badgeColor.withAlpha(100),
+            blurRadius: 4,
+            spreadRadius: 1,
+          ),
+        ],
+      ),
+      child: widget.icon != null
+          ? Icon(
+              widget.icon,
+              size: widget.size * 0.6,
+              color: context.ccColorScheme.onPrimary,
+            )
+          : null,
+    );
+  }
+
+  Widget? _buildLabel(BuildContext context) {
+    if (widget.label == null ||
+        widget.isDescriptionHidden ||
+        widget.forceHideLabel) {
+      return null;
+    }
+
+    final badgeColor = widget.color ?? context.ccColorScheme.primary;
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width * 0.5,
+      ),
+      child: GestureDetector(
+        onTap: widget.onLabelTap,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          decoration: BoxDecoration(
+            color: context.ccColorScheme.surface,
+            borderRadius: context.brLg,
+            border: Border.all(
+              color: context.ccColorScheme.onSurface.withOpacity(0.08),
+              width: 0.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildLabelLeadingIcon(context, badgeColor),
+              const CcSpaceXS(),
+              _buildLabelText(context),
+              const CcSpaceXS(),
+              _buildLabelTrailingIcon(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLabelLeadingIcon(BuildContext context, Color badgeColor) {
+    return Container(
+      width: context.respDim(15),
+      height: context.respDim(15),
+      decoration: BoxDecoration(color: badgeColor, shape: BoxShape.circle),
+      child: Icon(
+        Icons.info_sharp,
+        size: context.respDim(14),
+        color: context.ccColorScheme.onPrimary,
+      ),
+    );
+  }
+
+  Widget _buildLabelText(BuildContext context) {
+    return Flexible(
+      child: CcText(
+        widget.label!,
+        textStyle: context.ccTextTheme.labelSmall?.copyWith(
+          color: context.ccColorScheme.onSurface,
+          fontWeight: FontWeight.w500,
+          fontSize: 8.5,
+        ),
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+
+  Widget _buildLabelTrailingIcon(BuildContext context) {
+    return Icon(
+      Icons.close_outlined,
+      size: context.respDim(15),
+      color: context.ccColorScheme.onSurface.withOpacity(0.3),
+    );
   }
 }
