@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/extensions/cc_context_extension.dart';
+import '../../core/extensions/common/cc_responsive_extension.dart';
 
 class CcGuidelineBadge extends StatefulWidget {
   const CcGuidelineBadge({
@@ -178,43 +179,67 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
         !widget.forceHideLabel) {
       labelWidget = ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.3,
+          maxWidth: MediaQuery.of(context).size.width * 0.5,
         ),
         child: GestureDetector(
           onTap: widget.onLabelTap,
           behavior: HitTestBehavior.opaque,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: badgeColor.withOpacity(0.8),
+              color: context.ccColorScheme.surface,
               borderRadius: context.brLg,
               border: Border.all(
-                color: context.ccColorScheme.onPrimary.withOpacity(0.5),
+                color: context.ccColorScheme.onSurface.withOpacity(0.08),
                 width: 0.5,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
-                  blurRadius: 10,
+                  color: Colors.black.withOpacity(0.06),
+                  blurRadius: 12,
                   offset: const Offset(0, 4),
-                ),
-                BoxShadow(
-                  color: badgeColor.withOpacity(0.2),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
                 ),
               ],
             ),
-            child: Text(
-              widget.label!,
-              style: context.ccTextTheme.labelSmall?.copyWith(
-                color: context.ccColorScheme.onPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 7.5,
-              ),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-              textAlign: widget.growRight ? TextAlign.left : TextAlign.right,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Pattern from image: leading status icon
+                Container(
+                  width: context.respDim(12),
+                  height: context.respDim(12),
+                  decoration: BoxDecoration(
+                    color: badgeColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.check,
+                    size: context.respDim(8),
+                    color: context.ccColorScheme.onPrimary,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                // Pattern from image: descriptive text
+                Flexible(
+                  child: Text(
+                    widget.label!,
+                    style: context.ccTextTheme.labelSmall?.copyWith(
+                      color: context.ccColorScheme.onSurface,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 8.5,
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                // Pattern from image: trailing dismiss icon
+                Icon(
+                  Icons.close,
+                  size: context.respDim(10),
+                  color: context.ccColorScheme.onSurface.withOpacity(0.3),
+                ),
+              ],
             ),
           ),
         ),
