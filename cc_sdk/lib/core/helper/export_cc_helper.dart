@@ -1,4 +1,5 @@
 export 'cc_app_check_helper.dart';
+export 'cc_crash_reporting_helper.dart';
 export 'cc_date_time_helper.dart';
 export 'cc_device_helper.dart';
 export 'cc_device_info_helper.dart';
