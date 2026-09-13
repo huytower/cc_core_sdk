@@ -176,6 +176,10 @@ class CcDialogHelper {
   }
 
   /// Shows a persistent loading dialog.
+  ///
+  /// Uses [Get.dialog] (not the plain [showDialog]) so `Get.isDialogOpen`
+  /// tracks it — callers that dismiss via `Get.back()` on a state change
+  /// (e.g. login cancel/error) would otherwise never be able to close it.
   static Future<void> showLoadingDialog({BuildContext? context}) async {
     final targetContext = context ?? Get.context;
     if (targetContext == null) {
@@ -184,20 +188,17 @@ class CcDialogHelper {
       );
       return;
     }
-    await showDialog<void>(
-      context: targetContext,
+    await Get.dialog<void>(
+      const PopScope(
+        canPop: false,
+        child: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: CcLoadingIconWidget(),
+        ),
+      ),
       barrierDismissible: false,
       barrierColor: targetContext.ccColorScheme.onSurface.withOpacity(0.3),
-      builder: (BuildContext context) {
-        return const PopScope(
-          canPop: false,
-          child: SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: CcLoadingIconWidget(),
-          ),
-        );
-      },
     );
   }
 }
