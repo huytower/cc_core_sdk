@@ -14,7 +14,8 @@ class CcAppCheckHelper {
   /// Initializes Firebase App Check with the appropriate provider.
   ///
   /// On Android: Uses Play Integrity provider
-  /// On iOS: Uses DeviceCheck provider (or App Attest if available)
+  /// On iOS: Uses App Attest provider (must match what's registered for this
+  /// app in the Firebase Console's App Check tab)
   /// On Web: Uses reCAPTCHA provider
   ///
   /// [debugToken] Optional debug token for development/testing.
@@ -30,7 +31,7 @@ class CcAppCheckHelper {
             : const AndroidPlayIntegrityProvider(),
         providerApple: kDebugMode
             ? const AppleDebugProvider()
-            : const AppleDeviceCheckProvider(),
+            : const AppleAppAttestProvider(),
       );
 
       if (kDebugMode) {
