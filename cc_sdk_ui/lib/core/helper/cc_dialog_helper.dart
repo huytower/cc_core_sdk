@@ -113,6 +113,36 @@ class CcDialogHelper {
     return result;
   }
 
+  /// Shows a persistent loading indicator as a bottom sheet.
+  ///
+  /// Uses [Get.bottomSheet] (not a dialog) per project convention, so
+  /// `Get.isBottomSheetOpen` tracks it — callers that dismiss via
+  /// `Get.back()` on a state change (e.g. login cancel/error) can close it.
+  static Future<void> showLoadingBottomSheet({BuildContext? context}) async {
+    final targetContext = context ?? Get.context;
+    if (targetContext == null) {
+      debugPrint(
+        'CcDialogHelper: Cannot show loading bottom sheet - no context available.',
+      );
+      return;
+    }
+    await Get.bottomSheet<void>(
+      const PopScope(
+        canPop: false,
+        child: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: CcLoadingIconWidget(),
+        ),
+      ),
+      isDismissible: false,
+      enableDrag: false,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      barrierColor: targetContext.ccColorScheme.onSurface.withOpacity(0.3),
+    );
+  }
+
   // ==========================================================================
   // DIALOGS
   // ==========================================================================
@@ -173,32 +203,5 @@ class CcDialogHelper {
       debugPrint('Error showing confirmation dialog: $error');
       debugPrint('Stack trace: $stackTrace');
     }
-  }
-
-  /// Shows a persistent loading dialog.
-  ///
-  /// Uses [Get.dialog] (not the plain [showDialog]) so `Get.isDialogOpen`
-  /// tracks it — callers that dismiss via `Get.back()` on a state change
-  /// (e.g. login cancel/error) would otherwise never be able to close it.
-  static Future<void> showLoadingDialog({BuildContext? context}) async {
-    final targetContext = context ?? Get.context;
-    if (targetContext == null) {
-      debugPrint(
-        'CcDialogHelper: Cannot show loading dialog - no context available.',
-      );
-      return;
-    }
-    await Get.dialog<void>(
-      const PopScope(
-        canPop: false,
-        child: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: CcLoadingIconWidget(),
-        ),
-      ),
-      barrierDismissible: false,
-      barrierColor: targetContext.ccColorScheme.onSurface.withOpacity(0.3),
-    );
   }
 }
