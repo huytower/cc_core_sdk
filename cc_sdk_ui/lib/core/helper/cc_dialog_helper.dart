@@ -1,17 +1,16 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart' as m;
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../widgets/base/cc_keyboard_dismisser.dart';
+
 import '../../widgets/dialog/cc_base_dialog.dart';
 import '../../widgets/dialog/cc_body_modal_bottom_sheet.dart';
 import '../../widgets/dialog/cc_body_show_message.dart';
 import '../../widgets/state/cc_loading_icon_widget.dart';
+import '../../widgets/text/cc_text.dart';
 import '../extensions/cc_context_extension.dart';
-import '../extensions/common/cc_responsive_extension.dart';
 
 /// CcDialogHelper: Standardized utility for showing dialogs, bottom sheets, and loaders.
 ///
@@ -50,84 +49,60 @@ class CcDialogHelper {
     );
   }
 
-  /// Shows a specialized message bottom sheet (legacy: showDialogMessage).
-  static Future<bool> showMessageBottomSheet({
-    BuildContext? context,
-    Widget? customWidget,
-    bool isExistOK = false,
-    bool isDrag = true,
-    String content = '',
+  static Future<bool?> showMessageBottomSheet({
+    required BuildContext context,
     String title = '',
-    String? okText,
+    String content = '',
+    Widget? customWidget,
+    bool isOnlyConfirm = false,
+    bool enableDrag = true,
+    String? confirmText,
     String? cancelText,
-    VoidCallback? onClose,
-    VoidCallback? onTapOK,
+    VoidCallback? onConfirm,
   }) async {
-    final targetContext = context ?? Get.context;
-    if (targetContext == null) {
-      debugPrint(
-        'CcDialogHelper: Cannot show message bottom sheet - no context available.',
-      );
-      return false;
-    }
-    bool result = false;
-
-    await m.showModalBottomSheet(
-      context: targetContext,
-      enableDrag: isDrag,
-      isDismissible: isDrag,
+    return m.showModalBottomSheet<bool>(
+      context: context,
+      enableDrag: enableDrag,
+      isDismissible: enableDrag,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
-      backgroundColor: targetContext.ccColorScheme.surface,
-      isScrollControlled: false,
-      builder: (context) {
-        return CcBodyShowMessage(
-          title: title,
-          content: content,
-          okText: okText,
-          cancelText: cancelText,
-          onTabOK: () {
-            result = true;
-            if (onTapOK != null) {
-              onTapOK();
-              return;
-            }
-            exit(0);
-          },
-          isExistOK: isExistOK,
-          child:
-              customWidget ??
-              Text(
-                content,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: context.respFontSize(17.0)),
+      backgroundColor: context.ccColorScheme.surface,
+      builder: (innerContext) => CcBodyShowMessage(
+        title: title,
+        confirmText: confirmText,
+        cancelText: cancelText,
+        isOnlyConfirm: isOnlyConfirm,
+        onConfirm: () {
+          Navigator.of(innerContext).pop(true);
+          onConfirm?.call();
+        },
+        child:
+            customWidget ??
+            CcText(
+              content,
+              align: Alignment.center,
+              maxLines: 5,
+              textAlign: TextAlign.center,
+              textStyle: innerContext.ccTextTheme.bodyMedium?.copyWith(
+                color: innerContext.ccColorScheme.onSurfaceVariant,
+                height: 1.4,
               ),
-        );
-      },
+            ),
+      ),
     );
-
-    if (onClose != null) {
-      onClose();
-    }
-    return result;
   }
 
   /// Shows a persistent loading indicator as a bottom sheet.
-  ///
-  /// Uses [Get.bottomSheet] (not a dialog) per project convention, so
-  /// `Get.isBottomSheetOpen` tracks it — callers that dismiss via
-  /// `Get.back()` on a state change (e.g. login cancel/error) can close it.
-  static Future<void> showLoadingBottomSheet({BuildContext? context}) async {
-    final targetContext = context ?? Get.context;
-    if (targetContext == null) {
-      debugPrint(
-        'CcDialogHelper: Cannot show loading bottom sheet - no context available.',
-      );
-      return;
-    }
-    await Get.bottomSheet<void>(
-      const PopScope(
+  static Future<void> showLoadingBottomSheet(BuildContext context) async {
+    await m.showModalBottomSheet<void>(
+      context: context,
+      isDismissible: false,
+      enableDrag: false,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      barrierColor: context.ccColorScheme.onSurface.withOpacity(0.3),
+      builder: (context) => const PopScope(
         canPop: false,
         child: SizedBox(
           width: double.infinity,
@@ -135,11 +110,6 @@ class CcDialogHelper {
           child: CcLoadingIconWidget(),
         ),
       ),
-      isDismissible: false,
-      enableDrag: false,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      barrierColor: targetContext.ccColorScheme.onSurface.withOpacity(0.3),
     );
   }
 
@@ -149,12 +119,12 @@ class CcDialogHelper {
 
   /// Shows a project-standard confirmation dialog.
   static Future<void> showConfirmationDialog({
-    BuildContext? context,
-    VoidCallback? onTapCancel,
-    required VoidCallback? onTapConfirm,
+    required BuildContext context,
+    VoidCallback? onCancel,
+    required VoidCallback? onConfirm,
     Color? bgColor,
     Color? bgColorBarrier,
-    String? agreeText,
+    String? confirmText,
     String? cancelText,
     Color? confirmTextColor,
     required String desc,
@@ -165,40 +135,37 @@ class CcDialogHelper {
     bool isCancelBtnShown = false,
     CcDialogStatus status = CcDialogStatus.ERROR,
   }) async {
-    final targetContext = context ?? Get.context;
-    if (targetContext == null) {
-      debugPrint(
-        'CcDialogHelper: Cannot show confirmation dialog - no context available.',
-      );
-      return;
-    }
+    final dialog = CcBaseDialog(
+      onTapCancel: onCancel,
+      onTapConfirm: onConfirm,
+      agreeText: confirmText,
+      bgColor: bgColor,
+      cancelText: cancelText,
+      confirmTextColor: confirmTextColor,
+      desc: desc,
+      descTextColor: descTextColor,
+      isCancelBtnShown: isCancelBtnShown,
+      isActionBtnVisible: isActionBtnVisible,
+      status: status,
+    );
+
     try {
-      await Get.dialog(
-        CcBaseDialog(
-          onTapCancel: onTapCancel,
-          onTapConfirm: onTapConfirm,
-          agreeText: agreeText,
-          bgColor: bgColor,
-          cancelText: cancelText,
-          confirmTextColor: confirmTextColor,
-          desc: desc,
-          descTextColor: descTextColor,
-          isCancelBtnShown: isCancelBtnShown,
-          isActionBtnVisible: isActionBtnVisible,
-          status: status,
-        ),
+      final Future<void> dialogFuture = m.showDialog(
+        context: context,
         barrierDismissible: isAllowDismiss,
         barrierColor:
-            bgColorBarrier ??
-            targetContext.ccColorScheme.onSurface.withOpacity(0.5),
+            bgColorBarrier ?? context.ccColorScheme.onSurface.withOpacity(0.5),
+        builder: (context) => dialog,
       );
 
       if (isAutoDismiss) {
         await Future.delayed(const Duration(seconds: 2));
-        if (Get.isDialogOpen ?? false) {
-          Get.back();
+        if (context.mounted) {
+          Navigator.of(context, rootNavigator: true).pop();
         }
       }
+
+      await dialogFuture;
     } catch (error, stackTrace) {
       debugPrint('Error showing confirmation dialog: $error');
       debugPrint('Stack trace: $stackTrace');
