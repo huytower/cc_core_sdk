@@ -28,24 +28,41 @@ class HorizontalFadeScrollView extends StatefulWidget {
 }
 
 class _HorizontalFadeScrollViewState extends State<HorizontalFadeScrollView> {
-  late final ScrollController _controller;
+  late ScrollController _controller;
   bool _fadeLeft = false;
   bool _fadeRight = false;
 
   @override
   void initState() {
     super.initState();
+    _initController();
+  }
+
+  @override
+  void didUpdateWidget(HorizontalFadeScrollView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.scrollController != oldWidget.scrollController) {
+      _controller.removeListener(_onScroll);
+      if (oldWidget.scrollController == null) {
+        _controller.dispose();
+      }
+      _initController();
+    }
+  }
+
+  void _initController() {
     _controller = widget.scrollController ?? ScrollController();
     _controller.addListener(_onScroll);
     WidgetsBinding.instance.addPostFrameCallback((_) => _onScroll());
   }
 
   void _onScroll() {
-    if (!_controller.hasClients) return;
+    if (!_controller.hasClients || _controller.positions.length != 1) return;
     final pos = _controller.position;
     final newLeft = pos.pixels > 0;
     final newRight = pos.pixels < pos.maxScrollExtent;
     if (newLeft != _fadeLeft || newRight != _fadeRight) {
+      if (!mounted) return;
       setState(() {
         _fadeLeft = newLeft;
         _fadeRight = newRight;
@@ -55,10 +72,9 @@ class _HorizontalFadeScrollViewState extends State<HorizontalFadeScrollView> {
 
   @override
   void dispose() {
+    _controller.removeListener(_onScroll);
     if (widget.scrollController == null) {
       _controller.dispose();
-    } else {
-      _controller.removeListener(_onScroll);
     }
     super.dispose();
   }
