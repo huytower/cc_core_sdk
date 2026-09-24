@@ -34,16 +34,34 @@ class CcSnackBarHelper {
     double? elevation,
     FontWeight? fontWeight,
   }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final defaultBg = isDark
+        ? context.ccColorScheme.primaryContainer
+        : context.ccColorScheme.surface;
+    final defaultText = isDark
+        ? context.ccColorScheme.onPrimaryContainer
+        : context.ccColorScheme.onSurface;
+
+    final defaultShape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+      side: isDark
+          ? BorderSide(
+              color: context.ccColorScheme.onSurface.withOpacity(0.12),
+              width: 1,
+            )
+          : BorderSide.none,
+    );
+
     final snackBar = SnackBar(
       content: Text(
         message,
         style: context.ccTextTheme.bodyLarge?.copyWith(
-          color: textColor ?? context.ccColorScheme.onSurface,
+          color: textColor ?? defaultText,
           height: 1.2,
           fontWeight: fontWeight ?? FontWeight.normal,
         ),
       ),
-      backgroundColor: backgroundColor ?? context.ccColorScheme.surface,
+      backgroundColor: backgroundColor ?? defaultBg,
       duration: duration ?? const Duration(milliseconds: 1300),
       action: actionLabel != null
           ? SnackBarAction(
@@ -51,7 +69,9 @@ class CcSnackBarHelper {
               onPressed: onActionPressed ?? () {},
               textColor:
                   textColor?.withOpacity(0.8) ??
-                  context.ccColorScheme.primary.withOpacity(0.8),
+                  (isDark
+                      ? context.ccColorScheme.primary
+                      : context.ccColorScheme.primary.withOpacity(0.8)),
             )
           : null,
       onVisible: () {
@@ -60,8 +80,8 @@ class CcSnackBarHelper {
       dismissDirection: DismissDirection.horizontal,
       behavior: SnackBarBehavior.floating,
       margin: margin ?? EdgeInsets.all(context.respPadding(8.0)),
-      shape: shape,
-      elevation: elevation,
+      shape: shape ?? defaultShape,
+      elevation: elevation ?? (isDark ? 0 : 4),
     );
 
     // Show the snackbar
@@ -101,12 +121,17 @@ class CcSnackBarHelper {
     String? actionLabel,
     VoidCallback? onActionPressed,
   }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     showSnackBar(
       context: context,
       message: message,
       duration: duration,
-      backgroundColor: context.ccColorScheme.primary,
-      textColor: context.ccColorScheme.onPrimary,
+      backgroundColor: isDark
+          ? context.ccColorScheme.primaryContainer
+          : context.ccColorScheme.primary,
+      textColor: isDark
+          ? context.ccColorScheme.onPrimaryContainer
+          : context.ccColorScheme.onPrimary,
       actionLabel: actionLabel,
       onActionPressed: onActionPressed,
     );
