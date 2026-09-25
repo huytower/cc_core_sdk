@@ -47,8 +47,8 @@ class CcSuggestionChip extends StatelessWidget {
       borderRadius: context.brXs,
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: context.respDim(4),
-          vertical: context.respDim(2),
+          horizontal: context.respDim(6),
+          vertical: context.respDim(6),
         ),
         decoration: BoxDecoration(
           color: accentColor.withAlpha(80),
@@ -59,7 +59,7 @@ class CcSuggestionChip extends StatelessWidget {
             Icon(
               icon,
               size: context.respIconSize(baseSize: 16),
-              color: context.ccColorScheme.surface,
+              color: context.ccColorScheme.onPrimary,
             ),
             const CcSpaceXS(),
             Expanded(
@@ -68,7 +68,7 @@ class CcSuggestionChip extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textStyle: context.ccTextTheme.labelMedium?.copyWith(
-                  color: context.ccColorScheme.surface,
+                  color: context.ccColorScheme.onPrimary,
                 ),
               ),
             ),
@@ -80,7 +80,7 @@ class CcSuggestionChip extends StatelessWidget {
                 child: Icon(
                   Icons.close,
                   size: context.respIconSize(baseSize: 16),
-                  color: context.ccColorScheme.surface,
+                  color: context.ccColorScheme.onPrimary,
                 ),
               ),
           ],
