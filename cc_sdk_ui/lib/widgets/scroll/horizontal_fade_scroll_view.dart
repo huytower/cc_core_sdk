@@ -48,12 +48,23 @@ class _HorizontalFadeScrollViewState extends State<HorizontalFadeScrollView> {
       }
       _initController();
     }
+    // Recalculate fade state when widget key changes (content changed)
+    if (widget.key != oldWidget.key) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _onScroll());
+    }
   }
 
   void _initController() {
     _controller = widget.scrollController ?? ScrollController();
     _controller.addListener(_onScroll);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _onScroll());
+    // Initial fade state calculation
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _onScroll();
+      // Recalculate after a short delay to ensure layout is complete
+      Future.delayed(const Duration(milliseconds: 50), () {
+        if (mounted) _onScroll();
+      });
+    });
   }
 
   void _onScroll() {
