@@ -129,9 +129,7 @@ class CcSnackBarHelper {
       backgroundColor: isDark
           ? context.ccColorScheme.primaryContainer
           : context.ccColorScheme.primary,
-      textColor: isDark
-          ? context.ccColorScheme.onPrimaryContainer
-          : context.ccColorScheme.onPrimary,
+      textColor: context.ccColorScheme.onPrimary,
       actionLabel: actionLabel,
       onActionPressed: onActionPressed,
     );
