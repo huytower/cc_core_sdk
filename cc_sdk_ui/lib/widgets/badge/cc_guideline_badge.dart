@@ -269,10 +269,9 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
     return Flexible(
       child: CcText(
         widget.label!,
-        textStyle: context.ccTextTheme.labelSmall?.copyWith(
+        textStyle: context.ccTextTheme.labelMedium?.copyWith(
           color: context.ccColorScheme.onSurface,
           fontWeight: FontWeight.w500,
-          fontSize: 8.5,
         ),
         maxLines: 3,
         overflow: TextOverflow.ellipsis,

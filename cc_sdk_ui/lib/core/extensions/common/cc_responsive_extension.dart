@@ -61,7 +61,7 @@ extension ResponsiveExtension on BuildContext {
   double respDim(
     double baseDimension, {
     double baselineWidth = 360.0,
-    double maxMultiplier = 2,
+    double maxMultiplier = 1.5,
   }) {
     return baseDimension *
         (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
