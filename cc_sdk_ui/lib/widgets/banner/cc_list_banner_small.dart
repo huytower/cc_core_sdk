@@ -50,13 +50,13 @@ class CcListBannerSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: description != null && description!.isNotEmpty
-          ? context.respDim(60)
-          : context.respDim(45),
+          ? context.respDim(44)
+          : context.respDim(38),
       child: ClipRRect(
         borderRadius: context.brXxl,
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-          child: Container(
+          child: DecoratedBox(
             decoration: _buildDecoration(context),
             child: InkWell(
               onTap: onTap,
@@ -90,7 +90,7 @@ class CcListBannerSmall extends StatelessWidget {
 
     // Increase alpha in Dark Mode to reduce transparency as requested
     final gradientAlpha = isDark ? 0.8 : 0.2;
-    final borderAlpha = 0.1;
+    const borderAlpha = 0.1;
 
     return BoxDecoration(
       borderRadius: context.brXxl,

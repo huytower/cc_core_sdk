@@ -31,6 +31,7 @@ class CcSectionEmptyState extends StatelessWidget {
       alignment: Alignment.center,
       child: CcText(
         message,
+        maxLines: 3,
         textAlign: TextAlign.center,
         textStyle: context.ccTextTheme.bodySmall?.copyWith(
           color: context.ccColorScheme.onSurfaceVariant.withValues(alpha: 0.5),
