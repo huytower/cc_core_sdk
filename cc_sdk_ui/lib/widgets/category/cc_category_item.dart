@@ -38,8 +38,8 @@ class CcCategoryItem extends StatelessWidget {
           if (isSelected)
             Positioned.fill(
               child: CcGlassyGradientBackground(
-                centerColor: effectiveActiveColor.withValues(alpha: 0.12),
-                endColor: effectiveActiveColor.withValues(alpha: 0.25),
+                centerColor: effectiveActiveColor.withValues(alpha: 0.04),
+                endColor: effectiveActiveColor.withValues(alpha: 0.08),
               ),
             ),
           AnimatedContainer(
@@ -47,14 +47,14 @@ class CcCategoryItem extends StatelessWidget {
             width: width ?? context.respDim(75),
             decoration: BoxDecoration(
               color: isSelected
-                  ? effectiveActiveColor.withValues(alpha: 0.12)
+                  ? effectiveActiveColor.withValues(alpha: 0.02)
                   : scheme.onSurface.withValues(alpha: 0.02),
               borderRadius: context.brLg,
               border: Border.all(
                 color: isSelected
-                    ? effectiveActiveColor.withValues(alpha: 0.35)
+                    ? effectiveActiveColor.withValues(alpha: 0.04)
                     : scheme.onSurface.withValues(alpha: 0.02),
-                width: context.respDim(isSelected ? 1.5 : 1),
+                width: context.respDim(1),
               ),
             ),
             child: CcPadding(
@@ -103,7 +103,7 @@ class CcCategoryItem extends StatelessWidget {
       height: context.respDim(35),
       decoration: BoxDecoration(
         color: isSelected
-            ? activeColor.withValues(alpha: 0.15)
+            ? activeColor.withValues(alpha: 0.04)
             : scheme.onSurface.withValues(alpha: 0.02),
         borderRadius: context.brMd,
       ),
@@ -113,8 +113,8 @@ class CcCategoryItem extends StatelessWidget {
           if (isSelected)
             Positioned.fill(
               child: CcGlassyGradientIcon(
-                centerColor: activeColor.withValues(alpha: 0.20),
-                endColor: activeColor.withValues(alpha: 0.40),
+                centerColor: activeColor.withValues(alpha: 0.08),
+                endColor: activeColor.withValues(alpha: 0.16),
               ),
             ),
           CcIcon(
