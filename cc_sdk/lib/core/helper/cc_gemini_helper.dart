@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:firebase_ai/firebase_ai.dart';
 
 // Re-exported so callers can build a [Schema] for [CcGeminiHelper]'s
@@ -15,14 +16,31 @@ export 'package:firebase_ai/firebase_ai.dart' show Schema, SchemaType;
 class CcGeminiHelper {
   CcGeminiHelper._();
 
-  static const String _modelName = 'gemini-2.5-flash';
+  static const String _modelName = 'gemini-3.8-flash';
 
   static GenerativeModel? _model;
+
+  /// Retries for transient 5xx responses (e.g. "high demand" 500s) — Firebase
+  /// AI Logic surfaces those as a [FirebaseAIException] whose message starts
+  /// with `Server Error [<code>]`, since the SDK doesn't expose a status code
+  /// field directly (see `HttpApiClient.makeRequest`).
+  static const int _maxAttempts = 3;
+  static const Duration _retryDelay = Duration(seconds: 2);
+  static final RegExp _serverErrorCodePattern = RegExp(
+    r'^Server Error \[(\d{3})\]',
+  );
 
   static GenerativeModel _getModel() {
     return _model ??= FirebaseAI.googleAI().generativeModel(
       model: _modelName,
     );
+  }
+
+  static bool _isTransientServerError(Object error) {
+    if (error is! FirebaseAIException) return false;
+    final match = _serverErrorCodePattern.firstMatch(error.message);
+    if (match == null) return false;
+    return int.parse(match.group(1)!) >= 500;
   }
 
   /// Null [responseSchema] leaves the model on default free-text output.
@@ -41,15 +59,23 @@ class CcGeminiHelper {
     required String prompt,
     Schema? responseSchema,
   }) async {
-    try {
-      final response = await _getModel().generateContent(
-        [Content.text(prompt)],
-        generationConfig: _jsonConfig(responseSchema),
-      );
-      return response.text;
-    } catch (_) {
-      return null;
+    for (var attempt = 1; attempt <= _maxAttempts; attempt++) {
+      try {
+        final response = await _getModel().generateContent(
+          [Content.text(prompt)],
+          generationConfig: _jsonConfig(responseSchema),
+        );
+        return response.text;
+      } catch (e) {
+        final canRetry = attempt < _maxAttempts && _isTransientServerError(e);
+        'generateText attempt $attempt/$_maxAttempts failed '
+                '(${canRetry ? 'retrying' : 'giving up'}): $e'
+            .Log('CcGeminiHelper');
+        if (!canRetry) return null;
+        await Future.delayed(_retryDelay);
+      }
     }
+    return null;
   }
 
   /// Same contract as [generateText], but sends [imageBytes] alongside
