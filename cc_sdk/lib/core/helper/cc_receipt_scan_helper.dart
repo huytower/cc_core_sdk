@@ -35,6 +35,7 @@ class ReceiptPickResult {
 /// must degrade gracefully rather than crash.
 abstract final class CcReceiptScanHelper {
   static final ImagePicker _picker = ImagePicker();
+  static const double _maxImageDimension = 2048;
 
   static Future<ReceiptPickResult> pickReceiptImage({
     required bool fromCamera,
@@ -45,6 +46,8 @@ abstract final class CcReceiptScanHelper {
       // Sniff the real format from the bytes instead.
       final file = await _picker.pickImage(
         source: fromCamera ? ImageSource.camera : ImageSource.gallery,
+        maxWidth: _maxImageDimension,
+        maxHeight: _maxImageDimension,
         imageQuality: 85,
       );
       if (file == null) return const ReceiptPickResult();
