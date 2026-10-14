@@ -1,3 +1,4 @@
+import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -26,13 +27,22 @@ class CcLocationHelper {
 
   /// Request location permission
   static Future<bool> requestLocationPermission() async {
+    '[CcLocationHelper] Requesting location permission...'.Log(
+      'CcLocationHelper',
+    );
     final status = await Permission.location.request();
+    '[CcLocationHelper] Location permission result: $status'.Log(
+      'CcLocationHelper',
+    );
     return status.isGranted;
   }
 
   /// Check if location permission is granted
   static Future<bool> isLocationPermissionGranted() async {
     final status = await Permission.location.status;
+    '[CcLocationHelper] Location permission status: $status'.Log(
+      'CcLocationHelper',
+    );
     return status.isGranted;
   }
 
@@ -41,19 +51,33 @@ class CcLocationHelper {
     try {
       final hasPermission = await isLocationPermissionGranted();
       if (!hasPermission) {
+        '[CcLocationHelper] Location permission not granted. Requesting...'.Log(
+          'CcLocationHelper',
+        );
         final granted = await requestLocationPermission();
         if (!granted) {
+          '[CcLocationHelper] Location permission denied by user.'.Log(
+            'CcLocationHelper',
+          );
           return null;
         }
       }
 
+      '[CcLocationHelper] Fetching current GPS position...'.Log(
+        'CcLocationHelper',
+      );
       final position = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.high,
         ),
       );
+      '[CcLocationHelper] Current GPS position obtained: lat=${position.latitude}, lng=${position.longitude}'
+          .Log('CcLocationHelper');
       return position;
     } catch (e) {
+      '[CcLocationHelper] Error getting current position: $e'.Log(
+        'CcLocationHelper',
+      );
       return null;
     }
   }
@@ -68,8 +92,16 @@ class CcLocationHelper {
     try {
       final hasPermission = await isLocationPermissionGranted();
       if (!hasPermission) return null;
-      return await Geolocator.getLastKnownPosition();
+      final position = await Geolocator.getLastKnownPosition();
+      if (position != null) {
+        '[CcLocationHelper] Last known GPS position obtained: lat=${position.latitude}, lng=${position.longitude}'
+            .Log('CcLocationHelper');
+      }
+      return position;
     } catch (e) {
+      '[CcLocationHelper] Error getting last known position: $e'.Log(
+        'CcLocationHelper',
+      );
       return null;
     }
   }
