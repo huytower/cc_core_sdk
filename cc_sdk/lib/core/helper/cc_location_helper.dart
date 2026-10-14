@@ -40,9 +40,6 @@ class CcLocationHelper {
   /// Check if location permission is granted
   static Future<bool> isLocationPermissionGranted() async {
     final status = await Permission.location.status;
-    '[CcLocationHelper] Location permission status: $status'.Log(
-      'CcLocationHelper',
-    );
     return status.isGranted;
   }
 
@@ -51,9 +48,6 @@ class CcLocationHelper {
     try {
       final hasPermission = await isLocationPermissionGranted();
       if (!hasPermission) {
-        '[CcLocationHelper] Location permission not granted. Requesting...'.Log(
-          'CcLocationHelper',
-        );
         final granted = await requestLocationPermission();
         if (!granted) {
           '[CcLocationHelper] Location permission denied by user.'.Log(
