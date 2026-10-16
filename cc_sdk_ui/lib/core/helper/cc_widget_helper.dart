@@ -1,3 +1,4 @@
+import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:cc_sdk/core/helper/cc_device_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -132,12 +133,12 @@ class CcWidgetHelper {
         try {
           callback();
         } catch (e) {
-          debugPrint('Error in post frame callback: $e');
+          'Error in post frame callback: $e'.Log();
         }
       });
       return true;
     } catch (e) {
-      debugPrint('Error scheduling post frame callback: $e');
+      'Error scheduling post frame callback: $e'.Log();
       return false;
     }
   }

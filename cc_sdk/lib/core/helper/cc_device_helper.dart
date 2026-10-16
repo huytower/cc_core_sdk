@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 
+import '../extensions/common/cc_logger_extension.dart';
+
 /// Utility class for screen-layout and platform helpers.
 ///
 /// Device-information queries (device ID, OS info, app version) have been
@@ -106,7 +108,7 @@ class CcDeviceHelper {
         DeviceOrientation.landscapeRight,
       ]);
     } catch (e) {
-      debugPrint('Error setting landscape orientation: $e');
+      'Error setting landscape orientation $e'.Log();
     }
   }
 
@@ -115,7 +117,7 @@ class CcDeviceHelper {
     try {
       await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
     } catch (e) {
-      debugPrint('Error setting default orientation: $e');
+      'Error setting default orientation: $e'.Log();
     }
   }
 
@@ -127,7 +129,7 @@ class CcDeviceHelper {
         DeviceOrientation.portraitDown,
       ]);
     } catch (e) {
-      debugPrint('Error setting portrait orientation: $e');
+      'Error setting portrait orientation: $e'.Log();
     }
   }
 }

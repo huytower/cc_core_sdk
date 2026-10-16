@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter/material.dart';
 
 import '../../widgets/base/cc_keyboard_dismisser.dart';
-
 import '../../widgets/dialog/cc_base_dialog.dart';
 import '../../widgets/dialog/cc_body_modal_bottom_sheet.dart';
 import '../../widgets/dialog/cc_body_show_message.dart';
@@ -167,8 +167,7 @@ class CcDialogHelper {
 
       await dialogFuture;
     } catch (error, stackTrace) {
-      debugPrint('Error showing confirmation dialog: $error');
-      debugPrint('Stack trace: $stackTrace');
+      'Error showing confirmation dialog: $error'.Log();
     }
   }
 }
