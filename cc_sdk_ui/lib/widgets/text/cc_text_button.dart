@@ -18,10 +18,7 @@ class CcTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = context.ccColorScheme;
-    final buttonText = CcFormLabel(
-      text: text,
-      color: scheme.primary,
-    );
+    final buttonText = CcFormLabel(text: text, color: scheme.onPrimary);
 
     // If not enabled or no tap handler, return text directly
     if (!isEnable || onTap == null) {
