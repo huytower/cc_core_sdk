@@ -31,9 +31,7 @@ class CcGeminiHelper {
   );
 
   static GenerativeModel _getModel() {
-    return _model ??= FirebaseAI.googleAI().generativeModel(
-      model: _modelName,
-    );
+    return _model ??= FirebaseAI.googleAI().generativeModel(model: _modelName);
   }
 
   static bool _isTransientServerError(Object error) {
@@ -58,17 +56,27 @@ class CcGeminiHelper {
   static Future<String?> generateText({
     required String prompt,
     Schema? responseSchema,
+  }) => _generateWithRetry(
+    label: 'generateText',
+    contents: [Content.text(prompt)],
+    responseSchema: responseSchema,
+  );
+
+  static Future<String?> _generateWithRetry({
+    required String label,
+    required List<Content> contents,
+    Schema? responseSchema,
   }) async {
     for (var attempt = 1; attempt <= _maxAttempts; attempt++) {
       try {
         final response = await _getModel().generateContent(
-          [Content.text(prompt)],
+          contents,
           generationConfig: _jsonConfig(responseSchema),
         );
         return response.text;
       } catch (e) {
         final canRetry = attempt < _maxAttempts && _isTransientServerError(e);
-        'generateText attempt $attempt/$_maxAttempts failed '
+        '$label attempt $attempt/$_maxAttempts failed '
                 '(${canRetry ? 'retrying' : 'giving up'}): $e'
             .Log('CcGeminiHelper');
         if (!canRetry) return null;
@@ -87,18 +95,27 @@ class CcGeminiHelper {
     Schema? responseSchema,
   }) async {
     try {
-      final response = await _getModel().generateContent(
-        [
-          Content.multi([
-            TextPart(prompt),
-            InlineDataPart(mimeType, imageBytes),
-          ]),
-        ],
-        generationConfig: _jsonConfig(responseSchema),
-      );
+      final response = await _getModel().generateContent([
+        Content.multi([TextPart(prompt), InlineDataPart(mimeType, imageBytes)]),
+      ], generationConfig: _jsonConfig(responseSchema));
       return response.text;
     } catch (_) {
       return null;
     }
   }
+
+  static Future<String?> generateFromImages({
+    required List<({Uint8List bytes, String mimeType})> images,
+    required String prompt,
+    Schema? responseSchema,
+  }) => _generateWithRetry(
+    label: 'generateFromImages',
+    contents: [
+      Content.multi([
+        TextPart(prompt),
+        for (final image in images) InlineDataPart(image.mimeType, image.bytes),
+      ]),
+    ],
+    responseSchema: responseSchema,
+  );
 }
