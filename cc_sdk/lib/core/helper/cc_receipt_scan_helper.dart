@@ -30,6 +30,18 @@ class ReceiptPickResult {
   final bool permissionDenied;
 }
 
+class ReceiptBatchPickResult {
+  const ReceiptBatchPickResult({
+    this.images = const [],
+    this.permissionDenied = false,
+    this.failed = false,
+  });
+
+  final List<PickedReceiptImage> images;
+  final bool permissionDenied;
+  final bool failed;
+}
+
 /// Picks a receipt image (camera or gallery) and runs on-device OCR on it.
 /// Fails silently on any error — backs a best-effort local extraction that
 /// must degrade gracefully rather than crash.
@@ -51,26 +63,55 @@ abstract final class CcReceiptScanHelper {
         imageQuality: 85,
       );
       if (file == null) return const ReceiptPickResult();
-      final bytes = await file.readAsBytes();
-      final mimeType = _detectImageMimeType(bytes);
-      if (mimeType == null) return const ReceiptPickResult();
-      return ReceiptPickResult(
-        image: PickedReceiptImage(
-          path: file.path,
-          bytes: bytes,
-          mimeType: mimeType,
-        ),
-      );
+      final image = await _toPickedImage(file);
+      if (image == null) return const ReceiptPickResult();
+      return ReceiptPickResult(image: image);
     } on PlatformException catch (e) {
-      // image_picker_android/image_picker_ios both use these exact codes
-      // for a denied camera or photo-library permission.
-      final denied =
-          e.code == 'camera_access_denied' || e.code == 'photo_access_denied';
-      return ReceiptPickResult(permissionDenied: denied);
+      return ReceiptPickResult(permissionDenied: _isPermissionDenied(e));
     } catch (_) {
       return const ReceiptPickResult();
     }
   }
+
+  static Future<ReceiptBatchPickResult> pickReceiptImages({
+    required int limit,
+  }) async {
+    try {
+      final files = await _picker.pickMultiImage(
+        maxWidth: _maxImageDimension,
+        maxHeight: _maxImageDimension,
+        imageQuality: 85,
+        limit: limit,
+      );
+      final images = <PickedReceiptImage>[];
+      for (final file in files.take(limit)) {
+        final image = await _toPickedImage(file);
+        if (image == null) return const ReceiptBatchPickResult(failed: true);
+        images.add(image);
+      }
+      return ReceiptBatchPickResult(images: images);
+    } on PlatformException catch (e) {
+      return ReceiptBatchPickResult(permissionDenied: _isPermissionDenied(e));
+    } catch (_) {
+      return const ReceiptBatchPickResult(failed: true);
+    }
+  }
+
+  static Future<PickedReceiptImage?> _toPickedImage(XFile file) async {
+    final bytes = await file.readAsBytes();
+    final mimeType = _detectImageMimeType(bytes);
+    if (mimeType == null) return null;
+    return PickedReceiptImage(
+      path: file.path,
+      bytes: bytes,
+      mimeType: mimeType,
+    );
+  }
+
+  // image_picker_android/image_picker_ios both use these exact codes
+  // for a denied camera or photo-library permission.
+  static bool _isPermissionDenied(PlatformException e) =>
+      e.code == 'camera_access_denied' || e.code == 'photo_access_denied';
 
   /// Sniffs the format from the magic-number header; null (not a guessed
   /// JPEG) on an unrecognized signature, so a corrupt file fails the pick
