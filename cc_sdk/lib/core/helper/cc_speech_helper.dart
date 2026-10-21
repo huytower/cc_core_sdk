@@ -36,20 +36,25 @@ class CcSpeechHelper {
       final ready = await _speech.initialize(
         debugLogging: true,
         onStatus: (status) {
+          '[CcSpeechHelper] Status changed: $status'.Log('CcSpeechHelper');
           if (status == SpeechToText.notListeningStatus ||
               status == SpeechToText.doneStatus) {
             _onListeningStopped?.call();
           }
         },
         onError: (error) {
-          'Speech recognition error: ${error.errorMsg}'.Log('CcSpeechHelper');
+          '[CcSpeechHelper] Speech recognition error: ${error.errorMsg}'.Log(
+            'CcSpeechHelper',
+          );
           _onListeningStopped?.call();
         },
       );
       _initialized = ready;
       return ready;
     } catch (e) {
-      'Speech recognition initialization failed: $e'.Log('CcSpeechHelper');
+      '[CcSpeechHelper] Speech recognition initialization failed: $e'.Log(
+        'CcSpeechHelper',
+      );
       return false;
     } finally {
       completer.complete();
@@ -68,36 +73,63 @@ class CcSpeechHelper {
     void Function()? onListeningStopped,
     String localeId = 'vi_VN',
   }) async {
-    if (_speech.isListening) return true;
+    '[CcSpeechHelper] startListening requested | localeId=$localeId'.Log(
+      'CcSpeechHelper',
+    );
+
+    if (_speech.isListening) {
+      '[CcSpeechHelper] Speech recognizer is already listening'.Log(
+        'CcSpeechHelper',
+      );
+      return true;
+    }
 
     try {
       final ready = await _ensureInitialized();
-      if (!ready) return false;
+      if (!ready) {
+        '[CcSpeechHelper] Speech recognizer initialization failed'.Log(
+          'CcSpeechHelper',
+        );
+        return false;
+      }
 
       if (_speech.isListening) return true;
 
       _onListeningStopped = onListeningStopped;
       await _speech.listen(
-        onResult: (result) =>
-            onResult(result.recognizedWords, result.finalResult),
+        onResult: (result) {
+          '[CcSpeechHelper] onResult: "${result.recognizedWords}" | isFinal=${result.finalResult}'
+              .Log('CcSpeechHelper');
+          onResult(result.recognizedWords, result.finalResult);
+        },
         localeId: localeId,
+        pauseFor: const Duration(seconds: 2),
+        listenFor: const Duration(seconds: 45),
+        listenOptions: SpeechListenOptions(
+          listenMode: ListenMode.dictation,
+          partialResults: true,
+        ),
         cancelOnError: false,
         partialResults: true,
       );
       return true;
-    } catch (_) {
+    } catch (e) {
+      '[CcSpeechHelper] Listen exception: $e'.Log('CcSpeechHelper');
       return false;
     }
   }
 
   static Future<void> stopListening() async {
+    '[CcSpeechHelper] stopListening requested'.Log('CcSpeechHelper');
+    final callback = _onListeningStopped;
     _onListeningStopped = null;
     try {
       if (_speech.isListening) {
         await _speech.stop();
       }
-    } catch (_) {
-      // Best-effort — nothing more to do if the platform call fails.
+      callback?.call();
+    } catch (e) {
+      '[CcSpeechHelper] Stop exception: $e'.Log('CcSpeechHelper');
     }
   }
 }
