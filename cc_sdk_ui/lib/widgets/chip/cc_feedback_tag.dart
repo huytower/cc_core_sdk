@@ -30,10 +30,10 @@ class CcFeedbackTag extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected
               ? activeColor.withValues(alpha: 0.18)
-              : scheme.surfaceContainerHighest,
+              : scheme.onPrimary.withAlpha(50),
           borderRadius: context.brPill,
           border: Border.all(
-            color: selected ? activeColor : scheme.outlineVariant,
+            color: selected ? activeColor : scheme.outlineVariant.withAlpha(50),
           ),
         ),
         child: Row(
@@ -44,7 +44,9 @@ class CcFeedbackTag extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textStyle: context.ccTextTheme.bodySmall?.copyWith(
-                color: selected ? activeColor : scheme.onSurface,
+                color: selected
+                    ? activeColor
+                    : scheme.onSurfaceVariant.withAlpha(100),
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
               ),
             ),
