@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
 import 'package:cc_sdk/core/crash_reporting/cc_crashlytics_handler.dart';
+import 'package:cc_sdk/core/crash_reporting/cc_slack_handler.dart';
 import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -96,11 +97,12 @@ abstract final class CcCatcherBootstrap {
         _JsonConsoleHandler(),
         _getHandler(logFile, printLogs: kDebugMode),
         CcCrashlyticsHandler(),
+        CcSlackHandler(),
       ]);
 
   static Catcher2Options releaseOptions(File logFile) => Catcher2Options(
     SilentReportMode(),
-    [_getHandler(logFile, printLogs: false), CcCrashlyticsHandler()],
+    [_getHandler(logFile, printLogs: false), CcCrashlyticsHandler(), CcSlackHandler()],
   );
 
   static Catcher2Options profileOptions(File logFile) =>
