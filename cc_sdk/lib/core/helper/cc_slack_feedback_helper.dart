@@ -30,11 +30,13 @@ class CcSlackFeedbackHelper {
   }
 
   /// Posts [feedbackText] together with the selected [selectedKeys] (praise or
-  /// criticism keys) to Slack.
+  /// criticism keys) and the existing [averageRating] (from ReviewsSummaryCard)
+  /// to Slack.
   static Future<void> sendUserFeedback({
     required String feedbackText,
     required List<String> selectedKeys,
     required bool isPraise,
+    double? averageRating,
   }) async {
     final webhookUrl = _loadWebhookUrl();
     if (webhookUrl == null || webhookUrl.isEmpty) return;
@@ -43,12 +45,15 @@ class CcSlackFeedbackHelper {
     final keysText = selectedKeys.isNotEmpty
         ? selectedKeys.join(', ')
         : '(none)';
+    final ratingText = averageRating != null
+        ? '⭐ ${averageRating.toStringAsFixed(1)}/5'
+        : '(not rated)';
     final safeText = feedbackText.trim().isNotEmpty
         ? feedbackText.trim()
         : '(no text)';
 
     final payload = jsonEncode({
-      'text': '*📝 User Feedback*\n*Type:* $type\n*Selected:* $keysText\n*Feedback:* $safeText',
+      'text': '*📝 User Feedback*\n*Type:* $type\n*Rating:* $ratingText\n*Selected:* $keysText\n*Feedback:* $safeText',
       'channel': _defaultChannel,
     });
 
