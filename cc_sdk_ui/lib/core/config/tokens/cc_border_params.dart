@@ -6,6 +6,8 @@ abstract class CcBorderParams {
   /// Subtle border for cards and containers.
   static const double subtleWidth = 1;
 
+  static const double textFieldWidth = 0.4;
+
   /// Medium border for elevated components.
   static const double mediumWidth = 1.5;
 

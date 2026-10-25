@@ -148,4 +148,10 @@ extension CcContextExtension on BuildContext {
     color: ccColorScheme.primary,
     width: respDim(CcBorderParams.strongWidth),
   );
+
+  /// A subtle border for text field-like containers.
+  Border get borderTextField => Border.all(
+    color: ccColorScheme.outlineVariant.withAlpha(10),
+    width: respDim(CcBorderParams.textFieldWidth),
+  );
 }
