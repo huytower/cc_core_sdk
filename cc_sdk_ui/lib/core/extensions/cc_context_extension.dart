@@ -2,6 +2,7 @@ import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/material.dart';
 
 import '../config/tokens/cc_border_params.dart';
+import '../config/tokens/cc_border_radius.dart';
 import 'common/cc_responsive_extension.dart';
 
 /// Extension on BuildContext to easily access project-standard theme properties.
@@ -152,6 +153,15 @@ extension CcContextExtension on BuildContext {
   /// A subtle border for text field-like containers.
   Border get borderTextField => Border.all(
     color: ccColorScheme.outlineVariant.withAlpha(10),
-    width: respDim(CcBorderParams.textFieldWidth),
+    width: 0.4,
+  );
+
+  /// A subtle OutlineInputBorder for text fields, matching [borderTextField].
+  OutlineInputBorder get inputBorderTextField => OutlineInputBorder(
+    borderRadius: brMd,
+    borderSide: BorderSide(
+      color: ccColorScheme.outlineVariant.withAlpha(10),
+      width: 0.4,
+    ),
   );
 }
