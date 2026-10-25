@@ -50,7 +50,7 @@ class CcFeedbackTag extends StatelessWidget {
             ),
             const CcSpaceXS(),
             Icon(
-              selected ? Icons.close_rounded : Icons.add_rounded,withAlpha
+              selected ? Icons.close_rounded : Icons.add_rounded,
               size: context.respIconSize(baseSize: 16),
               color: selected ? activeColor : scheme.onSurfaceVariant,
             ),
