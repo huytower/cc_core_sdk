@@ -45,7 +45,7 @@ class CcCategoryShimmerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? context.respDim(75),
+      height: height ?? context.respDim(80),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(
@@ -56,7 +56,7 @@ class CcCategoryShimmerList extends StatelessWidget {
         itemCount: itemCount,
         separatorBuilder: (context, index) => separator ?? const CcSpaceSM(),
         itemBuilder: (context, index) => Container(
-          width: itemWidth ?? context.respDim(68),
+          width: itemWidth ?? context.respDim(85),
           padding: itemPadding ?? EdgeInsets.all(context.respDim(10)),
           decoration: BoxDecoration(
             color: context.ccColorScheme.onSurface.withValues(alpha: 0.04),
