@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../background/cc_watermark_background.dart';
 
 import '../../export_cc_sdk_ui.dart';
 
@@ -52,51 +53,36 @@ class CcCategoryGroupSection extends StatelessWidget {
     return CcPadding(
       ClipRRect(
         borderRadius: BorderRadius.horizontal(left: context.brMd.topLeft),
-        child: Stack(
-          children: [
-            // Tinted Background
-            Positioned.fill(
-              child: Container(color: primary.withValues(alpha: 0.08)),
-            ),
-            // Watermark Icon
-            Positioned(
-              right: -context.respDim(20),
-              bottom: -context.respDim(20),
-              child: Icon(
-                bgIcon,
-                size: context.respDim(120),
-                color: primary.withValues(alpha: 0.1),
-              ),
-            ),
-            // Horizontal Content
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: context.respDim(18)),
-              child: HorizontalFadeScrollView(
-                height: context.respDim(45),
-                builder: (controller) => ListView.separated(
-                  controller: controller,
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.respPadding(CcPaddingParams.SPACE_SM),
-                  ),
-                  itemCount: items.length,
-                  separatorBuilder: (_, _) => const CcSpaceSM(),
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    final enabled = isEnabled(item);
-                    return CcCategoryChip(
-                      labelKey: item.labelKey,
-                      iconCode: item.iconCode,
-                      iconFamily: item.iconFamily,
-                      isEnabled: enabled,
-                      onTap: () => onToggle(item),
-                      accentColor: accentColor,
-                    );
-                  },
+        child: CcWatermarkBackground(
+          icon: bgIcon,
+          activeColor: primary,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: context.respDim(18)),
+            child: HorizontalFadeScrollView(
+              height: context.respDim(45),
+              builder: (controller) => ListView.separated(
+                controller: controller,
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.respPadding(CcPaddingParams.SPACE_SM),
                 ),
+                itemCount: items.length,
+                separatorBuilder: (_, _) => const CcSpaceSM(),
+                itemBuilder: (context, index) {
+                  final item = items[index];
+                  final enabled = isEnabled(item);
+                  return CcCategoryChip(
+                    labelKey: item.labelKey,
+                    iconCode: item.iconCode,
+                    iconFamily: item.iconFamily,
+                    isEnabled: enabled,
+                    onTap: () => onToggle(item),
+                    accentColor: accentColor,
+                  );
+                },
               ),
             ),
-          ],
+          ),
         ),
       ),
       CcPaddingParams.SPACE_XS,
