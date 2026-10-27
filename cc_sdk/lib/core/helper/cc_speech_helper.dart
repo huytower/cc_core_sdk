@@ -103,11 +103,12 @@ class CcSpeechHelper {
           onResult(result.recognizedWords, result.finalResult);
         },
         localeId: localeId,
-        pauseFor: const Duration(seconds: 2),
+        pauseFor: const Duration(seconds: 3),
         listenFor: const Duration(seconds: 45),
         listenOptions: SpeechListenOptions(
           listenMode: ListenMode.dictation,
           partialResults: true,
+          autoPunctuation: true,
         ),
         cancelOnError: false,
         partialResults: true,
