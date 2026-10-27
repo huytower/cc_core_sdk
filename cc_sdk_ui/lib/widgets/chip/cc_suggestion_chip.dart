@@ -40,8 +40,6 @@ class CcSuggestionChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = context.ccColorScheme;
-
     return CcBouncing(
       onTap: onTap,
       borderRadius: context.brXs,

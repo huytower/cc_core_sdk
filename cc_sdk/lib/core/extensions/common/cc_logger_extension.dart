@@ -4,7 +4,6 @@ import 'package:cc_sdk/core/config/cc_feature_flags.dart';
 import 'package:cc_sdk/core/extensions/common/cc_when_expression.dart';
 import 'package:cc_sdk/core/serialization/gson/cc_gson.dart';
 import 'package:flutter/foundation.dart';
-import 'package:stack_trace/stack_trace.dart';
 
 /// Debug logging extension for any value.
 ///

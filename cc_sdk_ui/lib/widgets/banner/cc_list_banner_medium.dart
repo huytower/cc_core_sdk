@@ -70,7 +70,7 @@ class CcListBannerMedium extends StatelessWidget {
       borderRadius: context.brLg,
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-        child: Container(
+        child: DecoratedBox(
           decoration: _buildDecoration(context),
           child: _buildInkWell(context),
         ),
@@ -84,7 +84,7 @@ class CcListBannerMedium extends StatelessWidget {
     final color = this.color ?? scheme.primary;
 
     final gradientAlpha = isDark ? 0.8 : 0.2;
-    final borderAlpha = 0.1;
+    const borderAlpha = 0.1;
 
     return BoxDecoration(
       borderRadius: context.brLg,

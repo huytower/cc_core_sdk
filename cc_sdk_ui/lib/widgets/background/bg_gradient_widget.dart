@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_gradient_colors.dart';
-import '../../core/extensions/cc_context_extension.dart';
 
 /// A reusable branded gradient background used behind page content.
 ///
