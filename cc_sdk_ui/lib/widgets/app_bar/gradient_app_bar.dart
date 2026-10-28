@@ -8,16 +8,17 @@ PreferredSizeWidget buildDomainGradientAppBar(
   List<Widget>? actions,
   Widget? bottom,
   Widget? leading,
+  double toolbarHeight = kToolbarHeight,
 }) {
   final topPadding = MediaQuery.of(context).padding.top;
   final horizontalPadding = context.respPadding(CcPaddingParams.PAGE_XS);
-  final verticalPadding = context.respPadding(CcPaddingParams.SPACE_XS);
+  final actualToolbarHeight = context.respDim(toolbarHeight);
 
   return PreferredSize(
     preferredSize: Size.fromHeight(
-      context.respDim(64) +
+      actualToolbarHeight +
           topPadding +
-          (bottom != null ? context.respDim(56) : 0),
+          (bottom != null ? context.respDim(52) : 0),
     ),
     child: AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light.copyWith(
@@ -58,29 +59,35 @@ PreferredSizeWidget buildDomainGradientAppBar(
             ),
             Padding(
               padding: EdgeInsets.only(
-                top: topPadding + context.respPadding(CcPaddingParams.SPACE_MD),
+                top: topPadding,
                 left: horizontalPadding,
                 right: horizontalPadding,
-                bottom: verticalPadding,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      if (leading != null) ...[
-                        leading,
-                        SizedBox(
-                          width: context.respPadding(CcPaddingParams.SPACE_MD),
-                        ),
+              child: SizedBox(
+                height:
+                    actualToolbarHeight +
+                    (bottom != null ? context.respDim(52) : 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        if (leading != null) ...[
+                          leading,
+                          SizedBox(
+                            width: context.respPadding(
+                              CcPaddingParams.SPACE_XS,
+                            ),
+                          ),
+                        ],
+                        Expanded(child: title),
+                        ...?actions,
                       ],
-                      Expanded(child: title),
-                      ...?actions,
-                    ],
-                  ),
-                  if (bottom != null) ...[const CcSpaceSM(), bottom],
-                ],
+                    ),
+                    if (bottom != null) ...[const CcSpaceXS(), bottom],
+                  ],
+                ),
               ),
             ),
           ],
