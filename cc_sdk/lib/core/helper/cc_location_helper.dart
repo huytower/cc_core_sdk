@@ -43,8 +43,14 @@ class CcLocationHelper {
   /// Get current position
   static Future<Position?> getCurrentPosition() async {
     try {
-      final hasPermission = await isLocationPermissionGranted();
-      if (!hasPermission) {
+      final status = await Permission.location.status;
+      if (status.isPermanentlyDenied || status.isRestricted) {
+        '[CcLocationHelper] Location permission permanently denied ($status) | skipping request'
+            .Log('CcLocationHelper');
+        return null;
+      }
+
+      if (!status.isGranted) {
         final granted = await requestLocationPermission();
         if (!granted) {
           return null;
