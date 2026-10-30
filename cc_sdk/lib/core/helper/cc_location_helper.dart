@@ -1,10 +1,15 @@
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
+import 'package:flutter/foundation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class CcLocationHelper {
   static const String defaultCountryCode = '+84'; // Vietnam
+
+  /// Reactive ValueNotifier holding the latest GPS position obtained by the device.
+  static final ValueNotifier<Position?> lastGpsPosition =
+      ValueNotifier<Position?>(null);
 
   /// Mapping of ISO country codes to phone calling codes
   static const Map<String, String> countryPhoneCodes = {
@@ -25,13 +30,34 @@ class CcLocationHelper {
     'AU': '+61',
   };
 
-  /// Request location permission
-  static Future<bool> requestLocationPermission() async {
-    final status = await Permission.location.request();
-    '[CcLocationHelper] Location permission result: $status'.Log(
-      'CcLocationHelper',
-    );
-    return status.isGranted;
+  static Future<bool>? _permissionRequestFuture;
+
+  /// Request location permission (deduplicated across concurrent calls)
+  static Future<bool> requestLocationPermission() {
+    if (_permissionRequestFuture != null) {
+      '[CcLocationHelper] Permission request already in flight. Reusing active request.'
+          .Log('CcLocationHelper');
+      return _permissionRequestFuture!;
+    }
+    _permissionRequestFuture = _doRequestLocationPermission().whenComplete(() {
+      _permissionRequestFuture = null;
+    });
+    return _permissionRequestFuture!;
+  }
+
+  static Future<bool> _doRequestLocationPermission() async {
+    try {
+      final status = await Permission.location.request();
+      '[CcLocationHelper] Location permission result: $status'.Log(
+        'CcLocationHelper',
+      );
+      return status.isGranted;
+    } catch (e) {
+      '[CcLocationHelper] Location permission request error: $e'.Log(
+        'CcLocationHelper',
+      );
+      return false;
+    }
   }
 
   /// Check if location permission is granted
@@ -64,6 +90,7 @@ class CcLocationHelper {
       );
       '[CcLocationHelper] GPS position obtained: lat=${position.latitude}, lng=${position.longitude}'
           .Log('CcLocationHelper');
+      lastGpsPosition.value = position;
       return position;
     } catch (e) {
       '[CcLocationHelper] Error getting GPS position: $e'.Log(
@@ -87,6 +114,7 @@ class CcLocationHelper {
       if (position != null) {
         '[CcLocationHelper] Last known GPS position: lat=${position.latitude}, lng=${position.longitude}'
             .Log('CcLocationHelper');
+        lastGpsPosition.value = position;
       }
       return position;
     } catch (e) {
