@@ -29,13 +29,16 @@ class CcSlackHandler extends ReportHandler {
 
   static String _loadWebhookUrl() {
     try {
-      final raw = dotenv.maybeGet('SLACK_WEBHOOK_URL', fallback: '') ?? '';
+      final raw =
+          dotenv.maybeGet('SLACK_CRASH_WEBHOOK_URL', fallback: '') ??
+          dotenv.maybeGet('SLACK_WEBHOOK_URL', fallback: '') ??
+          '';
       final url = _cleanUrl(raw);
-      '[CatcherSlack] Loaded SLACK_WEBHOOK_URL: ${url.isNotEmpty ? "(present, length=${url.length})" : "(EMPTY)"}'
+      '[CatcherSlack] Loaded SLACK_CRASH_WEBHOOK_URL: ${url.isNotEmpty ? "(present, length=${url.length})" : "(EMPTY)"}'
           .Log('CcSlackHandler');
       return url;
     } catch (e) {
-      '[CatcherSlack] Error loading SLACK_WEBHOOK_URL: $e'.Log(
+      '[CatcherSlack] Error loading SLACK_CRASH_WEBHOOK_URL: $e'.Log(
         'CcSlackHandler',
       );
       return '';

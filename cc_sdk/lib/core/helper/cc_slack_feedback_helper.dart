@@ -32,14 +32,16 @@ class CcSlackFeedbackHelper {
   static String _loadWebhookUrl() {
     if (_webhookUrl != null && _webhookUrl!.isNotEmpty) return _webhookUrl!;
     try {
-      final raw = dotenv.maybeGet('SLACK_WEBHOOK_URL', fallback: '') ?? '';
+      final raw =
+          dotenv.maybeGet('SLACK_FEEDBACK_WEBHOOK_URL', fallback: '') ??
+          dotenv.maybeGet('SLACK_WEBHOOK_URL', fallback: '') ??
+          '';
       _webhookUrl = _cleanUrl(raw);
-      '[SlackFeedbackWorkflow] Loaded SLACK_WEBHOOK_URL: ${_webhookUrl?.isNotEmpty == true ? "(present, length=${_webhookUrl!.length})" : "(EMPTY)"}'
+      '[SlackFeedbackWorkflow] Loaded SLACK_FEEDBACK_WEBHOOK_URL: ${_webhookUrl?.isNotEmpty == true ? "(present, length=${_webhookUrl!.length})" : "(EMPTY)"}'
           .Log('CcSlackFeedbackHelper');
     } catch (e) {
-      '[SlackFeedbackWorkflow] Error loading SLACK_WEBHOOK_URL: $e'.Log(
-        'CcSlackFeedbackHelper',
-      );
+      '[SlackFeedbackWorkflow] Error loading SLACK_FEEDBACK_WEBHOOK_URL: $e'
+          .Log('CcSlackFeedbackHelper');
       _webhookUrl = '';
     }
     return _webhookUrl ?? '';

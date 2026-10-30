@@ -35,8 +35,6 @@ class CcLocationHelper {
   /// Request location permission (deduplicated across concurrent calls)
   static Future<bool> requestLocationPermission() {
     if (_permissionRequestFuture != null) {
-      '[CcLocationHelper] Permission request already in flight. Reusing active request.'
-          .Log('CcLocationHelper');
       return _permissionRequestFuture!;
     }
     _permissionRequestFuture = _doRequestLocationPermission().whenComplete(() {
@@ -48,14 +46,8 @@ class CcLocationHelper {
   static Future<bool> _doRequestLocationPermission() async {
     try {
       final status = await Permission.location.request();
-      '[CcLocationHelper] Location permission result: $status'.Log(
-        'CcLocationHelper',
-      );
       return status.isGranted;
-    } catch (e) {
-      '[CcLocationHelper] Location permission request error: $e'.Log(
-        'CcLocationHelper',
-      );
+    } catch (_) {
       return false;
     }
   }
@@ -71,8 +63,6 @@ class CcLocationHelper {
     try {
       final status = await Permission.location.status;
       if (status.isPermanentlyDenied || status.isRestricted) {
-        '[CcLocationHelper] Location permission permanently denied ($status) | skipping request'
-            .Log('CcLocationHelper');
         return null;
       }
 
@@ -88,14 +78,9 @@ class CcLocationHelper {
           accuracy: LocationAccuracy.high,
         ),
       );
-      '[CcLocationHelper] GPS position obtained: lat=${position.latitude}, lng=${position.longitude}'
-          .Log('CcLocationHelper');
       lastGpsPosition.value = position;
       return position;
-    } catch (e) {
-      '[CcLocationHelper] Error getting GPS position: $e'.Log(
-        'CcLocationHelper',
-      );
+    } catch (_) {
       return null;
     }
   }
@@ -112,15 +97,10 @@ class CcLocationHelper {
       if (!hasPermission) return null;
       final position = await Geolocator.getLastKnownPosition();
       if (position != null) {
-        '[CcLocationHelper] Last known GPS position: lat=${position.latitude}, lng=${position.longitude}'
-            .Log('CcLocationHelper');
         lastGpsPosition.value = position;
       }
       return position;
-    } catch (e) {
-      '[CcLocationHelper] Error getting last known position: $e'.Log(
-        'CcLocationHelper',
-      );
+    } catch (_) {
       return null;
     }
   }

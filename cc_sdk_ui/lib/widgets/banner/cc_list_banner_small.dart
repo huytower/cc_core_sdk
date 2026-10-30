@@ -50,8 +50,8 @@ class CcListBannerSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: description != null && description!.isNotEmpty
-          ? context.respDim(44)
-          : context.respDim(38),
+          ? context.respDim(55)
+          : context.respDim(50),
       child: ClipRRect(
         borderRadius: context.brXxl,
         child: BackdropFilter(
