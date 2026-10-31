@@ -9,6 +9,7 @@ class CcSocialLoginBtn extends StatelessWidget {
   final VoidCallback? onTap;
   final CcInteractionType interactionType;
   final bool useDebounce;
+  final String? label;
 
   // Backward compatibility constructor (defaults to bounce)
   const CcSocialLoginBtn({
@@ -16,6 +17,7 @@ class CcSocialLoginBtn extends StatelessWidget {
     required this.type,
     required this.onTap,
     this.useDebounce = true,
+    this.label,
   }) : interactionType = CcInteractionType.bounce;
 
   // Private internal constructor
@@ -24,6 +26,7 @@ class CcSocialLoginBtn extends StatelessWidget {
     required this.interactionType,
     this.onTap,
     this.useDebounce = true,
+    this.label,
     super.key,
   });
 
@@ -32,12 +35,14 @@ class CcSocialLoginBtn extends StatelessWidget {
     required SocialLoginType type,
     required VoidCallback onTap,
     bool useDebounce = true,
+    String? label,
     Key? key,
   }) => CcSocialLoginBtn._(
     type: type,
     interactionType: CcInteractionType.bounce,
     onTap: onTap,
     useDebounce: useDebounce,
+    label: label,
     key: key,
   );
 
@@ -45,22 +50,28 @@ class CcSocialLoginBtn extends StatelessWidget {
     required SocialLoginType type,
     required VoidCallback onTap,
     bool useDebounce = true,
+    String? label,
     Key? key,
   }) => CcSocialLoginBtn._(
     type: type,
     interactionType: CcInteractionType.tap,
     onTap: onTap,
     useDebounce: useDebounce,
+    label: label,
     key: key,
   );
 
-  factory CcSocialLoginBtn.static({required SocialLoginType type, Key? key}) =>
-      CcSocialLoginBtn._(
-        type: type,
-        interactionType: CcInteractionType.none,
-        useDebounce: false,
-        key: key,
-      );
+  factory CcSocialLoginBtn.static({
+    required SocialLoginType type,
+    String? label,
+    Key? key,
+  }) => CcSocialLoginBtn._(
+    type: type,
+    interactionType: CcInteractionType.none,
+    useDebounce: false,
+    label: label,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +91,7 @@ class CcSocialLoginBtn extends StatelessWidget {
           _getIcon(),
           SizedBox(width: context.respPadding(CcPaddingParams.DESC_MD)),
           CcText(
-            _getButtonText(),
+            label ?? _getButtonText(),
             textStyle: context.ccTextTheme.bodyMedium?.copyWith(
               color: _getTextColor(context),
               fontWeight: FontWeight.w600,
@@ -229,7 +240,11 @@ class _FacebookIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.facebook, color: CcBaseColors.white100, size: context.respDim(24));
+    return Icon(
+      Icons.facebook,
+      color: CcBaseColors.white100,
+      size: context.respDim(24),
+    );
   }
 }
 
@@ -238,6 +253,10 @@ class _AppleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.apple, color: CcBaseColors.white100, size: context.respDim(24));
+    return Icon(
+      Icons.apple,
+      color: CcBaseColors.white100,
+      size: context.respDim(24),
+    );
   }
 }
