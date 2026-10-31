@@ -19,9 +19,11 @@ class CcGeminiHelper {
 
   static const String _defaultModelName = 'gemini-3.8-flash';
 
-  static String get _modelName =>
-      dotenv.maybeGet('GEMINI_MODEL_NAME', fallback: _defaultModelName) ??
-      _defaultModelName;
+  static String get _modelName {
+    if (!dotenv.isInitialized) return _defaultModelName;
+    return dotenv.maybeGet('GEMINI_MODEL_NAME', fallback: _defaultModelName) ??
+        _defaultModelName;
+  }
 
   static GenerativeModel? _model;
 
