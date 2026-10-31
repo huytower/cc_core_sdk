@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:firebase_ai/firebase_ai.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // Re-exported so callers can build a [Schema] for [CcGeminiHelper]'s
 // `responseSchema` param without adding a direct `firebase_ai` dependency of
@@ -16,7 +17,11 @@ export 'package:firebase_ai/firebase_ai.dart' show Schema, SchemaType;
 class CcGeminiHelper {
   CcGeminiHelper._();
 
-  static const String _modelName = 'gemini-3.8-flash';
+  static const String _defaultModelName = 'gemini-3.8-flash';
+
+  static String get _modelName =>
+      dotenv.maybeGet('GEMINI_MODEL_NAME', fallback: _defaultModelName) ??
+      _defaultModelName;
 
   static GenerativeModel? _model;
 

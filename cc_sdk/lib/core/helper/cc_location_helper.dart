@@ -1,4 +1,3 @@
-import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:flutter/foundation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
