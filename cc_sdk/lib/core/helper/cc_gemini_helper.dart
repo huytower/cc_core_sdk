@@ -67,17 +67,21 @@ class CcGeminiHelper {
     required List<Content> contents,
     Schema? responseSchema,
   }) async {
+    '[CcGeminiHelper] 🤖 Calling Firebase AI Gemini model ($_modelName) for $label (hasSchema: ${responseSchema != null})...'
+        .Log('CcGeminiHelper');
     for (var attempt = 1; attempt <= _maxAttempts; attempt++) {
       try {
         final response = await _getModel().generateContent(
           contents,
           generationConfig: _jsonConfig(responseSchema),
         );
-        return response.text;
+        final text = response.text;
+        '[CcGeminiHelper] ✅ Firebase AI response received for $label | length=${text?.length ?? 0}'
+            .Log('CcGeminiHelper');
+        return text;
       } catch (e) {
         final canRetry = attempt < _maxAttempts && _isTransientServerError(e);
-        '$label attempt $attempt/$_maxAttempts failed '
-                '(${canRetry ? 'retrying' : 'giving up'}): $e'
+        '[CcGeminiHelper] ❌ $label attempt $attempt/$_maxAttempts failed (${canRetry ? 'retrying' : 'giving up'}): $e'
             .Log('CcGeminiHelper');
         if (!canRetry) return null;
         await Future.delayed(_retryDelay);
