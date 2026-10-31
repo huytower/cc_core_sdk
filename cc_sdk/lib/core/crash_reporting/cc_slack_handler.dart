@@ -6,10 +6,10 @@ import 'package:catcher_2/model/platform_type.dart';
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-/// A [ReportHandler] for Catcher2 that forwards crash reports to Slack via
+/// A [ReportHandler] for Catcher2 that forwards structured crash reports to Slack via
 /// an Incoming Webhook URL.
 ///
-/// The webhook URL is loaded from the `SLACK_WEBHOOK_URL` environment variable
+/// The webhook URL is loaded from the `SLACK_CRASH_WEBHOOK_URL` environment variable
 /// (root `env/.env.*` via [flutter_dotenv]) — it is intentionally **not**
 /// hardcoded here to avoid committing secrets to the repository.
 class CcSlackHandler extends ReportHandler {
@@ -58,22 +58,7 @@ class CcSlackHandler extends ReportHandler {
     }
 
     try {
-      final errorText = report.error != null
-          ? report.error.toString()
-          : 'unknown';
-      final stackText = report.stackTrace != null
-          ? report.stackTrace.toString()
-          : 'no stack trace';
-      final deviceInfo = report.deviceParameters.isNotEmpty
-          ? '\n*Device:* ${report.deviceParameters.entries.take(3).map((e) => '${e.key}=${e.value}').join(', ')}'
-          : '';
-      final customInfo = report.customParameters.isNotEmpty
-          ? '\n*Extra:* ${report.customParameters.entries.take(3).map((e) => '${e.key}=${e.value}').join(', ')}'
-          : '';
-
-      final messageText =
-          '*🚨 Crash caught by Catcher2*\n*Error:* $errorText$deviceInfo$customInfo\n*Stack:*\n\`\`\`$stackText\`\`\`';
-
+      final messageText = _formatStructuredSlackMessage(report);
       return await _postToSlack(_webhookUrl, messageText);
     } catch (e) {
       '[CatcherSlack] ❌ Failed to process crash report: $e'.Log(
@@ -82,6 +67,77 @@ class CcSlackHandler extends ReportHandler {
       return false;
     }
   }
+
+  static String _formatStructuredSlackMessage(Report report) {
+    final rawError = report.error?.toString() ?? 'Unknown Error';
+    final errorLines = rawError.split('\n');
+    final errorMsg = errorLines.first.trim();
+    final stackText = report.stackTrace?.toString() ?? '';
+
+    // Infer location dynamically from stack trace
+    String where = 'Unknown location';
+    final stackLines = stackText.split('\n');
+    for (final line in stackLines) {
+      final trimmed = line.trim();
+      if (trimmed.contains('package:') &&
+          !trimmed.contains('package:flutter/') &&
+          !trimmed.contains('package:catcher_2/')) {
+        final match = RegExp(
+          r'#\d+\s+(.*?)\s+\((package:.*?)\)',
+        ).firstMatch(trimmed);
+        if (match != null) {
+          where = '${match.group(2)} [${match.group(1)}]';
+          break;
+        } else if (trimmed.contains('package:')) {
+          where = trimmed;
+          break;
+        }
+      }
+    }
+
+    // Who dynamically
+    final userEmail =
+        report.customParameters['user_email'] ??
+        report.customParameters['email'] ??
+        report.customParameters['user_id'] ??
+        report.customParameters['uid'];
+
+    final String who;
+    if (userEmail != null && userEmail.toString().isNotEmpty) {
+      who = 'Logged-in User ($userEmail)';
+    } else {
+      final deviceModel =
+          report.deviceParameters['model'] ??
+          report.deviceParameters['device'] ??
+          report.deviceParameters['id'] ??
+          'Device';
+      who = 'Anonymous Guest ($deviceModel)';
+    }
+
+    // When dynamically
+    final localTime = report.dateTime.toLocal();
+    final year = localTime.year;
+    final month = _twoDigits(localTime.month);
+    final day = _twoDigits(localTime.day);
+    final hour = _twoDigits(localTime.hour);
+    final minute = _twoDigits(localTime.minute);
+    final amPm = localTime.hour >= 12 ? 'PM' : 'AM';
+    final when = '$year-$month-$day $hour:$minute $amPm (GMT+7)';
+
+    final buffer = StringBuffer()
+      ..writeln('*🚨 Crash caught by Catcher2*')
+      ..writeln("• *what's crash*: `$errorMsg`");
+
+    buffer.writeln('• *where*: `$where`');
+
+    buffer
+      ..writeln('• *who*: $who')
+      ..writeln('• *when*: $when');
+
+    return buffer.toString().trim();
+  }
+
+  static String _twoDigits(int n) => n >= 10 ? '$n' : '0$n';
 
   static Future<bool> _postToSlack(String rawUrl, String messageText) async {
     final cleanUrl = _cleanUrl(rawUrl);
