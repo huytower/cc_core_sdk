@@ -63,6 +63,7 @@ class _SynchronizedFileHandler extends ReportHandler {
       await _currentOperation;
     }
 
+    // ignore: use_build_context_synchronously
     final operation = _inner.handle(report, context);
     _currentOperation = operation;
     try {
@@ -100,10 +101,12 @@ abstract final class CcCatcherBootstrap {
         CcSlackHandler(),
       ]);
 
-  static Catcher2Options releaseOptions(File logFile) => Catcher2Options(
-    SilentReportMode(),
-    [_getHandler(logFile, printLogs: false), CcCrashlyticsHandler(), CcSlackHandler()],
-  );
+  static Catcher2Options releaseOptions(File logFile) =>
+      Catcher2Options(SilentReportMode(), [
+        _getHandler(logFile, printLogs: false),
+        CcCrashlyticsHandler(),
+        CcSlackHandler(),
+      ]);
 
   static Catcher2Options profileOptions(File logFile) =>
       releaseOptions(logFile);
