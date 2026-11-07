@@ -19,15 +19,23 @@ class CcGeminiHelper {
 
   static const String _defaultModelName = 'gemini-3.8-flash';
 
+  static Object? _lastError;
+  static Object? get lastError => _lastError;
+
   static String get _modelName {
-    if (!dotenv.isInitialized) return _defaultModelName;
-    final configured = dotenv.maybeGet('GEMINI_MODEL_NAME');
-    if (configured == null ||
-        configured.trim().isEmpty ||
-        configured.contains('YOUR_GEMINI_MODEL_NAME_HERE')) {
-      return _defaultModelName;
+    var configured = _defaultModelName;
+    if (dotenv.isInitialized) {
+      final envVal = dotenv.maybeGet('GEMINI_MODEL_NAME');
+      if (envVal != null &&
+          envVal.trim().isNotEmpty &&
+          !envVal.contains('YOUR_GEMINI_MODEL_NAME_HERE')) {
+        configured = envVal.trim();
+      }
     }
-    return configured.trim();
+    if (!configured.startsWith('gemini-')) {
+      configured = 'gemini-$configured';
+    }
+    return configured;
   }
 
   static GenerativeModel? _model;
@@ -85,8 +93,10 @@ class CcGeminiHelper {
           contents,
           generationConfig: _jsonConfig(responseSchema),
         );
+        _lastError = null;
         return response.text;
       } catch (e, stack) {
+        _lastError = e;
         final canRetry = attempt < _maxAttempts && _isTransientServerError(e);
         if (!canRetry) {
           CcCrashReportingHelper.recordHandledError(
