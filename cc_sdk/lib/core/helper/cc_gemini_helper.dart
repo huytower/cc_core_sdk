@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:cc_sdk/core/helper/cc_crash_reporting_helper.dart';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -80,22 +79,15 @@ class CcGeminiHelper {
     required List<Content> contents,
     Schema? responseSchema,
   }) async {
-    '[CcGeminiHelper] 🤖 Calling Firebase AI Gemini model ($_modelName) for $label (hasSchema: ${responseSchema != null})...'
-        .Log('CcGeminiHelper');
     for (var attempt = 1; attempt <= _maxAttempts; attempt++) {
       try {
         final response = await _getModel().generateContent(
           contents,
           generationConfig: _jsonConfig(responseSchema),
         );
-        final text = response.text;
-        '[CcGeminiHelper] ✅ Firebase AI response received for $label | length=${text?.length ?? 0}'
-            .Log('CcGeminiHelper');
-        return text;
+        return response.text;
       } catch (e, stack) {
         final canRetry = attempt < _maxAttempts && _isTransientServerError(e);
-        '[CcGeminiHelper] ❌ $label attempt $attempt/$_maxAttempts failed (${canRetry ? 'retrying' : 'giving up'}): $e'
-            .Log('CcGeminiHelper');
         if (!canRetry) {
           CcCrashReportingHelper.recordHandledError(
             e,
