@@ -16,6 +16,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class CcSlackHandler extends ReportHandler {
   final String _webhookUrl;
 
+  /// Cooldown map to prevent spamming Slack with identical error reports.
+  static final Map<String, DateTime> _lastReported = {};
+  static const Duration _throttleDuration = Duration(minutes: 5);
+
   CcSlackHandler({String? webhookUrl})
     : _webhookUrl = webhookUrl ?? _loadWebhookUrl();
 
@@ -47,7 +51,6 @@ class CcSlackHandler extends ReportHandler {
   }
 
   @override
-  @override
   Future<bool> handle(Report report, _) async {
     '[CatcherSlack] 🚨 Handling crash report with Catcher2...'.Log(
       'CcSlackHandler',
@@ -59,13 +62,29 @@ class CcSlackHandler extends ReportHandler {
       return false;
     }
 
+    final rawError = report.error?.toString() ?? 'Unknown Error';
+    final errorMsg = rawError.split('\n').first.trim();
+    final errorKey = errorMsg;
+
+    final now = DateTime.now();
+    final lastTime = _lastReported[errorKey];
+    if (lastTime != null && now.difference(lastTime) < _throttleDuration) {
+      '[CatcherSlack] ⏳ Throttling duplicate Slack alert for "$errorKey" (reported ${now.difference(lastTime).inSeconds}s ago)'
+          .Log('CcSlackHandler');
+      return true;
+    }
+
     try {
       final appCheckStatus = await CcAppCheckHelper.getAppCheckStatus();
       final messageText = _formatStructuredSlackMessage(
         report,
         appCheckStatus: appCheckStatus,
       );
-      return await _postToSlack(_webhookUrl, messageText);
+      final success = await _postToSlack(_webhookUrl, messageText);
+      if (success) {
+        _lastReported[errorKey] = now;
+      }
+      return success;
     } catch (e) {
       '[CatcherSlack] ❌ Failed to process crash report: $e'.Log(
         'CcSlackHandler',
@@ -174,12 +193,10 @@ class CcSlackHandler extends ReportHandler {
       ..writeln('*🚨 Crash caught by Catcher2*')
       ..writeln("• *what's crash*: `$errorMsg`")
       ..writeln('• *where*: `$where`')
-      ..writeln('• *app version*: `$versionStr`')
-      ..writeln('• *device*: `$deviceName`')
-      ..writeln('• *os*: `$osVersion`')
-      ..writeln('• *app check*: `$appCheckStatus`')
-      ..writeln('• *who*: $who')
-      ..writeln('• *when*: $when');
+      ..writeln(
+        '• *app version*: `$versionStr`; *device model*: `$deviceName`; *os version*: `$osVersion`',
+      )
+      ..writeln('• *app check*: `$appCheckStatus`; *who*: $who; *when*: $when');
 
     return buffer.toString().trim();
   }

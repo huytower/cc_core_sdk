@@ -18,7 +18,7 @@ export 'package:firebase_ai/firebase_ai.dart' show Schema, SchemaType;
 class CcGeminiHelper {
   CcGeminiHelper._();
 
-  static const String _defaultModelName = 'gemini-2.5-flash';
+  static const String _defaultModelName = 'gemini-3.8-flash';
 
   static String get _modelName {
     if (!dotenv.isInitialized) return _defaultModelName;
