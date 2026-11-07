@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
+import 'package:cc_sdk/core/helper/cc_crash_reporting_helper.dart';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -17,12 +18,17 @@ export 'package:firebase_ai/firebase_ai.dart' show Schema, SchemaType;
 class CcGeminiHelper {
   CcGeminiHelper._();
 
-  static const String _defaultModelName = 'gemini-3.8-flash';
+  static const String _defaultModelName = 'gemini-2.5-flash';
 
   static String get _modelName {
     if (!dotenv.isInitialized) return _defaultModelName;
-    return dotenv.maybeGet('GEMINI_MODEL_NAME', fallback: _defaultModelName) ??
-        _defaultModelName;
+    final configured = dotenv.maybeGet('GEMINI_MODEL_NAME');
+    if (configured == null ||
+        configured.trim().isEmpty ||
+        configured.contains('YOUR_GEMINI_MODEL_NAME_HERE')) {
+      return _defaultModelName;
+    }
+    return configured.trim();
   }
 
   static GenerativeModel? _model;
@@ -86,11 +92,19 @@ class CcGeminiHelper {
         '[CcGeminiHelper] ✅ Firebase AI response received for $label | length=${text?.length ?? 0}'
             .Log('CcGeminiHelper');
         return text;
-      } catch (e) {
+      } catch (e, stack) {
         final canRetry = attempt < _maxAttempts && _isTransientServerError(e);
         '[CcGeminiHelper] ❌ $label attempt $attempt/$_maxAttempts failed (${canRetry ? 'retrying' : 'giving up'}): $e'
             .Log('CcGeminiHelper');
-        if (!canRetry) return null;
+        if (!canRetry) {
+          CcCrashReportingHelper.recordHandledError(
+            e,
+            stack,
+            reason:
+                '[CcGeminiHelper] $label failed on release (model: $_modelName): $e',
+          );
+          return null;
+        }
         await Future.delayed(_retryDelay);
       }
     }

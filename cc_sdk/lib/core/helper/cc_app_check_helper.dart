@@ -31,7 +31,7 @@ class CcAppCheckHelper {
             : const AndroidPlayIntegrityProvider(),
         providerApple: kDebugMode
             ? const AppleDebugProvider()
-            : const AppleAppAttestProvider(),
+            : const AppleAppAttestWithDeviceCheckFallbackProvider(),
       );
 
       if (kDebugMode) {

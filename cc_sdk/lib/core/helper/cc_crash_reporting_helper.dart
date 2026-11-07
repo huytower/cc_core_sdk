@@ -13,6 +13,16 @@ import '../config/cc_feature_flags.dart';
 class CcCrashReportingHelper {
   CcCrashReportingHelper._();
 
+  /// Records a custom breadcrumb log message in Firebase Crashlytics on release builds.
+  static Future<void> log(String message) async {
+    if (!CcFeatureFlags.isCrashReportingEnabled) return;
+    try {
+      await FirebaseCrashlytics.instance.log(message);
+    } catch (_) {
+      // Best-effort
+    }
+  }
+
   /// Records a non-fatal error with Crashlytics, tagged with [reason].
   ///
   /// No-ops when [CcFeatureFlags.isCrashReportingEnabled] is false. Never
