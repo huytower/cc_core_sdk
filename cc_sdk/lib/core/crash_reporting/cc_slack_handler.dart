@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
+import 'package:cc_sdk/core/helper/cc_app_check_helper.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// A [ReportHandler] for Catcher2 that forwards structured crash reports to Slack via
@@ -46,6 +47,7 @@ class CcSlackHandler extends ReportHandler {
   }
 
   @override
+  @override
   Future<bool> handle(Report report, _) async {
     '[CatcherSlack] 🚨 Handling crash report with Catcher2...'.Log(
       'CcSlackHandler',
@@ -58,7 +60,11 @@ class CcSlackHandler extends ReportHandler {
     }
 
     try {
-      final messageText = _formatStructuredSlackMessage(report);
+      final appCheckStatus = await CcAppCheckHelper.getAppCheckStatus();
+      final messageText = _formatStructuredSlackMessage(
+        report,
+        appCheckStatus: appCheckStatus,
+      );
       return await _postToSlack(_webhookUrl, messageText);
     } catch (e) {
       '[CatcherSlack] ❌ Failed to process crash report: $e'.Log(
@@ -68,7 +74,10 @@ class CcSlackHandler extends ReportHandler {
     }
   }
 
-  static String _formatStructuredSlackMessage(Report report) {
+  static String _formatStructuredSlackMessage(
+    Report report, {
+    required String appCheckStatus,
+  }) {
     final rawError = report.error?.toString() ?? 'Unknown Error';
     final errorLines = rawError.split('\n');
     final errorMsg = errorLines.first.trim();
@@ -95,6 +104,48 @@ class CcSlackHandler extends ReportHandler {
       }
     }
 
+    // Application build version & number
+    final appVersion =
+        report.applicationParameters['version'] ??
+        report.applicationParameters['appVersion'] ??
+        report.customParameters['app_version'] ??
+        '1.0.0';
+    final buildNumber =
+        report.applicationParameters['buildNumber'] ??
+        report.applicationParameters['build_number'] ??
+        report.customParameters['build_number'] ??
+        '';
+    final versionStr = buildNumber.toString().isNotEmpty
+        ? '$appVersion ($buildNumber)'
+        : '$appVersion';
+
+    // Device & OS details
+    final deviceMap = report.deviceParameters;
+    String deviceName = 'Unknown Device';
+    String osVersion = 'Unknown OS';
+
+    if (deviceMap.containsKey('systemName')) {
+      // iOS
+      final name = deviceMap['name'] ?? deviceMap['model'] ?? 'iPhone';
+      final machine = deviceMap['utsname.machine'] ?? '';
+      deviceName = machine.toString().isNotEmpty ? '$name ($machine)' : '$name';
+      final sysName = deviceMap['systemName'] ?? 'iOS';
+      final sysVer = deviceMap['systemVersion'] ?? '';
+      osVersion = '$sysName $sysVer'.trim();
+    } else if (deviceMap.containsKey('version.release') ||
+        deviceMap.containsKey('brand')) {
+      // Android
+      final brand = deviceMap['brand'] ?? '';
+      final model = deviceMap['model'] ?? 'Android Device';
+      deviceName = '$brand $model'.trim();
+      final release = deviceMap['version.release'] ?? '';
+      final sdk = deviceMap['version.sdkInt'] ?? '';
+      osVersion = 'Android $release (SDK $sdk)'.trim();
+    } else {
+      deviceName = deviceMap['model']?.toString() ?? 'Device';
+      osVersion = deviceMap['os']?.toString() ?? 'OS';
+    }
+
     // Who dynamically
     final userEmail =
         report.customParameters['user_email'] ??
@@ -106,12 +157,7 @@ class CcSlackHandler extends ReportHandler {
     if (userEmail != null && userEmail.toString().isNotEmpty) {
       who = 'Logged-in User ($userEmail)';
     } else {
-      final deviceModel =
-          report.deviceParameters['model'] ??
-          report.deviceParameters['device'] ??
-          report.deviceParameters['id'] ??
-          'Device';
-      who = 'Anonymous Guest ($deviceModel)';
+      who = 'Anonymous Guest';
     }
 
     // When dynamically
@@ -126,11 +172,12 @@ class CcSlackHandler extends ReportHandler {
 
     final buffer = StringBuffer()
       ..writeln('*🚨 Crash caught by Catcher2*')
-      ..writeln("• *what's crash*: `$errorMsg`");
-
-    buffer.writeln('• *where*: `$where`');
-
-    buffer
+      ..writeln("• *what's crash*: `$errorMsg`")
+      ..writeln('• *where*: `$where`')
+      ..writeln('• *app version*: `$versionStr`')
+      ..writeln('• *device*: `$deviceName`')
+      ..writeln('• *os*: `$osVersion`')
+      ..writeln('• *app check*: `$appCheckStatus`')
       ..writeln('• *who*: $who')
       ..writeln('• *when*: $when');
 

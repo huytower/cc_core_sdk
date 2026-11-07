@@ -22,8 +22,11 @@ class CcAppCheckHelper {
   /// When provided in debug mode, App Check will use this token instead
   /// of the actual attestation provider.
   ///
+  static bool _isInitialized = false;
+
   /// Returns [Future<void>] that completes when App Check is initialized.
   static Future<void> initialize({String? debugToken}) async {
+    if (_isInitialized) return;
     try {
       await FirebaseAppCheck.instance.activate(
         providerAndroid: kDebugMode
@@ -33,6 +36,7 @@ class CcAppCheckHelper {
             ? const AppleDebugProvider()
             : const AppleAppAttestWithDeviceCheckFallbackProvider(),
       );
+      _isInitialized = true;
 
       if (kDebugMode) {
         developer.log(
@@ -49,6 +53,23 @@ class CcAppCheckHelper {
         stackTrace: stackTrace,
       );
       rethrow;
+    }
+  }
+
+  /// Gets the current App Check status for error reports / diagnostic logging.
+  ///
+  /// Returns a string describing whether a valid App Check token was obtained,
+  /// or the error encountered (e.g. "Verified (Token present)", "Failed: ...").
+  static Future<String> getAppCheckStatus() async {
+    try {
+      final token = await FirebaseAppCheck.instance.getToken();
+      if (token != null && token.isNotEmpty) {
+        return 'Verified (Token present)';
+      } else {
+        return 'Unverified (Token null/empty)';
+      }
+    } catch (e) {
+      return 'Failed ($e)';
     }
   }
 
