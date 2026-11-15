@@ -3,6 +3,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'dart:async' as _i687;
 
 import 'package:cc_sdk/core/di/module/cc_dependencies.dart' as _i1021;

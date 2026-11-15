@@ -31,6 +31,7 @@ class CcCurvedNavigationBar extends StatelessWidget {
     this.inactiveIconSize,
     this.activeIconSize,
     this.navbarStyle,
+    this.useSafeArea = true,
   });
 
   /// List of navigation items to display
@@ -107,6 +108,11 @@ class CcCurvedNavigationBar extends StatelessWidget {
   // Use dynamic to avoid import issues when not using presets
   final dynamic navbarStyle;
 
+  /// Whether the bar adds the system bottom inset (and a SafeArea) itself.
+  /// Set to false when the caller already pads for the system bar, otherwise
+  /// the inset is applied twice and the bar grows taller than intended.
+  final bool useSafeArea;
+
   @override
   Widget build(BuildContext context) {
     final isDark = context.isDarkMode;
@@ -173,6 +179,7 @@ class CcCurvedNavigationBar extends StatelessWidget {
       inactiveIconSize: inactiveIconSize ?? context.respIconSize(baseSize: 29),
       activeIconSize: activeIconSize ?? context.respIconSize(baseSize: 26),
       navbarStyle: navbarStyle,
+      useSafeArea: useSafeArea,
     );
   }
 }

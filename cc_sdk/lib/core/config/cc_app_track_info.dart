@@ -2,7 +2,7 @@ import 'dart:developer' as developer;
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-/// App identity and crash-log settings from root `env/.env.*` (via [dotenv]).
+/// App identity and crash-log settings from root `env/*.env` (via [dotenv]).
 abstract final class CcAppTrackName {
   CcAppTrackName._();
 

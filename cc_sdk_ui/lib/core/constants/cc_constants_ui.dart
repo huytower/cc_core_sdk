@@ -1,23 +1,5 @@
-/// UI constants for dialogs, snackbars, and toasts
+/// UI constants for dialogs and snackbars
 abstract class CcConstantsUI {
-  // ==========================================================================
-  // TOAST CONSTANTS
-  // ==========================================================================
-
-  /// Toast duration values
-  static const int toastLengthShort = 1;
-  static const int toastLengthLong = 2;
-
-  /// Toast gravity positions
-  static const int toastGravityBottom = 0;
-  static const int toastGravityCenter = 1;
-  static const int toastGravityTop = 2;
-
-  /// Default toast values
-  static const int defaultToastDuration = 1;
-  static const double defaultToastBackgroundRadius = 20.0;
-  static const double defaultToastBottomPosition = 100.0;
-
   // ==========================================================================
   // SNACKBAR CONSTANTS
   // ==========================================================================

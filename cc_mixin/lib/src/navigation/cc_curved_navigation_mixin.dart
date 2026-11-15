@@ -112,6 +112,10 @@ mixin CcCurvedNavigationMixin {
   // Import it if you want to use built-in presets
   dynamic get navbarStyle => null;
 
+  /// Whether the bar pads for the system bottom inset itself. Override to
+  /// false when the host already applies that inset (avoids double padding).
+  bool get navigationUseSafeArea => true;
+
   /// Builds the curved navigation bar widget
   Widget buildCurvedNavigationBar() {
     return CcCurvedNavigationBar(
@@ -126,6 +130,7 @@ mixin CcCurvedNavigationMixin {
       barHeight: navigationBarHeight,
       fabRadius: navigationFabRadius,
       navbarStyle: navbarStyle,
+      useSafeArea: navigationUseSafeArea,
     );
   }
 }

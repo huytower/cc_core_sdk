@@ -8,7 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 /// via an Incoming Webhook URL.
 ///
 /// The webhook URL is loaded from the `SLACK_WEBHOOK_URL` environment variable
-/// (root `env/.env.*` via [flutter_dotenv]) — it is intentionally **not**
+/// (root `env/*.env` via [flutter_dotenv]) — it is intentionally **not**
 /// hardcoded here to avoid committing secrets to the repository.
 ///
 /// Best-effort only: a failure to post must never mask or block the feedback

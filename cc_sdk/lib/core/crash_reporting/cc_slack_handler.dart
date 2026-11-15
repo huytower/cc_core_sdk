@@ -11,7 +11,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 /// an Incoming Webhook URL.
 ///
 /// The webhook URL is loaded from the `SLACK_CRASH_WEBHOOK_URL` environment variable
-/// (root `env/.env.*` via [flutter_dotenv]) — it is intentionally **not**
+/// (root `env/*.env` via [flutter_dotenv]) — it is intentionally **not**
 /// hardcoded here to avoid committing secrets to the repository.
 class CcSlackHandler extends ReportHandler {
   final String _webhookUrl;
