@@ -99,26 +99,65 @@ void main() {
     expect(railAfter.selectedIndex, 0);
   });
 
-  testWidgets('a long label wraps instead of widening the rail', (
+  CcCurvedNavigationItem item(String label) => CcCurvedNavigationItem(
+    inactiveIcon: Icons.circle_outlined,
+    activeIcon: Icons.circle,
+    label: label,
+  );
+
+  double railWidthFor(WidgetTester tester) =>
+      tester.getSize(find.byType(NavigationRail)).width;
+
+  testWidgets('labels of short words wrap; the rail stays at its minimum', (
     tester,
   ) async {
     await _pumpAndTap(
       tester,
-      'Entry',
-      items: [
-        const CcCurvedNavigationItem(
-          inactiveIcon: Icons.pie_chart_outline,
-          activeIcon: Icons.pie_chart,
-          label: 'A very long budget allocation label',
-        ),
-        ..._items.skip(1),
-      ],
+      'Ij',
+      items: [item('Ab cd ef gh ij kl mn op'), item('Ij'), item('Kl')],
     );
-    expect(
-      tester.getSize(find.byType(NavigationRail)).width,
-      CcNavigationRail.railWidth,
-    );
+    expect(railWidthFor(tester), CcNavigationRail.railWidth);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('a long single word widens the rail instead of breaking', (
+    tester,
+  ) async {
+    await _pumpAndTap(
+      tester,
+      'Ij',
+      items: [item('Abcdef'), item('Ij'), item('Kl')],
+    );
+    expect(railWidthFor(tester), greaterThan(CcNavigationRail.railWidth));
+    expect(railWidthFor(tester), lessThan(CcNavigationRail.maxRailWidth));
+  });
+
+  testWidgets('the rail never grows past maxRailWidth', (tester) async {
+    await _pumpAndTap(
+      tester,
+      'Ij',
+      items: [item('Supercalifragilistic'), item('Ij'), item('Kl')],
+    );
+    expect(railWidthFor(tester), CcNavigationRail.maxRailWidth);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('CcNavigationRailScope reports rail visibility', (tester) async {
+    bool? visible;
+    Widget probe(bool railVisible) => CcNavigationRailScope(
+      railVisible: railVisible,
+      child: Builder(
+        builder: (context) {
+          visible = CcNavigationRailScope.railVisibleOf(context);
+          return const SizedBox.shrink();
+        },
+      ),
+    );
+
+    await tester.pumpWidget(probe(true));
+    expect(visible, isTrue);
+    await tester.pumpWidget(probe(false));
+    expect(visible, isFalse);
   });
 
   testWidgets('extended rail shows labels beside icons', (tester) async {

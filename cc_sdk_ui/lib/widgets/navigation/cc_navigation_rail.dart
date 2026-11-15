@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 /// - [primaryIndex]: the item rendered as a round action button at the top of
 ///   the rail (the raised "+" of the bottom bar) instead of a destination.
 /// - [extended]: icon + label side by side in a wider rail; use it on large
-///   windows (≥ 1200 dp, desktop / web).
+///   windows (≥ 1600 dp, desktop / web); tablets keep the compact rail.
 ///
 /// The rail has no divider: it separates from the page by tone (its own
 /// surface vs. the page background).
@@ -55,12 +55,15 @@ class CcNavigationRail extends StatelessWidget {
   /// Pads for the leading system insets (status bar, landscape notch).
   final bool useSafeArea;
 
-  /// Compact rail width; labels wrap to two lines inside it.
+  /// Minimum compact rail width; labels wrap to two lines inside it.
   static const double railWidth = 96;
 
-  /// Room for a label inside the compact rail (the rail pads each
-  /// destination by 8 dp on both sides).
-  static const double _labelWidth = railWidth - 16;
+  /// The compact rail grows up to this so its longest single word fits on
+  /// one line (words never break mid-word), then stops.
+  static const double maxRailWidth = 128;
+
+  /// The rail pads each destination by 8 dp on both sides.
+  static const double _labelPadding = 16;
 
   /// Extended rail width.
   static const double extendedRailWidth = 220;
@@ -82,12 +85,15 @@ class CcNavigationRail extends StatelessWidget {
     ];
     final selected = destinationIndexes.indexOf(currentIndex);
     final labelStyle = context.ccTextTheme.labelMedium;
+    final labelWidth = _labelWidthFor(context, labelStyle);
 
     final rail = NavigationRail(
       selectedIndex: selected < 0 ? null : selected,
       onDestinationSelected: (i) => onTap(destinationIndexes[i]),
       extended: extended,
-      minWidth: railWidth,
+      // Extended: labels sit beside icons, so the icon column keeps the
+      // minimum width.
+      minWidth: extended ? railWidth : labelWidth + _labelPadding,
       minExtendedWidth: extendedRailWidth,
       labelType: extended
           ? NavigationRailLabelType.none
@@ -122,6 +128,7 @@ class CcNavigationRail extends StatelessWidget {
                 activeIconColor: activeIconColor ?? CcBaseColors.white100,
                 inactiveColor: inactive,
                 iconSize: iconSize,
+                labelWidth: labelWidth,
                 onTap: () => onTap(primaryIndex!),
               ),
             ),
@@ -130,7 +137,7 @@ class CcNavigationRail extends StatelessWidget {
           NavigationRailDestination(
             icon: _withBadge(Icon(items[i].inactiveIcon), items[i]),
             selectedIcon: _withBadge(Icon(items[i].activeIcon), items[i]),
-            label: _label(items[i].label),
+            label: _label(items[i].label, labelWidth),
           ),
       ],
     );
@@ -138,14 +145,42 @@ class CcNavigationRail extends StatelessWidget {
     return useSafeArea ? SafeArea(right: false, child: rail) : rail;
   }
 
-  /// Compact rail: at most two centred lines within the rail width, so a long
-  /// label never widens the rail. Extended rail: one line.
-  Widget _label(String text) {
+  /// Width for compact-rail labels: wide enough for the longest single word
+  /// of any label (measured in the bold, selected style with the user's text
+  /// scale), so "Transaction" is never split as "Transactio / n"; multi-word
+  /// labels still wrap to two lines. Clamped to [railWidth]..[maxRailWidth].
+  double _labelWidthFor(BuildContext context, TextStyle? style) {
+    final painter = TextPainter(
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: 1,
+    );
+    final boldStyle = style?.copyWith(fontWeight: CcTypographyParams.bold);
+    var widest = 0.0;
+    for (final item in items) {
+      for (final word in item.label.split(RegExp(r'\s+'))) {
+        if (word.isEmpty) continue;
+        painter
+          ..text = TextSpan(text: word, style: boldStyle)
+          ..layout();
+        if (painter.width > widest) widest = painter.width;
+      }
+    }
+    painter.dispose();
+    return (widest.ceilToDouble() + 2).clamp(
+      railWidth - _labelPadding,
+      maxRailWidth - _labelPadding,
+    );
+  }
+
+  /// Compact rail: at most two centred lines within [labelWidth].
+  /// Extended rail: one line.
+  Widget _label(String text, double labelWidth) {
     if (extended) {
       return Text(text, maxLines: 1, overflow: TextOverflow.ellipsis);
     }
     return SizedBox(
-      width: _labelWidth,
+      width: labelWidth,
       child: Text(
         text,
         maxLines: 2,
@@ -190,6 +225,7 @@ class _PrimaryAction extends StatelessWidget {
     required this.activeIconColor,
     required this.inactiveColor,
     required this.iconSize,
+    required this.labelWidth,
     required this.onTap,
   });
 
@@ -200,6 +236,7 @@ class _PrimaryAction extends StatelessWidget {
   final Color activeIconColor;
   final Color inactiveColor;
   final double iconSize;
+  final double labelWidth;
   final VoidCallback onTap;
 
   @override
@@ -267,7 +304,7 @@ class _PrimaryAction extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   onTap: onTap,
                   child: SizedBox(
-                    width: CcNavigationRail._labelWidth,
+                    width: labelWidth,
                     child: Text(
                       item.label,
                       maxLines: 2,
@@ -281,4 +318,32 @@ class _PrimaryAction extends StatelessWidget {
             ),
     );
   }
+}
+
+/// Tells pages whether a [CcNavigationRail] sits on their leading edge, so
+/// edges that touch it can adapt — e.g. a hero header squares the corner next
+/// to the rail instead of rounding it into a floating card.
+///
+/// The navigation shell places it around the page content (always present,
+/// so switching layouts does not change the tree shape).
+class CcNavigationRailScope extends InheritedWidget {
+  const CcNavigationRailScope({
+    super.key,
+    required this.railVisible,
+    required super.child,
+  });
+
+  final bool railVisible;
+
+  /// Whether a rail is beside the calling widget's page; false outside a
+  /// scope (phones, pushed routes).
+  static bool railVisibleOf(BuildContext context) =>
+      context
+          .dependOnInheritedWidgetOfExactType<CcNavigationRailScope>()
+          ?.railVisible ??
+      false;
+
+  @override
+  bool updateShouldNotify(CcNavigationRailScope oldWidget) =>
+      railVisible != oldWidget.railVisible;
 }
