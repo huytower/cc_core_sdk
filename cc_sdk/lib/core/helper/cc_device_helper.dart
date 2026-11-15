@@ -53,8 +53,8 @@ class CcDeviceHelper {
     final platform = Theme.of(context).platform;
     isIOS = platform == TargetPlatform.iOS;
     isAndroid = platform == TargetPlatform.android;
-    widthScreen = MediaQuery.of(context).size.width;
-    heightScreen = MediaQuery.of(context).size.height;
+    widthScreen = MediaQuery.sizeOf(context).width;
+    heightScreen = MediaQuery.sizeOf(context).height;
     minScreen = widthScreen > heightScreen ? heightScreen : widthScreen;
 
     hasHomeBtnIOSDevice = switch ((widthScreen, heightScreen)) {
@@ -71,7 +71,7 @@ class CcDeviceHelper {
 
   /// Gets the current keyboard height from [BuildContext].
   static double getHeightKeyBoard(BuildContext context) {
-    double heightKeyboard = MediaQuery.of(context).viewInsets.bottom;
+    double heightKeyboard = MediaQuery.viewInsetsOf(context).bottom;
 
     if (heightKeyboard <= 0) {
       final view = View.of(context);

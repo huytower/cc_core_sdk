@@ -10,7 +10,7 @@ PreferredSizeWidget buildDomainGradientAppBar(
   Widget? leading,
   double toolbarHeight = kToolbarHeight,
 }) {
-  final topPadding = MediaQuery.of(context).padding.top;
+  final topPadding = MediaQuery.paddingOf(context).top;
   final horizontalPadding = context.respPadding(CcPaddingParams.PAGE_XS);
   final actualToolbarHeight = context.respDim(toolbarHeight);
 

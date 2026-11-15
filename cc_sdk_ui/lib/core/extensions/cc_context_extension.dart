@@ -60,6 +60,13 @@ extension CcContextExtension on BuildContext {
   /// Gets the screen type as an enum.
   ScreenType get screenType => CcResponsiveHelper.getScreenType(this);
 
+  /// The Material 3 width class of the current window. Branch adaptive
+  /// layouts (navigation, panes, columns) on this, not on [screenType].
+  CcWindowSizeClass get windowSizeClass => CcWindowSizeClass.of(this);
+
+  /// The Material 3 height class of the current window.
+  CcWindowHeightClass get windowHeightClass => CcWindowHeightClass.of(this);
+
   /// A reusable vertical linear gradient using the theme's primary color.
   LinearGradient get primaryVerticalGradient =>
       verticalGradient(ccColorScheme.primary);

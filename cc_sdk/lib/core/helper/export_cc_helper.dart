@@ -14,3 +14,4 @@ export 'cc_speech_helper.dart';
 export 'cc_string_helper.dart';
 export 'cc_throttle_helper.dart';
 export 'cc_validation_patterns.dart';
+export 'cc_window_size_class.dart';

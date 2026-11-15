@@ -219,7 +219,7 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
 
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width * 0.5,
+        maxWidth: MediaQuery.sizeOf(context).width * 0.5,
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),

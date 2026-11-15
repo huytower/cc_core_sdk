@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'cc_window_size_class.dart';
+
 /// Responsive design helper for multi-screen support.
 ///
 /// Provides screen type detection, responsive breakpoints, and utilities
 /// for building adaptive UIs across different device sizes (mobile, tablet, desktop).
+///
+/// For new adaptive layouts (navigation shell, pane count, grid columns),
+/// branch on [CcWindowSizeClass] (Material 3 window size classes) instead of
+/// [ScreenType]. [ScreenType] keeps its original 360/600/900 thresholds so
+/// existing scaling (`respDim`, `ccTextTheme`) is unchanged.
 class CcResponsiveHelper {
   // ==========================================================================
   // RESPONSIVE BREAKPOINTS
@@ -13,7 +20,8 @@ class CcResponsiveHelper {
   static const double mobileBreakpoint = 600;
 
   /// Tablet devices: 600px - 900px width
-  static const double tabletBreakpoint = 900;
+  @Deprecated('Same value as desktopBreakpoint; use desktopBreakpoint.')
+  static const double tabletBreakpoint = desktopBreakpoint;
 
   /// Desktop devices: > 900px width
   static const double desktopBreakpoint = 900;
@@ -22,7 +30,20 @@ class CcResponsiveHelper {
   static const double smallMobileBreakpoint = 360;
 
   /// Large mobile devices: 360px - 600px width
-  static const double largeMobileBreakpoint = 600;
+  @Deprecated('Same value as mobileBreakpoint; use mobileBreakpoint.')
+  static const double largeMobileBreakpoint = mobileBreakpoint;
+
+  // ==========================================================================
+  // WINDOW SIZE CLASSES (Material 3)
+  // ==========================================================================
+
+  /// The Material 3 width class of the current window.
+  static CcWindowSizeClass windowSizeClass(BuildContext context) =>
+      CcWindowSizeClass.of(context);
+
+  /// The Material 3 height class of the current window.
+  static CcWindowHeightClass windowHeightClass(BuildContext context) =>
+      CcWindowHeightClass.of(context);
 
   // ==========================================================================
   // SCREEN TYPE DETECTION
@@ -30,31 +51,31 @@ class CcResponsiveHelper {
 
   /// Checks if the current screen is a mobile device.
   static bool isMobile(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
     return width < mobileBreakpoint;
   }
 
   /// Checks if the current screen is a tablet device.
   static bool isTablet(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
     return width >= mobileBreakpoint && width < desktopBreakpoint;
   }
 
   /// Checks if the current screen is a desktop device.
   static bool isDesktop(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
     return width >= desktopBreakpoint;
   }
 
   /// Checks if the current screen is a small mobile device.
   static bool isSmallMobile(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
     return width < smallMobileBreakpoint;
   }
 
   /// Checks if the current screen is a large mobile device.
   static bool isLargeMobile(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
     return width >= smallMobileBreakpoint && width < mobileBreakpoint;
   }
 
@@ -107,7 +128,7 @@ class CcResponsiveHelper {
     required T tablet,
     required T desktop,
   }) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
     if (width < smallMobileBreakpoint) return smallMobile;
     if (width < mobileBreakpoint) return mobile;
     if (width < desktopBreakpoint) return tablet;
@@ -130,7 +151,7 @@ class CcResponsiveHelper {
     double? tabletWidth,
     double? desktopWidth,
   }) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.sizeOf(context).width;
     final screenType = getScreenType(context);
 
     switch (screenType) {
@@ -235,32 +256,32 @@ class CcResponsiveHelper {
 
   /// Checks if the device is in portrait orientation.
   static bool isPortrait(BuildContext context) {
-    return MediaQuery.of(context).orientation == Orientation.portrait;
+    return MediaQuery.orientationOf(context) == Orientation.portrait;
   }
 
   /// Checks if the device is in landscape orientation.
   static bool isLandscape(BuildContext context) {
-    return MediaQuery.of(context).orientation == Orientation.landscape;
+    return MediaQuery.orientationOf(context) == Orientation.landscape;
   }
 
   /// Gets the screen width.
   static double screenWidth(BuildContext context) {
-    return MediaQuery.of(context).size.width;
+    return MediaQuery.sizeOf(context).width;
   }
 
   /// Gets the screen height.
   static double screenHeight(BuildContext context) {
-    return MediaQuery.of(context).size.height;
+    return MediaQuery.sizeOf(context).height;
   }
 
   /// Gets the safe area padding.
   static EdgeInsets safeAreaPadding(BuildContext context) {
-    return MediaQuery.of(context).padding;
+    return MediaQuery.paddingOf(context);
   }
 
   /// Gets the device pixel ratio.
   static double devicePixelRatio(BuildContext context) {
-    return MediaQuery.of(context).devicePixelRatio;
+    return MediaQuery.devicePixelRatioOf(context);
   }
 }
 

@@ -21,6 +21,8 @@ export 'package:cc_sdk_ui/core/helper/cc_icon_helper.dart';
 export 'package:cc_sdk_ui/core/helper/cc_keyboard_helper.dart';
 export 'package:cc_sdk_ui/core/helper/cc_snackbar_helper.dart';
 export 'package:cc_sdk_ui/core/helper/cc_widget_helper.dart';
+// Adaptive layout
+export 'package:cc_sdk_ui/widgets/adaptive/cc_adaptive_builder.dart';
 export 'package:cc_sdk_ui/widgets/anim/fade_page_wrapper.dart';
 // ============================================
 // Widget Exports
