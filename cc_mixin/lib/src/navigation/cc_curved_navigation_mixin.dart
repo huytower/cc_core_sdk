@@ -133,4 +133,18 @@ mixin CcCurvedNavigationMixin {
       useSafeArea: navigationUseSafeArea,
     );
   }
+
+  /// Builds the side navigation rail for wide windows, from the same
+  /// [navigationItems], index and colors as [buildCurvedNavigationBar].
+  Widget buildNavigationRail() {
+    return CcNavigationRail(
+      items: navigationItems,
+      currentIndex: currentIndex,
+      onTap: setIndex,
+      backgroundColor: navigationBackgroundColor,
+      activeColor: navigationActiveColor,
+      activeIconColor: navigationActiveIconColor,
+      inactiveColor: navigationInactiveColor,
+    );
+  }
 }
