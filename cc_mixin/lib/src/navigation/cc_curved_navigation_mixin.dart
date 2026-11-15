@@ -134,13 +134,20 @@ mixin CcCurvedNavigationMixin {
     );
   }
 
+  /// Item shown as the rail's round primary action (the bottom bar's raised
+  /// "+"), or null to show every item as a plain destination.
+  int? get navigationRailPrimaryIndex => null;
+
   /// Builds the side navigation rail for wide windows, from the same
   /// [navigationItems], index and colors as [buildCurvedNavigationBar].
-  Widget buildNavigationRail() {
+  /// [extended] shows labels beside icons (large / desktop windows).
+  Widget buildNavigationRail({bool extended = false}) {
     return CcNavigationRail(
       items: navigationItems,
       currentIndex: currentIndex,
       onTap: setIndex,
+      primaryIndex: navigationRailPrimaryIndex,
+      extended: extended,
       backgroundColor: navigationBackgroundColor,
       activeColor: navigationActiveColor,
       activeIconColor: navigationActiveIconColor,

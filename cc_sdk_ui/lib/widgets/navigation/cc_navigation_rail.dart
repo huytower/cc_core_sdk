@@ -7,12 +7,22 @@ import 'package:flutter/material.dart';
 /// Takes the same [CcCurvedNavigationItem]s (icons, label, badge) so a shell
 /// can switch between the two from one item list, and uses the same
 /// theme-aware default colors.
+///
+/// - [primaryIndex]: the item rendered as a round action button at the top of
+///   the rail (the raised "+" of the bottom bar) instead of a destination.
+/// - [extended]: icon + label side by side in a wider rail; use it on large
+///   windows (≥ 1200 dp, desktop / web).
+///
+/// The rail has no divider: it separates from the page by tone (its own
+/// surface vs. the page background).
 class CcNavigationRail extends StatelessWidget {
   const CcNavigationRail({
     super.key,
     required this.items,
     required this.currentIndex,
     required this.onTap,
+    this.primaryIndex,
+    this.extended = false,
     this.backgroundColor,
     this.activeColor,
     this.activeIconColor,
@@ -24,20 +34,36 @@ class CcNavigationRail extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
+  /// Item shown as the primary action button at the top, or null for none.
+  final int? primaryIndex;
+
+  /// Shows labels beside icons in a wider rail.
+  final bool extended;
+
   /// Rail background. Defaults to white (light) / transparent (dark).
   final Color? backgroundColor;
 
-  /// Selected indicator and selected label color.
+  /// Brand color: primary action fill, selected icon/label, soft indicator.
   final Color? activeColor;
 
-  /// Icon color on top of the selected indicator.
+  /// Icon color on the filled primary action button.
   final Color? activeIconColor;
 
   /// Unselected icon and label color.
   final Color? inactiveColor;
 
-  /// Pads for the leading system inset (status bar, landscape notch).
+  /// Pads for the leading system insets (status bar, landscape notch).
   final bool useSafeArea;
+
+  /// Compact rail width; labels wrap to two lines inside it.
+  static const double railWidth = 96;
+
+  /// Room for a label inside the compact rail (the rail pads each
+  /// destination by 8 dp on both sides).
+  static const double _labelWidth = railWidth - 16;
+
+  /// Extended rail width.
+  static const double extendedRailWidth = 220;
 
   @override
   Widget build(BuildContext context) {
@@ -46,36 +72,65 @@ class CcNavigationRail extends StatelessWidget {
     final inactive =
         inactiveColor ??
         (isDark ? CcBaseColors.white50 : CcBaseColors.neutral50);
-    final iconSize = context.respIconSize();
+    // Icons follow the text scale (max 1.2x) so they stay inside the
+    // Material indicator pill instead of growing with respDim (1.5x).
+    final iconSize = 24 * CcScale.text(context.screenWidth);
+
+    final destinationIndexes = [
+      for (var i = 0; i < items.length; i++)
+        if (i != primaryIndex) i,
+    ];
+    final selected = destinationIndexes.indexOf(currentIndex);
+    final labelStyle = context.ccTextTheme.labelMedium;
 
     final rail = NavigationRail(
-      selectedIndex: currentIndex,
-      onDestinationSelected: onTap,
-      labelType: NavigationRailLabelType.all,
-      groupAlignment: 0,
+      selectedIndex: selected < 0 ? null : selected,
+      onDestinationSelected: (i) => onTap(destinationIndexes[i]),
+      extended: extended,
+      minWidth: railWidth,
+      minExtendedWidth: extendedRailWidth,
+      labelType: extended
+          ? NavigationRailLabelType.none
+          : NavigationRailLabelType.all,
+      groupAlignment: -1,
       backgroundColor:
           backgroundColor ??
           (isDark ? CcBaseColors.transparent : CcBaseColors.white100),
-      indicatorColor: active,
-      selectedIconTheme: IconThemeData(
-        color: activeIconColor ?? CcBaseColors.white100,
-        size: iconSize,
-      ),
+      indicatorColor: active.withAlpha(36),
+      selectedIconTheme: IconThemeData(color: active, size: iconSize),
       unselectedIconTheme: IconThemeData(color: inactive, size: iconSize),
-      selectedLabelTextStyle: context.ccTextTheme.labelMedium?.copyWith(
+      selectedLabelTextStyle: labelStyle?.copyWith(
         color: active,
         fontWeight: CcTypographyParams.bold,
       ),
-      unselectedLabelTextStyle: context.ccTextTheme.labelMedium?.copyWith(
+      unselectedLabelTextStyle: labelStyle?.copyWith(
         color: inactive,
         fontWeight: CcTypographyParams.regular,
       ),
+      leading: primaryIndex == null
+          ? null
+          : Padding(
+              padding: EdgeInsets.only(
+                top: context.respPadding(CcPaddingParams.SPACE_SM),
+                bottom: context.respPadding(CcPaddingParams.SPACE_MD),
+              ),
+              child: _PrimaryAction(
+                item: items[primaryIndex!],
+                selected: currentIndex == primaryIndex,
+                extended: extended,
+                activeColor: active,
+                activeIconColor: activeIconColor ?? CcBaseColors.white100,
+                inactiveColor: inactive,
+                iconSize: iconSize,
+                onTap: () => onTap(primaryIndex!),
+              ),
+            ),
       destinations: [
-        for (final item in items)
+        for (final i in destinationIndexes)
           NavigationRailDestination(
-            icon: _withBadge(Icon(item.inactiveIcon), item),
-            selectedIcon: _withBadge(Icon(item.activeIcon), item),
-            label: Text(item.label),
+            icon: _withBadge(Icon(items[i].inactiveIcon), items[i]),
+            selectedIcon: _withBadge(Icon(items[i].activeIcon), items[i]),
+            label: _label(items[i].label),
           ),
       ],
     );
@@ -83,7 +138,24 @@ class CcNavigationRail extends StatelessWidget {
     return useSafeArea ? SafeArea(right: false, child: rail) : rail;
   }
 
-  Widget _withBadge(Widget icon, CcCurvedNavigationItem item) {
+  /// Compact rail: at most two centred lines within the rail width, so a long
+  /// label never widens the rail. Extended rail: one line.
+  Widget _label(String text) {
+    if (extended) {
+      return Text(text, maxLines: 1, overflow: TextOverflow.ellipsis);
+    }
+    return SizedBox(
+      width: _labelWidth,
+      child: Text(
+        text,
+        maxLines: 2,
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+
+  static Widget _withBadge(Widget icon, CcCurvedNavigationItem item) {
     final badgeWidget = item.badgeWidget;
     if (badgeWidget != null) {
       return Stack(
@@ -104,5 +176,109 @@ class CcNavigationRail extends StatelessWidget {
       );
     }
     return icon;
+  }
+}
+
+/// The rail's primary action: a round button (compact) or a pill with label
+/// (extended). Filled when its destination is open, tonal otherwise.
+class _PrimaryAction extends StatelessWidget {
+  const _PrimaryAction({
+    required this.item,
+    required this.selected,
+    required this.extended,
+    required this.activeColor,
+    required this.activeIconColor,
+    required this.inactiveColor,
+    required this.iconSize,
+    required this.onTap,
+  });
+
+  final CcCurvedNavigationItem item;
+  final bool selected;
+  final bool extended;
+  final Color activeColor;
+  final Color activeIconColor;
+  final Color inactiveColor;
+  final double iconSize;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final fill = selected ? activeColor : activeColor.withAlpha(36);
+    final foreground = selected ? activeIconColor : activeColor;
+    final size = iconSize * 2;
+    final icon = CcNavigationRail._withBadge(
+      Icon(
+        selected ? item.activeIcon : item.inactiveIcon,
+        color: foreground,
+        size: iconSize,
+      ),
+      item,
+    );
+    final labelStyle = context.ccTextTheme.labelMedium?.copyWith(
+      color: selected ? activeColor : inactiveColor,
+      fontWeight: selected
+          ? CcTypographyParams.bold
+          : CcTypographyParams.regular,
+    );
+
+    final button = Material(
+      color: fill,
+      shape: extended ? const StadiumBorder() : const CircleBorder(),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: SizedBox(
+          height: size,
+          width: extended ? CcNavigationRail.extendedRailWidth - 32 : size,
+          child: extended
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    icon,
+                    const CcSpaceSM(),
+                    Flexible(
+                      child: Text(
+                        item.label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: labelStyle?.copyWith(color: foreground),
+                      ),
+                    ),
+                  ],
+                )
+              : Center(child: icon),
+        ),
+      ),
+    );
+
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: extended
+          ? button
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                button,
+                const CcSpaceXS(),
+                // The label is part of the tap target, like a destination.
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: onTap,
+                  child: SizedBox(
+                    width: CcNavigationRail._labelWidth,
+                    child: Text(
+                      item.label,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: labelStyle,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+    );
   }
 }

@@ -30,4 +30,25 @@ void main() {
     expect(tester.getSize(find.byKey(_child)), const Size(840, 900));
     expect(tester.getTopLeft(find.byKey(_child)).dx, 180);
   });
+
+  test('insetFor centres content-width content, 0 when there is no room', () {
+    expect(CcMaxWidth.insetFor(600), 0);
+    expect(CcMaxWidth.insetFor(840), 0);
+    expect(CcMaxWidth.insetFor(1040), 100);
+    expect(CcMaxWidth.insetFor(1000, maxWidth: 600), 200);
+  });
+
+  testWidgets('CcMaxWidth.content caps at the content width', (tester) async {
+    tester.view.physicalSize = const Size(1200, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(
+      const Directionality(
+        textDirection: TextDirection.ltr,
+        child: CcMaxWidth.content(child: SizedBox.expand(key: _child)),
+      ),
+    );
+    expect(tester.getSize(find.byKey(_child)).width, CcMaxWidth.contentWidth);
+  });
 }
