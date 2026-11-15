@@ -67,13 +67,13 @@ extension CcContextExtension on BuildContext {
   ///
   /// The base [CcTextStyle] tokens are fixed logical pixels (e.g.
   /// [CcTypographyParams.labelMedium] = 12). On large screens those sizes look
-  /// disproportionately small, so each size is multiplied by a width-based
-  /// factor: < 600 dp = 1.0x, 600–899 dp = 1.2x, ≥ 900 dp = 1.4x. Non-size
-  /// attributes (weight, color, height, letter-spacing) are preserved.
+  /// disproportionately small, so each size is multiplied by
+  /// [CcScale.text]: 1.0x on phones, rising smoothly to 1.2x at 840 dp.
+  /// Non-size attributes (weight, color, height, letter-spacing) are
+  /// preserved.
   TextTheme get ccResponsiveTextTheme {
     final base = Theme.of(this).textTheme;
-    final width = screenWidth;
-    final factor = width < 600 ? 1.0 : (width < 900 ? 1.2 : 1.4);
+    final factor = CcScale.text(screenWidth);
     TextStyle scale(TextStyle? style) => style == null
         ? const TextStyle()
         : style.copyWith(

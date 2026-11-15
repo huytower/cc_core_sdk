@@ -1,69 +1,68 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../../export_cc_sdk_ui.dart';
 
-/// Extension for responsive UI calculations
+/// Responsive sizes, all driven by one curve: [CcScale].
+///
+/// Phones keep the original `width / 360` scaling; tablets rise smoothly to
+/// the maximum at 840 dp and stay there (wider windows get more layout, not
+/// bigger UI). See [CcScale] for the exact table.
 extension ResponsiveExtension on BuildContext {
-  /// Get responsive icon size based on screen width
-  /// Base size: 24px for mobile, scales up to 32px for larger screens
+  /// Icon size scaled by [CcScale.dimension] (max 1.5x).
   ///
-  /// Formula: baseSize * (screenWidth / baselineWidth).clamp(1.0, maxMultiplier)
-  ///
-  /// Example usage:
   /// ```dart
   /// final iconSize = context.respIconSize();
   /// ```
-  double respIconSize({
-    double baseSize = 24.0,
-    double baselineWidth = 360.0,
-    double maxMultiplier = 1.5,
-  }) {
-    return baseSize * (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
-  }
+  double respIconSize({double baseSize = 24.0}) =>
+      baseSize * CcScale.dimension(screenWidth);
 
-  /// Get responsive font size based on screen width
-  /// Base size scales up to 1.33x on larger screens
+  /// Font size scaled by [CcScale.dimension] (max 1.5x) — for text that does
+  /// not come from [CcContextExtension.ccTextTheme].
   ///
-  /// Example usage:
   /// ```dart
   /// final fontSize = context.respFontSize(16.0);
   /// ```
-  double respFontSize(
-    double baseSize, {
-    double baselineWidth = 360.0,
-    double maxMultiplier = 2,
-  }) {
-    return baseSize * (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
-  }
+  double respFontSize(double baseSize) =>
+      baseSize * CcScale.dimension(screenWidth);
 
-  /// Get responsive padding based on screen width
-  /// Base padding scales up to 1.5x on larger screens
+  /// Padding or gap scaled by [CcScale.padding] (max 2x).
   ///
-  /// Example usage:
   /// ```dart
   /// final padding = context.respPadding(16.0);
   /// ```
-  double respPadding(
-    double basePadding, {
-    double baselineWidth = 360.0,
-    double maxMultiplier = 2,
-  }) {
-    return basePadding *
-        (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
-  }
+  double respPadding(double basePadding) =>
+      basePadding * CcScale.padding(screenWidth);
 
-  /// Get responsive dimension (width/height) based on screen width
+  /// Width/height of a shape or component scaled by [CcScale.dimension]
+  /// (max 1.5x).
   ///
-  /// Example usage:
   /// ```dart
   /// final width = context.respDim(4.0);
   /// ```
-  double respDim(
-    double baseDimension, {
-    double baselineWidth = 360.0,
-    double maxMultiplier = 1.5,
-  }) {
-    return baseDimension *
-        (screenWidth / baselineWidth).clamp(1.0, maxMultiplier);
+  double respDim(double baseDimension) =>
+      baseDimension * CcScale.dimension(screenWidth);
+
+  /// Height of a hero header designed as [heightFactor] of the screen height
+  /// on phones.
+  ///
+  /// Compact windows (phones) get exactly `screenHeight * heightFactor`, as
+  /// before. Wider windows are capped at the height the header has on the
+  /// reference phone ([referencePhoneSize]), scaled like its content with
+  /// [respDim] — so a tall 16:10 tablet no longer spends a third of the screen
+  /// on the header, while short (landscape) windows keep the smaller value.
+  double respHeaderHeight(double heightFactor) {
+    final byScreen = screenHeight * heightFactor;
+    if (windowSizeClass == CcWindowSizeClass.compact) return byScreen;
+
+    final referenceHeight =
+        referencePhoneSize.height *
+        heightFactor /
+        CcScale.dimension(referencePhoneSize.width);
+    return math.min(byScreen, respDim(referenceHeight));
   }
 }
+
+/// The phone the hero headers were tuned on (390 x 844 dp).
+const Size referencePhoneSize = Size(390, 844);
