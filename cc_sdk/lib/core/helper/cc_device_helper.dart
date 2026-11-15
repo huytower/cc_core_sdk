@@ -5,66 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 
 import '../extensions/common/cc_logger_extension.dart';
+import 'cc_window_size_class.dart';
 
 /// Utility class for screen-layout and platform helpers.
 ///
-/// Device-information queries (device ID, OS info, app version) have been
-/// consolidated into [CcDeviceInfoHelper] which reuses the DI-registered
-/// [DeviceInfoPlugin] singleton.
+/// Screen size and classification live in `MediaQuery` and
+/// [CcWindowSizeClass]; read them from the current [BuildContext] rather than
+/// caching them in statics. Device-information queries (device ID, OS info,
+/// app version) live in [CcDeviceInfoHelper].
 @injectable
 class CcDeviceHelper {
-  // ==========================================================================
-  // SCREEN & LAYOUT PROPERTIES
-  // ==========================================================================
-
-  /// Current screen width in logical pixels.
-  static double widthScreen = 0;
-
-  /// Current screen height in logical pixels.
-  static double heightScreen = 0;
-
-  /// Minimum dimension of the screen (width or height, whichever is smaller).
-  static double minScreen = 0;
-
-  /// Whether the current iOS device has a home button.
-  static bool hasHomeBtnIOSDevice = true;
-
-  /// Whether the current platform is iOS.
-  static bool isIOS = false;
-
-  /// Whether the current platform is Android.
-  static bool isAndroid = false;
-
-  /// iOS version (only applicable on iOS devices).
-  static double iosVersion = 0;
-
-  /// Device version tracking (legacy field).
-  static int? versionNew = 1;
-
-  // ==========================================================================
-  // INITIALIZATION
-  // ==========================================================================
-
-  /// Initializes device properties from the given [BuildContext].
-  ///
-  /// Must be called once during app initialization to populate screen
-  /// dimensions and platform information.
-  static void init(BuildContext context) {
-    final platform = Theme.of(context).platform;
-    isIOS = platform == TargetPlatform.iOS;
-    isAndroid = platform == TargetPlatform.android;
-    widthScreen = MediaQuery.sizeOf(context).width;
-    heightScreen = MediaQuery.sizeOf(context).height;
-    minScreen = widthScreen > heightScreen ? heightScreen : widthScreen;
-
-    hasHomeBtnIOSDevice = switch ((widthScreen, heightScreen)) {
-      (414.0, 896.0) => false, // iPhone Xs
-      (1242.0, 2688.0) => false, // iPhone Xs Max
-      (828.0, 1792.0) => false, // iPhone Xr
-      _ => true,
-    };
-  }
-
   // ==========================================================================
   // SCREEN LAYOUT HELPERS
   // ==========================================================================
@@ -83,9 +33,6 @@ class CcDeviceHelper {
 
     return heightKeyboard;
   }
-
-  /// Checks if the device has a small screen (iPhone 5/SE size).
-  static bool isSmallScreen(double screenWidth) => screenWidth < 390.0;
 
   /// Checks if the device has a large screen (typically iPhone Pro Max models).
   static bool isLargeScreen({

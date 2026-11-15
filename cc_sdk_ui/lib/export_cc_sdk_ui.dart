@@ -103,7 +103,6 @@ export 'package:cc_sdk_ui/widgets/container/cc_containers.dart';
 export 'package:cc_sdk_ui/widgets/container/cc_glassy_gradient.dart';
 export 'package:cc_sdk_ui/widgets/container/cc_gradient_card_layout.dart';
 export 'package:cc_sdk_ui/widgets/container/cc_gradient_layout.dart';
-export 'package:cc_sdk_ui/widgets/container/cc_responsive_container.dart';
 export 'package:cc_sdk_ui/widgets/container/container_rounded_corner_top_left_right.dart';
 // Countdown Widgets
 export 'package:cc_sdk_ui/widgets/countdown/cc_count_down.dart';

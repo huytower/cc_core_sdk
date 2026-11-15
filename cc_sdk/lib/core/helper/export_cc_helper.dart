@@ -8,7 +8,6 @@ export 'cc_image_helper.dart';
 export 'cc_network_helper.dart';
 export 'cc_phone_number_helper.dart';
 export 'cc_receipt_scan_helper.dart';
-export 'cc_responsive_helper.dart';
 export 'cc_slack_feedback_helper.dart';
 export 'cc_speech_helper.dart';
 export 'cc_string_helper.dart';

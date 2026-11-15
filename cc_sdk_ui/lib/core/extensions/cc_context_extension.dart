@@ -31,37 +31,21 @@ extension CcContextExtension on BuildContext {
   // ==========================================================================
 
   /// Check if the current orientation is portrait.
-  bool get isPortrait => CcResponsiveHelper.isPortrait(this);
+  bool get isPortrait => MediaQuery.orientationOf(this) == Orientation.portrait;
 
   /// Check if the current orientation is landscape.
-  bool get isLandscape => CcResponsiveHelper.isLandscape(this);
+  bool get isLandscape =>
+      MediaQuery.orientationOf(this) == Orientation.landscape;
 
-  /// Checks if the current screen is a mobile device.
-  bool get isMobile => CcResponsiveHelper.isMobile(this);
+  /// Gets the current window width (dp).
+  double get screenWidth => MediaQuery.sizeOf(this).width;
 
-  /// Checks if the current screen is a tablet device.
-  bool get isTablet => CcResponsiveHelper.isTablet(this);
-
-  /// Checks if the current screen is a desktop device.
-  bool get isDesktop => CcResponsiveHelper.isDesktop(this);
-
-  /// Checks if the current screen is a small mobile device.
-  bool get isSmallMobile => CcResponsiveHelper.isSmallMobile(this);
-
-  /// Checks if the current screen is a large mobile device.
-  bool get isLargeMobile => CcResponsiveHelper.isLargeMobile(this);
-
-  /// Gets the current screen width.
-  double get screenWidth => CcResponsiveHelper.screenWidth(this);
-
-  /// Gets the current screen height.
-  double get screenHeight => CcResponsiveHelper.screenHeight(this);
-
-  /// Gets the screen type as an enum.
-  ScreenType get screenType => CcResponsiveHelper.getScreenType(this);
+  /// Gets the current window height (dp).
+  double get screenHeight => MediaQuery.sizeOf(this).height;
 
   /// The Material 3 width class of the current window. Branch adaptive
-  /// layouts (navigation, panes, columns) on this, not on [screenType].
+  /// layouts (navigation, panes, columns) on this — or, inside a pane, on
+  /// the pane's constraints via `CcAdaptiveBuilder`.
   CcWindowSizeClass get windowSizeClass => CcWindowSizeClass.of(this);
 
   /// The Material 3 height class of the current window.
@@ -83,21 +67,17 @@ extension CcContextExtension on BuildContext {
   ///
   /// The base [CcTextStyle] tokens are fixed logical pixels (e.g.
   /// [CcTypographyParams.labelMedium] = 12). On large screens those sizes look
-  /// disproportionately small, so we multiply each size by the same responsive
-  /// factor used elsewhere ([CcResponsiveHelper.getResponsiveFontSize]):
-  /// mobile = 1.0x, tablet = 1.2x, desktop = 1.4x. Non-size attributes
-  /// (weight, color, height, letter-spacing) are preserved.
+  /// disproportionately small, so each size is multiplied by a width-based
+  /// factor: < 600 dp = 1.0x, 600–899 dp = 1.2x, ≥ 900 dp = 1.4x. Non-size
+  /// attributes (weight, color, height, letter-spacing) are preserved.
   TextTheme get ccResponsiveTextTheme {
     final base = Theme.of(this).textTheme;
+    final width = screenWidth;
+    final factor = width < 600 ? 1.0 : (width < 900 ? 1.2 : 1.4);
     TextStyle scale(TextStyle? style) => style == null
         ? const TextStyle()
         : style.copyWith(
-            fontSize: style.fontSize == null
-                ? null
-                : CcResponsiveHelper.getResponsiveFontSize(
-                    context: this,
-                    mobileFontSize: style.fontSize!,
-                  ),
+            fontSize: style.fontSize == null ? null : style.fontSize! * factor,
           );
 
     return base.copyWith(
@@ -158,10 +138,8 @@ extension CcContextExtension on BuildContext {
   );
 
   /// A subtle border for text field-like containers.
-  Border get borderTextField => Border.all(
-    color: ccColorScheme.outlineVariant.withAlpha(10),
-    width: 0.4,
-  );
+  Border get borderTextField =>
+      Border.all(color: ccColorScheme.outlineVariant.withAlpha(10), width: 0.4);
 
   /// A subtle OutlineInputBorder for text fields, matching [borderTextField].
   OutlineInputBorder get inputBorderTextField => OutlineInputBorder(

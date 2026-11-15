@@ -1,13 +1,16 @@
 import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/extensions/cc_context_extension.dart';
-
-/// A responsive flex widget that adapts its layout based on screen size.
+/// Lays [children] out as a column on narrow space and as rows of equal-width
+/// columns on wider space.
 ///
-/// On mobile: Uses vertical layout (column)
-/// On tablet: Uses horizontal layout (row) with 2 columns
-/// On desktop: Uses horizontal layout (row) with 3 columns
+/// The layout follows the **width this widget is given** (Material 3 window
+/// size class of its constraints), so it behaves the same inside a pane, next
+/// to a navigation rail, or full screen:
+///
+/// - compact (< 600 dp): single column
+/// - medium (600–839 dp): [mediumColumns] per row (default 2)
+/// - expanded and wider (≥ 840 dp): [expandedColumns] per row (default 3)
 ///
 /// Example usage:
 /// ```dart
@@ -35,14 +38,14 @@ class CcResponsiveFlex extends StatelessWidget {
   /// Alignment for the cross axis.
   final CrossAxisAlignment crossAxisAlignment;
 
-  /// Whether to use Wrap instead of Row/Column.
+  /// Whether to use Wrap instead of fixed rows on wider space.
   final bool useWrap;
 
-  /// Custom number of columns for tablet.
-  final int? tabletColumns;
+  /// Columns per row on medium width.
+  final int mediumColumns;
 
-  /// Custom number of columns for desktop.
-  final int? desktopColumns;
+  /// Columns per row on expanded width and wider.
+  final int expandedColumns;
 
   const CcResponsiveFlex({
     super.key,
@@ -52,65 +55,57 @@ class CcResponsiveFlex extends StatelessWidget {
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.useWrap = false,
-    this.tabletColumns,
-    this.desktopColumns,
+    this.mediumColumns = 2,
+    this.expandedColumns = 3,
   });
 
   @override
   Widget build(BuildContext context) {
-    final screenType = context.screenType;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.hasBoundedWidth
+            ? constraints.maxWidth
+            : MediaQuery.sizeOf(context).width;
+        final columns = CcWindowSizeClass.fromWidth(width).select<int>(
+          compact: 1,
+          medium: mediumColumns,
+          expanded: expandedColumns,
+        );
 
-    // Mobile: Vertical layout
-    if (screenType == ScreenType.mobile ||
-        screenType == ScreenType.smallMobile) {
-      return Column(
-        crossAxisAlignment: crossAxisAlignment,
-        mainAxisAlignment: mainAxisAlignment,
-        children: _buildSpacedChildren(spacing, isVertical: true),
-      );
-    }
-
-    // Tablet: 2 columns
-    if (screenType == ScreenType.tablet) {
-      final columns = tabletColumns ?? 2;
-      return _buildResponsiveLayout(context, columns);
-    }
-
-    // Desktop: 3 columns
-    final columns = desktopColumns ?? 3;
-    return _buildResponsiveLayout(context, columns);
+        if (columns <= 1) {
+          return Column(
+            crossAxisAlignment: crossAxisAlignment,
+            mainAxisAlignment: mainAxisAlignment,
+            children: _spaced(children, isVertical: true),
+          );
+        }
+        return _buildRows(columns);
+      },
+    );
   }
 
-  Widget _buildResponsiveLayout(BuildContext context, int columns) {
+  Widget _buildRows(int columns) {
     if (useWrap) {
-      return Wrap(
-        spacing: spacing,
-        runSpacing: runSpacing,
-        alignment: WrapAlignment.start,
-        crossAxisAlignment: WrapCrossAlignment.start,
-        children: children,
-      );
+      return Wrap(spacing: spacing, runSpacing: runSpacing, children: children);
     }
 
-    // Build rows with specified number of columns
     final rows = <Widget>[];
     for (int i = 0; i < children.length; i += columns) {
-      final rowChildren = <Widget>[];
-      for (int j = 0; j < columns; j++) {
-        final index = i + j;
-        if (index < children.length) {
-          rowChildren.add(Expanded(child: children[index]));
-        } else {
-          rowChildren.add(const Expanded(child: SizedBox()));
-        }
-      }
+      final rowChildren = <Widget>[
+        for (int j = 0; j < columns; j++)
+          Expanded(
+            child: i + j < children.length
+                ? children[i + j]
+                : const SizedBox.shrink(),
+          ),
+      ];
       rows.add(
         Padding(
           padding: EdgeInsets.only(bottom: spacing),
           child: Row(
             crossAxisAlignment: crossAxisAlignment,
             mainAxisAlignment: mainAxisAlignment,
-            children: _buildSpacedChildren(spacing, widgets: rowChildren),
+            children: _spaced(rowChildren, isVertical: false),
           ),
         ),
       );
@@ -122,25 +117,16 @@ class CcResponsiveFlex extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildSpacedChildren(
-    double spacing, {
-    bool isVertical = false,
-    List<Widget>? widgets,
-  }) {
-    final items = widgets ?? children;
+  List<Widget> _spaced(List<Widget> items, {required bool isVertical}) {
     if (items.isEmpty) return items;
-
-    final spacedChildren = <Widget>[];
-    for (int i = 0; i < items.length; i++) {
-      spacedChildren.add(items[i]);
-      if (i < items.length - 1) {
-        if (isVertical) {
-          spacedChildren.add(SizedBox(height: spacing));
-        } else {
-          spacedChildren.add(SizedBox(width: spacing));
-        }
-      }
-    }
-    return spacedChildren;
+    final gap = isVertical
+        ? SizedBox(height: spacing)
+        : SizedBox(width: spacing);
+    return [
+      for (int i = 0; i < items.length; i++) ...[
+        items[i],
+        if (i < items.length - 1) gap,
+      ],
+    ];
   }
 }
