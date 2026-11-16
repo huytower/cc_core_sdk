@@ -287,14 +287,22 @@ class CcSlackHandler extends ReportHandler {
 
   static String _twoDigits(int n) => n >= 10 ? '$n' : '0$n';
 
+  /// The webhook URL is a secret (anyone with it can post to the channel):
+  /// log only its host and a short tail, never the full path.
+  static String _maskUrl(String url) {
+    final uri = Uri.tryParse(url);
+    final tail = url.length > 4 ? url.substring(url.length - 4) : '';
+    return '${uri?.host ?? '?'}/…$tail (length=${url.length})';
+  }
+
   static Future<bool> _postToSlack(String rawUrl, String messageText) async {
     final cleanUrl = _cleanUrl(rawUrl);
-    '[CatcherSlack] 📤 Sending crash report to Slack Webhook: "$cleanUrl" (length=${cleanUrl.length})...'
+    '[CatcherSlack] 📤 Sending crash report to Slack Webhook: ${_maskUrl(cleanUrl)}...'
         .Log('CcSlackHandler');
 
     final uri = Uri.tryParse(cleanUrl);
     if (uri == null || !uri.hasScheme) {
-      '[CatcherSlack] ❌ Invalid Webhook URL URI: "$cleanUrl"'.Log(
+      '[CatcherSlack] ❌ Invalid Webhook URL URI: ${_maskUrl(cleanUrl)}'.Log(
         'CcSlackHandler',
       );
       return false;

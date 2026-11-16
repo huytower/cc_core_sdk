@@ -93,12 +93,15 @@ abstract final class CcCatcherBootstrap {
     );
   }
 
+  /// Debug builds report locally only (console + log file + Crashlytics).
+  /// No Slack: debug runs on emulators fail often and expectedly (e.g. an
+  /// unregistered App Check debug token at launch), which would spam the
+  /// crash channel. Release and profile builds still post to Slack.
   static Catcher2Options debugOptions(File logFile) =>
       Catcher2Options(SilentReportMode(), [
         _JsonConsoleHandler(),
         _getHandler(logFile, printLogs: kDebugMode),
         CcCrashlyticsHandler(),
-        CcSlackHandler(),
       ]);
 
   static Catcher2Options releaseOptions(File logFile) =>

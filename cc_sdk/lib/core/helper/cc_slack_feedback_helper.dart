@@ -20,6 +20,13 @@ class CcSlackFeedbackHelper {
   static String? _lastPayload;
   static DateTime? _lastSentAt;
 
+  /// The webhook URL is a secret: log only its host and a short tail.
+  static String _maskUrl(String url) {
+    final uri = Uri.tryParse(url);
+    final tail = url.length > 4 ? url.substring(url.length - 4) : '';
+    return '${uri?.host ?? '?'}/…$tail (length=${url.length})';
+  }
+
   static String _cleanUrl(String raw) {
     var url = raw.trim();
     if ((url.startsWith('"') && url.endsWith('"')) ||
@@ -154,14 +161,13 @@ class CcSlackFeedbackHelper {
 
   static Future<bool> _postToSlack(String rawUrl, String messageText) async {
     final cleanUrl = _cleanUrl(rawUrl);
-    '[SlackFeedbackWorkflow] 📤 Sending POST request to Slack Webhook: "$cleanUrl" (length=${cleanUrl.length})...'
+    '[SlackFeedbackWorkflow] 📤 Sending POST request to Slack Webhook: ${_maskUrl(cleanUrl)}...'
         .Log('CcSlackFeedbackHelper');
 
     final uri = Uri.tryParse(cleanUrl);
     if (uri == null || !uri.hasScheme) {
-      '[SlackFeedbackWorkflow] ❌ Invalid Webhook URL URI: "$cleanUrl"'.Log(
-        'CcSlackFeedbackHelper',
-      );
+      '[SlackFeedbackWorkflow] ❌ Invalid Webhook URL URI: ${_maskUrl(cleanUrl)}'
+          .Log('CcSlackFeedbackHelper');
       return false;
     }
 
