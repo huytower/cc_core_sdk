@@ -25,6 +25,7 @@ export 'package:cc_sdk_ui/core/helper/cc_widget_helper.dart';
 export 'package:cc_sdk_ui/widgets/adaptive/cc_adaptive_builder.dart';
 export 'package:cc_sdk_ui/widgets/adaptive/cc_content_inset.dart';
 export 'package:cc_sdk_ui/widgets/adaptive/cc_max_width.dart';
+export 'package:cc_sdk_ui/widgets/adaptive/cc_multi_column.dart';
 export 'package:cc_sdk_ui/widgets/adaptive/cc_two_column.dart';
 export 'package:cc_sdk_ui/widgets/anim/fade_page_wrapper.dart';
 // ============================================
