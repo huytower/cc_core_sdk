@@ -8,6 +8,7 @@ import '../../widgets/base/cc_keyboard_dismisser.dart';
 import '../../widgets/dialog/cc_base_dialog.dart';
 import '../../widgets/dialog/cc_body_modal_bottom_sheet.dart';
 import '../../widgets/dialog/cc_body_show_message.dart';
+import '../../widgets/scroll/cc_landscape_scrollable.dart';
 import '../../widgets/state/cc_loading_icon_widget.dart';
 import '../../widgets/text/cc_text.dart';
 import '../extensions/cc_context_extension.dart';
@@ -68,27 +69,34 @@ class CcDialogHelper {
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
       backgroundColor: context.ccColorScheme.surface,
-      builder: (innerContext) => CcBodyShowMessage(
-        title: title,
-        confirmText: confirmText,
-        cancelText: cancelText,
-        isOnlyConfirm: isOnlyConfirm,
-        onConfirm: () {
-          Navigator.of(innerContext).pop(true);
-          onConfirm?.call();
-        },
-        child:
-            customWidget ??
-            CcText(
-              content,
-              align: Alignment.center,
-              maxLines: 5,
-              textAlign: TextAlign.center,
-              textStyle: innerContext.ccTextTheme.bodyMedium?.copyWith(
-                color: innerContext.ccColorScheme.onSurfaceVariant,
-                height: 1.4,
+      // Landscape (a tablet held sideways): the default 9/16-height cap is
+      // too short for longer messages, so let the sheet use the height it
+      // needs and scroll past it. Portrait keeps the default behaviour.
+      isScrollControlled:
+          MediaQuery.orientationOf(context) == Orientation.landscape,
+      builder: (innerContext) => CcLandscapeScrollable(
+        child: CcBodyShowMessage(
+          title: title,
+          confirmText: confirmText,
+          cancelText: cancelText,
+          isOnlyConfirm: isOnlyConfirm,
+          onConfirm: () {
+            Navigator.of(innerContext).pop(true);
+            onConfirm?.call();
+          },
+          child:
+              customWidget ??
+              CcText(
+                content,
+                align: Alignment.center,
+                maxLines: 5,
+                textAlign: TextAlign.center,
+                textStyle: innerContext.ccTextTheme.bodyMedium?.copyWith(
+                  color: innerContext.ccColorScheme.onSurfaceVariant,
+                  height: 1.4,
+                ),
               ),
-            ),
+        ),
       ),
     );
   }

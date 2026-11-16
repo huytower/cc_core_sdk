@@ -51,7 +51,9 @@ extension ResponsiveExtension on BuildContext {
   /// before. Wider windows are capped at the height the header has on the
   /// reference phone ([referencePhoneSize]), scaled like its content with
   /// [respDim] — so a tall 16:10 tablet no longer spends a third of the screen
-  /// on the header, while short (landscape) windows keep the smaller value.
+  /// on the header. Landscape windows (a tablet held sideways) get exactly that
+  /// content-scaled height: a screen-height percentage there would be too low
+  /// for content already scaled up for the width, and it would overflow.
   double respHeaderHeight(double heightFactor) {
     final byScreen = screenHeight * heightFactor;
     if (windowSizeClass == CcWindowSizeClass.compact) return byScreen;
@@ -60,7 +62,11 @@ extension ResponsiveExtension on BuildContext {
         referencePhoneSize.height *
         heightFactor /
         CcScale.dimension(referencePhoneSize.width);
-    return math.min(byScreen, respDim(referenceHeight));
+    final byContent = respDim(referenceHeight);
+    if (isLandscape) {
+      return byContent;
+    }
+    return math.min(byScreen, byContent);
   }
 }
 
