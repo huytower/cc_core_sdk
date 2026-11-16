@@ -42,6 +42,7 @@ class CcListBannerMedium extends StatelessWidget {
     this.suffixIcon,
     this.onSuffixTap,
     this.color,
+    this.endColor,
     this.onTap,
     this.showChevron = true,
   });
@@ -58,6 +59,11 @@ class CcListBannerMedium extends StatelessWidget {
   final IconData? suffixIcon;
   final VoidCallback? onSuffixTap;
   final Color? color;
+
+  /// Colour the background gradient ends in; defaults to `onPrimary`, which is
+  /// white in dark mode. Set it (with a dark [color]) when the default would
+  /// wash out the text.
+  final Color? endColor;
   final VoidCallback? onTap;
 
   /// When true (default), a trailing chevron is shown if no explicit
@@ -93,7 +99,7 @@ class CcListBannerMedium extends StatelessWidget {
         end: Alignment.centerRight,
         colors: [
           color.withValues(alpha: gradientAlpha),
-          scheme.onPrimary.withValues(alpha: gradientAlpha),
+          (endColor ?? scheme.onPrimary).withValues(alpha: gradientAlpha),
         ],
       ),
       border: Border.all(
