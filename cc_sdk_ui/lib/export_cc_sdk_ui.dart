@@ -149,6 +149,7 @@ export 'package:cc_sdk_ui/widgets/pages/status/error_page_v2.dart';
 export 'package:cc_sdk_ui/widgets/pages/status/not_found_page.dart';
 export 'package:cc_sdk_ui/widgets/pages/status/retry_page.dart';
 // Scroll Widgets
+export 'package:cc_sdk_ui/widgets/scroll/cc_landscape_scrollable.dart';
 export 'package:cc_sdk_ui/widgets/scroll/horizontal_fade_scroll_view.dart';
 // Section Widgets
 export 'package:cc_sdk_ui/widgets/section/cc_section_header.dart';
