@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
 import '../../export_cc_sdk_ui.dart';
@@ -14,6 +13,8 @@ class CcNameInputField extends StatelessWidget {
     this.onTap,
     this.maxLength = 30,
     this.showMaxLengthWarning = true,
+    this.maxLengthWarningText,
+    this.clearTooltip,
   });
 
   final TextEditingController controller;
@@ -24,6 +25,15 @@ class CcNameInputField extends StatelessWidget {
   final VoidCallback? onTap;
   final int maxLength;
   final bool showMaxLengthWarning;
+
+  /// Shown under the field once [maxLength] is reached (when
+  /// [showMaxLengthWarning] is true). The caller supplies the localized text;
+  /// no warning is shown when null.
+  final String? maxLengthWarningText;
+
+  /// Tooltip of the clear button. Defaults to
+  /// [MaterialLocalizations.clearButtonTooltip].
+  final String? clearTooltip;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +118,11 @@ class CcNameInputField extends StatelessWidget {
                               controller.clear();
                               onClear?.call();
                             },
-                            tooltip: el.tr(CcLocaleKeys.common_clear),
+                            tooltip:
+                                clearTooltip ??
+                                MaterialLocalizations.of(
+                                  context,
+                                ).clearButtonTooltip,
                           )
                         : null,
                   ),
@@ -124,7 +138,9 @@ class CcNameInputField extends StatelessWidget {
                       ),
                     ),
                   ),
-                ] else if (showMaxLengthWarning && isAtMax) ...[
+                ] else if (showMaxLengthWarning &&
+                    isAtMax &&
+                    maxLengthWarningText != null) ...[
                   const CcSpaceXS(),
                   Padding(
                     padding: EdgeInsets.only(left: context.respPadding(4)),
@@ -138,10 +154,7 @@ class CcNameInputField extends StatelessWidget {
                         ),
                         const CcSpaceXS(),
                         CcText(
-                          el.tr(
-                            CcLocaleKeys.validation_max_length_reached,
-                            namedArgs: {'count': '$maxLength'},
-                          ),
+                          maxLengthWarningText!,
                           textStyle: context.ccTextTheme.labelSmall?.copyWith(
                             color: context.ccColorScheme.tertiary,
                           ),

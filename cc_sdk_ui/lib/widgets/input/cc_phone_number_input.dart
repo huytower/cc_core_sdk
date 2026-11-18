@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,6 +15,7 @@ class CcPhoneNumberInput extends StatelessWidget {
     this.onClear,
     this.keyboardType = TextInputType.phone,
     this.inputFormatters,
+    this.clearTooltip,
   });
 
   final String countryCode;
@@ -27,6 +27,10 @@ class CcPhoneNumberInput extends StatelessWidget {
   final VoidCallback? onClear;
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+
+  /// Tooltip of the clear button. Defaults to
+  /// [MaterialLocalizations.clearButtonTooltip].
+  final String? clearTooltip;
 
   static final _defaultFormatters = [FilteringTextInputFormatter.digitsOnly];
 
@@ -121,7 +125,11 @@ class CcPhoneNumberInput extends StatelessWidget {
                                 controller.clear();
                                 onClear?.call();
                               },
-                              tooltip: el.tr(CcLocaleKeys.common_clear),
+                              tooltip:
+                                  clearTooltip ??
+                                  MaterialLocalizations.of(
+                                    context,
+                                  ).clearButtonTooltip,
                             )
                           : null,
                     ),

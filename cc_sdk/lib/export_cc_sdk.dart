@@ -14,5 +14,3 @@ export 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 export 'package:cc_sdk/core/helper/cc_location_helper.dart';
 // Helpers
 export 'package:cc_sdk/core/helper/export_cc_helper.dart';
-// Localization (Transitive export from content_locale module)
-export 'package:message/export_message.dart';

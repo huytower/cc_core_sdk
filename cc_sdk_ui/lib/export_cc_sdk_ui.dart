@@ -54,7 +54,6 @@ export 'package:cc_sdk_ui/widgets/banner/cc_list_banner_small.dart';
 // Banner Widgets
 export 'package:cc_sdk_ui/widgets/banner/cc_reward_completion_banner.dart';
 export 'package:cc_sdk_ui/widgets/banner/cc_shape_painter.dart';
-export 'package:cc_sdk_ui/widgets/banner/cc_vip_lock_banner.dart';
 // Base Widgets
 export 'package:cc_sdk_ui/widgets/base/cc_keyboard_dismisser.dart';
 export 'package:cc_sdk_ui/widgets/base/cc_measure_size.dart';
