@@ -4,14 +4,16 @@ import '../background/cc_watermark_background.dart';
 import '../../export_cc_sdk_ui.dart';
 
 /// Data model for items displayed within [CcCategoryGroupSection].
+///
+/// [label] is shown as is — pass already-translated text.
 class CcCategoryGroupItem {
-  final String labelKey;
+  final String label;
   final int iconCode;
   final String? iconFamily;
   final dynamic originalData; // To pass back the full object on toggle
 
   const CcCategoryGroupItem({
-    required this.labelKey,
+    required this.label,
     required this.iconCode,
     this.iconFamily,
     this.originalData,
@@ -72,7 +74,7 @@ class CcCategoryGroupSection extends StatelessWidget {
                   final item = items[index];
                   final enabled = isEnabled(item);
                   return CcCategoryChip(
-                    labelKey: item.labelKey,
+                    label: item.label,
                     iconCode: item.iconCode,
                     iconFamily: item.iconFamily,
                     isEnabled: enabled,
