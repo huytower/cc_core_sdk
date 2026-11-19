@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_padding_params.dart';
+import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../button/cc_interaction_wrapper.dart';
@@ -130,7 +131,7 @@ class CcActionBtnInDialog extends StatelessWidget {
             agreeText ?? 'OK',
             align: Alignment.center,
             color: confirmTextColor ?? context.ccColorScheme.onPrimary,
-            fontWeight: FontWeight.w600,
+            fontWeight: CcTypographyParams.semiBold,
             fontSize: fontSize ?? 15.0,
             textAlign: TextAlign.center,
           ),

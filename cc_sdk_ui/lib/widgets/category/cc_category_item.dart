@@ -73,8 +73,8 @@ class CcCategoryItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     textStyle: context.ccTextTheme.labelSmall?.copyWith(
                       fontWeight: isSelected
-                          ? FontWeight.bold
-                          : FontWeight.normal,
+                          ? CcTypographyParams.bold
+                          : CcTypographyParams.regular,
                       color: isSelected
                           ? effectiveActiveColor
                           : scheme.onSurfaceVariant,

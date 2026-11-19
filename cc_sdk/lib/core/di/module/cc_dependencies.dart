@@ -9,6 +9,12 @@ import '../../helper/cc_device_info_helper.dart';
 
 /// Registers third-party dependencies that cannot be auto-registered
 /// (they don't have injectable constructors we control).
+///
+/// The two `@preResolve @singleton` entries are the deliberate exception to
+/// the lazy-singleton rule: consumers inject them synchronously, so they must
+/// be awaited once during `initMicroPackage()` (`@lazySingleton` with
+/// `@preResolve` would resolve just as eagerly). Keep this list to values the
+/// first frame needs; everything else stays `@lazySingleton`.
 @module
 abstract class CcSdkDependencies {
   @preResolve

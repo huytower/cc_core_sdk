@@ -58,7 +58,7 @@ class ErrorPage extends StatelessWidget {
                 retryText ?? 'Retry',
                 textStyle: context.ccTextTheme.labelLarge?.copyWith(
                   color: context.ccColorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: CcTypographyParams.bold,
                 ),
               ),
             ),

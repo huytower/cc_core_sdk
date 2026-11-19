@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../../widgets/button/cc_base_btn.dart';
@@ -41,7 +42,7 @@ class CcBodyShowMessage extends StatelessWidget {
                   child: Text(
                     title,
                     style: context.ccTextTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: CcTypographyParams.bold,
                     ),
                     textAlign: TextAlign.center,
                   ),

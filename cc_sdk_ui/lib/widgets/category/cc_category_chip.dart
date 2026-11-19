@@ -50,7 +50,9 @@ class CcCategoryChip extends StatelessWidget {
           color: chipBg,
           borderRadius: context.brXl,
           border: Border.all(
-            color: isEnabled ? primary.withValues(alpha: 0.4) : Colors.transparent,
+            color: isEnabled
+                ? primary.withValues(alpha: 0.4)
+                : Colors.transparent,
             width: 1.5,
           ),
         ),
@@ -79,7 +81,9 @@ class CcCategoryChip extends StatelessWidget {
               label,
               textStyle: context.ccTextTheme.labelMedium?.copyWith(
                 color: textColor,
-                fontWeight: isEnabled ? FontWeight.w600 : FontWeight.normal,
+                fontWeight: isEnabled
+                    ? CcTypographyParams.semiBold
+                    : CcTypographyParams.regular,
               ),
             ),
           ],

@@ -11,7 +11,7 @@ void showDoubleBackPressSnackBar(BuildContext context, String message) {
     duration: const Duration(seconds: 1),
     backgroundColor: context.ccColorScheme.inverseSurface,
     textColor: context.ccColorScheme.onInverseSurface,
-    fontWeight: FontWeight.w500,
+    fontWeight: CcTypographyParams.medium,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(CcCircularParams.RADIUS_MD),
     ),

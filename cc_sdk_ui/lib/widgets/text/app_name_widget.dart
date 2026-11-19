@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import 'cc_text.dart';
 
@@ -25,7 +26,7 @@ class AppNameWidget extends StatelessWidget {
   Widget build(BuildContext context) => CcText(
     name,
     align: align ?? Alignment.center,
-    fontWeight: FontWeight.w700,
+    fontWeight: CcTypographyParams.bold,
     fontSize: context.respFontSize(fontSize),
     color: color ?? CcBaseColors.neutral40,
   );

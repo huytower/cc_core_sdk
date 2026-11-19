@@ -47,7 +47,9 @@ class CcFeedbackTag extends StatelessWidget {
                 color: selected
                     ? activeColor
                     : scheme.onSurfaceVariant.withAlpha(100),
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                fontWeight: selected
+                    ? CcTypographyParams.bold
+                    : CcTypographyParams.medium,
               ),
             ),
             const CcSpaceXS(),

@@ -35,7 +35,12 @@ abstract final class CcFeatureFlags {
   static bool get isCertificatePinningEnabled =>
       _getBool('ENABLE_CERT_PINNING', true);
 
-  /// Whether VIP mode is enabled
+  /// Whether VIP mode is enabled.
+  ///
+  /// Product-specific: an app should define this in its own flags.
+  @Deprecated(
+    'Product-specific flag; define it in the app. Removed in the next major version.',
+  )
   static bool get isVipModeEnabled => _getBool('ENABLE_VIP_MODE', false);
 
   /// Retrieves a boolean configuration value with a default fallback.

@@ -160,7 +160,7 @@ class CcBaseBtn extends StatelessWidget {
               (isEnable
                   ? context.ccColorScheme.onPrimary
                   : context.ccColorScheme.onSurfaceVariant),
-          fontWeight: FontWeight.bold,
+          fontWeight: CcTypographyParams.bold,
         ),
       ),
     );

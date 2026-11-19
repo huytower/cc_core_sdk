@@ -1,11 +1,10 @@
+import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/foundation.dart';
 
 /// Centralized Helper for Google / Firebase Analytics tracking.
 ///
 /// Provides automatic page view tracking via [navigatorObserver] and
-/// marketing-focused event tracking (Sign Ups, Logins, AI Advice generation,
-/// VIP upgrades, transaction events).
+/// event tracking (sign-ups, logins and app-defined custom events).
 class CcAnalyticsHelper {
   CcAnalyticsHelper._();
 
@@ -27,7 +26,7 @@ class CcAnalyticsHelper {
         screenClass: screenClass ?? screenName,
       );
     } catch (e) {
-      if (kDebugMode) print('[CcAnalyticsHelper] logScreenView error: $e');
+      'logScreenView error: $e'.Log('CcAnalyticsHelper');
     }
   }
 
@@ -36,7 +35,7 @@ class CcAnalyticsHelper {
     try {
       await _analytics.logLogin(loginMethod: method);
     } catch (e) {
-      if (kDebugMode) print('[CcAnalyticsHelper] logLogin error: $e');
+      'logLogin error: $e'.Log('CcAnalyticsHelper');
     }
   }
 
@@ -45,11 +44,11 @@ class CcAnalyticsHelper {
     try {
       await _analytics.logSignUp(signUpMethod: signUpMethod);
     } catch (e) {
-      if (kDebugMode) print('[CcAnalyticsHelper] logSignUp error: $e');
+      'logSignUp error: $e'.Log('CcAnalyticsHelper');
     }
   }
 
-  /// Logs marketing / engagement event (e.g., 'generate_ai_advice', 'upgrade_vip', 'add_transaction').
+  /// Logs a custom event (e.g. 'share_content', 'complete_onboarding').
   static Future<void> logEvent({
     required String name,
     Map<String, Object>? parameters,
@@ -57,7 +56,7 @@ class CcAnalyticsHelper {
     try {
       await _analytics.logEvent(name: name, parameters: parameters);
     } catch (e) {
-      if (kDebugMode) print('[CcAnalyticsHelper] logEvent error: $e');
+      'logEvent error: $e'.Log('CcAnalyticsHelper');
     }
   }
 
@@ -66,11 +65,11 @@ class CcAnalyticsHelper {
     try {
       await _analytics.setUserId(id: id);
     } catch (e) {
-      if (kDebugMode) print('[CcAnalyticsHelper] setUserId error: $e');
+      'setUserId error: $e'.Log('CcAnalyticsHelper');
     }
   }
 
-  /// Sets custom user properties (e.g., vip_status = 'vip').
+  /// Sets custom user properties (e.g. plan = 'premium').
   static Future<void> setUserProperty({
     required String name,
     required String? value,
@@ -78,7 +77,7 @@ class CcAnalyticsHelper {
     try {
       await _analytics.setUserProperty(name: name, value: value);
     } catch (e) {
-      if (kDebugMode) print('[CcAnalyticsHelper] setUserProperty error: $e');
+      'setUserProperty error: $e'.Log('CcAnalyticsHelper');
     }
   }
 }

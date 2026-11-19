@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../config/tokens/cc_typography_params.dart';
 import '../extensions/cc_context_extension.dart';
 import '../extensions/common/cc_responsive_extension.dart';
 
@@ -58,7 +59,7 @@ class CcSnackBarHelper {
         style: context.ccTextTheme.bodyLarge?.copyWith(
           color: textColor ?? defaultText,
           height: 1.2,
-          fontWeight: fontWeight ?? FontWeight.normal,
+          fontWeight: fontWeight ?? CcTypographyParams.regular,
         ),
       ),
       backgroundColor: backgroundColor ?? defaultBg,

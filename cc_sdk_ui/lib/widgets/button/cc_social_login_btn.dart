@@ -94,7 +94,7 @@ class CcSocialLoginBtn extends StatelessWidget {
             label ?? _getButtonText(),
             textStyle: context.ccTextTheme.bodyMedium?.copyWith(
               color: _getTextColor(context),
-              fontWeight: FontWeight.w600,
+              fontWeight: CcTypographyParams.semiBold,
             ),
           ),
         ],

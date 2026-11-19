@@ -25,7 +25,7 @@ class CcFormLabel extends StatelessWidget {
       textAlign: textAlign,
       textStyle: context.ccTextTheme.labelMedium?.copyWith(
         color: color ?? context.ccColorScheme.onSurfaceVariant,
-        fontWeight: FontWeight.bold,
+        fontWeight: CcTypographyParams.bold,
       ),
     );
   }
