@@ -1,6 +1,6 @@
 name: cc_sdk
 description: A new Flutter package project.
-version: 1.0.0
+version: 2.0.0
 publish_to: none
 repository: https://github.com/huytower/cc_core_sdk
 homepage: https://github.com/huytower/cc_core_sdk
@@ -17,7 +17,6 @@ dependencies:
   catcher_2: ^2.1.12
   cc_sdk_data:
     path: ../cc_sdk_data
-  firebase_analytics: ^13.0.1
   firebase_app_check: ^0.5.1
   firebase_crashlytics: ^6.0.1
   firebase_ai: ^5.1.0
