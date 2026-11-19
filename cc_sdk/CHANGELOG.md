@@ -31,6 +31,18 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
     `crashReporter.recordError(e, st, reason:)`; `.log(m)` ->
     `crashReporter.log(m)`. `CcCatcherBootstrap.*Options(logFile)` no longer
     adds Crashlytics on its own: pass `crashReporter: getIt<CcCrashReporter>()`.
+- **App Check:** `CcAppCheckHelper` (Firebase-only) is removed and
+  `firebase_app_check` is no longer a dependency of `cc_sdk`.
+  - New interface `CcAppAttestation` (plus `CcNoopAppAttestation`) in
+    `cc_sdk`; Firebase implementation `CcFirebaseAppAttestation` in
+    `cc_sdk_firebase`, registered as `CcAppAttestation`.
+  - Migration: `CcAppCheckHelper.initialize()` -> `attestation.activate()`;
+    `getAppCheckStatus()` -> `statusDescription()`; `getToken()` /
+    `refreshToken()` -> `getToken(forceRefresh:)`; `setAutoRefresh` /
+    `setAppCheckEnabled` -> `setTokenAutoRefresh`.
+  - `CcSlackHandler` no longer reads App Check itself: pass
+    `attestation:` to it or to `CcCatcherBootstrap.releaseOptions` /
+    `profileOptions` (reports show `n/a` otherwise).
 
 ### Added (since 1.0.0, non-breaking)
 
