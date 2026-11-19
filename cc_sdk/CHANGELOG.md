@@ -78,6 +78,39 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
     (`ExternalModule(CcSdkDevicePackageModule)`).
   - `localeId` no longer defaults to `vi_VN`: pass it, or null for the
     device default.
+- **Location:** `CcLocationHelper` (static, exposing geolocator `Position`)
+  is removed; `geolocator`, `geocoding` and `permission_handler` are no longer
+  dependencies of `cc_sdk`.
+  - New `CcGeoPosition` (with plugin-free haversine `distanceTo` /
+    `distanceBetweenMeters`, same Earth radius as geolocator) and the
+    `CcLocationService` interface (plus `CcNoopLocationService`):
+    `lastPosition`, `requestPermission`, `hasPermission`,
+    `getCurrentPosition`, `getLastKnownPosition`, `countryCodeAt` (reverse
+    geocoding, replaces calling `Geocoding()` directly).
+  - Implementation `CcDeviceLocationService` in `cc_sdk_device`.
+  - Removed without replacement (unused, phone-specific):
+    `countryPhoneCodes`, `defaultCountryCode` (`+84`), `getCountryCode`,
+    `getCountryCodeFromLocation`.
+- **Phone:** `phone_numbers_parser` is no longer a dependency of `cc_sdk`;
+  `CcPhoneNumberHelper` keeps only the dependency-free `autoParsePhoneNumber`
+  and `flagEmoji`.
+  - New interface `CcPhoneNumberValidator` (`isValidMobile`,
+    `formatInternational`) with the dependency-free
+    `CcBasicPhoneNumberValidator` (E.164 shape) in `cc_sdk`, and
+    `CcLibPhoneNumberValidator` (per-country rules) in the new package
+    `cc_sdk_phone`.
+  - Migration: `CcPhoneNumberHelper.isValidPhoneNumber(n)` ->
+    `validator.isValidMobile(n)`; `formatPhoneNumber(n)` ->
+    `validator.formatInternational(n)`; `getCountryCode` (unused) is gone.
+  - `CcPhoneNumberInput` / `CcCountryCodeSelector` stay in `cc_sdk_ui`
+    (they never needed the parser).
+- **Removed (deprecated in 1.x):** `CcReceiptScanHelper`, `PickedReceiptImage`,
+  `ReceiptPickResult`, `ReceiptBatchPickResult`, and with them the
+  `google_mlkit_text_recognition` and `image_picker` dependencies. Pick images
+  in the app (or a capability package).
+- **Dependencies:** `deep_collection` is dropped (`ccWhen` behaves the same).
+  `cc_sdk` now has 15 runtime dependencies (was 27), none of them a vendor
+  service SDK.
 
 ### Added (since 1.0.0, non-breaking)
 
@@ -86,10 +119,12 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
 - `configure(...)` on `CcSlackHandler`, `CcSlackFeedbackHelper`,
   `CcGeminiHelper`.
 
-### Deprecated (removed in the next major version)
+### Removed (deprecated during 1.x)
 
-- `CcFeatureFlags.isVipModeEnabled`.
+- `CcFeatureFlags.isVipModeEnabled`: product-specific; define the flag in the
+  app (e.g. `PrjFeatureFlags`).
 - `CcWalletItem`, `CcCategoryItem`, `CcCategoryChip`,
-  `CcCategoryGroupSection`, `CcCategoryGroupItem`, `CcCategoryShimmerList`.
+  `CcCategoryGroupSection`, `CcCategoryGroupItem`, `CcCategoryShimmerList`
+  (`cc_sdk_ui`): finance-shaped widgets; build them in the app.
 - `CcReceiptScanHelper`, `PickedReceiptImage`, `ReceiptPickResult`,
-  `ReceiptBatchPickResult`.
+  `ReceiptBatchPickResult` (see Dependencies below).

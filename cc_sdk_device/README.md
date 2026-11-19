@@ -5,6 +5,7 @@ that imports the device plugins they need.
 
 | Interface (`cc_sdk`) | Implementation | Plugin |
 |---|---|---|
+| `CcLocationService` | `CcDeviceLocationService` | `geolocator`, `geocoding`, `permission_handler` |
 | `CcSpeechRecognizer` | `CcSpeechToTextRecognizer` | `speech_to_text` |
 
 ## Setup
@@ -15,5 +16,5 @@ that imports the device plugins they need.
    `package:cc_sdk_device/core/di/di.module.dart`).
 3. Inject the interface (e.g. `CcSpeechRecognizer`) where it is needed.
 
-Platform setup (microphone / speech permissions in `AndroidManifest.xml` and
+Platform setup (location / microphone / speech permissions in `AndroidManifest.xml` and
 `Info.plist`) stays in the app.

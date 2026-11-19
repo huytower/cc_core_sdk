@@ -1,5 +1,3 @@
-import 'package:deep_collection/deep_collection.dart';
-
 ///https://www.programiz.com/kotlin-programming/when-expression
 /// [ccWhen] can be used as a statement with or without else branch. If it is used as a statement,
 /// the values of all individual branches are compared sequentially with the argument and execute
@@ -10,8 +8,10 @@ dynamic ccWhen<T, R>({T? variable, Map<T, R>? conditions, R? orElse}) {
   var isDefault = true;
   dynamic result;
   if (conditions != null) {
-    Map<T, R>? _conditions = conditions.deepReverse();
-    _conditions.forEach((key, _value) {
+    // Walk the branches last to first, so the first matching branch is the
+    // one left in [result].
+    final reversed = Map<T, R>.fromEntries(conditions.entries.toList().reversed);
+    reversed.forEach((key, _value) {
       if (variable != null) {
         var containsKey = key == variable;
         if (containsKey) {
