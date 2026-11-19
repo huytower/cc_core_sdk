@@ -1,9 +1,9 @@
+import 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 import 'package:cc_sdk_ui/core/extensions/common/cc_responsive_extension.dart';
 import 'package:cc_sdk_ui/widgets/pull_to_refresh/cc_refresh_indicator.dart';
 import 'package:cc_sdk_ui/widgets/pull_to_refresh/cc_refresh_indicator_icon.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:theme/data/data_source/color/prj_color.dart';
 
 /// Mixin providing pull-to-refresh functionality that is state-management agnostic.
 ///
@@ -75,7 +75,7 @@ mixin CcPullRefreshMixin {
   /// Note: This widget uses a responsive extension method when context is available.
   /// For responsive sizing, pass a BuildContext to buildPullToRefresh.
   Widget get defaultCompleteWidget =>
-      const Icon(Icons.check_circle, color: PrjColors.success, size: 24);
+      const Icon(Icons.check_circle, color: CcBaseColors.successGreen, size: 24);
 
   /// Default duration to show the complete state
   Duration get defaultCompleteStateDuration =>

@@ -1,6 +1,5 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/context_extensions.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({
@@ -57,7 +56,7 @@ class ErrorPage extends StatelessWidget {
               ),
               child: CcText(
                 retryText ?? 'Retry',
-                textStyle: context.textTheme.labelLarge?.copyWith(
+                textStyle: context.ccTextTheme.labelLarge?.copyWith(
                   color: context.ccColorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
                 ),

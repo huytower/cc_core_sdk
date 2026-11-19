@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
+import '../adaptive/cc_two_column.dart';
 import '../space/cc_space.dart';
 import '../text/cc_text.dart';
 
@@ -217,10 +218,17 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
 
     final badgeColor = widget.color ?? context.ccColorScheme.primary;
 
+    // Half the window fits a phone, but on a small (~7") tablet held sideways
+    // the badge sits in one of two half-width columns: half the window would
+    // run past the column's edge, so the label is narrower there and wraps
+    // onto a second line instead.
+    final windowWidth = MediaQuery.sizeOf(context).width;
+    final maxWidth = CcTwoColumn.isSmallTablet(context)
+        ? windowWidth * 0.3
+        : windowWidth * 0.5;
+
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: MediaQuery.sizeOf(context).width * 0.5,
-      ),
+      constraints: BoxConstraints(maxWidth: maxWidth),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         decoration: BoxDecoration(

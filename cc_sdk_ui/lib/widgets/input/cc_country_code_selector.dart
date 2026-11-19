@@ -7,74 +7,23 @@ class CcCountryCodeSelector extends StatelessWidget {
     super.key,
     required this.countryCode,
     required this.onTap,
+    this.isoCode,
   });
 
+  /// Dial code shown next to the flag, e.g. `+84`.
   final String countryCode;
   final VoidCallback onTap;
 
-  String _getFlagEmoji(String dialCode) {
-    // Map of country dial codes to flag emojis
-    const flagMap = {
-      '1': '🇺🇸', // USA/Canada
-      '84': '🇻🇳', // Vietnam
-      '44': '🇬🇧', // UK
-      '33': '🇫🇷', // France
-      '49': '🇩🇪', // Germany
-      '81': '🇯🇵', // Japan
-      '86': '🇨🇳', // China
-      '91': '🇮🇳', // India
-      '61': '🇦🇺', // Australia
-      '82': '🇰🇷', // South Korea
-      '39': '🇮🇹', // Italy
-      '34': '🇪🇸', // Spain
-      '7': '🇷🇺', // Russia
-      '46': '🇸🇪', // Sweden
-      '47': '🇳🇴', // Norway
-      '45': '🇩🇰', // Denmark
-      '31': '🇳🇱', // Netherlands
-      '41': '🇨🇭', // Switzerland
-      '43': '🇦🇹', // Austria
-      '32': '🇧🇪', // Belgium
-      '351': '🇵🇹', // Portugal
-      '358': '🇫🇮', // Finland
-      '353': '🇮🇪', // Ireland
-      '352': '🇱🇺', // Luxembourg
-      '370': '🇱🇹', // Lithuania
-      '371': '🇱🇻', // Latvia
-      '372': '🇪🇪', // Estonia
-      '48': '🇵🇱', // Poland
-      '420': '🇨🇿', // Czech Republic
-      '421': '🇸🇰', // Slovakia
-      '36': '🇭🇺', // Hungary
-      '40': '🇷🇴', // Romania
-      '30': '🇬🇷', // Greece
-      '90': '🇹🇷', // Turkey
-      '20': '🇪🇬', // Egypt
-      '27': '🇿🇦', // South Africa
-      '234': '🇳🇬', // Nigeria
-      '254': '🇰🇪', // Kenya
-      '62': '🇮🇩', // Indonesia
-      '63': '🇵🇭', // Philippines
-      '66': '🇹🇭', // Thailand
-      '60': '🇲🇾', // Malaysia
-      '65': '🇸🇬', // Singapore
-      '64': '🇳🇿', // New Zealand
-      '52': '🇲🇽', // Mexico
-      '56': '🇨🇱', // Chile
-      '54': '🇦🇷', // Argentina
-      '57': '🇨🇴', // Colombia
-      '51': '🇵🇪', // Peru
-      '55': '🇧🇷', // Brazil
-      '58': '🇻🇪', // Venezuela
-    };
-    return flagMap[dialCode] ?? '🌐'; // Default globe icon
-  }
+  /// ISO 3166-1 alpha-2 code of the selected country, e.g. `VN`. A dial code
+  /// alone is ambiguous (`+1` is both the US and Canada), so the flag comes
+  /// from this; a globe is shown when it is null.
+  final String? isoCode;
 
   @override
   Widget build(BuildContext context) {
-    // Extract country code without + sign for flag lookup
-    final dialCode = countryCode.replaceAll('+', '');
-    final flagEmoji = _getFlagEmoji(dialCode);
+    final flagEmoji = isoCode == null
+        ? '🌐'
+        : CcPhoneNumberHelper.flagEmoji(isoCode!);
 
     return CcBouncing(
       onTap: onTap,

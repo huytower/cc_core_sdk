@@ -1,3 +1,4 @@
+import 'package:cc_sdk_ui/core/config/tokens/cc_base_colors.dart';
 import 'package:cc_sdk_ui/core/config/tokens/cc_typography_params.dart';
 import 'package:cc_sdk_ui/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/widgets/space/cc_space.dart';
@@ -5,7 +6,6 @@ import 'package:cc_sdk_ui/widgets/state/base_progress_indicator.dart';
 import 'package:cc_sdk_ui/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
-import 'package:theme/data/data_source/color/prj_color.dart';
 
 /// A reusable [LoadMoreDelegate] implementation for the cc_mixin package.
 ///
@@ -23,9 +23,9 @@ class CcLoadMoreItem extends LoadMoreDelegate {
 
     switch (status) {
       case LoadMoreStatus.fail:
-        return _buildText(text, color: PrjColors.error);
+        return _buildText(text, color: CcBaseColors.errorRed);
       case LoadMoreStatus.idle:
-        return _buildText(text, color: PrjColors.warning);
+        return _buildText(text, color: CcBaseColors.warningAmber);
       case LoadMoreStatus.loading:
         return _buildLoading(text);
       case LoadMoreStatus.nomore:
@@ -54,7 +54,7 @@ class CcLoadMoreItem extends LoadMoreDelegate {
     return CcText(
       text,
       fontSize: CcTypographyParams.bodyLarge,
-      color: color ?? PrjColors.mediumEmphasis,
+      color: color ?? CcBaseColors.gray700,
       textAlign: textAlign ?? TextAlign.center,
       align: align ?? Alignment.center,
     );

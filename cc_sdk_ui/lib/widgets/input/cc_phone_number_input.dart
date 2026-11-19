@@ -7,6 +7,7 @@ class CcPhoneNumberInput extends StatelessWidget {
   const CcPhoneNumberInput({
     super.key,
     required this.countryCode,
+    this.countryIsoCode,
     required this.onCountryCodeTap,
     required this.controller,
     required this.hintText,
@@ -19,6 +20,10 @@ class CcPhoneNumberInput extends StatelessWidget {
   });
 
   final String countryCode;
+
+  /// ISO code of the selected country, used for the flag (see
+  /// [CcCountryCodeSelector.isoCode]).
+  final String? countryIsoCode;
   final VoidCallback onCountryCodeTap;
   final TextEditingController controller;
   final String hintText;
@@ -53,6 +58,7 @@ class CcPhoneNumberInput extends StatelessWidget {
               children: [
                 CcCountryCodeSelector(
                   countryCode: countryCode,
+                  isoCode: countryIsoCode,
                   onTap: onCountryCodeTap,
                 ),
                 SizedBox(width: context.respPadding(CcPaddingParams.DESC_MD)),

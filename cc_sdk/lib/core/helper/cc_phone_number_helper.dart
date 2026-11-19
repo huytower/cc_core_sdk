@@ -86,4 +86,15 @@ class CcPhoneNumberHelper {
 
     return '$countryCode$parsedNationalNumber';
   }
+
+  /// Flag emoji for an ISO 3166-1 alpha-2 country code (e.g. `VN` -> 🇻🇳),
+  /// built from Unicode regional-indicator letters. Returns 🌐 when [isoCode]
+  /// is not two ASCII letters.
+  static String flagEmoji(String isoCode) {
+    final code = isoCode.toUpperCase();
+    if (!RegExp(r'^[A-Z]{2}$').hasMatch(code)) return '🌐';
+    return String.fromCharCodes(
+      code.codeUnits.map((unit) => unit - 0x41 + 0x1F1E6),
+    );
+  }
 }
