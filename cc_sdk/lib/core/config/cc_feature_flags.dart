@@ -28,13 +28,4 @@ abstract final class CcFeatureFlags {
   /// Whether certificate pinning is enabled for HTTP requests
   static bool get isCertificatePinningEnabled =>
       _config.enableCertificatePinning;
-
-  /// Whether VIP mode is enabled.
-  ///
-  /// Product-specific: an app should define this in its own flags.
-  @Deprecated(
-    'Product-specific flag; define it in the app. Removed in the next major version.',
-  )
-  static bool get isVipModeEnabled =>
-      const bool.fromEnvironment('ENABLE_VIP_MODE');
 }

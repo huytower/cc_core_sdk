@@ -119,10 +119,12 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
 - `configure(...)` on `CcSlackHandler`, `CcSlackFeedbackHelper`,
   `CcGeminiHelper`.
 
-### Deprecated (removed in the next major version)
+### Removed (deprecated during 1.x)
 
-- `CcFeatureFlags.isVipModeEnabled`.
+- `CcFeatureFlags.isVipModeEnabled`: product-specific; define the flag in the
+  app (e.g. `PrjFeatureFlags`).
 - `CcWalletItem`, `CcCategoryItem`, `CcCategoryChip`,
-  `CcCategoryGroupSection`, `CcCategoryGroupItem`, `CcCategoryShimmerList`.
+  `CcCategoryGroupSection`, `CcCategoryGroupItem`, `CcCategoryShimmerList`
+  (`cc_sdk_ui`): finance-shaped widgets; build them in the app.
 - `CcReceiptScanHelper`, `PickedReceiptImage`, `ReceiptPickResult`,
-  `ReceiptBatchPickResult`.
+  `ReceiptBatchPickResult` (see Dependencies below).

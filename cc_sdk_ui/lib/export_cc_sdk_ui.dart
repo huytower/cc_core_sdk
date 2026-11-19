@@ -67,11 +67,6 @@ export 'package:cc_sdk_ui/widgets/button/cc_save_button.dart';
 export 'package:cc_sdk_ui/widgets/button/cc_social_login_btn.dart';
 // Card Widgets
 export 'package:cc_sdk_ui/widgets/card/cc_card.dart';
-// Category Widgets
-export 'package:cc_sdk_ui/widgets/category/cc_category_chip.dart';
-export 'package:cc_sdk_ui/widgets/category/cc_category_group_section.dart';
-export 'package:cc_sdk_ui/widgets/category/cc_category_item.dart';
-export 'package:cc_sdk_ui/widgets/category/cc_category_shimmer_list.dart';
 // Checkbox Widgets
 export 'package:cc_sdk_ui/widgets/checkbox/cc_check_box.dart';
 // Chip Widgets
@@ -139,5 +134,3 @@ export 'package:cc_sdk_ui/widgets/text/cc_text_spans.dart';
 export 'package:cc_sdk_ui/widgets/text_field/cc_name_input_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/cc_note_input_field.dart';
 export 'package:cc_sdk_ui/widgets/text_field/cc_text_field.dart';
-// Wallet Widgets
-export 'package:cc_sdk_ui/widgets/wallet/cc_wallet_item.dart';
