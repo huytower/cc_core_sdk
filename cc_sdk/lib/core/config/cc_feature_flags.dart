@@ -1,39 +1,33 @@
-import 'dart:developer' as developer;
+import 'package:cc_sdk/core/config/cc_sdk_config.dart';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-/// Manages feature flags for the application.
+/// Read-only view of the SDK's feature flags.
 ///
-/// Feature flags can be controlled via environment variables or have default values
-/// based on the current environment.
+/// Values come from [CcSdkConfig.current], which the app sets at boot with
+/// [CcSdkConfig.configure].
 ///
-/// Example usage:
 /// ```dart
-/// if (CcFeatureFlags.isEnableLogger) {
-///   // Enable logging
-/// }
+/// if (CcFeatureFlags.isEnableLogger) { ... }
 /// ```
 abstract final class CcFeatureFlags {
   CcFeatureFlags._();
 
+  static CcSdkConfig get _config => CcSdkConfig.current;
+
   /// Whether logging is enabled
-  static bool get isEnableLogger => _getBool('ENABLE_LOGGER', !kReleaseMode);
+  static bool get isEnableLogger => _config.enableLogger;
 
   /// Whether Dio HTTP client logging is enabled
-  static bool get isEnableLoggerDio =>
-      _getBool('ENABLE_LOGGER_DIO', !kReleaseMode);
+  static bool get isEnableLoggerDio => _config.enableLoggerDio;
 
   /// Whether analytics is enabled
-  static bool get isAnalyticsEnabled => _getBool('ENABLE_ANALYTICS', true);
+  static bool get isAnalyticsEnabled => _config.enableAnalytics;
 
   /// Whether crash reporting is enabled
-  static bool get isCrashReportingEnabled =>
-      _getBool('ENABLE_CRASH_REPORTING', true);
+  static bool get isCrashReportingEnabled => _config.enableCrashReporting;
 
   /// Whether certificate pinning is enabled for HTTP requests
   static bool get isCertificatePinningEnabled =>
-      _getBool('ENABLE_CERT_PINNING', true);
+      _config.enableCertificatePinning;
 
   /// Whether VIP mode is enabled.
   ///
@@ -41,27 +35,6 @@ abstract final class CcFeatureFlags {
   @Deprecated(
     'Product-specific flag; define it in the app. Removed in the next major version.',
   )
-  static bool get isVipModeEnabled => _getBool('ENABLE_VIP_MODE', false);
-
-  /// Retrieves a boolean configuration value with a default fallback.
-  ///
-  /// [key]: The environment variable key to look up
-  /// [defaultValue]: The default value to return if the key is not found or invalid
-  ///
-  /// Returns `true` if the environment variable is 'true' (case-insensitive),
-  /// returns `false` if the environment variable is 'false' (case-insensitive),
-  /// otherwise returns [defaultValue] if the key is missing or invalid.
-  static bool _getBool(String key, bool defaultValue) {
-    try {
-      final value = dotenv.maybeGet(key);
-      if (value == null) return defaultValue;
-      return value.toLowerCase() == 'true';
-    } catch (e) {
-      // Must stay `developer.log`, not `.Log()`: `.Log()` reads
-      // [isEnableLogger], which calls this method, so a failure here would
-      // recurse forever.
-      developer.log('Failed to parse boolean feature flag for $key: $e');
-      return defaultValue;
-    }
-  }
+  static bool get isVipModeEnabled =>
+      const bool.fromEnvironment('ENABLE_VIP_MODE');
 }

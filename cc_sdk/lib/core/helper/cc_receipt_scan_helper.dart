@@ -8,6 +8,9 @@ import 'package:image_picker/image_picker.dart';
 /// — carries the file path (on-device OCR needs a path) plus the raw bytes
 /// and real [mimeType] (the cloud Gemini-vision fallback needs both). Not
 /// [XFile] itself, so callers never need a direct `image_picker` dependency.
+@Deprecated(
+  'Domain-specific helper; build it in the app. Removed in the next major version.',
+)
 class PickedReceiptImage {
   const PickedReceiptImage({
     required this.path,
@@ -23,6 +26,9 @@ class PickedReceiptImage {
 /// Outcome of [CcReceiptScanHelper.pickReceiptImage] — distinguishes *why*
 /// [image] is null so callers can show "permission denied" vs. silently
 /// no-op on a plain cancel.
+@Deprecated(
+  'Domain-specific helper; build it in the app. Removed in the next major version.',
+)
 class ReceiptPickResult {
   const ReceiptPickResult({this.image, this.permissionDenied = false});
 
@@ -30,6 +36,9 @@ class ReceiptPickResult {
   final bool permissionDenied;
 }
 
+@Deprecated(
+  'Domain-specific helper; build it in the app. Removed in the next major version.',
+)
 class ReceiptBatchPickResult {
   const ReceiptBatchPickResult({
     this.images = const [],
@@ -45,6 +54,9 @@ class ReceiptBatchPickResult {
 /// Picks a receipt image (camera or gallery) and runs on-device OCR on it.
 /// Fails silently on any error — backs a best-effort local extraction that
 /// must degrade gracefully rather than crash.
+@Deprecated(
+  'Domain-specific helper; build it in the app. Removed in the next major version.',
+)
 abstract final class CcReceiptScanHelper {
   static final ImagePicker _picker = ImagePicker();
   static const double _maxImageDimension = 2048;

@@ -6,6 +6,9 @@ import '../../export_cc_sdk_ui.dart';
 /// Displays icon, name, and balance with glassy selection highlights.
 ///
 /// This is a generic UI component that does not depend on any domain entities.
+@Deprecated(
+  'Domain-specific widget; build it in the app. Removed in the next major version.',
+)
 class CcWalletItem extends StatelessWidget {
   final String name;
   final int iconCode;

@@ -37,6 +37,7 @@ export 'package:cc_sdk_ui/widgets/app_bar/gradient_app_bar.dart';
 // Avatar Widgets
 // Background Widgets
 export 'package:cc_sdk_ui/widgets/background/bg_gradient_widget.dart';
+export 'package:cc_sdk_ui/widgets/background/cc_watermark_background.dart';
 // Badge Widgets
 export 'package:cc_sdk_ui/widgets/badge/cc_badge_counter.dart';
 export 'package:cc_sdk_ui/widgets/badge/cc_edit_badge.dart';
@@ -74,6 +75,7 @@ export 'package:cc_sdk_ui/widgets/category/cc_category_shimmer_list.dart';
 // Checkbox Widgets
 export 'package:cc_sdk_ui/widgets/checkbox/cc_check_box.dart';
 // Chip Widgets
+export 'package:cc_sdk_ui/widgets/chip/cc_feedback_tag.dart';
 export 'package:cc_sdk_ui/widgets/chip/cc_suggestion_chip.dart';
 export 'package:cc_sdk_ui/widgets/container/cc_container_rounded_corner_widget.dart';
 // Container Widgets
