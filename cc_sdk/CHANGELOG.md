@@ -59,6 +59,17 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
     `lastError` -> `CcAiResult.failure` (or `CcAiClient.lastFailure`);
     string checks for App Check errors -> `CcAiFailureKind.deviceAttestation`.
     `generateFromImage` (single image, unused) is gone.
+- **Slack:** `CcSlackFeedbackHelper` and `CcSlackHandler` leave `cc_sdk` for
+  the new package `cc_sdk_slack`; `cc_sdk` keeps only the interfaces.
+  - New `CcFeedbackReporter.send(CcFeedback, labels: CcFeedbackLabels)` (plus
+    `CcNoopFeedbackReporter`) in `cc_sdk`; `CcSlackFeedbackReporter` in
+    `cc_sdk_slack`. The 5-language captions that were hardcoded in the SDK
+    now come from the app as `CcFeedbackLabels`.
+  - `CcSlackHandler` (now in `cc_sdk_slack`) takes `webhookUrl:` (required);
+    the static `configure` methods are gone.
+  - `CcCatcherBootstrap.releaseOptions` / `profileOptions` no longer add
+    Slack themselves: pass `remoteHandlers: [CcSlackHandler(...)]`. Their
+    `attestation:` parameter is removed (give it to `CcSlackHandler`).
 
 ### Added (since 1.0.0, non-breaking)
 
