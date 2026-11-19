@@ -70,6 +70,14 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
   - `CcCatcherBootstrap.releaseOptions` / `profileOptions` no longer add
     Slack themselves: pass `remoteHandlers: [CcSlackHandler(...)]`. Their
     `attestation:` parameter is removed (give it to `CcSlackHandler`).
+- **Speech:** `CcSpeechHelper` (static) is removed and `speech_to_text` is no
+  longer a dependency of `cc_sdk`.
+  - New interface `CcSpeechRecognizer` (plus `CcNoopSpeechRecognizer`) in
+    `cc_sdk`; implementation `CcSpeechToTextRecognizer` in the new package
+    `cc_sdk_device`, registered as `CcSpeechRecognizer`
+    (`ExternalModule(CcSdkDevicePackageModule)`).
+  - `localeId` no longer defaults to `vi_VN`: pass it, or null for the
+    device default.
 
 ### Added (since 1.0.0, non-breaking)
 

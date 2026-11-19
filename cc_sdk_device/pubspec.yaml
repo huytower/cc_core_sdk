@@ -1,0 +1,28 @@
+name: cc_sdk_device
+description: Device-capability implementations of cc_sdk interfaces (speech recognition, ...).
+version: 2.0.0
+publish_to: none
+repository: https://github.com/huytower/cc_core_sdk
+homepage: https://github.com/huytower/cc_core_sdk
+
+environment:
+  sdk: '^3.12.0'
+  flutter: '^3.44.3'
+
+resolution: workspace
+
+dependencies:
+  cc_sdk:
+    path: ../cc_sdk
+  flutter:
+    sdk: flutter
+  get_it: ^9.2.1
+  injectable: ^3.0.0
+  speech_to_text: ^7.4.0
+
+dev_dependencies:
+  build_runner: ^2.15.1
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+  injectable_generator: ^3.1.3

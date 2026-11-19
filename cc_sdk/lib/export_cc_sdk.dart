@@ -9,6 +9,7 @@ export 'package:cc_sdk/core/crash_reporting/cc_crash_log_paths.dart';
 export 'package:cc_sdk/core/crash_reporting/cc_crash_reporter.dart';
 export 'package:cc_sdk/core/feedback/cc_feedback_reporter.dart';
 export 'package:cc_sdk/core/security/cc_app_attestation.dart';
+export 'package:cc_sdk/core/speech/cc_speech_recognizer.dart';
 export 'package:cc_sdk/core/di/export_cc_di.dart';
 // Extensions (includes dartx)
 export 'package:cc_sdk/core/ai/cc_ai_client.dart';
