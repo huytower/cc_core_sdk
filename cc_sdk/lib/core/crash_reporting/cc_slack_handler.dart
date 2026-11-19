@@ -5,13 +5,12 @@ import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:cc_sdk/core/helper/cc_app_check_helper.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// A [ReportHandler] for Catcher2 that forwards structured crash reports to Slack via
 /// an Incoming Webhook URL.
 ///
-/// The webhook URL is loaded from the `SLACK_CRASH_WEBHOOK_URL` environment variable
-/// (root `env/*.env` via [flutter_dotenv]) — it is intentionally **not**
+/// The webhook URL is passed in, or set once with [CcSlackHandler.configure]
+/// by the app — it is intentionally **not**
 /// hardcoded here to avoid committing secrets to the repository.
 class CcSlackHandler extends ReportHandler {
   final String _webhookUrl;
@@ -21,7 +20,18 @@ class CcSlackHandler extends ReportHandler {
   static const Duration _throttleDuration = Duration(minutes: 5);
 
   CcSlackHandler({String? webhookUrl})
-    : _webhookUrl = webhookUrl ?? _loadWebhookUrl();
+    : _webhookUrl = _cleanUrl(webhookUrl ?? _defaultWebhookUrl);
+
+  static String _defaultWebhookUrl = '';
+
+  /// Sets the webhook used by handlers created without an explicit
+  /// `webhookUrl` (e.g. by `CcCatcherBootstrap`). Call once at boot.
+  static void configure({required String webhookUrl}) {
+    _defaultWebhookUrl = webhookUrl;
+    final url = _cleanUrl(webhookUrl);
+    '[CatcherSlack] Crash webhook: ${url.isNotEmpty ? "(present, length=${url.length})" : "(EMPTY)"}'
+        .Log('CcSlackHandler');
+  }
 
   static String _cleanUrl(String raw) {
     var url = raw.trim();
@@ -30,24 +40,6 @@ class CcSlackHandler extends ReportHandler {
       url = url.substring(1, url.length - 1).trim();
     }
     return url;
-  }
-
-  static String _loadWebhookUrl() {
-    try {
-      final raw =
-          dotenv.maybeGet('SLACK_CRASH_WEBHOOK_URL', fallback: '') ??
-          dotenv.maybeGet('SLACK_WEBHOOK_URL', fallback: '') ??
-          '';
-      final url = _cleanUrl(raw);
-      '[CatcherSlack] Loaded SLACK_CRASH_WEBHOOK_URL: ${url.isNotEmpty ? "(present, length=${url.length})" : "(EMPTY)"}'
-          .Log('CcSlackHandler');
-      return url;
-    } catch (e) {
-      '[CatcherSlack] Error loading SLACK_CRASH_WEBHOOK_URL: $e'.Log(
-        'CcSlackHandler',
-      );
-      return '';
-    }
   }
 
   @override

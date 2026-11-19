@@ -1,43 +1,26 @@
-import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:cc_sdk/core/config/cc_sdk_config.dart';
 
-/// App identity and crash-log settings from root `env/*.env` (via [dotenv]).
+/// App identity used in logs and crash reports (from [CcSdkConfig.current]).
 abstract final class CcAppTrackName {
   CcAppTrackName._();
 
-  static const String _defaultAppName = 'MyApp';
-
-  /// `APP_NAME` from dotenv, then `--dart-define=APP_NAME`, then default.
   static String get appName {
-    try {
-      return dotenv.maybeGet(
-            'APP_NAME',
-            fallback: const String.fromEnvironment(
-              'APP_NAME',
-              defaultValue: _defaultAppName,
-            ),
-          ) ??
-          _defaultAppName;
-    } catch (e, stackTrace) {
-      'Failed to load APP_NAME from env: $e\n$stackTrace'.Log('CcAppTrackName');
-      return _defaultAppName;
-    }
+    final name = CcSdkConfig.current.appName.trim();
+    return name.isEmpty ? CcSdkConfig.defaultAppName : name;
   }
 }
 
-/// Crash log upload flags and paths from root env files.
+/// Crash log upload flag and path (from [CcSdkConfig.current]).
 abstract final class CcCrashLogEnv {
   CcCrashLogEnv._();
 
-  static const String defaultApiPath = '/client-logs';
+  static const String defaultApiPath = CcSdkConfig.defaultCrashLogApiPath;
 
-  static bool get isUploadEnabled {
-    final raw = dotenv.maybeGet('ENABLE_CRASH_LOG_UPLOAD', fallback: 'true');
-    return raw?.toLowerCase() != 'false';
+  static bool get isUploadEnabled => CcSdkConfig.current.enableCrashLogUpload;
+
+  /// Relative path appended to the API base URL (Retrofit/Dio baseUrl).
+  static String get apiPath {
+    final path = CcSdkConfig.current.crashLogApiPath.trim();
+    return path.isEmpty ? defaultApiPath : path;
   }
-
-  /// Relative path appended to [API_URL] (Retrofit/Dio baseUrl).
-  static String get apiPath =>
-      dotenv.maybeGet('CRASH_LOG_API_PATH', fallback: defaultApiPath) ??
-      defaultApiPath;
 }

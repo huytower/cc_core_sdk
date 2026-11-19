@@ -1,13 +1,13 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:cc_sdk/core/config/cc_sdk_config.dart';
 
-/// Centralized route configuration provider.
-/// Reads route paths from environment variables to allow decoupling
-/// between modules.
+/// Centralized route configuration provider, so modules can navigate to the
+/// main and login screens without importing each other.
+///
+/// Values come from [CcSdkConfig.current].
 class CcRouteConfig {
   /// The path to the main navigation (home) screen.
-  static String get mainNavigation =>
-      dotenv.get('MAIN_NAVIGATION_PATH', fallback: '/main_navigation');
+  static String get mainNavigation => CcSdkConfig.current.mainNavigationPath;
 
   /// The path to the login screen.
-  static String get login => dotenv.get('LOGIN_PATH', fallback: '/login');
+  static String get login => CcSdkConfig.current.loginPath;
 }

@@ -2,13 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Helper for posting *user feedback* (praise/criticism + free-text) to Slack
 /// via an Incoming Webhook URL.
 ///
-/// The webhook URL is loaded from the `SLACK_WEBHOOK_URL` environment variable
-/// (root `env/*.env` via [flutter_dotenv]) — it is intentionally **not**
+/// The webhook URL is set once with [CcSlackFeedbackHelper.configure]
+/// by the app — it is intentionally **not**
 /// hardcoded here to avoid committing secrets to the repository.
 ///
 /// Best-effort only: a failure to post must never mask or block the feedback
@@ -36,23 +35,15 @@ class CcSlackFeedbackHelper {
     return url;
   }
 
-  static String _loadWebhookUrl() {
-    if (_webhookUrl != null && _webhookUrl!.isNotEmpty) return _webhookUrl!;
-    try {
-      final raw =
-          dotenv.maybeGet('SLACK_FEEDBACK_WEBHOOK_URL', fallback: '') ??
-          dotenv.maybeGet('SLACK_WEBHOOK_URL', fallback: '') ??
-          '';
-      _webhookUrl = _cleanUrl(raw);
-      '[SlackFeedbackWorkflow] Loaded SLACK_FEEDBACK_WEBHOOK_URL: ${_webhookUrl?.isNotEmpty == true ? "(present, length=${_webhookUrl!.length})" : "(EMPTY)"}'
-          .Log('CcSlackFeedbackHelper');
-    } catch (e) {
-      '[SlackFeedbackWorkflow] Error loading SLACK_FEEDBACK_WEBHOOK_URL: $e'
-          .Log('CcSlackFeedbackHelper');
-      _webhookUrl = '';
-    }
-    return _webhookUrl ?? '';
+  /// Sets the Incoming Webhook URL feedback is posted to. Call once at boot;
+  /// until then (or with an empty URL) posting is skipped.
+  static void configure({required String webhookUrl}) {
+    _webhookUrl = _cleanUrl(webhookUrl);
+    '[SlackFeedbackWorkflow] Feedback webhook: ${_webhookUrl!.isNotEmpty ? "(present, length=${_webhookUrl!.length})" : "(EMPTY)"}'
+        .Log('CcSlackFeedbackHelper');
   }
+
+  static String _loadWebhookUrl() => _webhookUrl ?? '';
 
   static const Map<String, Map<String, String>> _slackLabels = {
     'vi': {

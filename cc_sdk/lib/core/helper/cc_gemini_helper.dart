@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:cc_sdk/core/helper/cc_crash_reporting_helper.dart';
 import 'package:firebase_ai/firebase_ai.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // Re-exported so callers can build a [Schema] for [CcGeminiHelper]'s
 // `responseSchema` param without adding a direct `firebase_ai` dependency of
@@ -22,16 +21,19 @@ class CcGeminiHelper {
   static Object? _lastError;
   static Object? get lastError => _lastError;
 
+  static String _configuredModelName = '';
+
+  /// Sets the Gemini model to use (with or without the `gemini-` prefix).
+  /// Blank keeps the built-in default. Call once at boot, before first use.
+  static void configure({required String modelName}) {
+    _configuredModelName = modelName.trim();
+    _model = null;
+  }
+
   static String get _modelName {
-    var configured = _defaultModelName;
-    if (dotenv.isInitialized) {
-      final envVal = dotenv.maybeGet('GEMINI_MODEL_NAME');
-      if (envVal != null &&
-          envVal.trim().isNotEmpty &&
-          !envVal.contains('YOUR_GEMINI_MODEL_NAME_HERE')) {
-        configured = envVal.trim();
-      }
-    }
+    var configured = _configuredModelName.isEmpty
+        ? _defaultModelName
+        : _configuredModelName;
     if (!configured.startsWith('gemini-')) {
       configured = 'gemini-$configured';
     }
