@@ -6,6 +6,7 @@ import 'package:catcher_2/model/platform_type.dart';
 import 'package:cc_sdk/core/crash_reporting/cc_crash_reporter.dart';
 import 'package:cc_sdk/core/crash_reporting/cc_slack_handler.dart';
 import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
+import 'package:cc_sdk/core/security/cc_app_attestation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -110,17 +111,24 @@ abstract final class CcCatcherBootstrap {
     if (crashReporter != null) CcCrashReporterHandler(crashReporter),
   ]);
 
+  /// [attestation], when given, adds its state to each Slack report.
   static Catcher2Options releaseOptions(
     File logFile, {
     CcCrashReporter? crashReporter,
+    CcAppAttestation? attestation,
   }) => Catcher2Options(SilentReportMode(), [
     _getHandler(logFile, printLogs: false),
     if (crashReporter != null) CcCrashReporterHandler(crashReporter),
-    CcSlackHandler(),
+    CcSlackHandler(attestation: attestation),
   ]);
 
   static Catcher2Options profileOptions(
     File logFile, {
     CcCrashReporter? crashReporter,
-  }) => releaseOptions(logFile, crashReporter: crashReporter);
+    CcAppAttestation? attestation,
+  }) => releaseOptions(
+    logFile,
+    crashReporter: crashReporter,
+    attestation: attestation,
+  );
 }

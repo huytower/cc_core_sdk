@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
 import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
-import 'package:cc_sdk/core/helper/cc_app_check_helper.dart';
+import 'package:cc_sdk/core/security/cc_app_attestation.dart';
 
 /// A [ReportHandler] for Catcher2 that forwards structured crash reports to Slack via
 /// an Incoming Webhook URL.
@@ -15,12 +15,16 @@ import 'package:cc_sdk/core/helper/cc_app_check_helper.dart';
 class CcSlackHandler extends ReportHandler {
   final String _webhookUrl;
 
+  /// Adds the attestation state to each report; omitted when null.
+  final CcAppAttestation? _attestation;
+
   /// Cooldown map to prevent spamming Slack with identical error reports.
   static final Map<String, DateTime> _lastReported = {};
   static const Duration _throttleDuration = Duration(minutes: 5);
 
-  CcSlackHandler({String? webhookUrl})
-    : _webhookUrl = _cleanUrl(webhookUrl ?? _defaultWebhookUrl);
+  CcSlackHandler({String? webhookUrl, CcAppAttestation? attestation})
+    : _webhookUrl = _cleanUrl(webhookUrl ?? _defaultWebhookUrl),
+      _attestation = attestation;
 
   static String _defaultWebhookUrl = '';
 
@@ -67,7 +71,8 @@ class CcSlackHandler extends ReportHandler {
     }
 
     try {
-      final appCheckStatus = await CcAppCheckHelper.getAppCheckStatus();
+      final appCheckStatus =
+          await _attestation?.statusDescription() ?? 'n/a';
       final messageText = _formatStructuredSlackMessage(
         report,
         appCheckStatus: appCheckStatus,
