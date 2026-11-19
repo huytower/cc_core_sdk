@@ -23,6 +23,7 @@ class CcSdkConfig {
     this.crashLogApiPath = defaultCrashLogApiPath,
     this.mainNavigationPath = '/main_navigation',
     this.loginPath = '/login',
+    this.aiModelName = '',
   });
 
   static const String defaultAppName = 'MyApp';
@@ -52,6 +53,10 @@ class CcSdkConfig {
 
   /// Route path of the login screen.
   final String loginPath;
+
+  /// Model id for the AI capability (`CcAiClient`); blank keeps the
+  /// implementation's default.
+  final String aiModelName;
 
   static CcSdkConfig _current = const CcSdkConfig();
 

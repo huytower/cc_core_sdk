@@ -11,6 +11,8 @@ export 'package:cc_sdk/core/crash_reporting/cc_slack_handler.dart';
 export 'package:cc_sdk/core/security/cc_app_attestation.dart';
 export 'package:cc_sdk/core/di/export_cc_di.dart';
 // Extensions (includes dartx)
+export 'package:cc_sdk/core/ai/cc_ai_client.dart';
+export 'package:cc_sdk/core/ai/cc_ai_schema.dart';
 export 'package:cc_sdk/core/analytics/cc_analytics.dart';
 export 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 export 'package:cc_sdk/core/helper/cc_location_helper.dart';
