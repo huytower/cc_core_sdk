@@ -1,12 +1,13 @@
-import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
 import '../../export_cc_sdk_ui.dart';
 
 /// A horizontal chip representing a category with an icon and label.
 /// Supports an 'enabled' (selected) state with glassy highlights.
+///
+/// [label] is shown as is — pass already-translated text.
 class CcCategoryChip extends StatelessWidget {
-  final String labelKey;
+  final String label;
   final int iconCode;
   final String? iconFamily;
   final bool isEnabled;
@@ -15,7 +16,7 @@ class CcCategoryChip extends StatelessWidget {
 
   const CcCategoryChip({
     super.key,
-    required this.labelKey,
+    required this.label,
     required this.iconCode,
     this.iconFamily,
     required this.isEnabled,
@@ -75,7 +76,7 @@ class CcCategoryChip extends StatelessWidget {
             ),
             const CcSpaceXS(),
             CcText(
-              el.tr(labelKey),
+              label,
               textStyle: context.ccTextTheme.labelMedium?.copyWith(
                 color: textColor,
                 fontWeight: isEnabled ? FontWeight.w600 : FontWeight.normal,

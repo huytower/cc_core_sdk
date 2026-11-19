@@ -15,7 +15,6 @@ dependencies:
     path: ../cc_sdk
   curved_navigation_bar_pro: ^2.0.6
   custom_refresh_indicator: ^4.0.2
-  easy_localization: ^3.0.8
   flutter:
     sdk: flutter
   get: ^4.7.3

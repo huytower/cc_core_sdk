@@ -1,14 +1,16 @@
-import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/material.dart';
 
 import '../../export_cc_sdk_ui.dart';
 
+/// A selectable category card: icon on top, [label] below.
+///
+/// [label] is shown as is — pass already-translated text.
 class CcCategoryItem extends StatelessWidget {
   const CcCategoryItem({
     super.key,
     required this.iconCode,
     this.iconFamily,
-    required this.nameKey,
+    required this.label,
     required this.isSelected,
     required this.onTap,
     this.activeColor,
@@ -17,7 +19,7 @@ class CcCategoryItem extends StatelessWidget {
 
   final int iconCode;
   final String? iconFamily;
-  final String nameKey;
+  final String label;
   final bool isSelected;
   final VoidCallback onTap;
   final Color? activeColor;
@@ -64,7 +66,7 @@ class CcCategoryItem extends StatelessWidget {
                   _buildCategoryIcon(context, isSelected, effectiveActiveColor),
                   const CcSpaceXS(),
                   CcText(
-                    el.tr(nameKey),
+                    label,
                     textAlign: TextAlign.center,
                     align: Alignment.center,
                     maxLines: 2,
