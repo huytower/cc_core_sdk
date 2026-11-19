@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
+import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../text/cc_text.dart';
 
@@ -61,7 +62,7 @@ class _CcCountDownState extends State<CcCountDown> {
         widget.style ??
         TextStyle(
           fontSize: context.respFontSize(16.0),
-          fontWeight: FontWeight.bold,
+          fontWeight: CcTypographyParams.bold,
           color: CcBaseColors.neutral100,
         ),
   );

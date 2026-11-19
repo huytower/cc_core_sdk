@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../text/cc_text.dart';
@@ -68,7 +69,7 @@ class CcBadgeCounter extends StatelessWidget {
         textAlign: TextAlign.center,
         textStyle: context.ccTextTheme.labelSmall?.copyWith(
           color: fg,
-          fontWeight: FontWeight.bold,
+          fontWeight: CcTypographyParams.bold,
           height: 1.0,
         ),
       ),

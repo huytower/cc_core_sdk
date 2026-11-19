@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/config/tokens/cc_border_radius.dart';
+import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../adaptive/cc_two_column.dart';
@@ -219,44 +220,58 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
 
     final badgeColor = widget.color ?? context.ccColorScheme.primary;
 
-    // Half the window fits a phone, but on a small (~7") tablet held sideways
-    // the badge sits in one of two half-width columns: half the window would
-    // run past the column's edge, so the label is narrower there and wraps
-    // onto a second line instead.
+    return LayoutBuilder(
+      builder: (context, constraints) => ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: _labelMaxWidth(context, constraints),
+        ),
+        child: _buildLabelBody(context, badgeColor),
+      ),
+    );
+  }
+
+  /// Half the window fits a phone, but on a small (~7") tablet held sideways
+  /// the badge sits in one of two half-width columns: half the window would
+  /// run past the column's edge, so the label is narrower there and wraps
+  /// onto a second line instead. The result is also capped to the space the
+  /// badge is given, so it never runs past its parent.
+  double _labelMaxWidth(BuildContext context, BoxConstraints constraints) {
     final windowWidth = MediaQuery.sizeOf(context).width;
-    final maxWidth = CcTwoColumn.isSmallTablet(context)
+    final windowCap = CcTwoColumn.isSmallTablet(context)
         ? windowWidth * 0.3
         : windowWidth * 0.5;
+    return constraints.hasBoundedWidth
+        ? windowCap.clamp(0, constraints.maxWidth).toDouble()
+        : windowCap;
+  }
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: maxWidth),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        decoration: BoxDecoration(
-          color: context.ccColorScheme.surface,
-          borderRadius: context.brLg,
-          border: Border.all(
-            color: context.ccColorScheme.onSurface.withValues(alpha: 0.08),
-            width: 0.5,
+  Widget _buildLabelBody(BuildContext context, Color badgeColor) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: context.ccColorScheme.surface,
+        borderRadius: context.brLg,
+        border: Border.all(
+          color: context.ccColorScheme.onSurface.withValues(alpha: 0.08),
+          width: 0.5,
+        ),
+        boxShadow: [
+          const BoxShadow(
+            color: CcBaseColors.neutral40,
+            blurRadius: 12,
+            offset: Offset(0, 4),
           ),
-          boxShadow: [
-            const BoxShadow(
-              color: CcBaseColors.neutral40,
-              blurRadius: 12,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildLabelLeadingIcon(context, badgeColor),
-            const CcSpaceXS(),
-            _buildLabelText(context),
-            const CcSpaceXS(),
-            _buildLabelTrailingIcon(context),
-          ],
-        ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildLabelLeadingIcon(context, badgeColor),
+          const CcSpaceXS(),
+          _buildLabelText(context),
+          const CcSpaceXS(),
+          _buildLabelTrailingIcon(context),
+        ],
       ),
     );
   }
@@ -280,7 +295,7 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
         widget.label!,
         textStyle: context.ccTextTheme.labelMedium?.copyWith(
           color: context.ccColorScheme.onSurface,
-          fontWeight: FontWeight.w500,
+          fontWeight: CcTypographyParams.medium,
         ),
         maxLines: 3,
         overflow: TextOverflow.ellipsis,
