@@ -91,6 +91,19 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
   - Removed without replacement (unused, phone-specific):
     `countryPhoneCodes`, `defaultCountryCode` (`+84`), `getCountryCode`,
     `getCountryCodeFromLocation`.
+- **Phone:** `phone_numbers_parser` is no longer a dependency of `cc_sdk`;
+  `CcPhoneNumberHelper` keeps only the dependency-free `autoParsePhoneNumber`
+  and `flagEmoji`.
+  - New interface `CcPhoneNumberValidator` (`isValidMobile`,
+    `formatInternational`) with the dependency-free
+    `CcBasicPhoneNumberValidator` (E.164 shape) in `cc_sdk`, and
+    `CcLibPhoneNumberValidator` (per-country rules) in the new package
+    `cc_sdk_phone`.
+  - Migration: `CcPhoneNumberHelper.isValidPhoneNumber(n)` ->
+    `validator.isValidMobile(n)`; `formatPhoneNumber(n)` ->
+    `validator.formatInternational(n)`; `getCountryCode` (unused) is gone.
+  - `CcPhoneNumberInput` / `CcCountryCodeSelector` stay in `cc_sdk_ui`
+    (they never needed the parser).
 
 ### Added (since 1.0.0, non-breaking)
 

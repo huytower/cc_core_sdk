@@ -18,5 +18,6 @@ export 'package:cc_sdk/core/analytics/cc_analytics.dart';
 export 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 export 'package:cc_sdk/core/location/cc_geo_position.dart';
 export 'package:cc_sdk/core/location/cc_location_service.dart';
+export 'package:cc_sdk/core/phone/cc_phone_number_validator.dart';
 // Helpers
 export 'package:cc_sdk/core/helper/export_cc_helper.dart';

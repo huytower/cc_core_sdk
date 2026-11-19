@@ -39,7 +39,6 @@ dependencies:
   package_info_plus: ^10.2.1
   path: ^1.9.1
   path_provider: ^2.1.5
-  phone_numbers_parser: ^9.0.25
 
   shared_preferences: ^2.5.5
 
