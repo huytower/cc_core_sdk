@@ -1,4 +1,4 @@
-import 'package:cc_sdk_data/domain/entities/cc_device_entity.dart';
+import 'package:cc_sdk_data/export_cc_sdk_data.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:injectable/injectable.dart';
