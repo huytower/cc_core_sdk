@@ -6,6 +6,9 @@ import '../../export_cc_sdk_ui.dart';
 ///
 /// It provides high configurability for different feature layouts (e.g. Asset Selectors)
 /// while maintaining a consistent visual language.
+@Deprecated(
+  'Domain-specific widget; build it in the app. Removed in the next major version.',
+)
 class CcCategoryShimmerList extends StatelessWidget {
   const CcCategoryShimmerList({
     super.key,

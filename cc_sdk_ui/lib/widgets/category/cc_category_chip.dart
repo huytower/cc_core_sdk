@@ -6,6 +6,9 @@ import '../../export_cc_sdk_ui.dart';
 /// Supports an 'enabled' (selected) state with glassy highlights.
 ///
 /// [label] is shown as is — pass already-translated text.
+@Deprecated(
+  'Domain-specific widget; build it in the app. Removed in the next major version.',
+)
 class CcCategoryChip extends StatelessWidget {
   final String label;
   final int iconCode;

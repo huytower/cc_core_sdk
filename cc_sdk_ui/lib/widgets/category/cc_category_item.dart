@@ -5,6 +5,9 @@ import '../../export_cc_sdk_ui.dart';
 /// A selectable category card: icon on top, [label] below.
 ///
 /// [label] is shown as is — pass already-translated text.
+@Deprecated(
+  'Domain-specific widget; build it in the app. Removed in the next major version.',
+)
 class CcCategoryItem extends StatelessWidget {
   const CcCategoryItem({
     super.key,

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import '../background/cc_watermark_background.dart';
 
 import '../../export_cc_sdk_ui.dart';
 
 /// Data model for items displayed within [CcCategoryGroupSection].
 ///
 /// [label] is shown as is — pass already-translated text.
+@Deprecated(
+  'Domain-specific widget; build it in the app. Removed in the next major version.',
+)
 class CcCategoryGroupItem {
   final String label;
   final int iconCode;
@@ -22,6 +24,9 @@ class CcCategoryGroupItem {
 
 /// A horizontal section representing a group of categories with a glassy background
 /// and a large watermark icon.
+@Deprecated(
+  'Domain-specific widget; build it in the app. Removed in the next major version.',
+)
 class CcCategoryGroupSection extends StatelessWidget {
   final List<CcCategoryGroupItem> items;
   final bool Function(CcCategoryGroupItem) isEnabled;
