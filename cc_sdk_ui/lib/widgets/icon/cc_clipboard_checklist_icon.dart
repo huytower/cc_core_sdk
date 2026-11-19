@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_base_colors.dart';
+
 /// Recreates the "clipboard checklist" icon — blue rounded body, dark navy
 /// clip at the top with a white halo cutout, and 3 rows of white
 /// checkmark + line — drawn entirely with [CustomPainter] (no image asset).
@@ -12,9 +14,9 @@ class CcClipboardChecklistIcon extends StatelessWidget {
   const CcClipboardChecklistIcon({
     super.key,
     this.size = 96,
-    this.bodyColor = const Color(0xFF2E7DBE),
-    this.clipColor = const Color(0xFF3B4550),
-    this.markColor = Colors.white,
+    this.bodyColor = CcBaseColors.blue600,
+    this.clipColor = CcBaseColors.gray700,
+    this.markColor = CcBaseColors.white100,
   });
 
   final double size;
@@ -63,7 +65,7 @@ class _ClipboardChecklistPainter extends CustomPainter {
       Rect.fromLTWH(w * 0.335, h * 0.225, w * 0.33, h * 0.14),
       Radius.circular(w * 0.05),
     );
-    canvas.drawRRect(notch, Paint()..color = Colors.white);
+    canvas.drawRRect(notch, Paint()..color = CcBaseColors.white100);
 
     // ---- 3. Clip bar (dark, horizontal) ----
     final RRect clipBar = RRect.fromRectAndRadius(

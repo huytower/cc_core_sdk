@@ -109,10 +109,10 @@ class CcBaseDialog extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
         child: Container(
-          width: MediaQuery.sizeOf(context).width,
+          width: double.infinity,
           height: context.respPadding(isActionBtnVisible ? 145 : 75),
           decoration: BoxDecoration(
-            color: bgColor ?? context.ccColorScheme.surface.withOpacity(0.8),
+            color: bgColor ?? context.ccColorScheme.surface.withValues(alpha: 0.8),
           ),
           child: buildDialogBodyWidget(context),
         ),

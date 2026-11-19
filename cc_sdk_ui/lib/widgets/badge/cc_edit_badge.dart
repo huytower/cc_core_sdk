@@ -30,7 +30,7 @@ class CcEditBadge extends StatelessWidget {
           shape: BoxShape.circle,
           border: Border.all(color: scheme.surface, width: 1.5),
           boxShadow: [
-            BoxShadow(color: scheme.shadow.withOpacity(0.3), blurRadius: 4),
+            BoxShadow(color: scheme.shadow.withValues(alpha: 0.3), blurRadius: 4),
           ],
         ),
         child: Icon(

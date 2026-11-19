@@ -1,5 +1,4 @@
-import 'dart:developer' as developer;
-
+import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/foundation.dart';
 
@@ -10,6 +9,8 @@ import 'package:flutter/foundation.dart';
 /// based on the platform (Android/iOS/Web).
 class CcAppCheckHelper {
   CcAppCheckHelper._();
+
+  static const String _tag = 'CcAppCheckHelper';
 
   /// Initializes Firebase App Check with the appropriate provider.
   ///
@@ -39,19 +40,14 @@ class CcAppCheckHelper {
       _isInitialized = true;
 
       if (kDebugMode) {
-        developer.log(
-          'Firebase App Check initialized in DEBUG mode. '
-          'Please ensure the debug token from the console is added to Firebase Console.',
-        );
+        ('Firebase App Check initialized in DEBUG mode. '
+                'Please ensure the debug token from the console is added to Firebase Console.')
+            .Log(_tag);
       } else {
-        developer.log('Firebase App Check initialized successfully');
+        'Firebase App Check initialized successfully'.Log(_tag);
       }
     } catch (error, stackTrace) {
-      developer.log(
-        'Firebase App Check initialization failed',
-        error: error,
-        stackTrace: stackTrace,
-      );
+      'Firebase App Check initialization failed: $error\n$stackTrace'.Log(_tag);
       rethrow;
     }
   }
@@ -82,14 +78,10 @@ class CcAppCheckHelper {
   static Future<String> getToken() async {
     try {
       final token = await FirebaseAppCheck.instance.getToken();
-      developer.log('App Check token retrieved successfully');
+      'App Check token retrieved successfully'.Log(_tag);
       return token ?? '';
     } catch (error, stackTrace) {
-      developer.log(
-        'Failed to retrieve App Check token',
-        error: error,
-        stackTrace: stackTrace,
-      );
+      'Failed to retrieve App Check token: $error\n$stackTrace'.Log(_tag);
       rethrow;
     }
   }
@@ -102,13 +94,9 @@ class CcAppCheckHelper {
   static Future<void> setAutoRefresh(bool autoRefresh) async {
     try {
       await FirebaseAppCheck.instance.setTokenAutoRefreshEnabled(autoRefresh);
-      developer.log('App Check auto-refresh set to: $autoRefresh');
+      'App Check auto-refresh set to: $autoRefresh'.Log(_tag);
     } catch (error, stackTrace) {
-      developer.log(
-        'Failed to set App Check auto-refresh',
-        error: error,
-        stackTrace: stackTrace,
-      );
+      'Failed to set App Check auto-refresh: $error\n$stackTrace'.Log(_tag);
       rethrow;
     }
   }
@@ -122,14 +110,10 @@ class CcAppCheckHelper {
   static Future<String> refreshToken() async {
     try {
       final token = await FirebaseAppCheck.instance.getToken(true);
-      developer.log('App Check token refreshed successfully');
+      'App Check token refreshed successfully'.Log(_tag);
       return token ?? '';
     } catch (error, stackTrace) {
-      developer.log(
-        'Failed to refresh App Check token',
-        error: error,
-        stackTrace: stackTrace,
-      );
+      'Failed to refresh App Check token: $error\n$stackTrace'.Log(_tag);
       rethrow;
     }
   }
@@ -143,13 +127,9 @@ class CcAppCheckHelper {
   static Future<void> setAppCheckEnabled(bool enabled) async {
     try {
       await FirebaseAppCheck.instance.setTokenAutoRefreshEnabled(enabled);
-      developer.log('App Check enabled set to: $enabled');
+      'App Check enabled set to: $enabled'.Log(_tag);
     } catch (error, stackTrace) {
-      developer.log(
-        'Failed to set App Check enabled state',
-        error: error,
-        stackTrace: stackTrace,
-      );
+      'Failed to set App Check enabled state: $error\n$stackTrace'.Log(_tag);
       rethrow;
     }
   }

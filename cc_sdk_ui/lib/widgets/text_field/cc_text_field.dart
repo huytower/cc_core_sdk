@@ -63,14 +63,14 @@ class CcTextField extends StatelessWidget {
         color: color ?? CcBaseColors.white100,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: borderColor ?? CcBaseColors.neutral10.withOpacity(0.5),
+          color: borderColor ?? CcBaseColors.neutral50,
           width: borderWidth,
         ),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+          const BoxShadow(
+            color: CcBaseColors.neutral5,
             blurRadius: 4,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),

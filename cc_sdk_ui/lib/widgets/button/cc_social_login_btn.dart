@@ -118,33 +118,33 @@ class CcSocialLoginBtn extends StatelessWidget {
   Color _getBackgroundColor(BuildContext context) {
     switch (type) {
       case SocialLoginType.google:
-        return Colors.white;
+        return CcBaseColors.white100;
       case SocialLoginType.facebook:
-        return const Color(0xFF1877F2);
+        return CcBaseColors.facebookBlue;
       case SocialLoginType.apple:
-        return Colors.black;
+        return CcBaseColors.neutral100;
     }
   }
 
   Color _getBorderColor(BuildContext context) {
     switch (type) {
       case SocialLoginType.google:
-        return const Color(0xFFDADCE0);
+        return CcBaseColors.googleBorder;
       case SocialLoginType.facebook:
-        return const Color(0xFF1877F2);
+        return CcBaseColors.facebookBlue;
       case SocialLoginType.apple:
-        return Colors.black;
+        return CcBaseColors.neutral100;
     }
   }
 
   Color _getTextColor(BuildContext context) {
     switch (type) {
       case SocialLoginType.google:
-        return const Color(0xFF202124);
+        return CcBaseColors.googleText;
       case SocialLoginType.facebook:
-        return Colors.white;
+        return CcBaseColors.white100;
       case SocialLoginType.apple:
-        return Colors.white;
+        return CcBaseColors.white100;
     }
   }
 

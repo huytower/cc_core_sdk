@@ -48,9 +48,9 @@ PreferredSizeWidget buildDomainGradientAppBar(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      context.ccColorScheme.surface.withOpacity(0.28),
+                      context.ccColorScheme.surface.withValues(alpha: 0.28),
                       CcBaseColors.transparent,
-                      context.ccColorScheme.onSurface.withOpacity(0.22),
+                      context.ccColorScheme.onSurface.withValues(alpha: 0.22),
                     ],
                     stops: const [0.0, 0.5, 1.0],
                   ),
