@@ -17,10 +17,11 @@ class CcUserEntity with EquatableMixin {
   final DateTime updatedAt;
   final DateTime? lastActiveAt;
 
-  /// Firebase provider ids linked to this account (e.g. `'google.com'`,
-  /// `'phone'`, `'password'`) — from `User.providerData`. The only reliable
-  /// way to tell "is Google linked" apart from "is email/password linked",
-  /// since [email]/[phoneNumber] alone don't reveal which provider set them.
+  /// Ids of the sign-in methods linked to this account, as reported by the auth
+  /// backend (e.g. `'google.com'`, `'apple.com'`, `'phone'`, `'password'`). The
+  /// only reliable way to tell which methods are linked, since [email] /
+  /// [phoneNumber] alone don't reveal which method set them. Empty for an
+  /// anonymous (guest) account.
   final List<String> linkedProviderIds;
 
   const CcUserEntity({
