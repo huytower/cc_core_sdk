@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/helper/cc_device_helper.dart';
+import 'package:cc_sdk/src/core/helper/cc_device_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 

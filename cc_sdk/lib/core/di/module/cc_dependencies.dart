@@ -1,11 +1,10 @@
+import 'package:cc_sdk/src/core/helper/cc_device_info_helper.dart';
 import 'package:cc_sdk_data/export_cc_sdk_data.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../helper/cc_device_info_helper.dart';
 
 /// Registers third-party dependencies that cannot be auto-registered
 /// (they don't have injectable constructors we control).

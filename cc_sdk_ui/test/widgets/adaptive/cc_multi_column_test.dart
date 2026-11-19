@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/widgets/adaptive/cc_multi_column.dart';
+import 'package:cc_sdk_ui/src/widgets/adaptive/cc_multi_column.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

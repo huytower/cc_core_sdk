@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/widgets/adaptive/cc_content_inset.dart';
+import 'package:cc_sdk_ui/src/widgets/adaptive/cc_content_inset.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
