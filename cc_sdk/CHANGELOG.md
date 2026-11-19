@@ -104,6 +104,13 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
     `validator.formatInternational(n)`; `getCountryCode` (unused) is gone.
   - `CcPhoneNumberInput` / `CcCountryCodeSelector` stay in `cc_sdk_ui`
     (they never needed the parser).
+- **Removed (deprecated in 1.x):** `CcReceiptScanHelper`, `PickedReceiptImage`,
+  `ReceiptPickResult`, `ReceiptBatchPickResult`, and with them the
+  `google_mlkit_text_recognition` and `image_picker` dependencies. Pick images
+  in the app (or a capability package).
+- **Dependencies:** `deep_collection` is dropped (`ccWhen` behaves the same).
+  `cc_sdk` now has 15 runtime dependencies (was 27), none of them a vendor
+  service SDK.
 
 ### Added (since 1.0.0, non-breaking)
 
