@@ -1,0 +1,24 @@
+name: cc_sdk_slack
+description: Slack (Incoming Webhook) implementations of cc_sdk capabilities - crash alerts and user feedback.
+version: 2.0.0
+publish_to: none
+repository: https://github.com/huytower/cc_core_sdk
+homepage: https://github.com/huytower/cc_core_sdk
+
+environment:
+  sdk: '^3.12.0'
+  flutter: '^3.44.3'
+
+resolution: workspace
+
+dependencies:
+  catcher_2: ^2.1.12
+  cc_sdk:
+    path: ../cc_sdk
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter

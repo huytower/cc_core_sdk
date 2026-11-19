@@ -1,19 +1,18 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
-import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
-import 'package:cc_sdk/core/security/cc_app_attestation.dart';
+import 'package:cc_sdk/export_cc_sdk.dart';
+
+import 'cc_slack_webhook.dart';
 
 /// A [ReportHandler] for Catcher2 that forwards structured crash reports to Slack via
 /// an Incoming Webhook URL.
 ///
-/// The webhook URL is passed in, or set once with [CcSlackHandler.configure]
-/// by the app — it is intentionally **not**
-/// hardcoded here to avoid committing secrets to the repository.
+/// The app passes the webhook URL (a secret, never hardcoded). Add it to the
+/// release/profile handlers, e.g.
+/// `CcCatcherBootstrap.releaseOptions(file, remoteHandlers: [CcSlackHandler(
+/// webhookUrl: url, attestation: attestation)])`.
 class CcSlackHandler extends ReportHandler {
-  final String _webhookUrl;
+  final CcSlackWebhook _webhook;
 
   /// Adds the attestation state to each report; omitted when null.
   final CcAppAttestation? _attestation;
@@ -22,29 +21,9 @@ class CcSlackHandler extends ReportHandler {
   static final Map<String, DateTime> _lastReported = {};
   static const Duration _throttleDuration = Duration(minutes: 5);
 
-  CcSlackHandler({String? webhookUrl, CcAppAttestation? attestation})
-    : _webhookUrl = _cleanUrl(webhookUrl ?? _defaultWebhookUrl),
+  CcSlackHandler({required String webhookUrl, CcAppAttestation? attestation})
+    : _webhook = CcSlackWebhook(webhookUrl, logTag: 'CcSlackHandler'),
       _attestation = attestation;
-
-  static String _defaultWebhookUrl = '';
-
-  /// Sets the webhook used by handlers created without an explicit
-  /// `webhookUrl` (e.g. by `CcCatcherBootstrap`). Call once at boot.
-  static void configure({required String webhookUrl}) {
-    _defaultWebhookUrl = webhookUrl;
-    final url = _cleanUrl(webhookUrl);
-    '[CatcherSlack] Crash webhook: ${url.isNotEmpty ? "(present, length=${url.length})" : "(EMPTY)"}'
-        .Log('CcSlackHandler');
-  }
-
-  static String _cleanUrl(String raw) {
-    var url = raw.trim();
-    if ((url.startsWith('"') && url.endsWith('"')) ||
-        (url.startsWith("'") && url.endsWith("'"))) {
-      url = url.substring(1, url.length - 1).trim();
-    }
-    return url;
-  }
 
   @override
   Future<bool> handle(Report report, _) async {
@@ -52,8 +31,8 @@ class CcSlackHandler extends ReportHandler {
       'CcSlackHandler',
     );
 
-    if (_webhookUrl.isEmpty) {
-      '[CatcherSlack] ❌ Cannot send report to Slack: SLACK_WEBHOOK_URL is empty!'
+    if (!_webhook.isConfigured) {
+      '[CatcherSlack] ❌ Cannot send report to Slack: no webhook URL configured'
           .Log('CcSlackHandler');
       return false;
     }
@@ -77,7 +56,7 @@ class CcSlackHandler extends ReportHandler {
         report,
         appCheckStatus: appCheckStatus,
       );
-      final success = await _postToSlack(_webhookUrl, messageText);
+      final success = await _webhook.post(messageText);
       if (success) {
         _lastReported[errorKey] = now;
       }
@@ -283,52 +262,6 @@ class CcSlackHandler extends ReportHandler {
   }
 
   static String _twoDigits(int n) => n >= 10 ? '$n' : '0$n';
-
-  /// The webhook URL is a secret (anyone with it can post to the channel):
-  /// log only its host and a short tail, never the full path.
-  static String _maskUrl(String url) {
-    final uri = Uri.tryParse(url);
-    final tail = url.length > 4 ? url.substring(url.length - 4) : '';
-    return '${uri?.host ?? '?'}/…$tail (length=${url.length})';
-  }
-
-  static Future<bool> _postToSlack(String rawUrl, String messageText) async {
-    final cleanUrl = _cleanUrl(rawUrl);
-    '[CatcherSlack] 📤 Sending crash report to Slack Webhook: ${_maskUrl(cleanUrl)}...'
-        .Log('CcSlackHandler');
-
-    final uri = Uri.tryParse(cleanUrl);
-    if (uri == null || !uri.hasScheme) {
-      '[CatcherSlack] ❌ Invalid Webhook URL URI: ${_maskUrl(cleanUrl)}'.Log(
-        'CcSlackHandler',
-      );
-      return false;
-    }
-
-    final client = HttpClient();
-    try {
-      final request = await client.postUrl(uri);
-      request.headers.set('content-type', 'application/json; charset=utf-8');
-      request.headers.set(
-        'user-agent',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      );
-      final payload = jsonEncode({'text': messageText});
-      request.write(payload);
-
-      final response = await request.close();
-      final responseBody = await response.transform(utf8.decoder).join();
-
-      '[CatcherSlack] ✅ Crash report posted to Slack successfully (status: ${response.statusCode}, body: "$responseBody")'
-          .Log('CcSlackHandler');
-      return response.statusCode == 200;
-    } catch (e) {
-      '[CatcherSlack] ❌ HttpClient Error: $e'.Log('CcSlackHandler');
-      return false;
-    } finally {
-      client.close();
-    }
-  }
 
   @override
   List<PlatformType> getSupportedPlatforms() => [

@@ -4,9 +4,7 @@ import 'dart:io';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
 import 'package:cc_sdk/core/crash_reporting/cc_crash_reporter.dart';
-import 'package:cc_sdk/core/crash_reporting/cc_slack_handler.dart';
 import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
-import 'package:cc_sdk/core/security/cc_app_attestation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -95,13 +93,14 @@ abstract final class CcCatcherBootstrap {
   }
 
   /// Handlers: console (debug only), the crash log file, [crashReporter] when
-  /// given (e.g. Crashlytics via `CcCrashReporter` from DI), and Slack (release
-  /// and profile only).
+  /// given (e.g. Crashlytics via `CcCrashReporter` from DI), and the app's
+  /// `remoteHandlers` (release and profile only; e.g. a chat alert such as
+  /// `CcSlackHandler` from `cc_sdk_slack`).
   ///
   /// Debug builds report locally only (console + log file + [crashReporter]).
-  /// No Slack: debug runs on emulators fail often and expectedly (e.g. an
-  /// unregistered App Check debug token at launch), which would spam the
-  /// crash channel. Release and profile builds still post to Slack.
+  /// No remote alerts: debug runs on emulators fail often and expectedly
+  /// (e.g. an unregistered App Check debug token at launch), which would spam
+  /// the channel.
   static Catcher2Options debugOptions(
     File logFile, {
     CcCrashReporter? crashReporter,
@@ -111,24 +110,25 @@ abstract final class CcCatcherBootstrap {
     if (crashReporter != null) CcCrashReporterHandler(crashReporter),
   ]);
 
-  /// [attestation], when given, adds its state to each Slack report.
+  /// [remoteHandlers] are extra handlers (e.g. crash alerts to a chat
+  /// channel) that run only in release and profile builds.
   static Catcher2Options releaseOptions(
     File logFile, {
     CcCrashReporter? crashReporter,
-    CcAppAttestation? attestation,
+    List<ReportHandler> remoteHandlers = const [],
   }) => Catcher2Options(SilentReportMode(), [
     _getHandler(logFile, printLogs: false),
     if (crashReporter != null) CcCrashReporterHandler(crashReporter),
-    CcSlackHandler(attestation: attestation),
+    ...remoteHandlers,
   ]);
 
   static Catcher2Options profileOptions(
     File logFile, {
     CcCrashReporter? crashReporter,
-    CcAppAttestation? attestation,
+    List<ReportHandler> remoteHandlers = const [],
   }) => releaseOptions(
     logFile,
     crashReporter: crashReporter,
-    attestation: attestation,
+    remoteHandlers: remoteHandlers,
   );
 }
