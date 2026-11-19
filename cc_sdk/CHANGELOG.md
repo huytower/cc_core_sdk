@@ -43,6 +43,22 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
   - `CcSlackHandler` no longer reads App Check itself: pass
     `attestation:` to it or to `CcCatcherBootstrap.releaseOptions` /
     `profileOptions` (reports show `n/a` otherwise).
+- **AI (Gemini):** `CcGeminiHelper` (static, Firebase-only) and the re-exported
+  Firebase `Schema` / `SchemaType` are removed; `firebase_ai` is no longer a
+  dependency of `cc_sdk`.
+  - New `CcAiClient.generate(prompt:, images:, responseSchema:)` returning
+    `CcAiResult` (text or a `CcAiFailure` with a kind, e.g.
+    `deviceAttestation`), plus the vendor-neutral `CcAiSchema` (same builders
+    as Firebase `Schema`) and `CcAiImage`.
+  - Firebase implementation `CcFirebaseAiClient` in `cc_sdk_firebase`
+    (retries transient 5xx, reports final failures to `CcCrashReporter`).
+  - Model: `CcSdkConfig(aiModelName:)` replaces
+    `CcGeminiHelper.configure(modelName:)`.
+  - Migration: `Schema.x(...)` -> `CcAiSchema.x(...)`;
+    `generateText` / `generateFromImages` -> `generate(images:)`;
+    `lastError` -> `CcAiResult.failure` (or `CcAiClient.lastFailure`);
+    string checks for App Check errors -> `CcAiFailureKind.deviceAttestation`.
+    `generateFromImage` (single image, unused) is gone.
 
 ### Added (since 1.0.0, non-breaking)
 

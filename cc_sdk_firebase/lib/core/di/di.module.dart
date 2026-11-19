@@ -7,6 +7,7 @@
 import 'dart:async' as _i687;
 
 import 'package:cc_sdk/export_cc_sdk.dart' as _i54;
+import 'package:cc_sdk_firebase/src/ai/cc_firebase_ai_client.dart' as _i897;
 import 'package:cc_sdk_firebase/src/analytics/cc_firebase_analytics.dart'
     as _i620;
 import 'package:cc_sdk_firebase/src/cc_firebase_module.dart' as _i727;
@@ -36,6 +37,8 @@ class CcSdkFirebasePackageModule extends _i526.MicroPackageModule {
         () => _i620.CcFirebaseAnalytics(gh<_i398.FirebaseAnalytics>()));
     gh.lazySingleton<_i54.CcAppAttestation>(
         () => _i915.CcFirebaseAppAttestation(gh<_i56.FirebaseAppCheck>()));
+    gh.lazySingleton<_i54.CcAiClient>(
+        () => _i897.CcFirebaseAiClient(gh<_i54.CcCrashReporter>()));
   }
 }
 
