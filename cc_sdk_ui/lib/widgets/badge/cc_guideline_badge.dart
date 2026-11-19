@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/config/tokens/cc_border_radius.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
@@ -235,14 +236,14 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
           color: context.ccColorScheme.surface,
           borderRadius: context.brLg,
           border: Border.all(
-            color: context.ccColorScheme.onSurface.withOpacity(0.08),
+            color: context.ccColorScheme.onSurface.withValues(alpha: 0.08),
             width: 0.5,
           ),
           boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.4),
+            const BoxShadow(
+              color: CcBaseColors.neutral40,
               blurRadius: 12,
-              offset: const Offset(0, 4),
+              offset: Offset(0, 4),
             ),
           ],
         ),
@@ -294,7 +295,7 @@ class _CcGuidelineBadgeState extends State<CcGuidelineBadge>
       child: Icon(
         Icons.close_outlined,
         size: context.respDim(15),
-        color: context.ccColorScheme.onSurface.withOpacity(0.3),
+        color: context.ccColorScheme.onSurface.withValues(alpha: 0.3),
       ),
     );
   }

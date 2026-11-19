@@ -52,6 +52,9 @@ abstract final class CcFeatureFlags {
       if (value == null) return defaultValue;
       return value.toLowerCase() == 'true';
     } catch (e) {
+      // Must stay `developer.log`, not `.Log()`: `.Log()` reads
+      // [isEnableLogger], which calls this method, so a failure here would
+      // recurse forever.
       developer.log('Failed to parse boolean feature flag for $key: $e');
       return defaultValue;
     }

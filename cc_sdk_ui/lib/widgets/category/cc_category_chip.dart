@@ -27,7 +27,7 @@ class CcCategoryChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final primary = accentColor ?? context.ccColorScheme.primary;
     final chipBg = isEnabled
-        ? primary.withOpacity(0.15)
+        ? primary.withValues(alpha: 0.15)
         : context.ccColorScheme.surfaceContainerHighest;
     final iconColor = isEnabled
         ? primary
@@ -49,7 +49,7 @@ class CcCategoryChip extends StatelessWidget {
           color: chipBg,
           borderRadius: context.brXl,
           border: Border.all(
-            color: isEnabled ? primary.withOpacity(0.4) : Colors.transparent,
+            color: isEnabled ? primary.withValues(alpha: 0.4) : Colors.transparent,
             width: 1.5,
           ),
         ),

@@ -46,7 +46,7 @@ class CcSnackBarHelper {
       borderRadius: BorderRadius.circular(12),
       side: isDark
           ? BorderSide(
-              color: context.ccColorScheme.onSurface.withOpacity(0.12),
+              color: context.ccColorScheme.onSurface.withValues(alpha: 0.12),
               width: 1,
             )
           : BorderSide.none,
@@ -68,10 +68,10 @@ class CcSnackBarHelper {
               label: actionLabel,
               onPressed: onActionPressed ?? () {},
               textColor:
-                  textColor?.withOpacity(0.8) ??
+                  textColor?.withValues(alpha: 0.8) ??
                   (isDark
                       ? context.ccColorScheme.primary
-                      : context.ccColorScheme.primary.withOpacity(0.8)),
+                      : context.ccColorScheme.primary.withValues(alpha: 0.8)),
             )
           : null,
       onVisible: () {

@@ -152,7 +152,7 @@ class CcFloatingActionButton extends StatelessWidget {
         color: backgroundColor,
         boxShadow: [
           BoxShadow(
-            color: context.ccColorScheme.onSurface.withOpacity(0.2),
+            color: context.ccColorScheme.onSurface.withValues(alpha: 0.2),
             blurRadius: elevation ?? context.respDim(6.0),
             offset: Offset(0, elevation ?? context.respDim(6.0) / 2),
           ),

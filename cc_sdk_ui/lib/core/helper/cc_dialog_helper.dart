@@ -109,7 +109,7 @@ class CcDialogHelper {
       enableDrag: false,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      barrierColor: context.ccColorScheme.onSurface.withOpacity(0.3),
+      barrierColor: context.ccColorScheme.onSurface.withValues(alpha: 0.3),
       builder: (context) => const PopScope(
         canPop: false,
         child: SizedBox(
@@ -162,7 +162,7 @@ class CcDialogHelper {
         context: context,
         barrierDismissible: isAllowDismiss,
         barrierColor:
-            bgColorBarrier ?? context.ccColorScheme.onSurface.withOpacity(0.5),
+            bgColorBarrier ?? context.ccColorScheme.onSurface.withValues(alpha: 0.5),
         builder: (context) => dialog,
       );
 

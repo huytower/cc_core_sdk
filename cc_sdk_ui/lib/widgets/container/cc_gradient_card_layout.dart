@@ -62,7 +62,7 @@ class CcGradientCardLayout extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: context.ccColorScheme.shadow.withOpacity(0.1),
+            color: context.ccColorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: context.respDim(20),
             offset: Offset(0, context.respDim(10)),
           ),

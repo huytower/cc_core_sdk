@@ -121,13 +121,13 @@ extension CcContextExtension on BuildContext {
 
   /// A subtle border for cards and containers.
   Border get borderSubtle => Border.all(
-    color: ccColorScheme.onSurface.withOpacity(0.08),
+    color: ccColorScheme.onSurface.withValues(alpha: 0.08),
     width: respDim(CcBorderParams.subtleWidth),
   );
 
   /// A medium-weight border for elevated components.
   Border get borderMedium => Border.all(
-    color: ccColorScheme.onSurface.withOpacity(0.12),
+    color: ccColorScheme.onSurface.withValues(alpha: 0.12),
     width: respDim(CcBorderParams.mediumWidth),
   );
 

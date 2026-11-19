@@ -105,6 +105,11 @@ class CcBaseColors {
   static const Color warningAmber = Color(0xFFF59E0B);
   static const Color infoBlue = Color(0xFF3B82F6);
 
+  // -- Third-party brand colors (fixed by each provider's brand guidelines)
+  static const Color googleBorder = Color(0xFFDADCE0);
+  static const Color googleText = Color(0xFF202124);
+  static const Color facebookBlue = Color(0xFF1877F2);
+
   // -- Utils
   static const Color transparent = Color(0x00000000);
 }

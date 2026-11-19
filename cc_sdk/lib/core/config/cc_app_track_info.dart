@@ -1,5 +1,4 @@
-import 'dart:developer' as developer;
-
+import 'package:cc_sdk/core/extensions/common/cc_logger_extension.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// App identity and crash-log settings from root `env/*.env` (via [dotenv]).
@@ -20,12 +19,7 @@ abstract final class CcAppTrackName {
           ) ??
           _defaultAppName;
     } catch (e, stackTrace) {
-      developer.log(
-        'Failed to load APP_NAME from env',
-        error: e,
-        stackTrace: stackTrace,
-        name: 'CcAppTrackName',
-      );
+      'Failed to load APP_NAME from env: $e\n$stackTrace'.Log('CcAppTrackName');
       return _defaultAppName;
     }
   }
