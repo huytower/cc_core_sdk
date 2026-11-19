@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
-import 'package:cc_sdk/core/crash_reporting/cc_crashlytics_handler.dart';
+import 'package:cc_sdk/core/crash_reporting/cc_crash_reporter.dart';
 import 'package:cc_sdk/core/crash_reporting/cc_slack_handler.dart';
 import 'package:cc_sdk/core/extensions/export_cc_extensions.dart';
 import 'package:flutter/cupertino.dart';
@@ -93,24 +93,34 @@ abstract final class CcCatcherBootstrap {
     );
   }
 
-  /// Debug builds report locally only (console + log file + Crashlytics).
+  /// Handlers: console (debug only), the crash log file, [crashReporter] when
+  /// given (e.g. Crashlytics via `CcCrashReporter` from DI), and Slack (release
+  /// and profile only).
+  ///
+  /// Debug builds report locally only (console + log file + [crashReporter]).
   /// No Slack: debug runs on emulators fail often and expectedly (e.g. an
   /// unregistered App Check debug token at launch), which would spam the
   /// crash channel. Release and profile builds still post to Slack.
-  static Catcher2Options debugOptions(File logFile) =>
-      Catcher2Options(SilentReportMode(), [
-        _JsonConsoleHandler(),
-        _getHandler(logFile, printLogs: kDebugMode),
-        CcCrashlyticsHandler(),
-      ]);
+  static Catcher2Options debugOptions(
+    File logFile, {
+    CcCrashReporter? crashReporter,
+  }) => Catcher2Options(SilentReportMode(), [
+    _JsonConsoleHandler(),
+    _getHandler(logFile, printLogs: kDebugMode),
+    if (crashReporter != null) CcCrashReporterHandler(crashReporter),
+  ]);
 
-  static Catcher2Options releaseOptions(File logFile) =>
-      Catcher2Options(SilentReportMode(), [
-        _getHandler(logFile, printLogs: false),
-        CcCrashlyticsHandler(),
-        CcSlackHandler(),
-      ]);
+  static Catcher2Options releaseOptions(
+    File logFile, {
+    CcCrashReporter? crashReporter,
+  }) => Catcher2Options(SilentReportMode(), [
+    _getHandler(logFile, printLogs: false),
+    if (crashReporter != null) CcCrashReporterHandler(crashReporter),
+    CcSlackHandler(),
+  ]);
 
-  static Catcher2Options profileOptions(File logFile) =>
-      releaseOptions(logFile);
+  static Catcher2Options profileOptions(
+    File logFile, {
+    CcCrashReporter? crashReporter,
+  }) => releaseOptions(logFile, crashReporter: crashReporter);
 }
