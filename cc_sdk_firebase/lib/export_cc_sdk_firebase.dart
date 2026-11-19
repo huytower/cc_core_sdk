@@ -6,3 +6,4 @@
 library;
 
 export 'package:cc_sdk_firebase/src/analytics/cc_firebase_analytics.dart';
+export 'package:cc_sdk_firebase/src/crash_reporting/cc_firebase_crash_reporter.dart';

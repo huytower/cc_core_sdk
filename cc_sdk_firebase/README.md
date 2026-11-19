@@ -6,6 +6,7 @@ interfaces only; this package is the one place that imports Firebase SDKs.
 | Interface (`cc_sdk`) | Implementation | Firebase SDK |
 |---|---|---|
 | `CcAnalytics` | `CcFirebaseAnalytics` | `firebase_analytics` |
+| `CcCrashReporter` | `CcFirebaseCrashReporter` | `firebase_crashlytics` |
 
 ## Setup
 

@@ -20,6 +20,17 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
        (in micro-packages, add `CcAnalytics` to `ignoreUnregisteredTypes`).
     3. `CcAnalyticsHelper.observer` -> `analytics.navigatorObserver`
        (nullable); `logSignUp(signUpMethod:)` -> `logSignUp(method:)`.
+- **Crash reporting:** `CcCrashReportingHelper` and `CcCrashlyticsHandler`
+  (Firebase-only) are removed and `firebase_crashlytics` is no longer a
+  dependency of `cc_sdk`.
+  - New interface `CcCrashReporter` (plus `CcNoopCrashReporter` and the
+    Catcher2 `CcCrashReporterHandler`) in `cc_sdk`.
+  - Firebase implementation `CcFirebaseCrashReporter` in `cc_sdk_firebase`,
+    registered as `CcCrashReporter`.
+  - Migration: `CcCrashReportingHelper.recordHandledError(e, st, reason:)` ->
+    `crashReporter.recordError(e, st, reason:)`; `.log(m)` ->
+    `crashReporter.log(m)`. `CcCatcherBootstrap.*Options(logFile)` no longer
+    adds Crashlytics on its own: pass `crashReporter: getIt<CcCrashReporter>()`.
 
 ### Added (since 1.0.0, non-breaking)
 

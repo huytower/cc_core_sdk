@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:cc_sdk/core/helper/cc_crash_reporting_helper.dart';
+import 'package:cc_sdk/core/crash_reporting/cc_crash_reporter.dart';
+import 'package:cc_sdk/core/di/di.dart';
 import 'package:firebase_ai/firebase_ai.dart';
 
 // Re-exported so callers can build a [Schema] for [CcGeminiHelper]'s
@@ -41,6 +42,14 @@ class CcGeminiHelper {
   }
 
   static GenerativeModel? _model;
+
+  // Static helper, so no constructor injection: resolved from DI when the app
+  // registered a `CcCrashReporter`. Goes away when Gemini becomes an injected
+  // AI capability.
+  static CcCrashReporter get _crashReporter =>
+      getIt.isRegistered<CcCrashReporter>()
+      ? getIt<CcCrashReporter>()
+      : const CcNoopCrashReporter();
 
   /// Retries for transient 5xx responses (e.g. "high demand" 500s) — Firebase
   /// AI Logic surfaces those as a [FirebaseAIException] whose message starts
@@ -101,7 +110,7 @@ class CcGeminiHelper {
         _lastError = e;
         final canRetry = attempt < _maxAttempts && _isTransientServerError(e);
         if (!canRetry) {
-          CcCrashReportingHelper.recordHandledError(
+          _crashReporter.recordError(
             e,
             stack,
             reason:
