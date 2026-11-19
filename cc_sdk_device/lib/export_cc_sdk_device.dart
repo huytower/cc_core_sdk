@@ -5,4 +5,5 @@
 /// resolve to the implementations here.
 library;
 
+export 'package:cc_sdk_device/src/location/cc_device_location_service.dart';
 export 'package:cc_sdk_device/src/speech/cc_speech_to_text_recognizer.dart';

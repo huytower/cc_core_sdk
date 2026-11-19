@@ -78,6 +78,19 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
     (`ExternalModule(CcSdkDevicePackageModule)`).
   - `localeId` no longer defaults to `vi_VN`: pass it, or null for the
     device default.
+- **Location:** `CcLocationHelper` (static, exposing geolocator `Position`)
+  is removed; `geolocator`, `geocoding` and `permission_handler` are no longer
+  dependencies of `cc_sdk`.
+  - New `CcGeoPosition` (with plugin-free haversine `distanceTo` /
+    `distanceBetweenMeters`, same Earth radius as geolocator) and the
+    `CcLocationService` interface (plus `CcNoopLocationService`):
+    `lastPosition`, `requestPermission`, `hasPermission`,
+    `getCurrentPosition`, `getLastKnownPosition`, `countryCodeAt` (reverse
+    geocoding, replaces calling `Geocoding()` directly).
+  - Implementation `CcDeviceLocationService` in `cc_sdk_device`.
+  - Removed without replacement (unused, phone-specific):
+    `countryPhoneCodes`, `defaultCountryCode` (`+84`), `getCountryCode`,
+    `getCountryCodeFromLocation`.
 
 ### Added (since 1.0.0, non-breaking)
 

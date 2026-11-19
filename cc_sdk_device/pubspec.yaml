@@ -1,5 +1,5 @@
 name: cc_sdk_device
-description: Device-capability implementations of cc_sdk interfaces (speech recognition, ...).
+description: Device-capability implementations of cc_sdk interfaces (location, speech recognition, ...).
 version: 2.0.0
 publish_to: none
 repository: https://github.com/huytower/cc_core_sdk
@@ -16,8 +16,11 @@ dependencies:
     path: ../cc_sdk
   flutter:
     sdk: flutter
+  geocoding: ^5.0.0
+  geolocator: ^14.0.3
   get_it: ^9.2.1
   injectable: ^3.0.0
+  permission_handler: ^13.0.1
   speech_to_text: ^7.4.0
 
 dev_dependencies:
