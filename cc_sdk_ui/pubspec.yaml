@@ -17,7 +17,6 @@ dependencies:
   custom_refresh_indicator: ^4.0.2
   flutter:
     sdk: flutter
-  get: ^4.7.3
 
   keyboard_dismisser: ^3.0.0
 

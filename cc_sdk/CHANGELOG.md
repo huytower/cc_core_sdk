@@ -1,5 +1,24 @@
 # Changelog
 
+## Unreleased
+
+### Breaking
+
+- Removed `CcDeviceHelper.isLargeScreen` (guessed the device model from width
+  and bottom padding). Migration: branch on `CcWindowSizeClass` measured from
+  the space given.
+- Removed `CcDeviceHelper.isVietnameseLocale` (one locale, unused). Migration:
+  read the locale from `Localizations.localeOf(context)` or
+  `PlatformDispatcher.instance.locale`.
+
+Removed without a deprecation release: nothing in this workspace called them.
+
+### Changed
+
+- `.Log()` serializes the value only when a line is actually written (debug
+  builds, or `isLargeString`), and no longer relies on `ccWhen` map keys to
+  pick between a string and an object. Output is unchanged.
+
 ## 2.0.0
 
 Vendor SDKs move out of the core into capability packages. `cc_sdk` keeps only

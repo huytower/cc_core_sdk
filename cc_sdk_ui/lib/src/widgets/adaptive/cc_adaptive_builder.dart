@@ -15,9 +15,9 @@ import 'package:flutter/widgets.dart';
 ///
 /// ```dart
 /// CcAdaptiveBuilder(
-///   compact: (context) => const WalletList(),
+///   compact: (context) => const ItemList(),
 ///   expanded: (context) => const Row(
-///     children: [Expanded(child: WalletList()), Expanded(child: WalletDetail())],
+///     children: [Expanded(child: ItemList()), Expanded(child: ItemDetail())],
 ///   ),
 /// )
 /// ```

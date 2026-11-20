@@ -1,16 +1,21 @@
 import 'dart:developer' as developer;
 
 import 'package:cc_sdk/src/core/config/cc_feature_flags.dart';
-import 'package:cc_sdk/src/core/extensions/common/cc_when_expression.dart';
 import 'package:cc_sdk/src/core/serialization/gson/cc_gson.dart';
 import 'package:flutter/foundation.dart';
 
 /// Debug logging extension for any value.
 ///
-/// Example: `'message'.log()` or `model.log('payload')`.
+/// Example: `'message'.Log()` or `model.Log('payload')`.
 extension CcLoggerExtension<T> on T {
   // ignore: non_constant_identifier_names
-  /// Logs [this] to the console (debug builds) or developer log (large strings).
+  /// Logs [this] and returns it unchanged.
+  ///
+  /// Nothing happens unless [CcFeatureFlags.isEnableLogger] is on. Regular
+  /// logs go out in debug builds only; with [isLargeString] the value is
+  /// logged in every build mode, without truncation. Strings are logged as
+  /// is, other values as their `ccGson` encoding (or `toString()` if that
+  /// fails).
   ///
   /// Kept as [Log] for backward compatibility with existing call sites.
   T Log([
@@ -20,42 +25,32 @@ extension CcLoggerExtension<T> on T {
   ]) {
     if (!CcFeatureFlags.isEnableLogger) return this;
 
-    final content = ccWhen(
-      conditions: {
-        this is Object: () {
-          try {
-            return ccGson.encode(this);
-          } catch (e) {
-            return '[Serialization Error] $e | $this';
-          }
-        },
-        this is String: () => toString(),
-      },
-      orElse: toString(),
-    );
+    if (isLargeString) {
+      developer.log(
+        '${_ccLogContent(this)}\n'
+        '====================================================',
+        name: tag.isEmpty ? 'large string' : tagName,
+      );
+      return this;
+    }
 
-    ccWhen(
-      conditions: {
-        isLargeString: () {
-          developer.log(
-            '$content\n====================================================',
-            name: tag.isEmpty ? 'large string' : '$tagName',
-          );
-        },
-      },
-      orElse: () {
-        if (!kDebugMode) return;
-        final tagDisplay = tag.isNotEmpty ? '[$tag] ' : '';
-        final message = tag.isNotEmpty
-            ? '$tagDisplay$content'
-            : '$content';
-        developer.log(
-          message,
-          name: tag.isEmpty ? tagName.trim() : tag,
-        );
-      },
+    // Serialize only when the line is actually written.
+    if (!kDebugMode) return this;
+    final content = _ccLogContent(this);
+    developer.log(
+      tag.isEmpty ? content : '[$tag] $content',
+      name: tag.isEmpty ? tagName.trim() : tag,
     );
-
     return this;
+  }
+}
+
+/// The text `.Log()` writes for [value].
+String _ccLogContent(Object? value) {
+  if (value == null || value is String) return '$value';
+  try {
+    return ccGson.encode(value);
+  } catch (e) {
+    return '[Serialization Error] $e | $value';
   }
 }

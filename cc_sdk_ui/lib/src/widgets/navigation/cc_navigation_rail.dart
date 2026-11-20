@@ -147,7 +147,7 @@ class CcNavigationRail extends StatelessWidget {
 
   /// Width for compact-rail labels: wide enough for the longest single word
   /// of any label (measured in the bold, selected style with the user's text
-  /// scale), so "Transaction" is never split as "Transactio / n"; multi-word
+  /// scale), so a long word such as "Notifications" is never split across lines; multi-word
   /// labels still wrap to two lines. Clamped to [railWidth]..[maxRailWidth].
   double _labelWidthFor(BuildContext context, TextStyle? style) {
     final painter = TextPainter(

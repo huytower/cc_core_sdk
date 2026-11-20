@@ -34,7 +34,7 @@ import 'package:multiple_result/multiple_result.dart';
 ///
 /// ### Usage (GetX Controller Implementation Example):
 /// ```dart
-/// class MyController extends CcGetController with PaginationMixin {
+/// class MyController extends GetxController with PaginationMixin {
 ///   final items = <Entity>[].obs;
 ///
 ///   Future<void> loadNext({bool refresh = false}) async {
@@ -42,9 +42,7 @@ import 'package:multiple_result/multiple_result.dart';
 ///
 ///      setPaginationLoading(true);
 ///
-///      final result = await ccFetchData(
-///        fetchFunction: () => repo.get(currentPaginationRequest),
-///      );
+///      final result = await repo.get(currentPaginationRequest);
 ///
 ///      handlePaginationResult(result, isRefresh: refresh);
 ///

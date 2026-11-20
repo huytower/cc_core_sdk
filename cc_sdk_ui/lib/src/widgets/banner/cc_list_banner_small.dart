@@ -24,7 +24,7 @@ import '../text/cc_text.dart';
 ///   badgeCount: 2,
 ///   title: 'You have 2 items in progress',
 ///   description: 'Tap to view details',
-///   accentColor: Colors.orange,
+///   accentColor: context.ccColorScheme.tertiary,
 ///   onTap: () {},
 /// )
 /// ```
