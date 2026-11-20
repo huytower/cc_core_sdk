@@ -27,11 +27,6 @@ class CcFirebaseAiClient implements CcAiClient {
     r'^Server Error \[(\d{3})\]',
   );
 
-  CcAiFailure? _lastFailure;
-
-  @override
-  CcAiFailure? get lastFailure => _lastFailure;
-
   String get _modelName {
     final configured = CcSdkConfig.current.aiModelName.trim();
     final name = configured.isEmpty ? defaultModelName : configured;
@@ -73,7 +68,6 @@ class CcFirebaseAiClient implements CcAiClient {
         if (text == null || text.trim().isEmpty) {
           return _fail(StateError('Empty AI response'));
         }
-        _lastFailure = null;
         return CcAiResult.success(text);
       } catch (e, stack) {
         if (attempt < _maxAttempts && _isTransientServerError(e)) {
@@ -94,9 +88,7 @@ class CcFirebaseAiClient implements CcAiClient {
   }
 
   CcAiResult _fail(Object cause) {
-    final failure = CcAiFailure(classify(cause), cause: cause);
-    _lastFailure = failure;
-    return CcAiResult.failure(failure);
+    return CcAiResult.failure(CcAiFailure(classify(cause), cause: cause));
   }
 
   /// App Check (attestation) failures surface only in the error text.

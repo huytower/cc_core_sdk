@@ -56,7 +56,8 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
     `CcGeminiHelper.configure(modelName:)`.
   - Migration: `Schema.x(...)` -> `CcAiSchema.x(...)`;
     `generateText` / `generateFromImages` -> `generate(images:)`;
-    `lastError` -> `CcAiResult.failure` (or `CcAiClient.lastFailure`);
+    `lastError` -> `CcAiResult.failure` (there is no shared "last failure"
+    state: read the failure from the result of the call);
     string checks for App Check errors -> `CcAiFailureKind.deviceAttestation`.
     `generateFromImage` (single image, unused) is gone.
 - **Slack:** `CcSlackFeedbackHelper` and `CcSlackHandler` leave `cc_sdk` for

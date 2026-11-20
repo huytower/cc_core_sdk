@@ -22,10 +22,6 @@ abstract interface class CcAiClient {
     List<CcAiImage> images = const [],
     CcAiSchema? responseSchema,
   });
-
-  /// Failure of the most recent [generate] call (null if it succeeded), for
-  /// flows that only pass on a null result. Prefer [CcAiResult.failure].
-  CcAiFailure? get lastFailure;
 }
 
 /// An image sent with a prompt.
