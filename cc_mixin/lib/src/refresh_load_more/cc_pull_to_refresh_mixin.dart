@@ -90,11 +90,11 @@ mixin CcPullRefreshMixin {
 
   /// Callback for indicator state changes
   /// Override this for analytics/tracking purposes
-  /// Example: Firebase Analytics tracking of refresh states
+  /// Example: send the transition to an injected `CcAnalytics`.
   void onIndicatorStateChanged(IndicatorStateChange change) {
     // Override to implement analytics tracking
     // Example:
-    // FirebaseAnalytics().logEvent(name: 'refresh_state', parameters: {
+    // analytics.logEvent(name: 'refresh_state', parameters: {
     //   'from': change.from.name,
     //   'to': change.to.name,
     // });
@@ -105,8 +105,8 @@ mixin CcPullRefreshMixin {
   /// ## Responsive Sizing
   ///
   /// When [context] is provided, the mixin uses responsive sizing formulas:
-  /// - `imageSize` scales: baseSize * (screenWidth / 360).clamp(1.0, 2.0)
-  /// - `indicatorSize` scales: baseSize * (screenWidth / 360).clamp(1.0, 2.0)
+  /// - `imageSize` and `indicatorSize` scale with `context.respIconSize` (the
+  ///   shared `CcScale` curve).
   ///
   /// Without context, sizes default to hardcoded mobile values (backward compatible).
   ///

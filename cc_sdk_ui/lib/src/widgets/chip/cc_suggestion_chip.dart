@@ -9,15 +9,15 @@ import '../text/cc_text.dart';
 
 /// A tappable, dismissible tinted-background suggestion row — icon + one-line
 /// label + optional trailing "×" — used across "prefill on tap" AI-suggestion
-/// affordances (merchant/location match, budget estimate, etc).
+/// affordances (a previous choice, a nearby match, an estimate, etc.).
 ///
 /// This component is project-blind and state-agnostic.
 ///
 /// Usage:
 /// ```dart
 /// CcSuggestionChip(
-///   label: 'Like last time: Coffee · 30,000đ',
-///   accentColor: Colors.orange,
+///   label: 'Like last time: Coffee',
+///   accentColor: context.ccColorScheme.tertiary,
 ///   onTap: applySuggestion,
 ///   onDismiss: dismissSuggestion,
 /// )

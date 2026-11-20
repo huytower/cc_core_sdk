@@ -1,34 +1,41 @@
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
+import 'package:flutter/widgets.dart';
 
+/// Shows and hides the on-screen keyboard.
+///
+/// ```dart
+/// CcKeyboardHelper.dismissOnTap(child: const MyForm());
+/// ```
 class CcKeyboardHelper {
-  /// Shows the keyboard by focusing a new FocusNode
+  /// Shows the keyboard by giving focus to [focusNode] (a new node if null).
   ///
-  /// [context] - The BuildContext to use for showing the keyboard
-  /// [focusNode] - Optional FocusNode to use. If null, a new one will be created
+  /// With a [context], focus is requested in that context's focus scope;
+  /// without one, in the app's root focus scope.
   static void showKeyboard({BuildContext? context, FocusNode? focusNode}) {
     focusNode ??= FocusNode();
-    final currentContext = context ?? Get.context;
-    if (currentContext != null) {
-      FocusScope.of(currentContext).requestFocus(focusNode);
+    if (context != null) {
+      FocusScope.of(context).requestFocus(focusNode);
+    } else {
+      FocusManager.instance.rootScope.requestFocus(focusNode);
     }
   }
 
-  /// Logic : hide keyboard in two ways
+  /// Hides the keyboard by removing focus.
+  ///
+  /// With a [context], unfocuses that context's focus scope unless it holds
+  /// primary focus itself; without one, unfocuses whatever has primary focus.
   static void hideKeyboard({BuildContext? context}) {
     if (context == null) {
-      Get.focusScope?.unfocus();
+      FocusManager.instance.primaryFocus?.unfocus();
     } else {
-      var currentFocus = FocusScope.of(context);
+      final currentFocus = FocusScope.of(context);
       if (!currentFocus.hasPrimaryFocus) {
         currentFocus.unfocus();
       }
     }
   }
 
-  /// Wraps a widget with GestureDetector to hide keyboard on tap
+  /// Wraps [child] so a tap anywhere on it hides the keyboard.
   ///
-  /// [child] - The widget to wrap
   /// [context] - Optional BuildContext to use for hiding keyboard
   /// [behavior] - HitTestBehavior for the GestureDetector
   static Widget dismissOnTap({

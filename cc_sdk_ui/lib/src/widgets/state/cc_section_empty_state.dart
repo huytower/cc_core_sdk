@@ -6,8 +6,8 @@ import '../text/cc_text.dart';
 
 /// A subtle text-based empty state intended for sections or cards.
 ///
-/// Matches the design pattern used across the dashboard (e.g. Wallets,
-/// Investments, Liabilities).
+/// Use it where a section or card has nothing to show yet, in place of a full-page
+/// empty state.
 class CcSectionEmptyState extends StatelessWidget {
   const CcSectionEmptyState({
     super.key,

@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+### Deprecated (removed in 3.0.0)
+
+- `CcDeviceHelper.isLargeScreen`: guesses the device model from width and
+  bottom padding. Branch on `CcWindowSizeClass` measured from the space given.
+- `CcDeviceHelper.isVietnameseLocale`: locale-specific and unused. Read the
+  locale from `Localizations.localeOf(context)` or `PlatformDispatcher`.
+
+### Changed
+
+- `.Log()` serializes the value only when a line is actually written (debug
+  builds, or `isLargeString`), and no longer relies on `ccWhen` map keys to
+  pick between a string and an object. Output is unchanged.
+
 ## 2.0.0
 
 Vendor SDKs move out of the core into capability packages. `cc_sdk` keeps only

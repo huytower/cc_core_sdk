@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Draws a small "receipt" glyph (two lines + a zigzag bottom edge) centered
+/// Draws a small document glyph (two lines + a zigzag bottom edge) centered
 /// within the given [Size].
 class CcShapePainter extends CustomPainter {
   final Color color;

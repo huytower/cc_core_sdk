@@ -41,42 +41,38 @@ dependencies:
 ### Basic Button Example
 
 ```dart
-import 'package:cc_sdk_ui/widgets/button/cc_close_btn.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 
 CcCloseBtn(
   onTap: () {
     // Handle button press
   },
   icon: Icon(Icons.close),
-  bgColor: CcBaseColors.actionPrimary,
+  bgColor: context.ccColorScheme.primaryContainer,
 )
 ```
 
 ### Text Field with Validation
 
 ```dart
-import 'package:cc_sdk_ui/widgets/text_field/base_text_field.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 
-BaseTextField(
-  hintText: 'Enter your name',
+CcTextField(
   controller: _nameController,
+  hintText: nameHint, // already translated by the app
   onChanged: (value) {
     // Handle text changes
   },
-  onSubmit: (value) {
-    // Handle form submission
-  },
+  validator: (value) => (value ?? '').isEmpty ? requiredMessage : null,
 )
 ```
 
 ### Loading Indicator
 
 ```dart
-import 'package:cc_sdk_ui/widgets/api/loading_widget.dart';
+import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 
-LoadingPageWidget(
-  child: YourContentWidget(),
-)
+const LoadingPage()
 ```
 
 ### Theme Token Usage
