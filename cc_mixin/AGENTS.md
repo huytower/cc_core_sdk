@@ -9,3 +9,6 @@ distinctive about this package).
 - Keep mixins generic and project-blind; app-specific behavior belongs in the feature that uses the mixin, not
   in the mixin itself.
 - No DI file — this is a mixin library.
+- Dependencies: every collaborator comes in through the constructor; `getIt` is used only in this package's
+  `lib/core/di/di.dart`. A class needing more than 5 dependencies is split into smaller injected classes;
+  mixins carry no external dependencies.

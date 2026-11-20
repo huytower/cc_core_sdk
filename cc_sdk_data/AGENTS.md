@@ -7,3 +7,6 @@ distinctive about this package).
   reusable across any app built on this template — app-specific models belong in `modules/data_config` or the
   owning feature's `data/models/` instead.
 - State-management agnostic, same as the rest of `cc_core_sdk`.
+- Dependencies: every collaborator comes in through the constructor; `getIt` is used only in this package's
+  `lib/core/di/di.dart`. A class needing more than 5 dependencies is split into smaller injected classes;
+  mixins carry no external dependencies.
