@@ -64,25 +64,6 @@ class CcWidgetHelper {
       );
 
   // ==========================================================================
-  // LAYOUT HELPERS
-  // ==========================================================================
-
-  /// Determines the appropriate BoxFit based on presentation dimensions
-  ///
-  /// [screenWidth] - The width of the presentation in logical pixels
-  /// [bottomPadding] - The bottom padding from MediaQuery
-  @Deprecated(
-    'Guesses the device model. Choose the BoxFit from the space given '
-    '(LayoutBuilder / CcWindowSizeClass) instead. Removed in 3.0.0.',
-  )
-  static BoxFit getBoxFitType({
-    required double screenWidth,
-    required double bottomPadding,
-  }) => screenWidth >= 400.0 && bottomPadding > 20.0
-      ? BoxFit.fill
-      : BoxFit.cover;
-
-  // ==========================================================================
   // SCROLLING HELPERS
   // ==========================================================================
 

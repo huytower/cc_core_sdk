@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
@@ -33,23 +31,6 @@ class CcDeviceHelper {
 
     return heightKeyboard;
   }
-
-  /// Checks if the device has a large screen (typically iPhone Pro Max models).
-  @Deprecated(
-    'Guesses the device model. Branch on CcWindowSizeClass measured from the '
-    'space given instead. Removed in 3.0.0.',
-  )
-  static bool isLargeScreen({
-    required double screenWidth,
-    required double bottomPadding,
-  }) => screenWidth >= 400.0 && bottomPadding > 20.0;
-
-  /// Checks if the current device locale is Vietnamese.
-  @Deprecated(
-    'Locale-specific and unused. Read the locale from '
-    'Localizations.localeOf(context) or PlatformDispatcher. Removed in 3.0.0.',
-  )
-  static bool isVietnameseLocale() => Platform.localeName.contains('VN');
 
   // ==========================================================================
   // ORIENTATION POLICY

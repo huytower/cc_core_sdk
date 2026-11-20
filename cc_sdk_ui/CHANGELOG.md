@@ -10,8 +10,9 @@
   `Get.context` / `Get.focusScope`. Apps that use GetX declare `get`
   themselves.
 
-### Deprecated (removed in 3.0.0)
+### Breaking
 
-- `CcWidgetHelper.getBoxFitType`: guesses the device model from width and
-  bottom padding. Choose the `BoxFit` from the space given (`LayoutBuilder` /
-  `CcWindowSizeClass`).
+- Removed `CcWidgetHelper.getBoxFitType` (guessed the device model from width
+  and bottom padding), without a deprecation release: nothing in this
+  workspace called it. Migration: choose the `BoxFit` from the space given
+  (`LayoutBuilder` / `CcWindowSizeClass`).
