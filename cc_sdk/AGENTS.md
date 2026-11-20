@@ -10,3 +10,6 @@ distinctive about this package).
 - `CcBaseColors` (color primitives) lives here; `modules/theme`'s `PrjColors` builds on top of it — don't
   duplicate a primitive that already exists here.
 - DI file: `lib/core/di/di.dart`.
+- Dependencies: every collaborator comes in through the constructor; `getIt` is used only in this package's
+  `lib/core/di/di.dart`. A class needing more than 5 dependencies is split into smaller injected classes;
+  mixins carry no external dependencies.

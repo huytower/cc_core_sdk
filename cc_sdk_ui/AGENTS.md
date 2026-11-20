@@ -13,3 +13,6 @@ distinctive about this package).
 - All widgets consume theme via `CcContextExtension` (`context.ccColorScheme`, `context.ccTextTheme`) and
   dimensions via `context.resp*` — never a hardcoded color, font, or fixed pixel size.
 - No DI file — this is a stateless UI library.
+- Dependencies: every collaborator comes in through the constructor; `getIt` is used only in this package's
+  `lib/core/di/di.dart`. A class needing more than 5 dependencies is split into smaller injected classes;
+  mixins carry no external dependencies.
