@@ -112,6 +112,16 @@ the interfaces, so an app that does not use a vendor no longer pulls it in.
   `cc_sdk` now has 15 runtime dependencies (was 27), none of them a vendor
   service SDK.
 
+- **Package layout:** `cc_sdk`, `cc_sdk_ui` and `cc_sdk_data` keep their
+  implementation in `lib/src/` (like `cc_mixin` and the capability packages).
+  Import only the barrels (`export_cc_sdk.dart`, `export_cc_sdk_ui.dart`,
+  `export_cc_sdk_data.dart`); deep imports such as
+  `package:cc_sdk_ui/widgets/...` no longer resolve. `lib/core/di/` stays
+  public for DI wiring (`package:cc_sdk/core/di/di.module.dart`). The
+  barrels now also export `CcServerException`, `CcListBannerMedium`,
+  `CcRefreshIndicator` and `CcRefreshIndicatorIcon`, which consumers used to
+  deep-import.
+
 ### Added (since 1.0.0, non-breaking)
 
 - `CcSdkConfig` (typed settings via `CcSdkConfig.configure()`); the SDK no

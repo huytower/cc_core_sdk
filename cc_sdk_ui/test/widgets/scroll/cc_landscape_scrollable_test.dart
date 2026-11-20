@@ -1,4 +1,4 @@
-import 'package:cc_sdk_ui/widgets/scroll/cc_landscape_scrollable.dart';
+import 'package:cc_sdk_ui/src/widgets/scroll/cc_landscape_scrollable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 

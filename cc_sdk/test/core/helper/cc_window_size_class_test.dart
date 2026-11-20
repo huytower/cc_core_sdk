@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/helper/cc_window_size_class.dart';
+import 'package:cc_sdk/src/core/helper/cc_window_size_class.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -1,4 +1,4 @@
-import 'package:cc_sdk/core/helper/cc_scale.dart';
+import 'package:cc_sdk/src/core/helper/cc_scale.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
