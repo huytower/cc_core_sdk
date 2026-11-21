@@ -3,7 +3,11 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-/// On-device path for [catcher_2](https://pub.dev/packages/catcher_2) file logs.
+/// On-device crash log file, written by the app's error hook (for example
+/// `CcCatcherBootstrap` in `cc_sdk_catcher`) and read by a log viewer.
+///
+/// The name stays `catcher_crash.log` so logs written by earlier versions
+/// remain readable.
 abstract final class CcCrashLogPaths {
   CcCrashLogPaths._();
 

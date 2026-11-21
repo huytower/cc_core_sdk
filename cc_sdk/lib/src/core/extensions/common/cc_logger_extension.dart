@@ -1,7 +1,7 @@
+import 'dart:convert';
 import 'dart:developer' as developer;
 
 import 'package:cc_sdk/src/core/config/cc_feature_flags.dart';
-import 'package:cc_sdk/src/core/serialization/gson/cc_gson.dart';
 import 'package:flutter/foundation.dart';
 
 /// Debug logging extension for any value.
@@ -13,9 +13,8 @@ extension CcLoggerExtension<T> on T {
   ///
   /// Nothing happens unless [CcFeatureFlags.isEnableLogger] is on. Regular
   /// logs go out in debug builds only; with [isLargeString] the value is
-  /// logged in every build mode, without truncation. Strings are logged as
-  /// is, other values as their `ccGson` encoding (or `toString()` if that
-  /// fails).
+  /// logged in every build mode, without truncation. Maps and lists are
+  /// logged as JSON, other values as their `toString()`.
   ///
   /// Kept as [Log] for backward compatibility with existing call sites.
   T Log([
@@ -45,11 +44,16 @@ extension CcLoggerExtension<T> on T {
   }
 }
 
-/// The text `.Log()` writes for [value].
+/// The text `.Log()` writes for [value]: maps and lists as JSON (any value
+/// JSON cannot hold, written with its `toString()`), anything else as its
+/// `toString()`.
 String _ccLogContent(Object? value) {
-  if (value == null || value is String) return '$value';
+  if (value is! Map && value is! Iterable) return '$value';
   try {
-    return ccGson.encode(value);
+    return jsonEncode(
+      value is Iterable ? value.toList() : value,
+      toEncodable: (Object? nonEncodable) => nonEncodable.toString(),
+    );
   } catch (e) {
     return '[Serialization Error] $e | $value';
   }

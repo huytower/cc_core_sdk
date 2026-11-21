@@ -1,7 +1,3 @@
-import 'package:catcher_2/model/platform_type.dart';
-import 'package:catcher_2/model/report.dart';
-import 'package:catcher_2/model/report_handler.dart';
-
 /// Crash and error reporting, independent of any vendor.
 ///
 /// The SDK core only defines this contract. An implementation comes from a
@@ -10,8 +6,9 @@ import 'package:catcher_2/model/report_handler.dart';
 /// register [CcNoopCrashReporter]. Implementations must never throw: a
 /// failure to report must not mask the original error.
 ///
-/// Uncaught errors reach it through Catcher2 ([CcCrashReporterHandler], wired
-/// by `CcCatcherBootstrap`). Errors caught in a try/catch and turned into a
+/// Uncaught errors reach it through the app's error hook (for example
+/// `CcCrashReporterHandler`, wired by `CcCatcherBootstrap`, both in
+/// `cc_sdk_catcher`). Errors caught in a try/catch and turned into a
 /// `Result.Error` do not: call [recordError] from those catch blocks when the
 /// failure is worth diagnosing.
 ///
@@ -48,28 +45,4 @@ class CcNoopCrashReporter implements CcCrashReporter {
     required String reason,
     bool fatal = false,
   }) async {}
-}
-
-/// Catcher2 [ReportHandler] that forwards uncaught errors to a
-/// [CcCrashReporter].
-class CcCrashReporterHandler extends ReportHandler {
-  CcCrashReporterHandler(this._reporter);
-
-  final CcCrashReporter _reporter;
-
-  @override
-  Future<bool> handle(Report report, _) async {
-    await _reporter.recordError(
-      report.error,
-      report.stackTrace,
-      reason: 'Caught by Catcher2',
-    );
-    return true;
-  }
-
-  @override
-  List<PlatformType> getSupportedPlatforms() => [
-    PlatformType.android,
-    PlatformType.iOS,
-  ];
 }

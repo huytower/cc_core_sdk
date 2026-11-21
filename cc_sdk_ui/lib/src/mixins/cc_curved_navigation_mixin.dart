@@ -107,11 +107,6 @@ mixin CcCurvedNavigationMixin {
 
   double? get navigationFabRadius => null;
 
-  /// Optional built-in style preset
-  // Note: CNBPStyles is from curved_navigation_bar_pro package
-  // Import it if you want to use built-in presets
-  dynamic get navbarStyle => null;
-
   /// Whether the bar pads for the system bottom inset itself. Override to
   /// false when the host already applies that inset (avoids double padding).
   bool get navigationUseSafeArea => true;
@@ -129,7 +124,6 @@ mixin CcCurvedNavigationMixin {
       fabColor: navigationFabColor,
       barHeight: navigationBarHeight,
       fabRadius: navigationFabRadius,
-      navbarStyle: navbarStyle,
       useSafeArea: navigationUseSafeArea,
     );
   }

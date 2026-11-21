@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+### Breaking (next release: 3.0.0)
+
+- `catcher_2` left the core ring: `CcCatcherBootstrap` and
+  `CcCrashReporterHandler` moved to the new capability package
+  `cc_sdk_catcher`. Migration: depend on `cc_sdk_catcher` and import
+  `package:cc_sdk_catcher/export_cc_sdk_catcher.dart`. `CcCrashReporter`,
+  `CcNoopCrashReporter` and `CcCrashLogPaths` stay here.
+- Removed the vendored gson (`CcGson`, `ccGson`, 922 lines; it was never
+  exported) and the `ansicolor` dependency. `.Log()` now writes maps and lists
+  as JSON (`dart:convert`) and other values with `toString()`. Migration:
+  none for callers; models use `json_serializable` or `dart:convert`.
+
 ### Added
 
 - Added `example/main.dart` and tests; `test/example_test.dart` keeps the example working.

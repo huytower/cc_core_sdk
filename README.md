@@ -12,14 +12,14 @@ Universal Logic Layer for Flutter Hybrid-Modular Super Apps - KMP-ready, state-m
 ## Packages
 
 ### cc_sdk
-Core utilities, extensions, network, failures, ccGson serialization, logging.
+Core utilities, extensions, network, failures, logging.
 
 **Main Components:**
 - **Extensions**: Kotlin-style scope/when expressions, UI extensions, logger extension
 - **Helpers**: Date/time, device, formatting, images, strings, throttling
 - **Network**: CcNetworkInfo, curl utilities
-- **Serialization**: ccGson (GSON-style JSON handling)
-- **Logging**: .Log() extension with environment-based silencing
+- **Logging**: .Log() extension with environment-based silencing (maps and lists logged as JSON)
+- **Crash reporting**: `CcCrashReporter` interface, `CcCrashLogPaths` (the handler lives in `cc_sdk_catcher`)
 - **Failures**: CcFailure type hierarchy
 
 ### cc_sdk_ui
@@ -31,8 +31,12 @@ Design system, responsive widgets, spacing tokens, Plus Jakarta Sans typography.
 - **Inputs**: Text fields, phone inputs, OTP inputs, country selectors
 - **Pages**: Error/loading/empty/retry pages
 - **Dialogs**: Base dialogs, modal sheets, message dialogs
-- **Navigation**: Curved navigation bars
+- **Navigation**: Curved navigation bar (vendored, MIT), navigation rail
+- **Lists**: `CcLoadMoreList` (loads the next page at the list end), pull-to-refresh
 - **Extensions**: Context extensions, responsive helpers
+
+**Widget-building mixins** (state-management agnostic): `CcViewConfigMixin`,
+`CcPullRefreshMixin`, `CcLoadMoreMixin`, `CcCurvedNavigationMixin`.
 
 **Design System:**
 - **Colors**: CcBaseColors → PrjColors → context.ccColorScheme
@@ -41,13 +45,15 @@ Design system, responsive widgets, spacing tokens, Plus Jakarta Sans typography.
 - **Responsive**: context.respPadding(), context.respFontSize(), context.respDim()
 
 ### cc_mixin
-Reusable behaviors for common functionality.
+Reusable behaviors with no widget of their own; depends only on `cc_sdk_data`.
 
 **Mixins:**
-- **Navigation**: CcCurvedNavigationMixin
-- **Pagination**: CcLoadMoreMixin, CcPullToRefreshMixin
-- **Back Handling**: DoubleBackToExitMixin
-- **View Config**: CcViewConfigMixin
+- **Pagination**: PaginationMixin
+- **Back Handling**: DoubleBackToExitMixin (override `showBackPressHint` to style the hint)
+
+### cc_sdk_catcher
+Capability package: uncaught-error handling on `catcher_2` (`CcCatcherBootstrap`,
+`CcCrashReporterHandler`), so the core ring does not depend on it.
 
 ### cc_sdk_data
 Core data entities and models for shared data structures.
@@ -113,11 +119,8 @@ if (context.isLandscape) { /* landscape layout */ }
 ```
 
 ### Serialization
-```dart
-// Use ccGson for JSON handling
-final json = ccGson.encode(entity);
-final entity = ccGson.decode<MyEntity>(json);
-```
+The SDK ships no serializer. Apps use `json_serializable` (or `dart:convert`)
+on their own models.
 
 ## DI Convention
 

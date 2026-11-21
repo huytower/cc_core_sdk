@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
-import 'package:cc_sdk/src/core/crash_reporting/cc_crash_reporter.dart';
-import 'package:cc_sdk/src/core/extensions/export_cc_extensions.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cc_sdk/export_cc_sdk.dart';
+import 'package:cc_sdk_catcher/src/cc_crash_reporter_handler.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 /// Custom ConsoleHandler that logs device info as JSON instead of individual lines
 class _JsonConsoleHandler extends ConsoleHandler {

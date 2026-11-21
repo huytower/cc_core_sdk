@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'double_back_to_exit_snackbar.dart';
-
 /// Mixin for implementing "press back twice to exit" functionality.
 ///
 /// This version is compatible with both [StatefulWidget] and [StatelessWidget]
@@ -35,6 +33,15 @@ mixin DoubleBackToExitMixin {
   /// Message shown on first back press.
   /// Override this to provide a localized message.
   String get backPressMessage => 'Press back again to exit';
+
+  /// Shows [message] after the first back press. The default is a plain
+  /// [SnackBar]; override it to use the app's design system (for example
+  /// `showDoubleBackPressSnackBar` from `cc_sdk_ui`).
+  void showBackPressHint(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), duration: _doubleBackDuration),
+    );
+  }
 
   /// Enable double back behavior on iOS (default: false).
   bool get enableDoubleBackOnIOS => false;
@@ -75,7 +82,7 @@ mixin DoubleBackToExitMixin {
 
     if (isFirstPress) {
       _lastBackPressedAt = now;
-      showDoubleBackPressSnackBar(context, backPressMessage);
+      showBackPressHint(context, backPressMessage);
     } else {
       _lastBackPressedAt = null;
       _exitApp();

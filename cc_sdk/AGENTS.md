@@ -3,7 +3,7 @@
 Package-scoped addendum to the repo root `AGENTS.md` (read that first — this file only covers what's
 distinctive about this package).
 
-- Universal Logic Layer: network utilities, device info, `CcFailure`, `ccGson` serialization, the `.Log()`
+- Universal Logic Layer: network utilities, device info, `CcFailure`, the `.Log()`
   extension. Must stay state-management agnostic — no Bloc/GetX dependency.
 - Every service registered here must be `@lazySingleton` — this package is on the App Shell's critical boot
   path (Turbo Boot < 2s budget).

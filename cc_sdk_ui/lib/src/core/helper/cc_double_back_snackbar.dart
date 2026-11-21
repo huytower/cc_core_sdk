@@ -1,9 +1,15 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 
-/// Shows a snackbar indicating that the user should press back again to exit.
+/// Shows the "press back again to exit" hint with design-system styling.
 ///
-/// Uses standard tokens from [cc_sdk_ui] for consistent styling.
+/// Use it from `DoubleBackToExitMixin.showBackPressHint` (`cc_mixin`).
+///
+/// ```dart
+/// @override
+/// void showBackPressHint(BuildContext context, String message) =>
+///     showDoubleBackPressSnackBar(context, message);
+/// ```
 void showDoubleBackPressSnackBar(BuildContext context, String message) {
   CcSnackBarHelper.showSnackBar(
     context: context,

@@ -9,7 +9,6 @@ export 'package:cc_sdk/src/core/config/cc_app_track_info.dart';
 export 'package:cc_sdk/src/core/config/cc_feature_flags.dart';
 export 'package:cc_sdk/src/core/config/cc_route_config.dart';
 export 'package:cc_sdk/src/core/config/cc_sdk_config.dart';
-export 'package:cc_sdk/src/core/crash_reporting/cc_catcher_bootstrap.dart';
 export 'package:cc_sdk/src/core/crash_reporting/cc_crash_log_paths.dart';
 export 'package:cc_sdk/src/core/crash_reporting/cc_crash_reporter.dart';
 export 'package:cc_sdk/src/core/error/cc_exceptions.dart';

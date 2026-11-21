@@ -14,13 +14,9 @@ resolution: workspace
 dependencies:
   cc_sdk_data:
     path: ../cc_sdk_data
-  cc_sdk_ui:
-    path: ../cc_sdk_ui
   flutter:
     sdk: flutter
-  loadmore: ^2.1.0
   multiple_result: ^5.3.0
-  custom_refresh_indicator: ^4.0.2
 
 dev_dependencies:
   flutter_lints: ^6.0.0

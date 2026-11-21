@@ -12,9 +12,6 @@ environment:
 resolution: workspace
 
 dependencies:
-  ansicolor: ^2.0.3
-
-  catcher_2: ^2.1.12
   cc_sdk_data:
     path: ../cc_sdk_data
   connectivity_plus: ^7.3.1

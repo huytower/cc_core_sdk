@@ -1,9 +1,13 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
-import 'package:curved_navigation_bar_pro/curved_navigation_bar_pro.dart';
+import 'package:cc_sdk_ui/src/widgets/navigation/curved/curved_bar_view.dart';
 import 'package:flutter/material.dart';
 
-/// A curved navigation bar component built on curved_navigation_bar_pro
-/// with project-specific theming and configuration.
+/// Bottom navigation bar with a curved notch and an elastic bubble under the
+/// selected item (2 to 6 [items]), themed with the design-system tokens.
+///
+/// ```dart
+/// CcCurvedNavigationBar(items: items, currentIndex: index, onTap: select)
+/// ```
 class CcCurvedNavigationBar extends StatelessWidget {
   const CcCurvedNavigationBar({
     super.key,
@@ -30,7 +34,6 @@ class CcCurvedNavigationBar extends StatelessWidget {
     this.inactiveTextStyle,
     this.inactiveIconSize,
     this.activeIconSize,
-    this.navbarStyle,
     this.useSafeArea = true,
   });
 
@@ -103,11 +106,6 @@ class CcCurvedNavigationBar extends StatelessWidget {
   /// Size of active icons
   final double? activeIconSize;
 
-  /// Built-in style preset to use
-  // Note: CNBPStyles is from curved_navigation_bar_pro package
-  // Use dynamic to avoid import issues when not using presets
-  final dynamic navbarStyle;
-
   /// Whether the bar adds the system bottom inset (and a SafeArea) itself.
   /// Set to false when the caller already pads for the system bar, otherwise
   /// the inset is applied twice and the bar grows taller than intended.
@@ -133,20 +131,8 @@ class CcCurvedNavigationBar extends StatelessWidget {
         shadowColor ??
         (isDark ? CcBaseColors.transparent : CcBaseColors.neutral10);
 
-    return CurvedNavigationBarPro(
-      items: items
-          .map(
-            (item) => CurvedNavigationItemPro(
-              inactiveIcon: item.inactiveIcon,
-              activeIcon: item.activeIcon,
-              label: item.label,
-              badgeText: item.badgeText,
-              badgeColor: item.badgeColor,
-              badgeTextColor: item.badgeTextColor,
-              badgeWidget: item.badgeWidget,
-            ),
-          )
-          .toList(),
+    return CurvedBarView(
+      items: items,
       currentIndex: currentIndex,
       onTap: onTap,
       backgroundColor: themeBackgroundColor,
@@ -170,50 +156,18 @@ class CcCurvedNavigationBar extends StatelessWidget {
           activeTextStyle ??
           context.ccTextTheme.labelMedium?.copyWith(
             fontWeight: CcTypographyParams.bold,
-          ),
+          ) ??
+          const TextStyle(fontWeight: CcTypographyParams.bold),
       inactiveTextStyle:
           inactiveTextStyle ??
           context.ccTextTheme.labelMedium?.copyWith(
             fontWeight: CcTypographyParams.regular,
-          ),
+          ) ??
+          const TextStyle(fontWeight: CcTypographyParams.regular),
       inactiveIconSize: inactiveIconSize ?? context.respIconSize(baseSize: 29),
       activeIconSize: activeIconSize ?? context.respIconSize(baseSize: 26),
-      navbarStyle: navbarStyle,
       useSafeArea: useSafeArea,
     );
   }
 }
 
-/// Data class for navigation items in CcCurvedNavigationBar
-class CcCurvedNavigationItem {
-  const CcCurvedNavigationItem({
-    required this.inactiveIcon,
-    required this.activeIcon,
-    required this.label,
-    this.badgeText,
-    this.badgeColor,
-    this.badgeTextColor,
-    this.badgeWidget,
-  });
-
-  /// Icon to show when item is inactive
-  final IconData inactiveIcon;
-
-  /// Icon to show when item is active
-  final IconData activeIcon;
-
-  /// Label text for the item
-  final String label;
-
-  /// Optional badge text (e.g., "3", "99+", "•")
-  final String? badgeText;
-
-  /// Optional custom badge color
-  final Color? badgeColor;
-
-  /// Optional custom badge text color
-  final Color? badgeTextColor;
-
-  /// Optional custom badge widget (overrides text-based badge)
-  final Widget? badgeWidget;
-}
