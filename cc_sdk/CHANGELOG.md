@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Added `example/main.dart` and tests; `test/example_test.dart` keeps the example working.
+
 ### Breaking
 
 - Removed `CcDeviceHelper.isLargeScreen` (guessed the device model from width
