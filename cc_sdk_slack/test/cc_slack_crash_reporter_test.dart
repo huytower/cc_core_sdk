@@ -29,8 +29,29 @@ void main() {
         '[LiabilityRepositoryImpl.getLiability]`',
       ),
     );
-    expect(message, contains('*reason*: `LiabilityRepositoryImpl.safeRequest`'));
-    expect(message, contains('2026-11-21 16:32 PM'));
+    expect(
+      message,
+      contains('*reason*: `LiabilityRepositoryImpl.safeRequest`'),
+    );
+    expect(message, contains('2026-11-21 04:32 PM'));
+  });
+
+  test('the time is on a 12-hour clock', () {
+    String at(int hour, int minute) => CcSlackCrashReporter.format(
+      Exception('x'),
+      null,
+      reason: 'r',
+      fatal: false,
+      device: 'n/a',
+      appCheck: 'n/a',
+      time: DateTime(2026, 11, 21, hour, minute),
+    );
+
+    expect(at(22, 19), contains('2026-11-21 10:19 PM'));
+    expect(at(0, 5), contains('2026-11-21 12:05 AM'));
+    expect(at(12, 30), contains('2026-11-21 12:30 PM'));
+    expect(at(9, 7), contains('2026-11-21 09:07 AM'));
+    expect(at(22, 19), isNot(contains('22:19')));
   });
 
   test('marks fatal errors', () {

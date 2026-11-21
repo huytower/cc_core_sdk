@@ -47,12 +47,23 @@ class CcSlackAlertSupport {
     return 'Unknown location';
   }
 
-  /// `yyyy-MM-dd hh:mm AM` in local time.
+  /// `yyyy-MM-dd hh:mm AM` in local time, on a 12-hour clock
+  /// (22:19 → `10:19 PM`, 00:05 → `12:05 AM`, 12:30 → `12:30 PM`).
   static String localTimestamp(DateTime time) {
     final local = time.toLocal();
     String two(int n) => n >= 10 ? '$n' : '0$n';
     final amPm = local.hour >= 12 ? 'PM' : 'AM';
+    final hour12 = local.hour % 12 == 0 ? 12 : local.hour % 12;
     return '${local.year}-${two(local.month)}-${two(local.day)} '
-        '${two(local.hour)}:${two(local.minute)} $amPm';
+        '${two(hour12)}:${two(local.minute)} $amPm';
+  }
+
+  /// The device's UTC offset at [time], e.g. `GMT+7`, `GMT-5`, `GMT+5:30`.
+  static String gmtOffset(DateTime time) {
+    final offset = time.toLocal().timeZoneOffset;
+    final sign = offset.isNegative ? '-' : '+';
+    final minutes = offset.inMinutes.abs();
+    final rest = minutes % 60;
+    return 'GMT$sign${minutes ~/ 60}${rest == 0 ? '' : ':${rest.toString().padLeft(2, '0')}'}';
   }
 }

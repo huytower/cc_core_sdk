@@ -32,8 +32,9 @@ class CcSlackFeedbackReporter implements CcFeedbackReporter {
     if (_lastMessage == message &&
         _lastSentAt != null &&
         now.difference(_lastSentAt!) < duplicateWindow) {
-      '⚠️ Dropped duplicate feedback within ${duplicateWindow.inSeconds}s'
-          .Log(_tag);
+      '⚠️ Dropped duplicate feedback within ${duplicateWindow.inSeconds}s'.Log(
+        _tag,
+      );
       return false;
     }
     _lastMessage = message;

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Fixed the alert time: it mixed a 24-hour hour with AM/PM (`22:19 PM`); it
+  is now a 12-hour clock (`10:19 PM`). Catcher2 alerts (`CcSlackHandler`)
+  show the device's real UTC offset instead of a fixed `(GMT+7)`.
 - Added `CcSlackCrashReporter`, a `CcCrashReporter` that posts each recorded
   error (caught or uncaught) to a Slack webhook, with app version, device and
   App Check state. It shares a 5-minute duplicate throttle with

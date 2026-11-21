@@ -51,9 +51,7 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      CcSdkSlackExampleApp(
-        reporter: CcSlackFeedbackReporter(webhookUrl: ''),
-      ),
+      CcSdkSlackExampleApp(reporter: CcSlackFeedbackReporter(webhookUrl: '')),
     );
 
     await tester.tap(find.text('Send'));

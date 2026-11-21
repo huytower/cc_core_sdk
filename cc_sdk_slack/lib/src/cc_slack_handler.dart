@@ -43,8 +43,7 @@ class CcSlackHandler extends ReportHandler {
     }
 
     try {
-      final appCheckStatus =
-          await _attestation?.statusDescription() ?? 'n/a';
+      final appCheckStatus = await _attestation?.statusDescription() ?? 'n/a';
       final messageText = _formatStructuredSlackMessage(
         report,
         appCheckStatus: appCheckStatus,
@@ -211,15 +210,9 @@ class CcSlackHandler extends ReportHandler {
       who = 'Anonymous Guest';
     }
 
-    // When dynamically
-    final localTime = report.dateTime.toLocal();
-    final year = localTime.year;
-    final month = _twoDigits(localTime.month);
-    final day = _twoDigits(localTime.day);
-    final hour = _twoDigits(localTime.hour);
-    final minute = _twoDigits(localTime.minute);
-    final amPm = localTime.hour >= 12 ? 'PM' : 'AM';
-    final when = '$year-$month-$day $hour:$minute $amPm (GMT+7)';
+    final when =
+        '${CcSlackAlertSupport.localTimestamp(report.dateTime)} '
+        '(${CcSlackAlertSupport.gmtOffset(report.dateTime)})';
 
     final buffer = StringBuffer()
       ..writeln('*🚨 Crash caught by Catcher2*')
@@ -232,8 +225,6 @@ class CcSlackHandler extends ReportHandler {
 
     return buffer.toString().trim();
   }
-
-  static String _twoDigits(int n) => n >= 10 ? '$n' : '0$n';
 
   @override
   List<PlatformType> getSupportedPlatforms() => [

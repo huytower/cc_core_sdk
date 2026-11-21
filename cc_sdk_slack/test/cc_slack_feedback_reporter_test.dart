@@ -16,7 +16,11 @@ const _vi = CcFeedbackLabels(
 void main() {
   test('formats rating, tags and text with the given labels', () {
     final message = CcSlackFeedbackReporter.format(
-      const CcFeedback(text: ' Hay quá ', praise: ['Nhanh', 'Gọn'], rating: 4.25),
+      const CcFeedback(
+        text: ' Hay quá ',
+        praise: ['Nhanh', 'Gọn'],
+        rating: 4.25,
+      ),
       _vi,
     );
 
