@@ -1,7 +1,7 @@
 name: cc_sdk_data
 description: Core SDK Data module containing reusable domain entities for auth and other shared data structures.
 publish_to: none
-version: 1.0.0+1
+version: 2.0.0
 
 environment:
   sdk: '^3.12.0'

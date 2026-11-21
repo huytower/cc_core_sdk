@@ -1,6 +1,6 @@
 name: cc_mixin
 description: Reusable mixins for the project.
-version: 1.0.0
+version: 2.0.0
 publish_to: none
 repository: https://github.com/huytower/cc_core_sdk
 homepage: https://github.com/huytower/cc_core_sdk
