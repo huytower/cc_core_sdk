@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter/material.dart';
 
@@ -175,7 +174,15 @@ class CcDialogHelper {
 
       await dialogFuture;
     } catch (error, stackTrace) {
-      'Error showing confirmation dialog: $error'.Log();
+      // Reaches FlutterError.onError, which the app routes to its logger.
+      FlutterError.reportError(
+        FlutterErrorDetails(
+          exception: error,
+          stack: stackTrace,
+          library: 'cc_sdk_ui',
+          context: ErrorDescription('while showing a confirmation dialog'),
+        ),
+      );
     }
   }
 }

@@ -4,8 +4,9 @@ import 'package:injectable/injectable.dart';
 
 /// [CcCrashReporter] backed by Firebase Crashlytics.
 ///
-/// No-ops when `CcFeatureFlags.isCrashReportingEnabled` is false. Never
-/// throws: a failure to report must not mask the original error.
+/// To turn reporting off, use Crashlytics' own collection switch
+/// (`setCrashlyticsCollectionEnabled`) or register another [CcCrashReporter].
+/// Never throws: a failure to report must not mask the original error.
 @LazySingleton(as: CcCrashReporter)
 class CcFirebaseCrashReporter implements CcCrashReporter {
   CcFirebaseCrashReporter(this._crashlytics);
@@ -14,7 +15,6 @@ class CcFirebaseCrashReporter implements CcCrashReporter {
 
   @override
   Future<void> log(String message) async {
-    if (!CcFeatureFlags.isCrashReportingEnabled) return;
     try {
       await _crashlytics.log(message);
     } catch (_) {
@@ -29,7 +29,6 @@ class CcFirebaseCrashReporter implements CcCrashReporter {
     required String reason,
     bool fatal = false,
   }) async {
-    if (!CcFeatureFlags.isCrashReportingEnabled) return;
     try {
       await _crashlytics.recordError(
         error,

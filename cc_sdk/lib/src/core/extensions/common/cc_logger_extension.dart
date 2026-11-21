@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 
-import 'package:cc_sdk/src/core/config/cc_feature_flags.dart';
+import 'package:cc_sdk/src/core/config/cc_sdk_config.dart';
 import 'package:flutter/foundation.dart';
 
 /// Debug logging extension for any value.
@@ -11,7 +11,7 @@ extension CcLoggerExtension<T> on T {
   // ignore: non_constant_identifier_names
   /// Logs [this] and returns it unchanged.
   ///
-  /// Nothing happens unless [CcFeatureFlags.isEnableLogger] is on. Regular
+  /// Nothing happens unless [CcSdkConfig.enableLogger] is on. Regular
   /// logs go out in debug builds only; with [isLargeString] the value is
   /// logged in every build mode, without truncation. Maps and lists are
   /// logged as JSON, other values as their `toString()`.
@@ -22,7 +22,7 @@ extension CcLoggerExtension<T> on T {
     bool isLargeString = false,
     String tagName = 'logger:~~~/',
   ]) {
-    if (!CcFeatureFlags.isEnableLogger) return this;
+    if (!CcSdkConfig.current.enableLogger) return this;
 
     if (isLargeString) {
       developer.log(

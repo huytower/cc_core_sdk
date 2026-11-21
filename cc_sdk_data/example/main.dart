@@ -1,13 +1,21 @@
-// Minimal example of cc_sdk_data on its own: no app module, no domain feature.
+// Minimal example of cc_sdk_data on its own: no Flutter, no app module, no
+// domain feature.
 //
 // It pages through a fake user source with PaginationRequest, gets back a
-// Result<List<CcUserEntity>, CcFailure>, and shows either the users or the
+// Result<List<CcUserEntity>, CcFailure>, and prints either the users or the
 // failure message.
 import 'package:cc_sdk_data/export_cc_sdk_data.dart';
-import 'package:flutter/material.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-void main() => runApp(const CcSdkDataExampleApp());
+Future<void> main() async {
+  const source = ExampleUserSource();
+  var request = const PaginationRequest();
+  for (var i = 0; i < 2; i++) {
+    // ignore: avoid_print
+    describePage(request, await source.fetch(request)).forEach(print);
+    request = request.nextPage();
+  }
+}
 
 /// A data source as an app would write it: it takes a [PaginationRequest] and
 /// answers with a [Result], never by throwing.
@@ -45,87 +53,14 @@ class ExampleUserSource {
   }
 }
 
-class CcSdkDataExampleApp extends StatelessWidget {
-  const CcSdkDataExampleApp({
-    super.key,
-    this.source = const ExampleUserSource(),
-  });
-
-  final ExampleUserSource source;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'cc_sdk_data example',
-      home: ExampleUserPage(source: source),
-    );
-  }
-}
-
-class ExampleUserPage extends StatefulWidget {
-  const ExampleUserPage({super.key, required this.source});
-
-  final ExampleUserSource source;
-
-  @override
-  State<ExampleUserPage> createState() => _ExampleUserPageState();
-}
-
-class _ExampleUserPageState extends State<ExampleUserPage> {
-  PaginationRequest _request = const PaginationRequest();
-  List<CcUserEntity> _users = const [];
-  CcFailure? _failure;
-
-  @override
-  void initState() {
-    super.initState();
-    _load(_request);
-  }
-
-  Future<void> _load(PaginationRequest request) async {
-    final result = await widget.source.fetch(request);
-    if (!mounted) return;
-    setState(() {
-      _request = request;
-      result.when(
-        (users) {
-          _users = users;
-          _failure = null;
-        },
-        (failure) => _failure = failure,
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final failure = _failure;
-    return Scaffold(
-      appBar: AppBar(title: Text('Page ${_request.page}')),
-      body: failure != null
-          ? Center(child: Text(failure.message))
-          : ListView(
-              children: [
-                for (final user in _users)
-                  ListTile(
-                    title: Text(user.displayIdentifier),
-                    subtitle: Text(user.id),
-                  ),
-              ],
-            ),
-      bottomNavigationBar: OverflowBar(
-        alignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextButton(
-            onPressed: () => _load(_request.previousPage()),
-            child: const Text('Previous'),
-          ),
-          TextButton(
-            onPressed: () => _load(_request.nextPage()),
-            child: const Text('Next'),
-          ),
-        ],
-      ),
-    );
-  }
-}
+/// The lines shown for one page: a header, then each user or the failure.
+List<String> describePage(
+  PaginationRequest request,
+  Result<List<CcUserEntity>, CcFailure> result,
+) => [
+  'Page ${request.page}',
+  ...result.when(
+    (users) => [for (final user in users) user.displayIdentifier],
+    (failure) => [failure.message],
+  ),
+];

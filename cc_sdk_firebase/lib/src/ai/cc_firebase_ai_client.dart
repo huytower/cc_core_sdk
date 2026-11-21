@@ -2,19 +2,21 @@ import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:injectable/injectable.dart';
 
+import 'cc_firebase_ai_config.dart';
 import 'cc_firebase_ai_schema_mapper.dart';
 
 /// [CcAiClient] backed by Gemini through Firebase AI Logic.
 ///
-/// The model comes from `CcSdkConfig.aiModelName` (with or without the
-/// `gemini-` prefix; blank uses [defaultModelName]). Transient 5xx errors are
-/// retried; a final failure is reported to [CcCrashReporter] as non-fatal and
-/// returned as a [CcAiFailure], never thrown.
+/// The model comes from the app's [CcFirebaseAiConfig] (see [modelNameFrom]).
+/// Transient 5xx errors are retried; a final failure is reported to
+/// [CcCrashReporter] as non-fatal and returned as a [CcAiFailure], never
+/// thrown.
 @LazySingleton(as: CcAiClient)
 class CcFirebaseAiClient implements CcAiClient {
-  CcFirebaseAiClient(this._crashReporter);
+  CcFirebaseAiClient(this._crashReporter, this._config);
 
   final CcCrashReporter _crashReporter;
+  final CcFirebaseAiConfig _config;
   GenerativeModel? _model;
 
   static const String defaultModelName = 'gemini-3.8-flash';
@@ -27,14 +29,16 @@ class CcFirebaseAiClient implements CcAiClient {
     r'^Server Error \[(\d{3})\]',
   );
 
-  String get _modelName {
-    final configured = CcSdkConfig.current.aiModelName.trim();
-    final name = configured.isEmpty ? defaultModelName : configured;
-    return name.startsWith('gemini-') ? name : 'gemini-$name';
+  /// The model id sent to Firebase for a configured [name]: blank uses
+  /// [defaultModelName], and a missing `gemini-` prefix is added.
+  static String modelNameFrom(String name) {
+    final trimmed = name.trim();
+    final resolved = trimmed.isEmpty ? defaultModelName : trimmed;
+    return resolved.startsWith('gemini-') ? resolved : 'gemini-$resolved';
   }
 
-  GenerativeModel get _generativeModel =>
-      _model ??= FirebaseAI.googleAI().generativeModel(model: _modelName);
+  GenerativeModel get _generativeModel => _model ??= FirebaseAI.googleAI()
+      .generativeModel(model: modelNameFrom(_config.modelName));
 
   @override
   Future<CcAiResult> generate({
@@ -79,7 +83,7 @@ class CcFirebaseAiClient implements CcAiClient {
           stack,
           reason:
               '[CcFirebaseAiClient] generate failed '
-              '(model: $_modelName, images: ${images.length}): $e',
+              '(model: ${modelNameFrom(_config.modelName)}, images: ${images.length}): $e',
         );
         return _fail(e);
       }

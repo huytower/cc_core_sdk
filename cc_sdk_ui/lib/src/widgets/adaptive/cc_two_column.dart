@@ -1,8 +1,8 @@
-import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../core/config/tokens/cc_padding_params.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
+import '../../core/layout/cc_window_size_class.dart';
 import 'cc_max_width.dart';
 
 /// Left / right layout for a page on a tablet held sideways, so the width is

@@ -20,17 +20,12 @@ void main() {
   setUp(() => CcSdkConfig.configure(const CcSdkConfig(appName: 'Example')));
   tearDown(() => CcSdkConfig.configure(const CcSdkConfig()));
 
-  testWidgets('shows the configured name and the window class', (
+  testWidgets('shows the configured name and a formatted number', (
     tester,
   ) async {
-    tester.view.physicalSize = const Size(400, 800);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.reset);
-
     await tester.pumpWidget(const CcSdkExampleApp());
 
     expect(find.text('Example'), findsOneWidget);
-    expect(find.text('Window size class: compact'), findsOneWidget);
     expect(find.text('Compact number: 1.5 million'), findsOneWidget);
   });
 

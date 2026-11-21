@@ -1,42 +1,36 @@
-import 'package:flutter/material.dart';
+import 'package:cc_sdk_data/export_cc_sdk_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../example/main.dart';
 
-// Keeps example/main.dart compiling and working: it uses only cc_sdk_data,
-// so this also proves the package stands alone.
+// Keeps example/main.dart compiling and working: it uses only cc_sdk_data
+// (no Flutter), so this also proves the package stands alone.
 void main() {
-  testWidgets('shows the first page of users', (tester) async {
-    await tester.pumpWidget(const CcSdkDataExampleApp());
-    await tester.pumpAndSettle();
+  const source = ExampleUserSource();
 
-    expect(find.text('Page 1'), findsOneWidget);
-    expect(find.text('user0@example.com'), findsOneWidget);
+  test('describes the first page of users', () async {
+    const request = PaginationRequest();
+    final lines = describePage(request, await source.fetch(request));
+
+    expect(lines.first, 'Page 1');
+    expect(lines, contains('user0@example.com'));
     // An odd user has no email, so it is shown by phone number.
-    expect(find.text('+10000001'), findsOneWidget);
+    expect(lines, contains('+10000001'));
   });
 
-  testWidgets('pages forward and back', (tester) async {
-    await tester.pumpWidget(const CcSdkDataExampleApp());
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.text('Next'));
-    await tester.pumpAndSettle();
-    expect(find.text('Page 2'), findsOneWidget);
-    expect(find.text('user10@example.com'), findsOneWidget);
-
-    await tester.tap(find.text('Previous'));
-    await tester.pumpAndSettle();
-    expect(find.text('Page 1'), findsOneWidget);
+  test('pages forward and back', () async {
+    final next = const PaginationRequest().nextPage();
+    final lines = describePage(next, await source.fetch(next));
+    expect(lines.first, 'Page 2');
+    expect(lines, contains('user10@example.com'));
+    expect(next.previousPage().page, 1);
   });
 
-  testWidgets('shows the failure message', (tester) async {
-    await tester.pumpWidget(
-      const CcSdkDataExampleApp(source: ExampleUserSource(failOnPage: 1)),
-    );
-    await tester.pumpAndSettle();
+  test('describes the failure', () async {
+    const failing = ExampleUserSource(failOnPage: 1);
+    const request = PaginationRequest();
+    final lines = describePage(request, await failing.fetch(request));
 
-    expect(find.text('No connection'), findsOneWidget);
-    expect(find.byType(ListTile), findsNothing);
+    expect(lines, ['Page 1', 'No connection']);
   });
 }

@@ -4,6 +4,17 @@
 
 ### Breaking (next release: 3.0.0)
 
+- No longer depends on `cc_sdk` and no longer re-exports
+  `package:cc_sdk/export_cc_sdk.dart`, so the design system pulls no device,
+  network or storage plugin. Migration: files that use `.Log()`, `getIt`,
+  helpers or capability interfaces import `package:cc_sdk/export_cc_sdk.dart`
+  as well.
+- `CcScale` and `CcWindowSizeClass` / `CcWindowHeightClass` moved here from
+  `cc_sdk` (same API, exported from this barrel).
+- Removed `CcRewardCompletionBanner` and `CcGuidelineBadge` (a showcase banner
+  and an app's onboarding badge). Migration: keep a copy in the app.
+- Errors caught by `CcWidgetHelper.markNeedsBuild` and the confirmation dialog
+  of `CcDialogHelper` go to `FlutterError.reportError` instead of `.Log()`.
 - Widget-building mixins moved here from `cc_mixin`: `CcViewConfigMixin`,
   `CcPullRefreshMixin`, `CcLoadMoreMixin`, `CcCurvedNavigationMixin`.
   Migration: import them from `package:cc_sdk_ui/export_cc_sdk_ui.dart`.

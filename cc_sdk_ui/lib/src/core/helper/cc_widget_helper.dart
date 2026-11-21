@@ -1,4 +1,3 @@
-import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -110,14 +109,27 @@ class CcWidgetHelper {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         try {
           callback();
-        } catch (e) {
-          'Error in post frame callback: $e'.Log();
+        } catch (error, stack) {
+          _report(error, stack, 'running a post-frame callback');
         }
       });
       return true;
-    } catch (e) {
-      'Error scheduling post frame callback: $e'.Log();
+    } catch (error, stack) {
+      _report(error, stack, 'scheduling a post-frame callback');
       return false;
     }
+  }
+
+  /// Hands a caught error to [FlutterError.onError], which the app routes to
+  /// its logger / crash reporter (the design system logs nothing itself).
+  static void _report(Object error, StackTrace stack, String context) {
+    FlutterError.reportError(
+      FlutterErrorDetails(
+        exception: error,
+        stack: stack,
+        library: 'cc_sdk_ui',
+        context: ErrorDescription('while $context'),
+      ),
+    );
   }
 }

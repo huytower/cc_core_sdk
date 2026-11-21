@@ -18,11 +18,21 @@ class CcCountryCodeSelector extends StatelessWidget {
   /// from this; a globe is shown when it is null.
   final String? isoCode;
 
+  /// Flag emoji for an ISO 3166-1 alpha-2 code (`VN` -> 🇻🇳), built from
+  /// Unicode regional-indicator letters; 🌐 when [isoCode] is null or not two
+  /// ASCII letters. Same rule as `CcPhoneNumberHelper.flagEmoji` in `cc_sdk`,
+  /// kept here so the design system does not depend on `cc_sdk`.
+  static String flagFor(String? isoCode) {
+    final code = isoCode?.toUpperCase() ?? '';
+    if (!RegExp(r'^[A-Z]{2}$').hasMatch(code)) return '🌐';
+    return String.fromCharCodes(
+      code.codeUnits.map((unit) => unit - 0x41 + 0x1F1E6),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final flagEmoji = isoCode == null
-        ? '🌐'
-        : CcPhoneNumberHelper.flagEmoji(isoCode!);
+    final flagEmoji = flagFor(isoCode);
 
     return CcBouncing(
       onTap: onTap,

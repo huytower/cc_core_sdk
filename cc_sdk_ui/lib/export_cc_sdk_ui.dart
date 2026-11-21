@@ -1,5 +1,6 @@
-// Core SDK Exports
-export 'package:cc_sdk/export_cc_sdk.dart';
+// Design system only: depends on Flutter and three small widget packages, not
+// on cc_sdk (import package:cc_sdk/export_cc_sdk.dart for .Log(), helpers,
+// capability interfaces).
 // Core Config, Enums & Tokens
 export 'package:cc_sdk_ui/src/core/config/tokens/cc_base_colors.dart';
 export 'package:cc_sdk_ui/src/core/config/tokens/cc_border_params.dart';
@@ -20,6 +21,9 @@ export 'package:cc_sdk_ui/src/core/helper/cc_icon_helper.dart';
 export 'package:cc_sdk_ui/src/core/helper/cc_keyboard_helper.dart';
 export 'package:cc_sdk_ui/src/core/helper/cc_snackbar_helper.dart';
 export 'package:cc_sdk_ui/src/core/helper/cc_widget_helper.dart';
+// Scale curve and Material 3 window classes
+export 'package:cc_sdk_ui/src/core/layout/cc_scale.dart';
+export 'package:cc_sdk_ui/src/core/layout/cc_window_size_class.dart';
 // Adaptive layout
 export 'package:cc_sdk_ui/src/widgets/adaptive/cc_adaptive_builder.dart';
 export 'package:cc_sdk_ui/src/widgets/adaptive/cc_content_inset.dart';
@@ -42,11 +46,9 @@ export 'package:cc_sdk_ui/src/widgets/background/cc_watermark_background.dart';
 // Badge Widgets
 export 'package:cc_sdk_ui/src/widgets/badge/cc_badge_counter.dart';
 export 'package:cc_sdk_ui/src/widgets/badge/cc_edit_badge.dart';
-export 'package:cc_sdk_ui/src/widgets/badge/cc_guideline_badge.dart';
 // Banner Widgets
 export 'package:cc_sdk_ui/src/widgets/banner/cc_list_banner_medium.dart';
 export 'package:cc_sdk_ui/src/widgets/banner/cc_list_banner_small.dart';
-export 'package:cc_sdk_ui/src/widgets/banner/cc_reward_completion_banner.dart';
 export 'package:cc_sdk_ui/src/widgets/banner/cc_shape_painter.dart';
 // Base Widgets
 export 'package:cc_sdk_ui/src/widgets/base/cc_keyboard_dismisser.dart';

@@ -4,23 +4,9 @@ import 'package:cc_sdk/src/core/config/cc_sdk_config.dart';
 abstract final class CcAppTrackName {
   CcAppTrackName._();
 
+  /// The configured app name, or [CcSdkConfig.defaultAppName] when blank.
   static String get appName {
     final name = CcSdkConfig.current.appName.trim();
     return name.isEmpty ? CcSdkConfig.defaultAppName : name;
-  }
-}
-
-/// Crash log upload flag and path (from [CcSdkConfig.current]).
-abstract final class CcCrashLogEnv {
-  CcCrashLogEnv._();
-
-  static const String defaultApiPath = CcSdkConfig.defaultCrashLogApiPath;
-
-  static bool get isUploadEnabled => CcSdkConfig.current.enableCrashLogUpload;
-
-  /// Relative path appended to the API base URL (Retrofit/Dio baseUrl).
-  static String get apiPath {
-    final path = CcSdkConfig.current.crashLogApiPath.trim();
-    return path.isEmpty ? defaultApiPath : path;
   }
 }

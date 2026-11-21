@@ -3,12 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 
 import '../extensions/common/cc_logger_extension.dart';
-import 'cc_window_size_class.dart';
 
 /// Utility class for screen-layout and platform helpers.
 ///
 /// Screen size and classification live in `MediaQuery` and
-/// [CcWindowSizeClass]; read them from the current [BuildContext] rather than
+/// `CcWindowSizeClass` (`cc_sdk_ui`); read them from the current [BuildContext] rather than
 /// caching them in statics. Device-information queries (device ID, OS info,
 /// app version) live in [CcDeviceInfoHelper].
 @injectable
@@ -37,9 +36,9 @@ class CcDeviceHelper {
   // ==========================================================================
 
   /// Screens whose shortest side is below this (dp) are treated as phones —
-  /// including foldable cover screens. Same bound as the medium window class.
-  static final double phoneShortestSideLimit =
-      CcWindowSizeClass.medium.minWidth;
+  /// including foldable cover screens. Same bound as the Material 3 medium
+  /// window class (`CcWindowSizeClass.medium.minWidth` in `cc_sdk_ui`).
+  static const double phoneShortestSideLimit = 600;
 
   /// Phones: portrait only (the phone-first layouts are designed for it).
   static const List<DeviceOrientation> phoneOrientations = [

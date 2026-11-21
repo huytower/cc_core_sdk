@@ -1,5 +1,6 @@
-import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/layout/cc_window_size_class.dart';
 
 /// Lays [children] out as a column on narrow space and as rows of equal-width
 /// columns on wider space.

@@ -1,5 +1,6 @@
-import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:flutter/widgets.dart';
+
+import '../../core/layout/cc_window_size_class.dart';
 
 /// Builds a different layout per Material 3 window size class.
 ///

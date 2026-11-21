@@ -1,4 +1,3 @@
-import 'package:cc_sdk/export_cc_sdk.dart';
 import 'package:cc_sdk_firebase/export_cc_sdk_firebase.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -69,8 +68,6 @@ void main() {
   });
 
   group('CcFirebaseCrashReporter.log', () {
-    tearDown(() => CcSdkConfig.configure(const CcSdkConfig()));
-
     test('forwards the breadcrumb to Crashlytics', () async {
       final crashlytics = _RecordingCrashlytics();
 
@@ -78,15 +75,6 @@ void main() {
 
       expect(crashlytics.calls.single.memberName, #log);
       expect(crashlytics.calls.single.positionalArguments, ['opened cart']);
-    });
-
-    test('sends nothing when crash reporting is disabled', () async {
-      CcSdkConfig.configure(const CcSdkConfig(enableCrashReporting: false));
-      final crashlytics = _RecordingCrashlytics();
-
-      await CcFirebaseCrashReporter(crashlytics).log('opened cart');
-
-      expect(crashlytics.calls, isEmpty);
     });
   });
 }

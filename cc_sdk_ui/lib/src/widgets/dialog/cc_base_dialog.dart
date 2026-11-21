@@ -112,7 +112,8 @@ class CcBaseDialog extends StatelessWidget {
           width: double.infinity,
           height: context.respPadding(isActionBtnVisible ? 145 : 75),
           decoration: BoxDecoration(
-            color: bgColor ?? context.ccColorScheme.surface.withValues(alpha: 0.8),
+            color:
+                bgColor ?? context.ccColorScheme.surface.withValues(alpha: 0.8),
           ),
           child: buildDialogBodyWidget(context),
         ),
@@ -120,31 +121,21 @@ class CcBaseDialog extends StatelessWidget {
     ),
   );
 
-  Widget buildIconAlert(BuildContext context) => ccWhen(
-    variable: status,
-    conditions: {
-      CcDialogStatus.ERROR: () => Icon(
-        Icons.error_outline,
-        size: context.respIconSize(),
-        color: CcBaseColors.errorRed,
-      ),
-      CcDialogStatus.INFO: () => Icon(
+  Widget buildIconAlert(BuildContext context) {
+    final (icon, color) = switch (status ?? CcDialogStatus.ERROR) {
+      CcDialogStatus.ERROR => (Icons.error_outline, CcBaseColors.errorRed),
+      CcDialogStatus.INFO => (
         Icons.announcement_outlined,
-        size: context.respIconSize(),
-        color: CcBaseColors.infoBlue,
+        CcBaseColors.infoBlue,
       ),
-      CcDialogStatus.SUCCESS: () => Icon(
-        Icons.check_circle,
-        size: context.respIconSize(),
-        color: CcBaseColors.successGreen,
-      ),
-      CcDialogStatus.WARNING: () => Icon(
+      CcDialogStatus.SUCCESS => (Icons.check_circle, CcBaseColors.successGreen),
+      CcDialogStatus.WARNING => (
         Icons.warning_outlined,
-        size: context.respIconSize(),
-        color: CcBaseColors.warningAmber,
+        CcBaseColors.warningAmber,
       ),
-    },
-  );
+    };
+    return Icon(icon, size: context.respIconSize(), color: color);
+  }
 }
 
 enum CcDialogStatus { ERROR, INFO, SUCCESS, WARNING }

@@ -1,5 +1,5 @@
 name: cc_sdk_data
-description: Core SDK Data module containing reusable domain entities for auth and other shared data structures.
+description: Pure Dart core of the SDK (no Flutter at runtime) - reusable domain entities, CcFailure hierarchy and shared service contracts.
 publish_to: none
 version: 2.0.0
 
@@ -11,8 +11,6 @@ resolution: workspace
 
 dependencies:
   equatable: ^2.1.0
-  flutter:
-    sdk: flutter
   meta: ^1.16.0
   multiple_result: ^5.3.0
 

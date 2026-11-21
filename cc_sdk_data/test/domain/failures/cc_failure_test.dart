@@ -26,25 +26,16 @@ void main() {
       const failures = <CcFailure>[
         CacheFailure('m'),
         NetworkFailure('m'),
-        BiometricFailure('m'),
         DeviceFailure('m'),
         UnauthorizedFailure('m'),
         UnknownFailure('m'),
         ValidationFailure('m'),
-        CurlFailure('m'),
       ];
 
       for (final failure in failures) {
         expect(failure.message, 'm');
         expect(failure.statusCode, isNull);
       }
-    });
-
-    test('CurlFailure compares the response body too', () {
-      expect(
-        const CurlFailure('m', responseBody: 'a'),
-        isNot(const CurlFailure('m', responseBody: 'b')),
-      );
     });
   });
 }

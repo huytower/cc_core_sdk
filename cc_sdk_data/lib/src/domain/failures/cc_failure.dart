@@ -1,6 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 /// Base class for all Business Failures in the Domain layer.
+///
+/// Deliberately open (not `sealed`): apps and micro-features add their own
+/// failures (e.g. `AuthCancelledFailure`), so a `switch` over failures needs a
+/// default branch.
 abstract class CcFailure extends Equatable {
   final String message;
   final int? statusCode;
@@ -24,10 +28,6 @@ class NetworkFailure extends CcFailure {
   const NetworkFailure(String message) : super(message);
 }
 
-class BiometricFailure extends CcFailure {
-  const BiometricFailure(String message) : super(message);
-}
-
 class DeviceFailure extends CcFailure {
   const DeviceFailure(String message) : super(message);
 }
@@ -44,13 +44,4 @@ class UnknownFailure extends CcFailure {
 /// non-positive amount, invalid date range).
 class ValidationFailure extends CcFailure {
   const ValidationFailure(String message) : super(message);
-}
-
-class CurlFailure extends CcFailure {
-  final String? responseBody;
-
-  const CurlFailure(String message, {this.responseBody}) : super(message);
-
-  @override
-  List<Object?> get props => [message, responseBody];
 }

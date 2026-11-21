@@ -19,8 +19,6 @@ class _FakeCrashlytics implements FirebaseCrashlytics {
 }
 
 void main() {
-  tearDown(() => CcSdkConfig.configure(const CcSdkConfig()));
-
   test('records non-fatal errors with the reason', () async {
     final fake = _FakeCrashlytics();
     final CcCrashReporter reporter = CcFirebaseCrashReporter(fake);
@@ -31,17 +29,6 @@ void main() {
     expect(fake.calls.map((c) => c.memberName), [#recordError, #log]);
     expect(fake.calls.first.namedArguments[#reason], 'sync failed');
     expect(fake.calls.first.namedArguments[#fatal], false);
-  });
-
-  test('does nothing when crash reporting is disabled', () async {
-    CcSdkConfig.configure(const CcSdkConfig(enableCrashReporting: false));
-    final fake = _FakeCrashlytics();
-    final CcCrashReporter reporter = CcFirebaseCrashReporter(fake);
-
-    await reporter.recordError(StateError('x'), null, reason: 'r');
-    await reporter.log('m');
-
-    expect(fake.calls, isEmpty);
   });
 
   test('never throws when Crashlytics fails', () async {

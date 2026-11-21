@@ -46,6 +46,23 @@ void main() {
     });
   });
 
+  group('CcFirebaseAiClient.modelNameFrom', () {
+    test('blank uses the default model', () {
+      expect(
+        CcFirebaseAiClient.modelNameFrom('  '),
+        CcFirebaseAiClient.defaultModelName,
+      );
+    });
+
+    test('adds the gemini- prefix only when missing', () {
+      expect(CcFirebaseAiClient.modelNameFrom('2.5-pro'), 'gemini-2.5-pro');
+      expect(
+        CcFirebaseAiClient.modelNameFrom('gemini-2.5-pro'),
+        'gemini-2.5-pro',
+      );
+    });
+  });
+
   group('CcFirebaseAiClient.classify', () {
     test('detects App Check / attestation failures', () {
       for (final message in [

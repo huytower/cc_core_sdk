@@ -4,6 +4,19 @@
 
 ### Breaking (next release: 3.0.0)
 
+- `CcSdkConfig` keeps only `appName` and `enableLogger`. Removed fields and
+  their replacements: `aiModelName` → register a `CcFirebaseAiConfig`
+  (`cc_sdk_firebase`); `enableCrashReporting` → Crashlytics'
+  `setCrashlyticsCollectionEnabled` or another `CcCrashReporter`;
+  `enableLoggerDio`, `enableAnalytics`, `enableCertificatePinning`,
+  `enableCrashLogUpload`, `crashLogApiPath`, `mainNavigationPath`, `loginPath`
+  → app settings (they were never read by the SDK).
+- Removed `CcFeatureFlags` (use `CcSdkConfig.current.enableLogger`),
+  `CcRouteConfig` and `CcCrashLogEnv` (the app owns its route and upload
+  paths). `CcAppTrackName` stays.
+- `CcScale` and `CcWindowSizeClass` / `CcWindowHeightClass` moved to
+  `cc_sdk_ui`. Migration: import `package:cc_sdk_ui/export_cc_sdk_ui.dart`.
+  `CcDeviceHelper.phoneShortestSideLimit` is now a `const` (600).
 - `catcher_2` left the core ring: `CcCatcherBootstrap` and
   `CcCrashReporterHandler` moved to the new capability package
   `cc_sdk_catcher`. Migration: depend on `cc_sdk_catcher` and import

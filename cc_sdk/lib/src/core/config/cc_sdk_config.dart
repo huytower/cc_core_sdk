@@ -1,62 +1,34 @@
 import 'package:flutter/foundation.dart';
 
-/// Settings the SDK needs, supplied once by the app at boot.
+/// The two settings every SDK package may read without injection: the app's
+/// name (logs, crash reports) and whether `.Log()` writes anything.
 ///
-/// The SDK never reads environment files or `--dart-define` values itself:
-/// the app decides where values come from (compile-time defines, remote
-/// config, tests) and hands them over here. Until [configure] is called,
-/// [current] holds the defaults below, so the SDK also works with no setup.
+/// They stay ambient because `.Log()` is an extension on every value and can
+/// take no constructor argument. Everything else is configured where it is
+/// used: a capability takes its settings through its constructor (for example
+/// `CcFirebaseAiConfig` in `cc_sdk_firebase`), and app concerns (routes,
+/// upload paths, product flags) belong to the app.
+///
+/// Until [configure] is called, [current] holds the defaults below, so the SDK
+/// also works with no setup.
 ///
 /// ```dart
-/// CcSdkConfig.configure(const CcSdkConfig(appName: 'Acme', loginPath: '/sign-in'));
+/// CcSdkConfig.configure(const CcSdkConfig(appName: 'Acme'));
 /// ```
 @immutable
 class CcSdkConfig {
   const CcSdkConfig({
     this.appName = defaultAppName,
     this.enableLogger = !kReleaseMode,
-    this.enableLoggerDio = !kReleaseMode,
-    this.enableAnalytics = true,
-    this.enableCrashReporting = true,
-    this.enableCertificatePinning = true,
-    this.enableCrashLogUpload = true,
-    this.crashLogApiPath = defaultCrashLogApiPath,
-    this.mainNavigationPath = '/main_navigation',
-    this.loginPath = '/login',
-    this.aiModelName = '',
   });
 
   static const String defaultAppName = 'MyApp';
-  static const String defaultCrashLogApiPath = '/client-logs';
 
   /// App display name used in logs and crash reports.
   final String appName;
 
   /// Console logging through `.Log()`.
   final bool enableLogger;
-
-  /// HTTP client request/response logging.
-  final bool enableLoggerDio;
-
-  final bool enableAnalytics;
-  final bool enableCrashReporting;
-  final bool enableCertificatePinning;
-
-  /// Upload of crash logs saved on the device to the app's backend.
-  final bool enableCrashLogUpload;
-
-  /// Path appended to the API base URL for crash log uploads.
-  final String crashLogApiPath;
-
-  /// Route path of the main (home) screen.
-  final String mainNavigationPath;
-
-  /// Route path of the login screen.
-  final String loginPath;
-
-  /// Model id for the AI capability (`CcAiClient`); blank keeps the
-  /// implementation's default.
-  final String aiModelName;
 
   static CcSdkConfig _current = const CcSdkConfig();
 
