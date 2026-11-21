@@ -26,7 +26,9 @@ class CcLoadMoreItem extends LoadMoreDelegate {
       case LoadMoreStatus.nomore:
         return _buildText(text);
       case LoadMoreStatus.outScreen:
-        throw UnimplementedError();
+        // The footer is scrolled away but may still be built inside the list's
+        // cache extent: draw nothing instead of failing.
+        return const SizedBox.shrink();
     }
   }
 
