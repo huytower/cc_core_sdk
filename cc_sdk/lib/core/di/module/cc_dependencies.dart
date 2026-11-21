@@ -1,5 +1,3 @@
-import 'package:cc_sdk/src/core/helper/cc_device_info_helper.dart';
-import 'package:cc_sdk_data/export_cc_sdk_data.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:injectable/injectable.dart';
@@ -9,11 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Registers third-party dependencies that cannot be auto-registered
 /// (they don't have injectable constructors we control).
 ///
-/// The two `@preResolve @singleton` entries are the deliberate exception to
-/// the lazy-singleton rule: consumers inject them synchronously, so they must
-/// be awaited once during `initMicroPackage()` (`@lazySingleton` with
-/// `@preResolve` would resolve just as eagerly). Keep this list to values the
-/// first frame needs; everything else stays `@lazySingleton`.
+/// `SharedPreferences` is the one deliberate `@preResolve @singleton`:
+/// consumers inject it synchronously, so it is awaited once during
+/// `initMicroPackage()`. Everything else stays `@lazySingleton`, off the boot
+/// path. (A device entity is built on demand with
+/// `CcDeviceInfoHelper.getDeviceEntity`, never at boot.)
 @module
 abstract class CcSdkDependencies {
   @preResolve
@@ -29,10 +27,4 @@ abstract class CcSdkDependencies {
 
   @lazySingleton
   DeviceInfoPlugin get deviceInfoPlugin => DeviceInfoPlugin();
-
-  /// Centralized provider for device model, moved from infrastructure_module.dart
-  @preResolve
-  @singleton
-  Future<CcDeviceEntity> deviceModel(CcDeviceInfoHelper deviceInfoHelper) =>
-      deviceInfoHelper.getDeviceEntity();
 }

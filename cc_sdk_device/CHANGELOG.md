@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added `CcUdidDeviceIdProvider` (registered as `CcDeviceIdProvider`):
+  `identifierForVendor` on iOS/macOS, the `flutter_udid` UDID elsewhere,
+  `''` on failure. `flutter_udid` and `device_info_plus` are now dependencies
+  of this package (the UDID left `cc_sdk`). Register `CcSdkDevicePackageModule`
+  after `CcSdkPackageModule`.
 - Added `example/main.dart` and tests; `test/example_test.dart` keeps the example working.
 
 ## 2.0.0

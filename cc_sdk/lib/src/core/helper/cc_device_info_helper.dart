@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cc_sdk_data/export_cc_sdk_data.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter_udid/flutter_udid.dart';
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -16,11 +15,11 @@ class CcDeviceInfoHelper {
 
   const CcDeviceInfoHelper(this._deviceInfoPlugin);
 
-  /// Builds a complete [CcDeviceEntity] from platform plugins.
-  Future<CcDeviceEntity> getDeviceEntity() async {
+  /// Builds a complete [CcDeviceEntity] from platform plugins. The [deviceId]
+  /// comes from the app's [CcDeviceIdProvider] (empty when it has none).
+  Future<CcDeviceEntity> getDeviceEntity({String deviceId = ''}) async {
     final packageInfo = await PackageInfo.fromPlatform();
-    final deviceId = await getDeviceId();
-    final rawDeviceInfo = await getRawDeviceInfo();
+    final rawDeviceInfo = await getRawDeviceInfo(deviceId: deviceId);
 
     if (Platform.isAndroid) {
       final android = await _deviceInfoPlugin.androidInfo;
@@ -63,25 +62,14 @@ class CcDeviceInfoHelper {
     }
   }
 
-  /// Unique device identifier (vendor ID on iOS, UDID on Android).
-  Future<String> getDeviceId() async {
-    if (Platform.isIOS || Platform.isMacOS) {
-      final iosInfo = await _deviceInfoPlugin.iosInfo;
-      return iosInfo.identifierForVendor ?? '';
-    } else {
-      return await FlutterUdid.udid;
-    }
-  }
-
   /// JSON-formatted string with device + app metadata (used by request headers).
-  Future<String> getRawDeviceInfo() async {
+  Future<String> getRawDeviceInfo({String deviceId = ''}) async {
     final packageInfo = await PackageInfo.fromPlatform();
 
     if (Platform.isAndroid) {
       final android = await _deviceInfoPlugin.androidInfo;
-      final androidId = await FlutterUdid.udid;
       return '{"DeviceName":"${android.device}",'
-          '"DeviceID":"$androidId",'
+          '"DeviceID":"$deviceId",'
           '"OsName":"ANDROID",'
           '"OsVersion":"${android.bootloader}",'
           '"AppName":"${packageInfo.appName}",'
@@ -90,7 +78,7 @@ class CcDeviceInfoHelper {
     } else if (Platform.isIOS) {
       final ios = await _deviceInfoPlugin.iosInfo;
       return '{"DeviceName":"${ios.name}",'
-          '"DeviceID":"${ios.identifierForVendor!}",'
+          '"DeviceID":"$deviceId",'
           '"OsName":"iOS",'
           '"OsVersion":"${ios.systemVersion}",'
           '"AppName":"${packageInfo.appName}",'

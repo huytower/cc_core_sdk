@@ -11,7 +11,6 @@ import 'package:cc_sdk/src/core/helper/cc_device_helper.dart' as _i591;
 import 'package:cc_sdk/src/core/helper/cc_device_info_helper.dart' as _i776;
 import 'package:cc_sdk/src/core/helper/cc_network_helper.dart' as _i614;
 import 'package:cc_sdk/src/core/network/cc_network_info.dart' as _i100;
-import 'package:cc_sdk_data/export_cc_sdk_data.dart' as _i436;
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:device_info_plus/device_info_plus.dart' as _i833;
 import 'package:injectable/injectable.dart' as _i526;
@@ -40,10 +39,6 @@ class CcSdkPackageModule extends _i526.MicroPackageModule {
         () => _i614.CcNetworkHelper(gh<_i161.InternetConnection>()));
     gh.lazySingleton<_i776.CcDeviceInfoHelper>(
         () => _i776.CcDeviceInfoHelper(gh<_i833.DeviceInfoPlugin>()));
-    await gh.singletonAsync<_i436.CcDeviceEntity>(
-      () => ccSdkDependencies.deviceModel(gh<_i776.CcDeviceInfoHelper>()),
-      preResolve: true,
-    );
   }
 }
 

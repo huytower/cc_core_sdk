@@ -4,6 +4,14 @@
 
 ### Breaking (next release: 3.0.0)
 
+- `flutter_udid` left the core ring. New interface `CcDeviceIdProvider`; the
+  UDID implementation is `CcUdidDeviceIdProvider` in `cc_sdk_device`.
+  `CcDeviceInfoHelper.getDeviceId()` is removed, and `getDeviceEntity` /
+  `getRawDeviceInfo` take an optional `deviceId`. Migration: inject
+  `CcDeviceIdProvider` and pass `deviceId: await ids.deviceId()`.
+- `CcDeviceEntity` is no longer pre-resolved in DI at boot (nothing read it,
+  and it ran a UDID lookup on every start). Migration: call
+  `CcDeviceInfoHelper.getDeviceEntity` where you need it.
 - `CcSdkConfig` keeps only `appName` and `enableLogger`. Removed fields and
   their replacements: `aiModelName` → register a `CcFirebaseAiConfig`
   (`cc_sdk_firebase`); `enableCrashReporting` → Crashlytics'

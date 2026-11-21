@@ -23,7 +23,6 @@ dependencies:
     sdk: flutter
 
 
-  flutter_udid: ^4.1.2
 
   get_it: ^9.2.1
 
