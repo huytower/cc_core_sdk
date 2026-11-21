@@ -9,12 +9,17 @@ import 'cc_slack_webhook.dart';
 ///
 /// The same error (first line of its message) is posted at most once per
 /// [CcSlackAlertSupport.throttleWindow], shared with [CcSlackHandler]. Breadcrumbs
-/// ([log]) are not sent. Never throws.
+/// ([log]) are not sent. Errors matching [ignoredErrors] are not posted at
+/// all (other reporters in a composite still get them). Never throws.
 ///
 /// ```dart
 /// CcCompositeCrashReporter([
 ///   crashlytics,
-///   CcSlackCrashReporter(webhookUrl: url, deviceInfo: deviceInfo),
+///   CcSlackCrashReporter(
+///     webhookUrl: url,
+///     deviceInfo: deviceInfo,
+///     ignoredErrors: [RegExp('Too many attempts')],
+///   ),
 /// ]);
 /// ```
 class CcSlackCrashReporter implements CcCrashReporter {
@@ -22,9 +27,15 @@ class CcSlackCrashReporter implements CcCrashReporter {
     required String webhookUrl,
     CcDeviceInfoHelper? deviceInfo,
     CcAppAttestation? attestation,
+    this.ignoredErrors = const [],
   }) : _webhook = CcSlackWebhook(webhookUrl, logTag: _tag),
        _deviceInfo = deviceInfo,
        _attestation = attestation;
+
+  /// Errors whose text matches one of these are not posted: a [String] is a
+  /// substring, a [RegExp] is searched. For expected, transient noise such as
+  /// a rate limit, which says nothing about a bug in the app.
+  final List<Pattern> ignoredErrors;
 
   final CcSlackWebhook _webhook;
 
@@ -49,6 +60,11 @@ class CcSlackCrashReporter implements CcCrashReporter {
     try {
       if (!_webhook.isConfigured) {
         '❌ Error not sent: no Slack webhook URL configured'.Log(_tag);
+        return;
+      }
+      if (CcSlackAlertSupport.isIgnored(error, ignoredErrors)) {
+        '🔇 Ignored error, not sent: ${CcSlackAlertSupport.headline(error)}'
+            .Log(_tag);
         return;
       }
       final key = CcSlackAlertSupport.headline(error);

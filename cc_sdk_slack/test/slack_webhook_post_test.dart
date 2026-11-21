@@ -97,6 +97,62 @@ void main() {
     });
   });
 
+  group('CcSlackCrashReporter', () {
+    Future<void> record(CcSlackCrashReporter reporter, Object error) =>
+        reporter.recordError(error, StackTrace.current, reason: 'test');
+
+    test('does not post an error matching ignoredErrors', () async {
+      final reporter = CcSlackCrashReporter(
+        webhookUrl: slack.url,
+        ignoredErrors: [RegExp('firebase_app_check.*Too many attempts')],
+      );
+
+      await record(
+        reporter,
+        Exception('[firebase_app_check/unknown] Too many attempts.'),
+      );
+
+      expect(slack.posts, isEmpty);
+    });
+
+    test('still posts other errors, including other App Check ones', () async {
+      final reporter = CcSlackCrashReporter(
+        webhookUrl: slack.url,
+        ignoredErrors: [RegExp('firebase_app_check.*Too many attempts')],
+      );
+
+      await record(reporter, Exception('Liability 1 not found'));
+      await record(
+        reporter,
+        Exception('[firebase_app_check/unknown] Token expired'),
+      );
+
+      expect(slack.posts, hasLength(2));
+    });
+
+    test('a plain string pattern matches as a substring', () async {
+      final reporter = CcSlackCrashReporter(
+        webhookUrl: slack.url,
+        ignoredErrors: const ['quota exceeded'],
+      );
+
+      await record(reporter, Exception('Gemini quota exceeded for project'));
+
+      expect(slack.posts, isEmpty);
+    });
+
+    test('posts everything when nothing is ignored', () async {
+      final reporter = CcSlackCrashReporter(webhookUrl: slack.url);
+
+      await record(
+        reporter,
+        Exception('[firebase_app_check/unknown] Too many attempts.'),
+      );
+
+      expect(slack.posts, hasLength(1));
+    });
+  });
+
   group('CcSlackHandler', () {
     test('posts what, where, version, device, app check and who', () async {
       final handler = CcSlackHandler(

@@ -14,6 +14,15 @@ class CcSlackAlertSupport {
   static String headline(Object? error) =>
       (error?.toString() ?? 'Unknown Error').split('\n').first.trim();
 
+  /// Whether [error] matches one of [ignored]: a [String] is a substring of
+  /// the error text, a [RegExp] is searched in it. Used to keep known,
+  /// expected noise (e.g. a service rate limit) out of the channel.
+  static bool isIgnored(Object? error, List<Pattern> ignored) {
+    if (ignored.isEmpty) return false;
+    final text = error?.toString() ?? '';
+    return ignored.any((pattern) => text.contains(pattern));
+  }
+
   /// Whether [key] was sent less than [throttleWindow] ago.
   static bool isThrottled(String key, {DateTime? now}) {
     final last = _lastSent[key];

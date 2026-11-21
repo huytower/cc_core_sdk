@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- `CcSlackCrashReporter` takes `ignoredErrors` (a list of strings or `RegExp`s):
+  an error whose text matches is not posted to Slack, while other reporters in
+  a `CcCompositeCrashReporter` still receive it. For expected, transient noise
+  such as a service rate limit.
 - Fixed the alert time: it mixed a 24-hour hour with AM/PM (`22:19 PM`); it
   is now a 12-hour clock (`10:19 PM`). Catcher2 alerts (`CcSlackHandler`)
   show the device's real UTC offset instead of a fixed `(GMT+7)`.
