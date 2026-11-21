@@ -32,7 +32,7 @@ class CcSdkFirebasePackageModule extends _i526.MicroPackageModule {
         () => ccFirebaseModule.firebaseCrashlytics);
     gh.lazySingleton<_i56.FirebaseAppCheck>(
         () => ccFirebaseModule.firebaseAppCheck);
-    gh.lazySingleton<_i54.CcCrashReporter>(
+    gh.lazySingleton<_i597.CcFirebaseCrashReporter>(
         () => _i597.CcFirebaseCrashReporter(gh<_i141.FirebaseCrashlytics>()));
     gh.lazySingleton<_i54.CcAiClient>(() => _i897.CcFirebaseAiClient(
           gh<_i54.CcCrashReporter>(),

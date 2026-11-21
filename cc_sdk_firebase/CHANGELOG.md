@@ -4,6 +4,10 @@
 
 ### Breaking (next release: 3.0.0)
 
+- `CcFirebaseCrashReporter` is registered as itself, no longer as
+  `CcCrashReporter`, so an app can report to several services. Migration:
+  register `CcCrashReporter` in an app `@module`, e.g. return the injected
+  `CcFirebaseCrashReporter`, or a `CcCompositeCrashReporter` around it.
 - `CcFirebaseAiClient` takes a `CcFirebaseAiConfig` (new interface) instead of
   reading `CcSdkConfig.aiModelName`. Migration: register an implementation,
   e.g. `@LazySingleton(as: CcFirebaseAiConfig) class PrjFirebaseAiConfig`.

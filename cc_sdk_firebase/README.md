@@ -17,6 +17,12 @@ interfaces only; this package is the one place that imports Firebase SDKs.
    `externalPackageModulesBefore` (import
    `package:cc_sdk_firebase/core/di/di.module.dart`).
 3. Inject the interface, e.g. `CcAnalytics`, where it is needed.
+4. Register `CcCrashReporter` yourself: `CcFirebaseCrashReporter` is registered
+   as itself only, so the app decides whether reports go to Crashlytics alone
+   or to several services, e.g.
+   `CcCompositeCrashReporter([firebaseReporter, slackReporter])` in an app
+   `@module`. `CcFirebaseAiClient` needs that registration.
+
 
 An app that does not use Firebase skips this package and registers its own
 implementation (or `CcNoopAnalytics`) as `CcAnalytics`.

@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 /// To turn reporting off, use Crashlytics' own collection switch
 /// (`setCrashlyticsCollectionEnabled`) or register another [CcCrashReporter].
 /// Never throws: a failure to report must not mask the original error.
-@LazySingleton(as: CcCrashReporter)
+@lazySingleton
 class CcFirebaseCrashReporter implements CcCrashReporter {
   CcFirebaseCrashReporter(this._crashlytics);
 

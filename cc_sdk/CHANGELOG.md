@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Added
+
+- `CcCompositeCrashReporter`: a `CcCrashReporter` that forwards to several
+  reporters (e.g. Crashlytics and a chat alert); one failing reporter does not
+  stop the others.
+
 ### Breaking (next release: 3.0.0)
 
 - `flutter_udid` left the core ring. New interface `CcDeviceIdProvider`; the

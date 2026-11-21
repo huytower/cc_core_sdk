@@ -2,6 +2,7 @@ import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
 import 'package:cc_sdk/export_cc_sdk.dart';
 
+import 'cc_slack_alert_support.dart';
 import 'cc_slack_webhook.dart';
 
 /// A [ReportHandler] for Catcher2 that forwards structured crash reports to Slack via
@@ -16,10 +17,6 @@ class CcSlackHandler extends ReportHandler {
 
   /// Adds the attestation state to each report; omitted when null.
   final CcAppAttestation? _attestation;
-
-  /// Cooldown map to prevent spamming Slack with identical error reports.
-  static final Map<String, DateTime> _lastReported = {};
-  static const Duration _throttleDuration = Duration(minutes: 5);
 
   CcSlackHandler({required String webhookUrl, CcAppAttestation? attestation})
     : _webhook = CcSlackWebhook(webhookUrl, logTag: 'CcSlackHandler'),
@@ -37,15 +34,11 @@ class CcSlackHandler extends ReportHandler {
       return false;
     }
 
-    final rawError = report.error?.toString() ?? 'Unknown Error';
-    final errorMsg = rawError.split('\n').first.trim();
-    final errorKey = errorMsg;
-
-    final now = DateTime.now();
-    final lastTime = _lastReported[errorKey];
-    if (lastTime != null && now.difference(lastTime) < _throttleDuration) {
-      '[CatcherSlack] ⏳ Throttling duplicate Slack alert for "$errorKey" (reported ${now.difference(lastTime).inSeconds}s ago)'
-          .Log('CcSlackHandler');
+    final errorKey = CcSlackAlertSupport.headline(report.error);
+    if (CcSlackAlertSupport.isThrottled(errorKey)) {
+      '[CatcherSlack] ⏳ Throttling duplicate Slack alert for "$errorKey"'.Log(
+        'CcSlackHandler',
+      );
       return true;
     }
 
@@ -58,7 +51,7 @@ class CcSlackHandler extends ReportHandler {
       );
       final success = await _webhook.post(messageText);
       if (success) {
-        _lastReported[errorKey] = now;
+        CcSlackAlertSupport.markSent(errorKey);
       }
       return success;
     } catch (e) {
@@ -119,31 +112,10 @@ class CcSlackHandler extends ReportHandler {
     Report report, {
     required String appCheckStatus,
   }) {
-    final rawError = report.error?.toString() ?? 'Unknown Error';
-    final errorLines = rawError.split('\n');
-    final errorMsg = errorLines.first.trim();
-    final stackText = report.stackTrace?.toString() ?? '';
-
-    // Infer location dynamically from stack trace
-    String where = 'Unknown location';
-    final stackLines = stackText.split('\n');
-    for (final line in stackLines) {
-      final trimmed = line.trim();
-      if (trimmed.contains('package:') &&
-          !trimmed.contains('package:flutter/') &&
-          !trimmed.contains('package:catcher_2/')) {
-        final match = RegExp(
-          r'#\d+\s+(.*?)\s+\((package:.*?)\)',
-        ).firstMatch(trimmed);
-        if (match != null) {
-          where = '${match.group(2)} [${match.group(1)}]';
-          break;
-        } else if (trimmed.contains('package:')) {
-          where = trimmed;
-          break;
-        }
-      }
-    }
+    final errorMsg = CcSlackAlertSupport.headline(report.error);
+    final where = CcSlackAlertSupport.whereFromStack(
+      report.stackTrace?.toString() ?? '',
+    );
 
     // Application build version & number
     final appVersion =
