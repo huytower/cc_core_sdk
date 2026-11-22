@@ -134,7 +134,7 @@ class CcMediaIcon extends StatelessWidget {
     }
 
     // Otherwise, wrap it in the interaction logic
-    return CcInteractBtnWrapper(
+    return CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
       isBouncing: interactionType == CcInteractionType.bounce,

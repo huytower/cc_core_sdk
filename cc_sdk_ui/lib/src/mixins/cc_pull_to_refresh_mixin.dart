@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 ///
 /// Usage with GetX:
 /// ```dart
-/// class MyGetXView extends GetView<MyController> with CcPullRefreshMixin {
+/// class MyGetXView extends GetView<MyController> with CcPullToRefreshMixin {
 ///   @override
 ///   Widget build(BuildContext context) {
 ///     return buildPullToRefresh(
@@ -28,7 +28,7 @@ import 'package:flutter/material.dart';
 ///
 /// Usage with Bloc:
 /// ```dart
-/// class MyBlocView extends StatelessWidget with CcPullRefreshMixin {
+/// class MyBlocView extends StatelessWidget with CcPullToRefreshMixin {
 ///   @override
 ///   Widget build(BuildContext context) {
 ///     return buildPullToRefresh(
@@ -48,7 +48,7 @@ import 'package:flutter/material.dart';
 ///   child: ListView(...),
 /// )
 /// ```
-mixin CcPullRefreshMixin {
+mixin CcPullToRefreshMixin {
   /// Default image size for the indicator icons (base size for mobile)
   /// On larger screens, this scales using respIconSize formula
   double get defaultImageSize => 40.0;

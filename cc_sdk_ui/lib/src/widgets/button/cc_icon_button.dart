@@ -101,7 +101,7 @@ class CcIconButton extends StatelessWidget {
       ),
     );
 
-    final Widget interactiveButton = CcInteractBtnWrapper(
+    final Widget interactiveButton = CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
       isBouncing: interactionType == CcInteractionType.bounce,

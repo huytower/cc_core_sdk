@@ -130,7 +130,7 @@ class CcCloseBtn extends StatelessWidget {
 
     // Otherwise, wrap it in the interaction logic
     return Center(
-      child: CcInteractBtnWrapper(
+      child: CcInteractionWrapper(
         onTap: onTap ?? () {},
         useDebounce: useDebounce,
         isBouncing: interactionType == CcInteractionType.bounce,

@@ -2,7 +2,7 @@
 // no state-management package. A plain State object mixes in:
 // - PaginationMixin: page arithmetic and the "has more" flag,
 // - DoubleBackToExitMixin: "press back again to exit" on Android.
-// The widget-building mixins (CcViewConfigMixin, CcPullRefreshMixin,
+// The widget-building mixins (CcViewConfigMixin, CcPullToRefreshMixin,
 // CcLoadMoreMixin, CcCurvedNavigationMixin) live in cc_sdk_ui.
 import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_data/export_cc_sdk_data.dart';

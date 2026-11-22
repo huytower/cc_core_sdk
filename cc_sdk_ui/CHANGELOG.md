@@ -4,6 +4,9 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Renamed `CcPullRefreshMixin` to `CcPullToRefreshMixin` and
+  `CcInteractBtnWrapper` to `CcInteractionWrapper`, so each class matches its
+  file name. Migration: rename the references (same API).
 - No longer depends on `cc_sdk` and no longer re-exports
   `package:cc_sdk/export_cc_sdk.dart`, so the design system pulls no device,
   network or storage plugin. Migration: files that use `.Log()`, `getIt`,
@@ -16,7 +19,7 @@
 - Errors caught by `CcWidgetHelper.markNeedsBuild` and the confirmation dialog
   of `CcDialogHelper` go to `FlutterError.reportError` instead of `.Log()`.
 - Widget-building mixins moved here from `cc_mixin`: `CcViewConfigMixin`,
-  `CcPullRefreshMixin`, `CcLoadMoreMixin`, `CcCurvedNavigationMixin`.
+  `CcPullToRefreshMixin`, `CcLoadMoreMixin`, `CcCurvedNavigationMixin`.
   Migration: import them from `package:cc_sdk_ui/export_cc_sdk_ui.dart`.
 - `showDoubleBackPressSnackBar` moved here from `cc_mixin`; use it from
   `DoubleBackToExitMixin.showBackPressHint`.

@@ -22,7 +22,7 @@ class CcBouncing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final effectiveRadius = borderRadius ?? BorderRadius.zero;
-    return CcInteractBtnWrapper(
+    return CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
       isBouncing: true,

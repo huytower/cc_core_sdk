@@ -29,7 +29,7 @@ class CcTextButton extends StatelessWidget {
     }
 
     // Otherwise, wrap in bouncing interaction
-    return CcInteractBtnWrapper(
+    return CcInteractionWrapper(
       onTap: onTap!,
       useDebounce: true,
       isBouncing: true,

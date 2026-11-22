@@ -8,6 +8,13 @@
   reporters (e.g. Crashlytics and a chat alert); one failing reporter does not
   stop the others.
 
+### Changed
+
+- File names now match their class: `core/di/module/cc_sdk_dependencies.dart`
+  (`CcSdkDependencies`), `cc_app_track_name.dart`, `cc_server_exception.dart`.
+  The barrels are unchanged; only a direct import of
+  `core/di/module/cc_dependencies.dart` needs the new path.
+
 ### Breaking (next release: 3.0.0)
 
 - `flutter_udid` left the core ring. New interface `CcDeviceIdProvider`; the

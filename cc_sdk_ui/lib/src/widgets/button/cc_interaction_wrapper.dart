@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // This widget handles the animation and the debounce logic
-class CcInteractBtnWrapper extends StatefulWidget {
+class CcInteractionWrapper extends StatefulWidget {
   final Widget child;
   final VoidCallback onTap;
   final bool useDebounce;
@@ -9,7 +9,7 @@ class CcInteractBtnWrapper extends StatefulWidget {
   final bool isEnable;
   final Duration debounceDuration;
 
-  const CcInteractBtnWrapper({
+  const CcInteractionWrapper({
     super.key,
     required this.child,
     required this.onTap,
@@ -20,10 +20,10 @@ class CcInteractBtnWrapper extends StatefulWidget {
   });
 
   @override
-  State<CcInteractBtnWrapper> createState() => _CcInteractBtnWrapperState();
+  State<CcInteractionWrapper> createState() => _CcInteractionWrapperState();
 }
 
-class _CcInteractBtnWrapperState extends State<CcInteractBtnWrapper>
+class _CcInteractionWrapperState extends State<CcInteractionWrapper>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool _isDebouncing = false;

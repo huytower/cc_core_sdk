@@ -6,7 +6,7 @@
 
 import 'dart:async' as _i687;
 
-import 'package:cc_sdk/core/di/module/cc_dependencies.dart' as _i1021;
+import 'package:cc_sdk/core/di/module/cc_sdk_dependencies.dart' as _i581;
 import 'package:cc_sdk/src/core/helper/cc_device_helper.dart' as _i591;
 import 'package:cc_sdk/src/core/helper/cc_device_info_helper.dart' as _i776;
 import 'package:cc_sdk/src/core/helper/cc_network_helper.dart' as _i614;
@@ -42,4 +42,4 @@ class CcSdkPackageModule extends _i526.MicroPackageModule {
   }
 }
 
-class _$CcSdkDependencies extends _i1021.CcSdkDependencies {}
+class _$CcSdkDependencies extends _i581.CcSdkDependencies {}

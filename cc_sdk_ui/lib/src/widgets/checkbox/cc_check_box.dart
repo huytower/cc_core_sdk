@@ -50,7 +50,7 @@ class CcCheckBox extends StatelessWidget {
       return baseContent;
     }
 
-    return CcInteractBtnWrapper(
+    return CcInteractionWrapper(
       onTap: () => onChanged(!isChecked),
       useDebounce: useDebounce,
       isBouncing: interactionType == CcInteractionType.bounce,

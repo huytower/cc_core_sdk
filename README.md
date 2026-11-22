@@ -36,7 +36,7 @@ Design system, responsive widgets, spacing tokens, Plus Jakarta Sans typography.
 - **Extensions**: Context extensions, responsive helpers
 
 **Widget-building mixins** (state-management agnostic): `CcViewConfigMixin`,
-`CcPullRefreshMixin`, `CcLoadMoreMixin`, `CcCurvedNavigationMixin`.
+`CcPullToRefreshMixin`, `CcLoadMoreMixin`, `CcCurvedNavigationMixin`.
 
 **Design System:**
 - **Colors**: CcBaseColors → PrjColors → context.ccColorScheme

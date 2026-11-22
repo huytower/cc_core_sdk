@@ -19,7 +19,7 @@ export 'package:cc_sdk_ui/src/core/helper/cc_double_back_snackbar.dart';
 // Helper
 export 'package:cc_sdk_ui/src/core/helper/cc_icon_helper.dart';
 export 'package:cc_sdk_ui/src/core/helper/cc_keyboard_helper.dart';
-export 'package:cc_sdk_ui/src/core/helper/cc_snackbar_helper.dart';
+export 'package:cc_sdk_ui/src/core/helper/cc_snack_bar_helper.dart';
 export 'package:cc_sdk_ui/src/core/helper/cc_widget_helper.dart';
 // Scale curve and Material 3 window classes
 export 'package:cc_sdk_ui/src/core/layout/cc_scale.dart';
@@ -80,7 +80,7 @@ export 'package:cc_sdk_ui/src/widgets/checkbox/cc_check_box.dart';
 // Chip Widgets
 export 'package:cc_sdk_ui/src/widgets/chip/cc_feedback_tag.dart';
 export 'package:cc_sdk_ui/src/widgets/chip/cc_suggestion_chip.dart';
-export 'package:cc_sdk_ui/src/widgets/container/cc_container_rounded_corner_widget.dart';
+export 'package:cc_sdk_ui/src/widgets/container/cc_container_rounded_corner.dart';
 // Container Widgets
 export 'package:cc_sdk_ui/src/widgets/container/cc_glassy_gradient.dart';
 export 'package:cc_sdk_ui/src/widgets/container/cc_gradient_card_layout.dart';

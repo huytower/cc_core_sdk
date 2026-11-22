@@ -5,7 +5,7 @@ import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../button/cc_interaction_wrapper.dart';
-import '../container/cc_container_rounded_corner_widget.dart';
+import '../container/cc_container_rounded_corner.dart';
 import '../divider_line/cc_divider.dart';
 import '../flex/cc_flex.dart';
 import '../text/cc_text.dart';
@@ -94,7 +94,7 @@ class CcActionBtnInDialog extends StatelessWidget {
   /// cancel button ui
   Widget getCancelButtonWidget(BuildContext context) => SizedBox(
     height: context.respPadding(heightActionBtn ?? 35),
-    child: CcInteractBtnWrapper(
+    child: CcInteractionWrapper(
       onTap: onTapCancel ?? () => Navigator.of(context).pop(),
       useDebounce: true,
       isBouncing: true,
@@ -118,7 +118,7 @@ class CcActionBtnInDialog extends StatelessWidget {
   /// confirm button ui
   Widget getConfirmButtonWidget(BuildContext context) => SizedBox(
     height: context.respPadding(heightActionBtn ?? 35),
-    child: CcInteractBtnWrapper(
+    child: CcInteractionWrapper(
       onTap: onTapConfirm ?? () => Navigator.of(context).pop(),
       useDebounce: true,
       isBouncing: true,
