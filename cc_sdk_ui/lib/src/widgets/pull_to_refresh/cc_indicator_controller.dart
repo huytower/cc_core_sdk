@@ -1,4 +1,4 @@
-part of 'cc_refresh_indicator.dart';
+part of 'cc_custom_refresh_indicator.dart';
 
 class CcIndicatorController extends ChangeNotifier {
   double _value;

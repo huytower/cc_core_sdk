@@ -1,7 +1,7 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 
-import 'cc_refresh_indicator.dart';
+import 'cc_custom_refresh_indicator.dart';
 
 class CcRefreshIndicatorIcon extends StatefulWidget {
   final CcIndicatorController controller;

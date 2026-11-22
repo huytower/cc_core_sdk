@@ -3,7 +3,7 @@ import 'package:cc_sdk_ui/src/core/config/tokens/cc_typography_params.dart';
 import 'package:cc_sdk_ui/src/widgets/flex/cc_flex.dart';
 import 'package:cc_sdk_ui/src/widgets/scroll/cc_load_more_labels.dart';
 import 'package:cc_sdk_ui/src/widgets/space/cc_space.dart';
-import 'package:cc_sdk_ui/src/widgets/state/base_progress_indicator.dart';
+import 'package:cc_sdk_ui/src/widgets/state/cc_progress_indicator.dart';
 import 'package:cc_sdk_ui/src/widgets/text/cc_text.dart';
 import 'package:flutter/material.dart';
 

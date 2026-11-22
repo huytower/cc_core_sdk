@@ -119,7 +119,7 @@ export 'package:cc_sdk_ui/src/widgets/pages/error/error_page.dart';
 export 'package:cc_sdk_ui/src/widgets/pages/loading/loading_page.dart';
 export 'package:cc_sdk_ui/src/widgets/pages/status/empty_page.dart';
 // Pull-to-refresh Widgets
-export 'package:cc_sdk_ui/src/widgets/pull_to_refresh/cc_refresh_indicator.dart';
+export 'package:cc_sdk_ui/src/widgets/pull_to_refresh/cc_custom_refresh_indicator.dart';
 export 'package:cc_sdk_ui/src/widgets/pull_to_refresh/cc_refresh_indicator_icon.dart';
 // Scroll Widgets
 export 'package:cc_sdk_ui/src/widgets/scroll/cc_landscape_scrollable.dart';
@@ -132,11 +132,11 @@ export 'package:cc_sdk_ui/src/widgets/section/cc_section_header.dart';
 export 'package:cc_sdk_ui/src/widgets/shimmer/cc_shimmer.dart';
 // Space Widgets
 export 'package:cc_sdk_ui/src/widgets/space/cc_space.dart';
+export 'package:cc_sdk_ui/src/widgets/state/cc_loading_icon_widget.dart';
 // Special Status Widgets
 // Splash Widgets
 // State & Feedback Widgets
-export 'package:cc_sdk_ui/src/widgets/state/base_progress_indicator.dart';
-export 'package:cc_sdk_ui/src/widgets/state/cc_loading_icon_widget.dart';
+export 'package:cc_sdk_ui/src/widgets/state/cc_progress_indicator.dart';
 export 'package:cc_sdk_ui/src/widgets/state/cc_section_empty_state.dart';
 // Text Widgets
 export 'package:cc_sdk_ui/src/widgets/text/app_name_widget.dart';
