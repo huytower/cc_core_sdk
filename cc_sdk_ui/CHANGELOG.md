@@ -72,6 +72,10 @@
   with `CcCalendarMonthGrid` and `CcYearGrid`. Month, weekday and button texts
   come from `MaterialLocalizations`; the first weekday follows the locale
   unless `firstDayOfWeekIndex` is given.
+- Lists and stats: `CcEditableListItem` (glassy card with edit / delete /
+  drag badges in edit mode), `CcStatRow` (`label: value`), `CcSettingsTile` +
+  `CcSettingsGroup`, `CcSheetHeader` (gradient top of a bottom sheet),
+  `CcProgressPie`, `CcRatingPill` (tappable stars, label from the caller).
 - `CcLoadMoreList` and `CcLoadMoreLabels` (translated footer texts).
 - `environment.flutter` constraint, like the other SDK packages.
 

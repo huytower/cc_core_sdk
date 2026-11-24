@@ -78,7 +78,9 @@ export 'package:cc_sdk_ui/src/widgets/button/cc_social_login_button.dart';
 export 'package:cc_sdk_ui/src/widgets/button/cc_submit_button.dart';
 // Card Widgets
 export 'package:cc_sdk_ui/src/widgets/card/cc_card.dart';
+export 'package:cc_sdk_ui/src/widgets/card/cc_editable_list_item.dart';
 export 'package:cc_sdk_ui/src/widgets/card/cc_form_card.dart';
+export 'package:cc_sdk_ui/src/widgets/chart/cc_progress_pie.dart';
 // Checkbox Widgets
 export 'package:cc_sdk_ui/src/widgets/checkbox/cc_check_box.dart';
 // Chip Widgets
@@ -102,6 +104,7 @@ export 'package:cc_sdk_ui/src/widgets/dialog/cc_adaptive_bottom_sheet.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_base_dialog.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_body_modal_bottom_sheet.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_body_show_message.dart';
+export 'package:cc_sdk_ui/src/widgets/dialog/cc_sheet_header.dart';
 // Divider Widgets
 export 'package:cc_sdk_ui/src/widgets/divider_line/cc_divider.dart';
 // Duration Widgets
@@ -135,6 +138,7 @@ export 'package:cc_sdk_ui/src/widgets/pages/status/cc_empty_page.dart';
 // Pull-to-refresh Widgets
 export 'package:cc_sdk_ui/src/widgets/pull_to_refresh/cc_custom_refresh_indicator.dart';
 export 'package:cc_sdk_ui/src/widgets/pull_to_refresh/cc_refresh_indicator_icon.dart';
+export 'package:cc_sdk_ui/src/widgets/rating/cc_rating_pill.dart';
 export 'package:cc_sdk_ui/src/widgets/scroll/cc_horizontal_fade_scroll_view.dart';
 // Scroll Widgets
 export 'package:cc_sdk_ui/src/widgets/scroll/cc_landscape_scrollable.dart';
@@ -143,6 +147,8 @@ export 'package:cc_sdk_ui/src/widgets/scroll/cc_load_more_list.dart';
 export 'package:cc_sdk_ui/src/widgets/scroll/cc_scroll_reveal.dart';
 // Section Widgets
 export 'package:cc_sdk_ui/src/widgets/section/cc_section_header.dart';
+export 'package:cc_sdk_ui/src/widgets/settings/cc_settings_group.dart';
+export 'package:cc_sdk_ui/src/widgets/settings/cc_settings_tile.dart';
 // Shimmer Widgets
 export 'package:cc_sdk_ui/src/widgets/shimmer/cc_shimmer.dart';
 export 'package:cc_sdk_ui/src/widgets/shimmer/cc_shimmer_list.dart';
@@ -157,6 +163,7 @@ export 'package:cc_sdk_ui/src/widgets/state/cc_section_empty_state.dart';
 // Text Widgets
 export 'package:cc_sdk_ui/src/widgets/text/cc_app_name_widget.dart';
 export 'package:cc_sdk_ui/src/widgets/text/cc_form_label.dart';
+export 'package:cc_sdk_ui/src/widgets/text/cc_stat_row.dart';
 export 'package:cc_sdk_ui/src/widgets/text/cc_text.dart';
 export 'package:cc_sdk_ui/src/widgets/text/cc_text_button.dart';
 export 'package:cc_sdk_ui/src/widgets/text/cc_text_spans.dart';
