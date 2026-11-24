@@ -63,6 +63,15 @@
 - `CcShimmerList`: horizontal row of shimmering tiles for loading pickers.
 - `CcScrollReveal.reveal`: centres an item of a horizontal row.
 - `CcGradientBackground.page(child:)`: a page body over a faint, even tint.
+- Form building blocks: `CcNumericKeypad` (3 × 4 number pad, optional `000`
+  key), `CcKeypadPanel` (keypad + quick picks + clear / copy / done, texts in
+  `CcKeypadLabels`), `CcQuickValueChips` / `CcQuickValue` (formatted quick-pick
+  chips), `CcFormCard`, `CcFormTwoColumn` (landscape-tablet entry form),
+  `CcSubmitButton` (spinner, badge, gradient).
+- Dates: `CcQuickDateRow` (today / yesterday / calendar), `CcDatePickerSheet`
+  with `CcCalendarMonthGrid` and `CcYearGrid`. Month, weekday and button texts
+  come from `MaterialLocalizations`; the first weekday follows the locale
+  unless `firstDayOfWeekIndex` is given.
 - `CcLoadMoreList` and `CcLoadMoreLabels` (translated footer texts).
 - `environment.flutter` constraint, like the other SDK packages.
 
