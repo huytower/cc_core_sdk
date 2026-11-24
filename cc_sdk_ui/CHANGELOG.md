@@ -88,7 +88,7 @@
 - `CcConfirmSheet` + `CcConfirmTone`: centred confirmation sheet (round
   icon, title, optional highlight, message, optional extra widget, Cancel and
   a destructive or primary confirm button). `show` returns `true` when
-  confirmed.
+  confirmed. `messageMaxLines` (default 6) for longer messages.
 - `CcLoadMoreList` and `CcLoadMoreLabels` (translated footer texts).
 - `environment.flutter` constraint, like the other SDK packages.
 

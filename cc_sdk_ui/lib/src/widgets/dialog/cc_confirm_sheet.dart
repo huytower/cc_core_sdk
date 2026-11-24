@@ -35,6 +35,7 @@ class CcConfirmSheet extends StatelessWidget {
     this.highlight,
     this.extra,
     this.tone = CcConfirmTone.destructive,
+    this.messageMaxLines = defaultMessageMaxLines,
   });
 
   final IconData icon;
@@ -45,6 +46,12 @@ class CcConfirmSheet extends StatelessWidget {
   final String? highlight;
   final Widget? extra;
   final CcConfirmTone tone;
+
+  /// Lines the message may take before it is cut.
+  final int messageMaxLines;
+
+  /// Default [messageMaxLines].
+  static const int defaultMessageMaxLines = 6;
 
   /// Opens the sheet; `true` when confirmed.
   static Future<bool> show(
@@ -57,6 +64,7 @@ class CcConfirmSheet extends StatelessWidget {
     String? highlight,
     Widget? extra,
     CcConfirmTone tone = CcConfirmTone.destructive,
+    int messageMaxLines = defaultMessageMaxLines,
   }) async {
     final confirmed = await CcAdaptiveBottomSheet.show<bool>(
       context: context,
@@ -74,6 +82,7 @@ class CcConfirmSheet extends StatelessWidget {
         highlight: highlight,
         extra: extra,
         tone: tone,
+        messageMaxLines: messageMaxLines,
       ),
     );
     return confirmed ?? false;
@@ -161,7 +170,7 @@ class CcConfirmSheet extends StatelessWidget {
     return CcText(
       message,
       align: Alignment.center,
-      maxLines: 6,
+      maxLines: messageMaxLines,
       textAlign: TextAlign.center,
       textStyle: context.ccTextTheme.bodyMedium?.copyWith(
         color: context.ccColorScheme.onSurfaceVariant,
