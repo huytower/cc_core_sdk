@@ -12,7 +12,7 @@ class CcLibPhoneNumberValidator implements CcPhoneNumberValidator {
   /// (`+840939722577`) is tolerated: the library drops it, and
   /// [formatInternational] returns the normalized `+84939722577`.
   @override
-  bool isValidMobile(String internationalNumber) =>
+  bool hasValidMobile(String internationalNumber) =>
       _parseMobile(internationalNumber) != null;
 
   @override

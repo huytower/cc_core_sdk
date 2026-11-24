@@ -45,21 +45,21 @@ class CcTwoColumn extends StatelessWidget {
   /// Landscape window at least 600 dp wide (small tablet and up).
   static bool shouldUse(BuildContext context) =>
       MediaQuery.orientationOf(context) == Orientation.landscape &&
-      CcWindowSizeClass.of(context).isAtLeast(CcWindowSizeClass.medium);
+      CcWindowSizeClass.of(context).hasAtLeast(CcWindowSizeClass.medium);
 
   /// Shortest side below which a two-column window is a small (~7") tablet.
   static const double smallTabletMaxShortestSide = 720;
 
   /// [shouldUse] on a small (~7") tablet: the columns are narrow, so they
   /// split the width evenly (1:1) instead of [leftFlex]:[rightFlex].
-  static bool isSmallTablet(BuildContext context) =>
+  static bool hasSmallTablet(BuildContext context) =>
       shouldUse(context) &&
       MediaQuery.sizeOf(context).shortestSide < smallTabletMaxShortestSide;
 
   @override
   Widget build(BuildContext context) {
     final columnGap = gap ?? context.respPadding(CcPaddingParams.SPACE_MD);
-    final even = isSmallTablet(context);
+    final even = hasSmallTablet(context);
     return CcMaxWidth(
       maxWidth: maxWidth,
       child: Row(

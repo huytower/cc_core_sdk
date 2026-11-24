@@ -4,6 +4,8 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Methods that answer yes/no use the `has` prefix too: `isAtLeast` / `isBelow` (window size classes) -> `hasAtLeast` / `hasBelow`, `isSmallTablet` -> `hasSmallTablet`, `isScrollingToEnd` / `isScrollingClickStart` / `isScrollingClickEnd` -> `has...`.
+  Migration: rename the calls.
 - Booleans use the `has` prefix instead of `is` (root `AGENTS.md`
   rule 12): `isLoading` -> `hasLoading`, `isVisible` -> `hasVisible`, `isDark` -> `hasDark`, `isCurved` -> `hasCurved`, and every other `isX`. Migration: rename the references (same behaviour).
 - Abbreviations are spelled out: `bgColor` -> `backgroundColor`,

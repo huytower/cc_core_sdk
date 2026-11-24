@@ -37,22 +37,22 @@ void main() {
   group('CcWindowSizeClass comparisons', () {
     test('isAtLeast / isBelow follow width order', () {
       expect(
-        CcWindowSizeClass.expanded.isAtLeast(CcWindowSizeClass.medium),
+        CcWindowSizeClass.expanded.hasAtLeast(CcWindowSizeClass.medium),
         isTrue,
       );
       expect(
-        CcWindowSizeClass.medium.isAtLeast(CcWindowSizeClass.medium),
+        CcWindowSizeClass.medium.hasAtLeast(CcWindowSizeClass.medium),
         isTrue,
       );
       expect(
-        CcWindowSizeClass.compact.isAtLeast(CcWindowSizeClass.medium),
+        CcWindowSizeClass.compact.hasAtLeast(CcWindowSizeClass.medium),
         isFalse,
       );
       expect(
-        CcWindowSizeClass.compact.isBelow(CcWindowSizeClass.medium),
+        CcWindowSizeClass.compact.hasBelow(CcWindowSizeClass.medium),
         isTrue,
       );
-      expect(CcWindowSizeClass.large.isBelow(CcWindowSizeClass.large), isFalse);
+      expect(CcWindowSizeClass.large.hasBelow(CcWindowSizeClass.large), isFalse);
     });
   });
 

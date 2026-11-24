@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Breaking (next release: 3.0.0)
+
+- Methods that answer yes/no use the `has` prefix too: `isValidMobile` -> `hasValidMobile`.
+  Migration: rename the calls.
+
+### Other
+
 - Added `example/main.dart` and tests; `test/example_test.dart` keeps the example working.
 
 ## 2.0.0

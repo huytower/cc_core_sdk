@@ -21,12 +21,12 @@ void main() {
     // Well-formed E.164, but too short for a Vietnamese mobile number.
     const number = '+84123456';
 
-    expect(const CcBasicPhoneNumberValidator().isValidMobile(number), isTrue);
-    expect(validator.isValidMobile(number), isFalse);
+    expect(const CcBasicPhoneNumberValidator().hasValidMobile(number), isTrue);
+    expect(validator.hasValidMobile(number), isFalse);
   });
 
   test('rejects a landline number as a mobile number', () {
     // Hanoi landline.
-    expect(validator.isValidMobile('+842438251234'), isFalse);
+    expect(validator.hasValidMobile('+842438251234'), isFalse);
   });
 }

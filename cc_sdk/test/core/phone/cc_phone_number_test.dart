@@ -24,15 +24,15 @@ void main() {
     const validator = CcBasicPhoneNumberValidator();
 
     test('accepts E.164 numbers, spaces and dashes included', () {
-      expect(validator.isValidMobile('+84939722577'), isTrue);
-      expect(validator.isValidMobile('+1 415-555-2671'), isTrue);
+      expect(validator.hasValidMobile('+84939722577'), isTrue);
+      expect(validator.hasValidMobile('+1 415-555-2671'), isTrue);
       expect(validator.formatInternational('+84 939 722 577'), '+84939722577');
     });
 
     test('rejects numbers that are not E.164', () {
-      expect(validator.isValidMobile('0939722577'), isFalse);
-      expect(validator.isValidMobile('+0939722577'), isFalse);
-      expect(validator.isValidMobile('+12'), isFalse);
+      expect(validator.hasValidMobile('0939722577'), isFalse);
+      expect(validator.hasValidMobile('+0939722577'), isFalse);
+      expect(validator.hasValidMobile('+12'), isFalse);
       expect(validator.formatInternational('abc'), isNull);
     });
   });

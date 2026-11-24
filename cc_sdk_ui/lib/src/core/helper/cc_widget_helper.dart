@@ -67,15 +67,15 @@ class CcWidgetHelper {
   // ==========================================================================
 
   /// Scroll notification method, click
-  static bool isScrollingClickEnd(ScrollNotification scrollState) =>
+  static bool hasScrollingClickEnd(ScrollNotification scrollState) =>
       scrollState is ScrollEndNotification;
 
   /// Scroll notification method, click
-  static bool isScrollingClickStart(ScrollNotification scrollState) =>
+  static bool hasScrollingClickStart(ScrollNotification scrollState) =>
       scrollState is ScrollStartNotification;
 
   /// Scroll notification method, while scrolling
-  static bool isScrollingToEnd(ScrollNotification scrollState) =>
+  static bool hasScrollingToEnd(ScrollNotification scrollState) =>
       scrollState is UserScrollNotification &&
       scrollState.direction == ScrollDirection.idle;
 

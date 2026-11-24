@@ -35,7 +35,7 @@ class CcSlackHandler extends ReportHandler {
     }
 
     final errorKey = CcSlackAlertSupport.headline(report.error);
-    if (CcSlackAlertSupport.isThrottled(errorKey)) {
+    if (CcSlackAlertSupport.hasThrottled(errorKey)) {
       '[CatcherSlack] ⏳ Throttling duplicate Slack alert for "$errorKey"'.Log(
         'CcSlackHandler',
       );

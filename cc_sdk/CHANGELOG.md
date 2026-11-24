@@ -17,6 +17,8 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Methods that answer yes/no use the `has` prefix too: `CcPhoneNumberValidator.isValidMobile` -> `hasValidMobile`.
+  Migration: rename the calls.
 - Booleans use the `has` prefix instead of `is` (root `AGENTS.md`
   rule 12): `hasListening`, `hasFinal`, `hasSuccess`, `hasDefault`, `hasLargeString`. Migration: rename the references (same behaviour).
 - `CcDeviceHelper` is now `CcOrientationPolicy` (`apply`, `reset`,

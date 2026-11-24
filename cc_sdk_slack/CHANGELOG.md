@@ -4,6 +4,8 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Methods that answer yes/no use the `has` prefix too: `isIgnored` -> `hasIgnored`, `isThrottled` -> `hasThrottled`.
+  Migration: rename the calls.
 - Booleans use the `has` prefix instead of `is` (root `AGENTS.md`
   rule 12): `hasConfigured`. Migration: rename the references (same behaviour).
 

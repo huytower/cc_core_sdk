@@ -62,13 +62,13 @@ class CcSlackCrashReporter implements CcCrashReporter {
         '❌ Error not sent: no Slack webhook URL configured'.Log(_tag);
         return;
       }
-      if (CcSlackAlertSupport.isIgnored(error, ignoredErrors)) {
+      if (CcSlackAlertSupport.hasIgnored(error, ignoredErrors)) {
         '🔇 Ignored error, not sent: ${CcSlackAlertSupport.headline(error)}'
             .Log(_tag);
         return;
       }
       final key = CcSlackAlertSupport.headline(error);
-      if (CcSlackAlertSupport.isThrottled(key)) {
+      if (CcSlackAlertSupport.hasThrottled(key)) {
         '⏳ Throttled duplicate alert for "$key"'.Log(_tag);
         return;
       }

@@ -74,7 +74,7 @@ class CcFirebaseAiClient implements CcAiClient {
         }
         return CcAiResult.success(text);
       } catch (e, stack) {
-        if (attempt < _maxAttempts && _isTransientServerError(e)) {
+        if (attempt < _maxAttempts && _hasTransientServerError(e)) {
           await Future<void>.delayed(_retryDelay);
           continue;
         }
@@ -107,7 +107,7 @@ class CcFirebaseAiClient implements CcAiClient {
         : CcAiFailureKind.unknown;
   }
 
-  static bool _isTransientServerError(Object error) {
+  static bool _hasTransientServerError(Object error) {
     if (error is! FirebaseAIException) return false;
     final match = _serverErrorCodePattern.firstMatch(error.message);
     return match != null && int.parse(match.group(1)!) >= 500;

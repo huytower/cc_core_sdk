@@ -13,7 +13,7 @@
 abstract interface class CcPhoneNumberValidator {
   /// Whether [internationalNumber] (with its `+` country code, e.g.
   /// `+84939722577`) is a valid mobile number.
-  bool isValidMobile(String internationalNumber);
+  bool hasValidMobile(String internationalNumber);
 
   /// [internationalNumber] in readable international format (e.g.
   /// `+84 93 972 25 77`), or null if it is not a valid mobile number.
@@ -29,12 +29,12 @@ class CcBasicPhoneNumberValidator implements CcPhoneNumberValidator {
   static final RegExp _e164 = RegExp(r'^\+[1-9]\d{6,14}$');
 
   @override
-  bool isValidMobile(String internationalNumber) =>
+  bool hasValidMobile(String internationalNumber) =>
       _e164.hasMatch(internationalNumber.replaceAll(RegExp(r'[\s-]'), ''));
 
   @override
   String? formatInternational(String internationalNumber) {
     final compact = internationalNumber.replaceAll(RegExp(r'[\s-]'), '');
-    return isValidMobile(compact) ? compact : null;
+    return hasValidMobile(compact) ? compact : null;
   }
 }

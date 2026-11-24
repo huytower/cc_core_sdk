@@ -47,10 +47,10 @@ enum CcWindowSizeClass {
       fromWidth(constraints.maxWidth);
 
   /// Whether this class is [other] or wider.
-  bool isAtLeast(CcWindowSizeClass other) => index >= other.index;
+  bool hasAtLeast(CcWindowSizeClass other) => index >= other.index;
 
   /// Whether this class is narrower than [other].
-  bool isBelow(CcWindowSizeClass other) => index < other.index;
+  bool hasBelow(CcWindowSizeClass other) => index < other.index;
 
   /// Picks a value for this class. Classes without a value fall back to the
   /// nearest narrower one that has a value, ending at [compact].
@@ -104,5 +104,5 @@ enum CcWindowHeightClass {
       fromHeight(MediaQuery.sizeOf(context).height);
 
   /// Whether this class is [other] or taller.
-  bool isAtLeast(CcWindowHeightClass other) => index >= other.index;
+  bool hasAtLeast(CcWindowHeightClass other) => index >= other.index;
 }
