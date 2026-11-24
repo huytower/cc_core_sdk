@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/config/tokens/cc_gradient_colors.dart';
+import '../../core/extensions/cc_context_extension.dart';
 
 /// A reusable branded gradient background used behind page content.
 ///
@@ -29,7 +30,32 @@ class CcGradientBackground extends StatelessWidget {
     this.stops = const [0.0, 1.0],
     this.begin = Alignment.topCenter,
     this.end = Alignment.bottomCenter,
-  });
+  }) : child = null;
+
+  /// A page body painted over a faint, even tint of [tint] (defaults to the
+  /// theme's primary colour). Unlike the default constructor it is not a
+  /// [Stack] child: it wraps [child] and fills the space it is given, so the
+  /// body keeps the constraints it had without a background.
+  ///
+  /// ```dart
+  /// CcGradientBackground.page(child: body)
+  /// ```
+  const CcGradientBackground.page({
+    super.key,
+    required Widget this.child,
+    Color? tint,
+    this.topAlpha = defaultPageTintAlpha,
+  }) : topColor = tint,
+       bottomColor = null,
+       stops = const [0.0, 1.0],
+       begin = Alignment.topCenter,
+       end = Alignment.bottomCenter;
+
+  /// Alpha (0-255) of the tint [CcGradientBackground.page] paints.
+  static const int defaultPageTintAlpha = 10;
+
+  /// The page body, for [CcGradientBackground.page]; `null` otherwise.
+  final Widget? child;
 
   /// Color at the top of the gradient. Defaults to the semantic
   /// [CcGradientColors.top] token (theme-aware).
@@ -50,6 +76,24 @@ class CcGradientBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final body = child;
+    if (body != null) {
+      final tint = (topColor ?? context.ccColorScheme.primary).withAlpha(
+        topAlpha,
+      );
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          CcGradientBackground(
+            topColor: tint,
+            bottomColor: tint,
+            topAlpha: topAlpha,
+          ),
+          body,
+        ],
+      );
+    }
+
     final token = context.ccGradientColors;
     final top = topColor ?? token.top;
     final bottom = bottomColor ?? token.bottom;

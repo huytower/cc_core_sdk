@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' as m;
 import 'package:flutter/material.dart';
 
 import '../../widgets/base/cc_keyboard_dismisser.dart';
+import '../../widgets/dialog/cc_adaptive_bottom_sheet.dart';
 import '../../widgets/dialog/cc_base_dialog.dart';
 import '../../widgets/dialog/cc_body_modal_bottom_sheet.dart';
 import '../../widgets/dialog/cc_body_show_message.dart';
@@ -21,7 +22,8 @@ class CcDialogHelper {
   // BOTTOM SHEETS
   // ==========================================================================
 
-  /// Shows a modal bottom sheet with a custom widget.
+  /// Shows a modal bottom sheet with a custom widget. Narrowed and centred
+  /// from a small tablet up, like [CcAdaptiveBottomSheet].
   static Future<T?> showModalBottomSheet<T>(
     BuildContext context,
     Widget child, {
@@ -29,15 +31,16 @@ class CcDialogHelper {
     bool enableDrag = true,
     double border = 10.0,
   }) {
-    return m.showModalBottomSheet<T>(
+    return CcAdaptiveBottomSheet.show<T>(
       context: context,
-      enableDrag: enableDrag,
-      isDismissible: enableDrag,
+      hasDrag: enableDrag,
+      hasDismissible: enableDrag,
+      // The body below adds its own SafeArea.
+      hasSafeArea: false,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(border)),
       ),
       backgroundColor: context.ccColorScheme.surface,
-      isScrollControlled: true,
       builder: (context) {
         Widget body = SafeArea(child: CcBodyModalBottomSheet(w: child));
 
@@ -60,10 +63,11 @@ class CcDialogHelper {
     String? cancelText,
     VoidCallback? onConfirm,
   }) async {
-    return m.showModalBottomSheet<bool>(
+    return CcAdaptiveBottomSheet.show<bool>(
       context: context,
-      enableDrag: enableDrag,
-      isDismissible: enableDrag,
+      hasDrag: enableDrag,
+      hasDismissible: enableDrag,
+      hasSafeArea: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
@@ -71,7 +75,7 @@ class CcDialogHelper {
       // Landscape (a tablet held sideways): the default 9/16-height cap is
       // too short for longer messages, so let the sheet use the height it
       // needs and scroll past it. Portrait keeps the default behaviour.
-      isScrollControlled:
+      hasScrollControlled:
           MediaQuery.orientationOf(context) == Orientation.landscape,
       builder: (innerContext) => CcLandscapeScrollable(
         child: CcBodyShowMessage(
@@ -161,7 +165,8 @@ class CcDialogHelper {
         context: context,
         barrierDismissible: hasAllowDismiss,
         barrierColor:
-            barrierBackgroundColor ?? context.ccColorScheme.onSurface.withValues(alpha: 0.5),
+            barrierBackgroundColor ??
+            context.ccColorScheme.onSurface.withValues(alpha: 0.5),
         builder: (context) => dialog,
       );
 

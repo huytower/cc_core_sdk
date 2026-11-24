@@ -56,6 +56,13 @@
 
 ### Added
 
+- `CcAdaptiveBottomSheet.show` (modal sheet narrowed and centred from a small
+  tablet up) and `CcAdaptiveBottomSheet.constraintsFor`.
+- `CcTwoColumnPair`: one or two cards side by side on a landscape tablet,
+  stacked elsewhere.
+- `CcShimmerList`: horizontal row of shimmering tiles for loading pickers.
+- `CcScrollReveal.reveal`: centres an item of a horizontal row.
+- `CcGradientBackground.page(child:)`: a page body over a faint, even tint.
 - `CcLoadMoreList` and `CcLoadMoreLabels` (translated footer texts).
 - `environment.flutter` constraint, like the other SDK packages.
 
@@ -65,6 +72,9 @@
 
 ### Changed
 
+- `CcDialogHelper.showModalBottomSheet` and `showMessageBottomSheet` now use
+  `CcAdaptiveBottomSheet`: from a small tablet up the sheet is 480 dp wide and
+  centred instead of Material's 640 dp. Phones are unchanged.
 - No longer depends on the `get` package. `CcKeyboardHelper` without a
   `BuildContext` now uses `FocusManager` (`showKeyboard` focuses in the root
   focus scope, `hideKeyboard` unfocuses the primary focus) instead of
