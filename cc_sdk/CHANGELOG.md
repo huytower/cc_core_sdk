@@ -4,6 +4,9 @@
 
 ### Added
 
+- `CcOrientationPolicyScope`: re-applies `CcOrientationPolicy` whenever the
+  window size changes (foldables, split screen); put it in
+  `MaterialApp.builder`. Moved in from the app shell.
 - `CcCompositeCrashReporter`: a `CcCrashReporter` that forwards to several
   reporters (e.g. Crashlytics and a chat alert); one failing reporter does not
   stop the others.
