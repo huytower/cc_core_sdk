@@ -81,6 +81,10 @@
   `CcDatePickerSheet` now uses it. `CcSheetHeader` gained `icon` and
   `titleMaxLines`. `hasScrollableBody` caps the sheet at 90 %
   of the window and lets a self-scrolling body fill the rest.
+- Simple pickers on the frame: `CcYearPickerSheet`, `CcWeekdayPickerSheet`
+  (names passed in, Monday first) and `CcTextInputSheet` (one line of text).
+  `CcYearGrid` gained `columns`, opens scrolled to the selected year and is
+  capped at 40 % of the window height.
 - `CcLoadMoreList` and `CcLoadMoreLabels` (translated footer texts).
 - `environment.flutter` constraint, like the other SDK packages.
 
