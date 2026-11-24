@@ -93,6 +93,12 @@
   icon, title, optional highlight, message, optional extra widget, Cancel and
   a destructive or primary confirm button). `show` returns `true` when
   confirmed. `messageMaxLines` (default 6) for longer messages.
+- `CcAdaptiveNavigationScaffold`: the app shell's navigation by window size —
+  `CcCurvedNavigationBar` at the bottom below the expanded class,
+  `CcNavigationRail` beside the content from it (labels from extraLarge); the
+  page keeps its state across the switch, sits in `CcNavigationRailScope`,
+  and the bar caps a gesture indicator's inset. `navigationBuilder` lets the
+  app add its own reactive rebuild.
 - `CcReferenceWindows` / `CcReferenceWindow`: the shared window sizes to test
   adaptive layouts on (phones, foldables, Android 7"/10", iPad mini / 11" /
   13", iPad Split View, landscape, desktop).

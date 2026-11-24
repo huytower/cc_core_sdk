@@ -134,6 +134,7 @@ export 'package:cc_sdk_ui/src/widgets/input/cc_phone_number_input.dart';
 export 'package:cc_sdk_ui/src/widgets/keypad/cc_keypad_labels.dart';
 export 'package:cc_sdk_ui/src/widgets/keypad/cc_keypad_panel.dart';
 export 'package:cc_sdk_ui/src/widgets/keypad/cc_numeric_keypad.dart';
+export 'package:cc_sdk_ui/src/widgets/navigation/cc_adaptive_navigation_scaffold.dart';
 export 'package:cc_sdk_ui/src/widgets/navigation/cc_curved_navigation_bar.dart';
 export 'package:cc_sdk_ui/src/widgets/navigation/cc_curved_navigation_item.dart';
 export 'package:cc_sdk_ui/src/widgets/navigation/cc_navigation_rail.dart';
