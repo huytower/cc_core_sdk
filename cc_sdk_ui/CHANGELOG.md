@@ -85,6 +85,10 @@
   (names passed in, Monday first) and `CcTextInputSheet` (one line of text).
   `CcYearGrid` gained `columns`, opens scrolled to the selected year and is
   capped at 40 % of the window height.
+- `CcConfirmSheet` + `CcConfirmTone`: centred confirmation sheet (round
+  icon, title, optional highlight, message, optional extra widget, Cancel and
+  a destructive or primary confirm button). `show` returns `true` when
+  confirmed.
 - `CcLoadMoreList` and `CcLoadMoreLabels` (translated footer texts).
 - `environment.flutter` constraint, like the other SDK packages.
 
