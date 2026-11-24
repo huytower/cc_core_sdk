@@ -27,7 +27,6 @@ export 'package:cc_sdk_ui/src/core/layout/cc_reference_windows.dart';
 export 'package:cc_sdk_ui/src/core/layout/cc_scale.dart';
 export 'package:cc_sdk_ui/src/core/layout/cc_window_size_class.dart';
 // Widget-building mixins (state-management agnostic)
-export 'package:cc_sdk_ui/src/mixins/cc_curved_navigation_mixin.dart';
 export 'package:cc_sdk_ui/src/mixins/cc_load_more_mixin.dart';
 export 'package:cc_sdk_ui/src/mixins/cc_pull_to_refresh_mixin.dart';
 export 'package:cc_sdk_ui/src/mixins/cc_view_config_mixin.dart';

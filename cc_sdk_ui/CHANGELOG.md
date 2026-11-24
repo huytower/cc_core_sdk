@@ -4,6 +4,13 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Removed `CcCurvedNavigationMixin`. It built the bottom bar and the rail
+  from one item list, and shipped hard-coded English defaults (`'Dashboard'`,
+  `'Notification'`, `'Profile'` and a default item list). Migration: use
+  `CcAdaptiveNavigationScaffold(destinations: ..., currentIndex: ...,
+  onSelect: ..., body: ...)`, which also picks bar or rail by window size and
+  keeps the page's state; build the bar or rail alone with
+  `CcCurvedNavigationBar` / `CcNavigationRail`.
 - `buildDomainGradientAppBar(context, ...)` is now
   `CcGradientAppBar.create(context, ...)` (file `cc_gradient_app_bar.dart`),
   same parameters and look: the old name carried a domain word and was a

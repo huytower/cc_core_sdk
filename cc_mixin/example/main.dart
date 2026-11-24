@@ -3,7 +3,7 @@
 // - CcPaginationMixin: page arithmetic and the "has more" flag,
 // - CcDoubleBackToExitMixin: "press back again to exit" on Android.
 // The widget-building mixins (CcViewConfigMixin, CcPullToRefreshMixin,
-// CcLoadMoreMixin, CcCurvedNavigationMixin) live in cc_sdk_ui.
+// CcLoadMoreMixin) live in cc_sdk_ui.
 import 'package:cc_mixin/export_cc_mixin.dart';
 import 'package:cc_sdk_data/export_cc_sdk_data.dart';
 import 'package:flutter/material.dart';
