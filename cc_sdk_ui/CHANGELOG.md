@@ -4,6 +4,10 @@
 
 ### Breaking (next release: 3.0.0)
 
+- `buildDomainGradientAppBar(context, ...)` is now
+  `CcGradientAppBar.create(context, ...)` (file `cc_gradient_app_bar.dart`),
+  same parameters and look: the old name carried a domain word and was a
+  top-level function. Migration: rename the call.
 - Methods that answer yes/no use the `has` prefix too: `isAtLeast` / `isBelow` (window size classes) -> `hasAtLeast` / `hasBelow`, `isSmallTablet` -> `hasSmallTablet`, `isScrollingToEnd` / `isScrollingClickStart` / `isScrollingClickEnd` -> `has...`.
   Migration: rename the calls.
 - Booleans use the `has` prefix instead of `is` (root `AGENTS.md`

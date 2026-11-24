@@ -45,7 +45,7 @@ export 'package:cc_sdk_ui/src/widgets/anim/cc_fade_page_wrapper.dart';
 // Animation Widgets
 export 'package:cc_sdk_ui/src/widgets/anim/cc_fade_widget.dart';
 // Navigation Widgets
-export 'package:cc_sdk_ui/src/widgets/app_bar/gradient_app_bar.dart';
+export 'package:cc_sdk_ui/src/widgets/app_bar/cc_gradient_app_bar.dart';
 // Avatar Widgets
 // Background Widgets
 export 'package:cc_sdk_ui/src/widgets/background/cc_gradient_background.dart';
