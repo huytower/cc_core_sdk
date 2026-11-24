@@ -93,6 +93,9 @@
   icon, title, optional highlight, message, optional extra widget, Cancel and
   a destructive or primary confirm button). `show` returns `true` when
   confirmed. `messageMaxLines` (default 6) for longer messages.
+- `CcReferenceWindows` / `CcReferenceWindow`: the shared window sizes to test
+  adaptive layouts on (phones, foldables, Android 7"/10", iPad mini / 11" /
+  13", iPad Split View, landscape, desktop).
 - `CcLoadMoreList` and `CcLoadMoreLabels` (translated footer texts).
 - `environment.flutter` constraint, like the other SDK packages.
 
@@ -102,6 +105,12 @@
 
 ### Changed
 
+- `CcTwoColumn.shouldUse` (and so `CcTwoColumnPair`, `CcFormTwoColumn`) now
+  requires the window's shortest side to be at least 600 dp, not only its
+  width: a phone held sideways (e.g. 844×390) keeps one column even in an app
+  that does not lock phones to portrait. Tablets and unfolded foldables are
+  unchanged. `CcWindowSizeClass` docs now say that 10–11" tablets held upright
+  are a medium window.
 - `CcDialogHelper.showModalBottomSheet` and `showMessageBottomSheet` now use
   `CcAdaptiveBottomSheet`: from a small tablet up the sheet is 480 dp wide and
   centred instead of Material's 640 dp. Phones are unchanged.

@@ -21,6 +21,8 @@ export 'package:cc_sdk_ui/src/core/helper/cc_icon_helper.dart';
 export 'package:cc_sdk_ui/src/core/helper/cc_keyboard_helper.dart';
 export 'package:cc_sdk_ui/src/core/helper/cc_snack_bar_helper.dart';
 export 'package:cc_sdk_ui/src/core/helper/cc_widget_helper.dart';
+export 'package:cc_sdk_ui/src/core/layout/cc_reference_window.dart';
+export 'package:cc_sdk_ui/src/core/layout/cc_reference_windows.dart';
 // Scale curve and Material 3 window classes
 export 'package:cc_sdk_ui/src/core/layout/cc_scale.dart';
 export 'package:cc_sdk_ui/src/core/layout/cc_window_size_class.dart';

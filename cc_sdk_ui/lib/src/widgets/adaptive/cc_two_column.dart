@@ -42,10 +42,14 @@ class CcTwoColumn extends StatelessWidget {
 
   static const double defaultMaxWidth = 1200;
 
-  /// Landscape window at least 600 dp wide (small tablet and up).
+  /// Landscape window whose shortest side is at least 600 dp: a tablet or an
+  /// unfolded foldable held sideways. A phone held sideways (e.g. 844×390) is
+  /// wide enough but far too short for two columns, so it keeps one even when
+  /// the app does not lock phones to portrait.
   static bool shouldUse(BuildContext context) =>
       MediaQuery.orientationOf(context) == Orientation.landscape &&
-      CcWindowSizeClass.of(context).hasAtLeast(CcWindowSizeClass.medium);
+      MediaQuery.sizeOf(context).shortestSide >=
+          CcWindowSizeClass.medium.minWidth;
 
   /// Shortest side below which a two-column window is a small (~7") tablet.
   static const double smallTabletMaxShortestSide = 720;

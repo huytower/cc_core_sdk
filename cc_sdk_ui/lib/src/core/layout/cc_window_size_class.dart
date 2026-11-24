@@ -7,13 +7,19 @@ import 'package:flutter/widgets.dart';
 /// columns from the **space available**, not from the device type or
 /// orientation.
 ///
-/// | Class        | Width          | Typical device                          |
-/// |--------------|----------------|-----------------------------------------|
-/// | compact      | < 600          | phone portrait, foldable cover screen   |
-/// | medium       | 600 – 839      | 7–8" tablet portrait, unfolded foldable |
-/// | expanded     | 840 – 1199     | 10" tablet, phone/tablet landscape, web |
-/// | large        | 1200 – 1599    | tablet landscape, desktop / web         |
-/// | extraLarge   | ≥ 1600         | wide desktop / web                      |
+/// | Class        | Width          | Typical device                              |
+/// |--------------|----------------|---------------------------------------------|
+/// | compact      | < 600          | phone portrait, foldable cover screen       |
+/// | medium       | 600 – 839      | tablet portrait up to 11" (600–834 dp),     |
+/// |              |                | unfolded foldable                           |
+/// | expanded     | 840 – 1199     | 7–11" tablet landscape, 13" tablet portrait,|
+/// |              |                | phone landscape, small web window           |
+/// | large        | 1200 – 1599    | 10–13" tablet landscape, desktop / web      |
+/// | extraLarge   | ≥ 1600         | wide desktop / web                          |
+///
+/// So a 10–11" tablet held upright (800–834 dp) is still **medium**; only a
+/// 12.9–13" one is expanded in portrait. See `CcReferenceWindows` for the
+/// sizes behind this table.
 ///
 /// Prefer [fromConstraints] inside a [LayoutBuilder] (e.g. via
 /// `CcAdaptiveBuilder`) so a pane reacts to its own width; use [of] only when

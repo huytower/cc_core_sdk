@@ -72,5 +72,19 @@ void main() {
       expect(await use(tester, const Size(800, 1280)), isFalse);
       expect(await use(tester, const Size(560, 360)), isFalse);
     });
+
+    testWidgets('phone held sideways: no, even though it is wide', (
+      tester,
+    ) async {
+      expect(await use(tester, const Size(844, 390)), isFalse);
+      expect(await use(tester, const Size(932, 430)), isFalse);
+    });
+
+    testWidgets('unfolded foldable and iPad mini sideways: yes', (
+      tester,
+    ) async {
+      expect(await use(tester, const Size(841, 673)), isTrue);
+      expect(await use(tester, const Size(1133, 744)), isTrue);
+    });
   });
 }
