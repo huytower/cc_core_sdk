@@ -145,7 +145,7 @@ class CcFloatingActionButton extends StatelessWidget {
     final effectiveIcon =
         icon ?? Icon(iconData ?? Icons.add, color: foregroundColor);
 
-    final baseBtn = DecoratedBox(
+    final baseButton = DecoratedBox(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: backgroundColor,
@@ -166,15 +166,15 @@ class CcFloatingActionButton extends StatelessWidget {
 
     // If type is none, return the base button directly
     if (interactionType == CcInteractionType.none) {
-      return baseBtn;
+      return baseButton;
     }
 
     // Otherwise, wrap it in the interaction logic
     return CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
-      isBouncing: interactionType == CcInteractionType.bounce,
-      child: baseBtn,
+      hasBouncing: interactionType == CcInteractionType.bounce,
+      child: baseButton,
     );
   }
 }

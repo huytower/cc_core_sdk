@@ -29,7 +29,7 @@ void main() {
     var taps = 0;
     await _pump(
       tester,
-      CcBaseButton(title: 'Save', isEnable: false, onTap: () => taps++),
+      CcBaseButton(title: 'Save', hasEnable: false, onTap: () => taps++),
     );
 
     await _tapAndSettle(tester, 'Save');

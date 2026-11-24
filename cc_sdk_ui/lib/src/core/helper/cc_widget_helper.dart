@@ -25,7 +25,7 @@ class CcWidgetHelper {
     double? y,
     double? blurRadius,
     double? spreadRadius,
-    Color? bgColor,
+    Color? backgroundColor,
   }) => [
     /// 2 - drop background of child widget
     BoxShadow(
@@ -37,7 +37,7 @@ class CcWidgetHelper {
 
     /// 1 - below background of child widget,
     BoxShadow(
-      color: bgColor ?? CcBaseColors.white100,
+      color: backgroundColor ?? CcBaseColors.white100,
       spreadRadius: 0,
       blurRadius: 0,
       offset: Offset.zero,

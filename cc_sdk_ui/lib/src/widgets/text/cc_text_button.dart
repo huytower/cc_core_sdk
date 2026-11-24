@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 class CcTextButton extends StatelessWidget {
   final String text;
   final VoidCallback? onTap;
-  final bool isEnable;
+  final bool hasEnable;
   final Color? textColor;
 
   const CcTextButton({
     super.key,
     required this.text,
     this.onTap,
-    this.isEnable = true,
+    this.hasEnable = true,
     this.textColor,
   });
 
@@ -24,7 +24,7 @@ class CcTextButton extends StatelessWidget {
     final buttonText = CcFormLabel(text: text, color: color);
 
     // If not enabled or no tap handler, return text directly
-    if (!isEnable || onTap == null) {
+    if (!hasEnable || onTap == null) {
       return buttonText;
     }
 
@@ -32,7 +32,7 @@ class CcTextButton extends StatelessWidget {
     return CcInteractionWrapper(
       onTap: onTap!,
       useDebounce: true,
-      isBouncing: true,
+      hasBouncing: true,
       child: buttonText,
     );
   }

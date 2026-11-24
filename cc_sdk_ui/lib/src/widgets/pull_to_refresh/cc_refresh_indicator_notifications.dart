@@ -34,7 +34,7 @@ mixin CcCustomRefreshIndicatorNotificationHandler
   }
 
   bool _checkCanStart(ScrollNotification notification) {
-    final isValidMode =
+    final hasValidMode =
         (notification is ScrollStartNotification &&
             notification.dragDetails != null) ||
         (notification is ScrollUpdateNotification &&
@@ -42,8 +42,8 @@ mixin CcCustomRefreshIndicatorNotificationHandler
             widget.triggerMode == IndicatorTriggerMode.anywhere);
 
     final canStart =
-        isValidMode &&
-        controller.isRefreshEnabled &&
+        hasValidMode &&
+        controller.hasRefreshEnabled &&
         controller.state.isIdle &&
         _canStartFromCurrentTrigger(notification, widget.trigger);
 
@@ -151,15 +151,15 @@ mixin CcCustomRefreshIndicatorNotificationHandler
       return false;
     }
     if (!widget.notificationPredicate(notification)) return false;
-    if (_isStopingDrag) {
+    if (_hasStopingDrag) {
       controller._shouldStopDrag = false;
       return false;
     } else if (controller._shouldStopDrag) {
       controller._shouldStopDrag = false;
-      _isStopingDrag = true;
+      _hasStopingDrag = true;
 
       _hide().whenComplete(() {
-        _isStopingDrag = false;
+        _hasStopingDrag = false;
       });
       return false;
     }

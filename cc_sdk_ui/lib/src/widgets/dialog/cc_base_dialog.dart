@@ -12,26 +12,26 @@ class CcBaseDialog extends StatelessWidget {
     this.onTapCancel,
     this.onTapConfirm,
     this.agreeText,
-    this.bgColor,
+    this.backgroundColor,
     this.cancelText,
     this.cancelTextColor,
     this.confirmTextColor,
     required this.desc,
     this.descTextColor,
     this.dividerColor,
-    this.isActionBtnVisible = true,
-    this.isCancelBtnShown = false,
+    this.hasActionButtonVisible = true,
+    this.hasCancelButtonShown = false,
     this.maxLines = 3,
     this.status = CcDialogStatus.ERROR,
   });
 
   final VoidCallback? onTapCancel, onTapConfirm;
 
-  final bool isActionBtnVisible, isCancelBtnShown;
+  final bool hasActionButtonVisible, hasCancelButtonShown;
 
   final int maxLines;
 
-  final Color? bgColor, descTextColor;
+  final Color? backgroundColor, descTextColor;
   final Color? cancelTextColor, confirmTextColor, dividerColor;
 
   final CcDialogStatus? status;
@@ -44,7 +44,7 @@ class CcBaseDialog extends StatelessWidget {
   Widget buildActionButtonsWidget() => CcActionButtonInDialog(
     onTapCancel: onTapCancel,
     onTapConfirm: onTapConfirm,
-    isCancelBtnShown: isCancelBtnShown,
+    hasCancelButtonShown: hasCancelButtonShown,
     agreeText: agreeText,
     cancelText: cancelText,
     cancelTextColor: cancelTextColor,
@@ -58,7 +58,7 @@ class CcBaseDialog extends StatelessWidget {
       buildDesc(context),
 
       /// action buttons
-      isActionBtnVisible ? buildActionButtonsWidget() : const SizedBox(),
+      hasActionButtonVisible ? buildActionButtonsWidget() : const SizedBox(),
     ],
   );
 
@@ -98,7 +98,7 @@ class CcBaseDialog extends StatelessWidget {
     /// border padding at presentation left & presentation right
     insetPadding: EdgeInsets.all(context.respPadding(15.0)),
 
-    /// MUST set transparent bgColor to able avoid around white padding space
+    /// MUST set transparent backgroundColor to able avoid around white padding space
     backgroundColor: Colors.transparent,
 
     /// padding width of dialog
@@ -110,10 +110,10 @@ class CcBaseDialog extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
         child: Container(
           width: double.infinity,
-          height: context.respPadding(isActionBtnVisible ? 145 : 75),
+          height: context.respPadding(hasActionButtonVisible ? 145 : 75),
           decoration: BoxDecoration(
             color:
-                bgColor ?? context.ccColorScheme.surface.withValues(alpha: 0.8),
+                backgroundColor ?? context.ccColorScheme.surface.withValues(alpha: 0.8),
           ),
           child: buildDialogBodyWidget(context),
         ),

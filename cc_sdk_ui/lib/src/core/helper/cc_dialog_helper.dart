@@ -25,7 +25,7 @@ class CcDialogHelper {
   static Future<T?> showModalBottomSheet<T>(
     BuildContext context,
     Widget child, {
-    bool isHasIgnore = false,
+    bool hasIgnore = false,
     bool enableDrag = true,
     double border = 10.0,
   }) {
@@ -41,7 +41,7 @@ class CcDialogHelper {
       builder: (context) {
         Widget body = SafeArea(child: CcBodyModalBottomSheet(w: child));
 
-        if (isHasIgnore) {
+        if (hasIgnore) {
           return body;
         }
         return CcKeyboardDismisser(child: body);
@@ -54,7 +54,7 @@ class CcDialogHelper {
     String title = '',
     String content = '',
     Widget? customWidget,
-    bool isOnlyConfirm = false,
+    bool hasOnlyConfirm = false,
     bool enableDrag = true,
     String? confirmText,
     String? cancelText,
@@ -78,7 +78,7 @@ class CcDialogHelper {
           title: title,
           confirmText: confirmText,
           cancelText: cancelText,
-          isOnlyConfirm: isOnlyConfirm,
+          hasOnlyConfirm: hasOnlyConfirm,
           onConfirm: () {
             Navigator.of(innerContext).pop(true);
             onConfirm?.call();
@@ -129,43 +129,43 @@ class CcDialogHelper {
     required BuildContext context,
     VoidCallback? onCancel,
     required VoidCallback? onConfirm,
-    Color? bgColor,
-    Color? bgColorBarrier,
+    Color? backgroundColor,
+    Color? barrierBackgroundColor,
     String? confirmText,
     String? cancelText,
     Color? confirmTextColor,
     required String desc,
     Color? descTextColor,
-    bool isActionBtnVisible = true,
-    bool isAllowDismiss = true,
-    bool isAutoDismiss = false,
-    bool isCancelBtnShown = false,
+    bool hasActionButtonVisible = true,
+    bool hasAllowDismiss = true,
+    bool hasAutoDismiss = false,
+    bool hasCancelButtonShown = false,
     CcDialogStatus status = CcDialogStatus.ERROR,
   }) async {
     final dialog = CcBaseDialog(
       onTapCancel: onCancel,
       onTapConfirm: onConfirm,
       agreeText: confirmText,
-      bgColor: bgColor,
+      backgroundColor: backgroundColor,
       cancelText: cancelText,
       confirmTextColor: confirmTextColor,
       desc: desc,
       descTextColor: descTextColor,
-      isCancelBtnShown: isCancelBtnShown,
-      isActionBtnVisible: isActionBtnVisible,
+      hasCancelButtonShown: hasCancelButtonShown,
+      hasActionButtonVisible: hasActionButtonVisible,
       status: status,
     );
 
     try {
       final Future<void> dialogFuture = m.showDialog(
         context: context,
-        barrierDismissible: isAllowDismiss,
+        barrierDismissible: hasAllowDismiss,
         barrierColor:
-            bgColorBarrier ?? context.ccColorScheme.onSurface.withValues(alpha: 0.5),
+            barrierBackgroundColor ?? context.ccColorScheme.onSurface.withValues(alpha: 0.5),
         builder: (context) => dialog,
       );
 
-      if (isAutoDismiss) {
+      if (hasAutoDismiss) {
         await Future.delayed(const Duration(seconds: 2));
         if (context.mounted) {
           Navigator.of(context, rootNavigator: true).pop();

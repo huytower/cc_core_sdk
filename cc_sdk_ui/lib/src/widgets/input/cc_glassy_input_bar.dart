@@ -33,7 +33,7 @@ class CcGlassyInputBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = context.ccColorScheme;
-    final isDark = context.isDarkMode;
+    final hasDark = context.hasDarkMode;
 
     final outerHeight = height ?? context.respDim(50);
     final innerBarHeight = innerHeight ?? context.respDim(30);
@@ -55,9 +55,9 @@ class CcGlassyInputBar extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           // Widget A: Inner glowing bar
-          _buildInnerBorder(context, isDark, innerBarHeight, ir),
+          _buildInnerBorder(context, hasDark, innerBarHeight, ir),
           // Widget B: Outer container border
-          _buildOuterBorder(context, isDark, outerHeight, or),
+          _buildOuterBorder(context, hasDark, outerHeight, or),
           // Widget C: Content
           child,
         ],
@@ -67,7 +67,7 @@ class CcGlassyInputBar extends StatelessWidget {
 
   Widget _buildInnerBorder(
     BuildContext context,
-    bool isDark,
+    bool hasDark,
     double height,
     BorderRadius radius,
   ) {
@@ -80,7 +80,7 @@ class CcGlassyInputBar extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: isDark
+            colors: hasDark
                 ? [
                     scheme.onPrimary.withValues(alpha: 0.15),
                     scheme.onPrimary.withValues(alpha: 0.08),
@@ -109,7 +109,7 @@ class CcGlassyInputBar extends StatelessWidget {
 
   Widget _buildOuterBorder(
     BuildContext context,
-    bool isDark,
+    bool hasDark,
     double height,
     BorderRadius radius,
   ) {

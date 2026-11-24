@@ -18,7 +18,7 @@ void main() {
   test('starts on the first page with more to fetch', () {
     expect(pager.currentPage, 1);
     expect(pager.itemsPerPage, 3);
-    expect(pager.isFirstPage, isTrue);
+    expect(pager.hasFirstPage, isTrue);
     expect(pager.hasMore, isTrue);
     expect(pager.canFetchMore, isTrue);
   });
@@ -36,7 +36,7 @@ void main() {
     expect(result.isSuccess(), isTrue);
     expect(pager.currentPage, 2);
     expect(pager.hasMore, isTrue);
-    expect(pager.isFirstPage, isFalse);
+    expect(pager.hasFirstPage, isFalse);
   });
 
   test('a short page ends the list and stays on the same page', () {
@@ -65,7 +65,7 @@ void main() {
       ..handlePaginationResult(_page(3));
     expect(pager.currentPage, 3);
 
-    pager.handlePaginationResult(_page(3), isRefresh: true);
+    pager.handlePaginationResult(_page(3), hasRefresh: true);
 
     expect(pager.currentPage, 2);
     expect(pager.hasMore, isTrue);
@@ -74,7 +74,7 @@ void main() {
   test('loading blocks further fetches until it ends', () {
     pager.setPaginationLoading(true);
 
-    expect(pager.isPaginationLoading, isTrue);
+    expect(pager.hasPaginationLoading, isTrue);
     expect(pager.canFetchMore, isFalse);
 
     pager.setPaginationLoading(false);
@@ -90,7 +90,7 @@ void main() {
 
     expect(pager.currentPage, 1);
     expect(pager.hasMore, isTrue);
-    expect(pager.isPaginationLoading, isFalse);
+    expect(pager.hasPaginationLoading, isFalse);
     expect(pager.itemsPerPage, 3);
   });
 }

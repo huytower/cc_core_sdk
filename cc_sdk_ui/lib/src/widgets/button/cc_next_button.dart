@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CcNextButton extends StatelessWidget {
   final VoidCallback onTap;
   final String? title;
-  final bool isEnable;
+  final bool hasEnable;
   final CcInteractionType interactionType;
   final bool useDebounce;
 
@@ -13,7 +13,7 @@ class CcNextButton extends StatelessWidget {
     super.key,
     required this.onTap,
     this.title,
-    this.isEnable = true,
+    this.hasEnable = true,
     this.useDebounce = true,
   }) : interactionType = CcInteractionType.bounce;
 
@@ -22,7 +22,7 @@ class CcNextButton extends StatelessWidget {
     required this.interactionType,
     required this.onTap,
     this.title,
-    this.isEnable = true,
+    this.hasEnable = true,
     this.useDebounce = true,
     super.key,
   });
@@ -31,14 +31,14 @@ class CcNextButton extends StatelessWidget {
   factory CcNextButton.bouncing({
     required VoidCallback onTap,
     String? title,
-    bool isEnable = true,
+    bool hasEnable = true,
     bool useDebounce = true,
     Key? key,
   }) => CcNextButton._(
     interactionType: CcInteractionType.bounce,
     onTap: onTap,
     title: title,
-    isEnable: isEnable,
+    hasEnable: hasEnable,
     useDebounce: useDebounce,
     key: key,
   );
@@ -46,52 +46,52 @@ class CcNextButton extends StatelessWidget {
   factory CcNextButton.simple({
     required VoidCallback onTap,
     String? title,
-    bool isEnable = true,
+    bool hasEnable = true,
     bool useDebounce = true,
     Key? key,
   }) => CcNextButton._(
     interactionType: CcInteractionType.tap,
     onTap: onTap,
     title: title,
-    isEnable: isEnable,
+    hasEnable: hasEnable,
     useDebounce: useDebounce,
     key: key,
   );
 
-  factory CcNextButton.static({String? title, bool isEnable = true, Key? key}) =>
+  factory CcNextButton.static({String? title, bool hasEnable = true, Key? key}) =>
       CcNextButton._(
         interactionType: CcInteractionType.none,
         onTap: () {},
         title: title,
-        isEnable: isEnable,
+        hasEnable: hasEnable,
         useDebounce: false,
         key: key,
       );
 
   @override
   Widget build(BuildContext context) {
-    final baseBtn = CcBaseButton.static(
-      isEnable: isEnable,
+    final baseButton = CcBaseButton.static(
+      hasEnable: hasEnable,
       title: title ?? 'Next',
-      bgColor: isEnable
+      backgroundColor: hasEnable
           ? [context.ccColorScheme.primary, context.ccColorScheme.primary]
           : null, // Fallback to surfaceVariant in CcBaseButton
-      textColor: isEnable
+      textColor: hasEnable
           ? context.ccColorScheme.onPrimary
           : null, // Fallback to onSurfaceVariant in CcBaseButton
     );
 
     // If type is none or not enabled, return the base button directly
-    if (interactionType == CcInteractionType.none || !isEnable) {
-      return baseBtn;
+    if (interactionType == CcInteractionType.none || !hasEnable) {
+      return baseButton;
     }
 
     // Otherwise, wrap it in the interaction logic
     return CcInteractionWrapper(
       onTap: onTap,
       useDebounce: useDebounce,
-      isBouncing: interactionType == CcInteractionType.bounce,
-      child: baseBtn,
+      hasBouncing: interactionType == CcInteractionType.bounce,
+      child: baseButton,
     );
   }
 }

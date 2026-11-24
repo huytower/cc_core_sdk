@@ -4,6 +4,8 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Booleans use the `has` prefix instead of `is` (root `AGENTS.md`
+  rule 12): `hasFirstPage`, `hasPaginationLoading`, `hasRefresh`, `hasFirstPress`. Migration: rename the references (same behaviour).
 - `DoubleBackToExitMixin` and `PaginationMixin` are `CcDoubleBackToExitMixin`
   and `CcPaginationMixin`. Migration: add the prefix (same API).
 - No longer depends on `cc_sdk_ui`, `loadmore` or `custom_refresh_indicator`;

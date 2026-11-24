@@ -49,7 +49,7 @@ void main() {
     final started = await recognizer.startListening(onResult: (_, _) {});
 
     expect(started, isFalse);
-    expect(recognizer.isListening, isFalse);
+    expect(recognizer.hasListening, isFalse);
     await recognizer.stopListening();
   });
 

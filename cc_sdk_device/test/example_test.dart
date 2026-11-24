@@ -23,11 +23,11 @@ class _FakeSpeech implements CcSpeechRecognizer {
   bool _listening = false;
 
   @override
-  bool get isListening => _listening;
+  bool get hasListening => _listening;
 
   @override
   Future<bool> startListening({
-    required void Function(String recognizedWords, bool isFinal) onResult,
+    required void Function(String recognizedWords, bool hasFinal) onResult,
     void Function()? onListeningStopped,
     String? localeId,
   }) async {

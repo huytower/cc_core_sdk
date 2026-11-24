@@ -28,7 +28,7 @@ class CcSlackHandler extends ReportHandler {
       'CcSlackHandler',
     );
 
-    if (!_webhook.isConfigured) {
+    if (!_webhook.hasConfigured) {
       '[CatcherSlack] ❌ Cannot send report to Slack: no webhook URL configured'
           .Log('CcSlackHandler');
       return false;

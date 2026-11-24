@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class CcBaseButton extends StatelessWidget {
   final String? title;
-  final List<Color>? bgColor;
+  final List<Color>? backgroundColor;
   final Color? textColor;
-  final bool isEnable;
+  final bool hasEnable;
   final double? height, width;
   final BorderRadius? borderRadius;
   final List<Color>? colorsGradient;
@@ -18,9 +18,9 @@ class CcBaseButton extends StatelessWidget {
   const CcBaseButton({
     super.key,
     this.title,
-    this.bgColor,
+    this.backgroundColor,
     this.textColor,
-    this.isEnable = true,
+    this.hasEnable = true,
     this.height,
     this.width,
     this.borderRadius,
@@ -34,9 +34,9 @@ class CcBaseButton extends StatelessWidget {
   const CcBaseButton._({
     required this.interactionType,
     this.title,
-    this.bgColor,
+    this.backgroundColor,
     this.textColor,
-    this.isEnable = true,
+    this.hasEnable = true,
     this.height,
     this.width,
     this.borderRadius,
@@ -51,9 +51,9 @@ class CcBaseButton extends StatelessWidget {
   factory CcBaseButton.bouncing({
     Key? key,
     String? title,
-    List<Color>? bgColor,
+    List<Color>? backgroundColor,
     Color? textColor,
-    bool isEnable = true,
+    bool hasEnable = true,
     double? height,
     double? width,
     BorderRadius? borderRadius,
@@ -64,9 +64,9 @@ class CcBaseButton extends StatelessWidget {
   }) => CcBaseButton._(
     interactionType: CcInteractionType.bounce,
     title: title,
-    bgColor: bgColor,
+    backgroundColor: backgroundColor,
     textColor: textColor,
-    isEnable: isEnable,
+    hasEnable: hasEnable,
     height: height,
     width: width,
     borderRadius: borderRadius,
@@ -80,9 +80,9 @@ class CcBaseButton extends StatelessWidget {
   factory CcBaseButton.simple({
     Key? key,
     String? title,
-    List<Color>? bgColor,
+    List<Color>? backgroundColor,
     Color? textColor,
-    bool isEnable = true,
+    bool hasEnable = true,
     double? height,
     double? width,
     BorderRadius? borderRadius,
@@ -93,9 +93,9 @@ class CcBaseButton extends StatelessWidget {
   }) => CcBaseButton._(
     interactionType: CcInteractionType.tap,
     title: title,
-    bgColor: bgColor,
+    backgroundColor: backgroundColor,
     textColor: textColor,
-    isEnable: isEnable,
+    hasEnable: hasEnable,
     height: height,
     width: width,
     borderRadius: borderRadius,
@@ -109,9 +109,9 @@ class CcBaseButton extends StatelessWidget {
   factory CcBaseButton.static({
     Key? key,
     String? title,
-    List<Color>? bgColor,
+    List<Color>? backgroundColor,
     Color? textColor,
-    bool isEnable = true,
+    bool hasEnable = true,
     double? height,
     double? width,
     BorderRadius? borderRadius,
@@ -120,9 +120,9 @@ class CcBaseButton extends StatelessWidget {
   }) => CcBaseButton._(
     interactionType: CcInteractionType.none,
     title: title,
-    bgColor: bgColor,
+    backgroundColor: backgroundColor,
     textColor: textColor,
-    isEnable: isEnable,
+    hasEnable: hasEnable,
     height: height,
     width: width,
     borderRadius: borderRadius,
@@ -141,7 +141,7 @@ class CcBaseButton extends StatelessWidget {
         borderRadius: borderRadius ?? CcWidgetHelper.getBorderRoundedSM(),
         gradient: LinearGradient(
           colors:
-              bgColor ??
+              backgroundColor ??
               colorsGradient ??
               [
                 context.ccColorScheme.surfaceVariant,
@@ -156,7 +156,7 @@ class CcBaseButton extends StatelessWidget {
           textAlign: TextAlign.center,
           color:
               textColor ??
-              (isEnable
+              (hasEnable
                   ? context.ccColorScheme.onPrimary
                   : context.ccColorScheme.onSurfaceVariant),
           fontWeight: CcTypographyParams.bold,
@@ -165,7 +165,7 @@ class CcBaseButton extends StatelessWidget {
     );
 
     // If type is none or not enabled, return the base content directly
-    if (interactionType == CcInteractionType.none || !isEnable) {
+    if (interactionType == CcInteractionType.none || !hasEnable) {
       return baseContent;
     }
 
@@ -173,7 +173,7 @@ class CcBaseButton extends StatelessWidget {
     return CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
-      isBouncing: interactionType == CcInteractionType.bounce,
+      hasBouncing: interactionType == CcInteractionType.bounce,
       child: baseContent,
     );
   }

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Breaking (next release: 3.0.0)
+
+- Booleans use the `has` prefix instead of `is` (root `AGENTS.md`
+  rule 12): `hasListening`, `hasFinal`. Migration: rename the references (same behaviour).
+
+### Other
+
 - Added `CcUdidDeviceIdProvider` (registered as `CcDeviceIdProvider`):
   `identifierForVendor` on iOS/macOS, the `flutter_udid` UDID elsewhere,
   `''` on failure. `flutter_udid` and `device_info_plus` are now dependencies

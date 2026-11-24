@@ -5,7 +5,7 @@ class CcBouncing extends StatelessWidget {
   final Widget child;
   final VoidCallback? onTap;
   final bool useDebounce;
-  final bool isEnable;
+  final bool hasEnable;
   final Duration debounceDuration;
   final BorderRadius? borderRadius;
 
@@ -14,7 +14,7 @@ class CcBouncing extends StatelessWidget {
     required this.child,
     this.onTap,
     this.useDebounce = false,
-    this.isEnable = true,
+    this.hasEnable = true,
     this.debounceDuration = const Duration(milliseconds: 600),
     this.borderRadius,
   });
@@ -25,8 +25,8 @@ class CcBouncing extends StatelessWidget {
     return CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
-      isBouncing: true,
-      isEnable: isEnable,
+      hasBouncing: true,
+      hasEnable: hasEnable,
       debounceDuration: debounceDuration,
       child: ClipRRect(
         borderRadius: effectiveRadius,

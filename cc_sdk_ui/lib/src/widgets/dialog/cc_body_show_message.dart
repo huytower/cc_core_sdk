@@ -11,7 +11,7 @@ class CcBodyShowMessage extends StatelessWidget {
   final Widget child;
   final String title;
   final VoidCallback? onConfirm;
-  final bool isOnlyConfirm;
+  final bool hasOnlyConfirm;
   final String? cancelText;
   final String? confirmText;
 
@@ -20,7 +20,7 @@ class CcBodyShowMessage extends StatelessWidget {
     required this.child,
     this.title = '',
     this.onConfirm,
-    this.isOnlyConfirm = false,
+    this.hasOnlyConfirm = false,
     this.cancelText,
     this.confirmText,
   }) : super(key: key);
@@ -54,13 +54,13 @@ class CcBodyShowMessage extends StatelessWidget {
             height: context.respIconSize(baseSize: 40.0),
             child: Row(
               children: [
-                if (!isOnlyConfirm) ...[
+                if (!hasOnlyConfirm) ...[
                   Expanded(
                     child: CcBaseButton.bouncing(
                       onTap: () => Navigator.of(context).pop(false),
                       textColor: CcBaseColors.white100,
                       title: cancelText ?? 'Cancel',
-                      bgColor: [
+                      backgroundColor: [
                         context.ccColorScheme.outline,
                         context.ccColorScheme.outline,
                       ],
@@ -73,7 +73,7 @@ class CcBodyShowMessage extends StatelessWidget {
                     onTap: onConfirm,
                     textColor: CcBaseColors.white100,
                     title: confirmText ?? 'OK',
-                    bgColor: [
+                    backgroundColor: [
                       context.ccColorScheme.primary,
                       context.ccColorScheme.primary,
                     ],

@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 /// view, with a footer for the loading / failed / finished states.
 ///
 /// [onLoadMore] returns true on success and false on failure (the footer then
-/// offers a retry). Set [isFinish] once the source has no more data (for
+/// offers a retry). Set [hasFinish] once the source has no more data (for
 /// example `!hasMore` from `CcPaginationMixin`): the footer shows
 /// [CcLoadMoreLabels.noMore] and [onLoadMore] is no longer called.
 ///
@@ -29,7 +29,7 @@ class CcLoadMoreList extends StatefulWidget {
     required this.itemCount,
     required this.itemBuilder,
     required this.onLoadMore,
-    this.isFinish = false,
+    this.hasFinish = false,
     this.labels = const CcLoadMoreLabels(),
     this.controller,
     this.padding,
@@ -40,7 +40,7 @@ class CcLoadMoreList extends StatefulWidget {
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
   final Future<bool> Function() onLoadMore;
-  final bool isFinish;
+  final bool hasFinish;
   final CcLoadMoreLabels labels;
   final ScrollController? controller;
   final EdgeInsetsGeometry? padding;
@@ -57,7 +57,7 @@ class _CcLoadMoreListState extends State<CcLoadMoreList> {
   _LoadState _state = _LoadState.idle;
   bool _scheduled = false;
 
-  bool get _canLoad => !widget.isFinish && _state == _LoadState.idle;
+  bool get _canLoad => !widget.hasFinish && _state == _LoadState.idle;
 
   /// Called while the footer builds: loads after this frame, once.
   void _scheduleLoad() {
@@ -100,7 +100,7 @@ class _CcLoadMoreListState extends State<CcLoadMoreList> {
 
   Widget _buildFooter() {
     final labels = widget.labels;
-    if (widget.isFinish) return _buildText(labels.noMore);
+    if (widget.hasFinish) return _buildText(labels.noMore);
     switch (_state) {
       case _LoadState.failed:
         return InkWell(

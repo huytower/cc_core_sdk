@@ -20,7 +20,7 @@ class CcIndicatorController extends ChangeNotifier {
        _scrollingDirection = scrollingDirection ?? ScrollDirection.idle,
        _direction = direction ?? AxisDirection.down,
        _value = value ?? 0.0,
-       _isRefreshEnabled = refreshEnabled ?? true,
+       _hasRefreshEnabled = refreshEnabled ?? true,
        _shouldStopDrag = false;
 
   void setValue(double value) {
@@ -38,13 +38,13 @@ class CcIndicatorController extends ChangeNotifier {
   ScrollDirection get scrollingDirection => _scrollingDirection;
 
   /// Scrolling is happening in the positive scroll offset direction.
-  bool get isScrollingForward => scrollingDirection == ScrollDirection.forward;
+  bool get hasScrollingForward => scrollingDirection == ScrollDirection.forward;
 
   /// Scrolling is happening in the negative scroll offset direction.
-  bool get isScrollingReverse => scrollingDirection == ScrollDirection.reverse;
+  bool get hasScrollingReverse => scrollingDirection == ScrollDirection.reverse;
 
   /// No scrolling is underway.
-  bool get isScrollIdle => scrollingDirection == ScrollDirection.idle;
+  bool get hasScrollIdle => scrollingDirection == ScrollDirection.idle;
 
   AxisDirection _direction;
 
@@ -104,13 +104,13 @@ class CcIndicatorController extends ChangeNotifier {
   /// Whether list scrolls horrizontally
   ///
   /// (direction equals `AxisDirection.left` or `AxisDirection.right`)
-  bool get isHorizontalDirection =>
+  bool get hasHorizontalDirection =>
       direction == AxisDirection.left || direction == AxisDirection.right;
 
   /// Whether list scrolls vertically
   ///
   /// (direction equals `AxisDirection.up` or `AxisDirection.down`)
-  bool get isVerticalDirection =>
+  bool get hasVerticalDirection =>
       direction == AxisDirection.up || direction == AxisDirection.down;
 
   IndicatorState _currentState;
@@ -127,28 +127,28 @@ class CcIndicatorController extends ChangeNotifier {
   IndicatorState get state => _currentState;
 
   /// {@macro custom_refresh_indicator.indicator_state.idle}
-  bool get isIdle => _currentState.isIdle;
+  bool get hasIdle => _currentState.isIdle;
 
   /// {@macro custom_refresh_indicator.indicator_state.dragging}
-  bool get isDragging => _currentState.isDragging;
+  bool get hasDragging => _currentState.isDragging;
 
   /// {@macro custom_refresh_indicator.indicator_state.canceling}
-  bool get isCanceling => _currentState.isCanceling;
+  bool get hasCanceling => _currentState.isCanceling;
 
   /// {@macro custom_refresh_indicator.indicator_state.armed}
-  bool get isArmed => _currentState.isArmed;
+  bool get hasArmed => _currentState.isArmed;
 
   /// {@macro custom_refresh_indicator.indicator_state.settling}
-  bool get isSettling => _currentState.isSettling;
+  bool get hasSettling => _currentState.isSettling;
 
   /// {@macro custom_refresh_indicator.indicator_state.loading}
-  bool get isLoading => _currentState.isLoading;
+  bool get hasLoading => _currentState.isLoading;
 
   /// {@macro custom_refresh_indicator.indicator_state.complete}
-  bool get isComplete => _currentState.isComplete;
+  bool get hasComplete => _currentState.isComplete;
 
   /// {@macro custom_refresh_indicator.indicator_state.finalizing}
-  bool get isFinalizing => _currentState.isFinalizing;
+  bool get hasFinalizing => _currentState.isFinalizing;
 
   bool _shouldStopDrag;
 
@@ -156,8 +156,8 @@ class CcIndicatorController extends ChangeNotifier {
   bool get shouldStopDrag => _shouldStopDrag;
 
   /// Whether custom refresh indicator can change [IndicatorState] from `idle` to `dragging`
-  bool get isRefreshEnabled => _isRefreshEnabled;
-  bool _isRefreshEnabled;
+  bool get hasRefreshEnabled => _hasRefreshEnabled;
+  bool _hasRefreshEnabled;
 
   void stopDrag() {
     if (state.isDragging || state.isArmed) {
@@ -172,13 +172,13 @@ class CcIndicatorController extends ChangeNotifier {
 
   /// Disables list pull to refresh
   void disableRefresh() {
-    _isRefreshEnabled = false;
+    _hasRefreshEnabled = false;
     notifyListeners();
   }
 
   /// Enables list pull to refresh
   void enableRefresh() {
-    _isRefreshEnabled = true;
+    _hasRefreshEnabled = true;
     notifyListeners();
   }
 }

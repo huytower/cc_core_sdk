@@ -48,7 +48,7 @@ CcCloseButton(
     // Handle button press
   },
   icon: Icon(Icons.close),
-  bgColor: context.ccColorScheme.primaryContainer,
+  backgroundColor: context.ccColorScheme.primaryContainer,
 )
 ```
 

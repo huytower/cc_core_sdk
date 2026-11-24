@@ -75,7 +75,7 @@ class _ExampleListPageState extends State<ExampleListPage>
         : currentPaginationRequest;
     final result = handlePaginationResult(
       await widget.source.fetch(request),
-      isRefresh: refresh,
+      hasRefresh: refresh,
     );
     setPaginationLoading(false);
     if (!mounted) return;

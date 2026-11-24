@@ -6,13 +6,13 @@ class CcSaveButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.label,
-    this.isLoading = false,
+    this.hasLoading = false,
     this.widthFactor = 0.6,
   });
 
   final VoidCallback? onPressed;
   final String label;
-  final bool isLoading;
+  final bool hasLoading;
   final double widthFactor;
 
   @override
@@ -30,7 +30,7 @@ class CcSaveButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: isLoading
+            child: hasLoading
                 ? SizedBox(
                     width: context.respDim(20),
                     height: context.respDim(20),

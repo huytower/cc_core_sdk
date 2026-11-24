@@ -4,6 +4,8 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Booleans use the `has` prefix instead of `is` (root `AGENTS.md`
+  rule 12): `hasEmailVerified`, `hasPhoneVerified`, `hasPhysicalDevice`. Migration: rename the references (same behaviour).
 - Failures carry the `Cc` prefix: `CcServerFailure`, `CcCacheFailure`,
   `CcNetworkFailure`, `CcDeviceFailure`, `CcUnauthorizedFailure`,
   `CcUnknownFailure`, `CcValidationFailure`; `PaginationRequest` is

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 ///
 /// If no [icon] is provided, it defaults to [Icons.close].
 class CcCloseButton extends StatelessWidget {
-  final Color? bgColor;
+  final Color? backgroundColor;
   final double? height, width;
   final Widget? icon;
   final VoidCallback? onTap;
@@ -16,7 +16,7 @@ class CcCloseButton extends StatelessWidget {
   // Backward compatibility constructor (defaults to bounce)
   const CcCloseButton({
     required this.onTap,
-    this.bgColor,
+    this.backgroundColor,
     this.height,
     this.width,
     this.icon,
@@ -29,7 +29,7 @@ class CcCloseButton extends StatelessWidget {
   const CcCloseButton._({
     required this.interactionType,
     this.onTap,
-    this.bgColor,
+    this.backgroundColor,
     this.height,
     this.width,
     this.icon,
@@ -41,7 +41,7 @@ class CcCloseButton extends StatelessWidget {
   // Named constructors (The "API" for other developers)
   factory CcCloseButton.bouncing({
     required VoidCallback onTap,
-    Color? bgColor,
+    Color? backgroundColor,
     double? height,
     double? width,
     Widget? icon,
@@ -51,7 +51,7 @@ class CcCloseButton extends StatelessWidget {
   }) => CcCloseButton._(
     interactionType: CcInteractionType.bounce,
     onTap: onTap,
-    bgColor: bgColor,
+    backgroundColor: backgroundColor,
     height: height,
     width: width,
     icon: icon,
@@ -62,7 +62,7 @@ class CcCloseButton extends StatelessWidget {
 
   factory CcCloseButton.simple({
     required VoidCallback onTap,
-    Color? bgColor,
+    Color? backgroundColor,
     double? height,
     double? width,
     Widget? icon,
@@ -72,7 +72,7 @@ class CcCloseButton extends StatelessWidget {
   }) => CcCloseButton._(
     interactionType: CcInteractionType.tap,
     onTap: onTap,
-    bgColor: bgColor,
+    backgroundColor: backgroundColor,
     height: height,
     width: width,
     icon: icon,
@@ -82,7 +82,7 @@ class CcCloseButton extends StatelessWidget {
   );
 
   factory CcCloseButton.static({
-    Color? bgColor,
+    Color? backgroundColor,
     double? height,
     double? width,
     Widget? icon,
@@ -90,7 +90,7 @@ class CcCloseButton extends StatelessWidget {
     Key? key,
   }) => CcCloseButton._(
     interactionType: CcInteractionType.none,
-    bgColor: bgColor,
+    backgroundColor: backgroundColor,
     height: height,
     width: width,
     icon: icon,
@@ -104,13 +104,13 @@ class CcCloseButton extends StatelessWidget {
     final double defaultSize = context.respIconSize(baseSize: 35.0);
     final double defaultIconSize = context.respIconSize(baseSize: 20.0);
 
-    final baseBtn = SizedBox(
+    final baseButton = SizedBox(
       width: width ?? defaultSize,
       height: height ?? defaultSize,
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: bgColor ?? Colors.transparent,
+          color: backgroundColor ?? Colors.transparent,
           shape: BoxShape.circle,
         ),
         child:
@@ -125,7 +125,7 @@ class CcCloseButton extends StatelessWidget {
 
     // If type is none, return the base button directly
     if (interactionType == CcInteractionType.none) {
-      return Center(child: baseBtn);
+      return Center(child: baseButton);
     }
 
     // Otherwise, wrap it in the interaction logic
@@ -133,8 +133,8 @@ class CcCloseButton extends StatelessWidget {
       child: CcInteractionWrapper(
         onTap: onTap ?? () {},
         useDebounce: useDebounce,
-        isBouncing: interactionType == CcInteractionType.bounce,
-        child: baseBtn,
+        hasBouncing: interactionType == CcInteractionType.bounce,
+        child: baseButton,
       ),
     );
   }

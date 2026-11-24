@@ -47,7 +47,7 @@ void main() {
     );
 
     expect(started, isTrue);
-    expect(speech.isListening, isTrue);
+    expect(speech.hasListening, isTrue);
     expect(fake.lastLocaleId, 'vi_VN');
   });
 
@@ -85,7 +85,7 @@ void main() {
     await speech.stopListening();
     await speech.stopListening();
 
-    expect(speech.isListening, isFalse);
+    expect(speech.hasListening, isFalse);
     expect(stopped, 1);
   });
 

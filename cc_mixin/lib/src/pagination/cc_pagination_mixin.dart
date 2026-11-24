@@ -57,7 +57,7 @@ mixin CcPaginationMixin {
   int _currentPage = 1;
   int _itemsPerPage = 20;
   bool _hasMore = true;
-  bool _isLoading = false;
+  bool _hasLoading = false;
 
   // --- Getters ---
 
@@ -71,13 +71,13 @@ mixin CcPaginationMixin {
   bool get hasMore => _hasMore;
 
   /// True if a pagination request is currently in progress.
-  bool get isPaginationLoading => _isLoading;
+  bool get hasPaginationLoading => _hasLoading;
 
   /// Returns true if more data can be fetched (not currently loading and has more items).
-  bool get canFetchMore => _hasMore && !_isLoading;
+  bool get canFetchMore => _hasMore && !_hasLoading;
 
   /// Returns true if the pagination is currently at the first page.
-  bool get isFirstPage => _currentPage == 1;
+  bool get hasFirstPage => _currentPage == 1;
 
   /// Generates a [CcPaginationRequest] based on the current internal state.
   CcPaginationRequest get currentPaginationRequest =>
@@ -90,19 +90,19 @@ mixin CcPaginationMixin {
     _itemsPerPage = initialItemsPerPage;
     _currentPage = 1;
     _hasMore = true;
-    _isLoading = false;
+    _hasLoading = false;
   }
 
   /// Resets pagination to the first page.
   void resetPagination() {
     _currentPage = 1;
     _hasMore = true;
-    _isLoading = false;
+    _hasLoading = false;
   }
 
   /// Manually updates the internal loading state.
   void setPaginationLoading(bool loading) {
-    _isLoading = loading;
+    _hasLoading = loading;
   }
 
   /// Processes a [Result] from a data source to update pagination metadata.
@@ -111,12 +111,12 @@ mixin CcPaginationMixin {
   ///   matches the [_itemsPerPage]. Increments the page counter if more data is available.
   /// - On [Error]: Returns the original error result for the caller to handle.
   ///
-  /// Set [isRefresh] to true to reset the state to the first page before processing.
+  /// Set [hasRefresh] to true to reset the state to the first page before processing.
   Result<List<T>, CcFailure> handlePaginationResult<T>(
     Result<List<T>, CcFailure> result, {
-    bool isRefresh = false,
+    bool hasRefresh = false,
   }) {
-    if (isRefresh) resetPagination();
+    if (hasRefresh) resetPagination();
 
     return result.when(
       (data) {

@@ -35,17 +35,17 @@ class CcSnackBarHelper {
     double? elevation,
     FontWeight? fontWeight,
   }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final defaultBg = isDark
+    final hasDark = Theme.of(context).brightness == Brightness.dark;
+    final defaultBackground = hasDark
         ? context.ccColorScheme.primaryContainer
         : context.ccColorScheme.surface;
-    final defaultText = isDark
+    final defaultText = hasDark
         ? context.ccColorScheme.onPrimaryContainer
         : context.ccColorScheme.onSurface;
 
     final defaultShape = RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
-      side: isDark
+      side: hasDark
           ? BorderSide(
               color: context.ccColorScheme.onSurface.withValues(alpha: 0.12),
               width: 1,
@@ -62,7 +62,7 @@ class CcSnackBarHelper {
           fontWeight: fontWeight ?? CcTypographyParams.regular,
         ),
       ),
-      backgroundColor: backgroundColor ?? defaultBg,
+      backgroundColor: backgroundColor ?? defaultBackground,
       duration: duration ?? const Duration(milliseconds: 1300),
       action: actionLabel != null
           ? SnackBarAction(
@@ -70,7 +70,7 @@ class CcSnackBarHelper {
               onPressed: onActionPressed ?? () {},
               textColor:
                   textColor?.withValues(alpha: 0.8) ??
-                  (isDark
+                  (hasDark
                       ? context.ccColorScheme.primary
                       : context.ccColorScheme.primary.withValues(alpha: 0.8)),
             )
@@ -82,7 +82,7 @@ class CcSnackBarHelper {
       behavior: SnackBarBehavior.floating,
       margin: margin ?? EdgeInsets.all(context.respPadding(8.0)),
       shape: shape ?? defaultShape,
-      elevation: elevation ?? (isDark ? 0 : 4),
+      elevation: elevation ?? (hasDark ? 0 : 4),
     );
 
     // Show the snackbar
@@ -122,12 +122,12 @@ class CcSnackBarHelper {
     String? actionLabel,
     VoidCallback? onActionPressed,
   }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final hasDark = Theme.of(context).brightness == Brightness.dark;
     showSnackBar(
       context: context,
       message: message,
       duration: duration,
-      backgroundColor: isDark
+      backgroundColor: hasDark
           ? context.ccColorScheme.primaryContainer
           : context.ccColorScheme.primary,
       textColor: context.ccColorScheme.onPrimary,

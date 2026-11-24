@@ -48,7 +48,7 @@ class CcNameInputField extends StatelessWidget {
           listenable: controller,
           builder: (context, _) {
             final hasValue = controller.text.isNotEmpty;
-            final isAtMax = controller.text.length >= maxLength;
+            final hasAtMax = controller.text.length >= maxLength;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +138,7 @@ class CcNameInputField extends StatelessWidget {
                     ),
                   ),
                 ] else if (showMaxLengthWarning &&
-                    isAtMax &&
+                    hasAtMax &&
                     maxLengthWarningText != null) ...[
                   const CcSpaceXS(),
                   Padding(

@@ -12,19 +12,19 @@ extension CcLoggerExtension<T> on T {
   /// Logs [this] and returns it unchanged.
   ///
   /// Nothing happens unless [CcSdkConfig.enableLogger] is on. Regular
-  /// logs go out in debug builds only; with [isLargeString] the value is
+  /// logs go out in debug builds only; with [hasLargeString] the value is
   /// logged in every build mode, without truncation. Maps and lists are
   /// logged as JSON, other values as their `toString()`.
   ///
   /// Kept as [Log] for backward compatibility with existing call sites.
   T Log([
     String tag = '',
-    bool isLargeString = false,
+    bool hasLargeString = false,
     String tagName = 'logger:~~~/',
   ]) {
     if (!CcSdkConfig.current.enableLogger) return this;
 
-    if (isLargeString) {
+    if (hasLargeString) {
       developer.log(
         '${_ccLogContent(this)}\n'
         '====================================================',

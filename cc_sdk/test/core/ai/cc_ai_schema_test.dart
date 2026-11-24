@@ -69,7 +69,7 @@ void main() {
     test('success carries the text and no failure', () {
       const result = CcAiResult.success('{"ok":true}');
 
-      expect(result.isSuccess, isTrue);
+      expect(result.hasSuccess, isTrue);
       expect(result.text, '{"ok":true}');
       expect(result.failure, isNull);
     });
@@ -79,7 +79,7 @@ void main() {
         CcAiFailure(CcAiFailureKind.deviceAttestation, cause: 'denied'),
       );
 
-      expect(result.isSuccess, isFalse);
+      expect(result.hasSuccess, isFalse);
       expect(result.text, isNull);
       expect(result.failure!.kind, CcAiFailureKind.deviceAttestation);
       expect(

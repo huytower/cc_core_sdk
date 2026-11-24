@@ -15,7 +15,7 @@
 /// );
 /// ```
 abstract interface class CcSpeechRecognizer {
-  bool get isListening;
+  bool get hasListening;
 
   /// Streams transcriptions to [onResult]. Returns false if the recognizer
   /// cannot start (no permission, unavailable). Returns true without a new
@@ -25,7 +25,7 @@ abstract interface class CcSpeechRecognizer {
   /// (final result, silence timeout, error), so UI state can reset there.
   /// [localeId] such as `vi_VN`; null uses the device's default.
   Future<bool> startListening({
-    required void Function(String recognizedWords, bool isFinal) onResult,
+    required void Function(String recognizedWords, bool hasFinal) onResult,
     void Function()? onListeningStopped,
     String? localeId,
   });
@@ -40,11 +40,11 @@ class CcNoopSpeechRecognizer implements CcSpeechRecognizer {
   const CcNoopSpeechRecognizer();
 
   @override
-  bool get isListening => false;
+  bool get hasListening => false;
 
   @override
   Future<bool> startListening({
-    required void Function(String recognizedWords, bool isFinal) onResult,
+    required void Function(String recognizedWords, bool hasFinal) onResult,
     void Function()? onListeningStopped,
     String? localeId,
   }) async => false;

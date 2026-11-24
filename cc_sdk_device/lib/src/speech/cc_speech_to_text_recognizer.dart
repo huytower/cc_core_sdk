@@ -22,7 +22,7 @@ class CcSpeechToTextRecognizer implements CcSpeechRecognizer {
   static const String _tag = 'CcSpeechToTextRecognizer';
 
   @override
-  bool get isListening => _speech.isListening;
+  bool get hasListening => _speech.isListening;
 
   /// `SpeechToText.initialize()` only keeps the callbacks of its first call,
   /// so the status listener is wired once and forwards to the latest
@@ -61,7 +61,7 @@ class CcSpeechToTextRecognizer implements CcSpeechRecognizer {
 
   @override
   Future<bool> startListening({
-    required void Function(String recognizedWords, bool isFinal) onResult,
+    required void Function(String recognizedWords, bool hasFinal) onResult,
     void Function()? onListeningStopped,
     String? localeId,
   }) async {

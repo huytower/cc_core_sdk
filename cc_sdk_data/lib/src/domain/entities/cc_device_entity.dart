@@ -14,7 +14,7 @@ class CcDeviceEntity extends Equatable {
   final String? packageName;
   final String? model;
   final String? brand;
-  final bool? isPhysicalDevice;
+  final bool? hasPhysicalDevice;
   final String deviceInfo;
 
   const CcDeviceEntity({
@@ -28,7 +28,7 @@ class CcDeviceEntity extends Equatable {
     this.packageName,
     this.model,
     this.brand,
-    this.isPhysicalDevice,
+    this.hasPhysicalDevice,
   });
 
   @override
@@ -43,6 +43,6 @@ class CcDeviceEntity extends Equatable {
     packageName,
     model,
     brand,
-    isPhysicalDevice,
+    hasPhysicalDevice,
   ];
 }

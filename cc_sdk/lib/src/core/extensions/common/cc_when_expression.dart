@@ -5,7 +5,7 @@
 /// with the condition then it will execute the else branch.
 ///
 dynamic ccWhen<T, R>({T? variable, Map<T, R>? conditions, R? orElse}) {
-  var isDefault = true;
+  var hasDefault = true;
   dynamic result;
   if (conditions != null) {
     // Walk the branches last to first, so the first matching branch is the
@@ -15,18 +15,18 @@ dynamic ccWhen<T, R>({T? variable, Map<T, R>? conditions, R? orElse}) {
       if (variable != null) {
         var containsKey = key == variable;
         if (containsKey) {
-          isDefault = false;
+          hasDefault = false;
           result = _value;
         }
       } else {
         if (key == true) {
-          isDefault = false;
+          hasDefault = false;
           result = _value;
         }
       }
     });
   }
-  if ((orElse != null) && (isDefault == true)) {
+  if ((orElse != null) && (hasDefault == true)) {
     result = orElse;
   }
   if (result is Function) {

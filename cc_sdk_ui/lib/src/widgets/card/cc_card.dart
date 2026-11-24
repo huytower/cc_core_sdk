@@ -127,7 +127,7 @@ class CcCard extends StatelessWidget {
         boxShadow: hasShadow
             ? CcWidgetHelper.getBoxShadows(
                 context,
-                bgColor: cardBackgroundColor,
+                backgroundColor: cardBackgroundColor,
               )
             : null,
       ),
@@ -143,7 +143,7 @@ class CcCard extends StatelessWidget {
     return CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
-      isBouncing: interactionType == CcInteractionType.bounce,
+      hasBouncing: interactionType == CcInteractionType.bounce,
       child: baseCard,
     );
   }

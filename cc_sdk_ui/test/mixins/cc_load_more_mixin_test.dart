@@ -9,7 +9,7 @@ const _labels = CcLoadMoreLabels();
 Future<void> _pumpList(
   WidgetTester tester, {
   required int itemCount,
-  required bool isFinish,
+  required bool hasFinish,
   required Future<bool> Function() onLoadMore,
 }) async {
   await tester.pumpWidget(
@@ -18,7 +18,7 @@ Future<void> _pumpList(
         body: _List().buildLoadMore(
           itemCount: itemCount,
           itemBuilder: (_, i) => ListTile(title: Text('Item $i')),
-          isFinish: isFinish,
+          hasFinish: hasFinish,
           onLoadMore: onLoadMore,
         ),
       ),
@@ -34,7 +34,7 @@ void main() {
     await _pumpList(
       tester,
       itemCount: 1,
-      isFinish: false,
+      hasFinish: false,
       onLoadMore: () async {
         calls++;
         return true;
@@ -52,7 +52,7 @@ void main() {
     await _pumpList(
       tester,
       itemCount: 1,
-      isFinish: true,
+      hasFinish: true,
       onLoadMore: () async {
         calls++;
         return true;
@@ -71,7 +71,7 @@ void main() {
     await _pumpList(
       tester,
       itemCount: 1,
-      isFinish: false,
+      hasFinish: false,
       onLoadMore: () async => ++calls > 1,
     );
     await tester.pump();
@@ -93,7 +93,7 @@ void main() {
     await _pumpList(
       tester,
       itemCount: 200,
-      isFinish: false,
+      hasFinish: false,
       onLoadMore: () async {
         calls++;
         return true;

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Breaking (next release: 3.0.0)
+
+- Booleans use the `has` prefix instead of `is` (root `AGENTS.md`
+  rule 12): `hasConfigured`. Migration: rename the references (same behaviour).
+
+### Other
+
 - `CcSlackCrashReporter` takes `ignoredErrors` (a list of strings or `RegExp`s):
   an error whose text matches is not posted to Slack, while other reporters in
   a `CcCompositeCrashReporter` still receive it. For expected, transient noise

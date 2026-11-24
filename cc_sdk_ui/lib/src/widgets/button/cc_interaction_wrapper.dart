@@ -5,8 +5,8 @@ class CcInteractionWrapper extends StatefulWidget {
   final Widget child;
   final VoidCallback onTap;
   final bool useDebounce;
-  final bool isBouncing;
-  final bool isEnable;
+  final bool hasBouncing;
+  final bool hasEnable;
   final Duration debounceDuration;
 
   const CcInteractionWrapper({
@@ -14,8 +14,8 @@ class CcInteractionWrapper extends StatefulWidget {
     required this.child,
     required this.onTap,
     required this.useDebounce,
-    required this.isBouncing,
-    this.isEnable = true,
+    required this.hasBouncing,
+    this.hasEnable = true,
     this.debounceDuration = const Duration(milliseconds: 600),
   });
 
@@ -26,7 +26,7 @@ class CcInteractionWrapper extends StatefulWidget {
 class _CcInteractionWrapperState extends State<CcInteractionWrapper>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  bool _isDebouncing = false;
+  bool _hasDebouncing = false;
 
   @override
   void initState() {
@@ -46,17 +46,17 @@ class _CcInteractionWrapperState extends State<CcInteractionWrapper>
   }
 
   void _handleTap() async {
-    if (!widget.isEnable) return;
-    if (widget.useDebounce && _isDebouncing) return;
+    if (!widget.hasEnable) return;
+    if (widget.useDebounce && _hasDebouncing) return;
 
-    if (widget.isBouncing) {
+    if (widget.hasBouncing) {
       _controller.forward().then((_) => _controller.reverse());
     }
 
     if (widget.useDebounce) {
-      setState(() => _isDebouncing = true);
+      setState(() => _hasDebouncing = true);
       Future.delayed(widget.debounceDuration, () {
-        if (mounted) setState(() => _isDebouncing = false);
+        if (mounted) setState(() => _hasDebouncing = false);
       });
     }
 
@@ -66,13 +66,13 @@ class _CcInteractionWrapperState extends State<CcInteractionWrapper>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.isEnable ? _handleTap : null,
+      onTap: widget.hasEnable ? _handleTap : null,
       behavior: HitTestBehavior.opaque,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
           return Transform.scale(
-            scale: widget.isBouncing ? (1.0 - _controller.value) : 1.0,
+            scale: widget.hasBouncing ? (1.0 - _controller.value) : 1.0,
             child: child,
           );
         },

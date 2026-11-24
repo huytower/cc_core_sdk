@@ -70,11 +70,11 @@ class CcNavigationRail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.isDarkMode;
+    final hasDark = context.hasDarkMode;
     final active = activeColor ?? CcBaseColors.brand500;
     final inactive =
         inactiveColor ??
-        (isDark ? CcBaseColors.white50 : CcBaseColors.neutral50);
+        (hasDark ? CcBaseColors.white50 : CcBaseColors.neutral50);
     // Icons follow the text scale (max 1.2x) so they stay inside the
     // Material indicator pill instead of growing with respDim (1.5x).
     final iconSize = 24 * CcScale.text(context.screenWidth);
@@ -101,7 +101,7 @@ class CcNavigationRail extends StatelessWidget {
       groupAlignment: -1,
       backgroundColor:
           backgroundColor ??
-          (isDark ? CcBaseColors.transparent : CcBaseColors.white100),
+          (hasDark ? CcBaseColors.transparent : CcBaseColors.white100),
       indicatorColor: active.withAlpha(36),
       selectedIconTheme: IconThemeData(color: active, size: iconSize),
       unselectedIconTheme: IconThemeData(color: inactive, size: iconSize),

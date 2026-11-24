@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CcCheckBox extends StatelessWidget {
   const CcCheckBox({
     super.key,
-    required this.isChecked,
+    required this.hasChecked,
     required this.onChanged,
     this.interactionType = CcInteractionType.bounce,
     this.useDebounce = true,
@@ -12,7 +12,7 @@ class CcCheckBox extends StatelessWidget {
     this.uncheckedBorderColor,
   });
 
-  final bool isChecked;
+  final bool hasChecked;
   final ValueChanged<bool> onChanged;
   final CcInteractionType interactionType;
   final bool useDebounce;
@@ -28,16 +28,16 @@ class CcCheckBox extends StatelessWidget {
       width: context.respIconSize(baseSize: 18.0),
       height: context.respIconSize(baseSize: 18.0),
       decoration: BoxDecoration(
-        color: isChecked ? effectiveCheckedColor : Colors.transparent,
+        color: hasChecked ? effectiveCheckedColor : Colors.transparent,
         border: Border.all(
-          color: isChecked
+          color: hasChecked
               ? effectiveCheckedColor
               : effectiveUncheckedBorderColor,
           width: 2,
         ),
         borderRadius: BorderRadius.circular(CcCircularParams.RADIUS_XS),
       ),
-      child: isChecked
+      child: hasChecked
           ? Icon(
               Icons.check,
               size: context.respIconSize(baseSize: 16.0),
@@ -51,9 +51,9 @@ class CcCheckBox extends StatelessWidget {
     }
 
     return CcInteractionWrapper(
-      onTap: () => onChanged(!isChecked),
+      onTap: () => onChanged(!hasChecked),
       useDebounce: useDebounce,
-      isBouncing: interactionType == CcInteractionType.bounce,
+      hasBouncing: interactionType == CcInteractionType.bounce,
       child: baseContent,
     );
   }

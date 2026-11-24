@@ -42,7 +42,7 @@ class CcAiResult {
   final String? text;
   final CcAiFailure? failure;
 
-  bool get isSuccess => failure == null;
+  bool get hasSuccess => failure == null;
 }
 
 /// Why a generation failed, as far as callers need to react differently.

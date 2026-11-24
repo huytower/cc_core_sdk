@@ -2,7 +2,7 @@ part of 'cc_custom_refresh_indicator.dart';
 
 mixin CcCustomRefreshIndicatorLogic
     on State<CcCustomRefreshIndicator>, TickerProvider {
-  bool _isStopingDrag = false;
+  bool _hasStopingDrag = false;
   double _dragOffset = 0;
   late AnimationController _animationController;
   late bool _controllerProvided;

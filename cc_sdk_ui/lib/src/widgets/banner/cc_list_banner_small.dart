@@ -68,7 +68,7 @@ class CcListBannerSmall extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    CcLeadingIcon(bgColor: accentColor, icon: icon),
+                    CcLeadingIcon(backgroundColor: accentColor, icon: icon),
                     const CcSpaceSM(),
                     _buildMessage(context),
                     if (showChevron) _buildChevron(context),
@@ -84,12 +84,12 @@ class CcListBannerSmall extends StatelessWidget {
   }
 
   BoxDecoration _buildDecoration(BuildContext context) {
-    final isDark = context.isDarkMode;
+    final hasDark = context.hasDarkMode;
     final scheme = context.ccColorScheme;
     final color = accentColor ?? scheme.primary;
 
     // Increase alpha in Dark Mode to reduce transparency as requested
-    final gradientAlpha = isDark ? 0.8 : 0.2;
+    final gradientAlpha = hasDark ? 0.8 : 0.2;
     const borderAlpha = 0.1;
 
     return BoxDecoration(
@@ -117,11 +117,11 @@ class CcListBannerSmall extends StatelessWidget {
   }
 
   Widget _buildMessage(BuildContext context) {
-    final isDark = context.isDarkMode;
+    final hasDark = context.hasDarkMode;
     final titleStyle = context.ccTextTheme.bodySmall?.copyWith(
       fontWeight: CcTypographyParams.bold,
       color: context.ccColorScheme.onSurface.withValues(alpha: 0.8),
-      shadows: isDark
+      shadows: hasDark
           ? [
               Shadow(
                 color: context.ccColorScheme.onSurface.withValues(alpha: 0.25),
@@ -140,7 +140,7 @@ class CcListBannerSmall extends StatelessWidget {
 
     final descStyle = context.ccTextTheme.labelSmall?.copyWith(
       color: context.ccColorScheme.onSurface.withValues(alpha: 0.6),
-      shadows: isDark
+      shadows: hasDark
           ? [
               Shadow(
                 color: context.ccColorScheme.onSurface.withValues(alpha: 0.2),
@@ -163,7 +163,7 @@ class CcListBannerSmall extends StatelessWidget {
   }
 
   Widget _buildChevron(BuildContext context) {
-    final color = context.isDarkMode
+    final color = context.hasDarkMode
         ? context.ccColorScheme.surface
         : context.ccColorScheme.onSurface;
 

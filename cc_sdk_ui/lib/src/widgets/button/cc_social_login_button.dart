@@ -74,7 +74,7 @@ class CcSocialLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final baseBtn = Container(
+    final baseButton = Container(
       height: context.respDim(48),
       width: double.infinity,
       decoration: BoxDecoration(
@@ -102,15 +102,15 @@ class CcSocialLoginButton extends StatelessWidget {
 
     // If type is none, return the base button directly
     if (interactionType == CcInteractionType.none) {
-      return baseBtn;
+      return baseButton;
     }
 
     // Otherwise, wrap it in the interaction logic
     return CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
-      isBouncing: interactionType == CcInteractionType.bounce,
-      child: baseBtn,
+      hasBouncing: interactionType == CcInteractionType.bounce,
+      child: baseButton,
     );
   }
 

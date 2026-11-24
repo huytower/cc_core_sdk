@@ -12,7 +12,7 @@ class CcCurvedNavigationTile extends StatelessWidget {
   const CcCurvedNavigationTile({
     super.key,
     required this.item,
-    required this.isActive,
+    required this.hasActive,
     required this.activeColor,
     required this.inactiveColor,
     required this.inactiveIconSize,
@@ -25,7 +25,7 @@ class CcCurvedNavigationTile extends StatelessWidget {
   });
 
   final CcCurvedNavigationItem item;
-  final bool isActive;
+  final bool hasActive;
   final Color activeColor;
   final Color inactiveColor;
   final double inactiveIconSize;
@@ -42,7 +42,7 @@ class CcCurvedNavigationTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         AnimatedOpacity(
-          opacity: isActive ? 0.0 : 1.0,
+          opacity: hasActive ? 0.0 : 1.0,
           duration: const Duration(milliseconds: 100),
           child: CcCurvedBadge(
             badgeText: item.badgeText,
@@ -74,7 +74,7 @@ class CcCurvedNavigationTile extends StatelessWidget {
 
     return Semantics(
       label: item.label,
-      selected: isActive,
+      selected: hasActive,
       button: true,
       child: GestureDetector(
         onTap: onTap,
@@ -91,7 +91,7 @@ class CcCurvedNavigationTile extends StatelessWidget {
         Expanded(
           child: AnimatedDefaultTextStyle(
             duration: animationDuration,
-            style: isActive
+            style: hasActive
                 ? activeTextStyle.copyWith(color: activeColor)
                 : inactiveTextStyle.copyWith(color: inactiveColor),
             child: Text(

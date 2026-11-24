@@ -76,11 +76,11 @@ mixin CcDoubleBackToExitMixin {
     }
 
     final now = DateTime.now();
-    final isFirstPress =
+    final hasFirstPress =
         _lastBackPressedAt == null ||
         now.difference(_lastBackPressedAt!) > _doubleBackDuration;
 
-    if (isFirstPress) {
+    if (hasFirstPress) {
       _lastBackPressedAt = now;
       showBackPressHint(context, backPressMessage);
     } else {

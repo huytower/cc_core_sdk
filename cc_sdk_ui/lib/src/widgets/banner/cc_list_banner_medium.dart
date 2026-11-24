@@ -85,11 +85,11 @@ class CcListBannerMedium extends StatelessWidget {
   }
 
   BoxDecoration _buildDecoration(BuildContext context) {
-    final isDark = context.isDarkMode;
+    final hasDark = context.hasDarkMode;
     final scheme = context.ccColorScheme;
     final color = this.color ?? scheme.primary;
 
-    final gradientAlpha = isDark ? 0.8 : 0.2;
+    final gradientAlpha = hasDark ? 0.8 : 0.2;
     const borderAlpha = 0.1;
 
     return BoxDecoration(
@@ -117,7 +117,7 @@ class CcListBannerMedium extends StatelessWidget {
   }
 
   Widget _buildInkWell(BuildContext context) {
-    final isDarkMode = context.isDarkMode;
+    final hasDarkMode = context.hasDarkMode;
     return InkWell(
       onTap: onTap,
       borderRadius: context.brLg,
@@ -130,7 +130,7 @@ class CcListBannerMedium extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CcLeadingIcon(
-              bgColor: isDarkMode
+              backgroundColor: hasDarkMode
                   ? context.ccColorScheme.onSurface
                   : context.ccColorScheme.surface,
               icon: Icon(

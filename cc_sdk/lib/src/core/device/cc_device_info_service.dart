@@ -35,7 +35,7 @@ class CcDeviceInfoService {
         packageName: packageInfo.packageName,
         model: android.model,
         brand: android.brand,
-        isPhysicalDevice: android.isPhysicalDevice,
+        hasPhysicalDevice: android.isPhysicalDevice,
       );
     } else if (Platform.isIOS) {
       final ios = await _deviceInfoPlugin.iosInfo;
@@ -50,7 +50,7 @@ class CcDeviceInfoService {
         packageName: packageInfo.packageName,
         model: ios.model,
         brand: 'Apple',
-        isPhysicalDevice: ios.isPhysicalDevice,
+        hasPhysicalDevice: ios.isPhysicalDevice,
       );
     } else {
       return CcDeviceEntity(

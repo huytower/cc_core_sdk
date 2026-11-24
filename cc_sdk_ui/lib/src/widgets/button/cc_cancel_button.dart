@@ -100,7 +100,7 @@ class CcCancelButton extends StatelessWidget {
     return CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
-      isBouncing: interactionType == CcInteractionType.bounce,
+      hasBouncing: interactionType == CcInteractionType.bounce,
       child: baseIcon,
     );
   }

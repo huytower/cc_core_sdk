@@ -25,17 +25,17 @@ extension CcContextExtension on BuildContext {
   ThemeData get ccTheme => Theme.of(this);
 
   /// Check if the current theme is dark.
-  bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
+  bool get hasDarkMode => Theme.of(this).brightness == Brightness.dark;
 
   // ==========================================================================
   // RESPONSIVE HELPERS
   // ==========================================================================
 
   /// Check if the current orientation is portrait.
-  bool get isPortrait => MediaQuery.orientationOf(this) == Orientation.portrait;
+  bool get hasPortrait => MediaQuery.orientationOf(this) == Orientation.portrait;
 
   /// Check if the current orientation is landscape.
-  bool get isLandscape =>
+  bool get hasLandscape =>
       MediaQuery.orientationOf(this) == Orientation.landscape;
 
   /// Gets the current window width (dp).

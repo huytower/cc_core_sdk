@@ -58,7 +58,7 @@ class CcSlackCrashReporter implements CcCrashReporter {
     bool fatal = false,
   }) async {
     try {
-      if (!_webhook.isConfigured) {
+      if (!_webhook.hasConfigured) {
         '❌ Error not sent: no Slack webhook URL configured'.Log(_tag);
         return;
       }

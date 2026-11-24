@@ -17,6 +17,8 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Booleans use the `has` prefix instead of `is` (root `AGENTS.md`
+  rule 12): `hasListening`, `hasFinal`, `hasSuccess`, `hasDefault`, `hasLargeString`. Migration: rename the references (same behaviour).
 - `CcDeviceHelper` is now `CcOrientationPolicy` (`apply`, `reset`,
   `orientationsFor`, same constants), no longer registered in DI. Removed the
   unused `getHeightKeyBoard`, `setLandscape`, `setPortrait` and

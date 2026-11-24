@@ -13,7 +13,7 @@ class CcSlackWebhook {
   final String url;
   final String logTag;
 
-  bool get isConfigured => url.isNotEmpty;
+  bool get hasConfigured => url.isNotEmpty;
 
   /// Host and a short tail only, for logs.
   String get maskedUrl {

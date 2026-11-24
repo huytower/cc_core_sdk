@@ -5,16 +5,16 @@ import '../../core/extensions/common/cc_responsive_extension.dart';
 import '../banner/cc_shape_painter.dart';
 
 class CcLeadingIcon extends StatelessWidget {
-  const CcLeadingIcon({this.bgColor, this.icon});
+  const CcLeadingIcon({this.backgroundColor, this.icon});
 
-  final Color? bgColor;
+  final Color? backgroundColor;
   final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
     final size = context.respDim(40);
     final scheme = context.ccColorScheme;
-    final bg = bgColor ?? scheme.primary;
+    final background = backgroundColor ?? scheme.primary;
 
     return Container(
       width: size,
@@ -24,7 +24,7 @@ class CcLeadingIcon extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [bg.withValues(alpha: 0.2), bg.withValues(alpha: 0.5)],
+          colors: [background.withValues(alpha: 0.2), background.withValues(alpha: 0.5)],
         ),
       ),
       child: Stack(

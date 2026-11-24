@@ -38,7 +38,7 @@ class CcBadgeCounter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = context.ccColorScheme;
-    final bg = backgroundColor ?? scheme.error;
+    final background = backgroundColor ?? scheme.error;
     final fg = textColor ?? scheme.onError;
     final dimension = size ?? context.respDim(22);
 
@@ -47,7 +47,7 @@ class CcBadgeCounter extends StatelessWidget {
       height: dimension,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: bg,
+        color: background,
         shape: BoxShape.circle,
         border: borderWidth != null && borderWidth! > 0
             ? Border.all(

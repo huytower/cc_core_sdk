@@ -44,7 +44,7 @@ class CcErrorPage extends StatelessWidget {
           CcInteractionWrapper(
             onTap: onRetry!,
             useDebounce: true,
-            isBouncing: true,
+            hasBouncing: true,
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: context.respPadding(24.0),

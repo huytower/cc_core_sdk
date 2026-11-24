@@ -77,7 +77,7 @@ class CcResponsiveFlex extends StatelessWidget {
           return Column(
             crossAxisAlignment: crossAxisAlignment,
             mainAxisAlignment: mainAxisAlignment,
-            children: _spaced(children, isVertical: true),
+            children: _spaced(children, hasVertical: true),
           );
         }
         return _buildRows(columns);
@@ -106,7 +106,7 @@ class CcResponsiveFlex extends StatelessWidget {
           child: Row(
             crossAxisAlignment: crossAxisAlignment,
             mainAxisAlignment: mainAxisAlignment,
-            children: _spaced(rowChildren, isVertical: false),
+            children: _spaced(rowChildren, hasVertical: false),
           ),
         ),
       );
@@ -118,9 +118,9 @@ class CcResponsiveFlex extends StatelessWidget {
     );
   }
 
-  List<Widget> _spaced(List<Widget> items, {required bool isVertical}) {
+  List<Widget> _spaced(List<Widget> items, {required bool hasVertical}) {
     if (items.isEmpty) return items;
-    final gap = isVertical
+    final gap = hasVertical
         ? SizedBox(height: spacing)
         : SizedBox(width: spacing);
     return [

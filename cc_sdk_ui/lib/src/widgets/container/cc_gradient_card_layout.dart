@@ -53,7 +53,7 @@ class CcGradientCardLayout extends StatelessWidget {
       constraints: BoxConstraints(
         maxWidth:
             maxWidth ??
-            (context.isPortrait ? context.respDim(500) : context.respDim(600)),
+            (context.hasPortrait ? context.respDim(500) : context.respDim(600)),
       ),
       decoration: BoxDecoration(
         color: context.ccColorScheme.surface,

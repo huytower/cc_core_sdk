@@ -62,7 +62,7 @@ extension ResponsiveExtension on BuildContext {
         heightFactor /
         CcScale.dimension(referencePhoneSize.width);
     final byContent = respDim(referenceHeight);
-    if (isLandscape) {
+    if (hasLandscape) {
       return byContent;
     }
     return math.min(byScreen, byContent);

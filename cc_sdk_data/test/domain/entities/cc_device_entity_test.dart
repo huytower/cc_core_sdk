@@ -8,7 +8,7 @@ void main() {
 
       expect(device.deviceInfo, 'info');
       expect(device.deviceId, isNull);
-      expect(device.isPhysicalDevice, isNull);
+      expect(device.hasPhysicalDevice, isNull);
     });
 
     test('compares by value', () {

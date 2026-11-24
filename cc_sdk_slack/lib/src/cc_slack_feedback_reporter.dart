@@ -22,7 +22,7 @@ class CcSlackFeedbackReporter implements CcFeedbackReporter {
     CcFeedback feedback, {
     CcFeedbackLabels labels = CcFeedbackLabels.english,
   }) async {
-    if (!_webhook.isConfigured) {
+    if (!_webhook.hasConfigured) {
       '❌ Feedback not sent: no Slack webhook URL configured'.Log(_tag);
       return false;
     }

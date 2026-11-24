@@ -24,7 +24,7 @@ PreferredSizeWidget buildDomainGradientAppBar(
       value: SystemUiOverlayStyle.light.copyWith(
         statusBarColor: Colors.transparent,
         systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: context.isDarkMode
+        systemNavigationBarIconBrightness: context.hasDarkMode
             ? Brightness.light
             : Brightness.dark,
       ),

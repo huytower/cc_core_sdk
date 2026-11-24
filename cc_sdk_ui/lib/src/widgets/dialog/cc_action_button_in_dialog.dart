@@ -16,29 +16,29 @@ class CcActionButtonInDialog extends StatelessWidget {
     super.key,
     this.onTapCancel,
     this.onTapConfirm,
-    this.isCancelBtnShown = false,
-    this.btnBgColor,
+    this.hasCancelButtonShown = false,
+    this.buttonBackgroundColor,
     this.agreeText,
     this.fontSize,
     this.cancelText,
     this.cancelTextColor,
     this.confirmTextColor,
     this.dividerColor,
-    this.heightActionBtn,
-    this.heightActionBtnBar,
+    this.heightActionButton,
+    this.heightActionButtonBar,
   });
 
   final VoidCallback? onTapCancel, onTapConfirm;
-  final bool isCancelBtnShown;
-  final Color? btnBgColor, cancelTextColor, confirmTextColor, dividerColor;
-  final double? heightActionBtn, heightActionBtnBar, fontSize;
+  final bool hasCancelButtonShown;
+  final Color? buttonBackgroundColor, cancelTextColor, confirmTextColor, dividerColor;
+  final double? heightActionButton, heightActionButtonBar, fontSize;
   final String? agreeText, cancelText;
 
   @override
   Widget build(BuildContext context) => getActionButtonsWidget(context);
 
   Widget getActionButtonsWidget(BuildContext context) => SizedBox(
-    height: context.respPadding(heightActionBtnBar ?? 60),
+    height: context.respPadding(heightActionButtonBar ?? 60),
     child: CcColStart(
       children: [
         /// line
@@ -52,19 +52,19 @@ class CcActionButtonInDialog extends StatelessWidget {
           child: CcRowCenter(
             children: [
               /// cancel button widget
-              if (isCancelBtnShown)
+              if (hasCancelButtonShown)
                 Expanded(flex: 1, child: getCancelButtonWidget(context))
               else
                 const SizedBox(),
 
               /// line widget
-              if (isCancelBtnShown)
+              if (hasCancelButtonShown)
                 Expanded(
                   flex: 0,
                   child: CcDividerHorizontalLine(
                     color: dividerColor ?? context.ccColorScheme.outlineVariant,
                     width: 0.8,
-                    height: context.respPadding(heightActionBtnBar ?? 60),
+                    height: context.respPadding(heightActionButtonBar ?? 60),
                   ),
                 )
               else
@@ -73,7 +73,7 @@ class CcActionButtonInDialog extends StatelessWidget {
               /// confirm button widget
               Expanded(
                 flex: 1,
-                child: isCancelBtnShown
+                child: hasCancelButtonShown
                     ? getConfirmButtonWidget(context)
                     : Container(
                         margin: EdgeInsets.symmetric(
@@ -93,15 +93,15 @@ class CcActionButtonInDialog extends StatelessWidget {
 
   /// cancel button ui
   Widget getCancelButtonWidget(BuildContext context) => SizedBox(
-    height: context.respPadding(heightActionBtn ?? 35),
+    height: context.respPadding(heightActionButton ?? 35),
     child: CcInteractionWrapper(
       onTap: onTapCancel ?? () => Navigator.of(context).pop(),
       useDebounce: true,
-      isBouncing: true,
+      hasBouncing: true,
       child: Stack(
         children: [
           CcContainerRoundedCorner(
-            color: btnBgColor ?? context.ccColorScheme.primary,
+            color: buttonBackgroundColor ?? context.ccColorScheme.primary,
           ),
           CcText(
             cancelText ?? 'Cancel',
@@ -117,15 +117,15 @@ class CcActionButtonInDialog extends StatelessWidget {
 
   /// confirm button ui
   Widget getConfirmButtonWidget(BuildContext context) => SizedBox(
-    height: context.respPadding(heightActionBtn ?? 35),
+    height: context.respPadding(heightActionButton ?? 35),
     child: CcInteractionWrapper(
       onTap: onTapConfirm ?? () => Navigator.of(context).pop(),
       useDebounce: true,
-      isBouncing: true,
+      hasBouncing: true,
       child: Stack(
         children: [
           CcContainerRoundedCorner(
-            color: btnBgColor ?? context.ccColorScheme.primary,
+            color: buttonBackgroundColor ?? context.ccColorScheme.primary,
           ),
           CcText(
             agreeText ?? 'OK',

@@ -113,23 +113,23 @@ class CcCurvedNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.isDarkMode;
+    final hasDark = context.hasDarkMode;
 
     // Theme-aware default colors
     // Use transparent in Dark Mode to avoid "black spots" on curved corners
     // when placed over gradients. Keep white in Light Mode as it works correctly.
     final themeBackgroundColor =
         backgroundColor ??
-        (isDark ? CcBaseColors.transparent : CcBaseColors.white100);
+        (hasDark ? CcBaseColors.transparent : CcBaseColors.white100);
     final themeActiveColor = activeColor ?? CcBaseColors.brand500;
     final themeActiveIconColor = activeIconColor ?? CcBaseColors.white100;
     final themeInactiveColor =
         inactiveColor ??
-        (isDark ? CcBaseColors.white50 : CcBaseColors.neutral50);
+        (hasDark ? CcBaseColors.white50 : CcBaseColors.neutral50);
     final themeFabColor = fabColor ?? CcBaseColors.brand500;
     final themeShadowColor =
         shadowColor ??
-        (isDark ? CcBaseColors.transparent : CcBaseColors.neutral10);
+        (hasDark ? CcBaseColors.transparent : CcBaseColors.neutral10);
 
     return CcCurvedBarView(
       items: items,

@@ -98,21 +98,21 @@ class CcCurvedBadge extends StatelessWidget {
   }
 
   Widget _buildTextBadge(BuildContext context, String text) {
-    final isDot = text == '•';
+    final hasDot = text == '•';
     return Container(
-      padding: isDot
+      padding: hasDot
           ? EdgeInsets.zero
           : const EdgeInsets.symmetric(horizontal: 4.5, vertical: 2),
       constraints: BoxConstraints(
-        minWidth: isDot ? 8 : 16,
-        minHeight: isDot ? 8 : 16,
+        minWidth: hasDot ? 8 : 16,
+        minHeight: hasDot ? 8 : 16,
       ),
       decoration: BoxDecoration(
         color: badgeColor ?? CcBaseColors.errorRed,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: borderColor, width: 1.5),
       ),
-      child: isDot
+      child: hasDot
           ? const SizedBox.shrink()
           : Center(
               widthFactor: 1,

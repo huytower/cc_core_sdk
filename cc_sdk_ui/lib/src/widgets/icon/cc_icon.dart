@@ -29,7 +29,7 @@ class CcIcon extends StatelessWidget {
 }
 
 class CcMediaIcon extends StatelessWidget {
-  final bool isVisible;
+  final bool hasVisible;
   final Color color;
   final IconData icon;
   final double? iconSize;
@@ -41,7 +41,7 @@ class CcMediaIcon extends StatelessWidget {
   const CcMediaIcon({
     super.key,
     this.onTap,
-    required this.isVisible,
+    required this.hasVisible,
     required this.icon,
     this.iconSize,
     required this.color,
@@ -52,7 +52,7 @@ class CcMediaIcon extends StatelessWidget {
   const CcMediaIcon._({
     required this.interactionType,
     this.onTap,
-    required this.isVisible,
+    required this.hasVisible,
     required this.icon,
     this.iconSize,
     required this.color,
@@ -63,7 +63,7 @@ class CcMediaIcon extends StatelessWidget {
   // Named constructors
   factory CcMediaIcon.bouncing({
     VoidCallback? onTap,
-    required bool isVisible,
+    required bool hasVisible,
     required IconData icon,
     double? iconSize,
     required Color color,
@@ -72,7 +72,7 @@ class CcMediaIcon extends StatelessWidget {
   }) => CcMediaIcon._(
     interactionType: CcInteractionType.bounce,
     onTap: onTap,
-    isVisible: isVisible,
+    hasVisible: hasVisible,
     icon: icon,
     iconSize: iconSize,
     color: color,
@@ -82,7 +82,7 @@ class CcMediaIcon extends StatelessWidget {
 
   factory CcMediaIcon.simple({
     VoidCallback? onTap,
-    required bool isVisible,
+    required bool hasVisible,
     required IconData icon,
     double? iconSize,
     required Color color,
@@ -91,7 +91,7 @@ class CcMediaIcon extends StatelessWidget {
   }) => CcMediaIcon._(
     interactionType: CcInteractionType.tap,
     onTap: onTap,
-    isVisible: isVisible,
+    hasVisible: hasVisible,
     icon: icon,
     iconSize: iconSize,
     color: color,
@@ -100,14 +100,14 @@ class CcMediaIcon extends StatelessWidget {
   );
 
   factory CcMediaIcon.static({
-    required bool isVisible,
+    required bool hasVisible,
     required IconData icon,
     double? iconSize,
     required Color color,
     Key? key,
   }) => CcMediaIcon._(
     interactionType: CcInteractionType.none,
-    isVisible: isVisible,
+    hasVisible: hasVisible,
     icon: icon,
     iconSize: iconSize,
     color: color,
@@ -117,7 +117,7 @@ class CcMediaIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!isVisible) {
+    if (!hasVisible) {
       return const SizedBox(width: 35);
     }
 
@@ -137,7 +137,7 @@ class CcMediaIcon extends StatelessWidget {
     return CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
-      isBouncing: interactionType == CcInteractionType.bounce,
+      hasBouncing: interactionType == CcInteractionType.bounce,
       child: baseIcon,
     );
   }

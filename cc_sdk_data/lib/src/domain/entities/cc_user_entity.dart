@@ -10,8 +10,8 @@ class CcUserEntity with EquatableMixin {
   final String? firstName;
   final String? lastName;
   final String? avatarUrl;
-  final bool isEmailVerified;
-  final bool isPhoneVerified;
+  final bool hasEmailVerified;
+  final bool hasPhoneVerified;
   final List<String> registeredDeviceIds;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -32,8 +32,8 @@ class CcUserEntity with EquatableMixin {
     this.firstName,
     this.lastName,
     this.avatarUrl,
-    required this.isEmailVerified,
-    required this.isPhoneVerified,
+    required this.hasEmailVerified,
+    required this.hasPhoneVerified,
     required this.registeredDeviceIds,
     required this.createdAt,
     required this.updatedAt,
@@ -57,8 +57,8 @@ class CcUserEntity with EquatableMixin {
     firstName,
     lastName,
     avatarUrl,
-    isEmailVerified,
-    isPhoneVerified,
+    hasEmailVerified,
+    hasPhoneVerified,
     registeredDeviceIds,
     createdAt,
     updatedAt,

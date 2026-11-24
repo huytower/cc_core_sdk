@@ -200,7 +200,7 @@ class _CcCurvedBarViewState extends State<CcCurvedBarView>
             return Expanded(
               child: CcCurvedNavigationTile(
                 item: widget.items[i],
-                isActive: i == widget.currentIndex,
+                hasActive: i == widget.currentIndex,
                 activeColor: widget.activeColor,
                 inactiveColor: widget.inactiveColor,
                 inactiveIconSize: widget.inactiveIconSize,

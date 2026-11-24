@@ -5,22 +5,22 @@ import 'package:flutter/material.dart';
 class CcIconButton extends StatelessWidget {
   final Widget icon;
   final VoidCallback? onTap;
-  final Color? bgColor;
+  final Color? backgroundColor;
   final double? height, width;
   final CcInteractionType interactionType;
   final bool useDebounce;
   final String? tooltip;
-  final bool isEnable;
+  final bool hasEnable;
 
   const CcIconButton({
     required this.icon,
     required this.onTap,
-    this.bgColor,
+    this.backgroundColor,
     this.height,
     this.width,
     this.useDebounce = true,
     this.tooltip,
-    this.isEnable = true,
+    this.hasEnable = true,
     super.key,
   }) : interactionType = CcInteractionType.bounce;
 
@@ -28,58 +28,58 @@ class CcIconButton extends StatelessWidget {
     required this.icon,
     required this.interactionType,
     this.onTap,
-    this.bgColor,
+    this.backgroundColor,
     this.height,
     this.width,
     this.useDebounce = true,
     this.tooltip,
-    this.isEnable = true,
+    this.hasEnable = true,
     super.key,
   });
 
   factory CcIconButton.bouncing({
     required Widget icon,
     required VoidCallback onTap,
-    Color? bgColor,
+    Color? backgroundColor,
     double? height,
     double? width,
     bool useDebounce = true,
     String? tooltip,
-    bool isEnable = true,
+    bool hasEnable = true,
     Key? key,
   }) => CcIconButton._(
     icon: icon,
     interactionType: CcInteractionType.bounce,
     onTap: onTap,
-    bgColor: bgColor,
+    backgroundColor: backgroundColor,
     height: height,
     width: width,
     useDebounce: useDebounce,
     tooltip: tooltip,
-    isEnable: isEnable,
+    hasEnable: hasEnable,
     key: key,
   );
 
   factory CcIconButton.simple({
     required Widget icon,
     required VoidCallback onTap,
-    Color? bgColor,
+    Color? backgroundColor,
     double? height,
     double? width,
     bool useDebounce = true,
     String? tooltip,
-    bool isEnable = true,
+    bool hasEnable = true,
     Key? key,
   }) => CcIconButton._(
     icon: icon,
     interactionType: CcInteractionType.tap,
     onTap: onTap,
-    bgColor: bgColor,
+    backgroundColor: backgroundColor,
     height: height,
     width: width,
     useDebounce: useDebounce,
     tooltip: tooltip,
-    isEnable: isEnable,
+    hasEnable: hasEnable,
     key: key,
   );
 
@@ -88,13 +88,13 @@ class CcIconButton extends StatelessWidget {
     final double defaultSize = context.respDim(30.0);
 
     final Widget button = Opacity(
-      opacity: isEnable ? 1.0 : 0.5,
+      opacity: hasEnable ? 1.0 : 0.5,
       child: Container(
         width: width ?? defaultSize,
         height: height ?? defaultSize,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: bgColor ?? Colors.transparent,
+          color: backgroundColor ?? Colors.transparent,
           shape: BoxShape.circle,
         ),
         child: icon,
@@ -104,8 +104,8 @@ class CcIconButton extends StatelessWidget {
     final Widget interactiveButton = CcInteractionWrapper(
       onTap: onTap ?? () {},
       useDebounce: useDebounce,
-      isBouncing: interactionType == CcInteractionType.bounce,
-      isEnable: isEnable,
+      hasBouncing: interactionType == CcInteractionType.bounce,
+      hasEnable: hasEnable,
       child: button,
     );
 
