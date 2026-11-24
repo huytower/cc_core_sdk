@@ -31,6 +31,7 @@ class CcPickerSheetFrame extends StatelessWidget {
     this.confirmLabel,
     this.cancelLabel,
     this.hasCancel = true,
+    this.hasScrollableBody = false,
   }) : assert(
          title != null || header != null,
          'Give a title or a custom header',
@@ -56,30 +57,54 @@ class CcPickerSheetFrame extends StatelessWidget {
   final String? cancelLabel;
   final bool hasCancel;
 
+  /// The [body] scrolls by itself (a list or `SingleChildScrollView`). The
+  /// sheet is then capped at [maxHeightFactor] of the window and the body
+  /// takes the room left between the header and the actions, which stay in
+  /// view. Otherwise the whole sheet scrolls in landscape only.
+  final bool hasScrollableBody;
+
+  /// Share of the window height a [hasScrollableBody] sheet may take.
+  static const double maxHeightFactor = 0.9;
+
   @override
   Widget build(BuildContext context) {
-    final scheme = context.ccColorScheme;
-    return CcLandscapeScrollable(
+    final headerWidget =
+        header ??
+        CcSheetHeader(title: title!, icon: icon, trailing: headerTrailing);
+    if (!hasScrollableBody) {
+      return CcLandscapeScrollable(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [headerWidget, _buildTinted(context, body)],
+        ),
+      );
+    }
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.sizeOf(context).height * maxHeightFactor,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          header ??
-              CcSheetHeader(
-                title: title!,
-                icon: icon,
-                trailing: headerTrailing,
-              ),
-          DecoratedBox(
-            decoration: BoxDecoration(color: scheme.surfaceContainerHighest),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                body,
-                if (onConfirm != null) _buildActions(context),
-                SizedBox(height: MediaQuery.paddingOf(context).bottom + 4),
-              ],
-            ),
-          ),
+          headerWidget,
+          Flexible(child: _buildTinted(context, Flexible(child: body))),
+        ],
+      ),
+    );
+  }
+
+  /// The body on the tinted surface, then the actions and the bottom inset.
+  Widget _buildTinted(BuildContext context, Widget content) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: context.ccColorScheme.surfaceContainerHighest,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          content,
+          if (onConfirm != null) _buildActions(context),
+          SizedBox(height: MediaQuery.paddingOf(context).bottom + 4),
         ],
       ),
     );

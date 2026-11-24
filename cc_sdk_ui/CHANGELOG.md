@@ -79,7 +79,8 @@
 - `CcPickerSheetFrame`: the shared frame of picker / info bottom sheets
   (header, tinted body, optional Cancel / OK row with Material labels).
   `CcDatePickerSheet` now uses it. `CcSheetHeader` gained `icon` and
-  `titleMaxLines`.
+  `titleMaxLines`. `hasScrollableBody` caps the sheet at 90 %
+  of the window and lets a self-scrolling body fill the rest.
 - `CcLoadMoreList` and `CcLoadMoreLabels` (translated footer texts).
 - `environment.flutter` constraint, like the other SDK packages.
 

@@ -102,6 +102,35 @@ void main() {
     expect(result, isNull);
   });
 
+  testWidgets('scrollable body: long content scrolls, OK stays in view', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 600);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await _open(
+      tester,
+      () => CcPickerSheetFrame(
+        title: 'Guide',
+        hasScrollableBody: true,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              for (var i = 0; i < 40; i++)
+                SizedBox(height: 40, child: Text('row $i')),
+            ],
+          ),
+        ),
+        hasCancel: false,
+        onConfirm: () {},
+      ),
+    );
+    expect(tester.takeException(), isNull);
+    final ok = tester.getRect(_text('OK'));
+    expect(ok.bottom, lessThanOrEqualTo(600));
+    expect(find.text('row 39').hitTestable(), findsNothing);
+  });
+
   testWidgets('single button when hasCancel is false; custom header', (
     tester,
   ) async {
