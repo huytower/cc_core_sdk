@@ -9,27 +9,27 @@ Future<void> _pump(WidgetTester tester, Widget page) =>
 Finder _richText(String text) => find.text(text, findRichText: true);
 
 void main() {
-  testWidgets('LoadingPage shows an activity indicator', (tester) async {
-    await _pump(tester, const LoadingPage());
+  testWidgets('CcLoadingPage shows an activity indicator', (tester) async {
+    await _pump(tester, const CcLoadingPage());
 
     expect(find.byType(CupertinoActivityIndicator), findsOneWidget);
   });
 
-  testWidgets('EmptyPage has a default message and takes a custom one', (
+  testWidgets('CcEmptyPage has a default message and takes a custom one', (
     tester,
   ) async {
-    await _pump(tester, const EmptyPage());
+    await _pump(tester, const CcEmptyPage());
     expect(_richText('No data found'), findsOneWidget);
 
-    await _pump(tester, const EmptyPage(message: 'Nothing yet'));
+    await _pump(tester, const CcEmptyPage(message: 'Nothing yet'));
     expect(_richText('Nothing yet'), findsOneWidget);
   });
 
-  testWidgets('ErrorPage shows the message and calls onRetry', (tester) async {
+  testWidgets('CcErrorPage shows the message and calls onRetry', (tester) async {
     var retries = 0;
     await _pump(
       tester,
-      ErrorPage(
+      CcErrorPage(
         message: 'Server down',
         retryText: 'Try again',
         onRetry: () => retries++,
@@ -45,10 +45,10 @@ void main() {
     expect(retries, 1);
   });
 
-  testWidgets('ErrorPage hides the retry button without onRetry', (
+  testWidgets('CcErrorPage hides the retry button without onRetry', (
     tester,
   ) async {
-    await _pump(tester, const ErrorPage(message: 'Server down'));
+    await _pump(tester, const CcErrorPage(message: 'Server down'));
 
     expect(_richText('Retry'), findsNothing);
   });

@@ -46,7 +46,7 @@ void main() {
     testWidgets('$status shows the loading page', (tester) async {
       await _pump(tester, _View(layoutStatus: status));
 
-      expect(find.byType(LoadingPage), findsOneWidget);
+      expect(find.byType(CcLoadingPage), findsOneWidget);
       expect(find.byType(CupertinoActivityIndicator), findsOneWidget);
       expect(find.text('content'), findsNothing);
     });
@@ -56,7 +56,7 @@ void main() {
     ) async {
       await _pump(tester, _View(layoutStatus: status, enableLoading: false));
 
-      expect(find.byType(LoadingPage), findsNothing);
+      expect(find.byType(CcLoadingPage), findsNothing);
       expect(find.text('content'), findsOneWidget);
     });
   }
@@ -64,14 +64,14 @@ void main() {
   testWidgets('empty shows the empty page', (tester) async {
     await _pump(tester, _View(layoutStatus: CcLayoutStatus.empty));
 
-    expect(find.byType(EmptyPage), findsOneWidget);
+    expect(find.byType(CcEmptyPage), findsOneWidget);
     expect(find.text('content'), findsNothing);
   });
 
   testWidgets('error shows the error message', (tester) async {
     await _pump(tester, _View(layoutStatus: CcLayoutStatus.error));
 
-    expect(find.byType(ErrorPage), findsOneWidget);
+    expect(find.byType(CcErrorPage), findsOneWidget);
     expect(find.text('Something failed', findRichText: true), findsOneWidget);
   });
 

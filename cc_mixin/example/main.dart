@@ -1,7 +1,7 @@
 // Minimal example of cc_mixin on its own: no design system, no app module,
 // no state-management package. A plain State object mixes in:
-// - PaginationMixin: page arithmetic and the "has more" flag,
-// - DoubleBackToExitMixin: "press back again to exit" on Android.
+// - CcPaginationMixin: page arithmetic and the "has more" flag,
+// - CcDoubleBackToExitMixin: "press back again to exit" on Android.
 // The widget-building mixins (CcViewConfigMixin, CcPullToRefreshMixin,
 // CcLoadMoreMixin, CcCurvedNavigationMixin) live in cc_sdk_ui.
 import 'package:cc_mixin/export_cc_mixin.dart';
@@ -19,11 +19,11 @@ class ExampleItemSource {
   bool failFirstLoad;
 
   Future<Result<List<String>, CcFailure>> fetch(
-    PaginationRequest request,
+    CcPaginationRequest request,
   ) async {
     if (failFirstLoad) {
       failFirstLoad = false;
-      return const Error(NetworkFailure('No connection'));
+      return const Error(CcNetworkFailure('No connection'));
     }
     final start = (request.page - 1) * request.itemsPerPage;
     final end = (start + request.itemsPerPage).clamp(0, total);
@@ -55,7 +55,7 @@ class ExampleListPage extends StatefulWidget {
 }
 
 class _ExampleListPageState extends State<ExampleListPage>
-    with PaginationMixin, DoubleBackToExitMixin {
+    with CcPaginationMixin, CcDoubleBackToExitMixin {
   final _items = <String>[];
   String? _error;
 
@@ -71,7 +71,7 @@ class _ExampleListPageState extends State<ExampleListPage>
     if (!refresh && !canFetchMore) return;
     setPaginationLoading(true);
     final request = refresh
-        ? PaginationRequest(itemsPerPage: itemsPerPage)
+        ? CcPaginationRequest(itemsPerPage: itemsPerPage)
         : currentPaginationRequest;
     final result = handlePaginationResult(
       await widget.source.fetch(request),

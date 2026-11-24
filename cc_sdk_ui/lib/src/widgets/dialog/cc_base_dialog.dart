@@ -41,7 +41,7 @@ class CcBaseDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) => buildDialogWidget(context);
 
-  Widget buildActionButtonsWidget() => CcActionBtnInDialog(
+  Widget buildActionButtonsWidget() => CcActionButtonInDialog(
     onTapCancel: onTapCancel,
     onTapConfirm: onTapConfirm,
     isCancelBtnShown: isCancelBtnShown,

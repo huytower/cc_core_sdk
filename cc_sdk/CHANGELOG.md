@@ -17,6 +17,13 @@
 
 ### Breaking (next release: 3.0.0)
 
+- `CcDeviceHelper` is now `CcOrientationPolicy` (`apply`, `reset`,
+  `orientationsFor`, same constants), no longer registered in DI. Removed the
+  unused `getHeightKeyBoard`, `setLandscape`, `setPortrait` and
+  `setOrientationDefault`. Migration: `CcDeviceHelper.applyOrientationPolicy(size)`
+  becomes `CcOrientationPolicy.apply(size)`.
+- `CcDeviceInfoHelper` is now `CcDeviceInfoService` (same methods); removed the
+  unused `getDeviceVersion`. Migration: rename the type.
 - `flutter_udid` left the core ring. New interface `CcDeviceIdProvider`; the
   UDID implementation is `CcUdidDeviceIdProvider` in `cc_sdk_device`.
   `CcDeviceInfoHelper.getDeviceId()` is removed, and `getDeviceEntity` /

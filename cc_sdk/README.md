@@ -32,7 +32,7 @@ This SDK follows **Clean Architecture** to keep the code organized and easy to t
 
 ### 3. Core Layer
 
-* **The Failures:** Standardized error reports (e.g., `NetworkFailure`, `CcServerFailure`, `CcAppConfigFailure`)
+* **The Failures:** Standardized error reports (e.g., `CcNetworkFailure`, `CcServerFailure`, `CcAppConfigFailure`)
   .gFailure`) that the Boss (UI) can easily understand.
 
 ### Visual Flow
@@ -98,7 +98,7 @@ class MyUseCase {
       // Your implementation
       return Success("Data fetched");
     } catch (e) {
-      return Error(ServerFailure(e.toString()));
+      return Error(CcServerFailure(e.toString()));
     }
   }
 }

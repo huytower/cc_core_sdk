@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 ///
 /// [onLoadMore] returns true on success and false on failure (the footer then
 /// offers a retry). Set [isFinish] once the source has no more data (for
-/// example `!hasMore` from `PaginationMixin`): the footer shows
+/// example `!hasMore` from `CcPaginationMixin`): the footer shows
 /// [CcLoadMoreLabels.noMore] and [onLoadMore] is no longer called.
 ///
 /// ```dart

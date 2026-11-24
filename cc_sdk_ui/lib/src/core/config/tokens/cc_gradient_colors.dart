@@ -4,11 +4,11 @@ import '../../extensions/cc_context_extension.dart';
 
 /// Semantic design tokens for the branded page gradient background.
 ///
-/// Mirrors the [CcTextStyle] ThemeExtension pattern: the SDK defines the token
+/// Mirrors the [PrjTextStyle] ThemeExtension pattern: the SDK defines the token
 /// *shape*, while each app supplies concrete values via its [PrjColors] and
 /// registers [CcGradientColors.light]/[CcGradientColors.dark] in its themes.
 ///
-/// This keeps the gradient theme-aware — the same [BgGradientWidget] resolves
+/// This keeps the gradient theme-aware — the same [CcGradientBackground] resolves
 /// to the correct light/dark colors through [BuildContext.ccGradientColors],
 /// so callers never hardcode `onPrimary` or any fixed color.
 class CcGradientColors extends ThemeExtension<CcGradientColors> {

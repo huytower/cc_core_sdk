@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// ([CcLoadMoreList]).
 ///
 /// Pass [isFinish] once the source has no more data (for example `!hasMore`
-/// from `PaginationMixin`): the footer then shows the "no more" state and
+/// from `CcPaginationMixin`): the footer then shows the "no more" state and
 /// [onLoadMore] is no longer called.
 ///
 /// ```dart

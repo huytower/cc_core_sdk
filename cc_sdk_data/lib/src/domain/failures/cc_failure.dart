@@ -15,33 +15,33 @@ abstract class CcFailure extends Equatable {
   List<Object?> get props => [message, statusCode];
 }
 
-class ServerFailure extends CcFailure {
-  const ServerFailure(String message, {int? statusCode})
+class CcServerFailure extends CcFailure {
+  const CcServerFailure(String message, {int? statusCode})
     : super(message, statusCode: statusCode);
 }
 
-class CacheFailure extends CcFailure {
-  const CacheFailure(String message) : super(message);
+class CcCacheFailure extends CcFailure {
+  const CcCacheFailure(String message) : super(message);
 }
 
-class NetworkFailure extends CcFailure {
-  const NetworkFailure(String message) : super(message);
+class CcNetworkFailure extends CcFailure {
+  const CcNetworkFailure(String message) : super(message);
 }
 
-class DeviceFailure extends CcFailure {
-  const DeviceFailure(String message) : super(message);
+class CcDeviceFailure extends CcFailure {
+  const CcDeviceFailure(String message) : super(message);
 }
 
-class UnauthorizedFailure extends CcFailure {
-  const UnauthorizedFailure(String message) : super(message);
+class CcUnauthorizedFailure extends CcFailure {
+  const CcUnauthorizedFailure(String message) : super(message);
 }
 
-class UnknownFailure extends CcFailure {
-  const UnknownFailure(String message) : super(message);
+class CcUnknownFailure extends CcFailure {
+  const CcUnknownFailure(String message) : super(message);
 }
 
 /// Raised when domain-level input validation fails (e.g. empty name,
 /// non-positive amount, invalid date range).
-class ValidationFailure extends CcFailure {
-  const ValidationFailure(String message) : super(message);
+class CcValidationFailure extends CcFailure {
+  const CcValidationFailure(String message) : super(message);
 }

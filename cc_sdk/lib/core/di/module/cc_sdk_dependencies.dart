@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// consumers inject it synchronously, so it is awaited once during
 /// `initMicroPackage()`. Everything else stays `@lazySingleton`, off the boot
 /// path. (A device entity is built on demand with
-/// `CcDeviceInfoHelper.getDeviceEntity`, never at boot.)
+/// `CcDeviceInfoService.getDeviceEntity`, never at boot.)
 @module
 abstract class CcSdkDependencies {
   @preResolve

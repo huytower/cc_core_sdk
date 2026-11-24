@@ -4,6 +4,10 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Failures carry the `Cc` prefix: `CcServerFailure`, `CcCacheFailure`,
+  `CcNetworkFailure`, `CcDeviceFailure`, `CcUnauthorizedFailure`,
+  `CcUnknownFailure`, `CcValidationFailure`; `PaginationRequest` is
+  `CcPaginationRequest`. Migration: add the prefix (same API).
 - Removed `BiometricFailure` and `CurlFailure` (unused, feature- and
   tool-named). Migration: declare them in the app as `CcFailure` subclasses.
 - No Flutter dependency at runtime: the package is pure Dart, and the example

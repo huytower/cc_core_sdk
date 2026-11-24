@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// Shows the "press back again to exit" hint with design-system styling.
 ///
-/// Use it from `DoubleBackToExitMixin.showBackPressHint` (`cc_mixin`).
+/// Use it from `CcDoubleBackToExitMixin.showBackPressHint` (`cc_mixin`).
 ///
 /// ```dart
 /// @override

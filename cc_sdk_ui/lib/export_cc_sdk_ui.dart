@@ -35,18 +35,18 @@ export 'package:cc_sdk_ui/src/widgets/adaptive/cc_content_inset.dart';
 export 'package:cc_sdk_ui/src/widgets/adaptive/cc_max_width.dart';
 export 'package:cc_sdk_ui/src/widgets/adaptive/cc_multi_column.dart';
 export 'package:cc_sdk_ui/src/widgets/adaptive/cc_two_column.dart';
-export 'package:cc_sdk_ui/src/widgets/anim/fade_page_wrapper.dart';
+export 'package:cc_sdk_ui/src/widgets/anim/cc_fade_page_wrapper.dart';
 // ============================================
 // Widget Exports
 // ============================================
 
 // Animation Widgets
-export 'package:cc_sdk_ui/src/widgets/anim/fade_widget.dart';
+export 'package:cc_sdk_ui/src/widgets/anim/cc_fade_widget.dart';
 // Navigation Widgets
 export 'package:cc_sdk_ui/src/widgets/app_bar/gradient_app_bar.dart';
 // Avatar Widgets
 // Background Widgets
-export 'package:cc_sdk_ui/src/widgets/background/bg_gradient_widget.dart';
+export 'package:cc_sdk_ui/src/widgets/background/cc_gradient_background.dart';
 export 'package:cc_sdk_ui/src/widgets/background/cc_watermark_background.dart';
 // Badge Widgets
 export 'package:cc_sdk_ui/src/widgets/badge/cc_badge_counter.dart';
@@ -59,20 +59,20 @@ export 'package:cc_sdk_ui/src/widgets/banner/cc_shape_painter.dart';
 export 'package:cc_sdk_ui/src/widgets/base/cc_keyboard_dismisser.dart';
 export 'package:cc_sdk_ui/src/widgets/base/cc_measure_size.dart';
 // Button Widgets
-export 'package:cc_sdk_ui/src/widgets/button/cc_back_btn.dart';
-export 'package:cc_sdk_ui/src/widgets/button/cc_base_btn.dart';
+export 'package:cc_sdk_ui/src/widgets/button/cc_back_button.dart';
+export 'package:cc_sdk_ui/src/widgets/button/cc_base_button.dart';
 export 'package:cc_sdk_ui/src/widgets/button/cc_bouncing.dart';
-export 'package:cc_sdk_ui/src/widgets/button/cc_cancel_btn.dart';
-export 'package:cc_sdk_ui/src/widgets/button/cc_clear_btn.dart';
-export 'package:cc_sdk_ui/src/widgets/button/cc_close_btn.dart';
-export 'package:cc_sdk_ui/src/widgets/button/cc_copy_btn.dart';
+export 'package:cc_sdk_ui/src/widgets/button/cc_cancel_button.dart';
+export 'package:cc_sdk_ui/src/widgets/button/cc_clear_button.dart';
+export 'package:cc_sdk_ui/src/widgets/button/cc_close_button.dart';
+export 'package:cc_sdk_ui/src/widgets/button/cc_copy_button.dart';
 export 'package:cc_sdk_ui/src/widgets/button/cc_floating_action_button.dart';
 export 'package:cc_sdk_ui/src/widgets/button/cc_icon_button.dart';
 export 'package:cc_sdk_ui/src/widgets/button/cc_interaction_type.dart';
 export 'package:cc_sdk_ui/src/widgets/button/cc_interaction_wrapper.dart';
-export 'package:cc_sdk_ui/src/widgets/button/cc_next_btn.dart';
+export 'package:cc_sdk_ui/src/widgets/button/cc_next_button.dart';
 export 'package:cc_sdk_ui/src/widgets/button/cc_save_button.dart';
-export 'package:cc_sdk_ui/src/widgets/button/cc_social_login_btn.dart';
+export 'package:cc_sdk_ui/src/widgets/button/cc_social_login_button.dart';
 // Card Widgets
 export 'package:cc_sdk_ui/src/widgets/card/cc_card.dart';
 // Checkbox Widgets
@@ -87,7 +87,7 @@ export 'package:cc_sdk_ui/src/widgets/container/cc_gradient_card_layout.dart';
 // Countdown Widgets
 export 'package:cc_sdk_ui/src/widgets/countdown/cc_count_down.dart';
 // Dialog Widgets
-export 'package:cc_sdk_ui/src/widgets/dialog/cc_action_btn_in_dialog.dart';
+export 'package:cc_sdk_ui/src/widgets/dialog/cc_action_button_in_dialog.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_base_dialog.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_body_modal_bottom_sheet.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_body_show_message.dart';
@@ -115,17 +115,17 @@ export 'package:cc_sdk_ui/src/widgets/navigation/cc_navigation_rail.dart';
 export 'package:cc_sdk_ui/src/widgets/padding/cc_padding.dart';
 export 'package:cc_sdk_ui/src/widgets/padding/cc_symmetric_padding.dart';
 // Pages
-export 'package:cc_sdk_ui/src/widgets/pages/error/error_page.dart';
-export 'package:cc_sdk_ui/src/widgets/pages/loading/loading_page.dart';
-export 'package:cc_sdk_ui/src/widgets/pages/status/empty_page.dart';
+export 'package:cc_sdk_ui/src/widgets/pages/error/cc_error_page.dart';
+export 'package:cc_sdk_ui/src/widgets/pages/loading/cc_loading_page.dart';
+export 'package:cc_sdk_ui/src/widgets/pages/status/cc_empty_page.dart';
 // Pull-to-refresh Widgets
 export 'package:cc_sdk_ui/src/widgets/pull_to_refresh/cc_custom_refresh_indicator.dart';
 export 'package:cc_sdk_ui/src/widgets/pull_to_refresh/cc_refresh_indicator_icon.dart';
+export 'package:cc_sdk_ui/src/widgets/scroll/cc_horizontal_fade_scroll_view.dart';
 // Scroll Widgets
 export 'package:cc_sdk_ui/src/widgets/scroll/cc_landscape_scrollable.dart';
 export 'package:cc_sdk_ui/src/widgets/scroll/cc_load_more_labels.dart';
 export 'package:cc_sdk_ui/src/widgets/scroll/cc_load_more_list.dart';
-export 'package:cc_sdk_ui/src/widgets/scroll/horizontal_fade_scroll_view.dart';
 // Section Widgets
 export 'package:cc_sdk_ui/src/widgets/section/cc_section_header.dart';
 // Shimmer Widgets
@@ -139,7 +139,7 @@ export 'package:cc_sdk_ui/src/widgets/state/cc_loading_icon_widget.dart';
 export 'package:cc_sdk_ui/src/widgets/state/cc_progress_indicator.dart';
 export 'package:cc_sdk_ui/src/widgets/state/cc_section_empty_state.dart';
 // Text Widgets
-export 'package:cc_sdk_ui/src/widgets/text/app_name_widget.dart';
+export 'package:cc_sdk_ui/src/widgets/text/cc_app_name_widget.dart';
 export 'package:cc_sdk_ui/src/widgets/text/cc_form_label.dart';
 export 'package:cc_sdk_ui/src/widgets/text/cc_text.dart';
 export 'package:cc_sdk_ui/src/widgets/text/cc_text_button.dart';

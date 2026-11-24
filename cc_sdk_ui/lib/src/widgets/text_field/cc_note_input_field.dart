@@ -51,7 +51,7 @@ class CcNoteInputField extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (showCopy)
-                  CcCopyBtn.bouncing(
+                  CcCopyButton.bouncing(
                     onTap: () {
                       Clipboard.setData(
                         ClipboardData(text: controller.text),
@@ -61,7 +61,7 @@ class CcNoteInputField extends StatelessWidget {
                   ),
                 if (showClear && hasText) const CcSpaceXS(),
                 if (showClear && hasText)
-                  CcClearBtn(
+                  CcClearButton(
                     onTap: () {
                       controller.clear();
                       onClear?.call();

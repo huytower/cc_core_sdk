@@ -4,6 +4,8 @@
 
 ### Breaking (next release: 3.0.0)
 
+- `DoubleBackToExitMixin` and `PaginationMixin` are `CcDoubleBackToExitMixin`
+  and `CcPaginationMixin`. Migration: add the prefix (same API).
 - No longer depends on `cc_sdk_ui`, `loadmore` or `custom_refresh_indicator`;
   only on `cc_sdk_data`. `CcViewConfigMixin`, `CcPullRefreshMixin`,
   `CcLoadMoreMixin` and `CcCurvedNavigationMixin` moved to `cc_sdk_ui`.

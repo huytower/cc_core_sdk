@@ -4,8 +4,8 @@
 //
 // - CcAdaptiveBuilder: one column on phones, two from the expanded class on.
 // - CcMaxWidth.content: full-width background, content capped at 840 dp.
-// - CcCard, CcBaseBtn, CcSpace*, CcText, CcBadgeCounter.
-// - LoadingPage / EmptyPage / ErrorPage driven by CcLayoutStatus.
+// - CcCard, CcBaseButton, CcSpace*, CcText, CcBadgeCounter.
+// - CcLoadingPage / CcEmptyPage / CcErrorPage driven by CcLayoutStatus.
 // - CcSnackBarHelper for feedback.
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +79,7 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
             ],
           ),
           const CcSpaceMD(),
-          CcBaseBtn(title: 'Save', onTap: _save),
+          CcBaseButton(title: 'Save', onTap: _save),
           const CcSpaceMD(),
           SegmentedButton<CcLayoutStatus>(
             segments: const [
@@ -105,9 +105,9 @@ class _ExampleShowcasePageState extends State<ExampleShowcasePage> {
 
   Widget _buildState() {
     final child = switch (_status) {
-      CcLayoutStatus.loading || CcLayoutStatus.refresh => const LoadingPage(),
-      CcLayoutStatus.empty => const EmptyPage(message: 'Nothing here yet'),
-      CcLayoutStatus.error => ErrorPage(
+      CcLayoutStatus.loading || CcLayoutStatus.refresh => const CcLoadingPage(),
+      CcLayoutStatus.empty => const CcEmptyPage(message: 'Nothing here yet'),
+      CcLayoutStatus.error => CcErrorPage(
         message: 'Something went wrong',
         onRetry: () => setState(() => _status = CcLayoutStatus.success),
       ),

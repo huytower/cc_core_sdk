@@ -4,6 +4,16 @@
 
 ### Breaking (next release: 3.0.0)
 
+- Every public widget carries the `Cc` prefix and no abbreviation:
+  `CcErrorPage`, `CcLoadingPage`, `CcEmptyPage`, `CcFadeWidget`,
+  `CcFadePageWrapper`, `CcHorizontalFadeScrollView`, `CcAppNameWidget`,
+  `CcSocialLoginType`, `CcCurvedBarView`, `CcCurvedBubble`, `CcCurvedBadge`,
+  `CcCurvedNavigationTile` (was `CurvedNavTile`), `CcCurvedNotchPainter`;
+  `BgGradientWidget` is `CcGradientBackground`; the `*Btn` buttons are
+  `*Button` (`CcBaseButton`, `CcBackButton`, `CcCancelButton`,
+  `CcClearButton`, `CcCloseButton`, `CcCopyButton`, `CcNextButton`,
+  `CcSocialLoginButton`, `CcActionButtonInDialog`). Migration: rename the
+  references (same API).
 - Renamed `CcPullRefreshMixin` to `CcPullToRefreshMixin` and
   `CcInteractBtnWrapper` to `CcInteractionWrapper`, so each class matches its
   file name. Migration: rename the references (same API).

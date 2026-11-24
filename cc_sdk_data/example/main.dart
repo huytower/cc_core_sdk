@@ -1,7 +1,7 @@
 // Minimal example of cc_sdk_data on its own: no Flutter, no app module, no
 // domain feature.
 //
-// It pages through a fake user source with PaginationRequest, gets back a
+// It pages through a fake user source with CcPaginationRequest, gets back a
 // Result<List<CcUserEntity>, CcFailure>, and prints either the users or the
 // failure message.
 import 'package:cc_sdk_data/export_cc_sdk_data.dart';
@@ -9,7 +9,7 @@ import 'package:multiple_result/multiple_result.dart';
 
 Future<void> main() async {
   const source = ExampleUserSource();
-  var request = const PaginationRequest();
+  var request = const CcPaginationRequest();
   for (var i = 0; i < 2; i++) {
     // ignore: avoid_print
     describePage(request, await source.fetch(request)).forEach(print);
@@ -17,21 +17,21 @@ Future<void> main() async {
   }
 }
 
-/// A data source as an app would write it: it takes a [PaginationRequest] and
+/// A data source as an app would write it: it takes a [CcPaginationRequest] and
 /// answers with a [Result], never by throwing.
 class ExampleUserSource {
   const ExampleUserSource({this.total = 25, this.failOnPage});
 
   final int total;
 
-  /// Page that answers with a [NetworkFailure], to show the error path.
+  /// Page that answers with a [CcNetworkFailure], to show the error path.
   final int? failOnPage;
 
   Future<Result<List<CcUserEntity>, CcFailure>> fetch(
-    PaginationRequest request,
+    CcPaginationRequest request,
   ) async {
     if (request.page == failOnPage) {
-      return const Error(NetworkFailure('No connection'));
+      return const Error(CcNetworkFailure('No connection'));
     }
     final start = (request.page - 1) * request.itemsPerPage;
     final end = (start + request.itemsPerPage).clamp(0, total);
@@ -55,7 +55,7 @@ class ExampleUserSource {
 
 /// The lines shown for one page: a header, then each user or the failure.
 List<String> describePage(
-  PaginationRequest request,
+  CcPaginationRequest request,
   Result<List<CcUserEntity>, CcFailure> result,
 ) => [
   'Page ${request.page}',

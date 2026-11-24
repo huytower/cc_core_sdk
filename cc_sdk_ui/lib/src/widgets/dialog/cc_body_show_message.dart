@@ -4,8 +4,8 @@ import '../../core/config/tokens/cc_base_colors.dart';
 import '../../core/config/tokens/cc_typography_params.dart';
 import '../../core/extensions/cc_context_extension.dart';
 import '../../core/extensions/common/cc_responsive_extension.dart';
-import '../../widgets/button/cc_base_btn.dart';
 import '../../widgets/space/cc_space.dart';
+import '../button/cc_base_button.dart';
 
 class CcBodyShowMessage extends StatelessWidget {
   final Widget child;
@@ -56,7 +56,7 @@ class CcBodyShowMessage extends StatelessWidget {
               children: [
                 if (!isOnlyConfirm) ...[
                   Expanded(
-                    child: CcBaseBtn.bouncing(
+                    child: CcBaseButton.bouncing(
                       onTap: () => Navigator.of(context).pop(false),
                       textColor: CcBaseColors.white100,
                       title: cancelText ?? 'Cancel',
@@ -69,7 +69,7 @@ class CcBodyShowMessage extends StatelessWidget {
                   const CcSpaceSM(),
                 ],
                 Expanded(
-                  child: CcBaseBtn.bouncing(
+                  child: CcBaseButton.bouncing(
                     onTap: onConfirm,
                     textColor: CcBaseColors.white100,
                     title: confirmText ?? 'OK',

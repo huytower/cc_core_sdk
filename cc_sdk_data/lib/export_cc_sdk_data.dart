@@ -1,6 +1,6 @@
 library cc_sdk_data;
 
-export 'package:cc_sdk_data/src/data/models/pagination_request.dart';
+export 'package:cc_sdk_data/src/data/models/cc_pagination_request.dart';
 // Domain Entities, Models & Failures
 export 'package:cc_sdk_data/src/domain/entities/cc_device_entity.dart';
 export 'package:cc_sdk_data/src/domain/entities/cc_message_entity.dart';

@@ -25,7 +25,7 @@ import 'cc_slack_webhook.dart';
 class CcSlackCrashReporter implements CcCrashReporter {
   CcSlackCrashReporter({
     required String webhookUrl,
-    CcDeviceInfoHelper? deviceInfo,
+    CcDeviceInfoService? deviceInfo,
     CcAppAttestation? attestation,
     this.ignoredErrors = const [],
   }) : _webhook = CcSlackWebhook(webhookUrl, logTag: _tag),
@@ -40,7 +40,7 @@ class CcSlackCrashReporter implements CcCrashReporter {
   final CcSlackWebhook _webhook;
 
   /// Adds app version and device to each alert; omitted when null.
-  final CcDeviceInfoHelper? _deviceInfo;
+  final CcDeviceInfoService? _deviceInfo;
 
   /// Adds the attestation state to each alert; omitted when null.
   final CcAppAttestation? _attestation;

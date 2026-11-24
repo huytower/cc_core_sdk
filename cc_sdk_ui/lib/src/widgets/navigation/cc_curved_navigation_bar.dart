@@ -1,5 +1,5 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
-import 'package:cc_sdk_ui/src/widgets/navigation/curved/curved_bar_view.dart';
+import 'package:cc_sdk_ui/src/widgets/navigation/curved/cc_curved_bar_view.dart';
 import 'package:flutter/material.dart';
 
 /// Bottom navigation bar with a curved notch and an elastic bubble under the
@@ -131,7 +131,7 @@ class CcCurvedNavigationBar extends StatelessWidget {
         shadowColor ??
         (isDark ? CcBaseColors.transparent : CcBaseColors.neutral10);
 
-    return CurvedBarView(
+    return CcCurvedBarView(
       items: items,
       currentIndex: currentIndex,
       onTap: onTap,

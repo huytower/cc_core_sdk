@@ -9,7 +9,7 @@ is part of the **Hybrid-Shell Super App Architecture**, providing responsive, de
 
 ### UI Components
 
-- **Buttons**: Various button styles including `CcCloseBtn`, `CcDebounce`, `CcBaseBtn`
+- **Buttons**: Various button styles including `CcCloseButton`, `CcDebounce`, `CcBaseButton`
 - **Dialogs**: Ready-to-use dialogs and bottom sheets
 - **Form Elements**: Input fields, text fields, and form validators
 - **Loaders & Indicators**: Loading spinners, progress indicators, and skeleton loaders
@@ -43,7 +43,7 @@ dependencies:
 ```dart
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 
-CcCloseBtn(
+CcCloseButton(
   onTap: () {
     // Handle button press
   },
@@ -72,7 +72,7 @@ CcTextField(
 ```dart
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 
-const LoadingPage()
+const CcLoadingPage()
 ```
 
 ### Theme Token Usage

@@ -69,6 +69,6 @@ void main() {
 
     await _tapDebounced(tester, _richText('Retry'));
     expect(_richText('Content loaded'), findsOneWidget);
-    expect(find.byType(ErrorPage), findsNothing);
+    expect(find.byType(CcErrorPage), findsNothing);
   });
 }

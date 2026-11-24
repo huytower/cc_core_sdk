@@ -40,7 +40,7 @@ Design system, responsive widgets, spacing tokens, Plus Jakarta Sans typography.
 
 **Design System:**
 - **Colors**: CcBaseColors → PrjColors → context.ccColorScheme
-- **Typography**: CcTypographyParams → CcTextStyle → context.ccTextTheme
+- **Typography**: CcTypographyParams → PrjTextStyle → context.ccTextTheme
 - **Spacing**: CcSpace* tokens (XS=4, SM=8, MD=12, LG=16, XL=24)
 - **Responsive**: context.respPadding(), context.respFontSize(), context.respDim()
 
@@ -48,8 +48,8 @@ Design system, responsive widgets, spacing tokens, Plus Jakarta Sans typography.
 Reusable behaviors with no widget of their own; depends only on `cc_sdk_data`.
 
 **Mixins:**
-- **Pagination**: PaginationMixin
-- **Back Handling**: DoubleBackToExitMixin (override `showBackPressHint` to style the hint)
+- **Pagination**: CcPaginationMixin
+- **Back Handling**: CcDoubleBackToExitMixin (override `showBackPressHint` to style the hint)
 
 ### cc_sdk_catcher
 Capability package: uncaught-error handling on `catcher_2` (`CcCatcherBootstrap`,

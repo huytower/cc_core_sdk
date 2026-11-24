@@ -9,7 +9,7 @@ void main() {
   const source = ExampleUserSource();
 
   test('describes the first page of users', () async {
-    const request = PaginationRequest();
+    const request = CcPaginationRequest();
     final lines = describePage(request, await source.fetch(request));
 
     expect(lines.first, 'Page 1');
@@ -19,7 +19,7 @@ void main() {
   });
 
   test('pages forward and back', () async {
-    final next = const PaginationRequest().nextPage();
+    final next = const CcPaginationRequest().nextPage();
     final lines = describePage(next, await source.fetch(next));
     expect(lines.first, 'Page 2');
     expect(lines, contains('user10@example.com'));
@@ -28,7 +28,7 @@ void main() {
 
   test('describes the failure', () async {
     const failing = ExampleUserSource(failOnPage: 1);
-    const request = PaginationRequest();
+    const request = CcPaginationRequest();
     final lines = describePage(request, await failing.fetch(request));
 
     expect(lines, ['Page 1', 'No connection']);

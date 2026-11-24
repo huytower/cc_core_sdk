@@ -95,7 +95,7 @@ mixin CcViewConfigMixin {
   /// Main build method - builds the complete view with scaffold
   ///
   /// ⚠️ DO NOT OVERRIDE THIS METHOD in your view classes.
-  /// This method is called by the base class (e.g., CcGetView) and
+  /// This method is called by the base class (e.g., PrjGetView) and
   /// handles the complete scaffold structure including app bar, bottom
   /// navigation, floating action button, and body based on layout status.
   ///
@@ -128,22 +128,22 @@ mixin CcViewConfigMixin {
     switch (layoutStatus) {
       case CcLayoutStatus.loading:
         return enableLoading
-            ? const LoadingPage()
+            ? const CcLoadingPage()
             : (buildContent(context) ?? const SizedBox.shrink());
       case CcLayoutStatus.loadMore:
         return buildContent(context) ?? const SizedBox.shrink();
       case CcLayoutStatus.success:
         return buildContent(context) ?? const SizedBox.shrink();
       case CcLayoutStatus.empty:
-        return const EmptyPage();
+        return const CcEmptyPage();
       case CcLayoutStatus.error:
-        return ErrorPage(
+        return CcErrorPage(
           message: errorMessage,
           onRetry: () => onRetry(context),
         );
       case CcLayoutStatus.refresh:
         return enableLoading
-            ? const LoadingPage()
+            ? const CcLoadingPage()
             : (buildContent(context) ?? const SizedBox.shrink());
     }
   }

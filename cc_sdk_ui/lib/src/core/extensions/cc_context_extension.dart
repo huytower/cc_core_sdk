@@ -66,7 +66,7 @@ extension CcContextExtension on BuildContext {
 
   /// A [TextTheme] copy whose font sizes are scaled to the current screen size.
   ///
-  /// The base [CcTextStyle] tokens are fixed logical pixels (e.g.
+  /// The base [PrjTextStyle] tokens are fixed logical pixels (e.g.
   /// [CcTypographyParams.labelMedium] = 12). On large screens those sizes look
   /// disproportionately small, so each size is multiplied by
   /// [CcScale.text]: 1.0x on phones, rising smoothly to 1.2x at 840 dp.
