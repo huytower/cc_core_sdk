@@ -35,9 +35,7 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
-        home: Scaffold(
-          body: Row(children: [navigation.buildNavigationRail()]),
-        ),
+        home: Scaffold(body: Row(children: [navigation.buildNavigationRail()])),
       ),
     );
     await tester.tap(find.byIcon(Icons.person_outline_rounded));
@@ -50,7 +48,9 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
-        home: Scaffold(bottomNavigationBar: navigation.buildCurvedNavigationBar()),
+        home: Scaffold(
+          bottomNavigationBar: navigation.buildCurvedNavigationBar(),
+        ),
       ),
     );
 

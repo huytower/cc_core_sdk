@@ -71,8 +71,11 @@ mixin CcPullToRefreshMixin {
   /// Override this to provide a custom complete widget
   /// Note: This widget uses a responsive extension method when context is available.
   /// For responsive sizing, pass a BuildContext to buildPullToRefresh.
-  Widget get defaultCompleteWidget =>
-      const Icon(Icons.check_circle, color: CcBaseColors.successGreen, size: 24);
+  Widget get defaultCompleteWidget => const Icon(
+    Icons.check_circle,
+    color: CcBaseColors.successGreen,
+    size: 24,
+  );
 
   /// Default duration to show the complete state
   Duration get defaultCompleteStateDuration =>

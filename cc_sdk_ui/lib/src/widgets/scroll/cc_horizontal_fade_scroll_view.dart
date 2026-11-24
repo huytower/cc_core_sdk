@@ -27,7 +27,8 @@ class CcHorizontalFadeScrollView extends StatefulWidget {
       _CcHorizontalFadeScrollViewState();
 }
 
-class _CcHorizontalFadeScrollViewState extends State<CcHorizontalFadeScrollView> {
+class _CcHorizontalFadeScrollViewState
+    extends State<CcHorizontalFadeScrollView> {
   late ScrollController _controller;
   bool _fadeLeft = false;
   bool _fadeRight = false;

@@ -106,7 +106,9 @@ class CcPhoneNumberInput extends StatelessWidget {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: context.brMd,
                         borderSide: BorderSide(
-                          color: context.ccColorScheme.primary.withValues(alpha: 0.5),
+                          color: context.ccColorScheme.primary.withValues(
+                            alpha: 0.5,
+                          ),
                           width: context.respDim(1),
                         ),
                       ),

@@ -32,7 +32,8 @@ extension CcContextExtension on BuildContext {
   // ==========================================================================
 
   /// Check if the current orientation is portrait.
-  bool get hasPortrait => MediaQuery.orientationOf(this) == Orientation.portrait;
+  bool get hasPortrait =>
+      MediaQuery.orientationOf(this) == Orientation.portrait;
 
   /// Check if the current orientation is landscape.
   bool get hasLandscape =>

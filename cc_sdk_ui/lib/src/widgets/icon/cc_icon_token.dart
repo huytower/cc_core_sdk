@@ -16,12 +16,7 @@ import 'package:flutter/material.dart';
 /// );
 /// ```
 class CcIconToken extends StatelessWidget {
-  const CcIconToken(
-    this.icon, {
-    super.key,
-    this.size = 24,
-    this.color,
-  });
+  const CcIconToken(this.icon, {super.key, this.size = 24, this.color});
 
   final IconData icon;
   final double size;

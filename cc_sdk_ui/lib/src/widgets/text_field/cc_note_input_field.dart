@@ -53,9 +53,7 @@ class CcNoteInputField extends StatelessWidget {
                 if (showCopy)
                   CcCopyButton.bouncing(
                     onTap: () {
-                      Clipboard.setData(
-                        ClipboardData(text: controller.text),
-                      );
+                      Clipboard.setData(ClipboardData(text: controller.text));
                       onCopy?.call();
                     },
                   ),

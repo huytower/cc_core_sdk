@@ -25,7 +25,9 @@ void main() {
     expect(_richText('Nothing yet'), findsOneWidget);
   });
 
-  testWidgets('CcErrorPage shows the message and calls onRetry', (tester) async {
+  testWidgets('CcErrorPage shows the message and calls onRetry', (
+    tester,
+  ) async {
     var retries = 0;
     await _pump(
       tester,

@@ -113,7 +113,8 @@ class CcBaseDialog extends StatelessWidget {
           height: context.respPadding(hasActionButtonVisible ? 145 : 75),
           decoration: BoxDecoration(
             color:
-                backgroundColor ?? context.ccColorScheme.surface.withValues(alpha: 0.8),
+                backgroundColor ??
+                context.ccColorScheme.surface.withValues(alpha: 0.8),
           ),
           child: buildDialogBodyWidget(context),
         ),

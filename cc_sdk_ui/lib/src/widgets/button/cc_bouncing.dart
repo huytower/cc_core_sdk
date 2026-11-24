@@ -28,10 +28,7 @@ class CcBouncing extends StatelessWidget {
       hasBouncing: true,
       hasEnable: hasEnable,
       debounceDuration: debounceDuration,
-      child: ClipRRect(
-        borderRadius: effectiveRadius,
-        child: child,
-      ),
+      child: ClipRRect(borderRadius: effectiveRadius, child: child),
     );
   }
 }

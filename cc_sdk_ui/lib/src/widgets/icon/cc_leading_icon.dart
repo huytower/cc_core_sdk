@@ -24,7 +24,10 @@ class CcLeadingIcon extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [background.withValues(alpha: 0.2), background.withValues(alpha: 0.5)],
+          colors: [
+            background.withValues(alpha: 0.2),
+            background.withValues(alpha: 0.5),
+          ],
         ),
       ),
       child: Stack(

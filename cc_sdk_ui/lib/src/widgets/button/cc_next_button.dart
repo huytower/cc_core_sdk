@@ -58,15 +58,18 @@ class CcNextButton extends StatelessWidget {
     key: key,
   );
 
-  factory CcNextButton.static({String? title, bool hasEnable = true, Key? key}) =>
-      CcNextButton._(
-        interactionType: CcInteractionType.none,
-        onTap: () {},
-        title: title,
-        hasEnable: hasEnable,
-        useDebounce: false,
-        key: key,
-      );
+  factory CcNextButton.static({
+    String? title,
+    bool hasEnable = true,
+    Key? key,
+  }) => CcNextButton._(
+    interactionType: CcInteractionType.none,
+    onTap: () {},
+    title: title,
+    hasEnable: hasEnable,
+    useDebounce: false,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {

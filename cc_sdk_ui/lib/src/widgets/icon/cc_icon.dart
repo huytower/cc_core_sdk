@@ -20,11 +20,7 @@ class CcIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Align(
     alignment: align ?? Alignment.center,
-    child: Icon(
-      icon,
-      size: size,
-      color: color,
-    ),
+    child: Icon(icon, size: size, color: color),
   );
 }
 

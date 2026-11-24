@@ -36,7 +36,8 @@ class CcCopyButton extends StatelessWidget {
       icon: Icon(
         Icons.copy_rounded,
         size: context.respIconSize(baseSize: baseIconSize),
-        color: iconColor ?? context.ccColorScheme.onSurfaceVariant.withAlpha(80),
+        color:
+            iconColor ?? context.ccColorScheme.onSurfaceVariant.withAlpha(80),
       ),
       onTap: onTap ?? () {},
       height: height,

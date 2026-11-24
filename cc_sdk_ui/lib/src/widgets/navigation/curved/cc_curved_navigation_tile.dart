@@ -64,12 +64,7 @@ class CcCurvedNavigationTile extends StatelessWidget {
     );
 
     if (useSafeArea) {
-      content = SafeArea(
-        top: false,
-        left: false,
-        right: false,
-        child: content,
-      );
+      content = SafeArea(top: false, left: false, right: false, child: content);
     }
 
     return Semantics(

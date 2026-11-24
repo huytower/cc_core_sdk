@@ -52,7 +52,10 @@ void main() {
         CcWindowSizeClass.compact.hasBelow(CcWindowSizeClass.medium),
         isTrue,
       );
-      expect(CcWindowSizeClass.large.hasBelow(CcWindowSizeClass.large), isFalse);
+      expect(
+        CcWindowSizeClass.large.hasBelow(CcWindowSizeClass.large),
+        isFalse,
+      );
     });
   });
 

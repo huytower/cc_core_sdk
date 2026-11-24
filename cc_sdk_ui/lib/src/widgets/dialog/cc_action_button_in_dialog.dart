@@ -30,7 +30,10 @@ class CcActionButtonInDialog extends StatelessWidget {
 
   final VoidCallback? onTapCancel, onTapConfirm;
   final bool hasCancelButtonShown;
-  final Color? buttonBackgroundColor, cancelTextColor, confirmTextColor, dividerColor;
+  final Color? buttonBackgroundColor,
+      cancelTextColor,
+      confirmTextColor,
+      dividerColor;
   final double? heightActionButton, heightActionButtonBar, fontSize;
   final String? agreeText, cancelText;
 
