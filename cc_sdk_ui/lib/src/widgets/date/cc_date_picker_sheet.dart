@@ -100,41 +100,24 @@ class _CcDatePickerSheetState extends State<CcDatePickerSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = context.ccColorScheme;
-    // Scrolls in landscape (short window) instead of overflowing.
-    return CcLandscapeScrollable(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildHeader(context),
-          DecoratedBox(
-            decoration: BoxDecoration(color: scheme.surfaceContainerHighest),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (_hasYearPickerOpen)
-                  CcYearGrid(
-                    firstYear: widget.firstDate.year,
-                    lastYear: widget.lastDate.year,
-                    selectedYear: _viewedMonth.year,
-                    onYearTap: _pickYear,
-                  )
-                else
-                  CcCalendarMonthGrid(
-                    month: _viewedMonth,
-                    selectedDate: _selectedDate,
-                    firstDate: widget.firstDate,
-                    lastDate: widget.lastDate,
-                    firstDayOfWeekIndex: widget.firstDayOfWeekIndex,
-                    onDateTap: (date) => setState(() => _selectedDate = date),
-                  ),
-                _buildActions(context),
-                SizedBox(height: MediaQuery.paddingOf(context).bottom + 4),
-              ],
+    return CcPickerSheetFrame(
+      header: _buildHeader(context),
+      body: _hasYearPickerOpen
+          ? CcYearGrid(
+              firstYear: widget.firstDate.year,
+              lastYear: widget.lastDate.year,
+              selectedYear: _viewedMonth.year,
+              onYearTap: _pickYear,
+            )
+          : CcCalendarMonthGrid(
+              month: _viewedMonth,
+              selectedDate: _selectedDate,
+              firstDate: widget.firstDate,
+              lastDate: widget.lastDate,
+              firstDayOfWeekIndex: widget.firstDayOfWeekIndex,
+              onDateTap: (date) => setState(() => _selectedDate = date),
             ),
-          ),
-        ],
-      ),
+      onConfirm: () => Navigator.of(context).pop(_selectedDate),
     );
   }
 
@@ -207,37 +190,6 @@ class _CcDatePickerSheetState extends State<CcDatePickerSheet> {
             ),
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActions(BuildContext context) {
-    final scheme = context.ccColorScheme;
-    final localizations = MaterialLocalizations.of(context);
-    final style = context.ccTextTheme.titleMedium?.copyWith(
-      color: scheme.primary,
-      fontWeight: CcTypographyParams.semiBold,
-    );
-    return Padding(
-      padding: EdgeInsets.fromLTRB(
-        context.respPadding(CcPaddingParams.PAGE_MD),
-        0,
-        context.respPadding(CcPaddingParams.PAGE_MD),
-        context.respPadding(CcPaddingParams.PAGE_XS),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: CcText(localizations.cancelButtonLabel, textStyle: style),
-          ),
-          const CcSpaceSM(),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(_selectedDate),
-            child: CcText(localizations.okButtonLabel, textStyle: style),
           ),
         ],
       ),

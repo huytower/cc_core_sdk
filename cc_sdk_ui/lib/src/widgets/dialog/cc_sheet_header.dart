@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../export_cc_sdk_ui.dart';
 
 /// The coloured top of a bottom sheet: a primary-colour gradient with rounded
-/// top corners, a [title], an optional [subtitle] and an optional [trailing]
-/// widget (a close or action button).
+/// top corners, an optional leading [icon], a [title] (up to [titleMaxLines]
+/// lines, so a question fits), an optional [subtitle] and an optional
+/// [trailing] widget (a close or action button).
 ///
 /// ```dart
 /// CcSheetHeader(title: 'Review', subtitle: '3 items', trailing: CcCloseButton())
@@ -14,12 +15,16 @@ class CcSheetHeader extends StatelessWidget {
     super.key,
     required this.title,
     this.subtitle,
+    this.icon,
     this.trailing,
+    this.titleMaxLines = 3,
   });
 
   final String title;
   final String? subtitle;
+  final IconData? icon;
   final Widget? trailing;
+  final int titleMaxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +44,21 @@ class CcSheetHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
+          if (icon != null) ...[
+            CcIconToken(
+              icon!,
+              size: context.respIconSize(baseSize: 20),
+              color: scheme.onPrimary,
+            ),
+            const CcSpaceSM(),
+          ],
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CcText(
                   title,
+                  maxLines: titleMaxLines,
                   textStyle: context.ccTextTheme.titleMedium?.copyWith(
                     color: scheme.onPrimary,
                     fontWeight: CcTypographyParams.bold,

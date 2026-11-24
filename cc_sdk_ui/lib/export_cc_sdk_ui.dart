@@ -104,6 +104,7 @@ export 'package:cc_sdk_ui/src/widgets/dialog/cc_adaptive_bottom_sheet.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_base_dialog.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_body_modal_bottom_sheet.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_body_show_message.dart';
+export 'package:cc_sdk_ui/src/widgets/dialog/cc_picker_sheet_frame.dart';
 export 'package:cc_sdk_ui/src/widgets/dialog/cc_sheet_header.dart';
 // Divider Widgets
 export 'package:cc_sdk_ui/src/widgets/divider_line/cc_divider.dart';
