@@ -1,5 +1,6 @@
-/// Value type of a [CcAiSchema].
-enum CcAiSchemaType { string, number, integer, boolean, array, object }
+import 'cc_ai_schema_type.dart';
+
+export 'cc_ai_schema_type.dart';
 
 /// Vendor-neutral description of the JSON an AI model must answer with
 /// (structured output), passed to `CcAiClient.generate(responseSchema:)`.

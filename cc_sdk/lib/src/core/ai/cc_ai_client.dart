@@ -1,6 +1,11 @@
-import 'dart:typed_data';
-
+import 'cc_ai_image.dart';
+import 'cc_ai_result.dart';
 import 'cc_ai_schema.dart';
+
+export 'cc_ai_failure.dart';
+export 'cc_ai_failure_kind.dart';
+export 'cc_ai_image.dart';
+export 'cc_ai_result.dart';
 
 /// Generative AI (text and image prompts), independent of any vendor.
 ///
@@ -22,47 +27,4 @@ abstract interface class CcAiClient {
     List<CcAiImage> images = const [],
     CcAiSchema? responseSchema,
   });
-}
-
-/// An image sent with a prompt.
-class CcAiImage {
-  const CcAiImage({required this.bytes, required this.mimeType});
-
-  final Uint8List bytes;
-
-  /// e.g. `image/jpeg`, `image/png`, `image/webp`.
-  final String mimeType;
-}
-
-/// Outcome of [CcAiClient.generate]: [text] on success, [failure] otherwise.
-class CcAiResult {
-  const CcAiResult.success(String this.text) : failure = null;
-  const CcAiResult.failure(CcAiFailure this.failure) : text = null;
-
-  final String? text;
-  final CcAiFailure? failure;
-
-  bool get hasSuccess => failure == null;
-}
-
-/// Why a generation failed, as far as callers need to react differently.
-enum CcAiFailureKind {
-  /// The device failed app attestation (emulator, rooted, not genuine);
-  /// retrying will not help and the UI can say so.
-  deviceAttestation,
-
-  /// Any other failure (network, quota, server, invalid response).
-  unknown,
-}
-
-class CcAiFailure {
-  const CcAiFailure(this.kind, {this.cause});
-
-  final CcAiFailureKind kind;
-
-  /// The underlying error, for logs and crash reports.
-  final Object? cause;
-
-  @override
-  String toString() => 'CcAiFailure(${kind.name}: $cause)';
 }

@@ -5,6 +5,7 @@
 // from CcCurvedNavigationBar.
 
 import 'package:cc_sdk_ui/src/widgets/navigation/cc_curved_navigation_item.dart';
+import 'package:cc_sdk_ui/src/widgets/navigation/curved/cc_curved_badge.dart';
 import 'package:cc_sdk_ui/src/widgets/navigation/curved/cc_curved_bubble.dart';
 import 'package:cc_sdk_ui/src/widgets/navigation/curved/cc_curved_navigation_tile.dart';
 import 'package:cc_sdk_ui/src/widgets/navigation/curved/cc_curved_notch_painter.dart';

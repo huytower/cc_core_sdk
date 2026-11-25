@@ -36,28 +36,3 @@ abstract interface class CcLocationService {
   /// by reverse geocoding; null if unknown.
   Future<String?> countryCodeAt(CcGeoPosition position);
 }
-
-/// [CcLocationService] with no location: for tests and apps without it.
-class CcNoopLocationService implements CcLocationService {
-  CcNoopLocationService();
-
-  final ValueNotifier<CcGeoPosition?> _lastPosition = ValueNotifier(null);
-
-  @override
-  ValueListenable<CcGeoPosition?> get lastPosition => _lastPosition;
-
-  @override
-  Future<bool> requestPermission() async => false;
-
-  @override
-  Future<bool> hasPermission() async => false;
-
-  @override
-  Future<CcGeoPosition?> getCurrentPosition() async => null;
-
-  @override
-  Future<CcGeoPosition?> getLastKnownPosition() async => null;
-
-  @override
-  Future<String?> countryCodeAt(CcGeoPosition position) async => null;
-}

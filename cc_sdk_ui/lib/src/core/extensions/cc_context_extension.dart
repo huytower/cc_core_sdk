@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../config/tokens/cc_border_params.dart';
 import '../config/tokens/cc_border_radius.dart';
 import '../layout/cc_scale.dart';
+import '../layout/cc_window_height_class.dart';
 import '../layout/cc_window_size_class.dart';
 import 'common/cc_responsive_extension.dart';
 

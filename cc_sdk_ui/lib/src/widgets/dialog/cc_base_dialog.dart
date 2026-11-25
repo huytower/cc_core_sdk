@@ -138,5 +138,3 @@ class CcBaseDialog extends StatelessWidget {
     return Icon(icon, size: context.respIconSize(), color: color);
   }
 }
-
-enum CcDialogStatus { ERROR, INFO, SUCCESS, WARNING }

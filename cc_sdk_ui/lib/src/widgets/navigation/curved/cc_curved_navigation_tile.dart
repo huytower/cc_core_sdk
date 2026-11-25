@@ -3,7 +3,7 @@
 // Copyright (c) 2026 aslamambiloly. Full notice: LICENSE in this folder.
 
 import 'package:cc_sdk_ui/src/widgets/navigation/cc_curved_navigation_item.dart';
-import 'package:cc_sdk_ui/src/widgets/navigation/curved/cc_curved_bubble.dart';
+import 'package:cc_sdk_ui/src/widgets/navigation/curved/cc_curved_badge.dart';
 import 'package:flutter/material.dart';
 
 /// One item of the curved bar: inactive icon (hidden while selected, as the

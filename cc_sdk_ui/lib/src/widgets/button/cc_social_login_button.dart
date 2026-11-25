@@ -1,8 +1,6 @@
 import 'package:cc_sdk_ui/export_cc_sdk_ui.dart';
 import 'package:flutter/material.dart';
 
-enum CcSocialLoginType { google, facebook, apple }
-
 class CcSocialLoginButton extends StatelessWidget {
   final CcSocialLoginType type;
   final VoidCallback? onTap;

@@ -1,5 +1,6 @@
 import 'package:cc_sdk_ui/src/widgets/navigation/cc_curved_navigation_item.dart';
 import 'package:cc_sdk_ui/src/widgets/navigation/cc_navigation_rail.dart';
+import 'package:cc_sdk_ui/src/widgets/navigation/cc_navigation_rail_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'cc_user_status.dart';
+
 /// Base User Entity - Universal user data structure.
 /// This is a reusable entity that can be used across different business projects.
 class CcUserEntity with EquatableMixin {
@@ -66,6 +68,3 @@ class CcUserEntity with EquatableMixin {
     linkedProviderIds,
   ];
 }
-
-/// User status enum
-enum CcUserStatus { active, inactive, suspended, pendingVerification }
