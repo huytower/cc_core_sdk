@@ -38,28 +38,33 @@ class CcCategoryGroupSection extends StatelessWidget {
         child: CcWatermarkBackground(
           icon: backgroundIcon,
           activeColor: primary,
-          child: CcHorizontalFadeScrollView(
-            height: context.respDim(54),
-            builder: (controller) => ListView.separated(
-              controller: controller,
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(
-                horizontal: context.respPadding(CcPaddingParams.SPACE_SM),
+          // The list stretches each chip to its height, so the room around
+          // the chips is padding, not extra list height.
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: context.respDim(18)),
+            child: CcHorizontalFadeScrollView(
+              height: context.respDim(45),
+              builder: (controller) => ListView.separated(
+                controller: controller,
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.respPadding(CcPaddingParams.SPACE_SM),
+                ),
+                itemCount: items.length,
+                separatorBuilder: (_, _) => const CcSpaceSM(),
+                itemBuilder: (context, index) {
+                  final item = items[index];
+                  final enabled = hasEnabled(item);
+                  return CcCategoryChip(
+                    label: item.label,
+                    iconCode: item.iconCode,
+                    iconFamily: item.iconFamily,
+                    hasEnabled: enabled,
+                    onTap: () => onToggle(item),
+                    accentColor: accentColor,
+                  );
+                },
               ),
-              itemCount: items.length,
-              separatorBuilder: (_, _) => const CcSpaceSM(),
-              itemBuilder: (context, index) {
-                final item = items[index];
-                final enabled = hasEnabled(item);
-                return CcCategoryChip(
-                  label: item.label,
-                  iconCode: item.iconCode,
-                  iconFamily: item.iconFamily,
-                  hasEnabled: enabled,
-                  onTap: () => onToggle(item),
-                  accentColor: accentColor,
-                );
-              },
             ),
           ),
         ),
