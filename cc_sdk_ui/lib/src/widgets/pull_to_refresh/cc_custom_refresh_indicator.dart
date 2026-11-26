@@ -181,11 +181,11 @@ class CcCustomRefreshIndicator extends StatefulWidget {
        super(key: key);
 
   @override
-  CcCustomRefreshIndicatorState createState() =>
-      CcCustomRefreshIndicatorState();
+  State<CcCustomRefreshIndicator> createState() =>
+      _CcCustomRefreshIndicatorState();
 }
 
-class CcCustomRefreshIndicatorState extends State<CcCustomRefreshIndicator>
+class _CcCustomRefreshIndicatorState extends State<CcCustomRefreshIndicator>
     with
         TickerProviderStateMixin,
         CcCustomRefreshIndicatorLogic,

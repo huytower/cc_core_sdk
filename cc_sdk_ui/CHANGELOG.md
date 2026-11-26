@@ -4,6 +4,8 @@
 
 ### Breaking (next release: 3.0.0)
 
+- `CcCustomRefreshIndicatorState` is private: one public type per file, and
+  nothing used it. Migration: use `CcCustomRefreshIndicator` only.
 - Removed `CcCurvedNavigationMixin`. It built the bottom bar and the rail
   from one item list, and shipped hard-coded English defaults (`'Dashboard'`,
   `'Notification'`, `'Profile'` and a default item list). Migration: use
