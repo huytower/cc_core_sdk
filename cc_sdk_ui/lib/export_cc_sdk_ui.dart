@@ -182,6 +182,7 @@ export 'package:cc_sdk_ui/src/widgets/shimmer/cc_shimmer_list.dart';
 // Space Widgets
 export 'package:cc_sdk_ui/src/widgets/space/cc_space.dart';
 export 'package:cc_sdk_ui/src/widgets/state/cc_loading_icon_widget.dart';
+export 'package:cc_sdk_ui/src/widgets/state/cc_lock_overlay.dart';
 // Special Status Widgets
 // Splash Widgets
 // State & Feedback Widgets

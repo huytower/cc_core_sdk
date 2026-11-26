@@ -69,6 +69,8 @@
 
 ### Added
 
+- `CcLockOverlay`: dims a locked child, blocks touches on it and covers it
+  with a lock badge; an optional `onLockedTap` explains how to unlock.
 - `CcAdaptiveBottomSheet.show` (modal sheet narrowed and centred from a small
   tablet up) and `CcAdaptiveBottomSheet.constraintsFor`.
 - `CcTwoColumnPair`: one or two cards side by side on a landscape tablet,
