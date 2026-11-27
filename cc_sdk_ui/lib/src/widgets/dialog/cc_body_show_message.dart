@@ -58,11 +58,15 @@ class CcBodyShowMessage extends StatelessWidget {
                   Expanded(
                     child: CcBaseButton.bouncing(
                       onTap: () => Navigator.of(context).pop(false),
-                      textColor: CcBaseColors.white100,
-                      title: cancelText ?? 'Cancel',
+                      // A surface pair that stays readable in both themes
+                      // (`outline` is light grey, even in dark mode).
+                      textColor: context.ccColorScheme.onSurface,
+                      title:
+                          cancelText ??
+                          MaterialLocalizations.of(context).cancelButtonLabel,
                       backgroundColor: [
-                        context.ccColorScheme.outline,
-                        context.ccColorScheme.outline,
+                        context.ccColorScheme.surfaceContainerHighest,
+                        context.ccColorScheme.surfaceContainerHighest,
                       ],
                     ),
                   ),

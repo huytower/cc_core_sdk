@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Fixed
+
+- `CcBodyShowMessage` (used by `CcDialogHelper.showMessageBottomSheet`): the
+  Cancel button was white text on `outline`, unreadable where `outline` is
+  light (e.g. dark themes). It now uses `surfaceContainerHighest` /
+  `onSurface`, and its default label comes from `MaterialLocalizations`
+  instead of the English `'Cancel'`.
+
 ### Breaking (next release: 3.0.0)
 
 - `CcCustomRefreshIndicatorState` is private: one public type per file, and
