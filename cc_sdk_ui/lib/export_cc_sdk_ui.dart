@@ -87,6 +87,7 @@ export 'package:cc_sdk_ui/src/widgets/button/cc_submit_button.dart';
 export 'package:cc_sdk_ui/src/widgets/card/cc_card.dart';
 export 'package:cc_sdk_ui/src/widgets/card/cc_editable_list_item.dart';
 export 'package:cc_sdk_ui/src/widgets/card/cc_form_card.dart';
+export 'package:cc_sdk_ui/src/widgets/card/cc_option_tile.dart';
 export 'package:cc_sdk_ui/src/widgets/category/cc_category_chip.dart';
 export 'package:cc_sdk_ui/src/widgets/category/cc_category_group_item.dart';
 export 'package:cc_sdk_ui/src/widgets/category/cc_category_group_section.dart';

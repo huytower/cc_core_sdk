@@ -8,8 +8,9 @@ import '../../../export_cc_sdk_ui.dart';
 /// keeps clear of the bottom system bar.
 ///
 /// Actions appear when [onConfirm] is set: Cancel (unless [hasCancel] is
-/// false; it closes the sheet with no result) and the confirm button, which
-/// calls [onConfirm] — the caller closes the sheet with its result. Labels
+/// false; it closes the sheet with no result, or calls [onCancel]) and the
+/// confirm button, which calls [onConfirm] — the caller closes the sheet with
+/// its result. Labels
 /// default to `MaterialLocalizations` (Cancel / OK).
 ///
 /// ```dart
@@ -28,6 +29,7 @@ class CcPickerSheetFrame extends StatelessWidget {
     this.headerTrailing,
     this.header,
     this.onConfirm,
+    this.onCancel,
     this.confirmLabel,
     this.cancelLabel,
     this.hasCancel = true,
@@ -53,6 +55,11 @@ class CcPickerSheetFrame extends StatelessWidget {
 
   /// Shows the action row; called by the confirm button.
   final VoidCallback? onConfirm;
+
+  /// Called by the cancel button instead of closing with no result, for a
+  /// sheet whose first button is a choice of its own. The caller closes the
+  /// sheet.
+  final VoidCallback? onCancel;
   final String? confirmLabel;
   final String? cancelLabel;
   final bool hasCancel;
@@ -123,24 +130,25 @@ class CcPickerSheetFrame extends StatelessWidget {
         context.respPadding(CcPaddingParams.PAGE_MD),
         context.respPadding(CcPaddingParams.PAGE_XS),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+      // Buttons that do not fit side by side (long labels, large text) stack.
+      child: OverflowBar(
+        alignment: MainAxisAlignment.end,
+        overflowAlignment: OverflowBarAlignment.end,
+        spacing: context.respDim(8),
         children: [
-          if (hasCancel) ...[
+          if (hasCancel)
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: CcText(
+              onPressed: onCancel ?? () => Navigator.of(context).pop(),
+              child: Text(
                 cancelLabel ?? localizations.cancelButtonLabel,
-                textStyle: style,
+                style: style,
               ),
             ),
-            const CcSpaceSM(),
-          ],
           TextButton(
             onPressed: onConfirm,
-            child: CcText(
+            child: Text(
               confirmLabel ?? localizations.okButtonLabel,
-              textStyle: style,
+              style: style,
             ),
           ),
         ],

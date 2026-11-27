@@ -4,6 +4,8 @@
 
 ### Fixed
 
+- `CcPickerSheetFrame`: action buttons that do not fit side by side (long
+  labels, large text) now stack instead of overflowing.
 - `CcBodyShowMessage` (used by `CcDialogHelper.showMessageBottomSheet`): the
   Cancel button was white text on `outline`, unreadable where `outline` is
   light (e.g. dark themes). It now uses `surfaceContainerHighest` /
@@ -77,6 +79,11 @@
 
 ### Added
 
+- `CcPickerSheetFrame.onCancel`: lets the first button return a result of its
+  own instead of only closing the sheet.
+- `CcOptionTile`: one choice in a picker list (leading mark in a tinted
+  circle, optional overline, title, optional trailing value, selected state) on
+  a glassy rounded tile.
 - `CcLockOverlay`: dims a locked child, blocks touches on it and covers it
   with a lock badge; an optional `onLockedTap` explains how to unlock.
 - `CcAdaptiveBottomSheet.show` (modal sheet narrowed and centred from a small
