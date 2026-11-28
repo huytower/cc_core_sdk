@@ -10,6 +10,7 @@ import 'package:cc_sdk/core/di/module/cc_sdk_dependencies.dart' as _i581;
 import 'package:cc_sdk/src/core/device/cc_device_info_service.dart' as _i10;
 import 'package:cc_sdk/src/core/helper/cc_network_helper.dart' as _i614;
 import 'package:cc_sdk/src/core/network/cc_network_info.dart' as _i100;
+import 'package:cc_sdk/src/core/network/cc_network_info_impl.dart' as _i989;
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:device_info_plus/device_info_plus.dart' as _i833;
 import 'package:injectable/injectable.dart' as _i526;
@@ -32,7 +33,7 @@ class CcSdkPackageModule extends _i526.MicroPackageModule {
     gh.lazySingleton<_i833.DeviceInfoPlugin>(
         () => ccSdkDependencies.deviceInfoPlugin);
     gh.lazySingleton<_i100.CcNetworkInfo>(
-        () => _i100.CcNetworkInfoImpl(gh<_i895.Connectivity>()));
+        () => _i989.CcNetworkInfoImpl(gh<_i895.Connectivity>()));
     gh.lazySingleton<_i614.CcNetworkHelper>(
         () => _i614.CcNetworkHelper(gh<_i161.InternetConnection>()));
     gh.lazySingleton<_i10.CcDeviceInfoService>(
